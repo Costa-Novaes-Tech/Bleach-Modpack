@@ -82,7 +82,7 @@ public class PlayerData {
 
     public CompoundTag save() {
         CompoundTag tag = new CompoundTag();
-        tag.putInt("schemaVersion", 4);
+        tag.putInt("schemaVersion", 5);
         tag.put("attributes", attributes.save());
         tag.put("character", character.save());
         tag.put("resources", resources.save());
@@ -117,6 +117,7 @@ public class PlayerData {
             if (skills.getLevel("zanpakuto") >= 2 || character.getMastery("zanpakuto", "bankai") > 0) character.unlockForm("bankai");
         }
         dataLoaded = true;
+        if (tag.getInt("schemaVersion") < 5 && tag.contains("character") && status.hasCreatedCharacter()) character.preserveLegacyTechniques();
     }
 
     public void copyFrom(PlayerData other) {

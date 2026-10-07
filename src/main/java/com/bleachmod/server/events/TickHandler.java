@@ -69,17 +69,6 @@ public class TickHandler {
                     || data.getResources().getCurrentReiatsu() == 0))) {
                 SyncHelper.resources(player); // Owner HUD receives cooldown snapshots even at full reiatsu.
             }
-            active = TransformationsHelper.getActiveFormData(data);
-            if (player.tickCount % 100 == 0 && active != null && !Reference.FORM_SEALED.equals(active.getName())
-                    && !data.getStatus().areCooldownsDisabled() && !data.getResources().areCostsDisabled()) {
-                data.getCharacter().addMastery(
-                        data.getCharacter().getActiveFormGroup(),
-                        active.getName(),
-                        active.getPassiveMasteryEveryFiveSeconds(),
-                        active.getMaxMastery()
-                );
-                SyncHelper.full(player);
-            }
         });
     }
 

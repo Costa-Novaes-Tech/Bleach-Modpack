@@ -11,6 +11,7 @@ import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 public final class ZanpakutoHud {
     private ZanpakutoHud() { }
     public static String abilityKey(String identity, String form, int slot) {
+        if (CharacterData.ASAUCHI.equals(identity)) return "message.bleachmod.asauchi.no_techniques";
         boolean bankai = "bankai".equals(form), sealed = "sealed".equals(form);
         if (CharacterData.HYORINMARU.equals(identity)) return "ability.bleachmod.hyorinmaru." + (sealed ? "sealed_" : "slot_") + slot;
         String name = switch (slot) {
@@ -36,20 +37,25 @@ public final class ZanpakutoHud {
             g.drawString(mc.font, mc.font.plainSubstrByWidth(mastery, width - 16), 8, 19, 0x89CDE8, false);
             var keys = new net.minecraft.client.KeyMapping[]{ModKeybinds.TECHNIQUE_SLOT_1, ModKeybinds.TECHNIQUE_SLOT_2, ModKeybinds.TECHNIQUE_SLOT_3, ModKeybinds.TECHNIQUE_SLOT_4};
             FormData definition = FormRegistry.getForm(d.getCharacter().getRace(), "zanpakuto", form);
-            String requirement = "sealed".equals(form) ? "M. 0" : definition == null ? "" :
-                    (definition.getFormRequisite().isBlank() ? "M. 0" : Component.translatable("form.bleachmod." + definition.getFormRequisite()).getString() + " M. " + Math.round(definition.getUnlockOnMastery()));
             boolean unlocked = TransformationsHelper.isUnlocked(d, "zanpakuto", form);
+            boolean asauchi = CharacterData.ASAUCHI.equals(identity);
+            if (asauchi) g.drawString(mc.font, Component.translatable("hud.bleachmod.asauchi.practice"), 8, 38, 0xFFFFFF, false);
             for (int i = 0; i < 4; i++) {
+                if (asauchi) break;
+                int slot = i + 1;
                 String name = Component.translatable(abilityKey(identity, form, i + 1)).getString();
                 String key = "[" + keys[i].getTranslatedKeyMessage().getString() + "] ";
-                g.drawString(mc.font, mc.font.plainSubstrByWidth(key + name, width - 16), 8, 33 + i * 17, unlocked ? 0xFFFFFF : 0xA6A6A6, false);
-                g.drawString(mc.font, mc.font.plainSubstrByWidth(Component.translatable("hud.bleachmod.requirement").getString() + " " + requirement, width - 16), 8, 42 + i * 17, 0x85AAC2, false);
+                boolean available = unlocked && com.bleachmod.common.technique.TechniqueProgression.available(d.getCharacter(), form, slot);
+                g.drawString(mc.font, mc.font.plainSubstrByWidth(key + name, width - 16), 8, 33 + i * 17, available ? 0xFFFFFF : 0xA6A6A6, false);
+                String requirement = available ? "✓ M. " + Math.round(d.getCharacter().getTechniqueMastery(form, slot)) + "/100"
+                        : "M. " + com.bleachmod.common.technique.TechniqueProgression.requirement(slot);
+                g.drawString(mc.font, mc.font.plainSubstrByWidth(requirement, width - 16), 8, 42 + i * 17, 0x85AAC2, false);
             }
             String next = "sealed".equals(form) ? "shikai" : "shikai".equals(form) ? "bankai" : "";
             FormData nextForm = next.isEmpty() ? null : FormRegistry.getForm(d.getCharacter().getRace(), "zanpakuto", next);
             if (nextForm != null) {
                 String gate = Component.translatable("form.bleachmod." + next).getString() + ": "
-                        + (nextForm.getFormRequisite().isBlank() ? "M. 0" : Component.translatable("form.bleachmod." + nextForm.getFormRequisite()).getString() + " M. " + Math.round(nextForm.getUnlockOnMastery()))
+                        + ("shikai".equals(next) ? "M. 20" : "M. " + Math.round(nextForm.getUnlockOnMastery()))
                         + " + " + Component.translatable("hud.bleachmod.bond").getString();
                 g.drawString(mc.font, mc.font.plainSubstrByWidth(gate, width - 16), 8, 107, 0xD5BF78, false);
             }

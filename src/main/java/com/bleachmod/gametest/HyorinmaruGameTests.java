@@ -21,14 +21,14 @@ public final class HyorinmaruGameTests {
     private static PlayerData data(FakePlayer p) { return PlayerCapability.get(p).orElseThrow(() -> new IllegalStateException("Capability missing")); }
     private static FakePlayer player(GameTestHelper h) {
         var p = new FakePlayer(h.getLevel(), new GameProfile(UUID.randomUUID(), "IceTest"));
-        data(p).initializeShinigami();
+        data(p).initializeShinigami(); data(p).getCharacter().bindZanpakuto("ryujin_jakka"); data(p).getCharacter().preserveLegacyTechniques();
         BlockPos pos = h.absolutePos(new BlockPos(1, 3, 1));
         p.setPos(pos.getX() + 0.5, h.getLevel().getMaxBuildHeight() - 64, pos.getZ() + 0.5); p.setYRot(0);
         p.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(ModItems.HYORINMARU.get()));
         return p;
     }
     private static void release(FakePlayer p, String form) {
-        var d = data(p); d.getCharacter().bindZanpakuto("hyorinmaru");
+        var d = data(p); d.getCharacter().bindZanpakuto("hyorinmaru"); d.getCharacter().preserveLegacyTechniques();
         d.getSkills().get("zanpakuto").setLevel(2);
         d.getCharacter().unlockForm("shikai"); d.getCharacter().unlockForm("bankai");
         d.getCharacter().setMastery("zanpakuto", "shikai", 100);
@@ -45,7 +45,7 @@ public final class HyorinmaruGameTests {
         var p = player(h); var d = data(p);
         TechniqueService.executeSlot(p, d, 1);
         h.assertTrue(d.getResources().getCurrentReiatsu() == 100 && !d.getStatus().isIgnitionActive(), "Wrong sword activated Ryujin");
-        d.getCharacter().bindZanpakuto("hyorinmaru"); d.getCharacter().setActiveForm("zanpakuto", "shikai");
+        d.getCharacter().bindZanpakuto("hyorinmaru"); d.getCharacter().preserveLegacyTechniques(); d.getCharacter().setActiveForm("zanpakuto", "shikai");
         TechniqueService.executeSlot(p, d, 1);
         h.assertTrue(d.getResources().getCurrentReiatsu() == 100, "Locked Shikai spent energy");
         release(p, "shikai"); p.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(ModItems.RYUJIN_JAKKA.get()));
@@ -95,6 +95,7 @@ public final class HyorinmaruGameTests {
     public static void flameWavesFinishWithExactGroundDurationsAndCancelOnFormChange(GameTestHelper h) {
         var p = player(h); p.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(ModItems.RYUJIN_JAKKA.get()));
         var d = data(p); d.getStatus().setCooldownsDisabled(true); d.getResources().setCostsDisabled(true);
+        d.getSkills().get("zanpakuto").setLevel(2); d.getCharacter().unlockForm("shikai"); d.getCharacter().unlockForm("bankai"); d.getCharacter().setMastery("zanpakuto", "shikai", 25);
         for (int x = -16; x <= 16; x++) for (int z = 0; z <= 15; z++) {
             BlockPos floor = BlockPos.containing(p.getX() + x, p.getY() - 1, p.getZ() + z);
             if (h.getLevel().hasChunkAt(floor)) h.getLevel().setBlock(floor, Blocks.STONE.defaultBlockState(), 3);

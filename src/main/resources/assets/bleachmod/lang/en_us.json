@@ -179,5 +179,8 @@
   "ability.bleachmod.ryujin.flame_wall": "Flame Wall",
   "ability.bleachmod.ryujin.flame_tornado": "Fire Tornado",
   "ability.bleachmod.ryujin.flame_bats": "Flame Bats",
-  "ability.bleachmod.ryujin.steam_cut": "Steam Cut"
+  "ability.bleachmod.ryujin.steam_cut": "Steam Cut",
+  "message.bleachmod.asauchi.no_techniques": "Asauchi has no special techniques.",
+  "message.bleachmod.technique.mastery_required": "Requires %s mastery in this form.",
+  "hud.bleachmod.asauchi.practice": "Practice with sword attacks"
 }

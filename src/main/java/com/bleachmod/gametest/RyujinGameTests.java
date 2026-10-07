@@ -197,7 +197,10 @@ public final class RyujinGameTests {
     }
     private static FakePlayer player(GameTestHelper helper) {
         FakePlayer player = new FakePlayer(helper.getLevel(), new GameProfile(UUID.randomUUID(), "RyujinTest"));
-        data(player).initializeShinigami();
+        data(player).initializeShinigami(); data(player).getCharacter().bindZanpakuto("ryujin_jakka"); data(player).getCharacter().preserveLegacyTechniques();
+        data(player).getSkills().get("zanpakuto").setLevel(2);
+        data(player).getCharacter().unlockForm("shikai"); data(player).getCharacter().unlockForm("bankai");
+        data(player).getCharacter().setMastery("zanpakuto", "shikai", 25);
         player.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(ModItems.RYUJIN_JAKKA.get()));
         BlockPos pos = helper.absolutePos(new BlockPos(1, 3, 1));
         player.setPos(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5);

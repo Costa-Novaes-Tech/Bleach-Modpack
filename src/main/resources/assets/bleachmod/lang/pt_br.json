@@ -179,5 +179,8 @@
   "ability.bleachmod.ryujin.flame_wall": "Muralha de Chamas",
   "ability.bleachmod.ryujin.flame_tornado": "Tornado de Fogo",
   "ability.bleachmod.ryujin.flame_bats": "Morcegos de Fogo",
-  "ability.bleachmod.ryujin.steam_cut": "Corte de Vapor"
+  "ability.bleachmod.ryujin.steam_cut": "Corte de Vapor",
+  "message.bleachmod.asauchi.no_techniques": "A Asauchi não possui habilidades especiais.",
+  "message.bleachmod.technique.mastery_required": "Requer %s de maestria nesta forma.",
+  "hud.bleachmod.asauchi.practice": "Treine com golpes de espada"
 }

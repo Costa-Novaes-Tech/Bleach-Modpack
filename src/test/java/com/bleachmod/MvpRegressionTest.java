@@ -16,6 +16,56 @@ import java.util.*;
 public final class MvpRegressionTest {
     private static int count;
     public static void main(String[] args) {
+        test("Fresh Asauchi keeps independent release progress and no special techniques", () -> {
+            PlayerData d = new PlayerData(); d.initializeShinigami();
+            eq(CharacterData.ASAUCHI, d.getCharacter().getZanpakutoIdentity());
+            yes(d.getCharacter().supportsForm("shikai")); yes(d.getCharacter().supportsForm("bankai"));
+            d.getResources().addTrainingPoints(700);
+            yes(!ProgressionService.purchaseSkill(d, "zanpakuto"));
+            d.getCharacter().setMastery("zanpakuto", "sealed", 19.5);
+            com.bleachmod.common.technique.TechniqueProgression.unlockEligible(d.getCharacter());
+            yes(!d.getCharacter().isFormDiscovered("shikai"));
+            d.getCharacter().setMastery("zanpakuto", "sealed", 20);
+            com.bleachmod.common.technique.TechniqueProgression.unlockEligible(d.getCharacter());
+            yes(ProgressionService.purchaseSkill(d, "zanpakuto"));
+            d.getCharacter().setMastery("zanpakuto", "shikai", 25);
+            com.bleachmod.common.technique.TechniqueProgression.unlockEligible(d.getCharacter());
+            yes(ProgressionService.purchaseSkill(d, "zanpakuto"));
+            for (String form : List.of("sealed", "shikai", "bankai")) for (int slot = 1; slot <= 4; slot++)
+                yes(!com.bleachmod.common.technique.TechniqueProgression.available(d.getCharacter(), form, slot));
+            d.getCharacter().setActiveForm("zanpakuto", "bankai");
+            PlayerData loaded = new PlayerData(); loaded.load(d.save());
+            eq("bankai", loaded.getCharacter().getActiveForm());
+            loaded.getCharacter().bindZanpakuto("hyorinmaru"); eq(0D, loaded.getCharacter().getMastery("zanpakuto", "shikai"));
+            loaded.getCharacter().bindZanpakuto("asauchi"); eq(25D, loaded.getCharacter().getMastery("zanpakuto", "shikai"));
+        });
+        test("Technique thresholds, permanent discoveries and archived practice", () -> {
+            CharacterData d = new CharacterData(); d.initializeShinigami(); d.bindZanpakuto("hyorinmaru");
+            for (int slot = 1; slot <= 4; slot++) {
+                int required = com.bleachmod.common.technique.TechniqueProgression.requirement(slot);
+                d.setMastery("zanpakuto", "sealed", Math.max(0, required - .5));
+                if (slot > 1) yes(!com.bleachmod.common.technique.TechniqueProgression.available(d, "sealed", slot));
+                d.setMastery("zanpakuto", "sealed", required);
+                yes(com.bleachmod.common.technique.TechniqueProgression.available(d, "sealed", slot));
+                com.bleachmod.common.technique.TechniqueProgression.unlockEligible(d);
+                d.addTechniqueMastery("sealed", slot, 200); eq(100D, d.getTechniqueMastery("sealed", slot));
+            }
+            d.setMastery("zanpakuto", "sealed", 0); yes(d.isTechniqueDiscovered("sealed", 4));
+            d.bindZanpakuto("ryujin_jakka"); yes(!d.isTechniqueDiscovered("sealed", 4)); eq(0D, d.getTechniqueMastery("sealed", 4));
+            d.bindZanpakuto("hyorinmaru"); CharacterData loaded = new CharacterData(); loaded.load(d.save());
+            yes(loaded.isTechniqueDiscovered("sealed", 4)); eq(100D, loaded.getTechniqueMastery("sealed", 4));
+            loaded.load(d.saveAppearance()); yes(loaded.isTechniqueDiscovered("sealed", 4));
+        });
+        test("Schema four keeps the existing repertoire without copying it to Asauchi", () -> {
+            PlayerData d = new PlayerData(); d.initializeShinigami(); d.getCharacter().bindZanpakuto("hyorinmaru");
+            d.getCharacter().setMastery("zanpakuto", "shikai", 12);
+            CompoundTag old = d.save(); old.putInt("schemaVersion", 4); old.getCompound("character").remove("unlockedTechniques");
+            PlayerData loaded = new PlayerData(); loaded.load(old);
+            yes(loaded.getCharacter().isTechniqueDiscovered("sealed", 4)); eq(12D, loaded.getCharacter().getMastery("zanpakuto", "shikai"));
+            loaded.getCharacter().bindZanpakuto("asauchi"); yes(!loaded.getCharacter().isTechniqueDiscovered("sealed", 4));
+            PlayerData fresh = new PlayerData(); fresh.initializeShinigami(); PlayerData roundtrip = new PlayerData(); roundtrip.load(fresh.save());
+            roundtrip.getCharacter().bindZanpakuto("hyorinmaru"); yes(!roundtrip.getCharacter().isTechniqueDiscovered("sealed", 4));
+        });
         test("Ice armor bakes independent body plates, wings and tail", () -> {
             var root = com.bleachmod.client.model.IceArmorLayer.createLayer().bakeRoot();
             for (String part : List.of("body", "arm", "leg", "wing", "tail")) yes(!root.getChild(part).isEmpty());
@@ -35,7 +85,7 @@ public final class MvpRegressionTest {
             } catch(java.io.IOException e) { throw new IllegalStateException(e); }
         });
         test("Zanpakuto identity archives mastery and unlocks across switches and reload", () -> {
-            CharacterData d = new CharacterData(); d.initializeShinigami();
+            CharacterData d = new CharacterData(); d.initializeShinigami(); d.bindZanpakuto("ryujin_jakka");
             d.unlockForm("bankai"); d.setMastery("zanpakuto", "shikai", 75);
             d.bindZanpakuto("hyorinmaru");
             yes(!d.isFormDiscovered("bankai")); eq(0D, d.getMastery("zanpakuto", "shikai"));
@@ -48,7 +98,7 @@ public final class MvpRegressionTest {
             eq("ryujin_jakka", loaded.getZanpakutoIdentity()); eq(75D, loaded.getMastery("zanpakuto", "shikai"));
         });
         test("Original story reward cannot unlock Hyorinmaru", () -> {
-            PlayerData d = new PlayerData(); d.initializeShinigami(); d.getCharacter().bindZanpakuto("hyorinmaru");
+            PlayerData d = new PlayerData(); d.initializeShinigami();d.getCharacter().bindZanpakuto("ryujin_jakka");d.getCharacter().preserveLegacyTechniques(); d.getCharacter().bindZanpakuto("hyorinmaru");
             new TransformationReward("zanpakuto", "bankai", 40).give(null, d);
             yes(!d.getCharacter().isFormDiscovered("bankai")); eq(0D, d.getCharacter().getMastery("zanpakuto", "bankai"));
             d.getCharacter().bindZanpakuto("ryujin_jakka"); yes(d.getCharacter().isFormDiscovered("bankai"));
@@ -464,7 +514,7 @@ public final class MvpRegressionTest {
         });
         System.out.println("PASS: "+count+" regression scenarios");
     }
-    private static PlayerData player(){PlayerData d=new PlayerData();d.initializeShinigami();return d;}
+    private static PlayerData player(){PlayerData d=new PlayerData();d.initializeShinigami();d.getCharacter().bindZanpakuto("ryujin_jakka");d.getCharacter().preserveLegacyTechniques();return d;}
     private static Quest quest(){Quest q=new Quest();q.setStringId("q");q.getObjectives().add(new KillObjective("minecraft:zombie",5,KillObjective.SpawnMode.NATURAL,KillObjective.CountMode.ANY_MATCHING));q.getRewards().add(new TpsReward(100));return q;}
     private static JsonObject forms(){JsonObject r=new JsonObject(),groups=new JsonObject();groups.add("zanpakuto",FormDefaults.shinigamiGroup().toJson());r.add("shinigami",groups);return r;}
     private static void test(String name,Runnable action){try{action.run();count++;System.out.println("PASS "+name);}catch(Throwable e){throw new AssertionError(name,e);}}

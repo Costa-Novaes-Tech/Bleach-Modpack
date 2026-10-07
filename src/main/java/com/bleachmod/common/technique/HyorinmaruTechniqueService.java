@@ -39,6 +39,7 @@ public final class HyorinmaruTechniqueService {
         return CharacterData.HYORINMARU.equals(d.getCharacter().getZanpakutoIdentity()) && p.getMainHandItem().is(ModItems.HYORINMARU.get());
     }
     public static void executeSlot(ServerPlayer player, PlayerData data, int slot) {
+        if (!TechniqueProgression.authorize(player, data, slot)) return;
         if (slot < 1 || slot > 4 || !data.getStatus().hasCreatedCharacter() || !player.isAlive() || player.isSpectator()) return;
         if (!equipped(player, data) || !Reference.RACE_SHINIGAMI.equals(data.getCharacter().getRace())
                 || !Reference.GROUP_ZANPAKUTO.equals(data.getCharacter().getActiveFormGroup())) {
@@ -94,8 +95,8 @@ public final class HyorinmaruTechniqueService {
             if (forwardDistance < 0 || forwardDistance > range || lateral > 0.7 + forwardDistance * Math.tan(halfAngle)
                     || Math.abs(delta.y) > 3 || !p.hasLineOfSight(target)) continue;
             float damage = !released ? 3 : slot == 1 ? (bankai ? 12 : 8) : (bankai ? 6 : 4);
-            if (target.hurt(p.damageSources().playerAttack(p), damage)) {
-                if (released) IceControlService.chill(p, target, slot == 1 ? 60 : 80, bankai ? 2 : 1);
+            if (MasteryPracticeService.hurt(p, target, p.damageSources().playerAttack(p), damage, slot)) {
+                if (released) IceControlService.chill(p, target, slot == 1 ? 60 : 80, bankai ? 2 : 1, slot);
                 else target.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 40, 0));
             }
         }
@@ -121,7 +122,7 @@ public final class HyorinmaruTechniqueService {
                     && Math.abs(delta.x * forward.z - delta.z * forward.x) <= 0.7 + ahead * Math.tan(Math.toRadians(20)) && p.hasLineOfSight(e);
         }).stream().min(Comparator.comparingDouble(p::distanceToSqr)).orElse(null);
         if (target == null) return;
-        IceControlService.chill(p, target, 60, 3);
+        IceControlService.chill(p, target, 60, 3, 4);
         target.push(forward.x * 0.45, 0.1, forward.z * 0.45); target.hurtMarked = true;
         p.serverLevel().sendParticles(ParticleTypes.SNOWFLAKE, target.getX(), target.getY() + 1, target.getZ(), 45, 0.5, 0.8, 0.5, 0.05);
     }
@@ -158,11 +159,11 @@ public final class HyorinmaruTechniqueService {
             if (f.barrier) {
                 double lateral = Math.abs(delta.x * f.forward.z - delta.z * f.forward.x);
                 if (Math.abs(delta.dot(f.forward)) > 0.8 || lateral > 3 || Math.abs(delta.y) > 3) continue;
-                IceControlService.chill(p, target, 30, f.bankai ? 2 : 1);
+                IceControlService.chill(p, target, 30, f.bankai ? 2 : 1, f.barrier ? 3 : 4);
                 target.push(f.forward.x * 0.22, 0.04, f.forward.z * 0.22); target.hurtMarked = true;
             } else if (TechniqueGeometry.intersectsCylinder(f.origin, range, 4, 4, target.getBoundingBox())
-                    && target.hurt(p.damageSources().playerAttack(p), f.bankai ? 3 : 2)) {
-                IceControlService.chill(p, target, 30, f.bankai ? 2 : 1);
+                    && MasteryPracticeService.hurt(p, target, p.damageSources().playerAttack(p), f.bankai ? 3 : 2, 4)) {
+                IceControlService.chill(p, target, 30, f.bankai ? 2 : 1, f.barrier ? 3 : 4);
             }
         }
     }

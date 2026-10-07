@@ -1,3 +1,4 @@
+> **Estado vigente — ciclo 23, 07/10/2026:** ciclo 22 homologado pelo usuário. Asauchi independente com selada/Shikai/Bankai, mantendo todas as texturas/modelos e apenas bônus de dano nas liberações; treino válido por forma/técnica e desbloqueios graduais dos kits. Personagens antigos preservam repertório. Aizen permanece futuro. [Contrato operacional, lógica, arquivos, migração e roteiro de testes](23-asauchi-maestria-desbloqueios-2026-10-07.md). As seções abaixo registram os ciclos anteriores; propostas de história continuam abertas.
 # Ciclo 22 — sincronização do clima e dragão Bankai ampliado
 
 Data: 07/10/2026. Branch exclusiva: `Feature-Poderes-bankais`. Base: `47d9271`.

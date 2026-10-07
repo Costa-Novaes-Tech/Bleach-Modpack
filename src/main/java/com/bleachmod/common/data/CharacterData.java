@@ -11,14 +11,36 @@ public class CharacterData {
     private final java.util.Set<String> unlockedForms = new java.util.HashSet<>();
     public static final String RYUJIN = "ryujin_jakka";
     public static final String HYORINMARU = "hyorinmaru";
-    private String zanpakutoIdentity = RYUJIN;
+    public static final String ASAUCHI = "asauchi";
+    private String zanpakutoIdentity = ASAUCHI;
+    private final java.util.Set<String> unlockedTechniques = new java.util.HashSet<>();
+    private final Map<String, Double> techniqueMasteries = new HashMap<>();
+    public static boolean knownIdentity(String identity) { return ASAUCHI.equals(identity) || RYUJIN.equals(identity) || HYORINMARU.equals(identity); }
+    public boolean supportsForm(String form) { return knownIdentity(zanpakutoIdentity) && java.util.Set.of("sealed", "shikai", "bankai").contains(form); }
+    private String techniqueKey(String form, int slot) { return zanpakutoIdentity + "|" + form + "|" + slot; }
+    public boolean isTechniqueDiscovered(String form, int slot) { return unlockedTechniques.contains(techniqueKey(form, slot)); }
+    public void unlockTechnique(String form, int slot) { if (supportsForm(form) && !ASAUCHI.equals(zanpakutoIdentity) && slot >= 1 && slot <= 4) unlockedTechniques.add(techniqueKey(form, slot)); }
+    public double getTechniqueMastery(String form, int slot) { return techniqueMasteries.getOrDefault(techniqueKey(form, slot), 0D); }
+    public void addTechniqueMastery(String form, int slot, double amount) {
+        if (Double.isFinite(amount) && amount > 0 && slot >= 1 && slot <= 4 && !ASAUCHI.equals(zanpakutoIdentity))
+            techniqueMasteries.put(techniqueKey(form, slot), Math.min(100, getTechniqueMastery(form, slot) + amount));
+    }
+    public void preserveLegacyTechniques() {
+        String active = zanpakutoIdentity;
+        for (String id : java.util.List.of(RYUJIN, HYORINMARU)) {
+            boolean owned = id.equals(active) || (RYUJIN.equals(id) ? unlockedForms.stream().anyMatch(f -> !f.contains("|"))
+                    || formMasteries.keySet().stream().anyMatch(k -> k.startsWith("zanpakuto:"))
+                    : unlockedForms.stream().anyMatch(f -> f.startsWith(id + "|")) || formMasteries.keySet().stream().anyMatch(k -> k.startsWith(id + "|")));
+            if (owned) for (String form : java.util.List.of("sealed", "shikai", "bankai")) for (int slot = 1; slot <= 4; slot++) unlockedTechniques.add(id + "|" + form + "|" + slot);
+        }
+    }
     private boolean iceArmorVisual;
     public boolean isIceArmorVisual() { return iceArmorVisual; }
     public void setIceArmorVisual(boolean active) { iceArmorVisual = active; }
     public String getZanpakutoIdentity() { return zanpakutoIdentity; }
     /** Operator prototype switch; each identity retains its own archived progress. */
     public void bindZanpakuto(String identity) {
-        if (!RYUJIN.equals(identity) && !HYORINMARU.equals(identity)) throw new IllegalArgumentException("Unknown zanpakuto");
+        if (!knownIdentity(identity)) throw new IllegalArgumentException("Unknown zanpakuto");
         zanpakutoIdentity = identity;
         setSelectedForm(Reference.GROUP_ZANPAKUTO, Reference.FORM_SEALED);
         setActiveForm(Reference.GROUP_ZANPAKUTO, Reference.FORM_SEALED);
@@ -37,7 +59,7 @@ public class CharacterData {
                 Double.isFinite(value) ? Math.max(0, Math.min(100, value)) : 0);
     }
     public void unlockForm(String form) { unlockedForms.add(identityKey(form)); }
-    public boolean isFormDiscovered(String form) { return "sealed".equals(form) || unlockedForms.contains(identityKey(form)); }
+    public boolean isFormDiscovered(String form) { return supportsForm(form) && ("sealed".equals(form) || unlockedForms.contains(identityKey(form))); }
     private String race = "";
     private String selectedFormGroup = "";
     private String selectedForm = "";
@@ -97,6 +119,7 @@ public class CharacterData {
     }
 
     public void initializeShinigami() {
+        zanpakutoIdentity = ASAUCHI;
         unlockForm("sealed");
         setRace(Reference.RACE_SHINIGAMI);
         setSelectedForm(Reference.GROUP_ZANPAKUTO, Reference.FORM_SEALED);
@@ -127,13 +150,22 @@ public class CharacterData {
         CompoundTag unlocks = new CompoundTag();
         unlockedForms.forEach(form -> unlocks.putBoolean(form, true));
         tag.put("unlockedForms", unlocks);
+        CompoundTag techniques = new CompoundTag(); unlockedTechniques.forEach(key -> techniques.putBoolean(key, true));
+        tag.put("unlockedTechniques", techniques);
+        CompoundTag mastery = new CompoundTag(); techniqueMasteries.forEach(mastery::putDouble); tag.put("techniqueMasteries", mastery);
         return tag;
     }
 
     public void load(CompoundTag tag) {
         if (tag.contains("iceArmorVisual")) iceArmorVisual = tag.getBoolean("iceArmorVisual");
         // Legacy characters belong to Ryujin; never copy their mastery into Hyorinmaru.
-        zanpakutoIdentity = HYORINMARU.equals(tag.getString("zanpakutoIdentity")) ? HYORINMARU : RYUJIN;
+        String identity = tag.getString("zanpakutoIdentity");
+        zanpakutoIdentity = !tag.contains("zanpakutoIdentity") ? RYUJIN : knownIdentity(identity) ? identity : ASAUCHI;
+        if (tag.contains("unlockedTechniques")) { unlockedTechniques.clear(); unlockedTechniques.addAll(tag.getCompound("unlockedTechniques").getAllKeys()); }
+        if (tag.contains("techniqueMasteries")) {
+            techniqueMasteries.clear(); CompoundTag values = tag.getCompound("techniqueMasteries");
+            for (String key : values.getAllKeys()) { double value = values.getDouble(key); techniqueMasteries.put(key, Double.isFinite(value) ? Math.max(0, Math.min(100, value)) : 0); }
+        }
         if (tag.contains("unlockedForms")) { unlockedForms.clear(); unlockedForms.addAll(tag.getCompound("unlockedForms").getAllKeys()); }
         if (tag.contains("race")) {
             race = tag.getString("race");
@@ -154,7 +186,7 @@ public class CharacterData {
             formMasteries.clear();
             CompoundTag masteries = tag.getCompound("formMasteries");
             for (String key : masteries.getAllKeys()) {
-                formMasteries.put(key, masteries.getDouble(key));
+                double value = masteries.getDouble(key); formMasteries.put(key, Double.isFinite(value) ? Math.max(0, Math.min(100, value)) : 0);
             }
         }
     }

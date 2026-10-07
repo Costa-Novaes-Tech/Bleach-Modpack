@@ -127,6 +127,7 @@ public final class RyujinTechniqueService {
     }
 
     public static void executeArea(ServerPlayer player, PlayerData data) {
+        if (!TechniqueProgression.authorize(player, data, 3)) return;
         boolean tornado = bankai(data);
         float cost = tornado ? TORNADO_COST : WALL_COST;
         if (!ready(player, data, data.getStatus().getTechniqueSlot3CooldownTicks(), cost)) return;
@@ -148,6 +149,7 @@ public final class RyujinTechniqueService {
     }
 
     public static void executeBats(ServerPlayer player, PlayerData data) {
+        if (!TechniqueProgression.authorize(player, data, 4)) return;
         if (bankai(data) || !ready(player, data, data.getStatus().getTechniqueSlot4CooldownTicks(), BAT_COST)) return;
         Runtime runtime = ACTIVE.computeIfAbsent(player.getUUID(), id -> new Runtime(player));
         if (runtime.swarm != null) {
@@ -206,7 +208,7 @@ public final class RyujinTechniqueService {
                     || area.nextDamage.getOrDefault(target.getUUID(), Long.MIN_VALUE) > now
                     || !runtime.owner.hasLineOfSight(target)) continue;
             area.nextDamage.put(target.getUUID(), now + (area.tornado ? 10 : 20));
-            boolean hurt = target.hurt(runtime.owner.damageSources().playerAttack(runtime.owner), damage);
+            boolean hurt = MasteryPracticeService.hurt(runtime.owner, target, runtime.owner.damageSources().playerAttack(runtime.owner), damage, 3);
             if (!area.tornado && hurt && target instanceof Mob) {
                 Vec3 side = new Vec3(-area.direction.z, 0, area.direction.x);
                 double sign = target.position().subtract(center).dot(side) < 0 ? -1 : 1;
@@ -281,7 +283,7 @@ public final class RyujinTechniqueService {
                     && swarm.nextDamage.getOrDefault(target.getUUID(), Long.MIN_VALUE) <= now) {
                 // Shared per-target gate prevents five overlapping bats from dealing five hits in a tick.
                 swarm.nextDamage.put(target.getUUID(), now + 20);
-                if (target.hurt(runtime.owner.damageSources().playerAttack(runtime.owner), BAT_DAMAGE)) target.setSecondsOnFire(2);
+                if (MasteryPracticeService.hurt(runtime.owner, target, runtime.owner.damageSources().playerAttack(runtime.owner), BAT_DAMAGE, 4)) target.setSecondsOnFire(2);
                 runtime.level.sendParticles(ParticleTypes.FLAME, target.getX(), target.getY() + 0.5,
                         target.getZ(), 8, 0.2, 0.2, 0.2, 0.01);
             }

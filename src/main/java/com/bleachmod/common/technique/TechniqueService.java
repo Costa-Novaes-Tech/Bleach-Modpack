@@ -70,6 +70,7 @@ public final class TechniqueService {
     }
 
     public static void executeSlot(ServerPlayer player, PlayerData data, int slot) {
+        if (!TechniqueProgression.authorize(player, data, slot)) return;
         if (com.bleachmod.common.data.CharacterData.HYORINMARU.equals(data.getCharacter().getZanpakutoIdentity())) {
             HyorinmaruTechniqueService.executeSlot(player, data, slot); return;
         }
@@ -161,7 +162,7 @@ public final class TechniqueService {
             for (LivingEntity target : level.getEntitiesOfClass(LivingEntity.class, entityArea,
                     entity -> TechniqueTargets.allowed(player, entity))) {
                 if (hitEntities.add(target.getUUID())) {
-                    target.hurt(source, STEAM_CUT_DAMAGE);
+                    MasteryPracticeService.hurt(player, target, source, STEAM_CUT_DAMAGE, 4);
                 }
             }
             spawnSteamCutLine(level, center, direction);
@@ -263,7 +264,7 @@ public final class TechniqueService {
                     && (distance == 0.0D || toTarget.normalize().dot(direction) < minimumDot))) {
                 continue;
             }
-            if (target.hurt(source, FLAME_FAN_DAMAGE)) target.setSecondsOnFire(FLAME_FAN_FIRE_SECONDS);
+            if (MasteryPracticeService.hurt(player, target, source, FLAME_FAN_DAMAGE, 2)) target.setSecondsOnFire(FLAME_FAN_FIRE_SECONDS);
             spawnFlameFanImpact(level, target);
         }
 
@@ -316,7 +317,7 @@ public final class TechniqueService {
                     && (distance == 0.0D || toTarget.normalize().dot(direction) < minimumDot))) {
                 continue;
             }
-            if (target.hurt(source, FLAME_BARRAGE_DAMAGE)) target.setSecondsOnFire(FLAME_BARRAGE_FIRE_SECONDS);
+            if (MasteryPracticeService.hurt(player, target, source, FLAME_BARRAGE_DAMAGE, 2)) target.setSecondsOnFire(FLAME_BARRAGE_FIRE_SECONDS);
             spawnBarrageImpact(level, target);
         }
 
@@ -430,7 +431,7 @@ public final class TechniqueService {
             DamageSource source = player.damageSources().playerAttack(player);
             for (LivingEntity target : level.getEntitiesOfClass(LivingEntity.class, area,
                     entity -> TechniqueTargets.allowed(player, entity))) {
-                if (target.hurt(source, FLAME_FAN_GROUND_DAMAGE)) target.setSecondsOnFire(1);
+                if (MasteryPracticeService.hurt(player, target, source, FLAME_FAN_GROUND_DAMAGE, 2)) target.setSecondsOnFire(1);
             }
         }
     }
@@ -457,7 +458,7 @@ public final class TechniqueService {
             DamageSource source = player.damageSources().playerAttack(player);
             for (LivingEntity target : level.getEntitiesOfClass(LivingEntity.class, area,
                     entity -> TechniqueTargets.allowed(player, entity))) {
-                if (target.hurt(source, FLAME_BARRAGE_GROUND_DAMAGE)) target.setSecondsOnFire(1);
+                if (MasteryPracticeService.hurt(player, target, source, FLAME_BARRAGE_GROUND_DAMAGE, 2)) target.setSecondsOnFire(1);
             }
         }
     }
@@ -501,7 +502,7 @@ public final class TechniqueService {
             if (!data.getStatus().markFlameDashHit(target.getUUID())) {
                 continue;
             }
-            if (target.hurt(source, FLAME_DASH_CONTACT_DAMAGE)) target.setSecondsOnFire(FLAME_DASH_CONTACT_FIRE_SECONDS);
+            if (MasteryPracticeService.hurt(player, target, source, FLAME_DASH_CONTACT_DAMAGE, 1)) target.setSecondsOnFire(FLAME_DASH_CONTACT_FIRE_SECONDS);
             level.sendParticles(ParticleTypes.FLAME, target.getX(), target.getY() + target.getBbHeight() * 0.5D,
                     target.getZ(), 14, 0.3D, 0.4D, 0.3D, 0.03D);
             level.playSound(null, target.blockPosition(), SoundEvents.FIRECHARGE_USE,

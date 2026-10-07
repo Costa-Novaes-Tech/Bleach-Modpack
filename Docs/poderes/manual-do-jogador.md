@@ -1,3 +1,5 @@
+> **Estado vigente — ciclo 23, 07/10/2026:** ciclo 22 homologado pelo usuário. Asauchi independente com selada/Shikai/Bankai, mantendo todas as texturas/modelos e apenas bônus de dano nas liberações; treino válido por forma/técnica e desbloqueios graduais dos kits. Personagens antigos preservam repertório. Aizen permanece futuro. [Contrato operacional, lógica, arquivos, migração e roteiro de testes](23-asauchi-maestria-desbloqueios-2026-10-07.md). As seções abaixo registram os ciclos anteriores; propostas de história continuam abertas.
+
 > **Estado vigente — ciclo 22, 07/10/2026:** restauração do clima agora sincroniza explicitamente os clientes e `/weather clear` corrige chuva visual presa; Ice Dragon Bankai com modelo maior e alcance 24. [Causa, lógica, arquivos, testes e roteiro final](22-clima-sincronizado-dragon-bankai-2026-10-07.md). Demais pontos homologados pelo usuário; encerramento definitivo aguarda este teste visual. Registros anteriores abaixo são históricos.
 
 > **Estado vigente — ciclo 21, 07/10/2026:** tornado centrado e móvel com miolo livre de três/raio externo nove; Zona Glacial Shikai dez/Bankai trinta com neve temporária no interior; clima com restauração e prioridade para comando manual; passivas de fogo Ryujin e resistência Hyōrinmaru. [Passo a passo, lógica, arquivos, valores e testes](21-correcao-tornado-zona-clima-passivas-2026-10-07.md). Os ciclos abaixo são históricos; esta revisão substitui o deslocamento frontal do tornado do ciclo 20.
@@ -70,3 +72,17 @@ O roteiro completo de comandos, desbloqueios provisórios, troca de identidade e
 ## Revisão autorizada do ciclo 20 — 06/10/2026
 
 A selada passa a ter quatro habilidades básicas de gelo: H/N de alcance seis, B de armadura temporária (25%/6s) e C de controle de alvo único com hipotermia. Isso substitui a proposta anterior de dois cortes sem gelo. Shikai/Bankai recebem mais neve, congelamento, criatura cosmética baseada em Phantom e armadura visual crescente; Bankai inclui asas/cauda e clima com concessão/retorno ao estado anterior. HUD informa habilidades, atalhos reais e requisitos vigentes de formas, sem novos patamares individuais arbitrários. A escala continua 0–100, com história e progressão final sob responsabilidade da equipe. [Implementação e limites do motor vanilla](20-refinamento-gelo-clima-hud-2026-10-06.md).
+
+## Asauchi e prática de maestria — ciclo 23
+
+Novos Shinigamis iniciam vinculados à Asauchi. Ela possui selada, Shikai e Bankai com as aparências preexistentes e somente bônus de dano: +20% na Shikai, +50% na Bankai. H/N/B/C não executam poderes elementais nessa identidade.
+
+Treine com a espada vinculada contra inimigos hostis ou adversários em PvP permitido. Prática aceita concede 0,5 à forma. Uma técnica responsável por dano, controle ou proteção ativa também recebe 1 em sua própria maestria. Há limite de um crédito por segundo e cinco segundos por alvo; ficar parado transformado não concede domínio. Aliados, animais comuns, invocações, NPCs e invulneráveis não servem de treino.
+
+Na configuração atual, 20 de maestria selada descobre Shikai; 25 de maestria Shikai descobre Bankai. Também é necessário comprar os níveis de zanpakuto (200/500 TP) e seguir a seleção/ativação existente. Esses marcos práticos ainda não representam uma campanha narrativa completa.
+
+Ryujin e Hyōrinmaru novas usam requisitos 0/20/40/60 para H/N/B/C da forma atual. O HUD mostra requisito do slot bloqueado e domínio individual do slot adquirido. Personagens antigos preservam seus slots, então os bloqueios iniciais devem ser homologados com personagem novo.
+
+Troca de teste por operador: /bleachdev zanpakuto bind @s asauchi, ryujin_jakka ou hyorinmaru. Apenas equipar outra espada não troca vínculo. A troca conserva o progresso próprio de cada identidade e volta à selada.
+
+Os modos /bleachdev reiatsu free @s e /bleachdev cooldowns disable @s suspendem o ganho por prática. Para treinar normalmente, use /bleachdev reiatsu restore @s e /bleachdev cooldowns restore @s. Definir maestria não apaga descobertas anteriores. [Roteiro completo e limites](23-asauchi-maestria-desbloqueios-2026-10-07.md).

@@ -1,3 +1,5 @@
+> **Estado vigente — ciclo 23, 07/10/2026:** ciclo 22 homologado pelo usuário. Asauchi independente com selada/Shikai/Bankai, mantendo todas as texturas/modelos e apenas bônus de dano nas liberações; treino válido por forma/técnica e desbloqueios graduais dos kits. Personagens antigos preservam repertório. Aizen permanece futuro. [Contrato operacional, lógica, arquivos, migração e roteiro de testes](23-asauchi-maestria-desbloqueios-2026-10-07.md). As seções abaixo registram os ciclos anteriores; propostas de história continuam abertas.
+
 > **Estado vigente — ciclo 22, 07/10/2026:** restauração do clima agora sincroniza explicitamente os clientes e `/weather clear` corrige chuva visual presa; Ice Dragon Bankai com modelo maior e alcance 24. [Causa, lógica, arquivos, testes e roteiro final](22-clima-sincronizado-dragon-bankai-2026-10-07.md). Demais pontos homologados pelo usuário; encerramento definitivo aguarda este teste visual. Registros anteriores abaixo são históricos.
 
 > **Estado vigente — ciclo 21, 07/10/2026:** tornado centrado e móvel com miolo livre de três/raio externo nove; Zona Glacial Shikai dez/Bankai trinta com neve temporária no interior; clima com restauração e prioridade para comando manual; passivas de fogo Ryujin e resistência Hyōrinmaru. [Passo a passo, lógica, arquivos, valores e testes](21-correcao-tornado-zona-clima-passivas-2026-10-07.md). Os ciclos abaixo são históricos; esta revisão substitui o deslocamento frontal do tornado do ciclo 20.
@@ -313,3 +315,15 @@ Resultado da auditoria: 18 cenários de segurança aprovados, zero falhas e fixt
 7. Aparência, FPS e equilíbrio de duelo aguardam homologação no cliente. [Relatório com arquivos, decisões e roteiro](20-refinamento-gelo-clima-hud-2026-10-06.md). JAR: `build/libs/bleachmod-0.2.0.jar`; saída local: `build/ice-refinement-validation.log`, não versionada.
 
 Documentação de outras pastas e inicializador preservados. Commit exclusivo na `Feature-Poderes-bankais`.
+
+## Ciclo 23 — Asauchi e progressão de prática (07/10/2026)
+
+- **Aceite recebido:** usuário homologou clima corrigido e dragão Bankai do ciclo 22; encerradas Ryujin e Hyōrinmaru naquele escopo.
+- **Nova entrega:** Asauchi como vínculo inicial próprio, mantendo todos os assets. Selada/Shikai/Bankai com bônus de dano 0/20/50% e sem habilidades especiais.
+- **Progressão aplicada:** maestria por forma e técnica, requisitos individuais 0/20/40/60; descoberta provisória de Shikai em 20 da selada e Bankai em 25 da Shikai, com compra dos níveis preservada.
+- **Fontes reais:** combate hostil/PvP elegível, controle aceito e proteção temporária ativa. Ganho passivo por tempo removido. Limites globais/por alvo e modos de teste sem ganho.
+- **Compatibilidade:** schema 5, protocolo 2.6 e preservação do repertório dos personagens antigos. Maestria própria da Asauchi não herda valores Ryujin/Hyōrinmaru.
+- **Documentação:** alterações somente nesta pasta; história/provas completas e Aizen continuam futuras.
+- **Validação e passo a passo:** [relatório 23](23-asauchi-maestria-desbloqueios-2026-10-07.md). Homologação visual desta progressão ainda cabe ao usuário.
+
+Validação final do ciclo 23: **60 regressões / 42 GameTests**, check e build aprovados. Texturas/modelos Asauchi intactos; documentos fora de Docs/poderes intactos. Homologação no cliente pendente.

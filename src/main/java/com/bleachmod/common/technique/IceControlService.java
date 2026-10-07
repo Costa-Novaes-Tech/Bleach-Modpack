@@ -16,8 +16,12 @@ public final class IceControlService {
     private static final Map<UUID, Lease> TARGETS = new HashMap<>();
     private IceControlService() { }
     public static void chill(ServerPlayer owner, LivingEntity target, int duration, int amplifier) {
+        chill(owner, target, duration, amplifier, 0);
+    }
+    public static void chill(ServerPlayer owner, LivingEntity target, int duration, int amplifier, int slot) {
         if (!TechniqueTargets.allowed(owner, target)) return;
-        target.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, duration, amplifier));
+        boolean applied = target.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, duration, amplifier));
+        if (applied && slot > 0) MasteryPracticeService.control(owner, target, slot);
         if (!target.canFreeze()) return;
         if (TARGETS.values().stream().filter(l -> l.owners.containsKey(owner.getUUID())).count() >= 32
                 && !TARGETS.containsKey(target.getUUID())) return;
