@@ -1,3 +1,5 @@
+> **Estado vigente — ciclo 25, 11/10/2026:** biblioteca comum com paletas fire/ice/reiatsu e formas aura/cut/beam/release; camadas compartilham orçamento. Bancada anterior preservada; nenhuma mudança nos kits homologados. [API, arquivos, limites e comparação](25-biblioteca-paletas-camadas-2026-10-11.md). Escolha visual e integração em produção são próximos gates; Aizen e narrativa continuam futuros.
+
 > **Estado vigente — ciclo 24, 11/10/2026:** Asauchi/maestria do ciclo 23 homologadas pelo usuário. Catálogo vanilla e bancada administrativa de seis presets, três intensidades e duração limitada, sem alterações nos kits ou terreno. [Recursos, arquivos, lógica, limites e roteiro](24-catalogo-vanilla-bancada-visual-2026-10-11.md). Aizen e aquisição narrativa continuam futuros.
 
 > **Estado vigente — ciclo 23, 07/10/2026:** ciclo 22 homologado pelo usuário. Asauchi independente com selada/Shikai/Bankai, mantendo todas as texturas/modelos e apenas bônus de dano nas liberações; treino válido por forma/técnica e desbloqueios graduais dos kits. Personagens antigos preservam repertório. Aizen permanece futuro. [Contrato operacional, lógica, arquivos, migração e roteiro de testes](23-asauchi-maestria-desbloqueios-2026-10-07.md). As seções abaixo registram os ciclos anteriores; propostas de história continuam abertas.
@@ -106,3 +108,10 @@ Validação final do ciclo 23: **60 regressões / 42 GameTests**, check e build 
 Ciclo 23 homologado. Use /bleachdev assets list; /bleachdev assets preview frost 1 (também reiatsu, soul, slash, beam, crystal; intensidades 1–3); /bleachdev assets status; /bleachdev assets stop. Requer OP, só envia efeitos ao próprio jogador, expira em cinco segundos e não altera combate, progressão ou mundo. [Catálogo e roteiro 24](24-catalogo-vanilla-bancada-visual-2026-10-11.md). Modelos/texturas catalogados são opções futuras; a bancada atual demonstra partículas, geometria e som.
 
 Validação do ciclo 24: **62 regressões / 46 GameTests**, check e build aprovados. Catálogo/bancada prontos para comparação visual pelo usuário; nenhuma medição de FPS ou homologação visual afirmada.
+
+
+## Ciclo 25 — biblioteca de camadas
+
+Use /bleachdev assets palettes e /bleachdev assets compose ice aura 2. Paletas fire/ice/reiatsu; formas aura/cut/beam/release; intensidades 1–3. Uma composição local de cinco segundos substitui a anterior e compartilha orçamento entre material, acento e resíduo. Presets antigos permanecem; poderes existentes intactos. [Contrato, arquivos e roteiro](25-biblioteca-paletas-camadas-2026-10-11.md).
+
+Validação do ciclo 25: **63 regressões / 48 GameTests**, check e build aprovados; escolha visual das composições pendente do usuário.

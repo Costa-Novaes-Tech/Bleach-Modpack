@@ -18,6 +18,36 @@ public final class AssetBenchGameTests {
         h.getLevel().getChunkAt(BlockPos.containing(p.position().add(0, 0, 10))); return p;
     }
     @GameTest(template = "empty")
+    public static void compositionSharesTheBudgetAndRejectsInvalidChanges(GameTestHelper h) {
+        var p = player(h); var data = PlayerCapability.get(p).orElseThrow(() -> new IllegalStateException("Missing capability")); data.initializeShinigami();
+        var before = data.save(); var dispatcher = p.getServer().getCommands().getDispatcher();
+        try {
+            for (String palette : com.bleachmod.common.visual.EffectLibrary.palettes()) for (String shape : com.bleachmod.common.visual.EffectLibrary.shapes()) {
+                h.assertTrue(dispatcher.execute("bleachdev assets compose " + palette + " " + shape + " 3", p.createCommandSourceStack().withPermission(2)) == 1, "Composition failed");
+                h.assertTrue(VanillaAssetBench.emitted(p) == 48 && VanillaAssetBench.active(p).equals(palette + "/" + shape), "Composed frame exceeded budget or wrong profile");
+                VanillaAssetBench.tick(p); h.assertTrue(VanillaAssetBench.emitted(p) == 48, "Composition duplicated frame");
+            }
+            String active = VanillaAssetBench.active(p);
+            h.assertTrue(dispatcher.execute("bleachdev assets compose missing aura", p.createCommandSourceStack().withPermission(2)) == 0 && VanillaAssetBench.active(p).equals(active), "Invalid palette changed preview");
+            boolean rejected = false;
+            try { dispatcher.execute("bleachdev assets compose ice aura", p.createCommandSourceStack().withPermission(0)); }
+            catch (com.mojang.brigadier.exceptions.CommandSyntaxException e) { rejected = true; }
+            h.assertTrue(rejected && data.save().equals(before), "Non-operator composition or gameplay mutation");
+        } catch (com.mojang.brigadier.exceptions.CommandSyntaxException e) { throw new IllegalStateException(e); }
+        finally { VanillaAssetBench.stop(p); }
+        h.succeed();
+    }
+    @GameTest(template = "empty")
+    public static void sharedFrameRejectsOverflowAndInvalidPositions(GameTestHelper h) {
+        var p = player(h); var frame = new com.bleachmod.common.visual.VisualFrame(p, h.getLevel());
+        var position = p.position().add(0, 1, 4);
+        h.assertTrue(!frame.emit(net.minecraft.core.particles.ParticleTypes.FLAME, new net.minecraft.world.phys.Vec3(Double.NaN, 0, 0), .03, .01), "Non-finite position accepted");
+        h.assertTrue(!frame.emit(net.minecraft.core.particles.ParticleTypes.FLAME, p.position().add(100, 0, 0), .03, .01), "Distant emission accepted");
+        h.assertTrue(!frame.emit(net.minecraft.core.particles.ParticleTypes.FLAME, position, .03, Double.NaN), "Non-finite speed accepted");
+        for (int i = 0; i < 48; i++) h.assertTrue(frame.emit(net.minecraft.core.particles.ParticleTypes.FLAME, position, .03, .01), "Valid frame rejected");
+        h.assertTrue(!frame.emit(net.minecraft.core.particles.ParticleTypes.SMOKE, position, .03, .01) && frame.requested() == 48, "Additional layer bypassed shared budget"); h.succeed();
+    }
+    @GameTest(template = "empty")
     public static void commandsRequireOperatorAndRejectInvalidPreview(GameTestHelper h) {
         var p = player(h); var dispatcher = p.getServer().getCommands().getDispatcher();
         try {

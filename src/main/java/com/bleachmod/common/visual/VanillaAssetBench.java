@@ -31,20 +31,20 @@ public final class VanillaAssetBench {
         return Arrays.stream(Preset.values()).filter(p -> p.id.equals(id)).findFirst().orElseThrow(() -> new IllegalArgumentException("Unknown preview"));
     }
     public static int samples(int intensity) {
-        if (intensity < 1 || intensity > 3) throw new IllegalArgumentException("Intensity must be 1..3");
-        return 8 * intensity;
+        return VisualFrame.budget(intensity) / 2;
     }
     private static final class Session {
         final ServerPlayer owner;
         final ServerLevel level;
         final Preset preset;
+        final EffectLibrary.Profile profile;
         final int intensity;
         final Vec3 origin, forward;
         final long started;
         long lastFrame = Long.MIN_VALUE;
         int particles;
-        Session(ServerPlayer owner, Preset preset, int intensity) {
-            this.owner = owner; this.level = owner.serverLevel(); this.preset = preset; this.intensity = intensity;
+        Session(ServerPlayer owner, Preset preset, EffectLibrary.Profile profile, int intensity) {
+            this.owner = owner; this.level = owner.serverLevel(); this.preset = preset; this.profile = profile; this.intensity = intensity;
             this.forward = Vec3.directionFromRotation(0, owner.getYRot());
             this.origin = owner.position().add(forward.scale(4)); this.started = level.getGameTime();
         }
@@ -52,11 +52,17 @@ public final class VanillaAssetBench {
     private static final Map<UUID, Session> SESSIONS = new HashMap<>();
     private VanillaAssetBench() { }
     public static boolean start(ServerPlayer owner, Preset preset, int intensity) {
-        samples(intensity); Objects.requireNonNull(preset);
+        return start(owner, Objects.requireNonNull(preset), null, intensity);
+    }
+    public static boolean compose(ServerPlayer owner, EffectLibrary.Profile profile, int intensity) {
+        return start(owner, null, Objects.requireNonNull(profile), intensity);
+    }
+    private static boolean start(ServerPlayer owner, Preset preset, EffectLibrary.Profile profile, int intensity) {
+        samples(intensity);
         if (!owner.isAlive() || owner.isSpectator()) return false;
         if (!SESSIONS.containsKey(owner.getUUID()) && SESSIONS.size() >= SESSION_LIMIT) return false;
-        Session session = new Session(owner, preset, intensity); SESSIONS.put(owner.getUUID(), session);
-        owner.playNotifySound(switch (preset) {
+        Session session = new Session(owner, preset, profile, intensity); SESSIONS.put(owner.getUUID(), session);
+        owner.playNotifySound(profile != null ? EffectLibrary.sound(profile.palette()) : switch (preset) {
             case FROST -> SoundEvents.GLASS_BREAK;
             case REIATSU -> SoundEvents.BEACON_ACTIVATE;
             case SOUL -> SoundEvents.SOUL_ESCAPE;
@@ -70,7 +76,7 @@ public final class VanillaAssetBench {
     public static void clear() { SESSIONS.clear(); }
     public static int emitted(ServerPlayer owner) { Session s = SESSIONS.get(owner.getUUID()); return s == null ? 0 : s.particles; }
     public static int remaining(ServerPlayer owner) { Session s = SESSIONS.get(owner.getUUID()); return s == null ? 0 : (int) Math.max(0, DURATION - (s.level.getGameTime() - s.started)); }
-    public static String active(ServerPlayer owner) { Session s = SESSIONS.get(owner.getUUID()); return s == null ? "none" : s.preset.id; }
+    public static String active(ServerPlayer owner) { Session s = SESSIONS.get(owner.getUUID()); return s == null ? "none" : s.profile == null ? s.preset.id : s.profile.id(); }
     public static int activeCount() { return SESSIONS.size(); }
     public static Vec3 point(Preset preset, Vec3 origin, Vec3 forward, int index, int count, double phase) {
         double t = index / (double) Math.max(1, count - 1), angle = Math.PI * 2 * t + phase;
@@ -110,16 +116,19 @@ public final class VanillaAssetBench {
                 || age >= DURATION || age < 0 || owner.position().distanceToSqr(session.origin) > 32 * 32) { stop(owner); return; }
         if (age % INTERVAL != 0 || session.lastFrame == now) return;
         session.lastFrame = now;
-        int count = samples(session.intensity);
-        ParticleOptions primary = primary(session.preset), secondary = secondary(session.preset);
-        for (int i = 0; i < count; i++) {
-            Vec3 point = point(session.preset, session.origin, session.forward, i, count, age * .09);
-            if (!session.level.hasChunkAt(BlockPos.containing(point))) continue;
-            // Direct recipient: previews never broadcast to other players or load chunks.
-            session.level.sendParticles(owner, primary, false, point.x, point.y, point.z, 1, .03, .03, .03, .01);
-            session.level.sendParticles(owner, secondary, false, point.x, point.y, point.z, 1, .08, .08, .08, .01);
-            session.particles += 2;
+        VisualFrame frame = new VisualFrame(owner, session.level);
+        if (session.profile != null) {
+            EffectLibrary.emit(session.profile, frame, session.origin, session.forward, session.intensity, age);
+        } else {
+            int count = samples(session.intensity);
+            ParticleOptions primary = primary(session.preset), secondary = secondary(session.preset);
+            for (int i = 0; i < count; i++) {
+                Vec3 point = point(session.preset, session.origin, session.forward, i, count, age * .09);
+                frame.emit(primary, point, .03, .01);
+                frame.emit(secondary, point, .08, .01);
+            }
         }
+        session.particles += frame.requested();
     }
     @SubscribeEvent public static void tick(TickEvent.ServerTickEvent event) {
         if (event.phase == TickEvent.Phase.END) for (Session s : new ArrayList<>(SESSIONS.values())) tick(s.owner);

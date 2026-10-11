@@ -188,5 +188,6 @@
   "command.bleachmod.assets.stopped": "Bancada encerrada. Partículas já enviadas desaparecem naturalmente.",
   "command.bleachmod.assets.status": "Bancada: %s | restante: %s ticks | partículas solicitadas: %s",
   "command.bleachmod.assets.unknown": "Efeito desconhecido. Consulte /bleachdev assets list.",
-  "command.bleachmod.assets.unavailable": "Bancada indisponível: jogador inativo ou limite de sessões atingido."
+  "command.bleachmod.assets.unavailable": "Bancada indisponível: jogador inativo ou limite de sessões atingido.",
+  "command.bleachmod.assets.palettes": "Paletas: %s | Formas: %s. Use /bleachdev assets compose <paleta> <forma> [1..3]."
 }

@@ -57,13 +57,18 @@ public final class MasteryGameTests {
         var p = player(h); var d = data(p); d.getCharacter().bindZanpakuto("hyorinmaru");
         // Isolate the selected target from nearby mobs created by parallel long-range kit fixtures.
         p.setPos(p.getX(), h.getLevel().getMaxBuildHeight() - 8, p.getZ());
+        // The persistent GameTest world may retain earlier fixture mobs in this open-air cell.
+        h.getLevel().getChunkAt(p.blockPosition());
+        h.getLevel().getEntitiesOfClass(Zombie.class, p.getBoundingBox().inflate(5, 2, 5)).forEach(Entity::discard);
         p.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(ModItems.HYORINMARU.get())); var z = target(h, p);
+        h.runAfterDelay(5, () -> {
         float before = d.getResources().getCurrentReiatsu(); TechniqueService.executeSlot(p, d, 4);
         h.assertTrue(d.getResources().getCurrentReiatsu() == before && d.getStatus().getTechniqueSlot4CooldownTicks() == 0, "Locked technique consumed resources");
         d.getCharacter().setMastery("zanpakuto", "sealed", 60);
         TechniqueService.executeSlot(p, d, 4);
         h.assertTrue(d.getCharacter().getMastery("zanpakuto", "sealed") == 60.5 && d.getCharacter().getTechniqueMastery("sealed", 4) == 1, "Accepted control practice missing");
         h.assertTrue(z.hasEffect(net.minecraft.world.effect.MobEffects.MOVEMENT_SLOWDOWN), "Control did not occur"); h.succeed();
+        });
     }
     @GameTest(template = "empty", timeoutTicks = 200)
     public static void passiveFireAndExpiredIntentCannotEarnTechniquePractice(GameTestHelper h) {

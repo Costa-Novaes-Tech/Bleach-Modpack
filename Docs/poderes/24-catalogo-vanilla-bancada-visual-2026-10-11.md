@@ -1,3 +1,5 @@
+> **Estado vigente — ciclo 25, 11/10/2026:** biblioteca comum com paletas fire/ice/reiatsu e formas aura/cut/beam/release; camadas compartilham orçamento. Bancada anterior preservada; nenhuma mudança nos kits homologados. [API, arquivos, limites e comparação](25-biblioteca-paletas-camadas-2026-10-11.md). Escolha visual e integração em produção são próximos gates; Aizen e narrativa continuam futuros.
+
 # Ciclo 24 — Catálogo vanilla e bancada visual
 
 Data: 11/10/2026. Branch: Feature-Poderes-bankais. Minecraft 1.20.1 / Forge 47.4.10.

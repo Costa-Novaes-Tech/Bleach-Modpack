@@ -16,6 +16,21 @@ import java.util.*;
 public final class MvpRegressionTest {
     private static int count;
     public static void main(String[] args) {
+        test("Effect palettes compose twelve bounded profiles and reject invalid definitions", () -> {
+            var library = com.bleachmod.common.visual.EffectLibrary.class;
+            int profiles = 0;
+            for (String palette : com.bleachmod.common.visual.EffectLibrary.palettes()) for (String shape : com.bleachmod.common.visual.EffectLibrary.shapes()) {
+                var profile = com.bleachmod.common.visual.EffectLibrary.resolve(palette, shape); eq(palette + "/" + shape, profile.id()); profiles++;
+                for (int i = 0; i < 48; i++) {
+                    var point = com.bleachmod.common.visual.EffectLibrary.point(profile.shape(), net.minecraft.world.phys.Vec3.ZERO, new net.minecraft.world.phys.Vec3(0, 0, 1), i, 48, 96);
+                    yes(Double.isFinite(point.x) && Double.isFinite(point.y) && Double.isFinite(point.z)); yes(point.lengthSqr() <= 49);
+                }
+            }
+            eq(12, profiles);
+            rejects(() -> com.bleachmod.common.visual.EffectLibrary.resolve("missing", "aura"));
+            rejects(() -> com.bleachmod.common.visual.EffectLibrary.resolve("fire", "missing"));
+            rejects(() -> com.bleachmod.common.visual.EffectLibrary.budget(4));
+        });
         test("Asset bench has a finite catalogue and strict intensity budget", () -> {
             var bench = com.bleachmod.common.visual.VanillaAssetBench.class;
             eq(6, com.bleachmod.common.visual.VanillaAssetBench.ids().size());

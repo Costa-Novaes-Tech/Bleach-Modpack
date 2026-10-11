@@ -188,5 +188,6 @@
   "command.bleachmod.assets.stopped": "Bench stopped. Previously sent particles fade naturally.",
   "command.bleachmod.assets.status": "Bench: %s | remaining: %s ticks | requested particles: %s",
   "command.bleachmod.assets.unknown": "Unknown effect. See /bleachdev assets list.",
-  "command.bleachmod.assets.unavailable": "Bench unavailable: inactive player or session limit reached."
+  "command.bleachmod.assets.unavailable": "Bench unavailable: inactive player or session limit reached.",
+  "command.bleachmod.assets.palettes": "Palettes: %s | Shapes: %s. Use /bleachdev assets compose <palette> <shape> [1..3]."
 }
