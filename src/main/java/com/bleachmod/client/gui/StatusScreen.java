@@ -45,10 +45,10 @@ public final class StatusScreen extends Screen {
         int cost=d.getSkills().skillCostForNextLevel("zanpakuto");
         boolean discovered=d.getCharacter().isFormDiscovered(level==0?"shikai":"bankai");
         skill.setMessage(level>=2?Component.translatable("screen.bleachmod.skill_max"):
-            !discovered?Component.translatable("screen.bleachmod.quest_required"):
+            !discovered?Component.translatable("screen.bleachmod.training_required"):
             Component.translatable("screen.bleachmod.skill_buy",level+1,cost));
         skill.active=level<2&&discovered&&d.getResources().getTrainingPoints()>=cost;
-        skill.setTooltip(net.minecraft.client.gui.components.Tooltip.create(Component.translatable(level>=2?"screen.bleachmod.skill_max":!discovered?"screen.bleachmod.quest_required":skill.active?"screen.bleachmod.purchase_remaining":"screen.bleachmod.insufficient_points",
+        skill.setTooltip(net.minecraft.client.gui.components.Tooltip.create(Component.translatable(level>=2?"screen.bleachmod.skill_max":!discovered?"screen.bleachmod.training_required":skill.active?"screen.bleachmod.purchase_remaining":"screen.bleachmod.insufficient_points",
             Math.max(0,(int)d.getResources().getTrainingPoints()-cost))));
     }
     @Override public void render(GuiGraphics g,int mx,int my,float dt) {

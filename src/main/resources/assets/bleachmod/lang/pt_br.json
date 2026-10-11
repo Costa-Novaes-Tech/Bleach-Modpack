@@ -189,5 +189,15 @@
   "command.bleachmod.assets.status": "Bancada: %s | restante: %s ticks | partículas solicitadas: %s",
   "command.bleachmod.assets.unknown": "Efeito desconhecido. Consulte /bleachdev assets list.",
   "command.bleachmod.assets.unavailable": "Bancada indisponível: jogador inativo ou limite de sessões atingido.",
-  "command.bleachmod.assets.palettes": "Paletas: %s | Formas: %s. Use /bleachdev assets compose <paleta> <forma> [1..3]."
+  "command.bleachmod.assets.palettes": "Paletas: %s | Formas: %s. Use /bleachdev assets compose <paleta> <forma> [1..3].",
+  "hud.bleachmod.mastery.technique": "Técnica: %s/100",
+  "hud.bleachmod.mastery.form_locked": "Forma ainda bloqueada",
+  "hud.bleachmod.mastery.required": "Maestria da forma: %s/%s",
+  "hud.bleachmod.mastery.form_ready": "%s: disponível",
+  "hud.bleachmod.mastery.form_train": "%s: treine %s/%s",
+  "hud.bleachmod.mastery.form_purchase": "%s: compre o vínculo",
+  "hud.bleachmod.mastery.test_mode": "Modo teste: treino suspenso",
+  "message.bleachmod.mastery.form_discovered": "%s descoberta pelo treino! Para usá-la, complete a compra do vínculo no menu de progressão.",
+  "message.bleachmod.mastery.slot_unlocked": "Slot %s liberado na forma %s pelo treino!",
+  "screen.bleachmod.training_required": "Descubra a forma pelo treino de maestria"
 }

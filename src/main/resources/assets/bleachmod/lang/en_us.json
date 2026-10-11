@@ -189,5 +189,15 @@
   "command.bleachmod.assets.status": "Bench: %s | remaining: %s ticks | requested particles: %s",
   "command.bleachmod.assets.unknown": "Unknown effect. See /bleachdev assets list.",
   "command.bleachmod.assets.unavailable": "Bench unavailable: inactive player or session limit reached.",
-  "command.bleachmod.assets.palettes": "Palettes: %s | Shapes: %s. Use /bleachdev assets compose <palette> <shape> [1..3]."
+  "command.bleachmod.assets.palettes": "Palettes: %s | Shapes: %s. Use /bleachdev assets compose <palette> <shape> [1..3].",
+  "hud.bleachmod.mastery.technique": "Technique: %s/100",
+  "hud.bleachmod.mastery.form_locked": "Form still locked",
+  "hud.bleachmod.mastery.required": "Form mastery: %s/%s",
+  "hud.bleachmod.mastery.form_ready": "%s: available",
+  "hud.bleachmod.mastery.form_train": "%s: train %s/%s",
+  "hud.bleachmod.mastery.form_purchase": "%s: purchase bond",
+  "hud.bleachmod.mastery.test_mode": "Test mode: training paused",
+  "message.bleachmod.mastery.form_discovered": "%s discovered through training! Complete the bond purchase in the progression menu to use it.",
+  "message.bleachmod.mastery.slot_unlocked": "Slot %s unlocked in %s through training!",
+  "screen.bleachmod.training_required": "Discover the form through mastery training"
 }

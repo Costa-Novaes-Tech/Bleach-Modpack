@@ -29,6 +29,23 @@ public final class MasteryGameTests {
         z.setPos(p.getX(), p.getY(), p.getZ() + 2); h.getLevel().getChunkAt(z.blockPosition()); h.getLevel().addFreshEntity(z); return z;
     }
     @GameTest(template = "empty", timeoutTicks = 200)
+    public static void realPracticeCrossesThresholdWithoutPurchasingFormOrDebitingPoints(GameTestHelper h) {
+        var p = player(h); var d = data(p); d.getCharacter().setMastery("zanpakuto", "sealed", 19.5);
+        float points = d.getResources().getTrainingPoints(); var z = target(h, p);
+        h.runAfterDelay(5, () -> {
+            try {
+                z.hurt(p.damageSources().playerAttack(p), 1);
+                h.assertTrue(d.getCharacter().getMastery("zanpakuto", "sealed") == 20, "Threshold practice missing");
+                h.assertTrue(d.getCharacter().isFormDiscovered("shikai"), "Shikai discovery missing");
+                h.assertTrue(!com.bleachmod.common.evolution.TransformationsHelper.isUnlocked(d, "zanpakuto", "shikai"), "Discovery bypassed skill purchase");
+                h.assertTrue(d.getResources().getTrainingPoints() == points, "Discovery debited training points");
+                z.invulnerableTime = 0; z.hurt(p.damageSources().playerAttack(p), 1);
+                h.assertTrue(d.getCharacter().getMastery("zanpakuto", "sealed") == 20, "Threshold notification bypassed repetition limit");
+            } finally { z.discard(); }
+            h.succeed();
+        });
+    }
+    @GameTest(template = "empty", timeoutTicks = 200)
     public static void validSwordPracticeHasLimitsAndDoesNotAccumulateWhileIdle(GameTestHelper h) {
         var p = player(h); var d = data(p); var z = target(h, p);
         h.runAfterDelay(2, () -> {

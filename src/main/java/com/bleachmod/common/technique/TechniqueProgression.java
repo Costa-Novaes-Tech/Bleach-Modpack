@@ -8,6 +8,7 @@ import net.minecraft.server.level.ServerPlayer;
 
 /** Shared access rules; existing kits retain their own executors and costs. */
 public final class TechniqueProgression {
+    public static final int SHIKAI_MASTERY = 20, BANKAI_MASTERY = 25;
     private TechniqueProgression() { }
     public static int requirement(int slot) { return slot >= 1 && slot <= 4 ? (slot - 1) * 20 : Integer.MAX_VALUE; }
     public static boolean available(CharacterData character, String form, int slot) {
@@ -42,7 +43,7 @@ public final class TechniqueProgression {
         String form = character.getActiveForm();
         for (int slot = 1; slot <= 4; slot++) if (available(character, form, slot)) character.unlockTechnique(form, slot);
         // Provisional practical milestones. Skill purchase and the transformation chain still apply.
-        if (character.getMastery("zanpakuto", "sealed") >= 20) character.unlockForm("shikai");
-        if (character.isFormDiscovered("shikai") && character.getMastery("zanpakuto", "shikai") >= 25) character.unlockForm("bankai");
+        if (character.getMastery("zanpakuto", "sealed") >= SHIKAI_MASTERY) character.unlockForm("shikai");
+        if (character.isFormDiscovered("shikai") && character.getMastery("zanpakuto", "shikai") >= BANKAI_MASTERY) character.unlockForm("bankai");
     }
 }

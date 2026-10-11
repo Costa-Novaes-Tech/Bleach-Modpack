@@ -16,6 +16,24 @@ import java.util.*;
 public final class MvpRegressionTest {
     private static int count;
     public static void main(String[] args) {
+        test("Mastery feedback preserves fractional thresholds and reports only new access", () -> {
+            eq("19.5", com.bleachmod.common.technique.MasteryFeedback.value(19.5));
+            eq("19.9", com.bleachmod.common.technique.MasteryFeedback.value(19.99));
+            eq("20", com.bleachmod.common.technique.MasteryFeedback.value(20));
+            eq("100", com.bleachmod.common.technique.MasteryFeedback.value(101));
+            eq("0", com.bleachmod.common.technique.MasteryFeedback.value(Double.NaN));
+            PlayerData d = new PlayerData(); d.initializeShinigami();
+            var c = d.getCharacter(); c.bindZanpakuto("hyorinmaru"); c.setMastery("zanpakuto", "sealed", 19.5);
+            var before = com.bleachmod.common.technique.MasteryFeedback.snapshot(c);
+            c.addMastery("zanpakuto", "sealed", .5, 100); com.bleachmod.common.technique.TechniqueProgression.unlockEligible(c);
+            var changes = com.bleachmod.common.technique.MasteryFeedback.gained(before, c);
+            eq(2, changes.size()); eq(2, changes.get(0).slot()); eq("shikai", changes.get(1).form());
+            eq(0, com.bleachmod.common.technique.MasteryFeedback.gained(com.bleachmod.common.technique.MasteryFeedback.snapshot(c), c).size());
+            c.bindZanpakuto("asauchi"); eq(0, com.bleachmod.common.technique.MasteryFeedback.gained(before, c).size());
+            c.setMastery("zanpakuto", "sealed", 19.5); before = com.bleachmod.common.technique.MasteryFeedback.snapshot(c);
+            c.addMastery("zanpakuto", "sealed", .5, 100); com.bleachmod.common.technique.TechniqueProgression.unlockEligible(c);
+            changes = com.bleachmod.common.technique.MasteryFeedback.gained(before, c); eq(1, changes.size()); eq(0, changes.get(0).slot());
+        });
         test("Ice slot profiles preserve combat ranges and cover the whole glacial disk", () -> {
             for (int slot = 1; slot <= 2; slot++) {
                 var sealed = new com.bleachmod.common.visual.IceTechniqueVisuals.Cut(slot, false, false);

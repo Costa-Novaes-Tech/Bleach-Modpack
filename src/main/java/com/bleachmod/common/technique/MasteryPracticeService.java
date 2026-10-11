@@ -66,9 +66,16 @@ public final class MasteryPracticeService {
             practice.targets.values().removeIf(until -> until <= now);
             if (practice.targets.size() >= 128) return;
             practice.next = now + GLOBAL_INTERVAL; practice.targets.put(target.getUUID(), now + TARGET_INTERVAL);
+            var before = MasteryFeedback.snapshot(character);
             character.addMastery("zanpakuto", character.getActiveForm(), FORM_GAIN, 100);
             if (slot > 0) character.addTechniqueMastery(character.getActiveForm(), slot, TECHNIQUE_GAIN);
             TechniqueProgression.unlockEligible(character);
+            for (var unlock : MasteryFeedback.gained(before, character)) {
+                var formName = net.minecraft.network.chat.Component.translatable("form.bleachmod." + unlock.form());
+                owner.sendSystemMessage(unlock.slot() == 0
+                        ? net.minecraft.network.chat.Component.translatable("message.bleachmod.mastery.form_discovered", formName)
+                        : net.minecraft.network.chat.Component.translatable("message.bleachmod.mastery.slot_unlocked", unlock.slot(), formName));
+            }
             SyncHelper.full(owner);
         });
     }

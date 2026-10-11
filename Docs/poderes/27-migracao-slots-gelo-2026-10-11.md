@@ -1,3 +1,5 @@
+> **Estado vigente — ciclo 28, 11/10/2026:** feedback de maestria sem arredondar limiares, avisos de novas liberações pelo treino, distinção de descoberta/compra/disponibilidade e indicação de treino suspenso em modo teste. [Arquivos, lógica e roteiros de visuais/maestria](28-feedback-maestria-roteiro-2026-10-11.md). Ganhos e requisitos preservados; ciclos abaixo são históricos.
+
 # Ciclo 27 — Migração dos efeitos dos slots da Hyōrinmaru
 
 Data: 11/10/2026. Branch: Feature-Poderes-bankais. Migrações autorizadas pelo usuário após o ciclo 26.
