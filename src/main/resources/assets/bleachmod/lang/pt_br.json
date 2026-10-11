@@ -182,5 +182,11 @@
   "ability.bleachmod.ryujin.steam_cut": "Corte de Vapor",
   "message.bleachmod.asauchi.no_techniques": "A Asauchi não possui habilidades especiais.",
   "message.bleachmod.technique.mastery_required": "Requer %s de maestria nesta forma.",
-  "hud.bleachmod.asauchi.practice": "Treine com golpes de espada"
+  "hud.bleachmod.asauchi.practice": "Treine com golpes de espada",
+  "command.bleachmod.assets.list": "Bancada vanilla: %s. Use /bleachdev assets preview <efeito> [1..3].",
+  "command.bleachmod.assets.started": "Demonstração %s, intensidade %s, por 5 segundos. Apenas visual.",
+  "command.bleachmod.assets.stopped": "Bancada encerrada. Partículas já enviadas desaparecem naturalmente.",
+  "command.bleachmod.assets.status": "Bancada: %s | restante: %s ticks | partículas solicitadas: %s",
+  "command.bleachmod.assets.unknown": "Efeito desconhecido. Consulte /bleachdev assets list.",
+  "command.bleachmod.assets.unavailable": "Bancada indisponível: jogador inativo ou limite de sessões atingido."
 }

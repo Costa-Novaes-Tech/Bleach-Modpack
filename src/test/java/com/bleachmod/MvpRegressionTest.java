@@ -16,6 +16,21 @@ import java.util.*;
 public final class MvpRegressionTest {
     private static int count;
     public static void main(String[] args) {
+        test("Asset bench has a finite catalogue and strict intensity budget", () -> {
+            var bench = com.bleachmod.common.visual.VanillaAssetBench.class;
+            eq(6, com.bleachmod.common.visual.VanillaAssetBench.ids().size());
+            for (int intensity = 1; intensity <= 3; intensity++) eq(8 * intensity, com.bleachmod.common.visual.VanillaAssetBench.samples(intensity));
+            rejects(() -> com.bleachmod.common.visual.VanillaAssetBench.samples(0));
+            rejects(() -> com.bleachmod.common.visual.VanillaAssetBench.samples(4));
+            rejects(() -> com.bleachmod.common.visual.VanillaAssetBench.resolve("missing"));
+        });
+        test("All asset bench geometries are finite and bounded", () -> {
+            var origin = new net.minecraft.world.phys.Vec3(0, 0, 0); var forward = new net.minecraft.world.phys.Vec3(0, 0, 1);
+            for (var preset : com.bleachmod.common.visual.VanillaAssetBench.Preset.values()) for (int i = 0; i < 24; i++) {
+                var point = com.bleachmod.common.visual.VanillaAssetBench.point(preset, origin, forward, i, 24, 1);
+                yes(Double.isFinite(point.x) && Double.isFinite(point.y) && Double.isFinite(point.z)); yes(point.distanceToSqr(origin) <= 49);
+            }
+        });
         test("Fresh Asauchi keeps independent release progress and no special techniques", () -> {
             PlayerData d = new PlayerData(); d.initializeShinigami();
             eq(CharacterData.ASAUCHI, d.getCharacter().getZanpakutoIdentity());

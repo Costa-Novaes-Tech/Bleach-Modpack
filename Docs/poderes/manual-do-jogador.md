@@ -1,3 +1,5 @@
+> **Estado vigente — ciclo 24, 11/10/2026:** Asauchi/maestria do ciclo 23 homologadas pelo usuário. Catálogo vanilla e bancada administrativa de seis presets, três intensidades e duração limitada, sem alterações nos kits ou terreno. [Recursos, arquivos, lógica, limites e roteiro](24-catalogo-vanilla-bancada-visual-2026-10-11.md). Aizen e aquisição narrativa continuam futuros.
+
 > **Estado vigente — ciclo 23, 07/10/2026:** ciclo 22 homologado pelo usuário. Asauchi independente com selada/Shikai/Bankai, mantendo todas as texturas/modelos e apenas bônus de dano nas liberações; treino válido por forma/técnica e desbloqueios graduais dos kits. Personagens antigos preservam repertório. Aizen permanece futuro. [Contrato operacional, lógica, arquivos, migração e roteiro de testes](23-asauchi-maestria-desbloqueios-2026-10-07.md). As seções abaixo registram os ciclos anteriores; propostas de história continuam abertas.
 
 > **Estado vigente — ciclo 22, 07/10/2026:** restauração do clima agora sincroniza explicitamente os clientes e `/weather clear` corrige chuva visual presa; Ice Dragon Bankai com modelo maior e alcance 24. [Causa, lógica, arquivos, testes e roteiro final](22-clima-sincronizado-dragon-bankai-2026-10-07.md). Demais pontos homologados pelo usuário; encerramento definitivo aguarda este teste visual. Registros anteriores abaixo são históricos.
@@ -86,3 +88,8 @@ Ryujin e Hyōrinmaru novas usam requisitos 0/20/40/60 para H/N/B/C da forma atua
 Troca de teste por operador: /bleachdev zanpakuto bind @s asauchi, ryujin_jakka ou hyorinmaru. Apenas equipar outra espada não troca vínculo. A troca conserva o progresso próprio de cada identidade e volta à selada.
 
 Os modos /bleachdev reiatsu free @s e /bleachdev cooldowns disable @s suspendem o ganho por prática. Para treinar normalmente, use /bleachdev reiatsu restore @s e /bleachdev cooldowns restore @s. Definir maestria não apaga descobertas anteriores. [Roteiro completo e limites](23-asauchi-maestria-desbloqueios-2026-10-07.md).
+
+
+## Ciclo 24 — catálogo vanilla e bancada visual
+
+Ciclo 23 homologado. Use /bleachdev assets list; /bleachdev assets preview frost 1 (também reiatsu, soul, slash, beam, crystal; intensidades 1–3); /bleachdev assets status; /bleachdev assets stop. Requer OP, só envia efeitos ao próprio jogador, expira em cinco segundos e não altera combate, progressão ou mundo. [Catálogo e roteiro 24](24-catalogo-vanilla-bancada-visual-2026-10-11.md). Modelos/texturas catalogados são opções futuras; a bancada atual demonstra partículas, geometria e som.

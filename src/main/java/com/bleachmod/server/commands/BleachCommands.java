@@ -42,6 +42,7 @@ public final class BleachCommands {
                 }
             })));
         var root=literal("bleachdev").requires(s->s.hasPermission(2));
+        AssetBenchCommands.attach(root);
         root.then(literal("zanpakuto").then(literal("bind").then(argument("player",EntityArgument.player())
             .then(argument("identity",StringArgumentType.word())
                 .suggests((ctx,b)->SharedSuggestionProvider.suggest(java.util.List.of("asauchi","ryujin_jakka","hyorinmaru"),b))

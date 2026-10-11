@@ -55,6 +55,8 @@ public final class MasteryGameTests {
     @GameTest(template = "empty", timeoutTicks = 200)
     public static void lockedSlotDoesNotConsumeResourcesAndControlTrainsItsOwnTechnique(GameTestHelper h) {
         var p = player(h); var d = data(p); d.getCharacter().bindZanpakuto("hyorinmaru");
+        // Isolate the selected target from nearby mobs created by parallel long-range kit fixtures.
+        p.setPos(p.getX(), h.getLevel().getMaxBuildHeight() - 8, p.getZ());
         p.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(ModItems.HYORINMARU.get())); var z = target(h, p);
         float before = d.getResources().getCurrentReiatsu(); TechniqueService.executeSlot(p, d, 4);
         h.assertTrue(d.getResources().getCurrentReiatsu() == before && d.getStatus().getTechniqueSlot4CooldownTicks() == 0, "Locked technique consumed resources");

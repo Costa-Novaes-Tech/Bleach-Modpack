@@ -182,5 +182,11 @@
   "ability.bleachmod.ryujin.steam_cut": "Steam Cut",
   "message.bleachmod.asauchi.no_techniques": "Asauchi has no special techniques.",
   "message.bleachmod.technique.mastery_required": "Requires %s mastery in this form.",
-  "hud.bleachmod.asauchi.practice": "Practice with sword attacks"
+  "hud.bleachmod.asauchi.practice": "Practice with sword attacks",
+  "command.bleachmod.assets.list": "Vanilla bench: %s. Use /bleachdev assets preview <effect> [1..3].",
+  "command.bleachmod.assets.started": "Preview %s, intensity %s, for 5 seconds. Visual only.",
+  "command.bleachmod.assets.stopped": "Bench stopped. Previously sent particles fade naturally.",
+  "command.bleachmod.assets.status": "Bench: %s | remaining: %s ticks | requested particles: %s",
+  "command.bleachmod.assets.unknown": "Unknown effect. See /bleachdev assets list.",
+  "command.bleachmod.assets.unavailable": "Bench unavailable: inactive player or session limit reached."
 }

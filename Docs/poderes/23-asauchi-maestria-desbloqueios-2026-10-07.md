@@ -1,3 +1,5 @@
+> **Estado vigente — ciclo 24, 11/10/2026:** Asauchi/maestria do ciclo 23 homologadas pelo usuário. Catálogo vanilla e bancada administrativa de seis presets, três intensidades e duração limitada, sem alterações nos kits ou terreno. [Recursos, arquivos, lógica, limites e roteiro](24-catalogo-vanilla-bancada-visual-2026-10-11.md). Aizen e aquisição narrativa continuam futuros.
+
 # Ciclo 23 — Asauchi independente e prática de maestria
 
 Data: 07/10/2026. Branch exclusiva: Feature-Poderes-bankais.
