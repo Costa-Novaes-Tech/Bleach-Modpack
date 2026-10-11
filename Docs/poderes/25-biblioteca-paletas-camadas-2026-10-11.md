@@ -1,3 +1,5 @@
+> **Estado vigente — ciclo 26, 11/10/2026:** aura e liberação da Hyōrinmaru integradas ao emissor comum com audiência próxima e orçamentos explícitos, preservando a aparência aprovada. Bancada continua privada. [Arquivos, lógica, limites e roteiro](26-integracao-gelo-emissor-comum-2026-10-11.md). Os ciclos anteriores abaixo são históricos; Aizen e narrativa permanecem futuros.
+
 # Ciclo 25 — Biblioteca comum de efeitos e composição
 
 Data: 11/10/2026. Branch: Feature-Poderes-bankais. Continuidade autorizada após a bancada vanilla.

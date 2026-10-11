@@ -16,6 +16,23 @@ import java.util.*;
 public final class MvpRegressionTest {
     private static int count;
     public static void main(String[] args) {
+        test("Approved ice release geometry remains bounded and distinct from the bench", () -> {
+            var origin = new net.minecraft.world.phys.Vec3(17, 65, -9);
+            for (boolean bankai : new boolean[]{false, true}) {
+                int samples = com.bleachmod.common.visual.IceManifestation.releaseSamples(bankai);
+                double sumX = 0, sumZ = 0;
+                for (int i = 0; i < samples; i++) {
+                    var offset = com.bleachmod.common.visual.IceManifestation.releasePoint(origin, bankai, i).subtract(origin);
+                    yes(Math.abs(offset.y - .8) < 1e-9);
+                    yes(Math.abs(offset.x * offset.x + offset.z * offset.z - (bankai ? 9 : 2.25)) < 1e-9);
+                    sumX += offset.x; sumZ += offset.z;
+                }
+                yes(Math.abs(sumX) < 1e-9 && Math.abs(sumZ) < 1e-9);
+                eq(bankai ? 160 : 96, com.bleachmod.common.visual.IceManifestation.releaseBudget(bankai));
+                rejects(() -> com.bleachmod.common.visual.IceManifestation.releasePoint(origin, bankai, samples));
+                rejects(() -> com.bleachmod.common.visual.IceManifestation.releasePoint(origin, bankai, -1));
+            }
+        });
         test("Effect palettes compose twelve bounded profiles and reject invalid definitions", () -> {
             var library = com.bleachmod.common.visual.EffectLibrary.class;
             int profiles = 0;

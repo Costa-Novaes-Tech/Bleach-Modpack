@@ -1,3 +1,5 @@
+> **Estado vigente — ciclo 26, 11/10/2026:** aura e liberação da Hyōrinmaru integradas ao emissor comum com audiência próxima e orçamentos explícitos, preservando a aparência aprovada. Bancada continua privada. [Arquivos, lógica, limites e roteiro](26-integracao-gelo-emissor-comum-2026-10-11.md). Os ciclos anteriores abaixo são históricos; Aizen e narrativa permanecem futuros.
+
 > **Estado vigente — ciclo 25, 11/10/2026:** biblioteca comum com paletas fire/ice/reiatsu e formas aura/cut/beam/release; camadas compartilham orçamento. Bancada anterior preservada; nenhuma mudança nos kits homologados. [API, arquivos, limites e comparação](25-biblioteca-paletas-camadas-2026-10-11.md). Escolha visual e integração em produção são próximos gates; Aizen e narrativa continuam futuros.
 
 > **Estado vigente — ciclo 24, 11/10/2026:** Asauchi/maestria do ciclo 23 homologadas pelo usuário. Catálogo vanilla e bancada administrativa de seis presets, três intensidades e duração limitada, sem alterações nos kits ou terreno. [Recursos, arquivos, lógica, limites e roteiro](24-catalogo-vanilla-bancada-visual-2026-10-11.md). Aizen e aquisição narrativa continuam futuros.
@@ -345,3 +347,7 @@ Validação do ciclo 24: **62 regressões / 46 GameTests**, check e build aprova
 Use /bleachdev assets palettes e /bleachdev assets compose ice aura 2. Paletas fire/ice/reiatsu; formas aura/cut/beam/release; intensidades 1–3. Uma composição local de cinco segundos substitui a anterior e compartilha orçamento entre material, acento e resíduo. Presets antigos permanecem; poderes existentes intactos. [Contrato, arquivos e roteiro](25-biblioteca-paletas-camadas-2026-10-11.md).
 
 Validação do ciclo 25: **63 regressões / 48 GameTests**, check e build aprovados; escolha visual das composições pendente do usuário.
+
+## Continuidade — ciclo 26
+
+Integração em produção da aura e liberação de gelo: emissão compartilhada por lotes, mesma densidade/forma anterior e receptores próximos na mesma dimensão. Consulte o [relatório do ciclo 26](26-integracao-gelo-emissor-comum-2026-10-11.md) para arquivos, lógica, limites e testes. A próxima migração será escolhida após comparação em jogo; efeitos experimentais da bancada continuam separados dos kits.

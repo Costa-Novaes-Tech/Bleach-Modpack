@@ -18,6 +18,42 @@ public final class AssetBenchGameTests {
         h.getLevel().getChunkAt(BlockPos.containing(p.position().add(0, 0, 10))); return p;
     }
     @GameTest(template = "empty")
+    public static void productionAudienceAndBatchBudgetAreBounded(GameTestHelper h) {
+        var p = player(h); var q = player(h); q.setPos(p.getX() + 2, p.getY(), p.getZ());
+        var position = p.position().add(0, 1, 0);
+        var frame = com.bleachmod.common.visual.VisualFrame.nearby(p, 10);
+        h.assertTrue(frame.includes(p, position) && frame.includes(q, position), "Nearby audience excluded players");
+        h.assertTrue(!new com.bleachmod.common.visual.VisualFrame(p, h.getLevel()).includes(q, position), "Private bench leaked to another player");
+        q.setPos(p.getX() + 33, p.getY(), p.getZ());
+        h.assertTrue(!frame.includes(q, position), "Distant recipient accepted");
+        var snow = net.minecraft.core.particles.ParticleTypes.SNOWFLAKE;
+        h.assertTrue(!frame.emit(snow, position, 0, .2, .8, .2, .08), "Invalid batch accepted");
+        h.assertTrue(!frame.emit(snow, position, 4, .2, Double.NaN, .2, .08), "Invalid axis accepted");
+        h.assertTrue(frame.emit(snow, position, 8, .2, .8, .2, .08), "Valid batch rejected");
+        h.assertTrue(!frame.emit(snow, position, 4, .2, .8, .2, .08) && frame.requested() == 8, "Overflow batch partially emitted");
+        h.assertTrue(frame.emit(snow, position, 2, .2, .8, .2, .08) && frame.requested() == 10, "Remaining budget unavailable");
+        // FakePlayer ignores normal damage/kill; set the fixture's health directly.
+        p.setHealth(0);
+        h.assertTrue(!com.bleachmod.common.visual.VisualFrame.nearby(p, 10).emit(snow, position, .2, .08), "Dead source emitted particles");
+        h.succeed();
+    }
+    @GameTest(template = "empty")
+    public static void approvedIceManifestationsKeepDensityAndDoNotMutateGameplay(GameTestHelper h) {
+        var p = player(h); var data = PlayerCapability.get(p).orElseThrow(() -> new IllegalStateException("Missing capability")); data.initializeShinigami();
+        for (int i = 0; i < 40; i++) h.getLevel().getChunkAt(BlockPos.containing(com.bleachmod.common.visual.IceManifestation.releasePoint(p.position(), true, i)));
+        var before = data.save(); var pos = BlockPos.containing(p.position()); var block = h.getLevel().getBlockState(pos);
+        h.assertTrue(com.bleachmod.common.visual.IceManifestation.release(p, false) == 96, "Shikai density changed");
+        h.assertTrue(com.bleachmod.common.visual.IceManifestation.release(p, true) == 160, "Bankai density changed");
+        h.assertTrue(com.bleachmod.common.visual.IceManifestation.aura(p, false) == 4, "Shikai aura changed");
+        h.assertTrue(com.bleachmod.common.visual.IceManifestation.aura(p, true) == 10, "Bankai aura changed");
+        h.assertTrue(before.equals(data.save()) && block.equals(h.getLevel().getBlockState(pos)), "Visual emission mutated gameplay");
+        var other = new FakePlayer(p.getServer().getLevel(net.minecraft.world.level.Level.NETHER), new GameProfile(UUID.randomUUID(), "OtherWorld"));
+        other.setPos(p.getX(), p.getY(), p.getZ());
+        h.assertTrue(!com.bleachmod.common.visual.VisualFrame.nearby(p, 10).includes(other, p.position()), "Cross-dimension recipient accepted");
+        h.assertTrue(!new com.bleachmod.common.visual.VisualFrame(other, h.getLevel()).emit(net.minecraft.core.particles.ParticleTypes.SNOWFLAKE, p.position(), .2, .08), "Cross-dimension source emitted");
+        h.succeed();
+    }
+    @GameTest(template = "empty")
     public static void compositionSharesTheBudgetAndRejectsInvalidChanges(GameTestHelper h) {
         var p = player(h); var data = PlayerCapability.get(p).orElseThrow(() -> new IllegalStateException("Missing capability")); data.initializeShinigami();
         var before = data.save(); var dispatcher = p.getServer().getCommands().getDispatcher();
