@@ -1,3 +1,5 @@
+> **Estado vigente — ciclo 27, 11/10/2026:** cortes, barreira, Zona Glacial, impacto de controle e trilha do dragão da Hyōrinmaru usam o emissor comum, mantendo aparência e combate. [Arquivos, lógica, valores e testes](27-migracao-slots-gelo-2026-10-11.md). Clima e terreno conservam sua lógica; registros abaixo são históricos.
+
 # Ciclo 26 — Primeira integração visual em produção
 
 Data: 11/10/2026. Branch: Feature-Poderes-bankais.

@@ -16,6 +16,30 @@ import java.util.*;
 public final class MvpRegressionTest {
     private static int count;
     public static void main(String[] args) {
+        test("Ice slot profiles preserve combat ranges and cover the whole glacial disk", () -> {
+            for (int slot = 1; slot <= 2; slot++) {
+                var sealed = new com.bleachmod.common.visual.IceTechniqueVisuals.Cut(slot, false, false);
+                eq(6.0, sealed.range()); eq(120, sealed.budget());
+            }
+            var narrow = new com.bleachmod.common.visual.IceTechniqueVisuals.Cut(1, true, true);
+            eq(24.0, narrow.range()); eq(1056, narrow.budget());
+            eq(352, new com.bleachmod.common.visual.IceTechniqueVisuals.Cut(2, true, true).budget());
+            eq(320, new com.bleachmod.common.visual.IceTechniqueVisuals.Cut(1, true, false).budget());
+            eq(192, new com.bleachmod.common.visual.IceTechniqueVisuals.Cut(2, true, false).budget());
+            rejects(() -> new com.bleachmod.common.visual.IceTechniqueVisuals.Cut(3, true, true));
+            rejects(() -> new com.bleachmod.common.visual.IceTechniqueVisuals.Cut(1, false, true));
+            var origin = new net.minecraft.world.phys.Vec3(19, 70, 23);
+            var forward = new net.minecraft.world.phys.Vec3(0, 0, 1);
+            double minRadius = 30, maxRadius = 0;
+            for (int i = 0; i < 64; i++) {
+                var delta = com.bleachmod.common.visual.IceTechniqueVisuals.fieldPoint(origin, forward, false, true, 30, i, 100).subtract(origin);
+                double radius = Math.sqrt(delta.x * delta.x + delta.z * delta.z);
+                minRadius = Math.min(minRadius, radius); maxRadius = Math.max(maxRadius, radius);
+                yes(radius <= 30 && Math.abs(delta.y - 1.2) < 1e-9);
+            }
+            yes(minRadius < 3 && maxRadius > 29);
+            rejects(() -> com.bleachmod.common.visual.IceTechniqueVisuals.fieldPoint(origin, forward, false, true, Double.NaN, 0, 0));
+        });
         test("Approved ice release geometry remains bounded and distinct from the bench", () -> {
             var origin = new net.minecraft.world.phys.Vec3(17, 65, -9);
             for (boolean bankai : new boolean[]{false, true}) {

@@ -1,3 +1,5 @@
+> **Estado vigente — ciclo 27, 11/10/2026:** cortes, barreira, Zona Glacial, impacto de controle e trilha do dragão da Hyōrinmaru usam o emissor comum, mantendo aparência e combate. [Arquivos, lógica, valores e testes](27-migracao-slots-gelo-2026-10-11.md). Clima e terreno conservam sua lógica; registros abaixo são históricos.
+
 > **Estado vigente — ciclo 26, 11/10/2026:** aura e liberação da Hyōrinmaru integradas ao emissor comum com audiência próxima e orçamentos explícitos, preservando a aparência aprovada. Bancada continua privada. [Arquivos, lógica, limites e roteiro](26-integracao-gelo-emissor-comum-2026-10-11.md). Os ciclos anteriores abaixo são históricos; Aizen e narrativa permanecem futuros.
 
 > **Estado vigente — ciclo 25, 11/10/2026:** biblioteca comum com paletas fire/ice/reiatsu e formas aura/cut/beam/release; camadas compartilham orçamento. Bancada anterior preservada; nenhuma mudança nos kits homologados. [API, arquivos, limites e comparação](25-biblioteca-paletas-camadas-2026-10-11.md). Escolha visual e integração em produção são próximos gates; Aizen e narrativa continuam futuros.
@@ -121,3 +123,6 @@ Validação do ciclo 25: **63 regressões / 48 GameTests**, check e build aprova
 ## Continuidade — ciclo 26
 
 Integração em produção da aura e liberação de gelo: emissão compartilhada por lotes, mesma densidade/forma anterior e receptores próximos na mesma dimensão. Consulte o [relatório do ciclo 26](26-integracao-gelo-emissor-comum-2026-10-11.md) para arquivos, lógica, limites e testes. A próxima migração será escolhida após comparação em jogo; efeitos experimentais da bancada continuam separados dos kits.
+## Continuidade — ciclo 27
+
+Concluída a migração visual dos slots de gelo e da trilha do dragão para a biblioteca comum. As densidades e os valores de combate são os mesmos; a origem de campo/entidade determina o espaço de emissão, sem depender do deslocamento do conjurador. Consulte o [relatório do ciclo 27](27-migracao-slots-gelo-2026-10-11.md) para o passo a passo técnico e o roteiro de homologação. A revisão de treino de maestria e feedback do HUD é a próxima etapa após validação desta migração.

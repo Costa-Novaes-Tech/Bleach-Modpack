@@ -18,6 +18,52 @@ public final class AssetBenchGameTests {
         h.getLevel().getChunkAt(BlockPos.containing(p.position().add(0, 0, 10))); return p;
     }
     @GameTest(template = "empty")
+    public static void migratedCutsAndFieldsRetainFullDensityWithoutGameplayMutation(GameTestHelper h) {
+        var p = player(h); var forward = new net.minecraft.world.phys.Vec3(0, 0, 1);
+        var data = PlayerCapability.get(p).orElseThrow(() -> new IllegalStateException("Missing capability")); data.initializeShinigami();
+        var before = data.save();
+        // Load the fixture explicitly, never through the production emitter.
+        for (int x = -32; x <= 32; x += 8) for (int z = -32; z <= 32; z += 8)
+            h.getLevel().getChunkAt(BlockPos.containing(p.position().add(x, 0, z)));
+        for (boolean released : new boolean[]{false, true}) for (boolean bankai : new boolean[]{false, true}) {
+            if (bankai && !released) continue;
+            for (int slot = 1; slot <= 2; slot++) {
+                var cut = new com.bleachmod.common.visual.IceTechniqueVisuals.Cut(slot, released, bankai);
+                h.assertTrue(com.bleachmod.common.visual.IceTechniqueVisuals.cut(p, cut, forward) == cut.budget(), "Cut clipped particles");
+            }
+        }
+        for (boolean barrier : new boolean[]{false, true}) for (boolean bankai : new boolean[]{false, true}) {
+            int expected = barrier ? (bankai ? 224 : 128) : (bankai ? 896 : 256);
+            h.assertTrue(com.bleachmod.common.visual.IceTechniqueVisuals.field(p, p.position(), forward, barrier, bankai, bankai ? 30 : 10, 100) == expected, "Field clipped particles");
+        }
+        h.assertTrue(com.bleachmod.common.visual.IceTechniqueVisuals.duel(p, p.position().add(0, 0, 3)) == 45, "Duel burst changed");
+        h.assertTrue(data.save().equals(before), "Visual profiles changed character resources or progression"); h.succeed();
+    }
+    @GameTest(template = "empty")
+    public static void techniqueAnchorPreservesFixedFieldsAndRejectsOverflow(GameTestHelper h) {
+        var p = player(h); var anchor = p.position(); var point = anchor.add(0, 1, 0);
+        h.getLevel().getChunkAt(BlockPos.containing(point));
+        p.setPos(p.getX() + 40, p.getY(), p.getZ());
+        var frame = com.bleachmod.common.visual.VisualFrame.technique(p, anchor, 896);
+        var snow = net.minecraft.core.particles.ParticleTypes.SNOWFLAKE;
+        h.assertTrue(!frame.emit(snow, point, 897, .6, 2, .6, .04) && frame.requested() == 0, "Technique overflow accepted");
+        h.assertTrue(frame.emit(snow, point, 896, .6, 2, .6, .04), "Owner movement clipped fixed field");
+        h.assertTrue(!frame.emit(snow, point, .1, .01), "Additional layer bypassed technique budget");
+        h.assertTrue(!new com.bleachmod.common.visual.VisualFrame(p, h.getLevel()).emit(snow, p.position(), 1, .1, 2, .1, .01), "Technique spread leaked into private bench contract");
+        var moving = com.bleachmod.common.visual.VisualFrame.technique(p, anchor, 10);
+        h.assertTrue(!moving.emit(snow, anchor.add(33, 0, 0), .1, .01), "Distant point bypassed anchor range");
+        h.assertTrue(!moving.emit(snow, point, 1, .1, 6.1, .1, .01), "Excessive spread accepted"); h.succeed();
+    }
+    @GameTest(template = "empty")
+    public static void dragonTrailKeepsItsOwnPositionAndStopsWithInvalidCaster(GameTestHelper h) {
+        var p = player(h); var dragonPosition = p.position().add(0, 1.2, 0);
+        h.getLevel().getChunkAt(BlockPos.containing(dragonPosition));
+        p.setPos(p.getX() + 40, p.getY(), p.getZ());
+        h.assertTrue(com.bleachmod.common.visual.IceTechniqueVisuals.dragon(p, dragonPosition) == 10, "Moving caster clipped dragon trail");
+        p.setHealth(0);
+        h.assertTrue(com.bleachmod.common.visual.IceTechniqueVisuals.dragon(p, dragonPosition) == 0, "Dead caster left trail active"); h.succeed();
+    }
+    @GameTest(template = "empty")
     public static void productionAudienceAndBatchBudgetAreBounded(GameTestHelper h) {
         var p = player(h); var q = player(h); q.setPos(p.getX() + 2, p.getY(), p.getZ());
         var position = p.position().add(0, 1, 0);

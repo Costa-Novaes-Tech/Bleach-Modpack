@@ -5,7 +5,7 @@ import com.bleachmod.common.data.*;
 import com.bleachmod.common.evolution.TransformationsHelper;
 import com.bleachmod.common.network.SyncHelper;
 import com.bleachmod.init.ModItems;
-import net.minecraft.core.particles.ParticleTypes;
+import com.bleachmod.common.visual.IceTechniqueVisuals;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -85,8 +85,9 @@ public final class HyorinmaruTechniqueService {
         SyncHelper.resources(player);
     }
     private static void strike(ServerPlayer p, int slot, boolean released, boolean bankai, Vec3 forward) {
-        double range = !released ? 6 : slot == 1 ? (bankai ? 24 : 10) : (bankai ? 8 : 6);
-        double halfAngle = slot == 1 ? Math.toRadians(15) : Math.toRadians(35);
+        var visual = new IceTechniqueVisuals.Cut(slot, released, bankai);
+        double range = visual.range();
+        double halfAngle = visual.halfAngle();
         for (LivingEntity target : p.serverLevel().getEntitiesOfClass(LivingEntity.class, p.getBoundingBox().inflate(range),
                 e -> TechniqueTargets.allowed(p, e))) {
             Vec3 delta = target.position().subtract(p.position());
@@ -100,14 +101,7 @@ public final class HyorinmaruTechniqueService {
                 else target.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 40, 0));
             }
         }
-        for (double step = 0.5; step <= range; step += 0.5) {
-            Vec3 point = p.position().add(forward.scale(step)).add(0, 1, 0);
-            if (!p.serverLevel().hasChunkAt(net.minecraft.core.BlockPos.containing(point))) continue;
-            p.serverLevel().sendParticles(ParticleTypes.SNOWFLAKE,
-                    point.x, point.y, point.z, bankai ? 18 : released ? 12 : 8, slot == 1 ? 0.3 : step * Math.tan(halfAngle), 0.6, 0.25, 0.04);
-            p.serverLevel().sendParticles(new net.minecraft.core.particles.DustParticleOptions(new org.joml.Vector3f(0.45F, 0.85F, 1), bankai ? 1.6F : 1),
-                    point.x, point.y, point.z, released ? 4 : 2, 0.2, 0.4, 0.2, 0.01);
-        }
+        IceTechniqueVisuals.cut(p, visual, forward);
         p.serverLevel().playSound(null, p.blockPosition(), net.minecraft.sounds.SoundEvents.PLAYER_ATTACK_SWEEP, p.getSoundSource(), 0.8F, 0.8F);
         if (released && slot == 1) {
             var old = DRAGONS.remove(p.getUUID()); if (old != null) old.discard();
@@ -124,7 +118,7 @@ public final class HyorinmaruTechniqueService {
         if (target == null) return;
         IceControlService.chill(p, target, 60, 3, 4);
         target.push(forward.x * 0.45, 0.1, forward.z * 0.45); target.hurtMarked = true;
-        p.serverLevel().sendParticles(ParticleTypes.SNOWFLAKE, target.getX(), target.getY() + 1, target.getZ(), 45, 0.5, 0.8, 0.5, 0.05);
+        IceTechniqueVisuals.duel(p, target.position());
     }
     public static void tick(ServerPlayer p, PlayerData d) {
         IceArmorService.tick(p); BlizzardWeatherData.tickCaster(p, d);
@@ -138,16 +132,8 @@ public final class HyorinmaruTechniqueService {
             return; // Field expiration must not cancel independent Bankai weather or armor.
         }
         if (time % 4 == 0) {
-            int samples = f.barrier ? 16 : f.bankai ? 64 : 32;
             double zoneRadius = f.bankai ? BANKAI_ZONE_RADIUS : SHIKAI_ZONE_RADIUS;
-            for (int i = 0; i < samples; i++) {
-                double angle = i * 2.399963229728653 + time * 0.07;
-                double radius = zoneRadius * Math.sqrt((i + 0.5) / samples);
-                Vec3 point = f.barrier ? f.origin.add(-f.forward.z * (i / 2.5 - 3), (i % 4) * 0.8, f.forward.x * (i / 2.5 - 3))
-                        : f.origin.add(Math.cos(angle) * radius, 0.2, Math.sin(angle) * radius);
-                if (p.serverLevel().hasChunkAt(net.minecraft.core.BlockPos.containing(point)))
-                    p.serverLevel().sendParticles(ParticleTypes.SNOWFLAKE, point.x, point.y + (f.bankai ? 1 : 0.5), point.z, f.bankai ? 14 : 8, 0.6, f.bankai ? 2 : 0.8, 0.6, 0.04);
-            }
+            IceTechniqueVisuals.field(p, f.origin, f.forward, f.barrier, f.bankai, zoneRadius, time);
             if (!f.barrier) snowPatches(p, f, zoneRadius);
         }
         if (time % 10 != 0) return;
