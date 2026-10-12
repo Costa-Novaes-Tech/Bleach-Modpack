@@ -1,3 +1,5 @@
+> **Estado vigente — ciclo 30, 12/10/2026:** primeira fatia de Combat State automático, indicador no HUD e limpeza transitória, sem mudar regeneração/stamina/atributos. [Lógica, arquivos, timeout provisório e testes](30-estado-combate-2026-10-12.md). Protocolo 2.7; schema 5 preservado. Combat Mode/hotbar seguem futuros; registros anteriores abaixo são históricos.
+
 > **Estado vigente — ciclo 29, 12/10/2026:** ciclos anteriores homologados pelo usuário. Definições comuns dos 24 slots/formas de Ryujin e Hyōrinmaru consultadas por execução, acesso e HUD; valores preservados. [Arquivos, lógica e validação](29-definicoes-compartilhadas-2026-10-12.md) · [Contrato para novos poderes](contrato-criacao-novos-poderes.md). Registros anteriores abaixo são históricos; nova feature será discutida antes de outro kit.
 
 > **Estado vigente — ciclo 28, 11/10/2026:** feedback de maestria sem arredondar limiares, avisos de novas liberações pelo treino, distinção de descoberta/compra/disponibilidade e indicação de treino suspenso em modo teste. [Arquivos, lógica e roteiros de visuais/maestria](28-feedback-maestria-roteiro-2026-10-11.md). Ganhos e requisitos preservados; ciclos abaixo são históricos.
@@ -136,3 +138,6 @@ HUD e menu de vínculo agora distinguem progresso fracionário, domínio individ
 ## Continuidade — ciclo 29
 
 Usuário homologou visuais, persistência e maestria. Executor, acesso e HUD agora consultam as 24 definições de Ryujin/Hyōrinmaru. Ignição possui consumo contínuo separado do custo inicial; Asauchi continua sem slots. Consulte o [relatório](29-definicoes-compartilhadas-2026-10-12.md) e o [contrato para novos poderes](contrato-criacao-novos-poderes.md). A próxima feature será discutida antes de retomar outra habilidade/Bankai; narrativa e Aizen seguem futuros.
+## Continuidade — ciclo 30
+
+Dano aceito entre entidades vivas ativa/renova o estado automático de combate do jogador. O indicador acompanha snapshot do servidor; estado expira após 200 ticks sem conflito ou ao limpar lifecycle. Não altera hotbar, regen, stamina ou habilidades. Consulte o [relatório do ciclo 30](30-estado-combate-2026-10-12.md); cliente/servidor exigem protocolo 2.7.

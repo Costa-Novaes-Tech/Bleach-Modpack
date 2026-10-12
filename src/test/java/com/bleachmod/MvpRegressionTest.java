@@ -16,6 +16,18 @@ import java.util.*;
 public final class MvpRegressionTest {
     private static int count;
     public static void main(String[] args) {
+        test("Combat state expires, refreshes and stays absent from persistent saves", () -> {
+            var status = new StatusData(); status.refreshCombat(200);
+            for (int i = 0; i < 199; i++) status.tickTransientState(); yes(status.isInCombat());
+            status.refreshCombat(200); eq(200, status.getCombatTicks());
+            var client = new StatusData(); client.readTechniqueHud(status.techniqueHud()); yes(client.isHudInCombat());
+            for (int i = 0; i < 200; i++) status.tickTransientState(); yes(!status.isInCombat());
+            client.readTechniqueHud(status.techniqueHud()); yes(!client.isHudInCombat());
+            status.refreshCombat(200); yes(!status.save().contains("combatTicks"));
+            status.clearTransformationState(); eq(200, status.getCombatTicks());
+            status.load(status.save()); yes(!status.isInCombat());
+            status.refreshCombat(200); status.clearTransientState(); yes(!status.isInCombat());
+        });
         test("Shared technique definitions preserve all homologated costs and cooldowns", () -> {
             var definitions = com.bleachmod.common.technique.TechniqueDefinitions.all(); eq(24, definitions.size());
             Set<String> unique = new HashSet<>();

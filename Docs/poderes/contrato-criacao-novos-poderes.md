@@ -1,3 +1,5 @@
+> **Estado vigente — ciclo 30, 12/10/2026:** primeira fatia de Combat State automático, indicador no HUD e limpeza transitória, sem mudar regeneração/stamina/atributos. [Lógica, arquivos, timeout provisório e testes](30-estado-combate-2026-10-12.md). Protocolo 2.7; schema 5 preservado. Combat Mode/hotbar seguem futuros; registros anteriores abaixo são históricos.
+
 # Contrato operacional — criação e homologação de novos poderes
 
 Versão inicial consolidada em 12/10/2026, ciclo 29. Complementa o [contrato de identidade, vínculo e maestria](16-contrato-identidade-vinculo-maestria-zanpakuto.md), os kits homologados e as definições compartilhadas. Não aprova automaticamente um novo personagem ou conjunto.

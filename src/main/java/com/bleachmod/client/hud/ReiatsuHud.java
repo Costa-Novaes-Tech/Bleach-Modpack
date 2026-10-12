@@ -46,6 +46,8 @@ public final class ReiatsuHud {
         int panelSrcH = BleachTextures.HUD_SRC_H;
         int x = panel.x();
         int y = panel.y();
+        if (data.getStatus().isHudInCombat())
+            g.drawString(mc.font, Component.translatable("hud.bleachmod.combat.active"), x, y + panel.height() + 3, 0xF2A06B, true);
 
         // Panel base (hud_panel_full.png) drawn at scale.
         g.pose().pushPose();

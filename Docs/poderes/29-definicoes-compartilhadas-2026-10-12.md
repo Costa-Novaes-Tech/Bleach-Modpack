@@ -1,3 +1,5 @@
+> **Estado vigente — ciclo 30, 12/10/2026:** primeira fatia de Combat State automático, indicador no HUD e limpeza transitória, sem mudar regeneração/stamina/atributos. [Lógica, arquivos, timeout provisório e testes](30-estado-combate-2026-10-12.md). Protocolo 2.7; schema 5 preservado. Combat Mode/hotbar seguem futuros; registros anteriores abaixo são históricos.
+
 # Ciclo 29 — Definições comuns e contrato para novos poderes
 
 Data: 12/10/2026. Branch: Feature-Poderes-bankais. Usuário homologou visuais, persistência e maestria dos ciclos anteriores; autorizou os três passos de consolidação.
