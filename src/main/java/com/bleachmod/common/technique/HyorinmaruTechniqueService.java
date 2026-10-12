@@ -20,8 +20,6 @@ public final class HyorinmaruTechniqueService {
                          net.minecraft.resources.ResourceKey<net.minecraft.world.level.Level> dimension, long expires) { }
     private static final Map<UUID, Field> FIELDS = new HashMap<>();
     private static final Map<UUID, com.bleachmod.entity.IceDragonEntity> DRAGONS = new HashMap<>();
-    private static final int[] COOLDOWNS = {100, 160, 240, 300};
-    private static final float[] COSTS = {15, 20, 25, 30};
     public static final int SHIKAI_ZONE_RADIUS = 10, BANKAI_ZONE_RADIUS = 30;
     private HyorinmaruTechniqueService() { }
     public static void cancel(ServerPlayer player) {
@@ -60,15 +58,16 @@ public final class HyorinmaruTechniqueService {
             player.displayClientMessage(Component.translatable("message.bleachmod.technique.cooldown", (cooldown + 19) / 20), true); return;
         }
         boolean bankai = Reference.FORM_BANKAI.equals(form);
-        float cost = released ? COSTS[slot - 1] + (bankai ? 5 : 0) : switch (slot) { case 3 -> 12; case 4 -> 18; default -> 8; };
+        var definition = TechniqueDefinitions.require(CharacterData.HYORINMARU, form, slot);
+        float cost = definition.cost();
         if (!data.getResources().consumeReiatsu(cost)) {
             player.displayClientMessage(Component.translatable("message.bleachmod.technique.no_reiatsu", (int) cost), true); return;
         }
         switch (slot) {
-            case 1 -> status.setTechniqueSlot1CooldownTicks(COOLDOWNS[0]);
-            case 2 -> status.setTechniqueSlot2CooldownTicks(COOLDOWNS[1]);
-            case 3 -> status.setTechniqueSlot3CooldownTicks(COOLDOWNS[2]);
-            case 4 -> status.setTechniqueSlot4CooldownTicks(COOLDOWNS[3]);
+            case 1 -> status.setTechniqueSlot1CooldownTicks(definition.cooldownTicks());
+            case 2 -> status.setTechniqueSlot2CooldownTicks(definition.cooldownTicks());
+            case 3 -> status.setTechniqueSlot3CooldownTicks(definition.cooldownTicks());
+            case 4 -> status.setTechniqueSlot4CooldownTicks(definition.cooldownTicks());
         }
         Vec3 forward = Vec3.directionFromRotation(0, player.getYRot());
         if (slot <= 2) strike(player, slot, released, bankai, forward);

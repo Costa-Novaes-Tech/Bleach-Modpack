@@ -1,3 +1,5 @@
+> **Estado vigente — ciclo 29, 12/10/2026:** ciclos anteriores homologados pelo usuário. Definições comuns dos 24 slots/formas de Ryujin e Hyōrinmaru consultadas por execução, acesso e HUD; valores preservados. [Arquivos, lógica e validação](29-definicoes-compartilhadas-2026-10-12.md) · [Contrato para novos poderes](contrato-criacao-novos-poderes.md). Registros anteriores abaixo são históricos; nova feature será discutida antes de outro kit.
+
 # Ciclo 28 — Feedback de maestria e roteiro de homologação
 
 Data: 11/10/2026. Branch: Feature-Poderes-bankais. Continuidade autorizada enquanto o usuário testa os visuais.

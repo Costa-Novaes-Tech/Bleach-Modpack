@@ -1,3 +1,5 @@
+> **Estado vigente — ciclo 29, 12/10/2026:** ciclos anteriores homologados pelo usuário. Definições comuns dos 24 slots/formas de Ryujin e Hyōrinmaru consultadas por execução, acesso e HUD; valores preservados. [Arquivos, lógica e validação](29-definicoes-compartilhadas-2026-10-12.md) · [Contrato para novos poderes](contrato-criacao-novos-poderes.md). Registros anteriores abaixo são históricos; nova feature será discutida antes de outro kit.
+
 > **Estado vigente — ciclo 28, 11/10/2026:** feedback de maestria sem arredondar limiares, avisos de novas liberações pelo treino, distinção de descoberta/compra/disponibilidade e indicação de treino suspenso em modo teste. [Arquivos, lógica e roteiros de visuais/maestria](28-feedback-maestria-roteiro-2026-10-11.md). Ganhos e requisitos preservados; ciclos abaixo são históricos.
 
 > **Estado vigente — ciclo 27, 11/10/2026:** cortes, barreira, Zona Glacial, impacto de controle e trilha do dragão da Hyōrinmaru usam o emissor comum, mantendo aparência e combate. [Arquivos, lógica, valores e testes](27-migracao-slots-gelo-2026-10-11.md). Clima e terreno conservam sua lógica; registros abaixo são históricos.
@@ -131,3 +133,6 @@ Concluída a migração visual dos slots de gelo e da trilha do dragão para a b
 ## Continuidade — ciclo 28
 
 HUD e menu de vínculo agora distinguem progresso fracionário, domínio individual da técnica, descoberta e compra da forma. Prática válida avisa novas liberações; modo gratuito indica treino suspenso. Ganhos, custos e requisitos anteriores permanecem. O [relatório do ciclo 28](28-feedback-maestria-roteiro-2026-10-11.md) reúne arquivos, lógica e dois roteiros separados: visuais com modo administrativo e treino com custos/cooldowns normais.
+## Continuidade — ciclo 29
+
+Usuário homologou visuais, persistência e maestria. Executor, acesso e HUD agora consultam as 24 definições de Ryujin/Hyōrinmaru. Ignição possui consumo contínuo separado do custo inicial; Asauchi continua sem slots. Consulte o [relatório](29-definicoes-compartilhadas-2026-10-12.md) e o [contrato para novos poderes](contrato-criacao-novos-poderes.md). A próxima feature será discutida antes de retomar outra habilidade/Bankai; narrativa e Aizen seguem futuros.

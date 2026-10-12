@@ -26,20 +26,20 @@ import java.util.UUID;
 public final class TechniqueService {
     public static final int SLOT_1 = 1;
     public static final int SLOT_2 = 2;
-    public static final float IGNITION_DRAIN_PER_TICK = 0.05F;
+    public static final float IGNITION_DRAIN_PER_TICK = TechniqueDefinitions.require("ryujin_jakka", "sealed", 1).drainPerTick();
     public static final float IGNITION_ZANJUTSU_BONUS = 0.15F;
     public static final int IGNITION_FIRE_SECONDS = 3;
 
-    public static final float FLAME_DASH_COST = 20.0F;
-    public static final int FLAME_DASH_COOLDOWN_TICKS = 100;
+    public static final float FLAME_DASH_COST = TechniqueDefinitions.require("ryujin_jakka", "bankai", 1).cost();
+    public static final int FLAME_DASH_COOLDOWN_TICKS = TechniqueDefinitions.require("ryujin_jakka", "bankai", 1).cooldownTicks();
     /** Approximately 20 blocks when the full dash completes without collision. */
     public static final int FLAME_DASH_DURATION_TICKS = 16;
     public static final double FLAME_DASH_SPEED = 1.25D;
     public static final float FLAME_DASH_CONTACT_DAMAGE = 4.0F;
     public static final int FLAME_DASH_CONTACT_FIRE_SECONDS = 2;
 
-    public static final float FLAME_BARRAGE_COST = 15.0F;
-    public static final int FLAME_BARRAGE_COOLDOWN_TICKS = 4 * 20;
+    public static final float FLAME_BARRAGE_COST = TechniqueDefinitions.require("ryujin_jakka", "sealed", 2).cost();
+    public static final int FLAME_BARRAGE_COOLDOWN_TICKS = TechniqueDefinitions.require("ryujin_jakka", "sealed", 2).cooldownTicks();
     public static final double FLAME_BARRAGE_RANGE = 8.0D;
     public static final double FLAME_BARRAGE_HALF_ANGLE_RADIANS = Math.PI / 6.0D;
     public static final float FLAME_BARRAGE_DAMAGE = 4.0F;
@@ -47,7 +47,7 @@ public final class TechniqueService {
     public static final int FLAME_BARRAGE_GROUND_DURATION_TICKS = 3 * 20;
     public static final float FLAME_BARRAGE_GROUND_DAMAGE = 1.0F;
 
-    public static final float FLAME_FAN_COST = 25.0F;
+    public static final float FLAME_FAN_COST = TechniqueDefinitions.require("ryujin_jakka", "bankai", 2).cost();
     public static final double FLAME_FAN_RANGE = 14.0D;
     public static final double FLAME_FAN_HALF_ANGLE_RADIANS = Math.PI / 4.0D;
     public static final float FLAME_FAN_DAMAGE = 8.0F;
@@ -56,8 +56,8 @@ public final class TechniqueService {
     public static final float FLAME_FAN_GROUND_DAMAGE = 1.0F;
 
     public static final int SLOT_4 = 4;
-    public static final float STEAM_CUT_COST = 45.0F;
-    public static final int STEAM_CUT_COOLDOWN_TICKS = 60 * 20;
+    public static final float STEAM_CUT_COST = TechniqueDefinitions.require("ryujin_jakka", "bankai", 4).cost();
+    public static final int STEAM_CUT_COOLDOWN_TICKS = TechniqueDefinitions.require("ryujin_jakka", "bankai", 4).cooldownTicks();
     public static final double STEAM_CUT_RANGE = 100.0D;
     /** 25 degrees total horizontal opening, represented by a 12.5 degree half-angle. */
     public static final double STEAM_CUT_HALF_ANGLE_RADIANS = Math.toRadians(12.5D);
@@ -119,6 +119,7 @@ public final class TechniqueService {
     }
 
     private static void executeConcentratedSteamCut(ServerPlayer player, PlayerData data) {
+        var definition = TechniqueDefinitions.require(data.getCharacter().getZanpakutoIdentity(), data.getCharacter().getActiveForm(), 4);
         if (!isRyujinJakkaEquipped(player)) {
             sendFeedback(player, Component.translatable("message.bleachmod.technique.requires_ryujin_jakka"));
             return;
@@ -128,13 +129,13 @@ public final class TechniqueService {
                     formatSeconds(data.getStatus().getTechniqueSlot4CooldownTicks())));
             return;
         }
-        if (!data.getResources().consumeReiatsu(STEAM_CUT_COST)) {
+        if (!data.getResources().consumeReiatsu(definition.cost())) {
             sendFeedback(player, Component.translatable("message.bleachmod.technique.no_reiatsu",
-                    (int) STEAM_CUT_COST));
+                    (int) definition.cost()));
             return;
         }
 
-        data.getStatus().setTechniqueSlot4CooldownTicks(STEAM_CUT_COOLDOWN_TICKS);
+        data.getStatus().setTechniqueSlot4CooldownTicks(definition.cooldownTicks());
         applyConcentratedSteamCut(player);
         sendFeedback(player, Component.translatable("message.bleachmod.technique.steam_cut"));
         syncResources(player, data);
@@ -226,6 +227,7 @@ public final class TechniqueService {
     }
 
     private static void executeFlameFan(ServerPlayer player, PlayerData data) {
+        var definition = TechniqueDefinitions.require(data.getCharacter().getZanpakutoIdentity(), data.getCharacter().getActiveForm(), 2);
         if (!isRyujinJakkaEquipped(player)) {
             sendFeedback(player, Component.translatable("message.bleachmod.technique.requires_ryujin_jakka"));
             return;
@@ -235,13 +237,13 @@ public final class TechniqueService {
                     formatSeconds(data.getStatus().getTechniqueSlot2CooldownTicks())));
             return;
         }
-        if (!data.getResources().consumeReiatsu(FLAME_FAN_COST)) {
+        if (!data.getResources().consumeReiatsu(definition.cost())) {
             sendFeedback(player, Component.translatable("message.bleachmod.technique.no_reiatsu",
-                    (int) FLAME_FAN_COST));
+                    (int) definition.cost()));
             return;
         }
 
-        data.getStatus().setTechniqueSlot2CooldownTicks(FLAME_BARRAGE_COOLDOWN_TICKS);
+        data.getStatus().setTechniqueSlot2CooldownTicks(definition.cooldownTicks());
         applyFlameFan(player, data);
         sendFeedback(player, Component.translatable("message.bleachmod.technique.flame_fan"));
         syncResources(player, data);
@@ -279,6 +281,7 @@ public final class TechniqueService {
     }
 
     private static void executeFlameBarrage(ServerPlayer player, PlayerData data) {
+        var definition = TechniqueDefinitions.require(data.getCharacter().getZanpakutoIdentity(), data.getCharacter().getActiveForm(), 2);
         if (!isRyujinJakkaEquipped(player)) {
             sendFeedback(player, Component.translatable("message.bleachmod.technique.requires_ryujin_jakka"));
             return;
@@ -288,13 +291,13 @@ public final class TechniqueService {
                     formatSeconds(data.getStatus().getTechniqueSlot2CooldownTicks())));
             return;
         }
-        if (!data.getResources().consumeReiatsu(FLAME_BARRAGE_COST)) {
+        if (!data.getResources().consumeReiatsu(definition.cost())) {
             sendFeedback(player, Component.translatable("message.bleachmod.technique.no_reiatsu",
-                    (int) FLAME_BARRAGE_COST));
+                    (int) definition.cost()));
             return;
         }
 
-        data.getStatus().setTechniqueSlot2CooldownTicks(FLAME_BARRAGE_COOLDOWN_TICKS);
+        data.getStatus().setTechniqueSlot2CooldownTicks(definition.cooldownTicks());
         applyFlameBarrage(player, data);
         sendFeedback(player, Component.translatable("message.bleachmod.technique.flame_barrage"));
         syncResources(player, data);
@@ -361,6 +364,7 @@ public final class TechniqueService {
     }
 
     private static void executeFlameDash(ServerPlayer player, PlayerData data) {
+        var definition = TechniqueDefinitions.require(data.getCharacter().getZanpakutoIdentity(), data.getCharacter().getActiveForm(), 1);
         if (!isRyujinJakkaEquipped(player)) {
             sendFeedback(player, Component.translatable("message.bleachmod.technique.requires_ryujin_jakka"));
             return;
@@ -370,15 +374,15 @@ public final class TechniqueService {
                     formatSeconds(data.getStatus().getTechniqueSlot1CooldownTicks())));
             return;
         }
-        if (!data.getResources().consumeReiatsu(FLAME_DASH_COST)) {
+        if (!data.getResources().consumeReiatsu(definition.cost())) {
             sendFeedback(player, Component.translatable("message.bleachmod.technique.no_reiatsu",
-                    (int) FLAME_DASH_COST));
+                    (int) definition.cost()));
             return;
         }
 
         data.getStatus().setIgnitionActive(false);
         data.getStatus().beginFlameDash();
-        data.getStatus().setTechniqueSlot1CooldownTicks(FLAME_DASH_COOLDOWN_TICKS);
+        data.getStatus().setTechniqueSlot1CooldownTicks(definition.cooldownTicks());
         data.getStatus().setFlameDashTicks(FLAME_DASH_DURATION_TICKS);
         player.startAutoSpinAttack(FLAME_DASH_DURATION_TICKS);
         spawnDashBurst(player.serverLevel(), player);
@@ -396,7 +400,8 @@ public final class TechniqueService {
             sendFeedback(player, Component.translatable("message.bleachmod.technique.ignition.off"));
             return;
         }
-        if (!data.getResources().consumeReiatsu(IGNITION_DRAIN_PER_TICK)) {
+        var definition = TechniqueDefinitions.require("ryujin_jakka", data.getCharacter().getActiveForm(), 1);
+        if (!data.getResources().consumeReiatsu(definition.drainPerTick())) {
             data.getStatus().setIgnitionActive(false);
             sendFeedback(player, Component.translatable("message.bleachmod.technique.ignition.empty"));
             return;

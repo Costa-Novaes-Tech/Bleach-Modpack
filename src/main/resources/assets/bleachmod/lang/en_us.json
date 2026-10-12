@@ -199,5 +199,7 @@
   "hud.bleachmod.mastery.test_mode": "Test mode: training paused",
   "message.bleachmod.mastery.form_discovered": "%s discovered through training! Complete the bond purchase in the progression menu to use it.",
   "message.bleachmod.mastery.slot_unlocked": "Slot %s unlocked in %s through training!",
-  "screen.bleachmod.training_required": "Discover the form through mastery training"
+  "screen.bleachmod.training_required": "Discover the form through mastery training",
+  "hud.bleachmod.technique.cost": "Reiatsu %s · CD %ss",
+  "hud.bleachmod.technique.drain": "Drain: %s reiatsu/s"
 }

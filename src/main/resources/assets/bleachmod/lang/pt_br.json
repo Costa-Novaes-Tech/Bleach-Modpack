@@ -199,5 +199,7 @@
   "hud.bleachmod.mastery.test_mode": "Modo teste: treino suspenso",
   "message.bleachmod.mastery.form_discovered": "%s descoberta pelo treino! Para usá-la, complete a compra do vínculo no menu de progressão.",
   "message.bleachmod.mastery.slot_unlocked": "Slot %s liberado na forma %s pelo treino!",
-  "screen.bleachmod.training_required": "Descubra a forma pelo treino de maestria"
+  "screen.bleachmod.training_required": "Descubra a forma pelo treino de maestria",
+  "hud.bleachmod.technique.cost": "Reiatsu %s · CD %ss",
+  "hud.bleachmod.technique.drain": "Consumo: %s reiatsu/s"
 }

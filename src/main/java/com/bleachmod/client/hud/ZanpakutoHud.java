@@ -5,6 +5,7 @@ import com.bleachmod.common.data.*;
 import com.bleachmod.common.evolution.*;
 import com.bleachmod.common.technique.MasteryFeedback;
 import com.bleachmod.common.technique.TechniqueProgression;
+import com.bleachmod.common.technique.TechniqueDefinitions;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
@@ -14,15 +15,7 @@ public final class ZanpakutoHud {
     private ZanpakutoHud() { }
     public static String abilityKey(String identity, String form, int slot) {
         if (CharacterData.ASAUCHI.equals(identity)) return "message.bleachmod.asauchi.no_techniques";
-        boolean bankai = "bankai".equals(form), sealed = "sealed".equals(form);
-        if (CharacterData.HYORINMARU.equals(identity)) return "ability.bleachmod.hyorinmaru." + (sealed ? "sealed_" : "slot_") + slot;
-        String name = switch (slot) {
-            case 1 -> bankai ? "flame_dash" : "ignition";
-            case 2 -> bankai ? "flame_fan" : "flame_barrage";
-            case 3 -> bankai ? "flame_tornado" : "flame_wall";
-            default -> bankai ? "steam_cut" : "flame_bats";
-        };
-        return "ability.bleachmod.ryujin." + name;
+        return TechniqueDefinitions.require(identity, form, slot).nameKey();
     }
     public static final IGuiOverlay OVERLAY = (gui, g, partialTick, w, h) -> {
         var mc = Minecraft.getInstance(); if (mc.player == null || mc.options.hideGui) return;
@@ -30,7 +23,7 @@ public final class ZanpakutoHud {
             if (!d.isDataLoaded() || !d.getStatus().hasCreatedCharacter() || !"shinigami".equals(d.getCharacter().getRace())) return;
             String form = d.getCharacter().getActiveForm(), identity = d.getCharacter().getZanpakutoIdentity();
             float scale = Math.min(0.85F, Math.min(w / 500F, h / 260F));
-            int width = 188, height = 134;
+            int width = 188, height = 167;
             float x = w / scale - width - 8, y = h / scale - height - 66;
             g.pose().pushPose(); g.pose().scale(scale, scale, 1); g.pose().translate(x, Math.max(110, y), 0);
             g.fill(0,0,width,height,0xCC102333); g.fill(0,0,2,height,0xFF85D7F0);
@@ -44,14 +37,19 @@ public final class ZanpakutoHud {
             for (int i = 0; i < 4; i++) {
                 if (asauchi) break;
                 int slot = i + 1;
+                var definition = TechniqueDefinitions.require(identity, form, slot);
                 String name = Component.translatable(abilityKey(identity, form, i + 1)).getString();
                 String key = "[" + keys[i].getTranslatedKeyMessage().getString() + "] ";
                 boolean available = unlocked && com.bleachmod.common.technique.TechniqueProgression.available(d.getCharacter(), form, slot);
-                g.drawString(mc.font, mc.font.plainSubstrByWidth(key + name, width - 16), 8, 33 + i * 17, available ? 0xFFFFFF : 0xA6A6A6, false);
+                g.drawString(mc.font, mc.font.plainSubstrByWidth(key + name, width - 16), 8, 33 + i * 25, available ? 0xFFFFFF : 0xA6A6A6, false);
                 String requirement = available ? Component.translatable("hud.bleachmod.mastery.technique", MasteryFeedback.value(d.getCharacter().getTechniqueMastery(form, slot))).getString()
                         : !unlocked ? Component.translatable("hud.bleachmod.mastery.form_locked").getString()
-                        : Component.translatable("hud.bleachmod.mastery.required", MasteryFeedback.value(d.getCharacter().getMastery("zanpakuto", form)), TechniqueProgression.requirement(slot)).getString();
-                g.drawString(mc.font, mc.font.plainSubstrByWidth(requirement, width - 16), 8, 42 + i * 17, 0x85AAC2, false);
+                        : Component.translatable("hud.bleachmod.mastery.required", MasteryFeedback.value(d.getCharacter().getMastery("zanpakuto", form)), definition.mastery()).getString();
+                g.drawString(mc.font, mc.font.plainSubstrByWidth(requirement, width - 16), 8, 42 + i * 25, 0x85AAC2, false);
+                String resources = definition.drainPerTick() > 0
+                        ? Component.translatable("hud.bleachmod.technique.drain", MasteryFeedback.value(definition.drainPerTick() * 20)).getString()
+                        : Component.translatable("hud.bleachmod.technique.cost", MasteryFeedback.value(definition.cost()), MasteryFeedback.value(definition.cooldownTicks() / 20.0)).getString();
+                g.drawString(mc.font, mc.font.plainSubstrByWidth(resources, width - 16), 8, 51 + i * 25, 0x85AAC2, false);
             }
             String next = "sealed".equals(form) ? "shikai" : "shikai".equals(form) ? "bankai" : "";
             FormData nextForm = next.isEmpty() ? null : FormRegistry.getForm(d.getCharacter().getRace(), "zanpakuto", next);
@@ -64,10 +62,10 @@ public final class ZanpakutoHud {
                         ? Component.translatable("hud.bleachmod.mastery.form_ready", nextName).getString()
                         : current < threshold ? Component.translatable("hud.bleachmod.mastery.form_train", nextName, MasteryFeedback.value(current), threshold).getString()
                         : Component.translatable("hud.bleachmod.mastery.form_purchase", nextName).getString();
-                g.drawString(mc.font, mc.font.plainSubstrByWidth(gate, width - 16), 8, 107, 0xD5BF78, false);
+                g.drawString(mc.font, mc.font.plainSubstrByWidth(gate, width - 16), 8, 140, 0xD5BF78, false);
             }
             if (d.getStatus().areCooldownsDisabled() || d.getResources().areCostsDisabled())
-                g.drawString(mc.font, Component.translatable("hud.bleachmod.mastery.test_mode"), 8, 120, 0xF1B46B, false);
+                g.drawString(mc.font, Component.translatable("hud.bleachmod.mastery.test_mode"), 8, 153, 0xF1B46B, false);
             g.pose().popPose();
         });
     };

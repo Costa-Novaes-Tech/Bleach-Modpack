@@ -16,6 +16,35 @@ import java.util.*;
 public final class MvpRegressionTest {
     private static int count;
     public static void main(String[] args) {
+        test("Shared technique definitions preserve all homologated costs and cooldowns", () -> {
+            var definitions = com.bleachmod.common.technique.TechniqueDefinitions.all(); eq(24, definitions.size());
+            Set<String> unique = new HashSet<>();
+            for (var def : definitions) {
+                yes(unique.add(def.identity() + "|" + def.form() + "|" + def.slot()));
+                eq((def.slot() - 1) * 20, def.mastery());
+                eq(def, com.bleachmod.common.technique.TechniqueDefinitions.require(def.identity(), def.form(), def.slot()));
+            }
+            for (String form : List.of("sealed", "shikai", "bankai")) {
+                for (int slot = 1; slot <= 4; slot++) yes(com.bleachmod.common.technique.TechniqueDefinitions.find("asauchi", form, slot).isEmpty());
+                float[] costs = form.equals("sealed") ? new float[]{8,8,12,18} : form.equals("shikai") ? new float[]{15,20,25,30} : new float[]{20,25,30,35};
+                int[] cooldowns = {100,160,240,300};
+                for (int slot = 1; slot <= 4; slot++) {
+                    var def = com.bleachmod.common.technique.TechniqueDefinitions.require("hyorinmaru", form, slot);
+                    eq(costs[slot - 1], def.cost()); eq(cooldowns[slot - 1], def.cooldownTicks());
+                }
+                boolean bankai = form.equals("bankai");
+                float[] fireCosts = bankai ? new float[]{20,25,40,45} : new float[]{0,15,40,25};
+                int[] fireCooldowns = bankai ? new int[]{100,80,300,1200} : new int[]{0,80,400,200};
+                for (int slot = 1; slot <= 4; slot++) {
+                    var def = com.bleachmod.common.technique.TechniqueDefinitions.require("ryujin_jakka", form, slot);
+                    eq(fireCosts[slot - 1], def.cost()); eq(fireCooldowns[slot - 1], def.cooldownTicks());
+                    eq(!bankai && slot == 1 ? .05F : 0F, def.drainPerTick());
+                }
+            }
+            rejects(() -> com.bleachmod.common.technique.TechniqueDefinitions.require("missing", "sealed", 1));
+            rejects(() -> com.bleachmod.common.technique.TechniqueDefinitions.require("ryujin_jakka", "missing", 1));
+            rejects(() -> com.bleachmod.common.technique.TechniqueDefinitions.require("ryujin_jakka", "sealed", 5));
+        });
         test("Mastery feedback preserves fractional thresholds and reports only new access", () -> {
             eq("19.5", com.bleachmod.common.technique.MasteryFeedback.value(19.5));
             eq("19.9", com.bleachmod.common.technique.MasteryFeedback.value(19.99));
