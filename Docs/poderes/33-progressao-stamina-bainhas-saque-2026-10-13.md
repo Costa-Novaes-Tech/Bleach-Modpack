@@ -1,3 +1,5 @@
+> **Estado vigente — ciclo 34, 13/10/2026:** stamina do ciclo 33 homologada; bainha menor, afunilada e curva, lado anatômico corrigido com ajuste de gesto. Tooltip de Resistência na tela K informa stamina máxima. [Arquivos, causa, proporções e roteiro](34-refinamento-bainha-tooltip-resistencia-2026-10-13.md). Refinamento visual aguarda homologação; registros anteriores abaixo são históricos.
+
 # Ciclo 33 — Progressão de stamina, bainhas e saque
 
 Data: 13/10/2026. Branch: Feature-Poderes-bankais. Implementação autorizada pelo usuário após aprovar a proposta de progressão por Resistência, bainha estática e transição de saque/guarda. Não presume homologação visual deste ciclo ou do ciclo 32.

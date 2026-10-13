@@ -22,15 +22,23 @@ public final class ZanpakutoSheathLayer extends RenderLayer<AbstractClientPlayer
     public ZanpakutoSheathLayer(RenderLayerParent<AbstractClientPlayer, PlayerModel<AbstractClientPlayer>> parent, ModelPart root) { super(parent); this.root = root; }
     public static LayerDefinition createLayer() {
         var mesh = new MeshDefinition(); var root = mesh.getRoot();
-        root.addOrReplaceChild("scabbard", CubeListBuilder.create().texOffs(0,0).addBox(-1, -1, 0, 2, 2, 23), PartPose.ZERO);
-        root.addOrReplaceChild("fittings", CubeListBuilder.create().texOffs(0,0).addBox(-1.15F,-1.15F,0,2.3F,2.3F,1)
-                .addBox(-1.1F,-1.1F,21.8F,2.2F,2.2F,1.3F), PartPose.ZERO);
-        root.addOrReplaceChild("grip", CubeListBuilder.create().texOffs(0,0).addBox(-.7F,-.7F,-7,1.4F,1.4F,7), PartPose.ZERO);
-        root.addOrReplaceChild("wrap", CubeListBuilder.create().texOffs(0,0).addBox(-.8F,-.8F,-6,1.6F,1.6F,.6F)
-                .addBox(-.8F,-.8F,-4,1.6F,1.6F,.6F).addBox(-.8F,-.8F,-2,1.6F,1.6F,.6F), PartPose.ZERO);
-        root.addOrReplaceChild("round_guard", CubeListBuilder.create().texOffs(0,0).addBox(-1.8F,-1.8F,-.5F,3.6F,3.6F,.5F), PartPose.ZERO);
-        root.addOrReplaceChild("cross_guard", CubeListBuilder.create().texOffs(0,0).addBox(-2,-.5F,-.5F,4,1,.5F)
-                .addBox(-.5F,-2,-.5F,1,4,.5F), PartPose.ZERO);
+        // Overlapping, tapered segments follow a shallow katana curve instead of a single beam.
+        var scabbard = root.addOrReplaceChild("scabbard", CubeListBuilder.create().texOffs(0,0)
+                .addBox(-.65F,-.5F,0,1.3F,1,6), PartPose.ZERO);
+        var middle = scabbard.addOrReplaceChild("middle", CubeListBuilder.create().texOffs(0,0)
+                .addBox(-.58F,-.48F,0,1.16F,.96F,5.2F), PartPose.offsetAndRotation(0,0,5.9F,.05236F,0,0));
+        middle.addOrReplaceChild("tip", CubeListBuilder.create().texOffs(0,0)
+                .addBox(-.5F,-.43F,0,1,.86F,4.3F), PartPose.offsetAndRotation(0,0,5.1F,.06981F,0,0));
+        var fittings = root.addOrReplaceChild("fittings", CubeListBuilder.create().texOffs(0,0)
+                .addBox(-.73F,-.57F,0,1.46F,1.14F,.55F), PartPose.ZERO);
+        fittings.addOrReplaceChild("tip_cap", CubeListBuilder.create().texOffs(0,0)
+                .addBox(-.54F,-.47F,0,1.08F,.94F,.45F), PartPose.offsetAndRotation(0,-.77F,15.06F,.12217F,0,0));
+        root.addOrReplaceChild("grip", CubeListBuilder.create().texOffs(0,0).addBox(-.48F,-.48F,-4.6F,.96F,.96F,4.6F), PartPose.ZERO);
+        root.addOrReplaceChild("wrap", CubeListBuilder.create().texOffs(0,0).addBox(-.53F,-.53F,-3.9F,1.06F,1.06F,.4F)
+                .addBox(-.53F,-.53F,-2.7F,1.06F,1.06F,.4F).addBox(-.53F,-.53F,-1.5F,1.06F,1.06F,.4F), PartPose.ZERO);
+        root.addOrReplaceChild("round_guard", CubeListBuilder.create().texOffs(0,0).addBox(-1.25F,-1.25F,-.35F,2.5F,2.5F,.35F), PartPose.ZERO);
+        root.addOrReplaceChild("cross_guard", CubeListBuilder.create().texOffs(0,0).addBox(-1.4F,-.35F,-.35F,2.8F,.7F,.35F)
+                .addBox(-.35F,-1.4F,-.35F,.7F,2.8F,.35F), PartPose.ZERO);
         return LayerDefinition.create(mesh,16,16);
     }
     @Override public void render(PoseStack pose, MultiBufferSource buffers, int light, AbstractClientPlayer player,
@@ -40,9 +48,11 @@ public final class ZanpakutoSheathLayer extends RenderLayer<AbstractClientPlayer
         PlayerCapability.get(player).ifPresent(data -> {
             String id = data.getCharacter().getZanpakutoIdentity(); boolean ice = CharacterData.HYORINMARU.equals(id), fire = CharacterData.RYUJIN.equals(id);
             pose.pushPose(); getParentModel().body.translateAndRotate(pose);
+            // Player-model +X is the character's left: the previous negative sign put it on the right.
             boolean left = player.getMainArm() == net.minecraft.world.entity.HumanoidArm.RIGHT;
-            pose.translate(left ? -.32 : .32, .68, .04);
-            pose.mulPose(Axis.YP.rotationDegrees(left ? -35 : 35)); pose.mulPose(Axis.XP.rotationDegrees(-12));
+            pose.translate(left ? .32 : -.32, .68, -.04);
+            pose.mulPose(Axis.YP.rotationDegrees(left ? 25 : -25)); pose.mulPose(Axis.XP.rotationDegrees(-8));
+            pose.scale(.85F,.85F,.85F);
             draw(pose,buffers,light,"scabbard",ice ? .12F : fire ? .13F : .2F,ice ? .32F : fire ? .08F : .2F,ice ? .38F : fire ? .07F : .22F);
             draw(pose,buffers,light,"fittings",.65F,.53F,.22F);
             if (motion.previous == 1) {

@@ -34,8 +34,8 @@ public final class ZanpakutoMotion {
         if (!(entity instanceof AbstractClientPlayer player)) return;
         var motion = motion(player); float p = motion.progress(player.tickCount, 0);
         var part = arm == HumanoidArm.RIGHT ? model.rightArm : model.leftArm;
-        if (motion.previous >= 2) { part.xRot = part.xRot * .5F - .314F + .9F * (1 - p); part.yRot += (arm == HumanoidArm.RIGHT ? -.8F : .8F) * (1 - p); }
-        else { float reach = (float) Math.sin(p * Math.PI); part.xRot += .7F * reach; part.yRot += (arm == HumanoidArm.RIGHT ? -.8F : .8F) * reach; }
+        if (motion.previous >= 2) { part.xRot = part.xRot * .5F - .314F + .9F * (1 - p); part.yRot += (arm == HumanoidArm.RIGHT ? .8F : -.8F) * (1 - p); }
+        else { float reach = (float) Math.sin(p * Math.PI); part.xRot += .7F * reach; part.yRot += (arm == HumanoidArm.RIGHT ? .8F : -.8F) * reach; }
     });
     @SubscribeEvent public static void beforePlayer(RenderLivingEvent.Pre<?, ?> event) {
         if (!(event.getEntity() instanceof AbstractClientPlayer player) || !(event.getRenderer().getModel() instanceof PlayerModel<?> model)) return;
@@ -50,6 +50,7 @@ public final class ZanpakutoMotion {
         if (p >= 1 || motion.previous == 0 || (motion.hand == 2) != (event.getHand() == net.minecraft.world.InteractionHand.MAIN_HAND)) return;
         float reach = motion.previous >= 2 ? 1 - p : (float) Math.sin(p * Math.PI);
         event.getPoseStack().translate(0, -.35 * reach, .25 * reach);
-        event.getPoseStack().mulPose(Axis.ZP.rotationDegrees(-35 * reach));
+        HumanoidArm arm = motion.hand == 2 ? player.getMainArm() : player.getMainArm().getOpposite();
+        event.getPoseStack().mulPose(Axis.ZP.rotationDegrees((arm == HumanoidArm.RIGHT ? -35 : 35) * reach));
     }
 }

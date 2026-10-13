@@ -120,7 +120,7 @@
   "attribute.bleachmod.zanjutsu.desc": "+10% physical Zanpakuto damage per rank.",
   "attribute.bleachmod.hakuda.desc": "+10% unarmed physical damage per rank.",
   "attribute.bleachmod.vitality.desc": "+2 maximum health (1 heart) per rank.",
-  "attribute.bleachmod.resistance.desc": "Progressively reduces damage from direct physical blows.",
+  "attribute.bleachmod.resistance.desc": "Progressively reduces damage from direct physical blows and increases maximum stamina, with diminishing gains.",
   "attribute.bleachmod.kidou.desc": "+10% Kidou spell damage per rank (attacks are not available yet).",
   "attribute.bleachmod.reserve.desc": "+20 maximum reiatsu per level.",
   "attribute.bleachmod.control.desc": "Progressively reduces ongoing form drain.",

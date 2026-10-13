@@ -1,3 +1,5 @@
+> **Estado vigente — ciclo 34, 13/10/2026:** stamina do ciclo 33 homologada; bainha menor, afunilada e curva, lado anatômico corrigido com ajuste de gesto. Tooltip de Resistência na tela K informa stamina máxima. [Arquivos, causa, proporções e roteiro](34-refinamento-bainha-tooltip-resistencia-2026-10-13.md). Refinamento visual aguarda homologação; registros anteriores abaixo são históricos.
+
 > **Estado vigente — ciclo 33, 13/10/2026:** stamina máxima por Resistência com retornos decrescentes e sem recarga por compra; bainha da arma vinculada e saque/guarda cosméticos nativos. [Fórmula, arquivos, sincronização, limites e roteiro](33-progressao-stamina-bainhas-saque-2026-10-13.md). Schema 7; protocolo 2.9. Visual e balanceamento aguardam playtest; registros anteriores abaixo são históricos.
 
 > **Estado vigente — ciclo 32, 13/10/2026:** ciclo 31 e estado de combate homologados pelo usuário. Golpes básicos de zanpakutō gastam até 4 stamina por tentativa; técnicas preservam custos de reiatsu. As três espadas são indestrutíveis por decisão do usuário. [Contrato, arquivos, lógica e testes](32-ataques-basicos-zanpakutos-indestrutiveis-2026-10-13.md). Registros anteriores abaixo são históricos.
@@ -391,3 +393,8 @@ Stamina/estado de combate homologados. Tentativa manual de golpe contra alvo viv
 ## Ciclo 33 — Reserva física e arma na cintura
 
 Máximo de stamina = 100 + 100 × Resistência / (Resistência + 20), usando níveis comprados atuais; R20 = 150, sem recarga por compra. Bainha apenas para arma vinculada carregada, vazia ao empunhar; transição visual de saque/guarda sem atraso funcional. [Arquivos, lógica e teste visual detalhado](33-progressao-stamina-bainhas-saque-2026-10-13.md). Cliente/servidor na build de protocolo 2.9.
+
+
+## Ciclo 34 — Bainha e informação na tela K
+
+Bainha encurtada/afinada com curva discreta; posição corrigida para esquerda anatômica de destros e espelhada em canhotos, com gesto de saque ajustado. Tooltip de Resistência informa o aumento da stamina máxima. [Causa, arquivos e roteiro](34-refinamento-bainha-tooltip-resistencia-2026-10-13.md).

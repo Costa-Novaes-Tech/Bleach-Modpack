@@ -120,7 +120,7 @@
   "attribute.bleachmod.zanjutsu.desc": "+10% do dano físico com Zanpakutō por nível.",
   "attribute.bleachmod.hakuda.desc": "+10% do dano físico desarmado por nível.",
   "attribute.bleachmod.vitality.desc": "+2 de vida máxima (1 coração) por nível.",
-  "attribute.bleachmod.resistance.desc": "Reduz progressivamente o dano de golpes físicos diretos.",
+  "attribute.bleachmod.resistance.desc": "Reduz progressivamente o dano de golpes físicos diretos e aumenta a stamina máxima, com ganhos decrescentes.",
   "attribute.bleachmod.kidou.desc": "+10% do dano de feitiços Kidou por nível (ataques ainda não disponíveis).",
   "attribute.bleachmod.reserve.desc": "+20 de reiatsu máxima por nível.",
   "attribute.bleachmod.control.desc": "Reduz progressivamente o consumo contínuo das formas.",
