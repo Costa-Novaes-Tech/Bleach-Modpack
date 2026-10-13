@@ -26,6 +26,7 @@ public class TickHandler {
             return;
         }
         PlayerCapability.get(player).ifPresent(data -> {
+            if (com.bleachmod.common.ZanpakutoCarry.update(player, data)) SyncHelper.appearance(player);
             if (!data.getStatus().hasCreatedCharacter()) {
                 return;
             }

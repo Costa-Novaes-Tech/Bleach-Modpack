@@ -35,6 +35,9 @@ public class CharacterData {
         }
     }
     private boolean iceArmorVisual;
+    private int carryState;
+    public int getCarryState() { return carryState; }
+    public void setCarryState(int state) { carryState = Math.max(0, Math.min(3, state)); }
     public boolean isIceArmorVisual() { return iceArmorVisual; }
     public void setIceArmorVisual(boolean active) { iceArmorVisual = active; }
     public String getZanpakutoIdentity() { return zanpakutoIdentity; }
@@ -128,6 +131,7 @@ public class CharacterData {
 
     public CompoundTag saveAppearance() {
         CompoundTag tag = new CompoundTag();
+        tag.putInt("carryState", carryState);
         tag.putBoolean("iceArmorVisual", iceArmorVisual);
         tag.putString("race", race);
         tag.putString("zanpakutoIdentity", zanpakutoIdentity);
@@ -157,6 +161,7 @@ public class CharacterData {
     }
 
     public void load(CompoundTag tag) {
+        if (tag.contains("carryState")) setCarryState(tag.getInt("carryState"));
         if (tag.contains("iceArmorVisual")) iceArmorVisual = tag.getBoolean("iceArmorVisual");
         // Legacy characters belong to Ryujin; never copy their mastery into Hyorinmaru.
         String identity = tag.getString("zanpakutoIdentity");

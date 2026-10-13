@@ -50,10 +50,10 @@ public final class ReiatsuHud {
         int staminaWidth = Math.min(120, panel.width());
         int staminaColor = data.getResources().isStaminaExhausted() ? 0xFFFF8855 : 0xFF77DDAA;
         g.drawString(mc.font, Component.translatable("hud.bleachmod.stamina",
-                (int) Math.ceil(data.getResources().getStamina())), x, staminaY, staminaColor, true);
+                (int) Math.ceil(data.getResources().getStamina()), (int) Math.ceil(data.getResources().getMaxStamina())), x, staminaY, staminaColor, true);
         g.fill(x, staminaY + 10, x + staminaWidth, staminaY + 14, 0xCC222222);
         g.fill(x, staminaY + 10, x + (int) (staminaWidth * data.getResources().getStamina()
-                / com.bleachmod.common.StaminaPolicy.MAX), staminaY + 14, staminaColor);
+                / data.getResources().getMaxStamina()), staminaY + 14, staminaColor);
         if (data.getStatus().isHudInCombat())
             g.drawString(mc.font, Component.translatable("hud.bleachmod.combat.active"), x, staminaY + 17, 0xF2A06B, true);
 

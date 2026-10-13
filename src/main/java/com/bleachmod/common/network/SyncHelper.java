@@ -47,6 +47,7 @@ public final class SyncHelper {
 
     public static void appearance(ServerPlayer player) {
         PlayerCapability.get(player).ifPresent(data -> {
+            com.bleachmod.common.ZanpakutoCarry.update(player, data);
             CompoundTag tag = new CompoundTag();
             tag.put("character", data.getCharacter().saveAppearance());
             NetworkHandler.CHANNEL.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> player), new AppearanceSyncS2C(player.getId(), tag));
@@ -59,6 +60,7 @@ public final class SyncHelper {
 
     public static void appearanceTo(ServerPlayer subject, ServerPlayer observer) {
         PlayerCapability.get(subject).ifPresent(data -> {
+            com.bleachmod.common.ZanpakutoCarry.update(subject, data);
             CompoundTag tag = new CompoundTag();
             tag.put("character", data.getCharacter().saveAppearance());
             NetworkHandler.sendToPlayer(new AppearanceSyncS2C(subject.getId(), tag), observer);

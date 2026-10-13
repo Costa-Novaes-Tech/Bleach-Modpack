@@ -203,5 +203,5 @@
   "hud.bleachmod.technique.cost": "Reiatsu %s · CD %ss",
   "hud.bleachmod.technique.drain": "Consumo: %s reiatsu/s",
   "hud.bleachmod.combat.active": "Em combate",
-  "hud.bleachmod.stamina": "Stamina %s/100"
+  "hud.bleachmod.stamina": "Stamina %s/%s"
 }

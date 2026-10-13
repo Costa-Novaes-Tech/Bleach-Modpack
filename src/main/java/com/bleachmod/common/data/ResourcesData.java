@@ -6,11 +6,17 @@ import net.minecraft.util.Mth;
 
 public class ResourcesData {
     private float stamina = com.bleachmod.common.StaminaPolicy.MAX;
+    private float maxStamina = com.bleachmod.common.StaminaPolicy.MAX;
+    public float getMaxStamina() { return maxStamina; }
+    public void setMaxStamina(float maximum) {
+        maxStamina = Float.isFinite(maximum) ? Mth.clamp(maximum, 100, 200) : 100;
+        stamina = Math.min(stamina, maxStamina);
+    }
     private int staminaRestTicks;
     private boolean staminaExhausted;
     public float getStamina() { return stamina; }
     public boolean isStaminaExhausted() { return staminaExhausted; }
-    public void fillStamina() { stamina = com.bleachmod.common.StaminaPolicy.MAX; staminaRestTicks = 0; staminaExhausted = false; }
+    public void fillStamina() { stamina = maxStamina; staminaRestTicks = 0; staminaExhausted = false; }
     /** Basic attacks remain possible at zero; charge available stamina and postpone recovery. */
     public void spendBasicAttackStamina() {
         stamina = Math.max(0, stamina - com.bleachmod.common.StaminaPolicy.BASIC_SWORD_ATTACK);
@@ -26,7 +32,7 @@ public class ResourcesData {
             return !staminaExhausted;
         }
         if (staminaRestTicks > 0) staminaRestTicks--;
-        else stamina = Math.min(com.bleachmod.common.StaminaPolicy.MAX, stamina + com.bleachmod.common.StaminaPolicy.REGEN_PER_TICK);
+        else stamina = Math.min(maxStamina, stamina + com.bleachmod.common.StaminaPolicy.REGEN_PER_TICK);
         if (stamina >= com.bleachmod.common.StaminaPolicy.RESUME) staminaExhausted = false;
         return !effort || !staminaExhausted;
     }
@@ -111,8 +117,10 @@ public class ResourcesData {
     }
 
     public CompoundTag save() {
+        // Cached maximum travels with resource snapshots; full player load derives it from Resistance.
         CompoundTag tag = new CompoundTag();
         tag.putFloat("stamina", stamina);
+        tag.putFloat("maxStamina", maxStamina);
         tag.putInt("staminaRestTicks", staminaRestTicks);
         tag.putBoolean("staminaExhausted", staminaExhausted);
         tag.putFloat("currentReiatsu", currentReiatsu);
@@ -123,10 +131,11 @@ public class ResourcesData {
     }
 
     public void load(CompoundTag tag) {
+        if (tag.contains("maxStamina")) setMaxStamina(tag.getFloat("maxStamina"));
         costsDisabled = false;
         if (tag.contains("stamina")) {
             float value = tag.getFloat("stamina");
-            stamina = Float.isFinite(value) ? Mth.clamp(value, 0, com.bleachmod.common.StaminaPolicy.MAX) : 0;
+            stamina = Float.isFinite(value) ? Mth.clamp(value, 0, maxStamina) : 0;
             staminaRestTicks = Mth.clamp(tag.getInt("staminaRestTicks"), 0, com.bleachmod.common.StaminaPolicy.REST_TICKS);
             staminaExhausted = stamina == 0 || (tag.getBoolean("staminaExhausted") && stamina < com.bleachmod.common.StaminaPolicy.RESUME);
         }

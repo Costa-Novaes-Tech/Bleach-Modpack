@@ -16,6 +16,26 @@ import java.util.*;
 public final class MvpRegressionTest {
     private static int count;
     public static void main(String[] args) {
+        test("Resistance stamina curve has diminishing returns without free refills", () -> {
+            eq(100F, com.bleachmod.common.StaminaPolicy.maximum(0));
+            eq(150F, com.bleachmod.common.StaminaPolicy.maximum(20));
+            yes(com.bleachmod.common.StaminaPolicy.maximum(Integer.MAX_VALUE) <= 200);
+            var d = new PlayerData(); d.initializeShinigami(); d.getResources().spendBasicAttackStamina();
+            var ranks = new CompoundTag(); ranks.putInt(AttributeData.RESISTANCE, 20); d.getAttributes().load(ranks);
+            d.refreshDerivedResources(); eq(150F, d.getResources().getMaxStamina()); eq(96F, d.getResources().getStamina());
+            d.getResources().fillStamina(); var copy = new PlayerData(); copy.load(d.save());
+            eq(150F, copy.getResources().getStamina()); eq(150F, copy.getResources().getMaxStamina());
+            copy.getAttributes().load(new CompoundTag()); copy.refreshDerivedResources(); eq(100F, copy.getResources().getStamina());
+        });
+        test("Draw timing initializes quietly and handles hands, removal and identity switches", () -> {
+            var draw = new com.bleachmod.common.visual.ZanpakutoDraw(); draw.update(1,"asauchi",10);
+            eq(1F, draw.progress(10,0)); draw.update(2,"asauchi",11); eq(0F, draw.progress(11,0));
+            eq(.5F, draw.progress(15,0)); eq(1F, draw.progress(19,0));
+            draw.update(1,"asauchi",20); eq(0F,draw.progress(20,0));
+            draw.update(3,"asauchi",30); eq(3,draw.hand); eq(0F,draw.progress(30,0));
+            draw.update(0,"asauchi",31); eq(1F,draw.progress(31,0));
+            draw.update(1,"ryujin_jakka",32); eq(1F,draw.progress(32,0));
+        });
         test("Basic sword effort spends only stamina and delays recovery without blocking attacks", () -> {
             var r = new ResourcesData(); r.setCurrentReiatsu(50); r.setCostsDisabled(true);
             for (int i = 0; i < 25; i++) r.spendBasicAttackStamina();
@@ -46,7 +66,7 @@ public final class MvpRegressionTest {
             var legacy = new PlayerData(); legacy.initializeShinigami(); var saved = legacy.save(); saved.putInt("schemaVersion", 5);
             saved.getCompound("resources").remove("stamina"); saved.getCompound("resources").remove("staminaRestTicks");
             saved.getCompound("resources").remove("staminaExhausted"); var migrated = new PlayerData(); migrated.load(saved);
-            eq(100F, migrated.getResources().getStamina()); eq(6, migrated.save().getInt("schemaVersion"));
+            eq(100F, migrated.getResources().getStamina()); eq(7, migrated.save().getInt("schemaVersion"));
         });
         test("Combat state expires, refreshes and stays absent from persistent saves", () -> {
             var status = new StatusData(); status.refreshCombat(200);

@@ -113,6 +113,7 @@ public class ModEntityRenderers {
             EntityRenderersEvent.RegisterLayerDefinitions event
     ) {
         event.registerLayerDefinition(com.bleachmod.client.model.IceArmorLayer.LAYER, com.bleachmod.client.model.IceArmorLayer::createLayer);
+        event.registerLayerDefinition(com.bleachmod.client.model.ZanpakutoSheathLayer.LAYER, com.bleachmod.client.model.ZanpakutoSheathLayer::createLayer);
         event.registerLayerDefinition(
                 ModModelLayers.HOLLOW_BOSS,
                 HollowBossModel::createBodyLayer
@@ -122,8 +123,12 @@ public class ModEntityRenderers {
     @SubscribeEvent public static void playerLayers(EntityRenderersEvent.AddLayers event) {
         for (String skin : event.getSkins()) {
             var renderer = event.getSkin(skin);
-            if (renderer instanceof net.minecraft.client.renderer.entity.player.PlayerRenderer playerRenderer) playerRenderer.addLayer(new com.bleachmod.client.model.IceArmorLayer(playerRenderer,
+            if (renderer instanceof net.minecraft.client.renderer.entity.player.PlayerRenderer playerRenderer) {
+                playerRenderer.addLayer(new com.bleachmod.client.model.IceArmorLayer(playerRenderer,
                     event.getEntityModels().bakeLayer(com.bleachmod.client.model.IceArmorLayer.LAYER)));
+                playerRenderer.addLayer(new com.bleachmod.client.model.ZanpakutoSheathLayer(playerRenderer,
+                    event.getEntityModels().bakeLayer(com.bleachmod.client.model.ZanpakutoSheathLayer.LAYER)));
+            }
         }
     }
     public static final class IceDragonRenderer extends net.minecraft.client.renderer.entity.PhantomRenderer {

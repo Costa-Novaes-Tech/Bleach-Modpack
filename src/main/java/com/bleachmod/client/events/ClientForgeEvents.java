@@ -32,6 +32,7 @@ public class ClientForgeEvents {
         }
         Minecraft mc = Minecraft.getInstance();
         if (mc.player == null) {
+            com.bleachmod.client.model.ZanpakutoMotion.clear();
             lastCharging = false;
             instantHeld = false;
             return;

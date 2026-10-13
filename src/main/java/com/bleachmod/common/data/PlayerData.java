@@ -19,6 +19,7 @@ public class PlayerData {
     public AttributeData getAttributes() { return attributes; }
 
     public void refreshDerivedResources() {
+        resources.setMaxStamina(com.bleachmod.common.StaminaPolicy.maximum(attributes.level(AttributeData.RESISTANCE)));
         boolean wasFull = resources.isReiatsuFull();
         double derived = Reference.BASE_REIATSU + 20.0D * attributes.level(AttributeData.RESERVE);
         resources.setMaxReiatsu((float)Math.min(Float.MAX_VALUE, derived));
@@ -83,7 +84,7 @@ public class PlayerData {
 
     public CompoundTag save() {
         CompoundTag tag = new CompoundTag();
-        tag.putInt("schemaVersion", 6);
+        tag.putInt("schemaVersion", 7);
         tag.put("attributes", attributes.save());
         tag.put("character", character.save());
         tag.put("resources", resources.save());
@@ -110,6 +111,8 @@ public class PlayerData {
             playerQuestData.load(tag.getCompound("playerQuestData"));
         }
         if (tag.contains("attributes")) attributes.load(tag.getCompound("attributes"));
+        if (tag.contains("attributes") || tag.contains("schemaVersion"))
+            resources.setMaxStamina(com.bleachmod.common.StaminaPolicy.maximum(attributes.level(AttributeData.RESISTANCE)));
         updateTransformationSkillLimits(character.getRace());
         if (tag.contains("character") && !tag.getCompound("character").contains("unlockedForms")
                 && CharacterData.RYUJIN.equals(character.getZanpakutoIdentity())) {

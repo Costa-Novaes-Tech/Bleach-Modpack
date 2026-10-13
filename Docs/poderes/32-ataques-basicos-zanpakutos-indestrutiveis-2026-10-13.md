@@ -1,3 +1,5 @@
+> **Estado vigente — ciclo 33, 13/10/2026:** stamina máxima por Resistência com retornos decrescentes e sem recarga por compra; bainha da arma vinculada e saque/guarda cosméticos nativos. [Fórmula, arquivos, sincronização, limites e roteiro](33-progressao-stamina-bainhas-saque-2026-10-13.md). Schema 7; protocolo 2.9. Visual e balanceamento aguardam playtest; registros anteriores abaixo são históricos.
+
 # Ciclo 32 — Ataques básicos e zanpakutōs indestrutíveis
 
 Data: 13/10/2026. Branch: Feature-Poderes-bankais. Usuário homologou stamina, estado automático de combate e limpeza; pediu gasto físico nos golpes de espada, técnicas somente com reiatsu e escolheu retirar durabilidade das zanpakutōs.

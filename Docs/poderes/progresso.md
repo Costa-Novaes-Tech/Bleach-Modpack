@@ -1,3 +1,5 @@
+> **Estado vigente — ciclo 33, 13/10/2026:** stamina máxima por Resistência com retornos decrescentes e sem recarga por compra; bainha da arma vinculada e saque/guarda cosméticos nativos. [Fórmula, arquivos, sincronização, limites e roteiro](33-progressao-stamina-bainhas-saque-2026-10-13.md). Schema 7; protocolo 2.9. Visual e balanceamento aguardam playtest; registros anteriores abaixo são históricos.
+
 > **Estado vigente — ciclo 32, 13/10/2026:** ciclo 31 e estado de combate homologados pelo usuário. Golpes básicos de zanpakutō gastam até 4 stamina por tentativa; técnicas preservam custos de reiatsu. As três espadas são indestrutíveis por decisão do usuário. [Contrato, arquivos, lógica e testes](32-ataques-basicos-zanpakutos-indestrutiveis-2026-10-13.md). Registros anteriores abaixo são históricos.
 
 > **Estado vigente — ciclo 31, 13/10/2026:** stamina de corrida com pausa, recuperação, exaustão e HUD. Valores provisórios; ciclo 30 segue em teste visual. [Contrato, arquivos, lógica e roteiro](31-stamina-corrida-2026-10-13.md). Schema 6; protocolo 2.8. Registros anteriores abaixo são históricos.
@@ -384,3 +386,8 @@ Reserva 100, gasto 5/s durante sprint em movimento, recuperação 20/s após 1 s
 ## Ciclo 32 — Esforço básico e armas indestrutíveis
 
 Stamina/estado de combate homologados. Tentativa manual de golpe contra alvo vivo com Asauchi, Ryujin ou Hyōrinmaru custa até 4 stamina; ataque básico continua possível a zero. Técnicas não recebem esse custo. As três zanpakutōs não desgastam nem mostram barra, inclusive itens antigos. [Arquivos, lógica e roteiro](32-ataques-basicos-zanpakutos-indestrutiveis-2026-10-13.md).
+
+
+## Ciclo 33 — Reserva física e arma na cintura
+
+Máximo de stamina = 100 + 100 × Resistência / (Resistência + 20), usando níveis comprados atuais; R20 = 150, sem recarga por compra. Bainha apenas para arma vinculada carregada, vazia ao empunhar; transição visual de saque/guarda sem atraso funcional. [Arquivos, lógica e teste visual detalhado](33-progressao-stamina-bainhas-saque-2026-10-13.md). Cliente/servidor na build de protocolo 2.9.
