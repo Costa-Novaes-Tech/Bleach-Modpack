@@ -35,6 +35,7 @@ public class TickHandler {
             }
 
             data.getStatus().tickTransientState();
+            com.bleachmod.common.StaminaService.tick(player, data);
 
             float previousEnergy = data.getResources().getCurrentReiatsu();
             int previousCharge = data.getResources().getActionCharge();

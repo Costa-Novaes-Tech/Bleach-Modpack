@@ -1,3 +1,5 @@
+> **Estado vigente — ciclo 31, 13/10/2026:** stamina de corrida com pausa, recuperação, exaustão e HUD. Valores provisórios; ciclo 30 segue em teste visual. [Contrato, arquivos, lógica e roteiro](31-stamina-corrida-2026-10-13.md). Schema 6; protocolo 2.8. Registros anteriores abaixo são históricos.
+
 # Ciclo 30 — Estado automático de combate
 
 Data: 12/10/2026. Branch: Feature-Poderes-bankais. Primeira fatia aprovada pelo usuário a partir dos contratos M05-02B e M06-01B/C.

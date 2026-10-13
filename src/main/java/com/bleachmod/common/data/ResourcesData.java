@@ -5,6 +5,25 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Mth;
 
 public class ResourcesData {
+    private float stamina = com.bleachmod.common.StaminaPolicy.MAX;
+    private int staminaRestTicks;
+    private boolean staminaExhausted;
+    public float getStamina() { return stamina; }
+    public boolean isStaminaExhausted() { return staminaExhausted; }
+    public void fillStamina() { stamina = com.bleachmod.common.StaminaPolicy.MAX; staminaRestTicks = 0; staminaExhausted = false; }
+    /** Returns false when an attempted sprint cannot be sustained. No reiatsu or progression mutation. */
+    public boolean tickStamina(boolean effort) {
+        if (effort && !staminaExhausted) {
+            stamina = Math.max(0, stamina - com.bleachmod.common.StaminaPolicy.SPRINT_PER_TICK);
+            staminaRestTicks = com.bleachmod.common.StaminaPolicy.REST_TICKS;
+            if (stamina == 0) staminaExhausted = true;
+            return !staminaExhausted;
+        }
+        if (staminaRestTicks > 0) staminaRestTicks--;
+        else stamina = Math.min(com.bleachmod.common.StaminaPolicy.MAX, stamina + com.bleachmod.common.StaminaPolicy.REGEN_PER_TICK);
+        if (stamina >= com.bleachmod.common.StaminaPolicy.RESUME) staminaExhausted = false;
+        return !effort || !staminaExhausted;
+    }
     private float currentReiatsu = Reference.BASE_REIATSU;
     private float maxReiatsu = Reference.BASE_REIATSU;
     private int actionCharge;
@@ -87,6 +106,9 @@ public class ResourcesData {
 
     public CompoundTag save() {
         CompoundTag tag = new CompoundTag();
+        tag.putFloat("stamina", stamina);
+        tag.putInt("staminaRestTicks", staminaRestTicks);
+        tag.putBoolean("staminaExhausted", staminaExhausted);
         tag.putFloat("currentReiatsu", currentReiatsu);
         tag.putFloat("maxReiatsu", maxReiatsu);
         tag.putInt("actionCharge", actionCharge);
@@ -96,6 +118,12 @@ public class ResourcesData {
 
     public void load(CompoundTag tag) {
         costsDisabled = false;
+        if (tag.contains("stamina")) {
+            float value = tag.getFloat("stamina");
+            stamina = Float.isFinite(value) ? Mth.clamp(value, 0, com.bleachmod.common.StaminaPolicy.MAX) : 0;
+            staminaRestTicks = Mth.clamp(tag.getInt("staminaRestTicks"), 0, com.bleachmod.common.StaminaPolicy.REST_TICKS);
+            staminaExhausted = stamina == 0 || (tag.getBoolean("staminaExhausted") && stamina < com.bleachmod.common.StaminaPolicy.RESUME);
+        }
         if (tag.contains("currentReiatsu")) {
             currentReiatsu = tag.getFloat("currentReiatsu");
         }

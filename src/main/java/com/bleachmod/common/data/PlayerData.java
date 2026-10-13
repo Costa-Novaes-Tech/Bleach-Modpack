@@ -73,6 +73,7 @@ public class PlayerData {
         resources.setCurrentReiatsu(Reference.BASE_REIATSU);
         resources.setActionCharge(0);
         status.clearTransientState();
+        resources.fillStamina();
     }
 
     public void resetTransientState() {
@@ -82,7 +83,7 @@ public class PlayerData {
 
     public CompoundTag save() {
         CompoundTag tag = new CompoundTag();
-        tag.putInt("schemaVersion", 5);
+        tag.putInt("schemaVersion", 6);
         tag.put("attributes", attributes.save());
         tag.put("character", character.save());
         tag.put("resources", resources.save());

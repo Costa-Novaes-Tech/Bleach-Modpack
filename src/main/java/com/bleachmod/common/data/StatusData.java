@@ -8,6 +8,13 @@ import java.util.Set;
 import java.util.UUID;
 
 public class StatusData {
+    private net.minecraft.world.phys.Vec3 staminaPosition;
+    public boolean sampleStaminaMovement(net.minecraft.world.phys.Vec3 position) {
+        var previous = staminaPosition; staminaPosition = position;
+        if (previous == null) return false;
+        double dx = position.x - previous.x, dz = position.z - previous.z;
+        return dx * dx + dz * dz > .0001;
+    }
     public static final int COMBAT_IDLE_TICKS = 200;
     private int combatTicks, hudCombatTicks;
     public int getCombatTicks() { return combatTicks; }
@@ -249,6 +256,7 @@ public class StatusData {
     }
 
     public void clearTransientState() {
+        staminaPosition = null;
         clearCombat();
         techniqueSlot1CooldownTicks = 0;
         techniqueSlot2CooldownTicks = 0;
@@ -272,6 +280,7 @@ public class StatusData {
     }
 
     public void load(CompoundTag tag) {
+        staminaPosition = null;
         clearCombat();
         cooldownsDisabled = false;
         if (tag.contains("hasCreatedCharacter")) {

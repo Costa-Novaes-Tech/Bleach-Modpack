@@ -16,6 +16,29 @@ import java.util.*;
 public final class MvpRegressionTest {
     private static int count;
     public static void main(String[] args) {
+        test("Stamina drains, rests and resumes without changing reiatsu", () -> {
+            var r = new ResourcesData(); r.setCurrentReiatsu(50);
+            for (int i = 0; i < 399; i++) yes(r.tickStamina(true));
+            yes(!r.tickStamina(true)); eq(0F, r.getStamina()); yes(r.isStaminaExhausted());
+            for (int i = 0; i < 20; i++) r.tickStamina(false);
+            eq(0F, r.getStamina());
+            for (int i = 0; i < 9; i++) r.tickStamina(false);
+            yes(r.isStaminaExhausted()); r.tickStamina(false); yes(!r.isStaminaExhausted());
+            for (int i = 0; i < 200; i++) r.tickStamina(false);
+            eq(100F, r.getStamina()); eq(50F, r.getCurrentReiatsu());
+        });
+        test("Stamina persists including rest and sanitizes malformed values", () -> {
+            var r = new ResourcesData(); for (int i = 0; i < 400; i++) r.tickStamina(true);
+            var copy = new ResourcesData(); copy.load(r.save()); yes(copy.save().equals(r.save()));
+            yes(copy.isStaminaExhausted()); copy.tickStamina(false); eq(0F, copy.getStamina());
+            var tag = new CompoundTag(); tag.putFloat("stamina", Float.NaN); tag.putInt("staminaRestTicks", Integer.MAX_VALUE);
+            copy.load(tag); eq(0F, copy.getStamina()); yes(copy.isStaminaExhausted());
+            tag.putFloat("stamina", 1000); copy.load(tag); eq(100F, copy.getStamina()); yes(!copy.isStaminaExhausted());
+            var legacy = new PlayerData(); legacy.initializeShinigami(); var saved = legacy.save(); saved.putInt("schemaVersion", 5);
+            saved.getCompound("resources").remove("stamina"); saved.getCompound("resources").remove("staminaRestTicks");
+            saved.getCompound("resources").remove("staminaExhausted"); var migrated = new PlayerData(); migrated.load(saved);
+            eq(100F, migrated.getResources().getStamina()); eq(6, migrated.save().getInt("schemaVersion"));
+        });
         test("Combat state expires, refreshes and stays absent from persistent saves", () -> {
             var status = new StatusData(); status.refreshCombat(200);
             for (int i = 0; i < 199; i++) status.tickTransientState(); yes(status.isInCombat());

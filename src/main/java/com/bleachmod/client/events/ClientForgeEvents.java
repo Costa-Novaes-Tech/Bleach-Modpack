@@ -38,6 +38,11 @@ public class ClientForgeEvents {
         }
 
         PlayerCapability.get(mc.player).ifPresent(data -> {
+            if (data.isDataLoaded() && data.getStatus().hasCreatedCharacter()
+                    && !mc.player.isCreative() && !mc.player.getAbilities().flying && !mc.player.isPassenger()
+                    && data.getResources().isStaminaExhausted()) {
+                mc.player.setSprinting(false);
+            }
             if (data.isDataLoaded() && !data.getStatus().hasCreatedCharacter() && mc.screen == null) {
                 mc.setScreen(new ConfirmRaceScreen());
             }

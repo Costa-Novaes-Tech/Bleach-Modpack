@@ -1,3 +1,5 @@
+> **Estado vigente — ciclo 31, 13/10/2026:** stamina de corrida com pausa, recuperação, exaustão e HUD. Valores provisórios; ciclo 30 segue em teste visual. [Contrato, arquivos, lógica e roteiro](31-stamina-corrida-2026-10-13.md). Schema 6; protocolo 2.8. Registros anteriores abaixo são históricos.
+
 > **Estado vigente — ciclo 30, 12/10/2026:** primeira fatia de Combat State automático, indicador no HUD e limpeza transitória, sem mudar regeneração/stamina/atributos. [Lógica, arquivos, timeout provisório e testes](30-estado-combate-2026-10-12.md). Protocolo 2.7; schema 5 preservado. Combat Mode/hotbar seguem futuros; registros anteriores abaixo são históricos.
 
 > **Estado vigente — ciclo 29, 12/10/2026:** ciclos anteriores homologados pelo usuário. Definições comuns dos 24 slots/formas de Ryujin e Hyōrinmaru consultadas por execução, acesso e HUD; valores preservados. [Arquivos, lógica e validação](29-definicoes-compartilhadas-2026-10-12.md) · [Contrato para novos poderes](contrato-criacao-novos-poderes.md). Registros anteriores abaixo são históricos; nova feature será discutida antes de outro kit.
@@ -371,3 +373,7 @@ Usuário homologou visuais, persistência e maestria. Executor, acesso e HUD ago
 ## Continuidade — ciclo 30
 
 Dano aceito entre entidades vivas ativa/renova o estado automático de combate do jogador. O indicador acompanha snapshot do servidor; estado expira após 200 ticks sem conflito ou ao limpar lifecycle. Não altera hotbar, regen, stamina ou habilidades. Consulte o [relatório do ciclo 30](30-estado-combate-2026-10-12.md); cliente/servidor exigem protocolo 2.7.
+
+## Ciclo 31 — Corrida e stamina
+
+Reserva 100, gasto 5/s durante sprint em movimento, recuperação 20/s após 1 segundo. Ao zerar, retoma sprint em 10 pontos. Reconexão conserva reserva; respawn restaura. [Passo a passo, arquivos e testes](31-stamina-corrida-2026-10-13.md). Balanceamento e visual aguardam playtest.

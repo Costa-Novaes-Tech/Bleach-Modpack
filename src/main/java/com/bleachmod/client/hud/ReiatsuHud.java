@@ -46,8 +46,16 @@ public final class ReiatsuHud {
         int panelSrcH = BleachTextures.HUD_SRC_H;
         int x = panel.x();
         int y = panel.y();
+        int staminaY = y + panel.height() + 3;
+        int staminaWidth = Math.min(120, panel.width());
+        int staminaColor = data.getResources().isStaminaExhausted() ? 0xFFFF8855 : 0xFF77DDAA;
+        g.drawString(mc.font, Component.translatable("hud.bleachmod.stamina",
+                (int) Math.ceil(data.getResources().getStamina())), x, staminaY, staminaColor, true);
+        g.fill(x, staminaY + 10, x + staminaWidth, staminaY + 14, 0xCC222222);
+        g.fill(x, staminaY + 10, x + (int) (staminaWidth * data.getResources().getStamina()
+                / com.bleachmod.common.StaminaPolicy.MAX), staminaY + 14, staminaColor);
         if (data.getStatus().isHudInCombat())
-            g.drawString(mc.font, Component.translatable("hud.bleachmod.combat.active"), x, y + panel.height() + 3, 0xF2A06B, true);
+            g.drawString(mc.font, Component.translatable("hud.bleachmod.combat.active"), x, staminaY + 17, 0xF2A06B, true);
 
         // Panel base (hud_panel_full.png) drawn at scale.
         g.pose().pushPose();
