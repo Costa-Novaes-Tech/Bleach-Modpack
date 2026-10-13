@@ -1,3 +1,5 @@
+> **Estado vigente — ciclo 35, 13/10/2026:** bainha ampliada em 15% e inclinada mais 18 graus para baixo, mantendo curva e lado corrigido. [Arquivo, valores e conferência visual](35-escala-inclinacao-bainha-2026-10-13.md). Ajuste final aguarda homologação; registros anteriores abaixo são históricos.
+
 # Ciclo 34 — Refinamento da bainha e descrição de Resistência
 
 Data: 13/10/2026. Branch: Feature-Poderes-bankais. Usuário homologou progressão de stamina e funcionamento da bainha, solicitando proporção menor, curvatura e troca do lado observado nas imagens. Não presume homologação visual do refinamento.

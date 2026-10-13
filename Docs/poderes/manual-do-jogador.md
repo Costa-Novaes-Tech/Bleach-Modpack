@@ -1,3 +1,5 @@
+> **Estado vigente — ciclo 35, 13/10/2026:** bainha ampliada em 15% e inclinada mais 18 graus para baixo, mantendo curva e lado corrigido. [Arquivo, valores e conferência visual](35-escala-inclinacao-bainha-2026-10-13.md). Ajuste final aguarda homologação; registros anteriores abaixo são históricos.
+
 > **Estado vigente — ciclo 34, 13/10/2026:** stamina do ciclo 33 homologada; bainha menor, afunilada e curva, lado anatômico corrigido com ajuste de gesto. Tooltip de Resistência na tela K informa stamina máxima. [Arquivos, causa, proporções e roteiro](34-refinamento-bainha-tooltip-resistencia-2026-10-13.md). Refinamento visual aguarda homologação; registros anteriores abaixo são históricos.
 
 > **Estado vigente — ciclo 33, 13/10/2026:** stamina máxima por Resistência com retornos decrescentes e sem recarga por compra; bainha da arma vinculada e saque/guarda cosméticos nativos. [Fórmula, arquivos, sincronização, limites e roteiro](33-progressao-stamina-bainhas-saque-2026-10-13.md). Schema 7; protocolo 2.9. Visual e balanceamento aguardam playtest; registros anteriores abaixo são históricos.
@@ -153,3 +155,8 @@ Máximo de stamina = 100 + 100 × Resistência / (Resistência + 20), usando ní
 ## Ciclo 34 — Bainha e informação na tela K
 
 Bainha encurtada/afinada com curva discreta; posição corrigida para esquerda anatômica de destros e espelhada em canhotos, com gesto de saque ajustado. Tooltip de Resistência informa o aumento da stamina máxima. [Causa, arquivos e roteiro](34-refinamento-bainha-tooltip-resistencia-2026-10-13.md).
+
+
+## Ciclo 35 — Proporção e inclinação da bainha
+
+Escala +15%, inclinação adicional de 18 graus para baixo; curva, lado e espadas preservados. [Arquivo e roteiro visual](35-escala-inclinacao-bainha-2026-10-13.md).

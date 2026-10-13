@@ -51,8 +51,9 @@ public final class ZanpakutoSheathLayer extends RenderLayer<AbstractClientPlayer
             // Player-model +X is the character's left: the previous negative sign put it on the right.
             boolean left = player.getMainArm() == net.minecraft.world.entity.HumanoidArm.RIGHT;
             pose.translate(left ? .32 : -.32, .68, -.04);
-            pose.mulPose(Axis.YP.rotationDegrees(left ? 25 : -25)); pose.mulPose(Axis.XP.rotationDegrees(-8));
-            pose.scale(.85F,.85F,.85F);
+            pose.mulPose(Axis.YP.rotationDegrees(left ? 25 : -25)); pose.mulPose(Axis.XP.rotationDegrees(-26));
+            // Increase the approved curved profile by 15%; negative pitch lowers the positive-Z tip.
+            pose.scale(.9775F,.9775F,.9775F);
             draw(pose,buffers,light,"scabbard",ice ? .12F : fire ? .13F : .2F,ice ? .32F : fire ? .08F : .2F,ice ? .38F : fire ? .07F : .22F);
             draw(pose,buffers,light,"fittings",.65F,.53F,.22F);
             if (motion.previous == 1) {
