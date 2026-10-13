@@ -1,3 +1,5 @@
+> **Estado vigente — ciclo 32, 13/10/2026:** ciclo 31 e estado de combate homologados pelo usuário. Golpes básicos de zanpakutō gastam até 4 stamina por tentativa; técnicas preservam custos de reiatsu. As três espadas são indestrutíveis por decisão do usuário. [Contrato, arquivos, lógica e testes](32-ataques-basicos-zanpakutos-indestrutiveis-2026-10-13.md). Registros anteriores abaixo são históricos.
+
 # Ciclo 31 — Stamina para corrida
 
 Data: 13/10/2026. Branch: Feature-Poderes-bankais. Próxima fatia recomendada e implementada com autorização do usuário. O ciclo 30 de estado de combate está em teste visual pelo usuário.

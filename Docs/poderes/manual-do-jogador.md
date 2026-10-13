@@ -1,3 +1,5 @@
+> **Estado vigente — ciclo 32, 13/10/2026:** ciclo 31 e estado de combate homologados pelo usuário. Golpes básicos de zanpakutō gastam até 4 stamina por tentativa; técnicas preservam custos de reiatsu. As três espadas são indestrutíveis por decisão do usuário. [Contrato, arquivos, lógica e testes](32-ataques-basicos-zanpakutos-indestrutiveis-2026-10-13.md). Registros anteriores abaixo são históricos.
+
 > **Estado vigente — ciclo 31, 13/10/2026:** stamina de corrida com pausa, recuperação, exaustão e HUD. Valores provisórios; ciclo 30 segue em teste visual. [Contrato, arquivos, lógica e roteiro](31-stamina-corrida-2026-10-13.md). Schema 6; protocolo 2.8. Registros anteriores abaixo são históricos.
 
 > **Estado vigente — ciclo 30, 12/10/2026:** primeira fatia de Combat State automático, indicador no HUD e limpeza transitória, sem mudar regeneração/stamina/atributos. [Lógica, arquivos, timeout provisório e testes](30-estado-combate-2026-10-12.md). Protocolo 2.7; schema 5 preservado. Combat Mode/hotbar seguem futuros; registros anteriores abaixo são históricos.
@@ -132,3 +134,8 @@ Dano aceito entre entidades vivas ativa/renova o estado automático de combate d
 ## Ciclo 31 — Corrida e stamina
 
 Reserva 100, gasto 5/s durante sprint em movimento, recuperação 20/s após 1 segundo. Ao zerar, retoma sprint em 10 pontos. Reconexão conserva reserva; respawn restaura. [Passo a passo, arquivos e testes](31-stamina-corrida-2026-10-13.md). Balanceamento e visual aguardam playtest.
+
+
+## Ciclo 32 — Esforço básico e armas indestrutíveis
+
+Stamina/estado de combate homologados. Tentativa manual de golpe contra alvo vivo com Asauchi, Ryujin ou Hyōrinmaru custa até 4 stamina; ataque básico continua possível a zero. Técnicas não recebem esse custo. As três zanpakutōs não desgastam nem mostram barra, inclusive itens antigos. [Arquivos, lógica e roteiro](32-ataques-basicos-zanpakutos-indestrutiveis-2026-10-13.md).

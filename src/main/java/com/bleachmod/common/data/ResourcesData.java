@@ -11,6 +11,12 @@ public class ResourcesData {
     public float getStamina() { return stamina; }
     public boolean isStaminaExhausted() { return staminaExhausted; }
     public void fillStamina() { stamina = com.bleachmod.common.StaminaPolicy.MAX; staminaRestTicks = 0; staminaExhausted = false; }
+    /** Basic attacks remain possible at zero; charge available stamina and postpone recovery. */
+    public void spendBasicAttackStamina() {
+        stamina = Math.max(0, stamina - com.bleachmod.common.StaminaPolicy.BASIC_SWORD_ATTACK);
+        staminaRestTicks = com.bleachmod.common.StaminaPolicy.REST_TICKS;
+        if (stamina == 0) staminaExhausted = true;
+    }
     /** Returns false when an attempted sprint cannot be sustained. No reiatsu or progression mutation. */
     public boolean tickStamina(boolean effort) {
         if (effort && !staminaExhausted) {

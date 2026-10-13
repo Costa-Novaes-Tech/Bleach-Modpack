@@ -16,6 +16,15 @@ import java.util.*;
 public final class MvpRegressionTest {
     private static int count;
     public static void main(String[] args) {
+        test("Basic sword effort spends only stamina and delays recovery without blocking attacks", () -> {
+            var r = new ResourcesData(); r.setCurrentReiatsu(50); r.setCostsDisabled(true);
+            for (int i = 0; i < 25; i++) r.spendBasicAttackStamina();
+            eq(0F, r.getStamina()); yes(r.isStaminaExhausted()); eq(50F, r.getCurrentReiatsu());
+            r.spendBasicAttackStamina(); eq(0F, r.getStamina());
+            for (int i = 0; i < 20; i++) r.tickStamina(false); eq(0F, r.getStamina());
+            r.tickStamina(false); eq(1F, r.getStamina());
+            r.spendBasicAttackStamina(); eq(0F, r.getStamina());
+        });
         test("Stamina drains, rests and resumes without changing reiatsu", () -> {
             var r = new ResourcesData(); r.setCurrentReiatsu(50);
             for (int i = 0; i < 399; i++) yes(r.tickStamina(true));
