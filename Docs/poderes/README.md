@@ -1,3 +1,5 @@
+> **Estado vigente — ciclo 36, 13/10/2026:** proporção/inclinação finais da bainha homologadas pelo usuário; documentação consolidada de combate, stamina, armas indestrutíveis e saque/guarda. [Contratos atuais, arquivos, histórico e próxima proposta](36-consolidacao-homologacao-proximos-passos-2026-10-13.md). Próxima recomendação: esquiva curta com stamina, ainda sem implementação. Registros anteriores abaixo são históricos.
+
 > **Estado vigente — ciclo 35, 13/10/2026:** bainha ampliada em 15% e inclinada mais 18 graus para baixo, mantendo curva e lado corrigido. [Arquivo, valores e conferência visual](35-escala-inclinacao-bainha-2026-10-13.md). Ajuste final aguarda homologação; registros anteriores abaixo são históricos.
 
 > **Estado vigente — ciclo 34, 13/10/2026:** stamina do ciclo 33 homologada; bainha menor, afunilada e curva, lado anatômico corrigido com ajuste de gesto. Tooltip de Resistência na tela K informa stamina máxima. [Arquivos, causa, proporções e roteiro](34-refinamento-bainha-tooltip-resistencia-2026-10-13.md). Refinamento visual aguarda homologação; registros anteriores abaixo são históricos.
@@ -151,3 +153,7 @@ Usuário homologou visuais, persistência e maestria. Executor, acesso e HUD ago
 ## Continuidade — ciclo 30
 
 Dano aceito entre entidades vivas ativa/renova o estado automático de combate do jogador. O indicador acompanha snapshot do servidor; estado expira após 200 ticks sem conflito ou ao limpar lifecycle. Não altera hotbar, regen, stamina ou habilidades. Consulte o [relatório do ciclo 30](30-estado-combate-2026-10-12.md); cliente/servidor exigem protocolo 2.7.
+
+## Ciclo 36 — Consolidação e encerramento visual
+
+Homologação final recebida do usuário para bainha, proporção e inclinação. Stamina/progressão e estado de combate aprovados nos testes anteriores. Consolidado o histórico técnico dos ciclos 30–35, arquivos, contratos e limites. [Relatório de fechamento e proposta de esquiva](36-consolidacao-homologacao-proximos-passos-2026-10-13.md). Próxima fatia proposta: esquiva direcional curta com stamina; depois bloqueio/Postura. Nenhuma dessas ações foi implementada neste ciclo documental.

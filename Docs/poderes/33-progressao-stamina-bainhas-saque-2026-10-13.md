@@ -1,3 +1,5 @@
+> **Estado vigente — ciclo 36, 13/10/2026:** proporção/inclinação finais da bainha homologadas pelo usuário; documentação consolidada de combate, stamina, armas indestrutíveis e saque/guarda. [Contratos atuais, arquivos, histórico e próxima proposta](36-consolidacao-homologacao-proximos-passos-2026-10-13.md). Próxima recomendação: esquiva curta com stamina, ainda sem implementação. Registros anteriores abaixo são históricos.
+
 > **Estado vigente — ciclo 35, 13/10/2026:** bainha ampliada em 15% e inclinada mais 18 graus para baixo, mantendo curva e lado corrigido. [Arquivo, valores e conferência visual](35-escala-inclinacao-bainha-2026-10-13.md). Ajuste final aguarda homologação; registros anteriores abaixo são históricos.
 
 > **Estado vigente — ciclo 34, 13/10/2026:** stamina do ciclo 33 homologada; bainha menor, afunilada e curva, lado anatômico corrigido com ajuste de gesto. Tooltip de Resistência na tela K informa stamina máxima. [Arquivos, causa, proporções e roteiro](34-refinamento-bainha-tooltip-resistencia-2026-10-13.md). Refinamento visual aguarda homologação; registros anteriores abaixo são históricos.
@@ -62,3 +64,7 @@ As camadas são código nativo Forge/Minecraft 1.20.1. Sem download de assets ex
 `check build runGameTestServer --offline --console=plain`: 73 cenários de regressão e todos os 63 GameTests obrigatórios aprovados, log `build/cycle33-validation.log`. Após ajustes visuais de cor/guarda em primeira pessoa, build/check final registrado em `build/cycle33-visual-build.log`. JAR `build/libs/bleachmod-0.2.0.jar`. Build/check final também concluído com sucesso, repetindo os 73 cenários de regressão após os ajustes de apresentação. Sem homologação visual presumida.
 
 Próxima etapa: refinamento de encaixe/pose conforme testes e ajuste da curva se necessário. Depois, esquiva curta com custo de stamina; controle dedicado de embainhar, postura e migração dos atributos em etapas separadas. Aizen permanece futuro.
+
+## Homologação posterior — 13/10/2026
+
+Usuário aprovou o visual final após o ciclo 35. Encaixe/proporção/inclinação encerrados neste escopo. [Consolidação e próximos passos](36-consolidacao-homologacao-proximos-passos-2026-10-13.md). Pendências de teste descritas acima registram o estado histórico da entrega e não invalidam esse aceite visual.

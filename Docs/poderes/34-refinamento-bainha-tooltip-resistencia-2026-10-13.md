@@ -1,3 +1,5 @@
+> **Estado vigente — ciclo 36, 13/10/2026:** proporção/inclinação finais da bainha homologadas pelo usuário; documentação consolidada de combate, stamina, armas indestrutíveis e saque/guarda. [Contratos atuais, arquivos, histórico e próxima proposta](36-consolidacao-homologacao-proximos-passos-2026-10-13.md). Próxima recomendação: esquiva curta com stamina, ainda sem implementação. Registros anteriores abaixo são históricos.
+
 > **Estado vigente — ciclo 35, 13/10/2026:** bainha ampliada em 15% e inclinada mais 18 graus para baixo, mantendo curva e lado corrigido. [Arquivo, valores e conferência visual](35-escala-inclinacao-bainha-2026-10-13.md). Ajuste final aguarda homologação; registros anteriores abaixo são históricos.
 
 # Ciclo 34 — Refinamento da bainha e descrição de Resistência
@@ -33,3 +35,7 @@ X positivo coloca a bainha na esquerda anatômica do personagem destro; canhotos
 ## Continuidade
 
 Após homologação do encaixe, retomar planejamento da esquiva curta com stamina. Nenhuma habilidade, bankai, NPC ou migração de atributos nova neste ciclo.
+
+## Homologação posterior — 13/10/2026
+
+Usuário aprovou o visual final após o ciclo 35. Encaixe/proporção/inclinação encerrados neste escopo. [Consolidação e próximos passos](36-consolidacao-homologacao-proximos-passos-2026-10-13.md). Pendências de teste descritas acima registram o estado histórico da entrega e não invalidam esse aceite visual.
