@@ -30,7 +30,9 @@ public final class CombatEvents {
         if(isPlayerMeleeAttack(event.getSource()) && event.getSource().getEntity() instanceof ServerPlayer player) {
             PlayerCapability.get(player).ifPresent(data->{
                 if(!data.getStatus().hasCreatedCharacter())return;
-                float formBonus=CombatBalance.formDamageBonus(data.getCharacter().getActiveForm());
+                float formBonus=com.bleachmod.common.technique.TechniqueProgression.equipped(player, data)
+                        && com.bleachmod.common.evolution.TransformationsHelper.isUnlocked(data, "zanpakuto", data.getCharacter().getActiveForm())
+                        ? CombatBalance.formDamageBonus(data.getCharacter().getActiveForm()) : 0;
                 if (isZanjutsuWeapon(player)) {
                     float ignitionBonus = TechniqueService.isRyujinJakkaEquipped(player)
                             ? TechniqueService.ignitionDamageBonus(data) : 0.0F;
@@ -56,12 +58,17 @@ public final class CombatEvents {
         }
     }
 
-    @SubscribeEvent
+    @SubscribeEvent(priority = net.minecraftforge.eventbus.api.EventPriority.LOWEST)
     public static void damageApplied(LivingDamageEvent event) {
+        if (event.getAmount() > 0 && event.getEntity() instanceof ServerPlayer armored
+                && !event.getSource().is(net.minecraft.tags.DamageTypeTags.BYPASSES_INVULNERABILITY)
+                && event.getSource().getEntity() instanceof LivingEntity attacker)
+            com.bleachmod.common.technique.MasteryPracticeService.defense(armored, attacker);
         if (!isPlayerMeleeAttack(event.getSource()) || !(event.getSource().getEntity() instanceof ServerPlayer player)) return;
         if (!isSupportedMeleeWeapon(player)) return;
         PlayerCapability.get(player).ifPresent(data -> {
             if (data.getStatus().hasCreatedCharacter() && event.getAmount() > 0) {
+                com.bleachmod.common.technique.MasteryPracticeService.damage(player, event.getEntity());
                 TechniqueService.applyIgnitionHit(player, data, event.getEntity());
                 com.bleachmod.common.technique.ReleasePassives.flameHit(player, data, event.getEntity());
                 NetworkHandler.sendToPlayer(new DamageIndicatorS2C(event.getAmount()), player);

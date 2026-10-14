@@ -42,13 +42,15 @@ public final class BleachCommands {
                 }
             })));
         var root=literal("bleachdev").requires(s->s.hasPermission(2));
+        AssetBenchCommands.attach(root);
         root.then(literal("zanpakuto").then(literal("bind").then(argument("player",EntityArgument.player())
             .then(argument("identity",StringArgumentType.word())
-                .suggests((ctx,b)->SharedSuggestionProvider.suggest(java.util.List.of("ryujin_jakka","hyorinmaru"),b))
+                .suggests((ctx,b)->SharedSuggestionProvider.suggest(java.util.List.of("asauchi","ryujin_jakka","hyorinmaru"),b))
                 .executes(ctx->mutate(ctx,(p,d)->{
                     if (!Reference.RACE_SHINIGAMI.equals(d.getCharacter().getRace())) throw new IllegalArgumentException("Shinigami required");
                     d.getCharacter().bindZanpakuto(StringArgumentType.getString(ctx,"identity"));
                     d.getStatus().clearTransformationState();
+                    com.bleachmod.common.technique.MasteryPracticeService.cancelIntent(p);
                     com.bleachmod.common.technique.RyujinTechniqueService.cancel(p);
                     d.getResources().setActionCharge(0);
                     com.bleachmod.common.network.SyncHelper.appearance(p);
@@ -72,6 +74,7 @@ public final class BleachCommands {
                     double value=DoubleArgumentType.getDouble(ctx,"value");
                     if(value>definition.getMaxMastery()) throw new IllegalArgumentException("Mastery exceeds configured maximum");
                     d.getCharacter().setMastery("zanpakuto",form,value);
+                    com.bleachmod.common.technique.TechniqueProgression.unlockEligible(d.getCharacter());
                 }))))))));
         root.then(literal("reiatsu").then(literal("fill").then(argument("player",EntityArgument.player())
             .executes(ctx->mutate(ctx,(p,d)->d.getResources().setCurrentReiatsu(d.getResources().getMaxReiatsu()))))));

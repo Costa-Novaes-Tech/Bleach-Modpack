@@ -66,6 +66,7 @@ public final class BleachClient {
                 String identity = data.getCharacter().getZanpakutoIdentity();
                 if (item == ModItems.HYORINMARU.get() && !identity.equals(com.bleachmod.common.data.CharacterData.HYORINMARU)) return 0.0F;
                 if (item == ModItems.RYUJIN_JAKKA.get() && !identity.equals(com.bleachmod.common.data.CharacterData.RYUJIN)) return 0.0F;
+                if (item == ModItems.ASAUCHI.get() && !identity.equals(com.bleachmod.common.data.CharacterData.ASAUCHI)) return 0.0F;
                 String form = data.getCharacter().getActiveForm();
                 if (Reference.FORM_BANKAI.equals(form)) {
                     return 2.0F;

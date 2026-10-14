@@ -12,6 +12,7 @@ public final class TransformationsHelper {
     }
 
     public static boolean isUnlocked(PlayerData data, String group, String form) {
+        if (Reference.GROUP_ZANPAKUTO.equals(group) && !data.getCharacter().supportsForm(form)) return false;
         if (data.getCharacter().getRace().isEmpty() || !data.getCharacter().isFormDiscovered(form)) {
             return false;
         }

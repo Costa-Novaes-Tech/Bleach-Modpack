@@ -78,7 +78,7 @@ public final class IceRefinementGameTests {
     private static PlayerData data(FakePlayer p) { return PlayerCapability.get(p).orElseThrow(() -> new IllegalStateException("No data")); }
     private static FakePlayer player(GameTestHelper h) {
         var p = new FakePlayer(h.getLevel(), new GameProfile(UUID.randomUUID(), "IcePolish")); data(p).initializeShinigami();
-        data(p).getCharacter().bindZanpakuto("hyorinmaru"); p.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(ModItems.HYORINMARU.get()));
+        data(p).getCharacter().bindZanpakuto("hyorinmaru"); data(p).getCharacter().preserveLegacyTechniques(); p.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(ModItems.HYORINMARU.get()));
         BlockPos pos = h.absolutePos(new BlockPos(1,3,1)); p.setPos(pos.getX()+0.5,h.getLevel().getMaxBuildHeight()-64,pos.getZ()+0.5); p.setYRot(0); return p;
     }
     private static Zombie mob(GameTestHelper h, FakePlayer p, int ahead) {

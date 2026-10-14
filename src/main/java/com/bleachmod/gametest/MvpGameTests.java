@@ -23,7 +23,7 @@ import java.util.*;
 public final class MvpGameTests {
     private static FakePlayer player(GameTestHelper helper) {
         FakePlayer player=new FakePlayer(helper.getLevel(),new GameProfile(UUID.randomUUID(),"MvpTest"));
-        data(player).initializeShinigami();
+        data(player).initializeShinigami(); data(player).getCharacter().bindZanpakuto("ryujin_jakka"); data(player).getCharacter().preserveLegacyTechniques();
         return player;
     }
     private static PlayerData data(FakePlayer player) {

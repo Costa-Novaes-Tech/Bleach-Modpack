@@ -5,7 +5,7 @@ import com.bleachmod.common.data.*;
 import com.bleachmod.common.evolution.TransformationsHelper;
 import com.bleachmod.common.network.SyncHelper;
 import com.bleachmod.init.ModItems;
-import net.minecraft.core.particles.ParticleTypes;
+import com.bleachmod.common.visual.IceTechniqueVisuals;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -20,8 +20,6 @@ public final class HyorinmaruTechniqueService {
                          net.minecraft.resources.ResourceKey<net.minecraft.world.level.Level> dimension, long expires) { }
     private static final Map<UUID, Field> FIELDS = new HashMap<>();
     private static final Map<UUID, com.bleachmod.entity.IceDragonEntity> DRAGONS = new HashMap<>();
-    private static final int[] COOLDOWNS = {100, 160, 240, 300};
-    private static final float[] COSTS = {15, 20, 25, 30};
     public static final int SHIKAI_ZONE_RADIUS = 10, BANKAI_ZONE_RADIUS = 30;
     private HyorinmaruTechniqueService() { }
     public static void cancel(ServerPlayer player) {
@@ -39,6 +37,7 @@ public final class HyorinmaruTechniqueService {
         return CharacterData.HYORINMARU.equals(d.getCharacter().getZanpakutoIdentity()) && p.getMainHandItem().is(ModItems.HYORINMARU.get());
     }
     public static void executeSlot(ServerPlayer player, PlayerData data, int slot) {
+        if (!TechniqueProgression.authorize(player, data, slot)) return;
         if (slot < 1 || slot > 4 || !data.getStatus().hasCreatedCharacter() || !player.isAlive() || player.isSpectator()) return;
         if (!equipped(player, data) || !Reference.RACE_SHINIGAMI.equals(data.getCharacter().getRace())
                 || !Reference.GROUP_ZANPAKUTO.equals(data.getCharacter().getActiveFormGroup())) {
@@ -59,15 +58,16 @@ public final class HyorinmaruTechniqueService {
             player.displayClientMessage(Component.translatable("message.bleachmod.technique.cooldown", (cooldown + 19) / 20), true); return;
         }
         boolean bankai = Reference.FORM_BANKAI.equals(form);
-        float cost = released ? COSTS[slot - 1] + (bankai ? 5 : 0) : switch (slot) { case 3 -> 12; case 4 -> 18; default -> 8; };
+        var definition = TechniqueDefinitions.require(CharacterData.HYORINMARU, form, slot);
+        float cost = definition.cost();
         if (!data.getResources().consumeReiatsu(cost)) {
             player.displayClientMessage(Component.translatable("message.bleachmod.technique.no_reiatsu", (int) cost), true); return;
         }
         switch (slot) {
-            case 1 -> status.setTechniqueSlot1CooldownTicks(COOLDOWNS[0]);
-            case 2 -> status.setTechniqueSlot2CooldownTicks(COOLDOWNS[1]);
-            case 3 -> status.setTechniqueSlot3CooldownTicks(COOLDOWNS[2]);
-            case 4 -> status.setTechniqueSlot4CooldownTicks(COOLDOWNS[3]);
+            case 1 -> status.setTechniqueSlot1CooldownTicks(definition.cooldownTicks());
+            case 2 -> status.setTechniqueSlot2CooldownTicks(definition.cooldownTicks());
+            case 3 -> status.setTechniqueSlot3CooldownTicks(definition.cooldownTicks());
+            case 4 -> status.setTechniqueSlot4CooldownTicks(definition.cooldownTicks());
         }
         Vec3 forward = Vec3.directionFromRotation(0, player.getYRot());
         if (slot <= 2) strike(player, slot, released, bankai, forward);
@@ -84,8 +84,9 @@ public final class HyorinmaruTechniqueService {
         SyncHelper.resources(player);
     }
     private static void strike(ServerPlayer p, int slot, boolean released, boolean bankai, Vec3 forward) {
-        double range = !released ? 6 : slot == 1 ? (bankai ? 24 : 10) : (bankai ? 8 : 6);
-        double halfAngle = slot == 1 ? Math.toRadians(15) : Math.toRadians(35);
+        var visual = new IceTechniqueVisuals.Cut(slot, released, bankai);
+        double range = visual.range();
+        double halfAngle = visual.halfAngle();
         for (LivingEntity target : p.serverLevel().getEntitiesOfClass(LivingEntity.class, p.getBoundingBox().inflate(range),
                 e -> TechniqueTargets.allowed(p, e))) {
             Vec3 delta = target.position().subtract(p.position());
@@ -94,19 +95,12 @@ public final class HyorinmaruTechniqueService {
             if (forwardDistance < 0 || forwardDistance > range || lateral > 0.7 + forwardDistance * Math.tan(halfAngle)
                     || Math.abs(delta.y) > 3 || !p.hasLineOfSight(target)) continue;
             float damage = !released ? 3 : slot == 1 ? (bankai ? 12 : 8) : (bankai ? 6 : 4);
-            if (target.hurt(p.damageSources().playerAttack(p), damage)) {
-                if (released) IceControlService.chill(p, target, slot == 1 ? 60 : 80, bankai ? 2 : 1);
+            if (MasteryPracticeService.hurt(p, target, p.damageSources().playerAttack(p), damage, slot)) {
+                if (released) IceControlService.chill(p, target, slot == 1 ? 60 : 80, bankai ? 2 : 1, slot);
                 else target.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 40, 0));
             }
         }
-        for (double step = 0.5; step <= range; step += 0.5) {
-            Vec3 point = p.position().add(forward.scale(step)).add(0, 1, 0);
-            if (!p.serverLevel().hasChunkAt(net.minecraft.core.BlockPos.containing(point))) continue;
-            p.serverLevel().sendParticles(ParticleTypes.SNOWFLAKE,
-                    point.x, point.y, point.z, bankai ? 18 : released ? 12 : 8, slot == 1 ? 0.3 : step * Math.tan(halfAngle), 0.6, 0.25, 0.04);
-            p.serverLevel().sendParticles(new net.minecraft.core.particles.DustParticleOptions(new org.joml.Vector3f(0.45F, 0.85F, 1), bankai ? 1.6F : 1),
-                    point.x, point.y, point.z, released ? 4 : 2, 0.2, 0.4, 0.2, 0.01);
-        }
+        IceTechniqueVisuals.cut(p, visual, forward);
         p.serverLevel().playSound(null, p.blockPosition(), net.minecraft.sounds.SoundEvents.PLAYER_ATTACK_SWEEP, p.getSoundSource(), 0.8F, 0.8F);
         if (released && slot == 1) {
             var old = DRAGONS.remove(p.getUUID()); if (old != null) old.discard();
@@ -121,9 +115,9 @@ public final class HyorinmaruTechniqueService {
                     && Math.abs(delta.x * forward.z - delta.z * forward.x) <= 0.7 + ahead * Math.tan(Math.toRadians(20)) && p.hasLineOfSight(e);
         }).stream().min(Comparator.comparingDouble(p::distanceToSqr)).orElse(null);
         if (target == null) return;
-        IceControlService.chill(p, target, 60, 3);
+        IceControlService.chill(p, target, 60, 3, 4);
         target.push(forward.x * 0.45, 0.1, forward.z * 0.45); target.hurtMarked = true;
-        p.serverLevel().sendParticles(ParticleTypes.SNOWFLAKE, target.getX(), target.getY() + 1, target.getZ(), 45, 0.5, 0.8, 0.5, 0.05);
+        IceTechniqueVisuals.duel(p, target.position());
     }
     public static void tick(ServerPlayer p, PlayerData d) {
         IceArmorService.tick(p); BlizzardWeatherData.tickCaster(p, d);
@@ -137,16 +131,8 @@ public final class HyorinmaruTechniqueService {
             return; // Field expiration must not cancel independent Bankai weather or armor.
         }
         if (time % 4 == 0) {
-            int samples = f.barrier ? 16 : f.bankai ? 64 : 32;
             double zoneRadius = f.bankai ? BANKAI_ZONE_RADIUS : SHIKAI_ZONE_RADIUS;
-            for (int i = 0; i < samples; i++) {
-                double angle = i * 2.399963229728653 + time * 0.07;
-                double radius = zoneRadius * Math.sqrt((i + 0.5) / samples);
-                Vec3 point = f.barrier ? f.origin.add(-f.forward.z * (i / 2.5 - 3), (i % 4) * 0.8, f.forward.x * (i / 2.5 - 3))
-                        : f.origin.add(Math.cos(angle) * radius, 0.2, Math.sin(angle) * radius);
-                if (p.serverLevel().hasChunkAt(net.minecraft.core.BlockPos.containing(point)))
-                    p.serverLevel().sendParticles(ParticleTypes.SNOWFLAKE, point.x, point.y + (f.bankai ? 1 : 0.5), point.z, f.bankai ? 14 : 8, 0.6, f.bankai ? 2 : 0.8, 0.6, 0.04);
-            }
+            IceTechniqueVisuals.field(p, f.origin, f.forward, f.barrier, f.bankai, zoneRadius, time);
             if (!f.barrier) snowPatches(p, f, zoneRadius);
         }
         if (time % 10 != 0) return;
@@ -158,11 +144,11 @@ public final class HyorinmaruTechniqueService {
             if (f.barrier) {
                 double lateral = Math.abs(delta.x * f.forward.z - delta.z * f.forward.x);
                 if (Math.abs(delta.dot(f.forward)) > 0.8 || lateral > 3 || Math.abs(delta.y) > 3) continue;
-                IceControlService.chill(p, target, 30, f.bankai ? 2 : 1);
+                IceControlService.chill(p, target, 30, f.bankai ? 2 : 1, f.barrier ? 3 : 4);
                 target.push(f.forward.x * 0.22, 0.04, f.forward.z * 0.22); target.hurtMarked = true;
             } else if (TechniqueGeometry.intersectsCylinder(f.origin, range, 4, 4, target.getBoundingBox())
-                    && target.hurt(p.damageSources().playerAttack(p), f.bankai ? 3 : 2)) {
-                IceControlService.chill(p, target, 30, f.bankai ? 2 : 1);
+                    && MasteryPracticeService.hurt(p, target, p.damageSources().playerAttack(p), f.bankai ? 3 : 2, 4)) {
+                IceControlService.chill(p, target, 30, f.bankai ? 2 : 1, f.barrier ? 3 : 4);
             }
         }
     }

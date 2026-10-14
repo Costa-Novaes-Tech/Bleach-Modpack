@@ -3,8 +3,7 @@ package com.bleachmod.init;
 import com.bleachmod.Reference;
 import com.bleachmod.registry.ModEntities;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.SwordItem;
-import net.minecraft.world.item.Tiers;
+import com.bleachmod.common.item.ZanpakutoItem;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -18,20 +17,14 @@ public final class ModItems {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Reference.MOD_ID);
 
     public static final RegistryObject<Item> ASAUCHI = ITEMS.register("asauchi",
-            () -> new SwordItem(Tiers.IRON, 3, -2.4F, new Item.Properties().stacksTo(1)));
+            ZanpakutoItem::new);
 
-    /**
-     * Zanpakuto exclusiva do conjunto de poderes Ryujin Jakka.
-     *
-     * Nesta primeira entrega ela usa os mesmos atributos de combate da Asauchi.
-     * A identidade do item será usada pelo servidor para autorizar as técnicas
-     * Ryujin Jakka em uma entrega posterior.
-     */
+    /** Indestructible identity weapon; kit access is checked by the progression services. */
     public static final RegistryObject<Item> RYUJIN_JAKKA = ITEMS.register("ryujin_jakka",
-            () -> new SwordItem(Tiers.IRON, 3, -2.4F, new Item.Properties().stacksTo(1)));
+            ZanpakutoItem::new);
 
     public static final RegistryObject<Item> HYORINMARU = ITEMS.register("hyorinmaru",
-            () -> new SwordItem(Tiers.IRON, 3, -2.4F, new Item.Properties().stacksTo(1)));
+            ZanpakutoItem::new);
 
     public static final RegistryObject<Item> HOLLOW_SPAWN_EGG =
             ITEMS.register(

@@ -105,7 +105,7 @@ public final class SpiritFlameService extends SavedData {
             ServerPlayer owner = level.getServer().getPlayerList().getPlayer(entry.getKey());
             if (entry.getValue() > level.getGameTime() && owner != null && owner.serverLevel() == level
                     && TechniqueTargets.allowed(owner, target)) {
-                target.hurt(level.damageSources().playerAttack(owner), 4); return;
+                MasteryPracticeService.hurt(owner, target, level.damageSources().playerAttack(owner), 4, 0); return;
             }
         }
     }

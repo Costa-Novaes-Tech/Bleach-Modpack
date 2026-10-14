@@ -8,6 +8,20 @@ import java.util.Set;
 import java.util.UUID;
 
 public class StatusData {
+    private net.minecraft.world.phys.Vec3 staminaPosition;
+    public boolean sampleStaminaMovement(net.minecraft.world.phys.Vec3 position) {
+        var previous = staminaPosition; staminaPosition = position;
+        if (previous == null) return false;
+        double dx = position.x - previous.x, dz = position.z - previous.z;
+        return dx * dx + dz * dz > .0001;
+    }
+    public static final int COMBAT_IDLE_TICKS = 200;
+    private int combatTicks, hudCombatTicks;
+    public int getCombatTicks() { return combatTicks; }
+    public boolean isInCombat() { return combatTicks > 0; }
+    public boolean isHudInCombat() { return hudCombatTicks > 0; }
+    public void refreshCombat(int ticks) { combatTicks = Math.max(0, Math.min(COMBAT_IDLE_TICKS, ticks)); }
+    public void clearCombat() { combatTicks = 0; hudCombatTicks = 0; }
     private long lastActionTick = Long.MIN_VALUE;
     private boolean cooldownsDisabled;
     private int[] hudCooldowns = new int[4];
@@ -19,6 +33,7 @@ public class StatusData {
         tag.putIntArray("cooldowns", new int[]{techniqueSlot1CooldownTicks, techniqueSlot2CooldownTicks,
                 techniqueSlot3CooldownTicks, techniqueSlot4CooldownTicks});
         tag.putBoolean("disabled", cooldownsDisabled);
+        tag.putInt("combatTicks", combatTicks);
         return tag;
     }
     public void readTechniqueHud(CompoundTag tag) {
@@ -26,6 +41,7 @@ public class StatusData {
         if (values.length != 4) return;
         hudCooldowns = java.util.Arrays.stream(values).map(value -> Math.max(0, value)).toArray();
         hudCooldownsDisabled = tag.getBoolean("disabled");
+        hudCombatTicks = Math.max(0, Math.min(COMBAT_IDLE_TICKS, tag.getInt("combatTicks")));
     }
     public int[] getHudCooldowns() { return hudCooldowns.clone(); }
     public boolean areHudCooldownsDisabled() { return hudCooldownsDisabled; }
@@ -116,11 +132,13 @@ public class StatusData {
 
     /** Changing form cancels active effects but must not allow a cooldown bypass. */
     public void clearTransformationState() {
+        int combat = combatTicks, hudCombat = hudCombatTicks;
         int slot1 = techniqueSlot1CooldownTicks;
         int slot2 = techniqueSlot2CooldownTicks;
         int slot3 = techniqueSlot3CooldownTicks;
         int slot4 = techniqueSlot4CooldownTicks;
         clearTransientState();
+        combatTicks = combat; hudCombatTicks = hudCombat;
         techniqueSlot1CooldownTicks = slot1;
         techniqueSlot2CooldownTicks = slot2;
         techniqueSlot3CooldownTicks = slot3;
@@ -209,6 +227,7 @@ public class StatusData {
     }
 
     public void tickTransientState() {
+        if (combatTicks > 0) combatTicks--;
         if (techniqueSlot3CooldownTicks > 0) {
             techniqueSlot3CooldownTicks--;
         }
@@ -237,6 +256,8 @@ public class StatusData {
     }
 
     public void clearTransientState() {
+        staminaPosition = null;
+        clearCombat();
         techniqueSlot1CooldownTicks = 0;
         techniqueSlot2CooldownTicks = 0;
         techniqueSlot3CooldownTicks = 0;
@@ -259,6 +280,8 @@ public class StatusData {
     }
 
     public void load(CompoundTag tag) {
+        staminaPosition = null;
+        clearCombat();
         cooldownsDisabled = false;
         if (tag.contains("hasCreatedCharacter")) {
             hasCreatedCharacter = tag.getBoolean("hasCreatedCharacter");

@@ -45,21 +45,21 @@ public final class RyujinTechniqueService {
     public static final int WALL_PARTICLES_PER_SAMPLE = 3;
     public static final int WALL_DRAW_INTERVAL = 4;
     public static final int WALL_DURATION = 100;
-    public static final float WALL_COST = 40;
+    public static final float WALL_COST = TechniqueDefinitions.require("ryujin_jakka", "sealed", 3).cost();
     public static final float WALL_DAMAGE = 18;
-    public static final int WALL_COOLDOWN = 400;
+    public static final int WALL_COOLDOWN = TechniqueDefinitions.require("ryujin_jakka", "sealed", 3).cooldownTicks();
     public static final double TORNADO_RADIUS = 9;
     public static final double TORNADO_HEIGHT = 10;
     public static final int TORNADO_DURATION = 200;
-    public static final float TORNADO_COST = 40;
+    public static final float TORNADO_COST = TechniqueDefinitions.require("ryujin_jakka", "bankai", 3).cost();
     public static final float TORNADO_DAMAGE = 2;
-    public static final int TORNADO_COOLDOWN = 300;
+    public static final int TORNADO_COOLDOWN = TechniqueDefinitions.require("ryujin_jakka", "bankai", 3).cooldownTicks();
     public static final int BAT_COUNT = 5;
     public static final int BAT_DURATION = 800;
     public static final float BAT_HEALTH = 4;
-    public static final float BAT_COST = 25;
+    public static final float BAT_COST = TechniqueDefinitions.require("ryujin_jakka", "sealed", 4).cost();
     public static final float BAT_DAMAGE = 2;
-    public static final int BAT_COOLDOWN = 200;
+    public static final int BAT_COOLDOWN = TechniqueDefinitions.require("ryujin_jakka", "sealed", 4).cooldownTicks();
     private static final String BAT_MARKER = "bleachmod_flame_bat";
     private static final String BAT_OWNER = "bleachmod_flame_bat_owner";
     private static final Map<UUID, Runtime> ACTIVE = new HashMap<>();
@@ -127,8 +127,10 @@ public final class RyujinTechniqueService {
     }
 
     public static void executeArea(ServerPlayer player, PlayerData data) {
+        if (!TechniqueProgression.authorize(player, data, 3)) return;
         boolean tornado = bankai(data);
-        float cost = tornado ? TORNADO_COST : WALL_COST;
+        var definition = TechniqueDefinitions.require("ryujin_jakka", data.getCharacter().getActiveForm(), 3);
+        float cost = definition.cost();
         if (!ready(player, data, data.getStatus().getTechniqueSlot3CooldownTicks(), cost)) return;
         Runtime runtime = ACTIVE.computeIfAbsent(player.getUUID(), id -> new Runtime(player));
         if (runtime.area != null && !data.getStatus().areCooldownsDisabled()) {
@@ -138,7 +140,7 @@ public final class RyujinTechniqueService {
         Vec3 direction = Vec3.directionFromRotation(0, player.getYRot()).normalize();
         Vec3 origin = tornado ? player.position() : player.position().add(direction);
         runtime.area = new Area(tornado, origin, direction, runtime.level.getGameTime());
-        data.getStatus().setTechniqueSlot3CooldownTicks(tornado ? TORNADO_COOLDOWN : WALL_COOLDOWN);
+        data.getStatus().setTechniqueSlot3CooldownTicks(definition.cooldownTicks());
         if (!tornado) damageArea(runtime, origin, WALL_DAMAGE, 3);
         drawArea(runtime, origin);
         runtime.level.playSound(null, player.blockPosition(), SoundEvents.BLAZE_SHOOT,
@@ -148,7 +150,10 @@ public final class RyujinTechniqueService {
     }
 
     public static void executeBats(ServerPlayer player, PlayerData data) {
-        if (bankai(data) || !ready(player, data, data.getStatus().getTechniqueSlot4CooldownTicks(), BAT_COST)) return;
+        if (!TechniqueProgression.authorize(player, data, 4)) return;
+        if (bankai(data)) return;
+        var definition = TechniqueDefinitions.require("ryujin_jakka", data.getCharacter().getActiveForm(), 4);
+        if (!ready(player, data, data.getStatus().getTechniqueSlot4CooldownTicks(), definition.cost())) return;
         Runtime runtime = ACTIVE.computeIfAbsent(player.getUUID(), id -> new Runtime(player));
         if (runtime.swarm != null) {
             runtime.swarm.bats.removeIf(bat -> !bat.isAlive() || bat.isRemoved());
@@ -179,8 +184,8 @@ public final class RyujinTechniqueService {
                 return;
             }
         }
-        if (!data.getResources().consumeReiatsu(BAT_COST)) { clearSwarm(runtime); return; }
-        data.getStatus().setTechniqueSlot4CooldownTicks(BAT_COOLDOWN);
+        if (!data.getResources().consumeReiatsu(definition.cost())) { clearSwarm(runtime); return; }
+        data.getStatus().setTechniqueSlot4CooldownTicks(definition.cooldownTicks());
         feedback(player, "flame_bats");
         SyncHelper.resources(player);
     }
@@ -206,7 +211,7 @@ public final class RyujinTechniqueService {
                     || area.nextDamage.getOrDefault(target.getUUID(), Long.MIN_VALUE) > now
                     || !runtime.owner.hasLineOfSight(target)) continue;
             area.nextDamage.put(target.getUUID(), now + (area.tornado ? 10 : 20));
-            boolean hurt = target.hurt(runtime.owner.damageSources().playerAttack(runtime.owner), damage);
+            boolean hurt = MasteryPracticeService.hurt(runtime.owner, target, runtime.owner.damageSources().playerAttack(runtime.owner), damage, 3);
             if (!area.tornado && hurt && target instanceof Mob) {
                 Vec3 side = new Vec3(-area.direction.z, 0, area.direction.x);
                 double sign = target.position().subtract(center).dot(side) < 0 ? -1 : 1;
@@ -281,7 +286,7 @@ public final class RyujinTechniqueService {
                     && swarm.nextDamage.getOrDefault(target.getUUID(), Long.MIN_VALUE) <= now) {
                 // Shared per-target gate prevents five overlapping bats from dealing five hits in a tick.
                 swarm.nextDamage.put(target.getUUID(), now + 20);
-                if (target.hurt(runtime.owner.damageSources().playerAttack(runtime.owner), BAT_DAMAGE)) target.setSecondsOnFire(2);
+                if (MasteryPracticeService.hurt(runtime.owner, target, runtime.owner.damageSources().playerAttack(runtime.owner), BAT_DAMAGE, 4)) target.setSecondsOnFire(2);
                 runtime.level.sendParticles(ParticleTypes.FLAME, target.getX(), target.getY() + 0.5,
                         target.getZ(), 8, 0.2, 0.2, 0.2, 0.01);
             }

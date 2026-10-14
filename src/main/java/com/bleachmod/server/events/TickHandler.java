@@ -26,6 +26,7 @@ public class TickHandler {
             return;
         }
         PlayerCapability.get(player).ifPresent(data -> {
+            if (com.bleachmod.common.ZanpakutoCarry.update(player, data)) SyncHelper.appearance(player);
             if (!data.getStatus().hasCreatedCharacter()) {
                 return;
             }
@@ -35,6 +36,7 @@ public class TickHandler {
             }
 
             data.getStatus().tickTransientState();
+            com.bleachmod.common.StaminaService.tick(player, data);
 
             float previousEnergy = data.getResources().getCurrentReiatsu();
             int previousCharge = data.getResources().getActionCharge();
@@ -68,17 +70,6 @@ public class TickHandler {
                     && (data.getResources().getCurrentReiatsu() == data.getResources().getMaxReiatsu()
                     || data.getResources().getCurrentReiatsu() == 0))) {
                 SyncHelper.resources(player); // Owner HUD receives cooldown snapshots even at full reiatsu.
-            }
-            active = TransformationsHelper.getActiveFormData(data);
-            if (player.tickCount % 100 == 0 && active != null && !Reference.FORM_SEALED.equals(active.getName())
-                    && !data.getStatus().areCooldownsDisabled() && !data.getResources().areCostsDisabled()) {
-                data.getCharacter().addMastery(
-                        data.getCharacter().getActiveFormGroup(),
-                        active.getName(),
-                        active.getPassiveMasteryEveryFiveSeconds(),
-                        active.getMaxMastery()
-                );
-                SyncHelper.full(player);
             }
         });
     }
