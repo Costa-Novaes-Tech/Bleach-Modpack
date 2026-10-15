@@ -22,7 +22,9 @@ public final class GuardService {
         return d.getStatus().hasCreatedCharacter() && p.isAlive() && !p.isSpectator()
                 && !p.isSleeping() && !p.isPassenger() && !p.getAbilities().flying && !p.isFallFlying()
                 && !p.isUsingItem() && !p.isFullyFrozen() && !d.getStatus().isActionCharging()
-                && !d.getStatus().isDodging() && d.getStatus().getFlameDashTicks() == 0;
+                && !d.getStatus().isDodging() && d.getStatus().getFlameDashTicks() == 0
+                && !com.bleachmod.common.technique.SenbonzakuraTechniqueService.busy(p)
+                && !com.bleachmod.common.technique.SenbonzakuraTechniqueService.ward(p);
     }
     public static void request(ServerPlayer p, PlayerData d, boolean held) {
         if (!held) d.getGuard().release();
@@ -69,6 +71,8 @@ public final class GuardService {
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public static void attack(AttackEntityEvent event) {
         if (event.getEntity() instanceof ServerPlayer p)
-            PlayerCapability.get(p).ifPresent(d -> { if (d.getGuard().active()) event.setCanceled(true); });
+            PlayerCapability.get(p).ifPresent(d -> { if (d.getGuard().active()
+                    || com.bleachmod.common.technique.SenbonzakuraTechniqueService.busy(p)
+                    || !com.bleachmod.common.technique.SenbonzakuraTechniqueService.allowMelee(p,event.getTarget())) event.setCanceled(true); });
     }
 }

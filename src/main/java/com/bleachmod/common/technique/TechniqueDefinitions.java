@@ -8,7 +8,7 @@ public final class TechniqueDefinitions {
     public record Definition(String identity, String form, int slot, String id, String nameKey,
                              int mastery, float cost, int cooldownTicks, float drainPerTick) {
         public Definition {
-            if (!List.of(CharacterData.RYUJIN, CharacterData.HYORINMARU).contains(identity)
+            if (!List.of(CharacterData.RYUJIN, CharacterData.HYORINMARU, CharacterData.SENBONZAKURA).contains(identity)
                     || !List.of("sealed", "shikai", "bankai").contains(form) || slot < 1 || slot > 4
                     || id == null || id.isBlank() || nameKey == null || nameKey.isBlank() || mastery < 0 || mastery > 100
                     || !Float.isFinite(cost) || cost < 0 || cooldownTicks < 0 || !Float.isFinite(drainPerTick) || drainPerTick < 0)
@@ -16,6 +16,16 @@ public final class TechniqueDefinitions {
         }
     }
     private record Key(String identity, String form, int slot) { }
+    public record Continuation(String id, int slot, String nameKey, int readyTicks, int windowTicks, float cost) {
+        public Continuation {
+            if (id == null || id.isBlank() || slot < 1 || slot > 4 || nameKey == null || nameKey.isBlank()
+                    || readyTicks < 0 || windowTicks <= readyTicks || !Float.isFinite(cost) || cost < 0)
+                throw new IllegalArgumentException("Invalid continuation");
+        }
+    }
+    public static final Continuation FLORAL_BLOOM = new Continuation("floral_bloom", 2, "ability.bleachmod.senbonzakura.floral_bloom", 100, 200, 0);
+    public static final Continuation IKKA = new Continuation("ikka_senjinka", 3, "ability.bleachmod.senbonzakura.ikka_senjinka", 20, 160, 0);
+    public static List<Continuation> continuations() { return List.of(FLORAL_BLOOM, IKKA); }
     private static final Map<Key, Definition> DEFINITIONS = build();
     private TechniqueDefinitions() { }
     public static int slotRequirement(int slot) { return slot >= 1 && slot <= 4 ? (slot - 1) * 20 : Integer.MAX_VALUE; }
@@ -33,6 +43,15 @@ public final class TechniqueDefinitions {
             int[] cooldowns = {100, 160, 240, 300};
             for (int slot = 1; slot <= 4; slot++) add(entries, CharacterData.HYORINMARU, form, slot, iceIds[slot - 1],
                     "ability.bleachmod.hyorinmaru." + (sealed ? "sealed_" : "slot_") + slot, costs[slot - 1], cooldowns[slot - 1], 0);
+        }
+        for (String form : List.of("shikai", "bankai")) {
+            boolean bankai = form.equals("bankai");
+            String[] ids = bankai ? new String[]{"five_cuts", "floral_garden", "senkei", "hakuteiken"}
+                    : new String[]{"petal_cut", "petal_stream", "petal_convergence", "petal_guard"};
+            float[] costs = bankai ? new float[]{25,35,25,40} : new float[]{10,15,20,18};
+            int[] cooldowns = bankai ? new int[]{160,400,240,300} : new int[]{60,100,140,180};
+            for (int slot = 1; slot <= 4; slot++) add(entries, CharacterData.SENBONZAKURA, form, slot,
+                    ids[slot-1], "ability.bleachmod.senbonzakura." + ids[slot-1], costs[slot-1], cooldowns[slot-1], 0);
         }
         return Collections.unmodifiableMap(entries);
     }

@@ -1,3 +1,5 @@
+> Atualização posterior: o usuário autorizou o kit completo e as recomendações no ciclo 43. Consulte [implementação, parâmetros e roteiro vigente](43-senbonzakura-kit-completo-prototipo-2026-10-15.md). O texto abaixo preserva a fase de proposta, não pendências atuais de autorização.
+
 # Ciclo 42 — Byakuya: cortes de pétalas, campo floral e alcance
 
 Data: 15/10/2026. Branch: `Feature-Poderes-bankais`. Discussão de design e registro das escolhas do usuário, **sem implementação de poderes**. Complementa a [pesquisa do ciclo 41](41-byakuya-pesquisa-possibilidades-kit-2026-10-15.md) e substitui sua proposta de onda/maré para o slot 1.

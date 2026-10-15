@@ -51,7 +51,13 @@ public final class MasteryPracticeService {
         credit(owner, target, slot);
     }
     public static void control(ServerPlayer owner, LivingEntity target, int slot) { credit(owner, target, slot); }
-    public static void defense(ServerPlayer owner, LivingEntity attacker) { if (IceArmorService.active(owner)) credit(owner, attacker, 3); }
+    public static void defense(ServerPlayer owner, LivingEntity attacker) {
+        if (IceArmorService.active(owner)) credit(owner, attacker, 3);
+    }
+    public static void defense(ServerPlayer owner, LivingEntity attacker, DamageSource source) {
+        if (IceArmorService.active(owner)) defense(owner,attacker);
+        else if (SenbonzakuraTechniqueService.protection(owner,source)>0) credit(owner,attacker,4);
+    }
     private static void credit(ServerPlayer owner, LivingEntity target, int slot) {
         if (!owner.isAlive() || owner.isSpectator() || !(target instanceof Enemy || target instanceof ServerPlayer)
                 || target.isInvulnerable() || !TechniqueTargets.allowed(owner, target)) return;

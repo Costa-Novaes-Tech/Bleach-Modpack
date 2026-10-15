@@ -8,6 +8,14 @@ import java.util.Set;
 import java.util.UUID;
 
 public class StatusData {
+    private CompoundTag senbonHud = new CompoundTag();
+    public CompoundTag getSenbonHud() { return senbonHud.copy(); }
+    public void readSenbonHud(CompoundTag tag) {
+        senbonHud = new CompoundTag();
+        for (String key : java.util.List.of("fieldReady","fieldRemaining","sceneReady","sceneRemaining","ward"))
+            if (tag.contains(key)) senbonHud.putInt(key, Math.max(0, Math.min(200,tag.getInt(key))));
+        senbonHud.putBoolean("bloom",tag.getBoolean("bloom"));
+    }
     private net.minecraft.world.phys.Vec3 dodgeDirection = net.minecraft.world.phys.Vec3.ZERO;
     private int dodgeTicks;
     private boolean dodging;

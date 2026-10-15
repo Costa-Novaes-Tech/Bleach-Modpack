@@ -25,6 +25,7 @@ public final class ModItems {
 
     public static final RegistryObject<Item> HYORINMARU = ITEMS.register("hyorinmaru",
             ZanpakutoItem::new);
+    public static final RegistryObject<Item> SENBONZAKURA = ITEMS.register("senbonzakura", ZanpakutoItem::new);
 
     public static final RegistryObject<Item> HOLLOW_SPAWN_EGG =
             ITEMS.register(

@@ -70,6 +70,9 @@ public final class NetworkHandler {
         CHANNEL.registerMessage(id++, com.bleachmod.common.network.c2s.GuardC2S.class,
                 com.bleachmod.common.network.c2s.GuardC2S::encode, com.bleachmod.common.network.c2s.GuardC2S::decode,
                 com.bleachmod.common.network.c2s.GuardC2S::handle, Optional.of(NetworkDirection.PLAY_TO_SERVER));
+        CHANNEL.registerMessage(id++, com.bleachmod.common.network.s2c.SenbonPetalsS2C.class,
+                com.bleachmod.common.network.s2c.SenbonPetalsS2C::encode, com.bleachmod.common.network.s2c.SenbonPetalsS2C::decode,
+                com.bleachmod.common.network.s2c.SenbonPetalsS2C::handle, Optional.of(NetworkDirection.PLAY_TO_CLIENT));
     }
 
     public static void sendToServer(Object message) {

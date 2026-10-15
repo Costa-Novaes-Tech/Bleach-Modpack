@@ -1,4 +1,24 @@
 {
+  "item.bleachmod.senbonzakura": "Senbonzakura",
+  "message.bleachmod.senbonzakura.sealed": "Senbonzakura selada: pratique com a espada para descobrir suas liberações.",
+  "message.bleachmod.senbonzakura.busy": "Conclua a técnica de pétalas atual antes de iniciar outra.",
+  "message.bleachmod.senbonzakura.field_wait": "O jardim exige 5 segundos, uma única reativação antes de 10 segundos e sua presença dentro do campo.",
+  "message.bleachmod.senbonzakura.scene_wait": "Senkei: aguarde um segundo antes de lançar Ikka Senjinka.",
+  "message.bleachmod.senbonzakura.energy": "Reiatsu insuficiente para reativar.",
+  "ability.bleachmod.senbonzakura.petal_cut": "Corte horizontal de pétalas",
+  "ability.bleachmod.senbonzakura.petal_stream": "Corrente concentrada",
+  "ability.bleachmod.senbonzakura.petal_convergence": "Convergência de lâminas",
+  "ability.bleachmod.senbonzakura.petal_guard": "Guarda de pétalas",
+  "ability.bleachmod.senbonzakura.five_cuts": "Sequência de cinco cortes",
+  "ability.bleachmod.senbonzakura.floral_garden": "Jardim de Senbonzakura",
+  "ability.bleachmod.senbonzakura.floral_bloom": "Florescer do jardim",
+  "ability.bleachmod.senbonzakura.senkei": "Senkei",
+  "ability.bleachmod.senbonzakura.ikka_senjinka": "Ikka Senjinka",
+  "ability.bleachmod.senbonzakura.hakuteiken": "Shūkei: Hakuteiken",
+  "hud.bleachmod.senbon.field": "Reativar em %s s · fim em %s s",
+  "hud.bleachmod.senbon.bloom": "Flor armada · explosão iminente",
+  "hud.bleachmod.senbon.scene": "Ikka em %s s · Senkei %s s",
+  "hud.bleachmod.senbon.reach": "Bankai · alcance corpo a corpo +1,5",
   "key.bleachmod.guard": "Manter guarda / bloqueio",
   "hud.bleachmod.posture": "Postura %s/100",
   "hud.bleachmod.guard_broken": "GUARDA QUEBRADA",
@@ -207,5 +227,6 @@
   "hud.bleachmod.technique.cost": "Reiatsu %s · CD %ss",
   "hud.bleachmod.technique.drain": "Consumo: %s reiatsu/s",
   "hud.bleachmod.combat.active": "Em combate",
-  "hud.bleachmod.stamina": "Stamina %s/%s"
+  "hud.bleachmod.stamina": "Stamina %s/%s",
+  "message.bleachmod.senbonzakura.invalid_target": "Região fora dos chunks carregados ou do limite do mundo."
 }

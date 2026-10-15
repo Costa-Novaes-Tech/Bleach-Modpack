@@ -11,11 +11,12 @@ public class CharacterData {
     private final java.util.Set<String> unlockedForms = new java.util.HashSet<>();
     public static final String RYUJIN = "ryujin_jakka";
     public static final String HYORINMARU = "hyorinmaru";
+    public static final String SENBONZAKURA = "senbonzakura";
     public static final String ASAUCHI = "asauchi";
     private String zanpakutoIdentity = ASAUCHI;
     private final java.util.Set<String> unlockedTechniques = new java.util.HashSet<>();
     private final Map<String, Double> techniqueMasteries = new HashMap<>();
-    public static boolean knownIdentity(String identity) { return ASAUCHI.equals(identity) || RYUJIN.equals(identity) || HYORINMARU.equals(identity); }
+    public static boolean knownIdentity(String identity) { return ASAUCHI.equals(identity) || RYUJIN.equals(identity) || HYORINMARU.equals(identity) || SENBONZAKURA.equals(identity); }
     public boolean supportsForm(String form) { return knownIdentity(zanpakutoIdentity) && java.util.Set.of("sealed", "shikai", "bankai").contains(form); }
     private String techniqueKey(String form, int slot) { return zanpakutoIdentity + "|" + form + "|" + slot; }
     public boolean isTechniqueDiscovered(String form, int slot) { return unlockedTechniques.contains(techniqueKey(form, slot)); }
@@ -35,6 +36,9 @@ public class CharacterData {
         }
     }
     private boolean iceArmorVisual;
+    private int senbonBlade;
+    public int getSenbonBlade() { return senbonBlade; }
+    public void setSenbonBlade(int mode) { senbonBlade = Math.max(0, Math.min(2, mode)); }
     private int carryState;
     public int getCarryState() { return carryState; }
     public void setCarryState(int state) { carryState = Math.max(0, Math.min(3, state)); }
@@ -131,6 +135,7 @@ public class CharacterData {
 
     public CompoundTag saveAppearance() {
         CompoundTag tag = new CompoundTag();
+        tag.putInt("senbonBlade", senbonBlade);
         tag.putInt("carryState", carryState);
         tag.putBoolean("iceArmorVisual", iceArmorVisual);
         tag.putString("race", race);
@@ -161,6 +166,7 @@ public class CharacterData {
     }
 
     public void load(CompoundTag tag) {
+        if (tag.contains("senbonBlade")) setSenbonBlade(tag.getInt("senbonBlade"));
         if (tag.contains("carryState")) setCarryState(tag.getInt("carryState"));
         if (tag.contains("iceArmorVisual")) iceArmorVisual = tag.getBoolean("iceArmorVisual");
         // Legacy characters belong to Ryujin; never copy their mastery into Hyorinmaru.

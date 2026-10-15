@@ -1,4 +1,24 @@
 {
+  "item.bleachmod.senbonzakura": "Senbonzakura",
+  "message.bleachmod.senbonzakura.sealed": "Sealed Senbonzakura: practice with your sword to discover its releases.",
+  "message.bleachmod.senbonzakura.busy": "Finish your current petal technique first.",
+  "message.bleachmod.senbonzakura.field_wait": "The fixed garden needs 5 seconds, one reactivation before 10 seconds, and its owner inside the field.",
+  "message.bleachmod.senbonzakura.scene_wait": "Senkei: wait one second before launching Ikka Senjinka.",
+  "message.bleachmod.senbonzakura.energy": "Not enough Reiatsu to reactivate.",
+  "ability.bleachmod.senbonzakura.petal_cut": "Horizontal petal slash",
+  "ability.bleachmod.senbonzakura.petal_stream": "Concentrated stream",
+  "ability.bleachmod.senbonzakura.petal_convergence": "Converging blades",
+  "ability.bleachmod.senbonzakura.petal_guard": "Petal guard",
+  "ability.bleachmod.senbonzakura.five_cuts": "Five-slash sequence",
+  "ability.bleachmod.senbonzakura.floral_garden": "Senbonzakura garden",
+  "ability.bleachmod.senbonzakura.floral_bloom": "Garden bloom",
+  "ability.bleachmod.senbonzakura.senkei": "Senkei",
+  "ability.bleachmod.senbonzakura.ikka_senjinka": "Ikka Senjinka",
+  "ability.bleachmod.senbonzakura.hakuteiken": "Shūkei: Hakuteiken",
+  "hud.bleachmod.senbon.field": "Recast in %s s · expires %s s",
+  "hud.bleachmod.senbon.bloom": "Flower armed · imminent burst",
+  "hud.bleachmod.senbon.scene": "Ikka in %s s · Senkei %s s",
+  "hud.bleachmod.senbon.reach": "Bankai · melee reach +1.5",
   "key.bleachmod.guard": "Hold guard / block",
   "hud.bleachmod.posture": "Posture %s/100",
   "hud.bleachmod.guard_broken": "GUARD BROKEN",
@@ -207,5 +227,6 @@
   "hud.bleachmod.technique.cost": "Reiatsu %s · CD %ss",
   "hud.bleachmod.technique.drain": "Drain: %s reiatsu/s",
   "hud.bleachmod.combat.active": "In combat",
-  "hud.bleachmod.stamina": "Stamina %s/%s"
+  "hud.bleachmod.stamina": "Stamina %s/%s",
+  "message.bleachmod.senbonzakura.invalid_target": "Target region is outside loaded chunks or the world border."
 }

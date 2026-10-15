@@ -20,6 +20,7 @@ public final class SyncHelper {
     public static void full(ServerPlayer player) {
         PlayerCapability.get(player).ifPresent(data -> {
             CompoundTag tag = data.save();
+            tag.put("senbonHud", com.bleachmod.common.technique.SenbonzakuraTechniqueService.hud(player));
             tag.put("guardView", data.getGuard().snapshot());
             tag.put("techniqueHud", data.getStatus().techniqueHud());
             NetworkHandler.sendToPlayer(new PlayerSyncS2C(player.getId(), tag), player);
@@ -30,6 +31,7 @@ public final class SyncHelper {
         PlayerCapability.get(player).ifPresent(data -> {
             CompoundTag tag = new CompoundTag();
             tag.put("resources", data.getResources().save());
+            tag.put("senbonHud", com.bleachmod.common.technique.SenbonzakuraTechniqueService.hud(player));
             tag.put("guardView", data.getGuard().snapshot());
             tag.put("status", data.getStatus().save());
             tag.put("techniqueHud", data.getStatus().techniqueHud());

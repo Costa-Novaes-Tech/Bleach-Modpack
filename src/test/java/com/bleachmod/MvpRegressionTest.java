@@ -148,7 +148,7 @@ public final class MvpRegressionTest {
             status.refreshCombat(200); status.clearTransientState(); yes(!status.isInCombat());
         });
         test("Shared technique definitions preserve all homologated costs and cooldowns", () -> {
-            var definitions = com.bleachmod.common.technique.TechniqueDefinitions.all(); eq(24, definitions.size());
+            var definitions = com.bleachmod.common.technique.TechniqueDefinitions.all(); eq(32, definitions.size());
             Set<String> unique = new HashSet<>();
             for (var def : definitions) {
                 yes(unique.add(def.identity() + "|" + def.form() + "|" + def.slot()));
@@ -760,6 +760,49 @@ public final class MvpRegressionTest {
             map.getAsJsonObject("shikai").addProperty("maxMastery",60);
             map.getAsJsonObject("bankai").addProperty("unlockOnMastery",61);
             rejects(()->FormRegistry.parse(json.toString()));
+        });
+        test("Senbon horizontal cut moves from anatomical right to left",()->{
+            var zero=net.minecraft.world.phys.Vec3.ZERO;
+            for(float yaw:new float[]{0,90,180,270}) {
+                var f=com.bleachmod.common.visual.SenbonGeometry.forward(yaw);
+                var left=com.bleachmod.common.visual.SenbonGeometry.left(f);
+                yes(com.bleachmod.common.visual.SenbonGeometry.cut(zero,f,0,0,6).dot(left)<0);
+                yes(com.bleachmod.common.visual.SenbonGeometry.cut(zero,f,0,1,6).dot(left)>0);
+            }
+        });
+        test("Senbon final cut rises and diagonal cuts descend",()->{
+            var zero=net.minecraft.world.phys.Vec3.ZERO;var f=new net.minecraft.world.phys.Vec3(0,0,1);
+            for(int pattern:new int[]{2,3}) yes(com.bleachmod.common.visual.SenbonGeometry.cut(zero,f,pattern,0,6).y>
+                    com.bleachmod.common.visual.SenbonGeometry.cut(zero,f,pattern,1,6).y);
+            yes(com.bleachmod.common.visual.SenbonGeometry.cut(zero,f,4,0,6).y<0);
+            yes(com.bleachmod.common.visual.SenbonGeometry.cut(zero,f,4,1,6).y>0);
+        });
+        test("floral contour remains within fixed damage radius",()->{
+            for(int n=0;n<360;n++) {double r=com.bleachmod.common.visual.SenbonGeometry.flowerRadius(10,Math.toRadians(n));yes(r>=5.999 && r<=10);}
+            var center=new net.minecraft.world.phys.Vec3(10,20,30);
+            yes(com.bleachmod.common.visual.SenbonGeometry.inside(center,center.add(10,0,0),10,3));
+            yes(!com.bleachmod.common.visual.SenbonGeometry.inside(center,center.add(10.01,0,0),10,3));
+            yes(!com.bleachmod.common.visual.SenbonGeometry.inside(center,center.add(0,3.01,0),10,3));
+        });
+        test("Senbon identity and independent mastery survive save",()->{
+            var d=player();d.getCharacter().bindZanpakuto("senbonzakura");d.getCharacter().setMastery("zanpakuto","shikai",43);
+            var copy=new PlayerData();copy.load(d.save());eq("senbonzakura",copy.getCharacter().getZanpakutoIdentity());
+            eq(43D,copy.getCharacter().getMastery("zanpakuto","shikai"));
+            copy.getCharacter().bindZanpakuto("ryujin_jakka");copy.getCharacter().setMastery("zanpakuto","shikai",12);
+            copy.getCharacter().bindZanpakuto("senbonzakura");eq(43D,copy.getCharacter().getMastery("zanpakuto","shikai"));
+        });
+        test("Senbon has eight techniques and continuation windows",()->{
+            eq(8L,com.bleachmod.common.technique.TechniqueDefinitions.all().stream().filter(d->d.identity().equals("senbonzakura")).count());
+            yes(com.bleachmod.common.technique.TechniqueDefinitions.find("senbonzakura","sealed",1).isEmpty());
+            var bloom=com.bleachmod.common.technique.TechniqueDefinitions.FLORAL_BLOOM;
+            eq(100,bloom.readyTicks());eq(200,bloom.windowTicks());eq(0F,bloom.cost());
+        });
+        test("Senbon visual packet rejects invalid frames",()->{
+            var zero=net.minecraft.world.phys.Vec3.ZERO;var f=new net.minecraft.world.phys.Vec3(0,0,1);
+            yes(new com.bleachmod.common.network.s2c.SenbonPetalsS2C(0,zero,f,6,1,0,1).valid());
+            yes(!new com.bleachmod.common.network.s2c.SenbonPetalsS2C(0,zero,f,Float.NaN,1,0,1).valid());
+            yes(!new com.bleachmod.common.network.s2c.SenbonPetalsS2C(11,zero,f,6,1,0,1).valid());
+            yes(!new com.bleachmod.common.network.s2c.SenbonPetalsS2C(0,zero,zero,6,1,0,1).valid());
         });
         System.out.println("PASS: "+count+" regression scenarios");
     }

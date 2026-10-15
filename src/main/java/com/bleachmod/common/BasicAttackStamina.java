@@ -23,7 +23,7 @@ public final class BasicAttackStamina {
                 || target == player || target.level() != player.level() || player.isAlliedTo(target)) return;
         var weapon = player.getMainHandItem();
         if (!weapon.is(ModItems.ASAUCHI.get()) && !weapon.is(ModItems.RYUJIN_JAKKA.get())
-                && !weapon.is(ModItems.HYORINMARU.get())) return;
+                && !weapon.is(ModItems.HYORINMARU.get()) && !weapon.is(ModItems.SENBONZAKURA.get())) return;
         PlayerCapability.get(player).ifPresent(data -> {
             if (!data.getStatus().hasCreatedCharacter()) return;
             data.getResources().spendBasicAttackStamina();

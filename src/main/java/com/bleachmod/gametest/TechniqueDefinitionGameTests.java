@@ -25,7 +25,9 @@ public final class TechniqueDefinitionGameTests {
             data.initializeShinigami(); data.getCharacter().bindZanpakuto(definition.identity()); data.getCharacter().preserveLegacyTechniques();
             data.getSkills().get("zanpakuto").setLevel(2); data.getCharacter().unlockForm("shikai"); data.getCharacter().unlockForm("bankai");
             data.getCharacter().setMastery("zanpakuto", "shikai", 100); data.getCharacter().setActiveForm("zanpakuto", definition.form());
-            p.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(definition.identity().equals("ryujin_jakka") ? ModItems.RYUJIN_JAKKA.get() : ModItems.HYORINMARU.get()));
+            if (definition.identity().equals("senbonzakura")) data.getCharacter().setMastery("zanpakuto",definition.form(),100);
+            p.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(switch(definition.identity()) {
+                case "ryujin_jakka" -> ModItems.RYUJIN_JAKKA.get();case "senbonzakura" -> ModItems.SENBONZAKURA.get();default -> ModItems.HYORINMARU.get(); }));
             try {
                 float before = data.getResources().getCurrentReiatsu();
                 TechniqueService.executeSlot(p, data, definition.slot());

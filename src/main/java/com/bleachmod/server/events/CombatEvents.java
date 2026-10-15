@@ -25,6 +25,7 @@ public final class CombatEvents {
             float reduction = com.bleachmod.common.technique.IceArmorService.active(armored)
                     ? com.bleachmod.common.technique.IceArmorService.REDUCTION
                     : com.bleachmod.common.technique.ReleasePassives.resistance(armored);
+            reduction = Math.max(reduction, com.bleachmod.common.technique.SenbonzakuraTechniqueService.protection(armored, event.getSource()));
             event.setAmount(event.getAmount() * (1 - reduction));
         }
         if(isPlayerMeleeAttack(event.getSource()) && event.getSource().getEntity() instanceof ServerPlayer player) {
@@ -33,6 +34,7 @@ public final class CombatEvents {
                 float formBonus=com.bleachmod.common.technique.TechniqueProgression.equipped(player, data)
                         && com.bleachmod.common.evolution.TransformationsHelper.isUnlocked(data, "zanpakuto", data.getCharacter().getActiveForm())
                         ? CombatBalance.formDamageBonus(data.getCharacter().getActiveForm()) : 0;
+                formBonus += com.bleachmod.common.technique.SenbonzakuraTechniqueService.offensiveBonus(player);
                 if (isZanjutsuWeapon(player)) {
                     float ignitionBonus = TechniqueService.isRyujinJakkaEquipped(player)
                             ? TechniqueService.ignitionDamageBonus(data) : 0.0F;
@@ -63,7 +65,7 @@ public final class CombatEvents {
         if (event.getAmount() > 0 && event.getEntity() instanceof ServerPlayer armored
                 && !event.getSource().is(net.minecraft.tags.DamageTypeTags.BYPASSES_INVULNERABILITY)
                 && event.getSource().getEntity() instanceof LivingEntity attacker)
-            com.bleachmod.common.technique.MasteryPracticeService.defense(armored, attacker);
+            com.bleachmod.common.technique.MasteryPracticeService.defense(armored, attacker, event.getSource());
         if (!isPlayerMeleeAttack(event.getSource()) || !(event.getSource().getEntity() instanceof ServerPlayer player)) return;
         if (!isSupportedMeleeWeapon(player)) return;
         PlayerCapability.get(player).ifPresent(data -> {
@@ -83,7 +85,8 @@ public final class CombatEvents {
     private static boolean isZanjutsuWeapon(ServerPlayer player) {
         return player.getMainHandItem().is(ModItems.ASAUCHI.get())
                 || player.getMainHandItem().is(ModItems.RYUJIN_JAKKA.get())
-                || player.getMainHandItem().is(ModItems.HYORINMARU.get());
+                || player.getMainHandItem().is(ModItems.HYORINMARU.get())
+                || player.getMainHandItem().is(ModItems.SENBONZAKURA.get());
     }
 
     private static boolean isSupportedMeleeWeapon(ServerPlayer player) {

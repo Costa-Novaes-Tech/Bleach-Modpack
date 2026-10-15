@@ -39,6 +39,9 @@ public final class ZanpakutoSheathLayer extends RenderLayer<AbstractClientPlayer
         root.addOrReplaceChild("round_guard", CubeListBuilder.create().texOffs(0,0).addBox(-1.25F,-1.25F,-.35F,2.5F,2.5F,.35F), PartPose.ZERO);
         root.addOrReplaceChild("cross_guard", CubeListBuilder.create().texOffs(0,0).addBox(-1.4F,-.35F,-.35F,2.8F,.7F,.35F)
                 .addBox(-.35F,-1.4F,-.35F,.7F,2.8F,.35F), PartPose.ZERO);
+        root.addOrReplaceChild("square_guard", CubeListBuilder.create().texOffs(0,0)
+                .addBox(-1.3F,-1.3F,-.35F,.35F,2.6F,.35F).addBox(.95F,-1.3F,-.35F,.35F,2.6F,.35F)
+                .addBox(-.95F,-1.3F,-.35F,1.9F,.35F,.35F).addBox(-.95F,.95F,-.35F,1.9F,.35F,.35F), PartPose.ZERO);
         return LayerDefinition.create(mesh,16,16);
     }
     @Override public void render(PoseStack pose, MultiBufferSource buffers, int light, AbstractClientPlayer player,
@@ -47,6 +50,7 @@ public final class ZanpakutoSheathLayer extends RenderLayer<AbstractClientPlayer
         var motion = ZanpakutoMotion.motion(player); if (motion.previous == 0 || motion.previous < 0) return;
         PlayerCapability.get(player).ifPresent(data -> {
             String id = data.getCharacter().getZanpakutoIdentity(); boolean ice = CharacterData.HYORINMARU.equals(id), fire = CharacterData.RYUJIN.equals(id);
+            boolean sakura = CharacterData.SENBONZAKURA.equals(id);
             pose.pushPose(); getParentModel().body.translateAndRotate(pose);
             // Player-model +X is the character's left: the previous negative sign put it on the right.
             boolean left = player.getMainArm() == net.minecraft.world.entity.HumanoidArm.RIGHT;
@@ -54,13 +58,13 @@ public final class ZanpakutoSheathLayer extends RenderLayer<AbstractClientPlayer
             pose.mulPose(Axis.YP.rotationDegrees(left ? 25 : -25)); pose.mulPose(Axis.XP.rotationDegrees(-26));
             // Increase the approved curved profile by 15%; negative pitch lowers the positive-Z tip.
             pose.scale(.9775F,.9775F,.9775F);
-            draw(pose,buffers,light,"scabbard",ice ? .12F : fire ? .13F : .2F,ice ? .32F : fire ? .08F : .2F,ice ? .38F : fire ? .07F : .22F);
+            draw(pose,buffers,light,"scabbard",sakura ? .93F : ice ? .12F : fire ? .13F : .2F,sakura ? .92F : ice ? .32F : fire ? .08F : .2F,sakura ? .96F : ice ? .38F : fire ? .07F : .22F);
             draw(pose,buffers,light,"fittings",.65F,.53F,.22F);
             if (motion.previous == 1) {
                 float p = motion.progress(player.tickCount,partial); pose.pushPose(); pose.translate(0,0,-.18 * (1-p));
-                draw(pose,buffers,light,"grip",ice ? .15F : .18F,ice ? .65F : .16F,ice ? .75F : .16F);
+                draw(pose,buffers,light,"grip",sakura ? .55F : ice ? .15F : .18F,sakura ? .36F : ice ? .65F : .16F,sakura ? .66F : ice ? .75F : .16F);
                 draw(pose,buffers,light,"wrap",ice ? .88F : .38F,ice ? .94F : .3F,ice ? 1 : .26F);
-                draw(pose,buffers,light,ice ? "cross_guard" : "round_guard",.65F,.53F,.22F); pose.popPose();
+                draw(pose,buffers,light,sakura ? "square_guard" : ice ? "cross_guard" : "round_guard",.65F,.53F,.22F); pose.popPose();
             }
             pose.popPose();
         });
