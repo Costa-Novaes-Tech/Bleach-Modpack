@@ -1,3 +1,5 @@
+> **Nova conversa — entrada recomendada, 15/10/2026:** leia primeiro [Continuidade do projeto](00-CONTINUIDADE-CODEX.md). O resumo reúne estado homologado, branch/restrições, protocolo/schema, mapa técnico, validações e proposta seguinte. Não é necessário importar todo o histórico nem reler todos os relatórios. Os registros abaixo permanecem como histórico.
+
 # Ciclo 36 — Consolidação, homologação e próximos passos
 
 Data: 13/10/2026. Branch: Feature-Poderes-bankais. Entrega documental, sem alteração de código, assets ou documentos fora de Docs/poderes. O usuário confirmou que a proporção/inclinação final da bainha está perfeita e pediu documentação consolidada e revisão da próxima etapa.

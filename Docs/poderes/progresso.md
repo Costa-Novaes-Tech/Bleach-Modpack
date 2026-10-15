@@ -1,3 +1,5 @@
+> **Nova conversa — entrada recomendada, 15/10/2026:** leia primeiro [Continuidade do projeto](00-CONTINUIDADE-CODEX.md). O resumo reúne estado homologado, branch/restrições, protocolo/schema, mapa técnico, validações e proposta seguinte. Não é necessário importar todo o histórico nem reler todos os relatórios. Os registros abaixo permanecem como histórico.
+
 > **Estado vigente — ciclo 36, 13/10/2026:** proporção/inclinação finais da bainha homologadas pelo usuário; documentação consolidada de combate, stamina, armas indestrutíveis e saque/guarda. [Contratos atuais, arquivos, histórico e próxima proposta](36-consolidacao-homologacao-proximos-passos-2026-10-13.md). Próxima recomendação: esquiva curta com stamina, ainda sem implementação. Registros anteriores abaixo são históricos.
 
 > **Estado vigente — ciclo 35, 13/10/2026:** bainha ampliada em 15% e inclinada mais 18 graus para baixo, mantendo curva e lado corrigido. [Arquivo, valores e conferência visual](35-escala-inclinacao-bainha-2026-10-13.md). Ajuste final aguarda homologação; registros anteriores abaixo são históricos.
@@ -412,3 +414,8 @@ Escala +15%, inclinação adicional de 18 graus para baixo; curva, lado e espada
 ## Ciclo 36 — Consolidação e encerramento visual
 
 Homologação final recebida do usuário para bainha, proporção e inclinação. Stamina/progressão e estado de combate aprovados nos testes anteriores. Consolidado o histórico técnico dos ciclos 30–35, arquivos, contratos e limites. [Relatório de fechamento e proposta de esquiva](36-consolidacao-homologacao-proximos-passos-2026-10-13.md). Próxima fatia proposta: esquiva direcional curta com stamina; depois bloqueio/Postura. Nenhuma dessas ações foi implementada neste ciclo documental.
+
+
+## Passagem para nova conversa — 15/10/2026
+
+Criado [00-CONTINUIDADE-CODEX.md](00-CONTINUIDADE-CODEX.md) com regras, funcionalidades homologadas, mapa técnico, comandos de verificação, limites conhecidos e próximo trabalho ainda proposto. Nenhuma funcionalidade nova ou teste de código executado nesta atualização. Alterações documentais limitadas a Docs/poderes.
