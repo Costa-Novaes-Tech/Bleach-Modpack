@@ -41,11 +41,31 @@ public final class DodgeGameTests {
             p.move(MoverType.SELF, p.getDeltaMovement()); p.setOnGround(true);
         }
         DodgeService.tick(p, d);
-        h.assertTrue(Math.abs(p.getX() - start - 2.5) < .001, "Nominal distance incorrect");
+        h.assertTrue(Math.abs(p.getX() - start - 3.5) < .001, "Nominal distance incorrect");
         h.assertTrue(p.getDeltaMovement().horizontalDistanceSqr() == 0 && !d.getStatus().isDodging(), "Movement leaked");
         h.assertTrue(d.getResources().getStamina() == 85 && d.getResources().getCurrentReiatsu() == reiatsu,
                 "Wrong cost or duplicate sprint charge");
         h.succeed();
+    }
+
+    @GameTest(template = "empty")
+    public static void creativeGroundedDodgeMovesButFlightAndSpectatorRefuse(GameTestHelper h) {
+        var p = player(h); var d = PlayerCapability.get(p).orElseThrow(() -> new IllegalStateException("Missing capability"));
+        p.setGameMode(net.minecraft.world.level.GameType.CREATIVE); p.setOnGround(true);
+        p.getAbilities().flying = true;
+        h.assertTrue(!DodgeService.request(p, d, 1, 0), "Creative flight gained a terrestrial dodge");
+        p.getAbilities().flying = false;
+        double x = p.getX();
+        h.assertTrue(DodgeService.request(p, d, 1, 0), "Creative grounded dodge refused");
+        for (int i = 0; i < 5; i++) {
+            StaminaService.tick(p, d); DodgeService.tick(p, d);
+            p.move(MoverType.SELF, p.getDeltaMovement()); p.setOnGround(true);
+        }
+        DodgeService.tick(p, d);
+        h.assertTrue(Math.abs(p.getX() - x - 3.5) < .001 && d.getResources().getStamina() == 85,
+                "Creative dodge distance/cost changed");
+        d.resetTransientState(); p.setGameMode(net.minecraft.world.level.GameType.SPECTATOR);
+        h.assertTrue(!DodgeService.request(p, d, 1, 0), "Spectator dodge accepted"); h.succeed();
     }
 
     @GameTest(template = "empty")

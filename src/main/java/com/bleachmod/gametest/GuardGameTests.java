@@ -28,6 +28,20 @@ public final class GuardGameTests {
         return PlayerCapability.get(p).orElseThrow(() -> new IllegalStateException("Missing capability"));
     }
     @GameTest(template = "empty")
+    public static void creativeCanRaiseAndReleaseGuardButSpectatorCannot(GameTestHelper h) {
+        var p = player(h); var d = data(p);
+        p.setGameMode(net.minecraft.world.level.GameType.CREATIVE);
+        GuardService.request(p, d, true);
+        h.assertTrue(d.getGuard().active(), "Creative guard refused");
+        var observer = new GuardData(); observer.readSnapshot(d.getGuard().snapshot());
+        h.assertTrue(observer.shownActive(), "Creative shield snapshot absent");
+        GuardService.request(p, d, false);
+        h.assertTrue(!d.getGuard().active() && d.getGuard().posture() == 100, "Creative release changed posture");
+        p.setGameMode(net.minecraft.world.level.GameType.SPECTATOR); GuardService.request(p, d, true);
+        h.assertTrue(!d.getGuard().active(), "Spectator guard accepted"); h.succeed();
+    }
+
+    @GameTest(template = "empty")
     public static void frontalSwordGuardReducesDamageButBackAndMagicDoNot(GameTestHelper h) {
         var p = player(h); var d = data(p);
         p.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(ModItems.ASAUCHI.get()));

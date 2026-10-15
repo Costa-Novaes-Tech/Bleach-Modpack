@@ -1,3 +1,5 @@
+> **Ciclo 40 — 15/10/2026:** playtest recebido; escudo refinado, esquiva/guarda habilitadas no criativo sem voo e esquiva ampliada para 3,5 blocos nominais. Build, 80 regressões e 73 GameTests aprovados. [Contrato e nova conferência](40-refinamento-escudo-criativo-esquiva-ishida-2026-10-15.md). Ishida adicionado à fila; Byakuya continua próximo.
+
 > **Ciclo 39 — 15/10/2026:** bloqueio/Postura/Guard Break juntos, escudo visível; segurar X configurável. Protocolo 2.11, schema 8. Build, 80 regressões e 71 GameTests obrigatórios aprovados; playtest pendente. [Contrato e roteiro](39-bloqueio-postura-guard-break-2026-10-15.md). Próximo kit: Byakuya; Mentor/Proficiências adiados para confirmação com a equipe.
 
 > **Ciclo 37 — 15/10/2026:** esquiva Alt + direção implementada para playtest; protocolo 2.10, schema 7. Build, 76 regressões e 67 GameTests obrigatórios aprovados. [Contrato, limites, homologação e próximas opções](37-esquiva-direcional-stamina-2026-10-15.md). Os registros abaixo são históricos.

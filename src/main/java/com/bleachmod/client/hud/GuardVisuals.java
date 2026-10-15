@@ -16,33 +16,16 @@ import net.minecraftforge.fml.common.Mod;
 @Mod.EventBusSubscriber(modid = Reference.MOD_ID, value = Dist.CLIENT)
 public final class GuardVisuals {
     private GuardVisuals() { }
-    @FunctionalInterface private interface Pixel { void draw(int x, int y, int color); }
-    private static void shield(float posture, boolean broken, Pixel pixels) {
-        float ratio = Math.max(0, Math.min(1, posture / GuardPolicy.MAX));
-        int color = broken ? 0xFFFF6655 : ratio <= .25F ? 0xFFFFAA55 : 0xFF8BDAFF;
-        for (int y = 0; y < 18; y++) {
-            int half = y < 10 ? 7 : Math.max(0, 7 - (y - 9));
-            for (int x = -half; x <= half; x++) {
-                boolean edge = Math.abs(x) == half || y == 0 || y == 17;
-                int fill = edge ? 0xFFF1FAFF : y >= (int) (18 * (1 - ratio)) ? color : 0xCC263746;
-                boolean crack = (ratio < .75F && x == (y / 3) % 3 - 1 && y > 2 && y < 15)
-                        || (ratio < .4F && y > 6 && y < 12 && x == 10 - y);
-                if (broken && Math.abs(x) < 2) continue;
-                pixels.draw(x + (broken ? (x < 0 ? -2 : 2) : 0), y, crack ? 0xFF14202B : fill);
-            }
-        }
-        for (int x = -8; x <= 8; x++) for (int y = 20; y <= 22; y++)
-            pixels.draw(x, y, x + 8 < Math.round(17 * ratio) ? color : 0xCC263746);
-    }
     public static void hud(GuiGraphics g, int width, int height, com.bleachmod.common.data.PlayerData data) {
         var guard = data.getGuard();
         if (!guard.shownActive() && !guard.shownBroken() && guard.shownPosture() >= GuardPolicy.MAX) return;
         var mc = Minecraft.getInstance();
-        int x = width / 2, y = height / 2 + 29;
-        shield(guard.shownPosture(), guard.shownBroken(), (px, py, color) -> g.fill(x + px, y + py, x + px + 1, y + py + 1, color));
+        int x = width / 2, y = height / 2 + 22;
+        com.bleachmod.common.visual.GuardShield.draw(guard.shownPosture() / GuardPolicy.MAX, guard.shownBroken(),
+                (px, py, w, h, color) -> g.fill(x + px, y + py, x + px + w, y + py + h, color));
         var text = guard.shownBroken() ? Component.translatable("hud.bleachmod.guard_broken")
                 : Component.translatable("hud.bleachmod.posture", (int) Math.ceil(guard.shownPosture()));
-        g.drawCenteredString(mc.font, text, x, y + 26, guard.shownBroken() ? 0xFFFF6655 : 0xFFB8E8FF);
+        g.drawCenteredString(mc.font, text, x, y + 36, guard.shownBroken() ? 0xFFFF6655 : 0xFFB8E8FF);
     }
     @SubscribeEvent public static void abovePlayer(RenderPlayerEvent.Post event) {
         var p = event.getEntity(); var mc = Minecraft.getInstance();
@@ -52,17 +35,17 @@ public final class GuardVisuals {
             var guard = data.getGuard();
             if (!guard.shownActive() && !guard.shownBroken()) return;
             var pose = event.getPoseStack(); pose.pushPose();
-            pose.translate(0, p.getBbHeight() + 1.2, 0);
+            pose.translate(0, p.getBbHeight() + 1.4, 0);
             pose.mulPose(mc.getEntityRenderDispatcher().cameraOrientation());
-            pose.scale(.025F, -.025F, .025F);
+            pose.scale(.021F, -.021F, .021F);
             var matrix = pose.last().pose();
             var buffer = event.getMultiBufferSource().getBuffer(RenderType.debugQuads());
-            shield(guard.shownPosture(), guard.shownBroken(), (x, y, color) -> {
+            com.bleachmod.common.visual.GuardShield.draw(guard.shownPosture() / GuardPolicy.MAX, guard.shownBroken(), (x, y, w, h, color) -> {
                 int a = color >>> 24, r = (color >> 16) & 255, green = (color >> 8) & 255, b = color & 255;
                 buffer.vertex(matrix, x, y, 0).color(r, green, b, a).endVertex();
-                buffer.vertex(matrix, x, y + 1, 0).color(r, green, b, a).endVertex();
-                buffer.vertex(matrix, x + 1, y + 1, 0).color(r, green, b, a).endVertex();
-                buffer.vertex(matrix, x + 1, y, 0).color(r, green, b, a).endVertex();
+                buffer.vertex(matrix, x, y + h, 0).color(r, green, b, a).endVertex();
+                buffer.vertex(matrix, x + w, y + h, 0).color(r, green, b, a).endVertex();
+                buffer.vertex(matrix, x + w, y, 0).color(r, green, b, a).endVertex();
             });
             pose.popPose();
         });

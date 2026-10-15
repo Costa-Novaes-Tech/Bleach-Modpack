@@ -9,24 +9,26 @@ Sequência vigente, revisada pelo usuário após a entrega do ciclo 39:
 1. Bloqueio/Postura e Guard Break juntos, com escudo visível que perde integridade e quebra.
 2. Byakuya Kuchiki — próximo kit; usuário pesquisará os poderes antes de fechar o contrato.
 3. Kisuke Urahara — substitui Gin no planejamento; kit/Bankai ambicioso, exigindo contrato próprio antes do código.
-4. Mentor — etapa adiada, aguardando confirmação da equipe.
-5. Proficiências — etapa adiada, aguardando confirmação da equipe.
-6. Correção e atualização dos poderes de Hyōrinmaru/Tōshirō — revisão final da fila, após as implementações acima, orientada pela pesquisa do usuário.
+4. Uryū Ishida — adicionado ao planejamento de poderes a pedido do usuário; posição após Urahara adotada para preservar Byakuya como próximo kit.
+5. Mentor — etapa adiada, aguardando confirmação da equipe.
+6. Proficiências — etapa adiada, aguardando confirmação da equipe.
+7. Correção e atualização dos poderes de Hyōrinmaru/Tōshirō — revisão final da fila, após as implementações acima, orientada pela pesquisa do usuário.
 
 **Gin foi retirado do planejamento**, não apenas adiado. A referência do usuário a "hyori" é tratada neste contexto como o kit já existente de Hyōrinmaru/Tōshirō; não é uma encomenda de outro personagem. Não iniciar alterações nesse kit enquanto a pesquisa/contrato da revisão não estiverem definidos.
 
-Bloqueio/Postura e Guard Break foram implementados juntos no [ciclo 39](39-bloqueio-postura-guard-break-2026-10-15.md), para playtest. A esquiva do ciclo 37 também continua aguardando o teste do usuário; não presumir aceite pelo avanço deste planejamento. Aizen permanece reservado e adiado, inclusive qualquer Bankai original. Os demais personagens pesquisados não entraram na fila escolhida. Mentor e Proficiências não devem começar enquanto a confirmação da equipe estiver pendente.
+Bloqueio/Postura e Guard Break foram implementados juntos no [ciclo 39](39-bloqueio-postura-guard-break-2026-10-15.md). O usuário realizou playtest e pediu ajustes de visual, uso no criativo e alcance da esquiva; alterações entregues para nova conferência no [ciclo 40](40-refinamento-escudo-criativo-esquiva-ishida-2026-10-15.md). Isso não homologa automaticamente multiplayer/latência. Aizen permanece reservado e adiado, inclusive qualquer Bankai original. Os demais personagens pesquisados não entraram na fila escolhida. Mentor e Proficiências não devem começar enquanto a confirmação da equipe estiver pendente.
 
 ## Entregas e critérios
 
 | Ordem | Entrega proposta | Critério para encerrar a etapa |
 | --- | --- | --- |
-| 1 | Bloqueio frontal universal, Postura, escudo visível e quebra funcional. | Direção/tipo de ataque corretos, abertura previsível e sem cobrança dupla de stamina/Postura. Playtest pendente no ciclo 39. |
+| 1 | Bloqueio frontal universal, Postura, escudo visível e quebra funcional. | Playtest recebido; refinamento visual, suporte ao criativo e esquiva ampliada no ciclo 40 aguardam nova conferência. |
 | 2 | Byakuya: Senbonzakura e Senbonzakura Kageyoshi. | Contrato por forma/slot após pesquisa do usuário; orçamento visual controlado e sem entidade para cada pétala. |
 | 3 | Kisuke Urahara: poderes e Bankai. | Contrato próprio após pesquisa, com escopo e interações definidos antes do código; vínculo/maestria próprios e contrajogo legível. |
-| 4 | Mentor com cadeia curta de treino. | Confirmação da equipe antes de implementar; objetivos persistidos e recompensa sem duplicação. |
-| 5 | Proficiências de Zanjutsu/Hakuda/Hohō/Kidō. | Confirmação da equipe antes de implementar; anti-farm e migração sem apagar saves. |
-| 6 | Revisar, corrigir e atualizar Hyōrinmaru/Tōshirō. | Comparar o kit atual com as referências pesquisadas, aprovar diferenças por forma/técnica e preservar progresso e visuais não envolvidos na revisão. |
+| 4 | Poderes de Uryū Ishida. | Pesquisa e contrato de aquisição/recursos/execução antes do código; não presumir que o contrato de quatro slots de zanpakutō resolva todo o kit. |
+| 5 | Mentor com cadeia curta de treino. | Confirmação da equipe antes de implementar; objetivos persistidos e recompensa sem duplicação. |
+| 6 | Proficiências de Zanjutsu/Hakuda/Hohō/Kidō. | Confirmação da equipe antes de implementar; anti-farm e migração sem apagar saves. |
+| 7 | Revisar, corrigir e atualizar Hyōrinmaru/Tōshirō. | Comparar o kit atual com as referências pesquisadas, aprovar diferenças por forma/técnica e preservar progresso e visuais não envolvidos na revisão. |
 
 Cada etapa terá contrato específico, check/build, testes pertinentes e playtest. A ordem foi escolhida; números, teclas, recompensas e tabelas de habilidades abaixo ainda são propostas de escopo, não decisões já homologadas.
 
@@ -86,4 +88,4 @@ O aceite histórico do kit atual permanece registrado. A revisão futura foi sol
 
 ## Validação desta entrega
 
-A entrega inicial do ciclo 38 foi somente documental. A revisão deste roadmap no ciclo 39 acompanha a implementação da defesa; estado funcional, validações e limites atuais no [relatório 39](39-bloqueio-postura-guard-break-2026-10-15.md). Esquiva e defesa continuam sem homologação do usuário.
+A entrega inicial do ciclo 38 foi somente documental. Defesa-base no [relatório 39](39-bloqueio-postura-guard-break-2026-10-15.md); playtest recebido e ajustes atuais no [relatório 40](40-refinamento-escudo-criativo-esquiva-ishida-2026-10-15.md). A versão refinada aguarda nova conferência do usuário.

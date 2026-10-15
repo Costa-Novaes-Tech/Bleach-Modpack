@@ -19,7 +19,7 @@ import net.minecraftforge.fml.common.Mod;
 public final class GuardService {
     private GuardService() { }
     public static boolean eligible(ServerPlayer p, PlayerData d) {
-        return d.getStatus().hasCreatedCharacter() && p.isAlive() && !p.isSpectator() && !p.isCreative()
+        return d.getStatus().hasCreatedCharacter() && p.isAlive() && !p.isSpectator()
                 && !p.isSleeping() && !p.isPassenger() && !p.getAbilities().flying && !p.isFallFlying()
                 && !p.isUsingItem() && !p.isFullyFrozen() && !d.getStatus().isActionCharging()
                 && !d.getStatus().isDodging() && d.getStatus().getFlameDashTicks() == 0;

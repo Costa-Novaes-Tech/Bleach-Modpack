@@ -1,12 +1,14 @@
 # Ciclo 39 — Bloqueio, Postura e Guard Break com escudo visível
 
+> Atualização após playtest: o [ciclo 40](40-refinamento-escudo-criativo-esquiva-ishida-2026-10-15.md) permite guarda/esquiva no criativo sem voo, amplia a esquiva para 3,5 blocos e refina o escudo. O contrato abaixo registra a entrega original do ciclo 39; consultar o ciclo 40 para essas mudanças.
+
 Data: 15/10/2026. Branch: `Feature-Poderes-bankais`. Protótipo implementado para playtest, ainda sem homologação do usuário.
 
 ## Decisões e fila atualizada
 
 O usuário descreveu guarda mantida com escudo visível acima/à frente do personagem, desgaste por impactos e quebra que abre a defesa. Bloqueio/Postura e Guard Break foram implementados juntos. Escolhida a posição **acima do jogador**, com indicador adicional para primeira pessoa. O escudo é sinalização de guarda: não é um item novo nem uma barreira que intercepta entidades.
 
-Fila vigente, revisada pelo usuário após esta entrega: **defesa fundamental → Byakuya → Urahara → Mentor → Proficiências → revisão final de Hyōrinmaru/Tōshirō**. Gin foi retirado do planejamento. Usuário pesquisará os poderes antes de fechar os contratos; Mentor e Proficiências permanecem adiados até confirmação com a equipe. Aizen permanece reservado e adiado. Usuário testará a versão atual com esquiva e defesa; nenhum aceite novo foi presumido. Detalhes no [roadmap atualizado](38-roadmap-defesa-treinamento-gin-byakuya-2026-10-15.md).
+Fila vigente, revisada pelo usuário após esta entrega: **defesa fundamental → Byakuya → Urahara → Uryū Ishida → Mentor → Proficiências → revisão final de Hyōrinmaru/Tōshirō**. Gin foi retirado do planejamento. Usuário pesquisará os poderes antes de fechar os contratos; Mentor e Proficiências permanecem adiados até confirmação com a equipe. Aizen permanece reservado e adiado. Usuário testará a versão atual com esquiva e defesa; nenhum aceite novo foi presumido. Detalhes no [roadmap atualizado](38-roadmap-defesa-treinamento-gin-byakuya-2026-10-15.md).
 
 ## Contrato implementado
 

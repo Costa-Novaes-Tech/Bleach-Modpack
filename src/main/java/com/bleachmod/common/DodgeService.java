@@ -12,7 +12,7 @@ public final class DodgeService {
     private DodgeService() { }
 
     private static boolean terrestrial(ServerPlayer p) {
-        return p.isAlive() && !p.isSpectator() && !p.isCreative() && p.onGround()
+        return p.isAlive() && !p.isSpectator() && p.onGround()
                 && !p.getAbilities().flying && !p.isFallFlying() && !p.isPassenger()
                 && !p.isInWaterOrBubble() && !p.isInLava() && !p.onClimbable()
                 && !p.isSleeping() && !p.isUsingItem() && !p.isFullyFrozen()

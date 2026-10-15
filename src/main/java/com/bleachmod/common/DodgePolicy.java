@@ -6,7 +6,7 @@ import net.minecraft.world.phys.Vec3;
 public final class DodgePolicy {
     public static final float COST = 15;
     public static final int DURATION = 5, INTERVAL = 12;
-    public static final double SPEED = .5;
+    public static final double SPEED = .7;
     private DodgePolicy() { }
 
     public static boolean validInput(int forward, int left) {
