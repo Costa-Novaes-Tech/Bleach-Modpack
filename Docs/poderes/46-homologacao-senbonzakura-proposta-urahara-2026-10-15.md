@@ -1,5 +1,7 @@
 # Ciclo 46 — Senbonzakura homologada e discussão de Urahara
 
+> Atualização: o usuário aprovou a implementação e as passivas de suporte no [ciclo 47](47-benihime-kit-suporte-reestruturacao-2026-10-15.md). As pendências/avisos de não implementar abaixo preservam o histórico da proposta e foram sucedidos pelo aceite atual.
+
 Data: 15/10/2026. Branch `Feature-Poderes-bankais`. O usuário confirmou: Bankai e poderes de Senbonzakura/Byakuya concluídos e prontos. **Kit do ciclo 45 homologado**, junto da esquiva/defesa já concluídas. Próxima frente escolhida: **discutir o kit de Kisuke Urahara / Benihime**. Esta entrega registra pesquisa e proposta; não autoriza implementação, custos ou parâmetros finais.
 
 Base funcional mantida: protocolo 2.14, schema 8, commit de implementação `a433ffc`; 91 regressões/94 GameTests aprovados no ciclo 45. Documentação isolada não gera nova build nem comprova FPS/multiplayer. Git estava limpo na branch correta ao iniciar.

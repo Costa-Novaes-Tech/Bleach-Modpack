@@ -68,6 +68,7 @@ public final class ClientPacketHandler {
             PlayerCapability.get(player).ifPresent(data -> {
                 data.load(nbt);
                 if (nbt.contains("senbonHud")) data.getStatus().readSenbonHud(nbt.getCompound("senbonHud"));
+                if(nbt.contains("benihimeHud"))data.getStatus().readBenihimeHud(nbt.getCompound("benihimeHud"));
                 if (nbt.contains("guardView")) data.getGuard().readSnapshot(nbt.getCompound("guardView"));
                 if (nbt.contains("techniqueHud")) data.getStatus().readTechniqueHud(nbt.getCompound("techniqueHud"));
             });

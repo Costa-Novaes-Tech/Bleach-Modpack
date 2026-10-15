@@ -56,7 +56,7 @@ public final class BleachClient {
         registerFormProperty(ModItems.ASAUCHI.get());
         registerFormProperty(ModItems.RYUJIN_JAKKA.get());
         registerFormProperty(ModItems.HYORINMARU.get());
-        registerFormProperty(ModItems.SENBONZAKURA.get());
+        registerFormProperty(ModItems.SENBONZAKURA.get()); registerFormProperty(ModItems.BENIHIME.get());
     }
 
     private static void registerFormProperty(Item item) {
@@ -71,7 +71,8 @@ public final class BleachClient {
                 if (item == ModItems.HYORINMARU.get() && !identity.equals(com.bleachmod.common.data.CharacterData.HYORINMARU)) return 0.0F;
                 if (item == ModItems.RYUJIN_JAKKA.get() && !identity.equals(com.bleachmod.common.data.CharacterData.RYUJIN)) return 0.0F;
                 if (item == ModItems.ASAUCHI.get() && !identity.equals(com.bleachmod.common.data.CharacterData.ASAUCHI)) return 0.0F;
-                String form = data.getCharacter().getActiveForm();
+                if (item == ModItems.BENIHIME.get() && !identity.equals(com.bleachmod.common.data.CharacterData.BENIHIME)) return 0.0F;
+                String form=data.getCharacter().getActiveForm();
                 if (item == ModItems.SENBONZAKURA.get() && Reference.FORM_BANKAI.equals(form)
                         && data.getCharacter().getSenbonBlade() > 0) return data.getCharacter().getSenbonBlade() == 2 ? 4.0F : 3.0F;
                 if (Reference.FORM_BANKAI.equals(form)) {

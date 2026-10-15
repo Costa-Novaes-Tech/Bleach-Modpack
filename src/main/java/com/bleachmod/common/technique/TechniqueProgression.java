@@ -22,6 +22,7 @@ public final class TechniqueProgression {
             case CharacterData.RYUJIN -> player.getMainHandItem().is(ModItems.RYUJIN_JAKKA.get());
             case CharacterData.HYORINMARU -> player.getMainHandItem().is(ModItems.HYORINMARU.get());
             case CharacterData.SENBONZAKURA -> player.getMainHandItem().is(ModItems.SENBONZAKURA.get());
+            case CharacterData.BENIHIME -> player.getMainHandItem().is(ModItems.BENIHIME.get());
             default -> false;
         };
     }
@@ -36,7 +37,7 @@ public final class TechniqueProgression {
         String form = data.getCharacter().getActiveForm();
         if (!TransformationsHelper.isUnlocked(data, "zanpakuto", form)) return false;
         if (TechniqueDefinitions.find(data.getCharacter().getZanpakutoIdentity(), form, slot).isEmpty()) {
-            player.displayClientMessage(Component.translatable("message.bleachmod.senbonzakura.sealed"), true); return false;
+            player.displayClientMessage(Component.translatable("message.bleachmod."+data.getCharacter().getZanpakutoIdentity()+".sealed"), true); return false;
         }
         if (!available(data.getCharacter(), form, slot)) {
             player.displayClientMessage(Component.translatable("message.bleachmod.technique.mastery_required",

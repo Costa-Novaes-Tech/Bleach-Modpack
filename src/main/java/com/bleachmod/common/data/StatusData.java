@@ -8,6 +8,9 @@ import java.util.Set;
 import java.util.UUID;
 
 public class StatusData {
+    private CompoundTag benihimeHud=new CompoundTag();
+    public CompoundTag getBenihimeHud(){return benihimeHud.copy();}
+    public void readBenihimeHud(CompoundTag tag){benihimeHud=new CompoundTag();for(var key:java.util.List.of("shield","net","charges","path"))if(tag.contains(key))benihimeHud.putInt(key,Math.max(0,Math.min(100,tag.getInt(key))));}
     private CompoundTag senbonHud = new CompoundTag();
     public CompoundTag getSenbonHud() { return senbonHud.copy(); }
     public void readSenbonHud(CompoundTag tag) {

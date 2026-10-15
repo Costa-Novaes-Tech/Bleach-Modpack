@@ -8,7 +8,7 @@ public final class TechniqueDefinitions {
     public record Definition(String identity, String form, int slot, String id, String nameKey,
                              int mastery, float cost, int cooldownTicks, float drainPerTick) {
         public Definition {
-            if (!List.of(CharacterData.RYUJIN, CharacterData.HYORINMARU, CharacterData.SENBONZAKURA).contains(identity)
+            if (!List.of(CharacterData.RYUJIN, CharacterData.HYORINMARU, CharacterData.SENBONZAKURA, CharacterData.BENIHIME).contains(identity)
                     || !List.of("sealed", "shikai", "bankai").contains(form) || slot < 1 || slot > 4
                     || id == null || id.isBlank() || nameKey == null || nameKey.isBlank() || mastery < 0 || mastery > 100
                     || !Float.isFinite(cost) || cost < 0 || cooldownTicks < 0 || !Float.isFinite(drainPerTick) || drainPerTick < 0)
@@ -52,6 +52,13 @@ public final class TechniqueDefinitions {
             int[] cooldowns = bankai ? new int[]{160,400,240,300} : new int[]{60,100,140,180};
             for (int slot = 1; slot <= 4; slot++) add(entries, CharacterData.SENBONZAKURA, form, slot,
                     ids[slot-1], "ability.bleachmod.senbonzakura." + ids[slot-1], costs[slot-1], cooldowns[slot-1], 0);
+        }
+        for(String form:List.of("shikai","bankai")) {
+            boolean bankai=form.equals("bankai");
+            String[] ids=bankai?new String[]{"dissection","reconstruction","restructure","path"}:new String[]{"nake","shield","shibari","hiasobi"};
+            float[] costs=bankai?new float[]{25,28,22,30}:new float[]{12,18,20,25};
+            int[] cooldowns=bankai?new int[]{140,240,200,260}:new int[]{60,140,160,200};
+            for(int slot=1;slot<=4;slot++)add(entries,CharacterData.BENIHIME,form,slot,ids[slot-1],"ability.bleachmod.benihime."+ids[slot-1],costs[slot-1],cooldowns[slot-1],0);
         }
         return Collections.unmodifiableMap(entries);
     }

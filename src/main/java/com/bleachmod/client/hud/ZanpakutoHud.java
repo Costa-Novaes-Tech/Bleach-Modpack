@@ -15,7 +15,7 @@ public final class ZanpakutoHud {
     private ZanpakutoHud() { }
     public static String abilityKey(String identity, String form, int slot) {
         if (CharacterData.ASAUCHI.equals(identity)) return "message.bleachmod.asauchi.no_techniques";
-        return TechniqueDefinitions.find(identity, form, slot).map(TechniqueDefinitions.Definition::nameKey).orElse("message.bleachmod.senbonzakura.sealed");
+        return TechniqueDefinitions.find(identity, form, slot).map(TechniqueDefinitions.Definition::nameKey).orElse("message.bleachmod."+identity+".sealed");
     }
     public static final IGuiOverlay OVERLAY = (gui, g, partialTick, w, h) -> {
         var mc = Minecraft.getInstance(); if (mc.player == null || mc.options.hideGui) return;
@@ -66,6 +66,13 @@ public final class ZanpakutoHud {
                 }
                 if(CharacterData.SENBONZAKURA.equals(identity) && !form.equals("bankai") && slot==3 && senbon.getInt("prison")>0)
                     resources=Component.translatable("hud.bleachmod.senbon.prison",(senbon.getInt("prison")+19)/20).getString();
+                if(CharacterData.BENIHIME.equals(identity)) {
+                    var view=d.getStatus().getBenihimeHud();
+                    if(form.equals("shikai") && slot==2 && view.getInt("shield")>0)resources=Component.translatable("hud.bleachmod.benihime.shield",view.getInt("shield")).getString();
+                    if(form.equals("shikai") && slot==4)resources=Component.translatable(view.getInt("net")>0?"hud.bleachmod.benihime.detonate":"hud.bleachmod.benihime.need_net").getString();
+                    if(form.equals("bankai") && slot==3 && view.getInt("charges")>0)resources=Component.translatable("hud.bleachmod.benihime.charges",view.getInt("charges")).getString();
+                    if(form.equals("bankai") && slot==4 && view.getInt("path")>0)resources=Component.translatable("hud.bleachmod.benihime.path",(view.getInt("path")+19)/20).getString();
+                }
                 g.drawString(mc.font, mc.font.plainSubstrByWidth(resources, width - 16), 8, 51 + i * 25, 0x85AAC2, false);
             }
             String next = "sealed".equals(form) ? "shikai" : "shikai".equals(form) ? "bankai" : "";
@@ -85,6 +92,8 @@ public final class ZanpakutoHud {
                 g.drawString(mc.font, Component.translatable("hud.bleachmod.mastery.test_mode"), 8, 153, 0xF1B46B, false);
             else if (CharacterData.SENBONZAKURA.equals(identity) && form.equals("bankai"))
                 g.drawString(mc.font,Component.translatable("hud.bleachmod.senbon.reach"),8,153,0xFFBBD8,false);
+            else if(CharacterData.BENIHIME.equals(identity) && form.equals("bankai"))
+                g.drawString(mc.font,Component.translatable("hud.bleachmod.benihime.regen"),8,153,0xF1BBC5,false);
             g.pose().popPose();
         });
     };

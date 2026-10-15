@@ -30,7 +30,7 @@ public final class DodgeService {
 
     public static boolean request(ServerPlayer p, PlayerData data, int forward, int left) {
         var state = data.getStatus();
-        if (com.bleachmod.common.technique.SenbonzakuraTechniqueService.busy(p)
+        if (com.bleachmod.common.technique.BenihimeTechniqueService.busy(p) || com.bleachmod.common.technique.SenbonzakuraTechniqueService.busy(p)
                 || data.getGuard().active() || data.getGuard().broken() || !DodgePolicy.validInput(forward, left)
                 || !state.hasCreatedCharacter() || !terrestrial(p) || state.isActionCharging()
                 || state.getFlameDashTicks() > 0 || !state.canDodge(p.level().getGameTime())) return false;

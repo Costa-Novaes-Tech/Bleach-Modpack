@@ -71,6 +71,9 @@ public final class TechniqueService {
 
     public static void executeSlot(ServerPlayer player, PlayerData data, int slot) {
         if (!TechniqueProgression.authorize(player, data, slot)) return;
+        if (com.bleachmod.common.data.CharacterData.BENIHIME.equals(data.getCharacter().getZanpakutoIdentity())) {
+            BenihimeTechniqueService.executeSlot(player,data,slot);return;
+        }
         if (com.bleachmod.common.data.CharacterData.SENBONZAKURA.equals(data.getCharacter().getZanpakutoIdentity())) {
             SenbonzakuraTechniqueService.executeSlot(player, data, slot); return;
         }

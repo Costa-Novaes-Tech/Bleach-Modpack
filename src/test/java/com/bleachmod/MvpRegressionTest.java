@@ -148,7 +148,7 @@ public final class MvpRegressionTest {
             status.refreshCombat(200); status.clearTransientState(); yes(!status.isInCombat());
         });
         test("Shared technique definitions preserve all homologated costs and cooldowns", () -> {
-            var definitions = com.bleachmod.common.technique.TechniqueDefinitions.all(); eq(36, definitions.size());
+            var definitions = com.bleachmod.common.technique.TechniqueDefinitions.all(); eq(44, definitions.size());
             Set<String> unique = new HashSet<>();
             for (var def : definitions) {
                 yes(unique.add(def.identity() + "|" + def.form() + "|" + def.slot()));
@@ -844,6 +844,35 @@ public final class MvpRegressionTest {
             var tips=mesh.stream().filter(q->q.c().equals(q.d())).map(q->q.c()).toList();
             eq(32,tips.size());yes(tips.stream().anyMatch(p->p.x>10));yes(tips.stream().anyMatch(p->p.x< -10));
             yes(tips.stream().anyMatch(p->p.z>10));yes(tips.stream().anyMatch(p->p.z< -10));
+        });
+        test("Benihime has eight owned techniques and no elemental sealed slots",()->{
+            yes(com.bleachmod.common.data.CharacterData.knownIdentity("benihime"));
+            eq(8L,com.bleachmod.common.technique.TechniqueDefinitions.all().stream().filter(d->d.identity().equals("benihime")).count());
+            yes(com.bleachmod.common.technique.TechniqueDefinitions.find("benihime","sealed",1).isEmpty());
+            var d=player();d.getCharacter().bindZanpakuto("benihime");d.getCharacter().setMastery("zanpakuto","shikai",62);
+            var copy=new PlayerData();copy.load(d.save());eq("benihime",copy.getCharacter().getZanpakutoIdentity());eq(62D,copy.getCharacter().getMastery("zanpakuto","shikai"));
+            copy.getCharacter().bindZanpakuto("senbonzakura");eq(0D,copy.getCharacter().getMastery("zanpakuto","shikai"));
+        });
+        test("Benihime visual packet roundtrips and rejects invalid data",()->{
+            var zero=net.minecraft.world.phys.Vec3.ZERO;var f=new net.minecraft.world.phys.Vec3(0,0,1);
+            var frame=new com.bleachmod.common.network.s2c.BenihimeFrameS2C(5,0,zero,zero,f,18,.5F,1);
+            var buffer=new net.minecraft.network.FriendlyByteBuf(io.netty.buffer.Unpooled.buffer());
+            try{yes(frame.valid());com.bleachmod.common.network.s2c.BenihimeFrameS2C.encode(frame,buffer);eq(frame,com.bleachmod.common.network.s2c.BenihimeFrameS2C.decode(buffer));}finally{buffer.release();}
+            yes(!new com.bleachmod.common.network.s2c.BenihimeFrameS2C(5,0,zero,zero,f,25,.5F,1).valid());
+            yes(!new com.bleachmod.common.network.s2c.BenihimeFrameS2C(5,0,zero,zero,f,18,Float.NaN,1).valid());
+        });
+        test("Benihime manifestation and every effect have finite bounded geometry",()->{
+            var zero=net.minecraft.world.phys.Vec3.ZERO;var f=new net.minecraft.world.phys.Vec3(0,0,1);
+            for(int kind=0;kind<=8;kind++){
+                var frame=new com.bleachmod.common.network.s2c.BenihimeFrameS2C(1,kind,zero,f.scale(10),f,3,.5F,1);
+                var mesh=com.bleachmod.common.visual.BenihimeGeometry.build(frame);yes(!mesh.isEmpty() && mesh.size()<1200);
+                for(var q:mesh)for(var v:List.of(q.a(),q.b(),q.c(),q.d()))yes(Double.isFinite(v.x) && Double.isFinite(v.y) && Double.isFinite(v.z));
+            }
+        });
+        test("Benihime HUD leases are transient and snapshots isolated",()->{
+            var status=new StatusData();var tag=new net.minecraft.nbt.CompoundTag();tag.putInt("shield",900);tag.putInt("charges",3);status.readBenihimeHud(tag);
+            eq(100,status.getBenihimeHud().getInt("shield"));status.getBenihimeHud().putInt("charges",0);eq(3,status.getBenihimeHud().getInt("charges"));
+            yes(!status.save().contains("benihimeHud"));
         });
         System.out.println("PASS: "+count+" regression scenarios");
     }

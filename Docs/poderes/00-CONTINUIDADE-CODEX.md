@@ -2,6 +2,8 @@
 
 Atualizado em 15/10/2026. Resumo de passagem para nova conversa; consulte o código/Git antes de alterar. Este arquivo evita precisar importar o histórico completo do chat. Não substitui instruções atuais do usuário.
 
+**Frente vigente: ciclo 47 — Urahara/Benihime implementado para playtest.** Usuário aprovou o kit do ciclo 46 e pediu cura passiva de aliados/regeneração pessoal na Bankai, preservando a arma própria. [Contrato, parâmetros e roteiro](47-benihime-kit-suporte-reestruturacao-2026-10-15.md). Os avisos históricos de apenas discutir Urahara foram sucedidos por essa autorização. Senbonzakura, esquiva e defesa permanecem homologadas. Rede atual **2.15**, schema **8**; conferir resultado de validação no fim deste arquivo e Git antes de retomar.
+
 ## 1. Repositório e regras mantidas pelo usuário
 
 - Projeto local: `C:\Users\joaop\Downloads\Projeto_Programacao_BleachMod\Bleach-Modpack`.
@@ -15,7 +17,7 @@ Atualizado em 15/10/2026. Resumo de passagem para nova conversa; consulte o cód
 
 ## 2. Estado entregue e homologado
 
-Minecraft 1.20.1, Forge 47.4.10, Java 17, Gradle wrapper. Mod 0.2.0; protocolo de rede 2.14; schema persistente 8. Cliente e servidor devem usar a mesma build.
+Minecraft 1.20.1, Forge 47.4.10, Java 17, Gradle wrapper. Mod 0.2.0; protocolo de rede 2.15; schema persistente 8. Cliente e servidor devem usar a mesma build.
 
 - Ryujin Jakka e Hyōrinmaru possuem kits próprios nas formas selada/Shikai/Bankai, já testados pelo usuário. Seus detalhes históricos estão nos relatórios de poderes; não reabrir balanceamento/visuais sem solicitação.
 - Uma zanpakutō vinculada por vez. Pode trocar identidade, mantendo progresso separado. Asauchi é identidade própria, com Shikai/Bankai de bônus de dano e sem slots elementais; modelos preservados.
@@ -109,6 +111,16 @@ Protocolo **2.14**, schema **8**. **91 regressões e 94 GameTests obrigatórios 
 
 ## 9. Próxima discussão — ciclo 46
 
+Registro histórico: a discussão abaixo foi sucedida pela aprovação/implementação do ciclo 47.
+
 Usuário confirmou **Bankai e poderes de Senbonzakura/Byakuya concluídos e prontos**; homologação abrange a entrega do ciclo 45. Não retomar refinamentos desse kit sem pedido novo. Base continua protocolo 2.14/schema 8, 91 regressões/94 GameTests da última implementação.
 
 Frente ativa: **discutir o kit de Urahara / Benihime**, sem implementar ainda. [Pesquisa e proposta inicial](46-homologacao-senbonzakura-proposta-urahara-2026-10-15.md): Shikai candidata com disparo carmesim, barreira, rede e detonação encadeada; Bankai candidata com dissecação, reconstrução, aprimoramento corporal e abertura de caminho. Só os nomes de referência são canônicos; rótulos/efeitos numéricos de gameplay permanecem propostas. Modelo gigante/mãos/costuras como direção visual; decidir primeiro cura própria versus suporte a aliados, depois manifestação móvel/ancorada e escopo do corredor. Não presumir aceite de todos os slots por esta discussão, nem aplicar automaticamente a exceção de arsenal selado de Byakuya a Urahara. Aizen e demais prioridades preservados.
+
+## 10. Entrega vigente — ciclo 47
+
+Usuário aprovou o kit Urahara com suporte a aliados, maior regeneração própria na Bankai e design exclusivo. Implementados item/vínculo `benihime`, quatro slots Shikai (Nake, Chikasumi, Shibari, Hiasobi sobre rede) e quatro Bankai (Dissecação, Reconstrução própria/aliada, três golpes reforçados, corredor). Selada sem slots especiais. [Contrato e roteiro completo](47-benihime-kit-suporte-reestruturacao-2026-10-15.md).
+
+Bankai empunhada: 1 HP/s próprio, 1 HP/2 s aos aliados em raio 8 com visão; time formal do scoreboard ou pet próprio, sem empilhar auras e sem treino passivo. Manifestação visual móvel atrás do dono, braços articulados/costuras e modelos próprios de bengala/Benihime. Corredor até 12, revalida colisão/apoio, não atravessa nem destrói terreno; dissipa projéteis hostis e barreiras Benihime compatíveis. Maestria/custos/cancelamento integrados. Não modificar armas/visuais homologados de outros kits.
+
+Rede **2.15**, schema **8**, builds idênticas necessárias. **Check/build, 95 regressões e 108 GameTests obrigatórios aprovados**, log `build/cycle47-final-validation.log`, JAR `build/libs/bleachmod-0.2.0.jar`. Modelos/assets/traduções/JAR e duas prévias estáticas conferidos. Sem homologação visual em Minecraft, FPS ou multiplayer real. Próxima etapa: playtest do Urahara pelo usuário, com parâmetros de equilíbrio ainda iniciais. Aizen adiado; Uryū Ishida depois, Mentor/Proficiências aguardam equipe, revisão Hyōrinmaru ao final, Gin removido.

@@ -24,7 +24,9 @@ public final class GuardService {
                 && !p.isUsingItem() && !p.isFullyFrozen() && !d.getStatus().isActionCharging()
                 && !d.getStatus().isDodging() && d.getStatus().getFlameDashTicks() == 0
                 && !com.bleachmod.common.technique.SenbonzakuraTechniqueService.busy(p)
-                && !com.bleachmod.common.technique.SenbonzakuraTechniqueService.ward(p);
+                && !com.bleachmod.common.technique.SenbonzakuraTechniqueService.ward(p)
+                && !com.bleachmod.common.technique.BenihimeTechniqueService.busy(p)
+                && !com.bleachmod.common.technique.BenihimeTechniqueService.ward(p);
     }
     public static void request(ServerPlayer p, PlayerData d, boolean held) {
         if (!held) d.getGuard().release();
@@ -72,7 +74,7 @@ public final class GuardService {
     public static void attack(AttackEntityEvent event) {
         if (event.getEntity() instanceof ServerPlayer p)
             PlayerCapability.get(p).ifPresent(d -> { if (d.getGuard().active()
-                    || com.bleachmod.common.technique.SenbonzakuraTechniqueService.busy(p)
+                    || com.bleachmod.common.technique.SenbonzakuraTechniqueService.busy(p) || com.bleachmod.common.technique.BenihimeTechniqueService.busy(p)
                     || !com.bleachmod.common.technique.SenbonzakuraTechniqueService.allowMelee(p,event.getTarget())) event.setCanceled(true); });
     }
 }

@@ -42,6 +42,11 @@ public final class ZanpakutoSheathLayer extends RenderLayer<AbstractClientPlayer
         root.addOrReplaceChild("square_guard", CubeListBuilder.create().texOffs(0,0)
                 .addBox(-1.3F,-1.3F,-.35F,.35F,2.6F,.35F).addBox(.95F,-1.3F,-.35F,.35F,2.6F,.35F)
                 .addBox(-.95F,-1.3F,-.35F,1.9F,.35F,.35F).addBox(-.95F,.95F,-.35F,1.9F,.35F,.35F), PartPose.ZERO);
+        root.addOrReplaceChild("cane_sheath",CubeListBuilder.create().texOffs(0,0).addBox(-.45F,-.45F,0,.9F,.9F,15),PartPose.ZERO);
+        root.addOrReplaceChild("cane_grip",CubeListBuilder.create().texOffs(0,0).addBox(-.4F,-.4F,-4.6F,.8F,.8F,4.6F)
+                .addBox(-.4F,-.4F,-5,.7F,.8F,.5F).addBox(.15F,-.4F,-5.4F,.7F,.8F,.5F)
+                .addBox(.7F,-.4F,-5.5F,.6F,.8F,.5F).addBox(1.2F,-.4F,-5.2F,.5F,.8F,.6F)
+                .addBox(1.5F,-.4F,-4.7F,.5F,.8F,.6F).addBox(1.45F,-.4F,-4.2F,.5F,.8F,.5F),PartPose.ZERO);
         return LayerDefinition.create(mesh,16,16);
     }
     @Override public void render(PoseStack pose, MultiBufferSource buffers, int light, AbstractClientPlayer player,
@@ -51,6 +56,7 @@ public final class ZanpakutoSheathLayer extends RenderLayer<AbstractClientPlayer
         PlayerCapability.get(player).ifPresent(data -> {
             String id = data.getCharacter().getZanpakutoIdentity(); boolean ice = CharacterData.HYORINMARU.equals(id), fire = CharacterData.RYUJIN.equals(id);
             boolean sakura = CharacterData.SENBONZAKURA.equals(id);
+            boolean benihime=CharacterData.BENIHIME.equals(id);
             pose.pushPose(); getParentModel().body.translateAndRotate(pose);
             // Player-model +X is the character's left: the previous negative sign put it on the right.
             boolean left = player.getMainArm() == net.minecraft.world.entity.HumanoidArm.RIGHT;
@@ -58,6 +64,11 @@ public final class ZanpakutoSheathLayer extends RenderLayer<AbstractClientPlayer
             pose.mulPose(Axis.YP.rotationDegrees(left ? 25 : -25)); pose.mulPose(Axis.XP.rotationDegrees(-26));
             // Increase the approved curved profile by 15%; negative pitch lowers the positive-Z tip.
             pose.scale(.9775F,.9775F,.9775F);
+            if(benihime){
+                draw(pose,buffers,light,"cane_sheath",.55F,.38F,.17F);
+                if(motion.previous==1)draw(pose,buffers,light,"cane_grip",.78F,.59F,.27F);
+                pose.popPose();return;
+            }
             draw(pose,buffers,light,"scabbard",sakura ? .93F : ice ? .12F : fire ? .13F : .2F,sakura ? .92F : ice ? .32F : fire ? .08F : .2F,sakura ? .96F : ice ? .38F : fire ? .07F : .22F);
             draw(pose,buffers,light,"fittings",.65F,.53F,.22F);
             if (motion.previous == 1) {

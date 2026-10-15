@@ -35,6 +35,7 @@ public final class CombatEvents {
                         && com.bleachmod.common.evolution.TransformationsHelper.isUnlocked(data, "zanpakuto", data.getCharacter().getActiveForm())
                         ? CombatBalance.formDamageBonus(data.getCharacter().getActiveForm()) : 0;
                 formBonus += com.bleachmod.common.technique.SenbonzakuraTechniqueService.offensiveBonus(player);
+                formBonus += com.bleachmod.common.technique.BenihimeTechniqueService.damageBonus(player,event.getEntity());
                 if (isZanjutsuWeapon(player)) {
                     float ignitionBonus = TechniqueService.isRyujinJakkaEquipped(player)
                             ? TechniqueService.ignitionDamageBonus(data) : 0.0F;
@@ -70,6 +71,7 @@ public final class CombatEvents {
         if (!isSupportedMeleeWeapon(player)) return;
         PlayerCapability.get(player).ifPresent(data -> {
             if (data.getStatus().hasCreatedCharacter() && event.getAmount() > 0) {
+                com.bleachmod.common.technique.BenihimeTechniqueService.damageApplied(player,event.getEntity());
                 com.bleachmod.common.technique.MasteryPracticeService.damage(player, event.getEntity());
                 TechniqueService.applyIgnitionHit(player, data, event.getEntity());
                 com.bleachmod.common.technique.ReleasePassives.flameHit(player, data, event.getEntity());
@@ -86,7 +88,7 @@ public final class CombatEvents {
         return player.getMainHandItem().is(ModItems.ASAUCHI.get())
                 || player.getMainHandItem().is(ModItems.RYUJIN_JAKKA.get())
                 || player.getMainHandItem().is(ModItems.HYORINMARU.get())
-                || player.getMainHandItem().is(ModItems.SENBONZAKURA.get());
+                || player.getMainHandItem().is(ModItems.SENBONZAKURA.get()) || player.getMainHandItem().is(ModItems.BENIHIME.get());
     }
 
     private static boolean isSupportedMeleeWeapon(ServerPlayer player) {

@@ -51,6 +51,10 @@ public final class MasteryPracticeService {
         credit(owner, target, slot);
     }
     public static void control(ServerPlayer owner, LivingEntity target, int slot) { credit(owner, target, slot); }
+    public static boolean isTechniqueDamage() { return CONTEXT.get()!=null; }
+    public static void healing(ServerPlayer owner,LivingEntity target,int slot,float restored) {
+        if(restored>0 && Float.isFinite(restored))credit(owner,target,slot,true);
+    }
     public static void defense(ServerPlayer owner, LivingEntity attacker) {
         if (IceArmorService.active(owner)) credit(owner, attacker, 3);
     }
@@ -59,8 +63,12 @@ public final class MasteryPracticeService {
         else if (SenbonzakuraTechniqueService.protection(owner,source)>0) credit(owner,attacker,4);
     }
     private static void credit(ServerPlayer owner, LivingEntity target, int slot) {
-        if (!owner.isAlive() || owner.isSpectator() || !(target instanceof Enemy || target instanceof ServerPlayer)
-                || target.isInvulnerable() || !TechniqueTargets.allowed(owner, target)) return;
+        credit(owner,target,slot,false);
+    }
+    private static void credit(ServerPlayer owner,LivingEntity target,int slot,boolean healing) {
+        if (!owner.isAlive() || owner.isSpectator() || target.isInvulnerable())return;
+        if(healing ? !BenihimeTechniqueService.healable(owner,target)
+                : !(target instanceof Enemy || target instanceof ServerPlayer) || !TechniqueTargets.allowed(owner,target))return;
         PlayerCapability.get(owner).ifPresent(data -> {
             var character = data.getCharacter();
             if (!data.getStatus().hasCreatedCharacter() || data.getStatus().areCooldownsDisabled() || data.getResources().areCostsDisabled()

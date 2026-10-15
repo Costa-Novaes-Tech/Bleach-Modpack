@@ -19,7 +19,7 @@ public final class ModCreativeTabs {
                 output.accept(ModItems.ASAUCHI.get());
                 output.accept(ModItems.RYUJIN_JAKKA.get());
                 output.accept(ModItems.HYORINMARU.get());
-                output.accept(ModItems.SENBONZAKURA.get());
+                output.accept(ModItems.SENBONZAKURA.get()); output.accept(ModItems.BENIHIME.get());
                 output.accept(ModItems.HOLLOW_SPAWN_EGG.get());
                 ModItems.npcSpawnEggs().values().forEach(egg -> output.accept(egg.get()));
             })
