@@ -1,3 +1,5 @@
+> Homologação posterior: usuário confirmou Senbonzakura/Byakuya concluídos e prontos no [ciclo 46](46-homologacao-senbonzakura-proposta-urahara-2026-10-15.md). A próxima frente é a discussão de Urahara.
+
 # Ciclo 45 — Dash da Hakuteiken, jardim intenso e Senkei em área
 
 Data: 15/10/2026. Branch `Feature-Poderes-bankais`. Após playtest positivo do [ciclo 44](44-senbonzakura-vento-prisao-hakuteiken-2026-10-15.md), o usuário aprovou especialmente o visual da Hakuteiken e pediu três ajustes: acompanhar sua estocada com dash mais longo, jardim mais intenso com raio 35/janela 2–6 segundos, reativação da Senkei atingindo a área inteira. Visual aprovado preservado; novos movimentos/parâmetros aguardam conferência em jogo. Esquiva/defesa homologadas, Aizen adiado. Próximo personagem é **Urahara, para discussão de kit**, sem implementação autorizada por este ciclo.
