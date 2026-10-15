@@ -29,6 +29,7 @@ public record UpdateStatC2S(StatAction action, boolean value) {
             }
             PlayerCapability.get(player).ifPresent(data -> {
                 if (msg.action == StatAction.ACTION_CHARGE && data.getStatus().hasCreatedCharacter() && player.isAlive()) {
+                    if (msg.value && (data.getGuard().active() || data.getGuard().broken())) return;
                     data.getStatus().setActionCharging(msg.value);
                     if (!msg.value) {
                         data.getResources().setActionCharge(0);

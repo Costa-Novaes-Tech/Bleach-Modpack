@@ -1,3 +1,5 @@
+> **Ciclo 39 — 15/10/2026:** bloqueio/Postura/Guard Break juntos, escudo visível; segurar X configurável. Protocolo 2.11, schema 8. Build, 80 regressões e 71 GameTests obrigatórios aprovados; playtest pendente. [Contrato e roteiro](39-bloqueio-postura-guard-break-2026-10-15.md). Próximo kit: Byakuya; Mentor/Proficiências adiados para confirmação com a equipe.
+
 > **Ciclo 37 — 15/10/2026:** esquiva Alt + direção implementada para playtest; protocolo 2.10, schema 7. Build, 76 regressões e 67 GameTests obrigatórios aprovados. [Contrato, limites, homologação e próximas opções](37-esquiva-direcional-stamina-2026-10-15.md). Os registros abaixo são históricos.
 
 > **Nova conversa — entrada recomendada, 15/10/2026:** leia primeiro [Continuidade do projeto](00-CONTINUIDADE-CODEX.md). O resumo reúne estado homologado, branch/restrições, protocolo/schema, mapa técnico, validações e proposta seguinte. Não é necessário importar todo o histórico nem reler todos os relatórios. Os registros abaixo permanecem como histórico.

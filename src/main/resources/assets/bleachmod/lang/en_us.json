@@ -1,4 +1,7 @@
 {
+  "key.bleachmod.guard": "Hold guard / block",
+  "hud.bleachmod.posture": "Posture %s/100",
+  "hud.bleachmod.guard_broken": "GUARD BROKEN",
   "key.bleachmod.dodge": "Directional dodge (no direction: backstep)",
   "itemGroup.bleachmod": "Bleach",
   "item.bleachmod.asauchi": "Asauchi",

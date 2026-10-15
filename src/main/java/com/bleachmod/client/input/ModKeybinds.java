@@ -6,6 +6,8 @@ import net.minecraftforge.client.settings.KeyConflictContext;
 import org.lwjgl.glfw.GLFW;
 
 public final class ModKeybinds {
+    public static final KeyMapping GUARD = new KeyMapping("key.bleachmod.guard", KeyConflictContext.IN_GAME,
+            InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_X, "key.categories.bleachmod");
     public static final KeyMapping DODGE = new KeyMapping("key.bleachmod.dodge", KeyConflictContext.IN_GAME,
             InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_LEFT_ALT, "key.categories.bleachmod");
     public static final String CATEGORY = "key.categories.bleachmod";

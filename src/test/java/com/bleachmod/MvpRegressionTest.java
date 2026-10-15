@@ -16,6 +16,42 @@ import java.util.*;
 public final class MvpRegressionTest {
     private static int count;
     public static void main(String[] args) {
+        test("Guard posture breaks without spending stamina and requires release", () -> {
+            var d = new PlayerData(); d.initializeShinigami(); var g = d.getGuard();
+            yes(g.request(0)); yes(!g.absorb(50)); eq(50F, g.posture());
+            yes(g.absorb(50)); yes(g.broken()); yes(!g.active()); eq(0F, g.posture());
+            eq(100F, d.getResources().getStamina());
+            for (int i = 1; i <= 30; i++) g.tick(i);
+            yes(!g.broken()); eq(10F, g.posture()); yes(!g.request(30));
+            g.release(); yes(g.request(32));
+        });
+        test("Guard lease expires and recovery requires lowering the guard", () -> {
+            var g = new GuardData(); yes(g.request(0)); g.absorb(20);
+            for (int i = 1; i <= 30; i++) { if (i % 5 == 0) yes(g.request(i)); g.tick(i); }
+            eq(80F, g.posture()); yes(g.active()); g.tick(42); yes(!g.active());
+            g.release(); for (int i = 43; i < 70; i++) g.tick(i); eq(100F, g.posture());
+        });
+        test("Guard snapshot is sanitized and persistence never restores held input", () -> {
+            var g = new GuardData(); g.request(0); g.absorb(30);
+            var saved = g.save(); yes(!saved.contains("active"));
+            var copy = new GuardData(); copy.load(saved); eq(70F, copy.posture()); yes(!copy.active());
+            copy.readSnapshot(g.snapshot()); yes(copy.shownActive()); eq(70F, copy.shownPosture());
+            var bad = new CompoundTag(); bad.putFloat("posture", Float.NaN); bad.putBoolean("active", true);
+            copy.readSnapshot(bad); eq(0F, copy.shownPosture()); yes(!copy.shownActive());
+            g.absorb(100); copy.load(g.save()); yes(copy.broken()); eq(20, copy.breakTicks());
+        });
+        test("Guard cone, pressure limits and schema 7 migration preserve previous progress", () -> {
+            yes(com.bleachmod.common.GuardPolicy.inFront(0, new net.minecraft.world.phys.Vec3(0,0,1)));
+            yes(!com.bleachmod.common.GuardPolicy.inFront(0, new net.minecraft.world.phys.Vec3(0,0,-1)));
+            yes(!com.bleachmod.common.GuardPolicy.inFront(0, new net.minecraft.world.phys.Vec3(1,0,0)));
+            yes(!com.bleachmod.common.GuardPolicy.inFront(0, net.minecraft.world.phys.Vec3.ZERO));
+            eq(8F, com.bleachmod.common.GuardPolicy.pressure(.1F)); eq(50F, com.bleachmod.common.GuardPolicy.pressure(100));
+            eq(0F, com.bleachmod.common.GuardPolicy.pressure(Float.NaN));
+            var d = new PlayerData(); d.initializeShinigami(); d.getResources().spendBasicAttackStamina();
+            var old = d.save(); old.putInt("schemaVersion", 7); old.remove("guard");
+            var copy = new PlayerData(); copy.load(old); eq(100F, copy.getGuard().posture()); eq(96F, copy.getResources().getStamina());
+            yes(copy.getCharacter().save().equals(d.getCharacter().save())); eq(8, copy.save().getInt("schemaVersion"));
+        });
         test("Dodge directions rotate with yaw and diagonals have equal length", () -> {
             var p = com.bleachmod.common.DodgePolicy.direction(1, 0, 0);
             yes(p.distanceTo(new net.minecraft.world.phys.Vec3(0,0,1)) < .00001);
@@ -97,7 +133,7 @@ public final class MvpRegressionTest {
             var legacy = new PlayerData(); legacy.initializeShinigami(); var saved = legacy.save(); saved.putInt("schemaVersion", 5);
             saved.getCompound("resources").remove("stamina"); saved.getCompound("resources").remove("staminaRestTicks");
             saved.getCompound("resources").remove("staminaExhausted"); var migrated = new PlayerData(); migrated.load(saved);
-            eq(100F, migrated.getResources().getStamina()); eq(7, migrated.save().getInt("schemaVersion"));
+            eq(100F, migrated.getResources().getStamina()); eq(8, migrated.save().getInt("schemaVersion"));
         });
         test("Combat state expires, refreshes and stays absent from persistent saves", () -> {
             var status = new StatusData(); status.refreshCombat(200);

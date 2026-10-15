@@ -15,7 +15,7 @@ Atualizado em 15/10/2026. Resumo de passagem para nova conversa; consulte o cód
 
 ## 2. Estado entregue e homologado
 
-Minecraft 1.20.1, Forge 47.4.10, Java 17, Gradle wrapper. Mod 0.2.0; protocolo de rede 2.10; schema persistente 7. Cliente e servidor devem usar a mesma build.
+Minecraft 1.20.1, Forge 47.4.10, Java 17, Gradle wrapper. Mod 0.2.0; protocolo de rede 2.11; schema persistente 8. Cliente e servidor devem usar a mesma build.
 
 - Ryujin Jakka e Hyōrinmaru possuem kits próprios nas formas selada/Shikai/Bankai, já testados pelo usuário. Seus detalhes históricos estão nos relatórios de poderes; não reabrir balanceamento/visuais sem solicitação.
 - Uma zanpakutō vinculada por vez. Pode trocar identidade, mantendo progresso separado. Asauchi é identidade própria, com Shikai/Bankai de bônus de dano e sem slots elementais; modelos preservados.
@@ -29,6 +29,7 @@ Minecraft 1.20.1, Forge 47.4.10, Java 17, Gradle wrapper. Mod 0.2.0; protocolo d
 - Bainha final homologada: curva afunilada, paletas por identidade, esquerda anatômica para destros e espelhamento para canhotos. Escala 0,9775; rotação X -26 graus; Y ±25 graus. Não alterar esses valores sem necessidade aprovada.
 - Saque/guarda cosmético nativo de oito ticks, terceira/primeira pessoa; seleção do slot é o gatilho. Não trava ataque. Ação dedicada de embainhar sem mudar slot ainda não existe.
 - Esquiva direcional implementada no ciclo 37, **aguardando playtest**: Alt esquerdo remapeável + direção, sem direção recuo, diagonais normalizadas; custo 15 stamina, cinco ticks, 2,5 blocos nominais, intervalo de 12 ticks. Somente terrestre, sem invulnerabilidade. Não confundir com Shunpo. [Contrato, restrições e roteiro](37-esquiva-direcional-stamina-2026-10-15.md).
+- Bloqueio/Postura/Guard Break implementados juntos no ciclo 39, **aguardando playtest**: segurar X remapeável, escudo acima do personagem com preenchimento/rachaduras, Postura 100, abertura de 20 ticks ao zerar. Guarda mitiga golpes físicos frontais, sem cobrar stamina. Recuperação, persistência e bloqueios de ações no [relatório 39](39-bloqueio-postura-guard-break-2026-10-15.md). Guard Break agora impede esquiva durante a abertura. F mantém troca vanilla entre mãos.
 
 Aceite final de stamina/progressão e aparência da bainha recebido. Isso não comprova FPS, latência ou homologação com dois clientes reais.
 
@@ -49,6 +50,7 @@ Relatórios antigos preservam decisões superadas e avisos de teste pendente da 
 | Bainha/gesto | client/model/ZanpakutoSheathLayer, ZanpakutoMotion; common/visual/ZanpakutoDraw; client/events/ModEntityRenderers, ClientForgeEvents |
 | Interface e itens | client/hud/ReiatsuHud; client/gui/StatusScreen; client/input/ModKeybinds; common/item/ZanpakutoItem; init/ModItems |
 | Poderes | common/technique; common/visual; gametest |
+| Guarda/Postura | common/GuardPolicy, GuardService; common/data/GuardData; common/network/c2s/GuardC2S; client/hud/GuardVisuals |
 
 Traduções: src/main/resources/assets/bleachmod/lang/pt_br.json e en_us.json. Testes gerais: src/test/java/com/bleachmod/MvpRegressionTest.java.
 
@@ -59,6 +61,8 @@ Antes do ciclo 37, HEAD era `0b09578` (handoff), precedido por `5bc94be` (consol
 Ciclo 33: 73 regressões e 63 GameTests obrigatórios aprovados. Ciclos 34/35: check/build e 73 regressões aprovados, sem repetir GameTests de lógica inalterada. Logs locais em build/cycle33-validation.log e build/cycle35-validation.log; podem não existir em outro checkout. JAR local: build/libs/bleachmod-0.2.0.jar, gerado e não equivalente a release publicada.
 
 Ciclo 37: check/build e **76 regressões**, **67 GameTests obrigatórios** aprovados. Logs `build/cycle37-validation.log` e `build/cycle37-integration.log`. Não equivale a homologação de teclado, visual ou multiplayer real.
+
+Ciclo 39: check/build e **80 regressões**, **71 GameTests obrigatórios** aprovados. Logs `build/cycle39-validation.log` e `build/cycle39-integration.log`. Escudo/guarda/quebra ainda precisam de playtest visual e de rede. Schema 8 persiste Postura/pausa/quebra sem restaurar tecla pressionada; legado inicia Postura cheia, demais progressos preservados.
 
 PowerShell, na raiz, com JDK 17 instalado:
 
@@ -75,8 +79,8 @@ O caminho do JDK é desta máquina; conferir em outro ambiente. Offline depende 
 
 O usuário escolheu implementar esquiva direcional universal com stamina. Após discutir dois toques em WASD, preferiu **Alt + direção**. Implementação do ciclo 37 concluída para playtest; não voltar a propor dois toques como controle vigente. Após testar esta feature, retomar a escolha da próxima implementação com o usuário.
 
-Contrato e limitações efetivas estão no [relatório 37](37-esquiva-direcional-stamina-2026-10-15.md). O usuário está testando; homologação continua pendente. Em paralelo, escolheu a sequência **Bloqueio/Postura → Guard Break → Mentor → Proficiências → Gin → Byakuya**. [Roadmap, escopo e contratos a fechar](38-roadmap-defesa-treinamento-gin-byakuya-2026-10-15.md). A escolha das frentes não homologa valores, controles, narrativa ou tabelas de técnicas ainda não definidos.
+Contrato e limitações efetivas da esquiva estão no [relatório 37](37-esquiva-direcional-stamina-2026-10-15.md); homologação continua pendente. Ordem revisada pelo usuário no ciclo 39: **Bloqueio/Postura + Guard Break juntos → Byakuya → Gin → Mentor → Proficiências**. Defesa implementada para playtest no [relatório 39](39-bloqueio-postura-guard-break-2026-10-15.md). **Mentor e Proficiências ficam por último, aguardando confirmação de informações com a equipe; não iniciar enquanto pendentes.** Byakuya é o próximo kit; usuário pesquisará seus poderes antes de fechar o contrato. [Roadmap revisado](38-roadmap-defesa-treinamento-gin-byakuya-2026-10-15.md).
 
 Outras opções revisadas: mentor com cadeia curta de treinamento; Hohō/Shunpo; pequeno repertório de Kidō; proficiência de Zanjutsu/Hakuda/Hohō/Kidō; migração dos atributos com preservação de saves; novos encontros Hollow/boss; Soul Society/viagens; cooperação. História e regras de aquisição dependem da equipe. Antes de trabalhar em dimensões/mobs, conferir integrações de outras branches para não duplicar trabalho.
 
-Pontos de design a preservar: atributos ≠ proficiência ≠ maestria; Postura é exclusiva de Guard Break e separada da stamina; sem nível global e sem skill tree como caminho obrigatório; poder principal continua vínculo único. Próxima frente escolhida: defesa fundamental com Postura/Guard Break; Aizen permanece reservado e adiado.
+Pontos de design a preservar: atributos ≠ proficiência ≠ maestria; Postura é exclusiva de Guard Break e separada da stamina; sem nível global e sem skill tree como caminho obrigatório; poder principal continua vínculo único. Próximo contrato de kit: Byakuya, após pesquisa do usuário e homologação da defesa. Aizen permanece reservado e adiado.

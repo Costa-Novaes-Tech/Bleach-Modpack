@@ -1,4 +1,7 @@
 {
+  "key.bleachmod.guard": "Manter guarda / bloqueio",
+  "hud.bleachmod.posture": "Postura %s/100",
+  "hud.bleachmod.guard_broken": "GUARDA QUEBRADA",
   "key.bleachmod.dodge": "Esquiva direcional (sem direção: recuo)",
   "itemGroup.bleachmod": "Bleach",
   "item.bleachmod.asauchi": "Asauchi",

@@ -32,10 +32,12 @@ public class TickHandler {
             }
             if (!player.isAlive() || player.isSpectator()) {
                 data.resetTransientState();
+                com.bleachmod.common.GuardService.publish(player, data);
                 return;
             }
 
             data.getStatus().tickTransientState();
+            com.bleachmod.common.GuardService.tick(player, data);
             com.bleachmod.common.StaminaService.tick(player, data);
             com.bleachmod.common.DodgeService.tick(player, data);
 

@@ -35,6 +35,7 @@ public final class ReiatsuHud {
                 return;
             }
             renderPanel(mc, graphics, screenWidth, screenHeight, data);
+            GuardVisuals.hud(graphics, screenWidth, screenHeight, data);
         });
     };
 

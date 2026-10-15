@@ -30,7 +30,7 @@ public final class DodgeService {
 
     public static boolean request(ServerPlayer p, PlayerData data, int forward, int left) {
         var state = data.getStatus();
-        if (!DodgePolicy.validInput(forward, left)
+        if (data.getGuard().active() || data.getGuard().broken() || !DodgePolicy.validInput(forward, left)
                 || !state.hasCreatedCharacter() || !terrestrial(p) || state.isActionCharging()
                 || state.getFlameDashTicks() > 0 || !state.canDodge(p.level().getGameTime())) return false;
         Vec3 direction = DodgePolicy.direction(forward, left, p.getYRot());

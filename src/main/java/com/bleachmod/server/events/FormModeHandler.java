@@ -26,6 +26,7 @@ public final class FormModeHandler {
     }
 
     public static void attemptTransform(ServerPlayer player, PlayerData data) {
+        if (data.getGuard().active() || data.getGuard().broken()) return;
         transform(player, data, false);
         data.getResources().setActionCharge(0);
         data.getStatus().clearTransformationState();
@@ -33,6 +34,7 @@ public final class FormModeHandler {
     }
 
     public static void instantTransform(ServerPlayer player, PlayerData data) {
+        if (data.getGuard().active() || data.getGuard().broken()) return;
         FormData target = TransformationsHelper.getSelectedFormData(data);
         if (target == null) {
             return;

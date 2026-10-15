@@ -41,6 +41,7 @@ public final class NetworkHandler {
     }
 
     public static void register() {
+        // Guard is appended below to preserve the previous discriminators.
         CHANNEL.registerMessage(id++, com.bleachmod.common.network.c2s.PurchaseAttributeC2S.class,
             com.bleachmod.common.network.c2s.PurchaseAttributeC2S::encode, com.bleachmod.common.network.c2s.PurchaseAttributeC2S::decode,
             com.bleachmod.common.network.c2s.PurchaseAttributeC2S::handle, Optional.of(NetworkDirection.PLAY_TO_SERVER));
@@ -66,6 +67,9 @@ public final class NetworkHandler {
         CHANNEL.registerMessage(id++, com.bleachmod.common.network.c2s.DodgeC2S.class,
                 com.bleachmod.common.network.c2s.DodgeC2S::encode, com.bleachmod.common.network.c2s.DodgeC2S::decode,
                 com.bleachmod.common.network.c2s.DodgeC2S::handle, Optional.of(NetworkDirection.PLAY_TO_SERVER));
+        CHANNEL.registerMessage(id++, com.bleachmod.common.network.c2s.GuardC2S.class,
+                com.bleachmod.common.network.c2s.GuardC2S::encode, com.bleachmod.common.network.c2s.GuardC2S::decode,
+                com.bleachmod.common.network.c2s.GuardC2S::handle, Optional.of(NetworkDirection.PLAY_TO_SERVER));
     }
 
     public static void sendToServer(Object message) {

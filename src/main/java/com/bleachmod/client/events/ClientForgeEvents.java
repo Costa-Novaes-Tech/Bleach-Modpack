@@ -25,6 +25,7 @@ public class ClientForgeEvents {
     private static boolean lastCharging;
     private static boolean instantHeld;
     private static boolean dodgeHeld;
+    private static boolean guardHeld;
 
     @SubscribeEvent
     public static void onClientTick(TickEvent.ClientTickEvent event) {
@@ -35,6 +36,7 @@ public class ClientForgeEvents {
         boolean dodgePressed = ModKeybinds.DODGE.isDown() && !dodgeHeld;
         dodgeHeld = ModKeybinds.DODGE.isDown();
         if (mc.player == null) {
+            guardHeld = false;
             com.bleachmod.client.model.ZanpakutoMotion.clear();
             lastCharging = false;
             instantHeld = false;
@@ -42,6 +44,7 @@ public class ClientForgeEvents {
         }
 
         PlayerCapability.get(mc.player).ifPresent(data -> {
+            if (data.getGuard().shownActive()) mc.player.setSprinting(false);
             if (data.isDataLoaded() && data.getStatus().hasCreatedCharacter()
                     && !mc.player.isCreative() && !mc.player.getAbilities().flying && !mc.player.isPassenger()
                     && data.getResources().isStaminaExhausted()) {
@@ -52,6 +55,11 @@ public class ClientForgeEvents {
             }
         });
 
+        boolean guard = mc.screen == null && mc.isWindowActive() && mc.player.isAlive() && ModKeybinds.GUARD.isDown();
+        if (guard != guardHeld || (guard && mc.player.tickCount % 5 == 0)) {
+            NetworkHandler.sendToServer(new com.bleachmod.common.network.c2s.GuardC2S(guard));
+            guardHeld = guard;
+        }
         if (mc.screen != null || !mc.isWindowActive()) {
             if (lastCharging) {
                 NetworkHandler.sendToServer(new UpdateStatC2S(UpdateStatC2S.StatAction.ACTION_CHARGE, false));
