@@ -8,6 +8,36 @@ import java.util.Set;
 import java.util.UUID;
 
 public class StatusData {
+    private int benihimePathUses;
+    public int getBenihimePathCharges(){if(benihimePathUses>=3 && techniqueSlot4CooldownTicks==0)benihimePathUses=0;return 3-benihimePathUses;}
+    public void useBenihimePath(){if(!cooldownsDisabled)benihimePathUses=Math.min(3,benihimePathUses+1);}
+    private CompoundTag benihimeHud=new CompoundTag();
+    public CompoundTag getBenihimeHud(){return benihimeHud.copy();}
+    public void readBenihimeHud(CompoundTag tag){benihimeHud=new CompoundTag();for(var key:java.util.List.of("shield","net","charges","path","pathCharges"))if(tag.contains(key))benihimeHud.putInt(key,Math.max(0,Math.min(100,tag.getInt(key))));}
+    private CompoundTag senbonHud = new CompoundTag();
+    public CompoundTag getSenbonHud() { return senbonHud.copy(); }
+    public void readSenbonHud(CompoundTag tag) {
+        senbonHud = new CompoundTag();
+        for (String key : java.util.List.of("fieldReady","fieldRemaining","sceneReady","sceneRemaining","ward","prison"))
+            if (tag.contains(key)) senbonHud.putInt(key, Math.max(0, Math.min(200,tag.getInt(key))));
+        senbonHud.putBoolean("bloom",tag.getBoolean("bloom"));
+    }
+    private net.minecraft.world.phys.Vec3 dodgeDirection = net.minecraft.world.phys.Vec3.ZERO;
+    private int dodgeTicks;
+    private boolean dodging;
+    private long nextDodgeTick = Long.MIN_VALUE;
+    public boolean canDodge(long tick) { return !dodging && tick >= nextDodgeTick; }
+    public boolean isDodging() { return dodging; }
+    public int getDodgeTicks() { return dodgeTicks; }
+    public net.minecraft.world.phys.Vec3 getDodgeDirection() { return dodgeDirection; }
+    public void beginDodge(net.minecraft.world.phys.Vec3 direction, long tick) {
+        dodgeDirection = direction;
+        dodgeTicks = com.bleachmod.common.DodgePolicy.DURATION;
+        dodging = true;
+        nextDodgeTick = tick + com.bleachmod.common.DodgePolicy.INTERVAL;
+    }
+    public void advanceDodge() { if (dodgeTicks > 0) dodgeTicks--; }
+    public void stopDodge() { dodging = false; dodgeTicks = 0; dodgeDirection = net.minecraft.world.phys.Vec3.ZERO; }
     private net.minecraft.world.phys.Vec3 staminaPosition;
     public boolean sampleStaminaMovement(net.minecraft.world.phys.Vec3 position) {
         var previous = staminaPosition; staminaPosition = position;
@@ -55,7 +85,7 @@ public class StatusData {
         techniqueSlot1CooldownTicks = 0;
         techniqueSlot2CooldownTicks = 0;
         techniqueSlot3CooldownTicks = 0;
-        techniqueSlot4CooldownTicks = 0;
+        techniqueSlot4CooldownTicks = 0; benihimePathUses=0;
     }
     private int techniqueSlot1CooldownTicks;
     private int techniqueSlot2CooldownTicks;
@@ -133,16 +163,18 @@ public class StatusData {
     /** Changing form cancels active effects but must not allow a cooldown bypass. */
     public void clearTransformationState() {
         int combat = combatTicks, hudCombat = hudCombatTicks;
+        long dodgeCooldown = nextDodgeTick;
         int slot1 = techniqueSlot1CooldownTicks;
         int slot2 = techniqueSlot2CooldownTicks;
         int slot3 = techniqueSlot3CooldownTicks;
-        int slot4 = techniqueSlot4CooldownTicks;
+        int slot4 = techniqueSlot4CooldownTicks, pathUses=benihimePathUses;
         clearTransientState();
+        nextDodgeTick = dodgeCooldown;
         combatTicks = combat; hudCombatTicks = hudCombat;
         techniqueSlot1CooldownTicks = slot1;
         techniqueSlot2CooldownTicks = slot2;
         techniqueSlot3CooldownTicks = slot3;
-        techniqueSlot4CooldownTicks = slot4;
+        techniqueSlot4CooldownTicks = slot4; benihimePathUses=pathUses;
     }
 
     public void setTechniqueSlot4CooldownTicks(int ticks) {
@@ -217,7 +249,7 @@ public class StatusData {
         techniqueSlot1CooldownTicks = 0;
         techniqueSlot2CooldownTicks = 0;
         techniqueSlot3CooldownTicks = 0;
-        techniqueSlot4CooldownTicks = 0;
+        techniqueSlot4CooldownTicks = 0; benihimePathUses=0;
         flameDashTicks = 0;
         flameDashHitEntities.clear();
         flameBarrageGroundTicks = 0;
@@ -256,12 +288,14 @@ public class StatusData {
     }
 
     public void clearTransientState() {
+        stopDodge();
+        nextDodgeTick = Long.MIN_VALUE;
         staminaPosition = null;
         clearCombat();
         techniqueSlot1CooldownTicks = 0;
         techniqueSlot2CooldownTicks = 0;
         techniqueSlot3CooldownTicks = 0;
-        techniqueSlot4CooldownTicks = 0;
+        techniqueSlot4CooldownTicks = 0; benihimePathUses=0;
         flameBarrageGroundTicks = 0;
         flameBarrageGroundPositions.clear();
         flameFanGroundTicks = 0;
@@ -280,6 +314,8 @@ public class StatusData {
     }
 
     public void load(CompoundTag tag) {
+        stopDodge();
+        nextDodgeTick = Long.MIN_VALUE;
         staminaPosition = null;
         clearCombat();
         cooldownsDisabled = false;
@@ -293,7 +329,7 @@ public class StatusData {
         techniqueSlot1CooldownTicks = 0;
         techniqueSlot2CooldownTicks = 0;
         techniqueSlot3CooldownTicks = 0;
-        techniqueSlot4CooldownTicks = 0;
+        techniqueSlot4CooldownTicks = 0; benihimePathUses=0;
         flameBarrageGroundTicks = 0;
         flameBarrageGroundPositions.clear();
         flameFanGroundTicks = 0;

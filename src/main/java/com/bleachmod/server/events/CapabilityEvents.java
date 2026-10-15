@@ -66,6 +66,7 @@ public final class CapabilityEvents {
                     com.bleachmod.common.ProgressionService.normalize(player, data);
                     data.getResources().setCurrentReiatsu(data.getResources().getMaxReiatsu());
                     data.getResources().fillStamina();
+                    data.getGuard().reset();
                 });
                 SyncHelper.full(player);
                 SyncHelper.appearance(player);

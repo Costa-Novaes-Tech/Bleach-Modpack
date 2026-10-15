@@ -12,6 +12,8 @@ public class PlayerData {
     private final ResourcesData resources = new ResourcesData();
     private final SkillsData skills = new SkillsData();
     private final StatusData status = new StatusData();
+    private final GuardData guard = new GuardData();
+    public GuardData getGuard() { return guard; }
     private final PlayerQuestData playerQuestData = new PlayerQuestData();
     private boolean dataLoaded;
     private final AttributeData attributes = new AttributeData();
@@ -67,6 +69,7 @@ public class PlayerData {
     }
 
     public void initializeShinigami() {
+        guard.reset();
         character.initializeShinigami();
         status.setHasCreatedCharacter(true);
         updateTransformationSkillLimits(Reference.RACE_SHINIGAMI);
@@ -78,13 +81,15 @@ public class PlayerData {
     }
 
     public void resetTransientState() {
+        guard.release();
         resources.setActionCharge(0);
         status.clearTransientState();
     }
 
     public CompoundTag save() {
         CompoundTag tag = new CompoundTag();
-        tag.putInt("schemaVersion", 7);
+        tag.putInt("schemaVersion", 8);
+        tag.put("guard", guard.save());
         tag.put("attributes", attributes.save());
         tag.put("character", character.save());
         tag.put("resources", resources.save());
@@ -95,6 +100,8 @@ public class PlayerData {
     }
 
     public void load(CompoundTag tag) {
+        if (tag.contains("guard")) guard.load(tag.getCompound("guard"));
+        else if (tag.contains("schemaVersion")) guard.reset(); // Legacy saves start with full posture.
         if (tag.contains("character")) {
             character.load(tag.getCompound("character"));
         }

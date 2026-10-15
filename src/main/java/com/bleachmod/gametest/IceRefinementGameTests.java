@@ -103,7 +103,8 @@ public final class IceRefinementGameTests {
     }
     @GameTest(template="empty",timeoutTicks=70)
     public static void sealedDuelFreezesOnlyNearestTargetAndDealsVanillaColdDamage(GameTestHelper h) {
-        var p=player(h); var near=mob(h,p,3); var far=mob(h,p,4);
+        // Nearest-target selection must not see mobs from adjacent concurrent test arenas.
+        var p=player(h);p.setPos(p.getX(),p.getY()+12,p.getZ());var near=mob(h,p,3);var far=mob(h,p,4);
         h.runAfterDelay(5,()->{
             TechniqueService.executeSlot(p,data(p),4);
             h.assertTrue(near.getTicksFrozen()>=near.getTicksRequiredToFreeze() && far.getTicksFrozen()==0,"Duel was not single-target");

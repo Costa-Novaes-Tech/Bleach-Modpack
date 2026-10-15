@@ -9,6 +9,10 @@ public final class StaminaService {
         if (!player.isAlive() || player.isSpectator() || !data.getStatus().hasCreatedCharacter()) return;
         boolean moving = data.getStatus().sampleStaminaMovement(player.position());
         var resources = data.getResources();
+        if (data.getStatus().isDodging()) {
+            player.setSprinting(false);
+            resources.markStaminaEffort();
+        }
         boolean eligible = !player.isCreative() && !player.getAbilities().flying && !player.isPassenger();
         if (eligible && resources.isStaminaExhausted()) player.setSprinting(false);
         boolean effort = eligible && player.isSprinting() && moving;
