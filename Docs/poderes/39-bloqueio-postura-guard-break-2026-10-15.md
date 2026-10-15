@@ -6,7 +6,7 @@ Data: 15/10/2026. Branch: `Feature-Poderes-bankais`. Protótipo implementado par
 
 O usuário descreveu guarda mantida com escudo visível acima/à frente do personagem, desgaste por impactos e quebra que abre a defesa. Bloqueio/Postura e Guard Break foram implementados juntos. Escolhida a posição **acima do jogador**, com indicador adicional para primeira pessoa. O escudo é sinalização de guarda: não é um item novo nem uma barreira que intercepta entidades.
 
-Fila revisada: **defesa fundamental → Byakuya → Gin → Mentor → Proficiências**. Byakuya passa à frente de Gin; usuário pesquisará os poderes antes de fechar o kit. Mentor e Proficiências ficam por último e não devem ser implementados enquanto as informações com a equipe não forem confirmadas. Aizen permanece reservado e adiado. Esquiva do ciclo 37 continua aguardando o teste do usuário.
+Fila vigente, revisada pelo usuário após esta entrega: **defesa fundamental → Byakuya → Urahara → Mentor → Proficiências → revisão final de Hyōrinmaru/Tōshirō**. Gin foi retirado do planejamento. Usuário pesquisará os poderes antes de fechar os contratos; Mentor e Proficiências permanecem adiados até confirmação com a equipe. Aizen permanece reservado e adiado. Usuário testará a versão atual com esquiva e defesa; nenhum aceite novo foi presumido. Detalhes no [roadmap atualizado](38-roadmap-defesa-treinamento-gin-byakuya-2026-10-15.md).
 
 ## Contrato implementado
 
