@@ -1,4 +1,5 @@
 {
+  "hud.bleachmod.benihime.path_charges": "Path: %s/3 charges",
 "item.bleachmod.benihime": "Benihime",
   "message.bleachmod.benihime.sealed": "Sealed Benihime: train with your sword to discover Shikai.",
   "message.bleachmod.benihime.busy": "Finish your current technique first.",

@@ -25,10 +25,12 @@ public final class BenihimeRenderer {
     }
     private record Key(int owner,int kind){ }
     private record Frame(BenihimeFrameS2C packet,long until){ }
+    private static final class Pose {net.minecraft.world.phys.Vec3 position,forward;double time;Pose(net.minecraft.world.phys.Vec3 p,net.minecraft.world.phys.Vec3 f,double t){position=p;forward=f;time=t;}}
+    private static final Map<Integer,Pose> POSES=new HashMap<>();
     private static final Map<Key,Frame> FRAMES=new LinkedHashMap<>();
     private BenihimeRenderer(){ }
     public static void accept(BenihimeFrameS2C m){var level=Minecraft.getInstance().level;if(level==null || !m.valid())return;
-        if(m.kind()==CLEAR){FRAMES.keySet().removeIf(k->k.owner==m.owner());return;}
+        if(m.kind()==CLEAR){FRAMES.keySet().removeIf(k->k.owner==m.owner());POSES.remove(m.owner());return;}
         var key=new Key(m.owner(),m.kind());
         if(!FRAMES.containsKey(key) && FRAMES.size()>=32)FRAMES.remove(FRAMES.keySet().iterator().next());
         if(m.kind()==QUEEN && !FRAMES.containsKey(key) && FRAMES.keySet().stream().filter(k->k.kind==QUEEN).count()>=8)return;
@@ -36,7 +38,7 @@ public final class BenihimeRenderer {
     }
     @SubscribeEvent public static void render(RenderLevelStageEvent event){
         if(event.getStage()!=RenderLevelStageEvent.Stage.AFTER_PARTICLES)return;var mc=Minecraft.getInstance();if(mc.level==null || mc.player==null){FRAMES.clear();return;}
-        FRAMES.values().removeIf(f->f.until<mc.level.getGameTime());if(FRAMES.isEmpty())return;
+        FRAMES.values().removeIf(f->f.until<mc.level.getGameTime());POSES.keySet().removeIf(id->!FRAMES.containsKey(new Key(id,QUEEN)));if(FRAMES.isEmpty())return;
         var camera=event.getCamera().getPosition();var matrix=event.getPoseStack().last().pose();var buffers=mc.renderBuffers().bufferSource();
         for(int pass=0;pass<2;pass++){
             var type=pass==0?Types.FIGURE:Types.THREAD;var vertices=buffers.getBuffer(type);boolean emitted=false;
@@ -44,7 +46,13 @@ public final class BenihimeRenderer {
                 var m=frame.packet;if((m.kind()==QUEEN)!=(pass==0) || mc.player.distanceToSqr(m.origin())>80*80)continue;
                 var origin=m.origin();var end=m.end();var forward=m.forward();var entity=mc.level.getEntity(m.owner());
                 if(entity!=null && (m.kind()==QUEEN || m.kind()==SHIELD || m.kind()==BUFF)){origin=entity.getPosition(event.getPartialTick());end=origin;forward=com.bleachmod.common.visual.SenbonGeometry.forward(entity.getYRot());}
-                var local=new BenihimeFrameS2C(m.owner(),m.kind(),origin.subtract(camera),end.subtract(camera),forward,m.radius(),m.progress(),m.variant());
+                float progress=m.progress();
+                if(m.kind()==QUEEN){double now=mc.level.getGameTime()+event.getPartialTick();var pose=POSES.get(m.owner());
+                    if(pose==null || pose.position.distanceToSqr(origin)>32*32){pose=new Pose(origin,forward,now);POSES.put(m.owner(),pose);}
+                    double alpha=1-Math.exp(-Math.max(0,now-pose.time)*.18);pose.position=pose.position.lerp(origin,alpha);pose.forward=pose.forward.lerp(forward,alpha).normalize();pose.time=now;
+                    origin=pose.position;forward=pose.forward.lengthSqr()<.1?forward:pose.forward;progress=(float)((now%120)/120.0);
+                }
+                var local=new BenihimeFrameS2C(m.owner(),m.kind(),origin.subtract(camera),end.subtract(camera),forward,m.radius(),progress,m.variant());
                 for(var q:BenihimeGeometry.build(local))for(var v:List.of(q.a(),q.b(),q.c(),q.d())){
                     int c=q.color();vertices.vertex(matrix,(float)v.x,(float)v.y,(float)v.z).color(c>>>24,(c>>>16)&255,(c>>>8)&255,c&255).endVertex();emitted=true;
                 }
@@ -52,6 +60,6 @@ public final class BenihimeRenderer {
             if(emitted)buffers.endBatch(type);
         }
     }
-    @SubscribeEvent public static void logout(ClientPlayerNetworkEvent.LoggingOut event){FRAMES.clear();}
-    @SubscribeEvent public static void unload(LevelEvent.Unload event){if(event.getLevel().isClientSide())FRAMES.clear();}
+    @SubscribeEvent public static void logout(ClientPlayerNetworkEvent.LoggingOut event){FRAMES.clear();POSES.clear();}
+    @SubscribeEvent public static void unload(LevelEvent.Unload event){if(event.getLevel().isClientSide()){FRAMES.clear();POSES.clear();}}
 }

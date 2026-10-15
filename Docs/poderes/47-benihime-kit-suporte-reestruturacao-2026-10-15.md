@@ -1,5 +1,7 @@
 # Ciclo 47 — Benihime: kit completo de Urahara
 
+> Refinamento vigente no [ciclo 48](48-benihime-rede-cargas-marionete-2026-10-15.md): Shibari expansiva/contrátil de diâmetro 20, reestruturação com impactos, três cargas de corredor vertical e nova presença articulada. Valores abaixo registram a primeira entrega.
+
 Data: 15/10/2026. Branch `Feature-Poderes-bankais`. Usuário aprovou implementar a proposta do ciclo 46, pediu cura passiva de aliados, regeneração pessoal maior na Bankai e identidade visual própria da zanpakutō. Essa autorização sucede o aviso histórico de não implementar ainda. Git estava limpo e alinhado ao origin na branch correta, HEAD `fe13377`, ao iniciar. Sem push/merge.
 
 ## Contrato implementado

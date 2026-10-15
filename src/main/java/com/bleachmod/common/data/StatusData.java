@@ -8,9 +8,12 @@ import java.util.Set;
 import java.util.UUID;
 
 public class StatusData {
+    private int benihimePathUses;
+    public int getBenihimePathCharges(){if(benihimePathUses>=3 && techniqueSlot4CooldownTicks==0)benihimePathUses=0;return 3-benihimePathUses;}
+    public void useBenihimePath(){if(!cooldownsDisabled)benihimePathUses=Math.min(3,benihimePathUses+1);}
     private CompoundTag benihimeHud=new CompoundTag();
     public CompoundTag getBenihimeHud(){return benihimeHud.copy();}
-    public void readBenihimeHud(CompoundTag tag){benihimeHud=new CompoundTag();for(var key:java.util.List.of("shield","net","charges","path"))if(tag.contains(key))benihimeHud.putInt(key,Math.max(0,Math.min(100,tag.getInt(key))));}
+    public void readBenihimeHud(CompoundTag tag){benihimeHud=new CompoundTag();for(var key:java.util.List.of("shield","net","charges","path","pathCharges"))if(tag.contains(key))benihimeHud.putInt(key,Math.max(0,Math.min(100,tag.getInt(key))));}
     private CompoundTag senbonHud = new CompoundTag();
     public CompoundTag getSenbonHud() { return senbonHud.copy(); }
     public void readSenbonHud(CompoundTag tag) {
@@ -82,7 +85,7 @@ public class StatusData {
         techniqueSlot1CooldownTicks = 0;
         techniqueSlot2CooldownTicks = 0;
         techniqueSlot3CooldownTicks = 0;
-        techniqueSlot4CooldownTicks = 0;
+        techniqueSlot4CooldownTicks = 0; benihimePathUses=0;
     }
     private int techniqueSlot1CooldownTicks;
     private int techniqueSlot2CooldownTicks;
@@ -164,14 +167,14 @@ public class StatusData {
         int slot1 = techniqueSlot1CooldownTicks;
         int slot2 = techniqueSlot2CooldownTicks;
         int slot3 = techniqueSlot3CooldownTicks;
-        int slot4 = techniqueSlot4CooldownTicks;
+        int slot4 = techniqueSlot4CooldownTicks, pathUses=benihimePathUses;
         clearTransientState();
         nextDodgeTick = dodgeCooldown;
         combatTicks = combat; hudCombatTicks = hudCombat;
         techniqueSlot1CooldownTicks = slot1;
         techniqueSlot2CooldownTicks = slot2;
         techniqueSlot3CooldownTicks = slot3;
-        techniqueSlot4CooldownTicks = slot4;
+        techniqueSlot4CooldownTicks = slot4; benihimePathUses=pathUses;
     }
 
     public void setTechniqueSlot4CooldownTicks(int ticks) {
@@ -246,7 +249,7 @@ public class StatusData {
         techniqueSlot1CooldownTicks = 0;
         techniqueSlot2CooldownTicks = 0;
         techniqueSlot3CooldownTicks = 0;
-        techniqueSlot4CooldownTicks = 0;
+        techniqueSlot4CooldownTicks = 0; benihimePathUses=0;
         flameDashTicks = 0;
         flameDashHitEntities.clear();
         flameBarrageGroundTicks = 0;
@@ -292,7 +295,7 @@ public class StatusData {
         techniqueSlot1CooldownTicks = 0;
         techniqueSlot2CooldownTicks = 0;
         techniqueSlot3CooldownTicks = 0;
-        techniqueSlot4CooldownTicks = 0;
+        techniqueSlot4CooldownTicks = 0; benihimePathUses=0;
         flameBarrageGroundTicks = 0;
         flameBarrageGroundPositions.clear();
         flameFanGroundTicks = 0;
@@ -326,7 +329,7 @@ public class StatusData {
         techniqueSlot1CooldownTicks = 0;
         techniqueSlot2CooldownTicks = 0;
         techniqueSlot3CooldownTicks = 0;
-        techniqueSlot4CooldownTicks = 0;
+        techniqueSlot4CooldownTicks = 0; benihimePathUses=0;
         flameBarrageGroundTicks = 0;
         flameBarrageGroundPositions.clear();
         flameFanGroundTicks = 0;

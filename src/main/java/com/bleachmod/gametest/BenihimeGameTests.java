@@ -56,10 +56,10 @@ public final class BenihimeGameTests {
     public static void shibariIsRequiredAndHiasobiConsumesItsNet(GameTestHelper h){var p=player(h,"shikai");var d=data(p);var t=target(h,p,0,12);ticks(h,p);
         h.assertTrue(!BenihimeTechniqueService.executeSlot(p,d,4) && d.getResources().getCurrentReiatsu()==100,"Missing net charged detonation");
         h.assertTrue(BenihimeTechniqueService.executeSlot(p,d,3),"Shibari refused");
-        h.runAfterDelay(15,()->{h.assertTrue(t.getHealth()==1000 && t.hasEffect(net.minecraft.world.effect.MobEffects.MOVEMENT_SLOWDOWN),"Net damaged or failed to bind");
+        h.runAfterDelay(25,()->{h.assertTrue(t.getHealth()==1000 && t.hasEffect(net.minecraft.world.effect.MobEffects.MOVEMENT_SLOWDOWN),"Net damaged or failed to bind");
             h.assertTrue(BenihimeTechniqueService.executeSlot(p,d,4),"Prepared detonation refused");h.assertTrue(!BenihimeTechniqueService.hud(p).contains("net"),"Detonation retained net");
             h.assertTrue(d.getResources().getCurrentReiatsu()==55 && d.getStatus().getTechniqueSlot4CooldownTicks()==200,"Hiasobi metadata mismatch");});
-        h.runAfterDelay(36,()->{h.assertTrue(t.getHealth()<1000,"Detonation failed");done(h,p,t);});}
+        h.runAfterDelay(46,()->{h.assertTrue(t.getHealth()<1000,"Detonation failed");done(h,p,t);});}
     @GameTest(template="empty",batch="beni_incision",timeoutTicks=95)
     public static void dissectionDealsDelayedDamageAndExposureExpires(GameTestHelper h){var p=player(h,"bankai");var t=target(h,p,0,16);ticks(h,p);BenihimeTechniqueService.executeSlot(p,data(p),1);
         h.runAfterDelay(6,()->h.assertTrue(t.getHealth()==1000,"Dissection skipped its warning"));
@@ -86,14 +86,14 @@ public final class BenihimeGameTests {
         h.runAfterDelay(45,()->{try{h.assertTrue(friend.getHealth()==11,"Two auras stacked allied healing");}
             finally{removeAlly(h,friend);h.getLevel().getScoreboard().removePlayerTeam(t);BenihimeTechniqueService.cancel(second);}done(h,p);});}
     @GameTest(template="empty",batch="beni_buff")
-    public static void restructuringHasOnlyThreeSuccessfulStrikes(GameTestHelper h){var p=player(h,"bankai");var t=target(h,p,0,3);var d=data(p);BenihimeTechniqueService.executeSlot(p,d,3);
+    public static void restructuringHasOnlyThreeSuccessfulStrikes(GameTestHelper h){var p=player(h,"bankai");var t=target(h,p,0,3);var nearby=target(h,p,1,3);var d=data(p);BenihimeTechniqueService.executeSlot(p,d,3);
         h.assertTrue(BenihimeTechniqueService.damageBonus(p,t)>.29,"Restructured arm bonus absent");
         for(int i=0;i<3;i++){t.invulnerableTime=0;t.hurt(p.damageSources().playerAttack(p),4);}
-        h.assertTrue(BenihimeTechniqueService.hud(p).getInt("charges")==0 && BenihimeTechniqueService.damageBonus(p,t)==0,"Restructuring exceeded three successful hits");done(h,p,t);}
+        h.assertTrue(BenihimeTechniqueService.hud(p).getInt("charges")==0 && BenihimeTechniqueService.damageBonus(p,t)==0,"Restructuring exceeded three successful hits");h.assertTrue(nearby.getHealth()==1000 && nearby.getDeltaMovement().horizontalDistanceSqr()>.01,"Restructured impact must push nearby enemies without extra damage");done(h,p,t,nearby);}
     @GameTest(template="empty",batch="beni_path",timeoutTicks=100)
     public static void pathTravelsOnceAndExpiresWithoutChangingTerrain(GameTestHelper h){var p=player(h,"bankai");var d=data(p);Vec3 start=p.position();var floor=new ArrayList<BlockPos>();ticks(h,p);
         for(int x=-1;x<=1;x++)for(int z=0;z<=13;z++){var pos=p.blockPosition().offset(x,-1,z);floor.add(pos);h.getLevel().setBlockAndUpdate(pos,net.minecraft.world.level.block.Blocks.STONE.defaultBlockState());}
-        h.assertTrue(BenihimeTechniqueService.executeSlot(p,d,4),"Supported path refused");h.assertTrue(d.getResources().getCurrentReiatsu()==70 && d.getStatus().getTechniqueSlot4CooldownTicks()==260,"Path metadata mismatch");
+        h.assertTrue(BenihimeTechniqueService.executeSlot(p,d,4),"Supported path refused");h.assertTrue(d.getResources().getCurrentReiatsu()==70 && d.getStatus().getTechniqueSlot4CooldownTicks()==0 && d.getStatus().getBenihimePathCharges()==2,"Path metadata mismatch");
         h.runAfterDelay(18,()->h.assertTrue(p.position().z-start.z>11,"Owner did not traverse corridor"));
         h.runAfterDelay(80,()->{try{h.assertTrue(!BenihimeTechniqueService.hud(p).contains("path"),"Corridor did not expire");for(var pos:floor)h.assertTrue(h.getLevel().getBlockState(pos).is(net.minecraft.world.level.block.Blocks.STONE),"Path modified terrain");}
             finally{for(var pos:floor)h.getLevel().removeBlock(pos,false);}done(h,p);});}
@@ -103,6 +103,17 @@ public final class BenihimeGameTests {
         h.assertTrue(BenihimeTechniqueService.executeSlot(p,data(p),4),"Supported corridor refused");
         for(int y=0;y<3;y++){var pos=p.blockPosition().offset(0,y,5);blocks.add(pos);h.getLevel().setBlockAndUpdate(pos,net.minecraft.world.level.block.Blocks.STONE.defaultBlockState());}
         h.runAfterDelay(20,()->{try{h.assertTrue(p.position().distanceToSqr(start)<.1,"Corridor traversed a newly placed wall");}finally{for(var pos:blocks)h.getLevel().removeBlock(pos,false);}done(h,p);});}
+    @GameTest(template="empty",batch="beni_vertical_charges",timeoutTicks=65)
+    public static void threePathsTravelVerticallyThenStartCooldown(GameTestHelper h){var p=player(h,"bankai");var d=data(p);d.getResources().setCostsDisabled(true);ticks(h,p);Vec3 start=p.position();p.setXRot(-90);
+        h.assertTrue(BenihimeTechniqueService.executeSlot(p,d,4),"Upward path refused");
+        h.runAfterDelay(12,()->{h.assertTrue(p.getY()>start.y+11 && d.getStatus().getBenihimePathCharges()==2,"First vertical traversal/charge failed");p.setXRot(90);h.assertTrue(BenihimeTechniqueService.executeSlot(p,d,4),"Downward reuse refused");});
+        h.runAfterDelay(24,()->{h.assertTrue(Math.abs(p.getY()-start.y)<.1 && d.getStatus().getBenihimePathCharges()==1,"Downward traversal failed");p.setXRot(-90);h.assertTrue(BenihimeTechniqueService.executeSlot(p,d,4),"Third charge refused");h.assertTrue(d.getStatus().getTechniqueSlot4CooldownTicks()==260,"Third use did not start cooldown");});
+        h.runAfterDelay(38,()->{h.assertTrue(!BenihimeTechniqueService.executeSlot(p,d,4) && d.getStatus().getBenihimePathCharges()==0,"Fourth use bypassed cooldown");d.getStatus().setTechniqueSlot4CooldownTicks(0);h.assertTrue(d.getStatus().getBenihimePathCharges()==3,"Charge batch did not recover");done(h,p);});}
+    @GameTest(template="empty",batch="beni_contracting_net",timeoutTicks=110)
+    public static void expandedNetCapturesDistantMobAndContractsTowardCenter(GameTestHelper h){var p=player(h,"shikai");var t=target(h,p,8,12);var outside=target(h,p,11,12);ticks(h,p);double start=t.getX();
+        h.assertTrue(BenihimeTechniqueService.executeSlot(p,data(p),3),"Expanded net refused");
+        h.runAfterDelay(26,()->h.assertTrue(t.hasEffect(net.minecraft.world.effect.MobEffects.MOVEMENT_SLOWDOWN) && !outside.hasEffect(net.minecraft.world.effect.MobEffects.MOVEMENT_SLOWDOWN),"Net radius incorrect"));
+        h.runAfterDelay(90,()->{h.assertTrue(t.getX()<start-3,"Contracting net did not drag the distant mob");h.assertTrue(t.getHealth()==1000,"Net unexpectedly damaged victim");done(h,p,t,outside);});}
     @GameTest(template="empty",batch="beni_invalid_path")
     public static void unsupportedPathAndFullHealthReconstructionDoNotSpendReiatsu(GameTestHelper h){var p=player(h,"bankai");var d=data(p);
         h.assertTrue(!BenihimeTechniqueService.executeSlot(p,d,4),"Unsupported path accepted");h.assertTrue(!BenihimeTechniqueService.executeSlot(p,d,2),"Full-health reconstruction accepted");

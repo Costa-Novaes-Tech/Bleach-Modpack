@@ -869,6 +869,17 @@ public final class MvpRegressionTest {
                 for(var q:mesh)for(var v:List.of(q.a(),q.b(),q.c(),q.d()))yes(Double.isFinite(v.x) && Double.isFinite(v.y) && Double.isFinite(v.z));
             }
         });
+        test("Benihime path charges survive form effect cancellation",()->{
+            var status=new StatusData();status.useBenihimePath();status.clearTransformationState();eq(2,status.getBenihimePathCharges());
+            status.useBenihimePath();eq(1,status.getBenihimePathCharges());status.useBenihimePath();status.setTechniqueSlot4CooldownTicks(260);status.clearTransformationState();eq(0,status.getBenihimePathCharges());
+            status.setTechniqueSlot4CooldownTicks(0);eq(3,status.getBenihimePathCharges());
+        });
+        test("Benihime idle hands animate and manifestation stays behind owner",()->{
+            var o=net.minecraft.world.phys.Vec3.ZERO;var f=new net.minecraft.world.phys.Vec3(0,0,1);
+            var a=com.bleachmod.common.visual.BenihimeGeometry.build(new com.bleachmod.common.network.s2c.BenihimeFrameS2C(1,0,o,o,f,18,0,0));
+            var b=com.bleachmod.common.visual.BenihimeGeometry.build(new com.bleachmod.common.network.s2c.BenihimeFrameS2C(1,0,o,o,f,18,.25F,0));yes(!a.equals(b));
+            yes(a.stream().flatMap(q->java.util.stream.Stream.of(q.a(),q.b(),q.c(),q.d())).mapToDouble(v->v.y).max().orElse(0)>10);
+        });
         test("Benihime HUD leases are transient and snapshots isolated",()->{
             var status=new StatusData();var tag=new net.minecraft.nbt.CompoundTag();tag.putInt("shield",900);tag.putInt("charges",3);status.readBenihimeHud(tag);
             eq(100,status.getBenihimeHud().getInt("shield"));status.getBenihimeHud().putInt("charges",0);eq(3,status.getBenihimeHud().getInt("charges"));

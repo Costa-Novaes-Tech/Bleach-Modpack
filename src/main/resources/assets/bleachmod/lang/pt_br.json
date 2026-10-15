@@ -1,4 +1,5 @@
 {
+  "hud.bleachmod.benihime.path_charges": "Caminho: %s/3 cargas",
 "item.bleachmod.benihime": "Benihime",
   "message.bleachmod.benihime.sealed": "Benihime selada: treine com a espada para descobrir a Shikai.",
   "message.bleachmod.benihime.busy": "Conclua a técnica atual antes de iniciar outra.",

@@ -2,7 +2,7 @@
 
 Atualizado em 15/10/2026. Resumo de passagem para nova conversa; consulte o código/Git antes de alterar. Este arquivo evita precisar importar o histórico completo do chat. Não substitui instruções atuais do usuário.
 
-**Frente vigente: ciclo 47 — Urahara/Benihime implementado para playtest.** Usuário aprovou o kit do ciclo 46 e pediu cura passiva de aliados/regeneração pessoal na Bankai, preservando a arma própria. [Contrato, parâmetros e roteiro](47-benihime-kit-suporte-reestruturacao-2026-10-15.md). Os avisos históricos de apenas discutir Urahara foram sucedidos por essa autorização. Senbonzakura, esquiva e defesa permanecem homologadas. Rede atual **2.15**, schema **8**; conferir resultado de validação no fim deste arquivo e Git antes de retomar.
+**Frente vigente: ciclo 48 — refinamento de Urahara/Benihime para playtest.** [Contrato, desenhos e roteiro](48-benihime-rede-cargas-marionete-2026-10-15.md). Rede de 20 blocos de diâmetro confirmados pelo usuário, contração com arrasto, três cargas de caminho vertical e manifestação articulada a 11 blocos atrás. Senbonzakura, esquiva e defesa permanecem homologadas. Rede atual **2.16**, schema **8**; consultar Git e resultado de validação antes de retomar.
 
 ## 1. Repositório e regras mantidas pelo usuário
 
@@ -17,7 +17,7 @@ Atualizado em 15/10/2026. Resumo de passagem para nova conversa; consulte o cód
 
 ## 2. Estado entregue e homologado
 
-Minecraft 1.20.1, Forge 47.4.10, Java 17, Gradle wrapper. Mod 0.2.0; protocolo de rede 2.15; schema persistente 8. Cliente e servidor devem usar a mesma build.
+Minecraft 1.20.1, Forge 47.4.10, Java 17, Gradle wrapper. Mod 0.2.0; protocolo de rede 2.16; schema persistente 8. Cliente e servidor devem usar a mesma build.
 
 - Ryujin Jakka e Hyōrinmaru possuem kits próprios nas formas selada/Shikai/Bankai, já testados pelo usuário. Seus detalhes históricos estão nos relatórios de poderes; não reabrir balanceamento/visuais sem solicitação.
 - Uma zanpakutō vinculada por vez. Pode trocar identidade, mantendo progresso separado. Asauchi é identidade própria, com Shikai/Bankai de bônus de dano e sem slots elementais; modelos preservados.
@@ -124,3 +124,10 @@ Usuário aprovou o kit Urahara com suporte a aliados, maior regeneração própr
 Bankai empunhada: 1 HP/s próprio, 1 HP/2 s aos aliados em raio 8 com visão; time formal do scoreboard ou pet próprio, sem empilhar auras e sem treino passivo. Manifestação visual móvel atrás do dono, braços articulados/costuras e modelos próprios de bengala/Benihime. Corredor até 12, revalida colisão/apoio, não atravessa nem destrói terreno; dissipa projéteis hostis e barreiras Benihime compatíveis. Maestria/custos/cancelamento integrados. Não modificar armas/visuais homologados de outros kits.
 
 Rede **2.15**, schema **8**, builds idênticas necessárias. **Check/build, 95 regressões e 108 GameTests obrigatórios aprovados**, log `build/cycle47-final-validation.log`, JAR `build/libs/bleachmod-0.2.0.jar`. Modelos/assets/traduções/JAR e duas prévias estáticas conferidos. Sem homologação visual em Minecraft, FPS ou multiplayer real. Próxima etapa: playtest do Urahara pelo usuário, com parâmetros de equilíbrio ainda iniciais. Aizen adiado; Uryū Ishida depois, Mentor/Proficiências aguardam equipe, revisão Hyōrinmaru ao final, Gin removido.
+
+## 11. Refinamento vigente — ciclo 48
+
+Usuário pediu rede maior/contrátil, reestruturação com impacto, corredor de três cargas vertical e redesenho de Benihime. Diâmetro 20 confirmado. [Contrato atual e prévias PNG/GIF](48-benihime-rede-cargas-marionete-2026-10-15.md). Protocolo 2.16/schema 8. Manifestação elevada, escala 1,35, 11 blocos atrás, mãos/dedos/mechas continuamente animados e acompanhamento suave. Arma preservada. Shibari expande 1 s, captura até 64 alvos elegíveis e contrai até 5 s; Hiasobi continua raio 4 no centro. Reestruturação cria impactos/empurrão radial nos três golpes. Corredor segue mira 3D; terceiro uso inicia cooldown de 13 s; saída vertical pode ficar no ar, com gravidade normal. Playtest visual/multiplayer ainda necessário.
+
+
+Validação final: **check/build, 97 regressões e 110 GameTests obrigatórios aprovados**. Log `build/cycle48-verified.log`; JAR `build/libs/bleachmod-0.2.0.jar`. Inclui arrasto real de mob distante, três travessias verticais/recarga, preservação de cargas na troca de forma, empurrão sem dano adicional e animação de repouso. Prévia PNG e 24 quadros do GIF conferidos, traduções e links válidos. Ainda requer playtest no cliente.

@@ -71,7 +71,7 @@ public final class ZanpakutoHud {
                     if(form.equals("shikai") && slot==2 && view.getInt("shield")>0)resources=Component.translatable("hud.bleachmod.benihime.shield",view.getInt("shield")).getString();
                     if(form.equals("shikai") && slot==4)resources=Component.translatable(view.getInt("net")>0?"hud.bleachmod.benihime.detonate":"hud.bleachmod.benihime.need_net").getString();
                     if(form.equals("bankai") && slot==3 && view.getInt("charges")>0)resources=Component.translatable("hud.bleachmod.benihime.charges",view.getInt("charges")).getString();
-                    if(form.equals("bankai") && slot==4 && view.getInt("path")>0)resources=Component.translatable("hud.bleachmod.benihime.path",(view.getInt("path")+19)/20).getString();
+                    if(form.equals("bankai") && slot==4)resources=Component.translatable("hud.bleachmod.benihime.path_charges",view.getInt("pathCharges")).getString();
                 }
                 g.drawString(mc.font, mc.font.plainSubstrByWidth(resources, width - 16), 8, 51 + i * 25, 0x85AAC2, false);
             }
