@@ -15,7 +15,7 @@ Atualizado em 15/10/2026. Resumo de passagem para nova conversa; consulte o cód
 
 ## 2. Estado entregue e homologado
 
-Minecraft 1.20.1, Forge 47.4.10, Java 17, Gradle wrapper. Mod 0.2.0; protocolo de rede 2.13; schema persistente 8. Cliente e servidor devem usar a mesma build.
+Minecraft 1.20.1, Forge 47.4.10, Java 17, Gradle wrapper. Mod 0.2.0; protocolo de rede 2.14; schema persistente 8. Cliente e servidor devem usar a mesma build.
 
 - Ryujin Jakka e Hyōrinmaru possuem kits próprios nas formas selada/Shikai/Bankai, já testados pelo usuário. Seus detalhes históricos estão nos relatórios de poderes; não reabrir balanceamento/visuais sem solicitação.
 - Uma zanpakutō vinculada por vez. Pode trocar identidade, mantendo progresso separado. Asauchi é identidade própria, com Shikai/Bankai de bônus de dano e sem slots elementais; modelos preservados.
@@ -98,3 +98,11 @@ Usuário homologou esquiva e defesa e pediu refinamento da Senbonzakura. [Contra
 Convergência virou prisão: 12 ticks de preparação, 60 de controle, três pulsos de dano bruto 3, levitação I/lentidão V e atração suave; lançador livre após preparar. Controle renovado em concessões de oito ticks; cancelamento interrompe dano/renovação e deixa a concessão expirar sem apagar efeitos de terceiros. Protocolo 2.13/schema 8; builds idênticas nos clientes/servidor. Parâmetros/visuais novos de Byakuya aguardam playtest; esquiva e defesa estão concluídas.
 
 Ciclo 44 final: check/build e **89 regressões + 89 GameTests obrigatórios aprovados**; log `build/cycle44-final-validation.log`, JAR `build/libs/bleachmod-0.2.0.jar`. Inclui correção de timing da corrente para preservar o primeiro pulso quando o primeiro processamento ocorre após a ativação. Modelos/texturas/render types/traduções e conteúdo do JAR conferidos; prévia da geometria de Senkei/Hakuteiken em `Docs/poderes/media/44-senkei-hakuteiken-geometria.png`. Não houve novo playtest visual nem medição de FPS/multiplayer real: confirmar com usuário antes de homologar o refinamento de Byakuya.
+
+## 8. Estado vigente — ciclo 45
+
+Playtest do ciclo 44 recebido: usuário aprovou especialmente o visual da Hakuteiken e solicitou ajustes funcionais. [Contrato e roteiro atuais](45-hakuteiken-dash-jardim-senkei-area-2026-10-15.md): Hakuteiken preserva carga/asas/halo, mas leva o jogador num dash horizontal de **16 blocos em dez ticks**, com dano bruto 20 uma vez por alvo do caminho, colisão em subpassos de 0,2 e correção vanilla ao dono. Guarda/esquiva/ataque manual impedidos durante a execução; sem invulnerabilidade. Cancelamento remove movimento residual. Testar sensação da câmera em cliente real.
+
+Jardim fixo agora tem **raio 35**, pétalas reforçadas (tapete 128 a cada dois ticks, flor 128, expansão/subida 112) e reativação única **a partir de 40 e antes de 120 ticks / 2–6 segundos**. Campo termina aos seis segundos; formação floral é encurtada perto do prazo para concluir a explosão aceita antes de expirar. Custos/cooldowns e danos 6/14 preservados. Ikka deixou de ser uma estocada frontal: reativação da Senkei atinge círculo de **raio 14 em 360 graus**, com lâminas radiais e cobertura/aliados respeitados.
+
+Protocolo **2.14**, schema **8**. **91 regressões e 94 GameTests obrigatórios aprovados**, log `build/cycle45-validation.log`, JAR `build/libs/bleachmod-0.2.0.jar`. Ajustes novos aguardam playtest; esquiva/defesa concluídas, visuais anteriores aprovados. Próxima etapa escolhida pelo usuário é **discutir o kit do Urahara**, sem iniciar a implementação dele automaticamente. Aizen adiado e demais prioridades preservadas.

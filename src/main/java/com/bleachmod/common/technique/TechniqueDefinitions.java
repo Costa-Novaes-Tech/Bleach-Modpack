@@ -23,7 +23,7 @@ public final class TechniqueDefinitions {
                 throw new IllegalArgumentException("Invalid continuation");
         }
     }
-    public static final Continuation FLORAL_BLOOM = new Continuation("floral_bloom", 2, "ability.bleachmod.senbonzakura.floral_bloom", 100, 200, 0);
+    public static final Continuation FLORAL_BLOOM = new Continuation("floral_bloom", 2, "ability.bleachmod.senbonzakura.floral_bloom", 40, 120, 0);
     public static final Continuation IKKA = new Continuation("ikka_senjinka", 3, "ability.bleachmod.senbonzakura.ikka_senjinka", 20, 160, 0);
     public static List<Continuation> continuations() { return List.of(FLORAL_BLOOM, IKKA); }
     private static final Map<Key, Definition> DEFINITIONS = build();

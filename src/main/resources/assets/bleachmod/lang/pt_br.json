@@ -1,10 +1,10 @@
 {
-  "hud.bleachmod.senbon.haku_charge": "Concentrando → estocada frontal",
+  "hud.bleachmod.senbon.haku_charge": "Concentrando → avanço de 16 blocos",
   "hud.bleachmod.senbon.prison": "Prisão e levitação · %s s",
   "item.bleachmod.senbonzakura": "Senbonzakura",
   "message.bleachmod.senbonzakura.sealed": "Senbonzakura selada: pratique com a espada para descobrir suas liberações.",
   "message.bleachmod.senbonzakura.busy": "Conclua a técnica de pétalas atual antes de iniciar outra.",
-  "message.bleachmod.senbonzakura.field_wait": "O jardim exige 5 segundos, uma única reativação antes de 10 segundos e sua presença dentro do campo.",
+  "message.bleachmod.senbonzakura.field_wait": "O jardim permite uma reativação entre 2 e 6 segundos, dentro do campo.",
   "message.bleachmod.senbonzakura.scene_wait": "Senkei: aguarde um segundo antes de lançar Ikka Senjinka.",
   "message.bleachmod.senbonzakura.energy": "Reiatsu insuficiente para reativar.",
   "ability.bleachmod.senbonzakura.petal_cut": "Corte horizontal de pétalas",

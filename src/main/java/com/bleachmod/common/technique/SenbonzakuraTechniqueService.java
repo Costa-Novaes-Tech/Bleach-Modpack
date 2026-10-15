@@ -28,10 +28,11 @@ public final class SenbonzakuraTechniqueService {
     private static final class Attack {
         final Kind kind; final int slot; final long start; Vec3 origin, forward;
         final Set<UUID> hits=new HashSet<>(); int cut=-1,pulse=-1;
+        int dashTicks; double travelled; long movedAt=Long.MIN_VALUE; Vec3 dashOrigin,lastPosition;
         Attack(Kind k,int s,long now,Vec3 o,Vec3 f) { kind=k;slot=s;start=now;origin=o;forward=f; }
     }
     private static final class Field {
-        final Vec3 center; final long start; long bloom=-1; boolean opened;
+        final Vec3 center; final long start; long bloom=-1; int bloomTicks=SenbonPolicy.BLOOM_WINDUP; boolean opened;
         Field(Vec3 c,long now) { center=c;start=now; }
     }
     private static final class Prison {
@@ -44,7 +45,7 @@ public final class SenbonzakuraTechniqueService {
         State(ServerPlayer p,String form) { owner=p;level=p.serverLevel();this.form=form;created=level.getGameTime(); }
         void draw(int type,Vec3 o,Vec3 f,double radius,double progress,int pattern) {
             long now=level.getGameTime(); if (budgetTick!=now) { budgetTick=now;budget=0; }
-            int count=SenbonPetalsS2C.particleCount(type);
+            int count=SenbonPetalsS2C.particleCount(type,pattern);
             if (budget+count>SenbonPolicy.VISUAL_BUDGET || !level.hasChunkAt(net.minecraft.core.BlockPos.containing(o))) return;
             var packet=new SenbonPetalsS2C(type,o,f,(float)radius,(float)Math.max(0,Math.min(1,progress)),pattern,(int)(now*31+owner.getId()*997+type),owner.getId());
             if (!packet.valid()) return;
@@ -108,7 +109,10 @@ public final class SenbonzakuraTechniqueService {
             if (field.bloom>=0 || age<def.readyTicks() || age>=def.windowTicks()
                     || !SenbonGeometry.inside(field.center,p.position(),SenbonPolicy.FIELD_RADIUS,4)) return fail(p,"field_wait");
             if (!d.getResources().consumeReiatsu(def.cost())) return fail(p,"energy");
-            field.bloom=now; sync(p); return true;
+            field.bloom=now;
+            field.bloomTicks=(int)Math.min(SenbonPolicy.BLOOM_WINDUP,def.windowTicks()-age-1);
+            if(field.bloomTicks==0)finishField(s);
+            sync(p); return true;
         }
         if (bankai && slot==3 && scene(p)) {
             var def=TechniqueDefinitions.IKKA;
@@ -122,6 +126,7 @@ public final class SenbonzakuraTechniqueService {
         int cooldown=cooldown(d.getStatus(),slot);
         if (cooldown>0) { p.displayClientMessage(Component.translatable("message.bleachmod.technique.cooldown",(cooldown+19)/20),true);return false; }
         if ((!bankai && slot==4 && ward(p)) || (bankai && slot==2 && s.field!=null)) return false;
+        if(bankai && slot==4 && (p.isPassenger() || p.isSleeping() || p.isFallFlying()))return false;
         Vec3 convergence=!bankai && slot==3 ? aim(p,SenbonPolicy.CONVERGENCE_RANGE) : null;
         if (!bankai && slot==3 && convergence==null) return fail(p,"invalid_target");
         if (!d.getResources().consumeReiatsu(definition.cost())) {
@@ -161,7 +166,7 @@ public final class SenbonzakuraTechniqueService {
             if (s.form.equals("bankai") && reach.getModifier(REACH_ID)==null) reach.addTransientModifier(new AttributeModifier(REACH_ID,"Senbonzakura Bankai reach",SenbonPolicy.REACH_BONUS,AttributeModifier.Operation.ADDITION));
             else if (!s.form.equals("bankai")) reach.removeModifier(REACH_ID);
         }
-        if (d.getGuard().broken()) s.attack=null;
+        if (d.getGuard().broken())stopAttack(s);
         if (s.sceneStart>=0 && !scene(p)) s.sceneStart=-1;
         if (s.attack!=null) tickAttack(s);
         if (s.prison!=null) tickPrison(s);
@@ -231,30 +236,70 @@ public final class SenbonzakuraTechniqueService {
                 }
             }
             case IKKA_ATTACK -> {
-                if (age%2==0) s.draw(SWORDS,a.origin,a.forward,SenbonPolicy.SCENE_RADIUS,.5+.5*Math.min(1,age/12.0),1);
-                if (age>=12) { double length=thrust(s,a,SenbonPolicy.IKKA_RANGE,1.6,SenbonPolicy.IKKA_DAMAGE,3);if(length>.1)s.draw(LANCE,a.origin,a.forward,length,1,1);s.attack=null; }
+                if (age%2==0) s.draw(SWORDS,a.origin,a.forward,SenbonPolicy.IKKA_RANGE,Math.min(1,age/12.0),2);
+                if (age>=12) {
+                    pulse(s,a.origin,SenbonPolicy.IKKA_RANGE,SenbonPolicy.IKKA_DAMAGE,3);
+                    s.draw(RADIAL,a.origin,a.forward,SenbonPolicy.IKKA_RANGE,1,1);s.attack=null;
+                }
             }
             case HAKU -> {
-                if (age%3==0) s.draw(WINGS,a.origin.add(0,-1.2,0),a.forward,4,Math.min(1,age/(double)SenbonPolicy.HAKU_WINDUP),0);
-                if (age>=SenbonPolicy.HAKU_WINDUP) {
-                    double length=thrust(s,a,SenbonPolicy.HAKU_RANGE,1.25,SenbonPolicy.HAKU_DAMAGE,4);
-                    if(length>.1)s.draw(LANCE,a.origin,a.forward,length,1,0);s.attack=null;
-                    s.level.playSound(null,s.owner.blockPosition(),SoundEvents.PLAYER_ATTACK_STRONG,s.owner.getSoundSource(),1,.6F);
-                }
+                a.origin=s.owner.position().add(0,1.2,0);
+                if(age<SenbonPolicy.HAKU_WINDUP) {
+                    if(age%3==0)s.draw(WINGS,s.owner.position(),a.forward,4,age/(double)SenbonPolicy.HAKU_WINDUP,0);
+                } else tickHakuDash(s,a);
             }
         }
     }
-    private static double thrust(State s,Attack a,double range,double width,float damage,int slot) {
-        Vec3 end=a.origin.add(a.forward.scale(range));
-        if (!loadedPath(s.level,a.origin,end)) return 0;
-        var obstruction=s.level.clip(new ClipContext(a.origin,end,ClipContext.Block.COLLIDER,ClipContext.Fluid.NONE,s.owner));
-        end=obstruction.getLocation();
-        double length=end.distanceTo(a.origin);
-        for (LivingEntity t:targets(s,a.origin,range)) {
-            double projection=t.getBoundingBox().getCenter().subtract(a.origin).dot(a.forward);
-            if(projection>=0 && projection<=length && t.getBoundingBox().inflate(width).clip(a.origin,end).isPresent())hurt(s,t,damage,slot);
+    private static void tickHakuDash(State s,Attack a) {
+        ServerPlayer p=s.owner;long now=s.level.getGameTime();
+        if(a.movedAt==now)return;
+        a.movedAt=now;
+        if(p.isPassenger() || p.isSleeping() || p.isFallFlying()
+                || (a.lastPosition!=null && p.position().distanceToSqr(a.lastPosition)>9)) { stopAttack(s);return; }
+        if(a.dashOrigin==null) {
+            a.dashOrigin=p.position();
+            s.level.playSound(null,p.blockPosition(),SoundEvents.PLAYER_ATTACK_STRONG,p.getSoundSource(),1,.6F);
         }
-        return end.distanceTo(a.origin);
+        boolean blocked=false;int steps=(int)Math.ceil(SenbonPolicy.HAKU_STEP/SenbonPolicy.HAKU_SUBSTEP);
+        double distance=Math.min(SenbonPolicy.HAKU_STEP,SenbonPolicy.HAKU_RANGE-a.travelled);
+        for(int i=0;i<steps && distance>1e-6;i++) {
+            Vec3 before=p.position(),motion=a.forward.scale(Math.min(SenbonPolicy.HAKU_SUBSTEP,distance));
+            AABB sweep=p.getBoundingBox().expandTowards(motion);
+            if(!s.level.hasChunksAt(net.minecraft.core.BlockPos.containing(sweep.minX,sweep.minY,sweep.minZ),net.minecraft.core.BlockPos.containing(sweep.maxX,sweep.maxY,sweep.maxZ))
+                    || !s.level.getWorldBorder().isWithinBounds(sweep) || !s.level.noCollision(p,sweep)) { blocked=true;break; }
+            p.move(net.minecraft.world.entity.MoverType.SELF,motion);
+            double moved=p.position().distanceTo(before);a.travelled+=moved;distance-=moved;
+            dashHits(s,a,before.add(0,1,0),p.position().add(0,1,0));
+            if(moved<motion.length()-.001) { blocked=true;break; }
+        }
+        a.lastPosition=p.position();a.dashTicks++;
+        p.setSprinting(false);stopHorizontal(p);
+        // Vanilla owner correction also updates the connection's accepted position; clients never supply the endpoint.
+        p.connection.teleport(p.getX(),p.getY(),p.getZ(),p.getYRot(),p.getXRot());
+        if(a.travelled>.01) {
+            if(a.dashTicks%2==1)s.draw(WINGS,p.position(),a.forward,4,1,0);
+            s.draw(LANCE,a.dashOrigin.add(0,1.2,0),a.forward,a.travelled,1,0);
+        }
+        if(blocked || a.dashTicks>=SenbonPolicy.HAKU_DASH_TICKS || a.travelled>=SenbonPolicy.HAKU_RANGE-.001)stopAttack(s);
+    }
+    private static void dashHits(State s,Attack a,Vec3 from,Vec3 to) {
+        if(a.hits.size()>=SenbonPolicy.MAX_TARGETS)return;
+        for(var t:s.level.getEntitiesOfClass(LivingEntity.class,new AABB(from,to).inflate(1.6),e->TechniqueTargets.allowed(s.owner,e))) {
+            if(a.hits.size()>=SenbonPolicy.MAX_TARGETS)break;
+            double projection=t.position().subtract(a.dashOrigin).dot(a.forward);
+            if(projection<0 || projection>SenbonPolicy.HAKU_RANGE || a.hits.contains(t.getUUID()) || !s.owner.hasLineOfSight(t) || !clearLine(s,from,t))continue;
+            var box=t.getBoundingBox().inflate(1.25,.4,1.25);
+            if(box.contains(from) || box.contains(to) || box.clip(from,to).isPresent()) {
+                a.hits.add(t.getUUID());hurt(s,t,SenbonPolicy.HAKU_DAMAGE,4);
+            }
+        }
+    }
+    private static void stopHorizontal(ServerPlayer p) {
+        p.setDeltaMovement(0,p.getDeltaMovement().y,0);p.hurtMarked=true;
+    }
+    private static void stopAttack(State s) {
+        if(s.attack!=null && s.attack.kind==Kind.HAKU && s.attack.dashOrigin!=null)stopHorizontal(s.owner);
+        s.attack=null;
     }
     private static boolean clearLine(State s,Vec3 center,LivingEntity target) {
         Vec3 start=center.add(0,.3,0),end=target.getBoundingBox().getCenter();
@@ -289,17 +334,24 @@ public final class SenbonzakuraTechniqueService {
     }
     private static void tickField(State s) {
         Field field=s.field;long now=s.level.getGameTime();int age=(int)(now-field.start);Vec3 f=SenbonGeometry.forward(s.owner.getYRot());
+        if (age>=TechniqueDefinitions.FLORAL_BLOOM.windowTicks()) { s.field=null;sync(s.owner);return; }
         if (field.bloom>=0) {
             int stage=(int)(now-field.bloom);
-            if (stage%2==0) s.draw(FLOWER,field.center,f,SenbonPolicy.FIELD_RADIUS,stage/(double)SenbonPolicy.BLOOM_WINDUP,0);
-            if (stage>=SenbonPolicy.BLOOM_WINDUP) { pulse(s,field.center,SenbonPolicy.FIELD_RADIUS,SenbonPolicy.FIELD_BLOOM_DAMAGE,2);s.draw(RISE,field.center,f,SenbonPolicy.FIELD_RADIUS,1,0);s.field=null;sync(s.owner); }
+            if(stage>=field.bloomTicks) { finishField(s);sync(s.owner);return; }
+            if (stage%2==0) s.draw(FLOWER,field.center,f,SenbonPolicy.FIELD_RADIUS,stage/(double)field.bloomTicks,0);
             return;
         }
-        if (age>=TechniqueDefinitions.FLORAL_BLOOM.windowTicks()) { s.field=null;sync(s.owner);return; }
         if (age<6 && age%2==0) s.draw(GUARD,s.owner.position(),f,1.5,age/6.0,0);
         if (age>=6 && !field.opened) { pulse(s,field.center,SenbonPolicy.FIELD_RADIUS,SenbonPolicy.FIELD_OPEN_DAMAGE,2);field.opened=true; }
-        if (age>=6 && age<18 && age%2==0) s.draw(RADIAL,field.center,f,SenbonPolicy.FIELD_RADIUS,(age-5)/12.0,0);
-        else if (age>=18 && age%4==0) s.draw(FIELD,field.center,f,SenbonPolicy.FIELD_RADIUS,.5,0);
+        if (age>=6 && age<18 && age%2==0) s.draw(RADIAL,field.center,f,SenbonPolicy.FIELD_RADIUS,(age-5)/12.0,2);
+        else if (age>=18 && age%2==0) s.draw(FIELD,field.center,f,SenbonPolicy.FIELD_RADIUS,.5,0);
+    }
+    private static void finishField(State s) {
+        Field field=s.field;if(field==null)return;
+        var f=SenbonGeometry.forward(s.owner.getYRot());
+        s.draw(FLOWER,field.center,f,SenbonPolicy.FIELD_RADIUS,1,0);
+        pulse(s,field.center,SenbonPolicy.FIELD_RADIUS,SenbonPolicy.FIELD_BLOOM_DAMAGE,2);
+        s.draw(RISE,field.center,f,SenbonPolicy.FIELD_RADIUS,1,2);s.field=null;
     }
     public static CompoundTag hud(ServerPlayer p) {
         var tag=new CompoundTag();State s=current(p);if(s==null)return tag;long now=s.level.getGameTime();
@@ -310,7 +362,8 @@ public final class SenbonzakuraTechniqueService {
         tag.putInt("ward",(int)Math.max(0,s.wardUntil-now)); return tag;
     }
     public static void cancel(ServerPlayer p) {
-        ACTIVE.remove(p.getUUID());var reach=p.getAttribute(ForgeMod.ENTITY_REACH.get());if(reach!=null)reach.removeModifier(REACH_ID);
+        State s=ACTIVE.remove(p.getUUID());if(s!=null)stopAttack(s);
+        var reach=p.getAttribute(ForgeMod.ENTITY_REACH.get());if(reach!=null)reach.removeModifier(REACH_ID);
         PlayerCapability.get(p).ifPresent(d->{ if(d.getCharacter().getSenbonBlade()!=0) { d.getCharacter().setSenbonBlade(0);SyncHelper.appearance(p); } });
     }
     public static void clear() { for(State s:List.copyOf(ACTIVE.values()))cancel(s.owner);ACTIVE.clear(); }

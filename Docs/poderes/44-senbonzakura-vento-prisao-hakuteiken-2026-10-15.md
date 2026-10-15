@@ -1,3 +1,5 @@
+> Atualização após playtest: ver [ciclo 45](45-hakuteiken-dash-jardim-senkei-area-2026-10-15.md) para Hakuteiken com dash, jardim de raio 35/janela 2–6 s e Ikka em área. Os parâmetros abaixo são o histórico do ciclo 44.
+
 # Ciclo 44 — Pétalas ao vento, prisão, Senkei e Hakuteiken
 
 Data: 15/10/2026. Branch `Feature-Poderes-bankais`. Sucede o protótipo do [ciclo 43](43-senbonzakura-kit-completo-prototipo-2026-10-15.md), após playtest do usuário. **Esquiva e defesa homologadas**: consideradas concluídas, sem alterar seus parâmetros nesta entrega. Aizen adiado; roadmap posterior preservado.

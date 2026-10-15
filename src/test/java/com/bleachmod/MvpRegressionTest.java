@@ -795,7 +795,7 @@ public final class MvpRegressionTest {
             eq(12L,com.bleachmod.common.technique.TechniqueDefinitions.all().stream().filter(d->d.identity().equals("senbonzakura")).count());
             yes(com.bleachmod.common.technique.TechniqueDefinitions.find("senbonzakura","sealed",1).isPresent());
             var bloom=com.bleachmod.common.technique.TechniqueDefinitions.FLORAL_BLOOM;
-            eq(100,bloom.readyTicks());eq(200,bloom.windowTicks());eq(0F,bloom.cost());
+            eq(40,bloom.readyTicks());eq(120,bloom.windowTicks());eq(0F,bloom.cost());
         });
         test("Senbon visual packet rejects invalid frames",()->{
             var zero=net.minecraft.world.phys.Vec3.ZERO;var f=new net.minecraft.world.phys.Vec3(0,0,1);
@@ -824,10 +824,26 @@ public final class MvpRegressionTest {
         test("petal emission is reduced and garden radius is explicit",()->{
             eq(32,com.bleachmod.common.network.s2c.SenbonPetalsS2C.particleCount(0));
             eq(6,com.bleachmod.common.network.s2c.SenbonPetalsS2C.particleCount(10));
-            eq(40D,com.bleachmod.common.technique.SenbonPolicy.FIELD_RADIUS);
+            eq(35D,com.bleachmod.common.technique.SenbonPolicy.FIELD_RADIUS);
             eq(8D,com.bleachmod.common.technique.SenbonPolicy.CUT_RANGE);
             eq(14D,com.bleachmod.common.technique.SenbonPolicy.STREAM_RANGE);
             eq(11D,com.bleachmod.common.technique.SenbonPolicy.CONVERGENCE_RANGE);
+        });
+        test("garden intensity increases without changing other petal layers",()->{
+            eq(128,com.bleachmod.common.network.s2c.SenbonPetalsS2C.particleCount(4));
+            eq(128,com.bleachmod.common.network.s2c.SenbonPetalsS2C.particleCount(5));
+            eq(112,com.bleachmod.common.network.s2c.SenbonPetalsS2C.particleCount(6,2));
+            eq(36,com.bleachmod.common.network.s2c.SenbonPetalsS2C.particleCount(6,0));
+            eq(32,com.bleachmod.common.network.s2c.SenbonPetalsS2C.particleCount(0));
+            eq(16D,com.bleachmod.common.technique.SenbonPolicy.HAKU_STEP*com.bleachmod.common.technique.SenbonPolicy.HAKU_DASH_TICKS);
+        });
+        test("Ikka blades converge radially from both sides",()->{
+            var zero=net.minecraft.world.phys.Vec3.ZERO;var f=new net.minecraft.world.phys.Vec3(0,0,1);
+            var mesh=com.bleachmod.common.visual.SenbonConstructGeometry.build(8,zero,f,14,0,2);
+            eq(160,mesh.size());
+            var tips=mesh.stream().filter(q->q.c().equals(q.d())).map(q->q.c()).toList();
+            eq(32,tips.size());yes(tips.stream().anyMatch(p->p.x>10));yes(tips.stream().anyMatch(p->p.x< -10));
+            yes(tips.stream().anyMatch(p->p.z>10));yes(tips.stream().anyMatch(p->p.z< -10));
         });
         System.out.println("PASS: "+count+" regression scenarios");
     }

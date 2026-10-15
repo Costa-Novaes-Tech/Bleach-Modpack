@@ -11,12 +11,12 @@ public final class SenbonConstructGeometry {
     public static List<Quad> build(int shape,Vec3 origin,Vec3 forward,double radius,double progress,int pattern) {
         var out=new ArrayList<Quad>();Vec3 left=SenbonGeometry.left(forward),up=new Vec3(0,1,0);
         if(shape==SWORDS) {
-            double collapse=pattern==1 ? Math.max(.12,1-(progress-.5)*1.75) : 1;
+            double collapse=pattern==2 ? Math.max(.12,1-progress*.88) : pattern==1 ? Math.max(.12,1-(progress-.5)*1.75) : 1;
             for(int row=0;row<2;row++) for(int i=0;i<16;i++) {
                 double angle=2*Math.PI*(i+row*.5)/16;
                 Vec3 radial=new Vec3(Math.cos(angle),0,Math.sin(angle));
-                Vec3 base=origin.add(radial.scale(radius*collapse)).add(0,.25+row*3.1,0);
-                sword(out,base,up,new Vec3(-radial.z,0,radial.x),2.5,false);
+                Vec3 base=origin.add(radial.scale(radius*collapse)).add(0,.25+row*(pattern==2?1.5:3.1),0);
+                sword(out,base,pattern==2?radial.scale(-1):up,pattern==2?up:new Vec3(-radial.z,0,radial.x),2.5,false);
             }
         } else if(shape==WINGS) {
             double unfold=.25+.75*progress;

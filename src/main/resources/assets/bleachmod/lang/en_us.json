@@ -1,10 +1,10 @@
 {
-  "hud.bleachmod.senbon.haku_charge": "Charging → forward thrust",
+  "hud.bleachmod.senbon.haku_charge": "Charging → 16-block dash",
   "hud.bleachmod.senbon.prison": "Prison and levitation · %s s",
   "item.bleachmod.senbonzakura": "Senbonzakura",
   "message.bleachmod.senbonzakura.sealed": "Sealed Senbonzakura: practice with your sword to discover its releases.",
   "message.bleachmod.senbonzakura.busy": "Finish your current petal technique first.",
-  "message.bleachmod.senbonzakura.field_wait": "The fixed garden needs 5 seconds, one reactivation before 10 seconds, and its owner inside the field.",
+  "message.bleachmod.senbonzakura.field_wait": "The garden allows one reactivation between 2 and 6 seconds while inside the field.",
   "message.bleachmod.senbonzakura.scene_wait": "Senkei: wait one second before launching Ikka Senjinka.",
   "message.bleachmod.senbonzakura.energy": "Not enough Reiatsu to reactivate.",
   "ability.bleachmod.senbonzakura.petal_cut": "Horizontal petal slash",
