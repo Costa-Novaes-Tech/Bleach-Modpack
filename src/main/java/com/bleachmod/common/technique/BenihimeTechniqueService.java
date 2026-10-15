@@ -31,7 +31,7 @@ public final class BenihimeTechniqueService {
     private record Support(ServerLevel level,long until) { }
     private static final Map<UUID,Support> SUPPORT=new HashMap<>();
     private static final class Action {
-        final int slot;final long start;final Vec3 origin,forward;Vec3 end;final Set<UUID> hits=new HashSet<>();UUID recipient;int pulse=-1;
+        final int slot;final long start;final Vec3 origin,forward;Vec3 end;final Set<UUID> hits=new HashSet<>();UUID recipient;int pulse=-1;Net detonationNet;double radius=4;
         Action(int slot,long now,Vec3 o,Vec3 f,Vec3 e){this.slot=slot;start=now;origin=o;forward=f;end=e;}
     }
     private static final class Net {
@@ -81,6 +81,21 @@ public final class BenihimeTechniqueService {
     private static boolean line(State s,Vec3 a,Vec3 b){return loaded(s.level,a,b) && s.level.clip(new ClipContext(a,b,ClipContext.Block.COLLIDER,ClipContext.Fluid.NONE,s.owner)).getType()==HitResult.Type.MISS;}
     private static Vec3 aim(ServerPlayer p,double range){Vec3 a=p.getEyePosition(),b=a.add(p.getLookAngle().scale(range));if(!loaded(p.serverLevel(),a,b) || !p.level().getWorldBorder().isWithinBounds(BlockPos.containing(b)))return null;
         var hit=p.level().clip(new ClipContext(a,b,ClipContext.Block.COLLIDER,ClipContext.Fluid.NONE,p));return hit.getLocation().add(hit.getType()==HitResult.Type.MISS?Vec3.ZERO:Vec3.atLowerCornerOf(hit.getDirection().getNormal()).scale(.15));}
+    /** Net origins denote the surface, never a point below the visible floor. */
+    private static Vec3 netAim(ServerPlayer p){
+        Vec3 point=aim(p,BenihimePolicy.NET_RANGE);if(point==null)return null;
+        Vec3 top=point.add(0,2,0),bottom=point.add(0,-4,0);
+        if(!loaded(p.serverLevel(),top,bottom))return null;
+        var ground=p.level().clip(new ClipContext(top,bottom,ClipContext.Block.COLLIDER,ClipContext.Fluid.NONE,p));
+        return ground.getType()==HitResult.Type.MISS?point:ground.getLocation().add(0,.1,0);
+    }
+    private static double netRadius(Net net,long now){return Math.max(1.4,BenihimePolicy.NET_RADIUS*(1-(now-net.start)/(double)BenihimePolicy.NET_TICKS));}
+    /** Radial field visibility comes from the field, independently of the caster's direction or position. */
+    private static List<LivingEntity> netTargets(State s,Vec3 center,double radius){
+        return s.level.getEntitiesOfClass(LivingEntity.class,new AABB(center,center).inflate(radius+1,4,radius+1),e->TechniqueTargets.allowed(s.owner,e))
+                .stream().filter(e->SenbonGeometry.inside(center,e.position(),radius,3))
+                .filter(e->line(s,center.add(0,.9,0),e.getBoundingBox().getCenter())).limit(BenihimePolicy.MAX_TARGETS).toList();
+    }
     private static List<LivingEntity> enemies(State s,Vec3 center,double radius){return s.level.getEntitiesOfClass(LivingEntity.class,new AABB(center,center).inflate(radius+1),e->TechniqueTargets.allowed(s.owner,e) && s.owner.hasLineOfSight(e))
             .stream().filter(e->SenbonGeometry.inside(center,e.position(),radius,3)).filter(e->line(s,center.add(0,.3,0),e.getBoundingBox().getCenter())).limit(BenihimePolicy.MAX_TARGETS).toList();}
     private static void hurt(State s,LivingEntity t,float damage,int slot){MasteryPracticeService.hurt(s.owner,t,s.owner.damageSources().playerAttack(s.owner),damage,slot);}
@@ -96,7 +111,7 @@ public final class BenihimeTechniqueService {
         if(!bankai && slot==2 && ward(p))return fail(p,"busy");
         if(bankai && slot==4 && d.getStatus().getBenihimePathCharges()==0)return fail(p,"cooldown");
         Vec3 origin=p.position().add(0,1,0),f=p.getLookAngle().normalize(),end=origin;LivingEntity recipient=p;
-        if(!bankai && slot==3 || bankai && slot==1){end=aim(p,bankai?16:BenihimePolicy.NET_RANGE);if(end==null)return fail(p,"target");}
+        if(!bankai && slot==3 || bankai && slot==1){end=bankai?aim(p,16):netAim(p);if(end==null)return fail(p,"target");}
         if(!bankai && slot==4)end=s.net.center;
         if(bankai && slot==2){recipient=healingTarget(s);if(recipient.getHealth()>=recipient.getMaxHealth())return fail(p,"full_health");end=recipient.position().add(0,1,0);}
         if(bankai && slot==4){end=pathEnd(p);if(end==null)return fail(p,"path");}
@@ -105,7 +120,7 @@ public final class BenihimeTechniqueService {
         else cooldown(d.getStatus(),slot,def.cooldownTicks());
         if(!bankai && slot==2){s.shield=BenihimePolicy.SHIELD_CAPACITY;s.shieldUntil=now+BenihimePolicy.SHIELD_TICKS;d.getGuard().release();}
         else if(bankai && slot==3){s.charges=3;s.buffUntil=now+BenihimePolicy.BUFF_TICKS;}
-        else {s.action=new Action(slot,now,origin,f,end);if(bankai && slot==2)s.action.recipient=recipient.getUUID();if(!bankai && slot==4)s.net=null;}
+        else {s.action=new Action(slot,now,origin,f,end);if(bankai && slot==2)s.action.recipient=recipient.getUUID();if(!bankai && slot==4){s.action.detonationNet=s.net;s.action.radius=netRadius(s.net,now);s.net=null;}}
         s.level.playSound(null,p.blockPosition(),SoundEvents.AMETHYST_BLOCK_CHIME,p.getSoundSource(),.65F,bankai?.65F:1.15F);SyncHelper.resources(p);return true;
     }
     private static LivingEntity healingTarget(State s){Vec3 from=s.owner.getEyePosition(),to=from.add(s.owner.getLookAngle().scale(BenihimePolicy.HEAL_RANGE));
@@ -147,8 +162,12 @@ public final class BenihimeTechniqueService {
                     if(a.hits.size()<BenihimePolicy.MAX_TARGETS && !a.hits.contains(t.getUUID()) && s.owner.hasLineOfSight(t) && (t.getBoundingBox().inflate(.6).contains(end) || t.getBoundingBox().inflate(.6).clip(a.end,end).isPresent())){a.hits.add(t.getUUID());hurt(s,t,BenihimePolicy.SHOT_DAMAGE,1);}
                 a.end=end;if(block.getType()!=HitResult.Type.MISS || distance>=BenihimePolicy.SHOT_RANGE)s.action=null;
             }
-            case 3->{s.draw(NET,a.end,a.end,BenihimePolicy.NET_RADIUS*Math.min(1,age/20.0),Math.min(1,age/20.0),0);if(age>=20){s.net=new Net(a.end,now);for(var t:enemies(s,a.end,BenihimePolicy.NET_RADIUS)){s.net.captured.put(t.getUUID(),t.position());MasteryPracticeService.control(s.owner,t,3);}s.action=null;}}
-            case 4->{s.draw(BEADS,a.origin,a.end,4,Math.min(1,age/16.0),0);if(age>=16){for(var t:enemies(s,a.end,4))hurt(s,t,BenihimePolicy.BLAST_DAMAGE,4);s.draw(INCISION,a.end,a.end,4,1,1);s.action=null;}}
+            case 3->{s.draw(NET,a.end,a.end,BenihimePolicy.NET_RADIUS*Math.min(1,age/20.0),Math.min(1,age/20.0),0);if(age>=20){s.net=new Net(a.end,now);for(var t:netTargets(s,a.end,BenihimePolicy.NET_RADIUS)){s.net.captured.put(t.getUUID(),t.position());MasteryPracticeService.control(s.owner,t,3);}s.action=null;}}
+            case 4->{
+                s.draw(NET,a.end,a.end,a.radius,1,1);s.draw(BEADS,a.origin,a.end,a.radius,Math.min(1,age/16.0),1);
+                restrainNet(s,a.detonationNet,a.radius,now);
+                if(age>=16){for(var t:netTargets(s,a.end,a.radius))hurt(s,t,BenihimePolicy.BLAST_DAMAGE,4);s.draw(INCISION,a.end,a.end,a.radius,1,1);s.action=null;}
+            }
         } else switch(a.slot){
             case 1->{if(s.owner.position().distanceToSqr(a.end)>BenihimePolicy.AREA*BenihimePolicy.AREA){s.action=null;return;}s.draw(INCISION,a.origin,a.end,4,Math.min(1,age/12.0),0);if(age>=12){for(var t:enemies(s,a.end,4)){if(s.exposed.size()<32)s.exposed.put(t.getUUID(),now+60);hurt(s,t,BenihimePolicy.INCISION_DAMAGE,1);}s.action=null;}}
             case 2->{
@@ -162,20 +181,27 @@ public final class BenihimeTechniqueService {
         }
     }
     private static void tickNet(State s,long now){Net net=s.net;if(now-net.start>=BenihimePolicy.NET_TICKS || s.owner.position().distanceToSqr(net.center)>BenihimePolicy.AREA*BenihimePolicy.AREA){s.net=null;return;}
-        double radius=Math.max(1.4,BenihimePolicy.NET_RADIUS*(1-(now-net.start)/(double)BenihimePolicy.NET_TICKS));
+        double radius=netRadius(net,now);
         if(now%2==0)s.draw(NET,net.center,net.center,radius,1,1);
+        restrainNet(s,net,radius,now);
+    }
+    private static void restrainNet(State s,Net net,double radius,long now){
         for(var id:List.copyOf(net.captured.keySet())){
             var entity=s.level.getEntity(id);
-            if(!(entity instanceof LivingEntity t) || !TechniqueTargets.allowed(s.owner,t) || !s.owner.hasLineOfSight(t) || !SenbonGeometry.inside(net.center,t.position(),12,5)){net.captured.remove(id);continue;}
-            if(now%4==0)t.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN,BenihimePolicy.LEASE,3,false,false,true));
+            if(!(entity instanceof LivingEntity t) || !TechniqueTargets.allowed(s.owner,t) || !SenbonGeometry.inside(net.center,t.position(),14,5)){net.captured.remove(id);continue;}
+            if(now%4==0)t.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN,BenihimePolicy.LEASE,4,false,false,true));
             Vec3 offset=net.captured.get(id).subtract(net.center).multiply(1,0,1);
             Vec3 desired=net.center.add(offset.scale(radius/BenihimePolicy.NET_RADIUS));
             Vec3 delta=desired.subtract(t.position()).multiply(1,0,1);double length=delta.length();
-            if(length>.15){Vec3 pull=delta.scale(Math.min(.32,length*.3)/length);if(s.level.noCollision(t,t.getBoundingBox().move(pull))){
-                // Apply the tether on the server, including mobs with movement AI disabled.
-                t.move(MoverType.SELF,pull);t.setDeltaMovement(0,t.getDeltaMovement().y,0);t.hurtMarked=true;
+            // A firm tether cancels outward horizontal momentum without advancing the shrink clock.
+            t.setDeltaMovement(0,t.getDeltaMovement().y,0);
+            if(length>.05){Vec3 pull=delta.scale(Math.min(.55,length*.75)/length);
+                // Vanilla collision resolves each short step, including sliding against obstacles.
+                int steps=Math.max(1,(int)Math.ceil(pull.length()/.15));Vec3 step=pull.scale(1.0/steps);
+                for(int i=0;i<steps;i++)t.move(MoverType.SELF,step);
+                t.hurtMarked=true;
                 if(t instanceof ServerPlayer captive && now%4==0)captive.connection.teleport(t.getX(),t.getY(),t.getZ(),t.getYRot(),t.getXRot());
-            }}
+            }
         }
     }
     private static boolean ownRegeneration(LivingEntity t){return t instanceof ServerPlayer p && PlayerCapability.get(p).map(d->valid(p,d) && d.getCharacter().getActiveForm().equals("bankai")).orElse(false);}

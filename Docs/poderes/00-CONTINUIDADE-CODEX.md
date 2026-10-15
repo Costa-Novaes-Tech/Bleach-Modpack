@@ -2,7 +2,7 @@
 
 Atualizado em 15/10/2026. Resumo de passagem para nova conversa; consulte o código/Git antes de alterar. Este arquivo evita precisar importar o histórico completo do chat. Não substitui instruções atuais do usuário.
 
-**Frente vigente: ciclo 48 — refinamento de Urahara/Benihime para playtest.** [Contrato, desenhos e roteiro](48-benihime-rede-cargas-marionete-2026-10-15.md). Rede de 20 blocos de diâmetro confirmados pelo usuário, contração com arrasto, três cargas de caminho vertical e manifestação articulada a 11 blocos atrás. Senbonzakura, esquiva e defesa permanecem homologadas. Rede atual **2.16**, schema **8**; consultar Git e resultado de validação antes de retomar.
+**Frente vigente: ciclo 49 — correção de Shibari/Hiasobi para playtest.** [Contrato e roteiro](49-shibari-solo-hiasobi-radial-2026-10-15.md). Rede continua com 20 blocos de diâmetro: âncora acima do solo, Hiasobi cobre o raio atual inteiro sem depender da mira, contenção reforçada com o mesmo ritmo de contração. Rede **2.17**, schema **8**; consultar Git e validação antes de retomar.
 
 ## 1. Repositório e regras mantidas pelo usuário
 
@@ -17,7 +17,7 @@ Atualizado em 15/10/2026. Resumo de passagem para nova conversa; consulte o cód
 
 ## 2. Estado entregue e homologado
 
-Minecraft 1.20.1, Forge 47.4.10, Java 17, Gradle wrapper. Mod 0.2.0; protocolo de rede 2.16; schema persistente 8. Cliente e servidor devem usar a mesma build.
+Minecraft 1.20.1, Forge 47.4.10, Java 17, Gradle wrapper. Mod 0.2.0; protocolo de rede 2.17; schema persistente 8. Cliente e servidor devem usar a mesma build.
 
 - Ryujin Jakka e Hyōrinmaru possuem kits próprios nas formas selada/Shikai/Bankai, já testados pelo usuário. Seus detalhes históricos estão nos relatórios de poderes; não reabrir balanceamento/visuais sem solicitação.
 - Uma zanpakutō vinculada por vez. Pode trocar identidade, mantendo progresso separado. Asauchi é identidade própria, com Shikai/Bankai de bônus de dano e sem slots elementais; modelos preservados.
@@ -131,3 +131,11 @@ Usuário pediu rede maior/contrátil, reestruturação com impacto, corredor de 
 
 
 Validação final: **check/build, 97 regressões e 110 GameTests obrigatórios aprovados**. Log `build/cycle48-verified.log`; JAR `build/libs/bleachmod-0.2.0.jar`. Inclui arrasto real de mob distante, três travessias verticais/recarga, preservação de cargas na troca de forma, empurrão sem dano adicional e animação de repouso. Prévia PNG e 24 quadros do GIF conferidos, traduções e links válidos. Ainda requer playtest no cliente.
+
+
+## 12. Correção vigente — ciclo 49
+
+Playtest do usuário aprovou a melhora visual e pediu correções de solo/área/contenção da rede. [Contrato atual](49-shibari-solo-hiasobi-radial-2026-10-15.md). Malha ancorada sobre a superfície, sem o deslocamento de -0,8. Hiasobi usa o raio atual ao consumir a rede, mantém contenção durante ignição de 16 ticks e explode radialmente em todos os inimigos elegíveis presentes, sem exigir visão/mira do lançador. Cobertura sólida a partir do centro, aliados e limite 64 respeitados. Puxão até 0,55/tick com subpassos/colisão, Lentidão V, impulso horizontal de fuga suprimido; contração continua cinco segundos. Protocolo 2.17/schema 8. Demais visuais/habilidades preservados; novo playtest da rede pendente.
+
+
+Validação final: **check/build, 98 regressões e 113 GameTests obrigatórios aprovados**. Log `build/cycle49-validation.log`. Inclui piso real/mira nos pés/quatro quadrantes, dano radial com lançador sem visão, proteção de aliado/alvo fora da área e resistência ao deslocamento de fuga. Malha acima da âncora verificada por regressão. Ainda requer conferência visual e de sensação da contenção no cliente.

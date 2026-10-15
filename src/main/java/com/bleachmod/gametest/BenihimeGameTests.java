@@ -114,6 +114,27 @@ public final class BenihimeGameTests {
         h.assertTrue(BenihimeTechniqueService.executeSlot(p,data(p),3),"Expanded net refused");
         h.runAfterDelay(26,()->h.assertTrue(t.hasEffect(net.minecraft.world.effect.MobEffects.MOVEMENT_SLOWDOWN) && !outside.hasEffect(net.minecraft.world.effect.MobEffects.MOVEMENT_SLOWDOWN),"Net radius incorrect"));
         h.runAfterDelay(90,()->{h.assertTrue(t.getX()<start-3,"Contracting net did not drag the distant mob");h.assertTrue(t.getHealth()==1000,"Net unexpectedly damaged victim");done(h,p,t,outside);});}
+    private static List<BlockPos> netFloor(GameTestHelper h,FakePlayer p){
+        var blocks=new ArrayList<BlockPos>();for(int x=-13;x<=13;x++)for(int z=-13;z<=13;z++){var pos=p.blockPosition().offset(x,-1,z);blocks.add(pos);h.getLevel().setBlockAndUpdate(pos,net.minecraft.world.level.block.Blocks.STONE.defaultBlockState());}return blocks;
+    }
+    private static void removeBlocks(GameTestHelper h,List<BlockPos> blocks){for(var pos:blocks)h.getLevel().removeBlock(pos,false);}
+    @GameTest(template="empty",batch="beni_net_floor",timeoutTicks=100)
+    public static void downwardNetOnFloorCapturesAllQuadrants(GameTestHelper h){var p=player(h,"shikai");var floor=netFloor(h,p);var victims=List.of(target(h,p,8,0),target(h,p,-8,0),target(h,p,0,8),target(h,p,0,-8));var outside=target(h,p,11,0);p.setXRot(90);ticks(h,p);
+        h.assertTrue(BenihimeTechniqueService.executeSlot(p,data(p),3),"Downward grounded cast refused");
+        h.runAfterDelay(26,()->{for(var t:victims)h.assertTrue(t.hasEffect(net.minecraft.world.effect.MobEffects.MOVEMENT_SLOWDOWN),"Floor cast lost a quadrant");h.assertTrue(!outside.hasEffect(net.minecraft.world.effect.MobEffects.MOVEMENT_SLOWDOWN),"Floor cast exceeded radius ten");});
+        h.runAfterDelay(80,()->{try{for(var t:victims)h.assertTrue(t.position().multiply(1,0,1).distanceTo(p.position().multiply(1,0,1))<4,"Grounded tether failed to contract");}finally{removeBlocks(h,floor);for(var t:victims)t.discard();}done(h,p,outside);});}
+    @GameTest(template="empty",batch="beni_net_radial_blast",timeoutTicks=65)
+    public static void hiasobiHitsWholeNetWithoutCasterVisibility(GameTestHelper h){var p=player(h,"shikai");var floor=netFloor(h,p);var origin=p.position();var victims=List.of(target(h,p,8,0),target(h,p,-8,0),target(h,p,0,8),target(h,p,0,-8));var outside=target(h,p,11,0);var friend=target(h,p,6,2);var board=h.getLevel().getScoreboard();var group=board.addPlayerTeam("net"+UUID.randomUUID().toString().substring(0,8));board.addPlayerToTeam(p.getScoreboardName(),group);board.addPlayerToTeam(friend.getScoreboardName(),group);
+        p.setXRot(90);ticks(h,p);BenihimeTechniqueService.executeSlot(p,data(p),3);
+        h.runAfterDelay(25,()->{
+            for(int z=-2;z<=2;z++)for(int y=0;y<4;y++){var pos=BlockPos.containing(origin).offset(12,y,z);floor.add(pos);h.getLevel().setBlockAndUpdate(pos,net.minecraft.world.level.block.Blocks.STONE.defaultBlockState());}
+            p.setPos(origin.add(14,0,0));p.setXRot(0);p.setYRot(-90);
+            h.assertTrue(!p.hasLineOfSight(victims.get(0)),"Fixture did not occlude caster");h.assertTrue(BenihimeTechniqueService.executeSlot(p,data(p),4),"Radial detonation refused");});
+        h.runAfterDelay(47,()->{try{for(var t:victims)h.assertTrue(t.getHealth()<1000,"Detonation missed a peripheral quadrant");h.assertTrue(outside.getHealth()==1000 && friend.getHealth()==1000,"Detonation hit outside field or ally");}finally{board.removePlayerTeam(group);removeBlocks(h,floor);for(var t:victims)t.discard();friend.discard();}done(h,p,outside);});}
+    @GameTest(template="empty",batch="beni_net_resistance",timeoutTicks=85)
+    public static void netOvercomesOutwardMovementWithoutChangingShrinkTiming(GameTestHelper h){var p=player(h,"shikai");var t=target(h,p,8,12);var center=p.position().add(0,0,12);ticks(h,p);BenihimeTechniqueService.executeSlot(p,data(p),3);
+        h.onEachTick(()->{if(p.tickCount>=35 && p.tickCount<=60)t.move(MoverType.SELF,new Vec3(.4,0,0));});
+        h.runAfterDelay(65,()->{h.assertTrue(t.position().multiply(1,0,1).distanceTo(center.multiply(1,0,1))<6,"Outward movement overcame the tether");h.assertTrue(BenihimeTechniqueService.hud(p).getInt("net")>45,"Contraction timer changed");done(h,p,t);});}
     @GameTest(template="empty",batch="beni_invalid_path")
     public static void unsupportedPathAndFullHealthReconstructionDoNotSpendReiatsu(GameTestHelper h){var p=player(h,"bankai");var d=data(p);
         h.assertTrue(!BenihimeTechniqueService.executeSlot(p,d,4),"Unsupported path accepted");h.assertTrue(!BenihimeTechniqueService.executeSlot(p,d,2),"Full-health reconstruction accepted");

@@ -21,13 +21,16 @@ public final class BenihimeGeometry {
             case SHIELD->{Vec3 c=o.add(f.scale(1.4)).add(0,1.2,0);for(int i=0;i<6;i++){double a=i*Math.PI/3,b=(i+1)*Math.PI/3;Vec3 va=c.add(left.scale(Math.cos(a)*r)).add(UP.scale(Math.sin(a)*r)),vb=c.add(left.scale(Math.cos(b)*r)).add(UP.scale(Math.sin(b)*r));
                     out.add(new Quad(c,va,vb,vb,0xB91B3D2A));ribbon(out,va,vb,va.subtract(c).normalize().scale(.035),RED);if(p<.5)stitch(out,c,va,UP,.12,5);}}
             case NET->{
-                ring(out,o.add(0,-.8,0),new Vec3(1,0,0),new Vec3(0,0,1),r,RED,48);
-                for(int i=-6;i<=6;i++){double x=i*r/6;double z=Math.sqrt(Math.max(0,r*r-x*x));stitch(out,o.add(x,-.8,-z),o.add(x,-.8,z),new Vec3(1,0,0),.1,5);stitch(out,o.add(-z,-.8,x),o.add(z,-.8,x),new Vec3(0,0,1),.1,5);}
-                for(int i=0;i<8;i++){double a=i*Math.PI/4;Vec3 base=o.add(Math.cos(a)*r,-.8,Math.sin(a)*r);ribbon(out,base,o.add(0,Math.min(3,r*.4),0),side(base.subtract(o)).scale(.025),RED);}}
-            case BEADS->{ribbon(out,o,end,UP.scale(.015),RED);for(int i=0;i<9;i++){double t=i/8.0;Vec3 c=o.lerp(end,t);double size=t<=p?.18:.07;cube(out,c.add(-size,-size,-size),c.add(size,size,size),t<=p?0xFFB0A3FF:0x822039FF);}}
+                ring(out,o.add(0,.08,0),new Vec3(1,0,0),new Vec3(0,0,1),r,RED,48);
+                for(int i=-6;i<=6;i++){double x=i*r/6;double z=Math.sqrt(Math.max(0,r*r-x*x));stitch(out,o.add(x,.08,-z),o.add(x,.08,z),new Vec3(1,0,0),.1,5);stitch(out,o.add(-z,.08,x),o.add(z,.08,x),new Vec3(0,0,1),.1,5);}
+                for(int i=0;i<8;i++){double a=i*Math.PI/4;Vec3 base=o.add(Math.cos(a)*r,.08,Math.sin(a)*r);ribbon(out,base,o.add(0,Math.min(3,r*.4),0),side(base.subtract(o)).scale(.025),RED);}}
+            case BEADS->{if(m.variant()==1){
+                ring(out,end.add(0,.12,0),new Vec3(1,0,0),new Vec3(0,0,1),r,RED,48);
+                for(int spoke=0;spoke<12;spoke++){double angle=spoke*Math.PI/6;Vec3 edge=end.add(Math.cos(angle)*r,.12,Math.sin(angle)*r);ribbon(out,end.add(0,.12,0),end.add(0,.12,0).lerp(edge,p),UP.scale(.025),WHITE);}
+                }ribbon(out,o,end,UP.scale(.015),RED);for(int i=0;i<9;i++){double t=i/8.0;Vec3 c=o.lerp(end,t);double size=t<=p?.18:.07;cube(out,c.add(-size,-size,-size),c.add(size,size,size),t<=p?0xFFB0A3FF:0x822039FF);}}
             case INCISION->{Vec3 c=end.add(0,.7,0);double length=Math.max(.15,r*p);stitch(out,c.add(left.scale(-length)).add(0,-.6,0),c.add(left.scale(length)).add(0,1.2,0),UP,.22,9);
                 if(m.variant()==2){ring(out,end.add(0,.3,0),left,UP,r,WHITE,24);stitch(out,c.add(left.scale(-r)).add(0,1,0),c.add(left.scale(r)).add(0,-1,0),UP,.2,7);}
-                if(m.variant()==1)ring(out,end.add(0,-.7,0),new Vec3(1,0,0),new Vec3(0,0,1),r,RED,24);}
+                if(m.variant()==1)ring(out,end.add(0,.12,0),new Vec3(1,0,0),new Vec3(0,0,1),r,RED,24);}
             case HEAL->{Vec3 c=end.add(0,1,0);for(int i=0;i<12;i++){double a=i*Math.PI/3+p*3,b=(i+1)*Math.PI/3+p*3;Vec3 va=end.add(Math.cos(a)*.5,i*.16,Math.sin(a)*.5),vb=end.add(Math.cos(b)*.5,(i+1)*.16,Math.sin(b)*.5);stitch(out,va,vb,UP,.1,2);}
                 if(o.distanceToSqr(end)>1)ribbon(out,o.add(0,.2,0),c,UP.scale(.012),0xFFD3CF80);}
             case BUFF->{for(int sign:new int[]{-1,1}){Vec3 arm=o.add(left.scale(sign*.65));stitch(out,arm.add(0,.65,0),arm.add(0,1.5,0),left,.26,7);

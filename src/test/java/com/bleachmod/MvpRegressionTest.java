@@ -880,6 +880,11 @@ public final class MvpRegressionTest {
             var b=com.bleachmod.common.visual.BenihimeGeometry.build(new com.bleachmod.common.network.s2c.BenihimeFrameS2C(1,0,o,o,f,18,.25F,0));yes(!a.equals(b));
             yes(a.stream().flatMap(q->java.util.stream.Stream.of(q.a(),q.b(),q.c(),q.d())).mapToDouble(v->v.y).max().orElse(0)>10);
         });
+        test("Benihime net mesh stays above its surface anchor",()->{
+            var o=new net.minecraft.world.phys.Vec3(2,65.1,2);var f=new net.minecraft.world.phys.Vec3(0,0,1);
+            var mesh=com.bleachmod.common.visual.BenihimeGeometry.build(new com.bleachmod.common.network.s2c.BenihimeFrameS2C(1,3,o,o,f,10,1,1));
+            yes(mesh.stream().flatMap(q->java.util.stream.Stream.of(q.a(),q.b(),q.c(),q.d())).allMatch(v->v.y>=o.y-.03));
+        });
         test("Benihime HUD leases are transient and snapshots isolated",()->{
             var status=new StatusData();var tag=new net.minecraft.nbt.CompoundTag();tag.putInt("shield",900);tag.putInt("charges",3);status.readBenihimeHud(tag);
             eq(100,status.getBenihimeHud().getInt("shield"));status.getBenihimeHud().putInt("charges",0);eq(3,status.getBenihimeHud().getInt("charges"));

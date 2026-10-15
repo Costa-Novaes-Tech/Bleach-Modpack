@@ -1,5 +1,7 @@
 # Ciclo 48 — Rede expansiva, corredor em cargas e Benihime articulada
 
+> Correções de Shibari/Hiasobi no [ciclo 49](49-shibari-solo-hiasobi-radial-2026-10-15.md): malha acima do chão, explosão sobre toda a área atual da rede e contenção reforçada. O raio fixo 4 do Hiasobi descrito abaixo foi sucedido pelo raio da rede no momento da ativação.
+
 Branch `Feature-Poderes-bankais`, base limpa `9adef25`. Solicitação do usuário após playtest do ciclo 47: ampliar/contrair Shibari, dar impacto visual à reestruturação, três usos do caminho com mira vertical e redesenhar a presença de Benihime. Confirmado pelo usuário: **20 blocos de diâmetro, raio 10**, para a rede.
 
 ## Shibari
