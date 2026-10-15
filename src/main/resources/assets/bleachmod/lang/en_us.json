@@ -1,4 +1,6 @@
 {
+  "hud.bleachmod.senbon.haku_charge": "Charging → forward thrust",
+  "hud.bleachmod.senbon.prison": "Prison and levitation · %s s",
   "item.bleachmod.senbonzakura": "Senbonzakura",
   "message.bleachmod.senbonzakura.sealed": "Sealed Senbonzakura: practice with your sword to discover its releases.",
   "message.bleachmod.senbonzakura.busy": "Finish your current petal technique first.",
@@ -7,7 +9,7 @@
   "message.bleachmod.senbonzakura.energy": "Not enough Reiatsu to reactivate.",
   "ability.bleachmod.senbonzakura.petal_cut": "Horizontal petal slash",
   "ability.bleachmod.senbonzakura.petal_stream": "Concentrated stream",
-  "ability.bleachmod.senbonzakura.petal_convergence": "Converging blades",
+  "ability.bleachmod.senbonzakura.petal_convergence": "Petal prison",
   "ability.bleachmod.senbonzakura.petal_guard": "Petal guard",
   "ability.bleachmod.senbonzakura.five_cuts": "Five-slash sequence",
   "ability.bleachmod.senbonzakura.floral_garden": "Senbonzakura garden",

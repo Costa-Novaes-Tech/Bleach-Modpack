@@ -12,7 +12,7 @@ public class StatusData {
     public CompoundTag getSenbonHud() { return senbonHud.copy(); }
     public void readSenbonHud(CompoundTag tag) {
         senbonHud = new CompoundTag();
-        for (String key : java.util.List.of("fieldReady","fieldRemaining","sceneReady","sceneRemaining","ward"))
+        for (String key : java.util.List.of("fieldReady","fieldRemaining","sceneReady","sceneRemaining","ward","prison"))
             if (tag.contains(key)) senbonHud.putInt(key, Math.max(0, Math.min(200,tag.getInt(key))));
         senbonHud.putBoolean("bloom",tag.getBoolean("bloom"));
     }

@@ -148,7 +148,7 @@ public final class MvpRegressionTest {
             status.refreshCombat(200); status.clearTransientState(); yes(!status.isInCombat());
         });
         test("Shared technique definitions preserve all homologated costs and cooldowns", () -> {
-            var definitions = com.bleachmod.common.technique.TechniqueDefinitions.all(); eq(32, definitions.size());
+            var definitions = com.bleachmod.common.technique.TechniqueDefinitions.all(); eq(36, definitions.size());
             Set<String> unique = new HashSet<>();
             for (var def : definitions) {
                 yes(unique.add(def.identity() + "|" + def.form() + "|" + def.slot()));
@@ -791,18 +791,43 @@ public final class MvpRegressionTest {
             copy.getCharacter().bindZanpakuto("ryujin_jakka");copy.getCharacter().setMastery("zanpakuto","shikai",12);
             copy.getCharacter().bindZanpakuto("senbonzakura");eq(43D,copy.getCharacter().getMastery("zanpakuto","shikai"));
         });
-        test("Senbon has eight techniques and continuation windows",()->{
-            eq(8L,com.bleachmod.common.technique.TechniqueDefinitions.all().stream().filter(d->d.identity().equals("senbonzakura")).count());
-            yes(com.bleachmod.common.technique.TechniqueDefinitions.find("senbonzakura","sealed",1).isEmpty());
+        test("Senbon sealed and released repertoires share access metadata",()->{
+            eq(12L,com.bleachmod.common.technique.TechniqueDefinitions.all().stream().filter(d->d.identity().equals("senbonzakura")).count());
+            yes(com.bleachmod.common.technique.TechniqueDefinitions.find("senbonzakura","sealed",1).isPresent());
             var bloom=com.bleachmod.common.technique.TechniqueDefinitions.FLORAL_BLOOM;
             eq(100,bloom.readyTicks());eq(200,bloom.windowTicks());eq(0F,bloom.cost());
         });
         test("Senbon visual packet rejects invalid frames",()->{
             var zero=net.minecraft.world.phys.Vec3.ZERO;var f=new net.minecraft.world.phys.Vec3(0,0,1);
-            yes(new com.bleachmod.common.network.s2c.SenbonPetalsS2C(0,zero,f,6,1,0,1).valid());
-            yes(!new com.bleachmod.common.network.s2c.SenbonPetalsS2C(0,zero,f,Float.NaN,1,0,1).valid());
-            yes(!new com.bleachmod.common.network.s2c.SenbonPetalsS2C(11,zero,f,6,1,0,1).valid());
-            yes(!new com.bleachmod.common.network.s2c.SenbonPetalsS2C(0,zero,zero,6,1,0,1).valid());
+            yes(new com.bleachmod.common.network.s2c.SenbonPetalsS2C(0,zero,f,6,1,0,1,7).valid());
+            yes(!new com.bleachmod.common.network.s2c.SenbonPetalsS2C(0,zero,f,Float.NaN,1,0,1,7).valid());
+            yes(!new com.bleachmod.common.network.s2c.SenbonPetalsS2C(12,zero,f,6,1,0,1,7).valid());
+            yes(!new com.bleachmod.common.network.s2c.SenbonPetalsS2C(0,zero,zero,6,1,0,1,7).valid());
+        });
+        test("large floral field packet roundtrips owner and rejects excess radius",()->{
+            var zero=net.minecraft.world.phys.Vec3.ZERO;var f=new net.minecraft.world.phys.Vec3(0,0,1);
+            var frame=new com.bleachmod.common.network.s2c.SenbonPetalsS2C(4,zero,f,40,.5F,0,17,5);
+            var buffer=new net.minecraft.network.FriendlyByteBuf(io.netty.buffer.Unpooled.buffer());
+            try {yes(frame.valid());com.bleachmod.common.network.s2c.SenbonPetalsS2C.encode(frame,buffer);
+                eq(frame,com.bleachmod.common.network.s2c.SenbonPetalsS2C.decode(buffer));}finally{buffer.release();}
+            yes(!new com.bleachmod.common.network.s2c.SenbonPetalsS2C(4,zero,f,49,.5F,0,17,5).valid());
+        });
+        test("Senkei and Hakuteiken geometry is bounded and has pointed blades",()->{
+            var zero=net.minecraft.world.phys.Vec3.ZERO;var f=new net.minecraft.world.phys.Vec3(0,0,1);
+            var swords=com.bleachmod.common.visual.SenbonConstructGeometry.build(8,zero,f,7,.2,0);
+            eq(160,swords.size());eq(32L,swords.stream().filter(q->q.c().equals(q.d())).count());
+            var wings=com.bleachmod.common.visual.SenbonConstructGeometry.build(9,zero,f,4,1,0);
+            yes(wings.size()<128);yes(wings.stream().anyMatch(q->q.a().x< -3));yes(wings.stream().anyMatch(q->q.a().x>3));
+            var lance=com.bleachmod.common.visual.SenbonConstructGeometry.build(11,zero,f,12,1,0);
+            eq(4,lance.size());yes(lance.stream().allMatch(q->q.c().z==12));
+        });
+        test("petal emission is reduced and garden radius is explicit",()->{
+            eq(32,com.bleachmod.common.network.s2c.SenbonPetalsS2C.particleCount(0));
+            eq(6,com.bleachmod.common.network.s2c.SenbonPetalsS2C.particleCount(10));
+            eq(40D,com.bleachmod.common.technique.SenbonPolicy.FIELD_RADIUS);
+            eq(8D,com.bleachmod.common.technique.SenbonPolicy.CUT_RANGE);
+            eq(14D,com.bleachmod.common.technique.SenbonPolicy.STREAM_RANGE);
+            eq(11D,com.bleachmod.common.technique.SenbonPolicy.CONVERGENCE_RANGE);
         });
         System.out.println("PASS: "+count+" regression scenarios");
     }

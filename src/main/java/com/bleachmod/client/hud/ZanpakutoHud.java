@@ -62,7 +62,10 @@ public final class ZanpakutoHud {
                                 (senbon.getInt("fieldReady")+19)/20,(senbon.getInt("fieldRemaining")+19)/20).getString();
                     if (slot==3 && senbon.getInt("sceneRemaining")>0)
                         resources=Component.translatable("hud.bleachmod.senbon.scene",(senbon.getInt("sceneReady")+19)/20,(senbon.getInt("sceneRemaining")+19)/20).getString();
+                    if(slot==4 && d.getCharacter().getSenbonBlade()==2)resources=Component.translatable("hud.bleachmod.senbon.haku_charge").getString();
                 }
+                if(CharacterData.SENBONZAKURA.equals(identity) && !form.equals("bankai") && slot==3 && senbon.getInt("prison")>0)
+                    resources=Component.translatable("hud.bleachmod.senbon.prison",(senbon.getInt("prison")+19)/20).getString();
                 g.drawString(mc.font, mc.font.plainSubstrByWidth(resources, width - 16), 8, 51 + i * 25, 0x85AAC2, false);
             }
             String next = "sealed".equals(form) ? "shikai" : "shikai".equals(form) ? "bankai" : "";

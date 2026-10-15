@@ -1,11 +1,11 @@
 {
   "parent": "bleachmod:item/ryujin_katana_handheld",
   "textures": {
-    "white": "minecraft:block/white_concrete",
+    "white": "minecraft:block/quartz_block_side",
     "gold": "minecraft:block/quartz_block_side",
-    "spine": "minecraft:block/quartz_block_side",
+    "spine": "minecraft:block/white_concrete",
     "wrap": "minecraft:block/white_concrete",
-    "blade": "minecraft:block/white_concrete",
+    "blade": "minecraft:block/quartz_block_side",
     "particle": "minecraft:block/white_concrete"
   },
   "elements": [
@@ -567,12 +567,12 @@
         ]
       },
       "from": [
-        7.47,
+        7.39,
         7.7,
         7.8
       ],
       "to": [
-        8.430000000000001,
+        8.510000000000002,
         13,
         8.2
       ],
@@ -645,12 +645,12 @@
         ]
       },
       "from": [
-        7.35,
+        7.27,
         7.7,
         7.97
       ],
       "to": [
-        7.489999999999999,
+        7.569999999999999,
         13,
         8.03
       ],
@@ -723,12 +723,12 @@
         ]
       },
       "from": [
-        8.41,
+        8.33,
         7.7,
         7.75
       ],
       "to": [
-        8.55,
+        8.63,
         13,
         8.25
       ],
@@ -791,6 +791,318 @@
     },
     {
       "name": "blade_surface",
+      "rotation": {
+        "axis": "z",
+        "angle": -45,
+        "origin": [
+          8,
+          8,
+          8
+        ]
+      },
+      "from": [
+        7.49,
+        13,
+        7.8
+      ],
+      "to": [
+        8.610000000000001,
+        18,
+        8.2
+      ],
+      "faces": {
+        "west": {
+          "texture": "#blade",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "east": {
+          "texture": "#blade",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "down": {
+          "texture": "#blade",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "south": {
+          "texture": "#blade",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "north": {
+          "texture": "#blade",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "up": {
+          "texture": "#blade",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "name": "single_cutting_edge",
+      "rotation": {
+        "axis": "z",
+        "angle": -45,
+        "origin": [
+          8,
+          8,
+          8
+        ]
+      },
+      "from": [
+        7.37,
+        13,
+        7.97
+      ],
+      "to": [
+        7.67,
+        18,
+        8.03
+      ],
+      "faces": {
+        "west": {
+          "texture": "#white",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "east": {
+          "texture": "#white",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "down": {
+          "texture": "#white",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "south": {
+          "texture": "#white",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "north": {
+          "texture": "#white",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "up": {
+          "texture": "#white",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "name": "blunt_spine",
+      "rotation": {
+        "axis": "z",
+        "angle": -45,
+        "origin": [
+          8,
+          8,
+          8
+        ]
+      },
+      "from": [
+        8.43,
+        13,
+        7.75
+      ],
+      "to": [
+        8.73,
+        18,
+        8.25
+      ],
+      "faces": {
+        "west": {
+          "texture": "#spine",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "east": {
+          "texture": "#spine",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "down": {
+          "texture": "#spine",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "south": {
+          "texture": "#spine",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "north": {
+          "texture": "#spine",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "up": {
+          "texture": "#spine",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "name": "blade_surface",
+      "rotation": {
+        "axis": "z",
+        "angle": -45,
+        "origin": [
+          8,
+          8,
+          8
+        ]
+      },
+      "from": [
+        7.69,
+        18,
+        7.8
+      ],
+      "to": [
+        8.81,
+        23,
+        8.2
+      ],
+      "faces": {
+        "west": {
+          "texture": "#blade",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "east": {
+          "texture": "#blade",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "down": {
+          "texture": "#blade",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "south": {
+          "texture": "#blade",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "north": {
+          "texture": "#blade",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "up": {
+          "texture": "#blade",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "name": "single_cutting_edge",
       "rotation": {
         "axis": "z",
         "angle": -45,
@@ -802,323 +1114,11 @@
       },
       "from": [
         7.57,
-        13,
-        7.8
-      ],
-      "to": [
-        8.530000000000001,
-        18,
-        8.2
-      ],
-      "faces": {
-        "west": {
-          "texture": "#blade",
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ]
-        },
-        "east": {
-          "texture": "#blade",
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ]
-        },
-        "down": {
-          "texture": "#blade",
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ]
-        },
-        "south": {
-          "texture": "#blade",
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ]
-        },
-        "north": {
-          "texture": "#blade",
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ]
-        },
-        "up": {
-          "texture": "#blade",
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ]
-        }
-      }
-    },
-    {
-      "name": "single_cutting_edge",
-      "rotation": {
-        "axis": "z",
-        "angle": -45,
-        "origin": [
-          8,
-          8,
-          8
-        ]
-      },
-      "from": [
-        7.45,
-        13,
-        7.97
-      ],
-      "to": [
-        7.59,
-        18,
-        8.03
-      ],
-      "faces": {
-        "west": {
-          "texture": "#white",
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ]
-        },
-        "east": {
-          "texture": "#white",
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ]
-        },
-        "down": {
-          "texture": "#white",
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ]
-        },
-        "south": {
-          "texture": "#white",
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ]
-        },
-        "north": {
-          "texture": "#white",
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ]
-        },
-        "up": {
-          "texture": "#white",
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ]
-        }
-      }
-    },
-    {
-      "name": "blunt_spine",
-      "rotation": {
-        "axis": "z",
-        "angle": -45,
-        "origin": [
-          8,
-          8,
-          8
-        ]
-      },
-      "from": [
-        8.51,
-        13,
-        7.75
-      ],
-      "to": [
-        8.65,
-        18,
-        8.25
-      ],
-      "faces": {
-        "west": {
-          "texture": "#spine",
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ]
-        },
-        "east": {
-          "texture": "#spine",
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ]
-        },
-        "down": {
-          "texture": "#spine",
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ]
-        },
-        "south": {
-          "texture": "#spine",
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ]
-        },
-        "north": {
-          "texture": "#spine",
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ]
-        },
-        "up": {
-          "texture": "#spine",
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ]
-        }
-      }
-    },
-    {
-      "name": "blade_surface",
-      "rotation": {
-        "axis": "z",
-        "angle": -45,
-        "origin": [
-          8,
-          8,
-          8
-        ]
-      },
-      "from": [
-        7.7700000000000005,
-        18,
-        7.8
-      ],
-      "to": [
-        8.73,
-        23,
-        8.2
-      ],
-      "faces": {
-        "west": {
-          "texture": "#blade",
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ]
-        },
-        "east": {
-          "texture": "#blade",
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ]
-        },
-        "down": {
-          "texture": "#blade",
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ]
-        },
-        "south": {
-          "texture": "#blade",
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ]
-        },
-        "north": {
-          "texture": "#blade",
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ]
-        },
-        "up": {
-          "texture": "#blade",
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ]
-        }
-      }
-    },
-    {
-      "name": "single_cutting_edge",
-      "rotation": {
-        "axis": "z",
-        "angle": -45,
-        "origin": [
-          8,
-          8,
-          8
-        ]
-      },
-      "from": [
-        7.65,
         18,
         7.97
       ],
       "to": [
-        7.79,
+        7.87,
         23,
         8.03
       ],
@@ -1191,12 +1191,12 @@
         ]
       },
       "from": [
-        8.709999999999999,
+        8.629999999999999,
         18,
         7.75
       ],
       "to": [
-        8.85,
+        8.93,
         23,
         8.25
       ],
@@ -1269,12 +1269,12 @@
         ]
       },
       "from": [
-        8.12,
+        8.04,
         23,
         7.8
       ],
       "to": [
-        9.08,
+        9.16,
         26.5,
         8.2
       ],
@@ -1347,12 +1347,12 @@
         ]
       },
       "from": [
-        8.0,
+        7.92,
         23,
         7.97
       ],
       "to": [
-        8.14,
+        8.22,
         26.5,
         8.03
       ],
@@ -1425,12 +1425,12 @@
         ]
       },
       "from": [
-        9.059999999999999,
+        8.979999999999999,
         23,
         7.75
       ],
       "to": [
-        9.2,
+        9.28,
         26.5,
         8.25
       ],
@@ -1503,12 +1503,12 @@
         ]
       },
       "from": [
-        8.3,
+        8.22,
         26.5,
         7.8
       ],
       "to": [
-        9.4,
+        9.48,
         27.4,
         8.2
       ],
@@ -1581,12 +1581,12 @@
         ]
       },
       "from": [
-        8.9,
+        8.82,
         27.4,
         7.85
       ],
       "to": [
-        9.4,
+        9.48,
         28.2,
         8.15
       ],

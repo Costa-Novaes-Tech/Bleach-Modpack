@@ -44,9 +44,12 @@ public final class SenbonGameTests {
         SenbonzakuraTechniqueService.cancel(p);for(var t:targets)t.discard();h.succeed();
     }
     @GameTest(template="empty",batch="senbon_1")
-    public static void sealedAndUntrainedSlotsCannotSpendEnergy(GameTestHelper h) {
+    public static void sealedHasItsArsenalButUntrainedSlotsCannotSpendEnergy(GameTestHelper h) {
         var p=player(h,"sealed");var d=data(p);float before=d.getResources().getCurrentReiatsu();
-        h.assertTrue(!SenbonzakuraTechniqueService.executeSlot(p,d,1),"Sealed cast accepted");
+        h.assertTrue(SenbonzakuraTechniqueService.executeSlot(p,d,1),"Sealed cut refused");
+        h.assertTrue(d.getResources().getCurrentReiatsu()==before-10,"Sealed cut cost incorrect");
+        SenbonzakuraTechniqueService.cancel(p);before=d.getResources().getCurrentReiatsu();
+        h.assertTrue(!SenbonzakuraTechniqueService.executeSlot(p,d,4),"Untrained sealed guard accepted");
         d.getCharacter().setActiveForm("zanpakuto","shikai");d.getCharacter().setMastery("zanpakuto","shikai",0);
         h.assertTrue(!SenbonzakuraTechniqueService.executeSlot(p,d,4),"Locked slot accepted");
         h.assertTrue(d.getResources().getCurrentReiatsu()==before,"Rejected cast charged energy");done(h,p);
@@ -63,7 +66,7 @@ public final class SenbonGameTests {
     }
     @GameTest(template="empty",batch="senbon_3",timeoutTicks=170)
     public static void fixedFieldReactivatesOnceAfterFiveSeconds(GameTestHelper h) {
-        var p=player(h,"bankai");var d=data(p);var original=target(h,p,-8,0);var outside=target(h,p,12,0);ticks(h,p);
+        var p=player(h,"bankai");var d=data(p);loadField(h,p);var original=target(h,p,-35,0);var outside=target(h,p,41,0);ticks(h,p);
         float energy=d.getResources().getCurrentReiatsu();
         h.assertTrue(SenbonzakuraTechniqueService.executeSlot(p,d,2),"Field refused");
         h.assertTrue(!SenbonzakuraTechniqueService.executeSlot(p,d,2),"Early bloom accepted");
@@ -83,7 +86,7 @@ public final class SenbonGameTests {
     public static void fieldOutsideAndExpiredContinuationsAreRejected(GameTestHelper h) {
         var p=player(h,"bankai");var d=data(p);Vec3 origin=p.position();ticks(h,p);
         SenbonzakuraTechniqueService.executeSlot(p,d,2);
-        h.runAfterDelay(101,()->{p.setPos(origin.add(11,0,0));h.assertTrue(!SenbonzakuraTechniqueService.executeSlot(p,d,2),"Bloom outside field accepted");p.setPos(origin);});
+        h.runAfterDelay(101,()->{p.setPos(origin.add(41,0,0));h.assertTrue(!SenbonzakuraTechniqueService.executeSlot(p,d,2),"Bloom outside field accepted");p.setPos(origin);});
         h.runAfterDelay(202,()->{h.assertTrue(!SenbonzakuraTechniqueService.hud(p).contains("fieldRemaining"),"Field did not expire");
             h.assertTrue(!SenbonzakuraTechniqueService.executeSlot(p,d,2),"Expired field bypassed cooldown");done(h,p);});
     }
@@ -101,12 +104,16 @@ public final class SenbonGameTests {
     }
     @GameTest(template="empty",batch="senbon_6",timeoutTicks=60)
     public static void hakuteikenChargesThenHitsAndRestoresBlade(GameTestHelper h) {
-        var p=player(h,"bankai");var t=target(h,p,0,7);ticks(h,p);
+        var p=player(h,"bankai");var t=target(h,p,0,11);var beyond=target(h,p,0,13);ticks(h,p);
         SenbonzakuraTechniqueService.executeSlot(p,data(p),4);
         h.runAfterDelay(5,()->{h.assertTrue(t.getHealth()==1000,"Hakuteiken skipped windup");
             h.assertTrue(data(p).getCharacter().getSenbonBlade()==2,"White blade appearance missing");});
         h.runAfterDelay(22,()->{h.assertTrue(t.getHealth()<1000,"Hakuteiken missed forward target");
-            h.assertTrue(data(p).getCharacter().getSenbonBlade()==0,"White blade did not expire");done(h,p,t);});
+            h.assertTrue(beyond.getHealth()==1000,"Hakuteiken exceeded twelve-block reach");
+            h.assertTrue(data(p).getCharacter().getSenbonBlade()==0,"White blade did not expire");done(h,p,t,beyond);});
+    }
+    private static void loadField(GameTestHelper h,FakePlayer p) {
+        for(int x=-3;x<=3;x++)for(int z=-3;z<=3;z++)h.getLevel().getChunkAt(p.blockPosition().offset(x*16,0,z*16));
     }
     @GameTest(template="empty",batch="senbon_7")
     public static void reachIsTransientUniqueAndRemovedWhenUnequipped(GameTestHelper h) {
@@ -155,5 +162,65 @@ public final class SenbonGameTests {
         h.assertTrue(!SenbonzakuraTechniqueService.scene(p) && !SenbonzakuraTechniqueService.busy(p),"Scene survived lifecycle cancellation");
         h.assertTrue(!SenbonzakuraTechniqueService.hud(p).contains("fieldRemaining") && d.getCharacter().getSenbonBlade()==0,"Field/appearance survived cancellation");
         h.assertTrue(p.getAttribute(ForgeMod.ENTITY_REACH.get()).getModifier(SenbonzakuraTechniqueService.REACH_ID)==null,"Reach survived cancellation");done(h,p);
+    }
+    @GameTest(template="empty",batch="senbon_prison",timeoutTicks=110)
+    public static void prisonLevitatesAndDealsThreeSeparatePulses(GameTestHelper h) {
+        var p=player(h,"shikai");var t=target(h,p,0,11);ticks(h,p);
+        final int[] hits={0};final float[] previous={1000};
+        SenbonzakuraTechniqueService.executeSlot(p,data(p),3);
+        h.onEachTick(()->{if(t.getHealth()<previous[0])hits[0]++;previous[0]=t.getHealth();});
+        h.runAfterDelay(8,()->h.assertTrue(t.getHealth()==1000,"Prison dealt an immediate burst"));
+        h.runAfterDelay(17,()->{
+            h.assertTrue(t.hasEffect(net.minecraft.world.effect.MobEffects.LEVITATION),"Shulker levitation absent");
+            h.assertTrue(t.hasEffect(net.minecraft.world.effect.MobEffects.MOVEMENT_SLOWDOWN),"Prison did not restrain movement");
+            h.assertTrue(!SenbonzakuraTechniqueService.busy(p),"Prison immobilized caster after windup");
+        });
+        h.runAfterDelay(85,()->{
+            h.assertTrue(hits[0]==3,"Expected three damage pulses, got "+hits[0]);
+            h.assertTrue(!t.hasEffect(net.minecraft.world.effect.MobEffects.LEVITATION),"Prison levitation never expired");
+            done(h,p,t);
+        });
+    }
+    @GameTest(template="empty",batch="senbon_prison_cancel",timeoutTicks=65)
+    public static void prisonCancelExpiresOwnEffectsAndPreservesOtherEffects(GameTestHelper h) {
+        var p=player(h,"shikai");var t=target(h,p,-1,11);var external=target(h,p,1,11);ticks(h,p);
+        external.addEffect(new net.minecraft.world.effect.MobEffectInstance(net.minecraft.world.effect.MobEffects.LEVITATION,200,2));
+        SenbonzakuraTechniqueService.executeSlot(p,data(p),3);
+        final float[] health={0};
+        h.runAfterDelay(18,()->{health[0]=t.getHealth();SenbonzakuraTechniqueService.cancel(p);p.setItemSlot(EquipmentSlot.MAINHAND,ItemStack.EMPTY);});
+        h.runAfterDelay(38,()->{
+            h.assertTrue(t.getHealth()==health[0],"Cancelled prison continued dealing damage");
+            h.assertTrue(!t.hasEffect(net.minecraft.world.effect.MobEffects.LEVITATION) && !t.hasEffect(net.minecraft.world.effect.MobEffects.MOVEMENT_SLOWDOWN),"Cancelled effects retained lease");
+            var effect=external.getEffect(net.minecraft.world.effect.MobEffects.LEVITATION);
+            h.assertTrue(effect!=null && effect.getAmplifier()==2,"Cleanup removed an unrelated stronger levitation");done(h,p,t,external);
+        });
+    }
+    @GameTest(template="empty",batch="senbon_prison_cover",timeoutTicks=50)
+    public static void prisonCannotCaptureThroughSolidCover(GameTestHelper h) {
+        var p=player(h,"shikai");var t=target(h,p,0,11);var blocks=new ArrayList<BlockPos>();ticks(h,p);
+        for(int x=-1;x<=1;x++)for(int y=0;y<3;y++) {
+            var pos=p.blockPosition().offset(x,y,6);blocks.add(pos);h.getLevel().setBlockAndUpdate(pos,net.minecraft.world.level.block.Blocks.STONE.defaultBlockState());
+        }
+        SenbonzakuraTechniqueService.executeSlot(p,data(p),3);
+        h.runAfterDelay(30,()->{try {
+            h.assertTrue(t.getHealth()==1000 && !t.hasEffect(net.minecraft.world.effect.MobEffects.LEVITATION),"Prison crossed cover");
+        } finally {for(var pos:blocks)h.getLevel().removeBlock(pos,false);}done(h,p,t);});
+    }
+    @GameTest(template="empty",batch="senbon_range",timeoutTicks=45)
+    public static void sealedCutAndStreamUseExpandedRanges(GameTestHelper h) {
+        var p=player(h,"sealed");var d=data(p);d.getCharacter().setMastery("zanpakuto","sealed",100);
+        var cut=target(h,p,0,7.5);var stream=target(h,p,0,13);ticks(h,p);
+        h.assertTrue(SenbonzakuraTechniqueService.executeSlot(p,d,1),"Sealed cut refused");
+        h.runAfterDelay(9,()->{h.assertTrue(cut.getHealth()<1000,"Expanded cut failed at 7.5 blocks");
+            h.assertTrue(SenbonzakuraTechniqueService.executeSlot(p,d,2),"Sealed stream refused");});
+        h.runAfterDelay(18,()->{h.assertTrue(stream.getHealth()<1000,"Expanded stream failed at 13 blocks");done(h,p,cut,stream);});
+    }
+    @GameTest(template="empty",batch="senbon_stream_start",timeoutTicks=25)
+    public static void streamKeepsFirstPulseWhenInitialTickIsDelayed(GameTestHelper h) {
+        var p=player(h,"sealed");data(p).getCharacter().setMastery("zanpakuto","sealed",100);var t=target(h,p,0,13);
+        h.assertTrue(SenbonzakuraTechniqueService.executeSlot(p,data(p),2),"Sealed stream refused");
+        // No fixture tick loop: the first actual service tick is deliberately two ticks after the packet.
+        h.runAfterDelay(2,()->{SenbonzakuraTechniqueService.tick(p,data(p));
+            h.assertTrue(t.getHealth()<1000,"First pulse depended on processing on the activation tick");done(h,p,t);});
     }
 }

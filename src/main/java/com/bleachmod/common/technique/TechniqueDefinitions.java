@@ -44,7 +44,7 @@ public final class TechniqueDefinitions {
             for (int slot = 1; slot <= 4; slot++) add(entries, CharacterData.HYORINMARU, form, slot, iceIds[slot - 1],
                     "ability.bleachmod.hyorinmaru." + (sealed ? "sealed_" : "slot_") + slot, costs[slot - 1], cooldowns[slot - 1], 0);
         }
-        for (String form : List.of("shikai", "bankai")) {
+        for (String form : List.of("sealed", "shikai", "bankai")) {
             boolean bankai = form.equals("bankai");
             String[] ids = bankai ? new String[]{"five_cuts", "floral_garden", "senkei", "hakuteiken"}
                     : new String[]{"petal_cut", "petal_stream", "petal_convergence", "petal_guard"};

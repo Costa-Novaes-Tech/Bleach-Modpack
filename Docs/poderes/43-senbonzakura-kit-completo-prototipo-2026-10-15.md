@@ -1,3 +1,5 @@
+> Após o playtest: parâmetros e visuais refinados no [ciclo 44](44-senbonzakura-vento-prisao-hakuteiken-2026-10-15.md), incluindo jardim de raio 40, prisão/levitação, arsenal selado e protocolo 2.13. Este documento preserva o protótipo anterior.
+
 # Ciclo 43 — Senbonzakura: oito habilidades e protótipos de pétalas
 
 Data: 15/10/2026. Branch `Feature-Poderes-bankais`. O usuário autorizou implementar o kit completo em uma execução prolongada, seguindo também as recomendações de parâmetros e aparência. Esta autorização sucede as propostas ainda abertas nos ciclos [41](41-byakuya-pesquisa-possibilidades-kit-2026-10-15.md) e [42](42-byakuya-cortes-campo-floral-alcance-2026-10-15.md). Valores abaixo são o balanceamento inicial implementado, sujeito ao playtest.

@@ -1,4 +1,6 @@
 {
+  "hud.bleachmod.senbon.haku_charge": "Concentrando → estocada frontal",
+  "hud.bleachmod.senbon.prison": "Prisão e levitação · %s s",
   "item.bleachmod.senbonzakura": "Senbonzakura",
   "message.bleachmod.senbonzakura.sealed": "Senbonzakura selada: pratique com a espada para descobrir suas liberações.",
   "message.bleachmod.senbonzakura.busy": "Conclua a técnica de pétalas atual antes de iniciar outra.",
@@ -7,7 +9,7 @@
   "message.bleachmod.senbonzakura.energy": "Reiatsu insuficiente para reativar.",
   "ability.bleachmod.senbonzakura.petal_cut": "Corte horizontal de pétalas",
   "ability.bleachmod.senbonzakura.petal_stream": "Corrente concentrada",
-  "ability.bleachmod.senbonzakura.petal_convergence": "Convergência de lâminas",
+  "ability.bleachmod.senbonzakura.petal_convergence": "Prisão de pétalas",
   "ability.bleachmod.senbonzakura.petal_guard": "Guarda de pétalas",
   "ability.bleachmod.senbonzakura.five_cuts": "Sequência de cinco cortes",
   "ability.bleachmod.senbonzakura.floral_garden": "Jardim de Senbonzakura",

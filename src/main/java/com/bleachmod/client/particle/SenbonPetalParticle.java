@@ -14,11 +14,11 @@ import net.minecraftforge.fml.common.Mod;
 public final class SenbonPetalParticle extends TextureSheetParticle {
     private SenbonPetalParticle(ClientLevel level, double x,double y,double z,double dx,double dy,double dz, SpriteSet sprites) {
         super(level,x,y,z,dx,dy,dz); xd=dx; yd=dy; zd=dz;
-        gravity=0; friction=.94F; lifetime=18+random.nextInt(9); hasPhysics=false;
-        quadSize=.08F+random.nextFloat()*.07F; roll=random.nextFloat()*6.283F; oRoll=roll;
+        gravity=.002F; friction=.985F; lifetime=24+random.nextInt(11); hasPhysics=false;
+        quadSize=.045F+random.nextFloat()*.04F; roll=random.nextFloat()*6.283F; oRoll=roll;
         pickSprite(sprites);
     }
-    @Override public void tick() { oRoll=roll; super.tick(); roll+=.12F; alpha=1-(float)age/lifetime; }
+    @Override public void tick() { oRoll=roll;super.tick();roll+=.055F;xd+=Math.sin(age*.22+roll)*.0015;alpha=.75F*(1-(float)age/lifetime); }
     @Override public int getLightColor(float partial) { return 0xF000F0; }
     @Override public ParticleRenderType getRenderType() { return ParticleRenderType.PARTICLE_SHEET_TRANSLUCENT; }
     @Mod.EventBusSubscriber(modid=Reference.MOD_ID, value=Dist.CLIENT, bus=Mod.EventBusSubscriber.Bus.MOD)
