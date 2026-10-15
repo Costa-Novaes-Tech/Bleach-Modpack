@@ -1,5 +1,7 @@
 # Ciclo 41 — Byakuya: pesquisa e possibilidades de kit
 
+> Atualização de design: o [ciclo 42](42-byakuya-cortes-campo-floral-alcance-2026-10-15.md) registra as escolhas seguintes do usuário. Slot 1 Shikai passa a corte horizontal direita → esquerda; Bankai 1 passa a cinco cortes. Campo floral de duas explosões e passiva de alcance entram na discussão. A onda/maré e a tabela abaixo são a proposta inicial histórica, não o contrato vigente desses pontos.
+
 Data: 15/10/2026. Branch: `Feature-Poderes-bankais`. Pesquisa/planejamento solicitados pelo usuário, **sem implementação de poderes e sem aprovação final dos slots**. Git inicialmente limpo e alinhado à referência local de origin.
 
 ## Direção proposta
