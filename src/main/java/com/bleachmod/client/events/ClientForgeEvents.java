@@ -24,6 +24,7 @@ import java.util.List;
 public class ClientForgeEvents {
     private static boolean lastCharging;
     private static boolean instantHeld;
+    private static boolean dodgeHeld;
 
     @SubscribeEvent
     public static void onClientTick(TickEvent.ClientTickEvent event) {
@@ -31,6 +32,8 @@ public class ClientForgeEvents {
             return;
         }
         Minecraft mc = Minecraft.getInstance();
+        boolean dodgePressed = ModKeybinds.DODGE.isDown() && !dodgeHeld;
+        dodgeHeld = ModKeybinds.DODGE.isDown();
         if (mc.player == null) {
             com.bleachmod.client.model.ZanpakutoMotion.clear();
             lastCharging = false;
@@ -49,7 +52,7 @@ public class ClientForgeEvents {
             }
         });
 
-        if (mc.screen != null) {
+        if (mc.screen != null || !mc.isWindowActive()) {
             if (lastCharging) {
                 NetworkHandler.sendToServer(new UpdateStatC2S(UpdateStatC2S.StatAction.ACTION_CHARGE, false));
                 lastCharging = false;
@@ -67,6 +70,11 @@ public class ClientForgeEvents {
             lastCharging = false;
             instantHeld = false;
             return;
+        }
+        if (dodgePressed && mc.player.isAlive()) {
+            int forward = (mc.options.keyUp.isDown() ? 1 : 0) - (mc.options.keyDown.isDown() ? 1 : 0);
+            int left = (mc.options.keyLeft.isDown() ? 1 : 0) - (mc.options.keyRight.isDown() ? 1 : 0);
+            NetworkHandler.sendToServer(new com.bleachmod.common.network.c2s.DodgeC2S(forward, left));
         }
         while (ModKeybinds.CYCLE_FORM.consumeClick()) {
             cycleForm(mc);

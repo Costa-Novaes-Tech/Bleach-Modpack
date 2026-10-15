@@ -1,3 +1,5 @@
+> **Ciclo 37 — 15/10/2026:** esquiva Alt + direção implementada para playtest; protocolo 2.10, schema 7. Build, 76 regressões e 67 GameTests obrigatórios aprovados. [Contrato, limites, homologação e próximas opções](37-esquiva-direcional-stamina-2026-10-15.md). Os registros abaixo são históricos.
+
 > **Nova conversa — entrada recomendada, 15/10/2026:** leia primeiro [Continuidade do projeto](00-CONTINUIDADE-CODEX.md). O resumo reúne estado homologado, branch/restrições, protocolo/schema, mapa técnico, validações e proposta seguinte. Não é necessário importar todo o histórico nem reler todos os relatórios. Os registros abaixo permanecem como histórico.
 
 > **Estado vigente — ciclo 36, 13/10/2026:** proporção/inclinação finais da bainha homologadas pelo usuário; documentação consolidada de combate, stamina, armas indestrutíveis e saque/guarda. [Contratos atuais, arquivos, histórico e próxima proposta](36-consolidacao-homologacao-proximos-passos-2026-10-13.md). Próxima recomendação: esquiva curta com stamina, ainda sem implementação. Registros anteriores abaixo são históricos.

@@ -15,7 +15,7 @@ Atualizado em 15/10/2026. Resumo de passagem para nova conversa; consulte o cód
 
 ## 2. Estado entregue e homologado
 
-Minecraft 1.20.1, Forge 47.4.10, Java 17, Gradle wrapper. Mod 0.2.0; protocolo de rede 2.9; schema persistente 7.
+Minecraft 1.20.1, Forge 47.4.10, Java 17, Gradle wrapper. Mod 0.2.0; protocolo de rede 2.10; schema persistente 7. Cliente e servidor devem usar a mesma build.
 
 - Ryujin Jakka e Hyōrinmaru possuem kits próprios nas formas selada/Shikai/Bankai, já testados pelo usuário. Seus detalhes históricos estão nos relatórios de poderes; não reabrir balanceamento/visuais sem solicitação.
 - Uma zanpakutō vinculada por vez. Pode trocar identidade, mantendo progresso separado. Asauchi é identidade própria, com Shikai/Bankai de bônus de dano e sem slots elementais; modelos preservados.
@@ -28,6 +28,7 @@ Minecraft 1.20.1, Forge 47.4.10, Java 17, Gradle wrapper. Mod 0.2.0; protocolo d
 - Arma vinculada no inventário aparece embainhada na cintura; empunhada mantém bainha vazia. Só uma bainha, mesmo com duplicatas. Snapshot público informa apenas ausência/guardada/mão principal/secundária.
 - Bainha final homologada: curva afunilada, paletas por identidade, esquerda anatômica para destros e espelhamento para canhotos. Escala 0,9775; rotação X -26 graus; Y ±25 graus. Não alterar esses valores sem necessidade aprovada.
 - Saque/guarda cosmético nativo de oito ticks, terceira/primeira pessoa; seleção do slot é o gatilho. Não trava ataque. Ação dedicada de embainhar sem mudar slot ainda não existe.
+- Esquiva direcional implementada no ciclo 37, **aguardando playtest**: Alt esquerdo remapeável + direção, sem direção recuo, diagonais normalizadas; custo 15 stamina, cinco ticks, 2,5 blocos nominais, intervalo de 12 ticks. Somente terrestre, sem invulnerabilidade. Não confundir com Shunpo. [Contrato, restrições e roteiro](37-esquiva-direcional-stamina-2026-10-15.md).
 
 Aceite final de stamina/progressão e aparência da bainha recebido. Isso não comprova FPS, latência ou homologação com dois clientes reais.
 
@@ -53,9 +54,11 @@ Traduções: src/main/resources/assets/bleachmod/lang/pt_br.json e en_us.json. T
 
 ## 5. Git e validação conhecida
 
-Último commit antes deste handoff: `5bc94be` (consolidação documental). Código funcional mais recente: `349f016` (bainha final), precedido por `a4a99ac`, `605b8e6`, `4ea03a9` e `b18e20f`. O próprio handoff terá commit posterior: usar git log, não fixar HEAD no hash acima. Branch pode receber integrações da equipe; conferir novamente.
+Antes do ciclo 37, HEAD era `0b09578` (handoff), precedido por `5bc94be` (consolidação) e `349f016` (bainha final). O ciclo 37 acrescenta a esquiva; consultar `git log` para o commit atual. Branch pode receber integrações da equipe; conferir novamente.
 
 Ciclo 33: 73 regressões e 63 GameTests obrigatórios aprovados. Ciclos 34/35: check/build e 73 regressões aprovados, sem repetir GameTests de lógica inalterada. Logs locais em build/cycle33-validation.log e build/cycle35-validation.log; podem não existir em outro checkout. JAR local: build/libs/bleachmod-0.2.0.jar, gerado e não equivalente a release publicada.
+
+Ciclo 37: check/build e **76 regressões**, **67 GameTests obrigatórios** aprovados. Logs `build/cycle37-validation.log` e `build/cycle37-integration.log`. Não equivale a homologação de teclado, visual ou multiplayer real.
 
 PowerShell, na raiz, com JDK 17 instalado:
 
@@ -68,11 +71,11 @@ $env:JAVA_HOME='C:\Program Files\Eclipse Adoptium\jdk-17.0.20.101-hotspot'
 
 O caminho do JDK é desta máquina; conferir em outro ambiente. Offline depende do cache já preparado. Não iniciar duas execuções Gradle simultâneas. Documentação isolada requer revisão de links/diff, não nova build. Nunca apresentar teste automatizado como homologação visual.
 
-## 6. Próxima tarefa ainda não implementada
+## 6. Feature escolhida e próximos passos
 
-Recomendação discutida: esquiva direcional universal com stamina, seguida de bloqueio/Postura. Não há pedido atual para começar código: a solicitação desta passagem é preparar documentação para outra conversa.
+O usuário escolheu implementar esquiva direcional universal com stamina. Após discutir dois toques em WASD, preferiu **Alt + direção**. Implementação do ciclo 37 concluída para playtest; não voltar a propor dois toques como controle vigente. Após testar esta feature, retomar a escolha da próxima implementação com o usuário.
 
-Proposta de esquiva: tecla configurável (sugestão Alt esquerdo) + WASD, sem direção recuo; custo 15, alcance até 2,5 blocos, cinco ticks de movimento e intervalo mínimo de 12 ticks. Valores provisórios, não existentes no código. Servidor valida intenção/custo/intervalo; respeitar colisões, sem teleporte por parede e sem longa invulnerabilidade. Definir restrições terrestres/água/escadas/montaria e testes antes de implementar. Não confundir com Shunpo aprendido.
+Contrato e limitações efetivas estão no [relatório 37](37-esquiva-direcional-stamina-2026-10-15.md). Começar pela homologação em jogo: direções, remapeamento, custo, colisões, bordas, menus/foco e dois clientes com latência. Bloqueio frontal com Postura/Guard Break é a recomendação seguinte, ainda sem implementação autorizada. A lista de alternativas está no relatório 37.
 
 Outras opções revisadas: mentor com cadeia curta de treinamento; Hohō/Shunpo; pequeno repertório de Kidō; proficiência de Zanjutsu/Hakuda/Hohō/Kidō; migração dos atributos com preservação de saves; novos encontros Hollow/boss; Soul Society/viagens; cooperação. História e regras de aquisição dependem da equipe. Antes de trabalhar em dimensões/mobs, conferir integrações de outras branches para não duplicar trabalho.
 

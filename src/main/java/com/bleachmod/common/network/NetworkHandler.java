@@ -63,6 +63,9 @@ public final class NetworkHandler {
         CHANNEL.registerMessage(id++, ActionFeedbackS2C.class, ActionFeedbackS2C::encode, ActionFeedbackS2C::decode, ActionFeedbackS2C::handle, Optional.of(NetworkDirection.PLAY_TO_CLIENT));
         CHANNEL.registerMessage(id++, DamageIndicatorS2C.class, DamageIndicatorS2C::encode, DamageIndicatorS2C::decode, DamageIndicatorS2C::handle, Optional.of(NetworkDirection.PLAY_TO_CLIENT));
         CHANNEL.registerMessage(id++, OpenNpcQuestScreenS2C.class, OpenNpcQuestScreenS2C::encode, OpenNpcQuestScreenS2C::decode, OpenNpcQuestScreenS2C::handle, Optional.of(NetworkDirection.PLAY_TO_CLIENT));
+        CHANNEL.registerMessage(id++, com.bleachmod.common.network.c2s.DodgeC2S.class,
+                com.bleachmod.common.network.c2s.DodgeC2S::encode, com.bleachmod.common.network.c2s.DodgeC2S::decode,
+                com.bleachmod.common.network.c2s.DodgeC2S::handle, Optional.of(NetworkDirection.PLAY_TO_SERVER));
     }
 
     public static void sendToServer(Object message) {

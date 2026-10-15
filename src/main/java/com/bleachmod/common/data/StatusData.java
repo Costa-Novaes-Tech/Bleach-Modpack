@@ -8,6 +8,22 @@ import java.util.Set;
 import java.util.UUID;
 
 public class StatusData {
+    private net.minecraft.world.phys.Vec3 dodgeDirection = net.minecraft.world.phys.Vec3.ZERO;
+    private int dodgeTicks;
+    private boolean dodging;
+    private long nextDodgeTick = Long.MIN_VALUE;
+    public boolean canDodge(long tick) { return !dodging && tick >= nextDodgeTick; }
+    public boolean isDodging() { return dodging; }
+    public int getDodgeTicks() { return dodgeTicks; }
+    public net.minecraft.world.phys.Vec3 getDodgeDirection() { return dodgeDirection; }
+    public void beginDodge(net.minecraft.world.phys.Vec3 direction, long tick) {
+        dodgeDirection = direction;
+        dodgeTicks = com.bleachmod.common.DodgePolicy.DURATION;
+        dodging = true;
+        nextDodgeTick = tick + com.bleachmod.common.DodgePolicy.INTERVAL;
+    }
+    public void advanceDodge() { if (dodgeTicks > 0) dodgeTicks--; }
+    public void stopDodge() { dodging = false; dodgeTicks = 0; dodgeDirection = net.minecraft.world.phys.Vec3.ZERO; }
     private net.minecraft.world.phys.Vec3 staminaPosition;
     public boolean sampleStaminaMovement(net.minecraft.world.phys.Vec3 position) {
         var previous = staminaPosition; staminaPosition = position;
@@ -133,11 +149,13 @@ public class StatusData {
     /** Changing form cancels active effects but must not allow a cooldown bypass. */
     public void clearTransformationState() {
         int combat = combatTicks, hudCombat = hudCombatTicks;
+        long dodgeCooldown = nextDodgeTick;
         int slot1 = techniqueSlot1CooldownTicks;
         int slot2 = techniqueSlot2CooldownTicks;
         int slot3 = techniqueSlot3CooldownTicks;
         int slot4 = techniqueSlot4CooldownTicks;
         clearTransientState();
+        nextDodgeTick = dodgeCooldown;
         combatTicks = combat; hudCombatTicks = hudCombat;
         techniqueSlot1CooldownTicks = slot1;
         techniqueSlot2CooldownTicks = slot2;
@@ -256,6 +274,8 @@ public class StatusData {
     }
 
     public void clearTransientState() {
+        stopDodge();
+        nextDodgeTick = Long.MIN_VALUE;
         staminaPosition = null;
         clearCombat();
         techniqueSlot1CooldownTicks = 0;
@@ -280,6 +300,8 @@ public class StatusData {
     }
 
     public void load(CompoundTag tag) {
+        stopDodge();
+        nextDodgeTick = Long.MIN_VALUE;
         staminaPosition = null;
         clearCombat();
         cooldownsDisabled = false;

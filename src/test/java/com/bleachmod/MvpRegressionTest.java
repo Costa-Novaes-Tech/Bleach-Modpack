@@ -16,6 +16,37 @@ import java.util.*;
 public final class MvpRegressionTest {
     private static int count;
     public static void main(String[] args) {
+        test("Dodge directions rotate with yaw and diagonals have equal length", () -> {
+            var p = com.bleachmod.common.DodgePolicy.direction(1, 0, 0);
+            yes(p.distanceTo(new net.minecraft.world.phys.Vec3(0,0,1)) < .00001);
+            yes(com.bleachmod.common.DodgePolicy.direction(0, 1, 0).x > .99);
+            yes(com.bleachmod.common.DodgePolicy.direction(0, -1, 0).x < -.99);
+            yes(com.bleachmod.common.DodgePolicy.direction(0, 0, 0).z < -.99);
+            yes(com.bleachmod.common.DodgePolicy.direction(1, 0, 90).x < -.99);
+            yes(Math.abs(com.bleachmod.common.DodgePolicy.direction(1, 1, 45).length() - 1) < .00001);
+            yes(!com.bleachmod.common.DodgePolicy.validInput(Integer.MIN_VALUE, 0));
+            yes(com.bleachmod.common.DodgePolicy.direction(2, 0, 0).lengthSqr() == 0);
+        });
+        test("Dodge requires full stamina, keeps reiatsu and pauses regeneration", () -> {
+            var r = new ResourcesData(); r.setCostsDisabled(true); r.setCurrentReiatsu(50);
+            for (int i = 0; i < 6; i++) yes(r.trySpendDodgeStamina());
+            eq(10F, r.getStamina()); yes(!r.trySpendDodgeStamina()); eq(10F, r.getStamina());
+            for (int i = 0; i < 20; i++) r.tickStamina(false);
+            eq(10F, r.getStamina()); r.tickStamina(false); eq(11F, r.getStamina()); eq(50F, r.getCurrentReiatsu());
+            var tag = r.save(); tag.putFloat("stamina", 15); r.load(tag);
+            yes(r.trySpendDodgeStamina()); eq(0F, r.getStamina()); yes(r.isStaminaExhausted());
+        });
+        test("Dodge interval survives form changes but lifecycle clears transient movement", () -> {
+            var s = new StatusData(); s.beginDodge(new net.minecraft.world.phys.Vec3(1,0,0), 100);
+            yes(!s.canDodge(100));
+            for (int i = 0; i < 5; i++) s.advanceDodge(); eq(0, s.getDodgeTicks());
+            s.stopDodge(); yes(!s.canDodge(111)); yes(s.canDodge(112));
+            s.beginDodge(new net.minecraft.world.phys.Vec3(1,0,0), 112); s.clearTransformationState();
+            yes(!s.isDodging()); yes(!s.canDodge(123)); yes(s.canDodge(124));
+            s.clearTransientState(); yes(s.canDodge(0));
+            s.beginDodge(new net.minecraft.world.phys.Vec3(1,0,0), 100); s.load(s.save());
+            yes(!s.isDodging()); yes(s.canDodge(0));
+        });
         test("Resistance stamina curve has diminishing returns without free refills", () -> {
             eq(100F, com.bleachmod.common.StaminaPolicy.maximum(0));
             eq(150F, com.bleachmod.common.StaminaPolicy.maximum(20));

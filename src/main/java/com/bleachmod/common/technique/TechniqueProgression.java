@@ -25,6 +25,7 @@ public final class TechniqueProgression {
         };
     }
     public static boolean authorize(ServerPlayer player, PlayerData data, int slot) {
+        if (data.getStatus().isDodging()) return false;
         if (!data.getStatus().hasCreatedCharacter() || !player.isAlive() || player.isSpectator()
                 || !"shinigami".equals(data.getCharacter().getRace()) || slot < 1 || slot > 4) return false;
         if (CharacterData.ASAUCHI.equals(data.getCharacter().getZanpakutoIdentity())) {
