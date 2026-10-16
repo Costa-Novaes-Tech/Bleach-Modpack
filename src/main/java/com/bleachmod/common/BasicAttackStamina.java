@@ -26,6 +26,7 @@ public final class BasicAttackStamina {
                 && !weapon.is(ModItems.HYORINMARU.get()) && !weapon.is(ModItems.SENBONZAKURA.get()) && !weapon.is(ModItems.BENIHIME.get())) return;
         PlayerCapability.get(player).ifPresent(data -> {
             if (!data.getStatus().hasCreatedCharacter()) return;
+            if (!com.bleachmod.common.compat.BetterCombatCompat.chargeStamina(player)) return;
             data.getResources().spendBasicAttackStamina();
             if (data.getResources().isStaminaExhausted()) player.setSprinting(false);
             SyncHelper.resources(player);

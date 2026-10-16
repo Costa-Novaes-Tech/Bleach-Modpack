@@ -2,7 +2,7 @@
 
 Atualizado em 16/10/2026. Resumo de passagem para nova conversa; consulte o código/Git antes de alterar. Este arquivo evita precisar importar o histórico completo do chat. Não substitui instruções atuais do usuário.
 
-**Frente vigente: ciclo 51 — Better Combat autorizado, ferramentas no roadmap e revisão de Hyōrinmaru + Ryūjin Jakka.** [Plano de integração baseado no vídeo/skill e documentos da equipe](51-roadmap-better-combat-ferramentas-refatoracao-2026-10-16.md). Usuário quer discutir a sequência de implementação; autorização para Better Combat registrada, sem instalação de runtime nesta etapa documental. Primeiro reaproveitar trabalho Nozarashi do colega e conciliar regras de combate. Urahara/Byakuya/defesa/esquiva homologados. Rede **2.17**, schema **8**; conferir Git antes de trabalhar.
+**Frente vigente: ciclo 52 — Better Combat integrado em piloto Asauchi, aguardando playtest e commit Zaraki da equipe.** [Contrato, dependências e instalação](52-better-combat-piloto-asauchi-2026-10-16.md). Better Combat 1.9.0 Forge + PlayerAnimator + Cloth Config agora são necessários; pacote completo em `build/combat-test-pack/mods`. Cobrança única por golpe e bloqueios de estado verificados. Rede **2.18**, schema **8**, 99 regressões/118 GameTests aprovados. Não declarar homologação visual/multiplayer real. Conferir Git e comparar o trabalho do colega quando disponível.
 
 ## 1. Repositório e regras mantidas pelo usuário
 
@@ -17,7 +17,7 @@ Atualizado em 16/10/2026. Resumo de passagem para nova conversa; consulte o cód
 
 ## 2. Estado entregue e homologado
 
-Minecraft 1.20.1, Forge 47.4.10, Java 17, Gradle wrapper. Mod 0.2.0; protocolo de rede 2.17; schema persistente 8. Cliente e servidor devem usar a mesma build.
+Minecraft 1.20.1, Forge 47.4.10, Java 17, Gradle wrapper. Mod 0.2.0; protocolo de rede 2.18; schema persistente 8. Cliente e servidor devem usar a mesma build.
 
 - Ryujin Jakka e Hyōrinmaru possuem kits próprios nas formas selada/Shikai/Bankai, já testados pelo usuário. Seus detalhes históricos estão nos relatórios de poderes; não reabrir balanceamento/visuais sem solicitação.
 - Uma zanpakutō vinculada por vez. Pode trocar identidade, mantendo progresso separado. Asauchi é identidade própria, com Shikai/Bankai de bônus de dano e sem slots elementais; modelos preservados.
@@ -149,3 +149,8 @@ Em 16/10/2026, usuário confirmou testes e **homologou Urahara/Benihime**, inclu
 ## 14. Mudança de direção — ciclo 51
 
 Usuário autorizou Better Combat e inclusão das bibliotecas/ferramentas do ciclo 50 no roadmap, pediu revisar também Ryūjin além de Hyōrinmaru, sempre com base nas documentações da equipe. Vídeo Nozarashi/Berserk analisado visualmente; skill externo game-design-architect lido e aplicado a contratos/estados/aceite. [Plano atual](51-roadmap-better-combat-ferramentas-refatoracao-2026-10-16.md) e [roadmap atualizado](38-roadmap-defesa-treinamento-gin-byakuya-2026-10-15.md). Proposta: inventário do trabalho do colega → Better Combat/adaptação Bleach → autoria/GeckoLib → VFX/Photon/áudio/performance → Hyōrinmaru → Ryūjin → Ishida; Mentor/Proficiências aguardam equipe; Curios/IA/SmartBrainLib/TerraBlender nos módulos correspondentes. Essa ordem fina é proposta, não aprovação fictícia de novos poderes. A restrição histórica sobre adicionar libs/corrigir apenas gelo não deve bloquear a nova autorização. APIs/versões da integração do colega ainda precisam ser identificadas; Nozarashi não foi encontrado no checkout atual/consulta de refs locais. Nenhum fetch/merge/runtime alterado nesta etapa. Última build continua rede 2.17/schema 8, 98 regressões/113 GameTests; só docs revisados. Não duplicar dano/custo/alcance/prática entre Better Combat e Bleach. Aizen adiado, Gin removido.
+
+
+## 15. Compatibilização inicial — ciclo 52
+
+Usuário autorizou começar enquanto a equipe providencia commit Zaraki. [Piloto entregue](52-better-combat-piloto-asauchi-2026-10-16.md): Better Combat 1.9.0+1.20.1-forge, PlayerAnimator 1.0.2-rc1+1.20-forge, Cloth Config 11.1.136+forge. Dependências externas obrigatórias; `prepareCombatTestPack` gera pasta com quatro JARs. Asauchi tem três movimentos herdados da espada, alcance 3 e multiplicadores 1; demais itens Bleach excluídos do fallback até revisão. Modelos/texturas preservados. Três mixins delimitam contexto por golpe, isolam piloto e desativam dual wield Bleach; custo até 4 por tentativa elegível uma vez por golpe, servidor revalida estado/alvo/alcance/visão. Cliente cancela preparação incompatível, sem substituir validação do servidor. Check/build + 99 regressões/118 GameTests aprovados, log `build/cycle52-validation.log`, rede 2.18/schema 8. Falta playtest de cliente/duas conexões reais e comparação com versão/recursos do colega. Não fazer fetch/merge automático de conteúdo não identificado nem duplicar Nozarashi. Refatorações de Hyōrinmaru e Ryūjin continuam após estabilização da base.

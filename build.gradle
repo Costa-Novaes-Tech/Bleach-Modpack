@@ -61,6 +61,9 @@ minecraft {
         // applies to all the run configs below
         configureEach {
             workingDirectory project.file('run')
+            args '--mixin.config', 'bleachmod.mixins.json'
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
 
             // Recommended logging data for a userdev environment
             // The markers can be added/remove as needed separated by commas.
@@ -122,6 +125,7 @@ repositories {
         url = 'https://libraries.minecraft.net/'
     }
     mavenCentral()
+    maven { url = 'https://api.modrinth.com/maven'; content { includeGroup 'maven.modrinth' } }
 
     // Put additional repositories for dependencies here.
     // ForgeGradle also adds the Forge maven and Maven Central, but keeping them
@@ -134,7 +138,15 @@ repositories {
     // }
 }
 
+configurations { combatRuntimeArtifacts { transitive = false } }
+
 dependencies {
+    implementation fg.deobf("maven.modrinth:better-combat:${better_combat_version}")
+    implementation fg.deobf("maven.modrinth:playeranimator:${player_animator_version}")
+    implementation fg.deobf("maven.modrinth:cloth-config:${cloth_config_version}")
+    combatRuntimeArtifacts "maven.modrinth:better-combat:${better_combat_version}"
+    combatRuntimeArtifacts "maven.modrinth:playeranimator:${player_animator_version}"
+    combatRuntimeArtifacts "maven.modrinth:cloth-config:${cloth_config_version}"
     // Specify the version of Minecraft to use.
     // Any artifact can be supplied so long as it has a "userdev" classifier artifact and is a compatible patcher artifact.
     // The "userdev" classifier will be requested and setup by ForgeGradle.
@@ -181,6 +193,7 @@ tasks.named('processResources', ProcessResources).configure {
 tasks.named('jar', Jar).configure {
     manifest {
         attributes([
+                'MixinConfigs'            : 'bleachmod.mixins.json',
                 'Specification-Title'     : mod_id,
                 'Specification-Vendor'    : mod_authors,
                 'Specification-Version'   : '1', // We are version 1 of ourselves
@@ -227,3 +240,11 @@ tasks.register('regressionTest', JavaExec) {
 }
 tasks.named('check') { dependsOn tasks.named('regressionTest') }
 
+
+// External original jars, not deobfuscated development artifacts, ready for the pilot installation.
+tasks.register('prepareCombatTestPack', Copy) {
+    dependsOn tasks.named('build')
+    from configurations.combatRuntimeArtifacts
+    from tasks.named('jar')
+    into layout.buildDirectory.dir('combat-test-pack/mods')
+}

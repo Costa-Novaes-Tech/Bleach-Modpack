@@ -885,6 +885,11 @@ public final class MvpRegressionTest {
             var mesh=com.bleachmod.common.visual.BenihimeGeometry.build(new com.bleachmod.common.network.s2c.BenihimeFrameS2C(1,3,o,o,f,10,1,1));
             yes(mesh.stream().flatMap(q->java.util.stream.Stream.of(q.a(),q.b(),q.c(),q.d())).allMatch(v->v.y>=o.y-.03));
         });
+        test("Better Combat pilot honors guard dodge and charge states",()->{
+            var d=player();yes(com.bleachmod.common.compat.BetterCombatCompat.stateAllows(d));d.getGuard().request(1);yes(!com.bleachmod.common.compat.BetterCombatCompat.stateAllows(d));
+            d.getGuard().release();d.getStatus().beginDodge(new net.minecraft.world.phys.Vec3(1,0,0),1);yes(!com.bleachmod.common.compat.BetterCombatCompat.stateAllows(d));d.getStatus().stopDodge();
+            d.getStatus().setActionCharging(true);yes(!com.bleachmod.common.compat.BetterCombatCompat.stateAllows(d));
+        });
         test("Benihime HUD leases are transient and snapshots isolated",()->{
             var status=new StatusData();var tag=new net.minecraft.nbt.CompoundTag();tag.putInt("shield",900);tag.putInt("charges",3);status.readBenihimeHud(tag);
             eq(100,status.getBenihimeHud().getInt("shield"));status.getBenihimeHud().putInt("charges",0);eq(3,status.getBenihimeHud().getInt("charges"));
