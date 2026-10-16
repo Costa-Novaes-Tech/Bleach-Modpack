@@ -51,3 +51,12 @@ As trincheiras começam 1 a 1,5 bloco à frente para não cavar embaixo de quem 
 - Densidade geral: `BerserkVisuals.DENSITY`. Aura: `BerserkAura.STRANDS/STEPS/FIRST_PERSON_*`.
 - Tamanho dos buracos: chamadas a `BerserkTerrain.crater/trench` em `NozarashiTechniqueService` e `NozarashiReleaseEffects`; raio do golpe comum em `BerserkTerrain.hammerRadius/hammerDepth`.
 - Blocos aceitos: `BerserkTerrain.natural`.
+
+## Correção do teste de clima (mesmo dia)
+
+Causa real: `zone_legacy` e `zone_radius` (Bankai da Hyōrinmaru) chamavam o caster de clima em `onEachTick`. Depois do cancelamento no `finally`, um tick seguinte ainda com Bankai **readquiria** o lease global de clima, que ficava até 40 ticks. Quando `weather_packets` rodava logo depois (ordem frequente com o WorldEdit carregado), o `acquire`/`release` dele virava no-op e o `STOP_RAINING` nunca era enviado.
+
+- Os dois testes voltam o jogador para a forma selada antes de cancelar, para o caster liberar o lease em vez de renovar.
+- `BlizzardWeatherData.idle()`: o teste de pacotes espera o lease global ficar livre antes de executar (timeout de 120 ticks), sem mudar nenhuma asserção.
+- Resultado: 64/64 em 5 execuções seguidas com WorldEdit (antes falhava 7/7) e 3/3 sem WorldEdit.
+
