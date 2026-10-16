@@ -16,8 +16,10 @@ import net.minecraftforge.fml.common.Mod;
  */
 @Mod.EventBusSubscriber(modid = Reference.MOD_ID, value = Dist.CLIENT)
 public final class BerserkAura {
-    public static final int STRANDS = 3, STEPS = 4;
-    public static final double HEIGHT = 2.4, RADIUS = .95;
+    public static final int STRANDS = 2, STEPS = 2;
+    public static final double HEIGHT = 2.3, RADIUS = .95;
+    /** First person: keep the spiral below the chest and wider, so it frames the view instead of covering it. */
+    public static final double FIRST_PERSON_TOP = 1.0, FIRST_PERSON_RADIUS = 1.35;
     private BerserkAura() { }
 
     @SubscribeEvent public static void tick(TickEvent.ClientTickEvent event) {
@@ -28,23 +30,25 @@ public final class BerserkAura {
     }
 
     private static void spiral(AbstractClientPlayer player) {
-        var level = player.level(); var random = level.random;
+        var mc = Minecraft.getInstance(); var level = player.level(); var random = level.random;
+        boolean ownView = player == mc.player && mc.options.getCameraType().isFirstPerson();
+        double top = ownView ? FIRST_PERSON_TOP : HEIGHT, baseRadius = ownView ? FIRST_PERSON_RADIUS : RADIUS;
         double x = player.getX(), y = player.getY(), z = player.getZ();
         for (int strand = 0; strand < STRANDS; strand++) for (int step = 0; step < STEPS; step++) {
             double phase = player.tickCount + step / (double) STEPS;
-            double height = (phase * .09 + strand * HEIGHT / STRANDS) % HEIGHT;
+            double height = (phase * .09 + strand * top / STRANDS) % top;
             double angle = phase * .5 + strand * Math.PI * 2 / STRANDS;
-            double radius = RADIUS * (1 - height / HEIGHT * .35);
-            level.addParticle(BerserkVisuals.BLOOD_LARGE, x + Math.cos(angle) * radius, y + height, z + Math.sin(angle) * radius, 0, .02, 0);
-            if (step == 0) level.addParticle(BerserkVisuals.BLOOD, x + Math.cos(angle) * radius * 1.15, y + height, z + Math.sin(angle) * radius * 1.15, 0, .05, 0);
+            double radius = baseRadius * (1 - height / HEIGHT * .3);
+            level.addParticle(step == 0 ? BerserkVisuals.BLOOD_LARGE : BerserkVisuals.BLOOD,
+                    x + Math.cos(angle) * radius, y + height, z + Math.sin(angle) * radius, 0, ownView ? 0 : .015, 0);
         }
-        if (player.tickCount % 2 == 0) level.addParticle(BerserkVisuals.EMBER, x + (random.nextDouble() - .5) * 1.4,
-                y + random.nextDouble() * 2.2, z + (random.nextDouble() - .5) * 1.4, 0, .06, 0);
-        if (player.tickCount % 4 == 0) level.addParticle(ParticleTypes.LARGE_SMOKE, x + (random.nextDouble() - .5),
-                y + 2 + random.nextDouble() * .5, z + (random.nextDouble() - .5), 0, .03, 0);
-        if (player.tickCount % 10 == 0) for (int i = 0; i < 12; i++) { // pulse ring at the feet
-            double angle = i * Math.PI / 6;
-            level.addParticle(BerserkVisuals.BLOOD_DARK, x + Math.cos(angle) * 1.2, y + .1, z + Math.sin(angle) * 1.2, 0, .01, 0);
+        if (player.tickCount % 4 == 0) level.addParticle(BerserkVisuals.EMBER, x + (random.nextDouble() - .5) * 1.6,
+                y + random.nextDouble() * top, z + (random.nextDouble() - .5) * 1.6, 0, ownView ? 0 : .04, 0);
+        if (!ownView && player.tickCount % 8 == 0) level.addParticle(ParticleTypes.SMOKE, x + (random.nextDouble() - .5),
+                y + 2 + random.nextDouble() * .4, z + (random.nextDouble() - .5), 0, .02, 0);
+        if (player.tickCount % 20 == 0) for (int i = 0; i < 8; i++) { // pulse ring at the feet
+            double angle = i * Math.PI / 4;
+            level.addParticle(BerserkVisuals.BLOOD_DARK, x + Math.cos(angle) * 1.3, y + .1, z + Math.sin(angle) * 1.3, 0, 0, 0);
         }
     }
 }

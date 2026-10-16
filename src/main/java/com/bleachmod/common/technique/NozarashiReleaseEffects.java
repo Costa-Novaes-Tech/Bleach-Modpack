@@ -86,15 +86,17 @@ public final class NozarashiReleaseEffects {
         if (t < ERUPTION && (t % Math.max(4, 14 - t / 4) == 0)) play(p, SoundEvents.WARDEN_HEARTBEAT, 3, .5F + t * .012F);
         if (t == 6) play(p, SoundEvents.WARDEN_ANGRY, 2, .6F);
         if (t == 16) play(p, SoundEvents.ZOGLIN_ANGRY, 2, .5F);
-        if (t >= 8 && t < ERUPTION && t % 2 == 0) BerserkVisuals.ring(p, p.position(), .5 + (t - 8) * .09, 20, false);
+        if (t >= 8 && t < ERUPTION && t % 4 == 0) BerserkVisuals.ring(p, p.position(), .5 + (t - 8) * .09, 20, false);
         for (int pound : POUNDS) if (t == pound) { // fists hammering the ground
             Vec3 fist = p.position().add(c.forward.scale(.9));
             BerserkVisuals.impact(p, fist, 1.5F + (t - POUNDS[0]) * .08F);
+            BerserkTerrain.crater(p, fist, 1.3, 1);
             play(p, SoundEvents.ANVIL_LAND, 1.4F, .4F); play(p, SoundEvents.GENERIC_EXPLODE, .8F, .7F);
             shake(p, 3 + (t - POUNDS[0]) / 6);
         }
         if (t == ERUPTION) {
             BerserkVisuals.pillar(p, c.forward, 9);
+            BerserkTerrain.crater(p, p.position(), 5.5, 3, 1.3); // the wielder stays on a pillar of ground
             BerserkVisuals.ring(p, p.position(), 3, 48, true);
             BerserkVisuals.ring(p, p.position(), 6, 64, true);
             play(p, SoundEvents.GENERIC_EXPLODE, 3, .45F); play(p, SoundEvents.WARDEN_SONIC_BOOM, 2, .5F);
@@ -105,10 +107,7 @@ public final class NozarashiReleaseEffects {
                 e.push(away.x * 2.2, .9, away.z * 2.2); e.hurtMarked = true;
             }
         }
-        if (t > ERUPTION && t < ERUPTION + 40 && t % 3 == 0) {
-            BerserkVisuals.ring(p, p.position(), 3 + (t - ERUPTION) * .35, 48, true);
-            if (t % 9 == 0) BerserkVisuals.pillar(p, c.forward, 6);
-        }
+        if (t > ERUPTION && t < ERUPTION + 36 && t % 6 == 0) BerserkVisuals.ring(p, p.position(), 3 + (t - ERUPTION) * .35, 40, true);
         if (t == SECOND_ROAR) { roar(p, 3); shake(p, 7); BerserkVisuals.ring(p, p.position(), 4, 64, true); }
         if (t == GRAB) { play(p, SoundEvents.ANVIL_LAND, 1.4F, .5F); play(p, SoundEvents.CHAIN_BREAK, 2, .5F); }
         if (t == SLAM) { // the blade comes down on the ground like a hammer
@@ -116,6 +115,8 @@ public final class NozarashiReleaseEffects {
             BerserkVisuals.crescent(p, c.forward, 3, 5, true);
             BerserkVisuals.fissure(p, p.position(), c.forward, 18, true);
             BerserkVisuals.impact(p, ground, 2.5F);
+            BerserkTerrain.trench(p, p.position().add(c.forward.scale(1.5)), c.forward, 18, 1.2, 3);
+            BerserkTerrain.crater(p, ground, 3, 2);
             BerserkVisuals.ring(p, ground, 4, 56, true);
             play(p, SoundEvents.GENERIC_EXPLODE, 2.5F, .5F); play(p, SoundEvents.WARDEN_SONIC_BOOM, 1.5F, .6F);
             roar(p, 2);
