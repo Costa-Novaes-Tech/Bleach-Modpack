@@ -1,5 +1,29 @@
 # Ciclo 38 — Ordem escolhida: defesa, treinamento e novos kits
 
+## Atualização vigente — 16/10/2026, ciclo 51
+
+Defesa/esquiva, Byakuya e Urahara estão homologados. Usuário autorizou **Better Combat**, inclusão das ferramentas/bibliotecas pesquisadas e revisão tanto de **Hyōrinmaru quanto de Ryūjin Jakka**. [Análise do vídeo/skill, arquitetura e critérios](51-roadmap-better-combat-ferramentas-refatoracao-2026-10-16.md). As decisões históricas abaixo não proíbem essa nova frente.
+
+Ordem técnica **proposta para discussão**:
+
+| Etapa | Frente |
+|---|---|
+| 0 | Localizar/reaproveitar a integração e os assets Nozarashi do colega, fixar versões e baseline. |
+| 1 | Better Combat + PlayerAnimator/Cloth Config e dependências efetivas, com adaptação às regras Bleach. |
+| 2 | Blockbench + GeckoLib 4; fluxo de texturas Aseprite/LibreSprite, animação e áudio Audacity; Blender complementar. |
+| 3 | Photon 1.x/LDLib em bancada, diagnóstico spark e liberação/trilha piloto. |
+| 4 | Revisar e refatorar Hyōrinmaru por forma/slot, conforme documentos da equipe. |
+| 5 | Revisar e refatorar Ryūjin Jakka por forma/slot, conforme documentos da equipe. |
+| 6 | Uryū Ishida, com Curios conforme contrato de acessórios. |
+| 7 | Mentor e Proficiências, ainda dependentes da confirmação da equipe. |
+| Coordenada com equipe | SmartBrainLib/IA e TerraBlender/worldgen nas etapas dos módulos existentes. |
+
+Better Combat entrou no escopo autorizado; versões e contratos de novos movesets ainda serão fechados na integração. A revisão de Hyōrinmaru deixa de ser a única revisão de kit prevista, e a antiga posição ao final da fila fica sucedida por esta proposta de organização. Não instalar todas as bibliotecas num único passo nem tratar aprovação de ferramentas como aprovação de poderes novos sem tabela. Gin continua removido; Aizen adiado.
+
+---
+
+## Registro histórico do ciclo 38
+
 Data: 15/10/2026. Branch: `Feature-Poderes-bankais`. Entrega de planejamento, sem alterações de código.
 
 ## Decisão do usuário

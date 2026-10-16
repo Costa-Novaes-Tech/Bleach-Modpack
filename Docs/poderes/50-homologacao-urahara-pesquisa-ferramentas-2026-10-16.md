@@ -1,5 +1,7 @@
 # Ciclo 50 — Urahara homologado e pesquisa de ferramentas
 
+> Atualização do usuário no [ciclo 51](51-roadmap-better-combat-ferramentas-refatoracao-2026-10-16.md): Better Combat autorizado e ferramentas/bibliotecas incluídas no roadmap; revisões de Hyōrinmaru e Ryūjin Jakka solicitadas. A recomendação inicial de manter Better Combat apenas como alternativa foi sucedida por essa escolha. Nenhuma biblioteca foi instalada ainda no mod por essas entregas documentais.
+
 Data da pesquisa: **16/10/2026**. Git limpo na `Feature-Poderes-bankais`, HEAD `f46d669`. Usuário homologou a feature após testar o ciclo 49. **Urahara/Benihime concluído e homologado**, junto dos kits/recursos já aceitos. Não reabrir ajustes automaticamente. Esta etapa é pesquisa e discussão; nenhuma biblioteca instalada, migração de modelos ou mudança de gameplay autorizada por este documento.
 
 Base funcional: Minecraft 1.20.1, Forge 47.4.10, Java 17; mod 0.2.0, rede 2.17, schema 8. Última implementação validada com 98 regressões e 113 GameTests. Pesquisa documental não gera nova build nem comprova compatibilidade de bibliotecas em runtime.
