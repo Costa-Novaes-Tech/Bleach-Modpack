@@ -21,6 +21,7 @@ public final class TechniqueProgression {
             case CharacterData.ASAUCHI -> player.getMainHandItem().is(ModItems.ASAUCHI.get());
             case CharacterData.RYUJIN -> player.getMainHandItem().is(ModItems.RYUJIN_JAKKA.get());
             case CharacterData.HYORINMARU -> player.getMainHandItem().is(ModItems.HYORINMARU.get());
+            case CharacterData.NOZARASHI -> player.getMainHandItem().is(ModItems.NOZARASHI.get());
             default -> false;
         };
     }

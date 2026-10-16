@@ -26,6 +26,7 @@ public final class CombatEvents {
                     ? com.bleachmod.common.technique.IceArmorService.REDUCTION
                     : com.bleachmod.common.technique.ReleasePassives.resistance(armored);
             event.setAmount(event.getAmount() * (1 - reduction));
+            com.bleachmod.common.technique.NozarashiTechniqueService.onHurt(armored);
         }
         if(isPlayerMeleeAttack(event.getSource()) && event.getSource().getEntity() instanceof ServerPlayer player) {
             PlayerCapability.get(player).ifPresent(data->{
@@ -36,6 +37,7 @@ public final class CombatEvents {
                 if (isZanjutsuWeapon(player)) {
                     float ignitionBonus = TechniqueService.isRyujinJakkaEquipped(player)
                             ? TechniqueService.ignitionDamageBonus(data) : 0.0F;
+                    ignitionBonus += com.bleachmod.common.technique.NozarashiTechniqueService.damageBonus(player, data);
                     event.setAmount(CombatBalance.outgoingDamage(event.getAmount(),
                         data.getAttributes().level(AttributeData.ZANJUTSU),
                         formBonus + ignitionBonus));
@@ -71,6 +73,7 @@ public final class CombatEvents {
                 com.bleachmod.common.technique.MasteryPracticeService.damage(player, event.getEntity());
                 TechniqueService.applyIgnitionHit(player, data, event.getEntity());
                 com.bleachmod.common.technique.ReleasePassives.flameHit(player, data, event.getEntity());
+                com.bleachmod.common.technique.NozarashiTechniqueService.onDamageDealt(player, event.getAmount());
                 NetworkHandler.sendToPlayer(new DamageIndicatorS2C(event.getAmount()), player);
             }
         });
@@ -83,7 +86,8 @@ public final class CombatEvents {
     private static boolean isZanjutsuWeapon(ServerPlayer player) {
         return player.getMainHandItem().is(ModItems.ASAUCHI.get())
                 || player.getMainHandItem().is(ModItems.RYUJIN_JAKKA.get())
-                || player.getMainHandItem().is(ModItems.HYORINMARU.get());
+                || player.getMainHandItem().is(ModItems.HYORINMARU.get())
+                || player.getMainHandItem().is(ModItems.NOZARASHI.get());
     }
 
     private static boolean isSupportedMeleeWeapon(ServerPlayer player) {

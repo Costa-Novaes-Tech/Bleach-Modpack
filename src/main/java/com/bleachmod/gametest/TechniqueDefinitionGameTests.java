@@ -25,7 +25,7 @@ public final class TechniqueDefinitionGameTests {
             data.initializeShinigami(); data.getCharacter().bindZanpakuto(definition.identity()); data.getCharacter().preserveLegacyTechniques();
             data.getSkills().get("zanpakuto").setLevel(2); data.getCharacter().unlockForm("shikai"); data.getCharacter().unlockForm("bankai");
             data.getCharacter().setMastery("zanpakuto", "shikai", 100); data.getCharacter().setActiveForm("zanpakuto", definition.form());
-            p.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(definition.identity().equals("ryujin_jakka") ? ModItems.RYUJIN_JAKKA.get() : ModItems.HYORINMARU.get()));
+            p.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(com.bleachmod.common.ZanpakutoCarry.item(definition.identity())));
             try {
                 float before = data.getResources().getCurrentReiatsu();
                 TechniqueService.executeSlot(p, data, definition.slot());
@@ -36,7 +36,8 @@ public final class TechniqueDefinitionGameTests {
                 };
                 h.assertTrue(cooldown == definition.cooldownTicks(), "Cooldown differs from definition: " + definition);
                 if (definition.drainPerTick() > 0) {
-                    TechniqueService.tickIgnition(p, data);
+                    if ("nozarashi".equals(definition.identity())) com.bleachmod.common.technique.NozarashiTechniqueService.tick(p, data);
+                    else TechniqueService.tickIgnition(p, data);
                     h.assertTrue(Math.abs(data.getResources().getCurrentReiatsu() - (before - definition.drainPerTick())) < .001, "Continuous drain differs from definition");
                 }
                 RyujinTechniqueService.cancel(p);

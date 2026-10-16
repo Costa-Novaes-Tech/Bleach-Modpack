@@ -1,0 +1,10263 @@
+{
+ "gui_light": "front",
+ "textures": {
+  "wrap": "minecraft:block/white_wool",
+  "binding": "minecraft:block/black_wool",
+  "guard": "minecraft:block/anvil",
+  "blade": "minecraft:block/polished_blackstone",
+  "spine": "minecraft:block/blackstone",
+  "edge": "minecraft:block/red_concrete",
+  "notch": "minecraft:block/black_concrete",
+  "particle": "minecraft:block/red_concrete",
+  "gold": "minecraft:block/gold_block",
+  "tassel": "minecraft:block/green_wool",
+  "crack": "minecraft:block/redstone_block"
+ },
+ "display": {
+  "thirdperson_righthand": {
+   "rotation": [
+    0,
+    -90,
+    55
+   ],
+   "scale": [
+    1.85,
+    1.85,
+    1.85
+   ],
+   "translation": [
+    0,
+    10.0,
+    0.5
+   ]
+  },
+  "thirdperson_lefthand": {
+   "rotation": [
+    0,
+    90,
+    -55
+   ],
+   "scale": [
+    1.85,
+    1.85,
+    1.85
+   ],
+   "translation": [
+    0,
+    10.0,
+    0.5
+   ]
+  },
+  "firstperson_righthand": {
+   "rotation": [
+    0,
+    -90,
+    25
+   ],
+   "scale": [
+    0.9,
+    0.9,
+    0.9
+   ],
+   "translation": [
+    1.13,
+    3.2,
+    1.13
+   ]
+  },
+  "firstperson_lefthand": {
+   "rotation": [
+    0,
+    90,
+    -25
+   ],
+   "scale": [
+    0.9,
+    0.9,
+    0.9
+   ],
+   "translation": [
+    1.13,
+    3.2,
+    1.13
+   ]
+  },
+  "gui": {
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "scale": [
+    0.42,
+    0.42,
+    0.42
+   ],
+   "translation": [
+    -3,
+    -3,
+    0
+   ]
+  },
+  "fixed": {
+   "rotation": [
+    0,
+    0,
+    0
+   ],
+   "scale": [
+    0.42,
+    0.42,
+    0.42
+   ],
+   "translation": [
+    -3,
+    -3,
+    0
+   ]
+  },
+  "ground": {
+   "scale": [
+    0.4,
+    0.4,
+    0.4
+   ],
+   "translation": [
+    0,
+    3,
+    0
+   ]
+  }
+ },
+ "elements": [
+  {
+   "name": "pole",
+   "from": [
+    7.3,
+    -0.5,
+    7.3
+   ],
+   "to": [
+    8.7,
+    25.0,
+    8.7
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      1.4,
+      16
+     ],
+     "texture": "#wrap"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      1.4,
+      16
+     ],
+     "texture": "#wrap"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      1.4,
+      16
+     ],
+     "texture": "#wrap"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      1.4,
+      16
+     ],
+     "texture": "#wrap"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      1.4,
+      1.4
+     ],
+     "texture": "#wrap"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      1.4,
+      1.4
+     ],
+     "texture": "#wrap"
+    }
+   }
+  },
+  {
+   "name": "pommel",
+   "from": [
+    7.1,
+    -1.4,
+    7.1
+   ],
+   "to": [
+    8.9,
+    -0.5,
+    8.9
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      1.8,
+      0.9
+     ],
+     "texture": "#guard"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      1.8,
+      0.9
+     ],
+     "texture": "#guard"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      1.8,
+      0.9
+     ],
+     "texture": "#guard"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      1.8,
+      0.9
+     ],
+     "texture": "#guard"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      1.8,
+      1.8
+     ],
+     "texture": "#guard"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      1.8,
+      1.8
+     ],
+     "texture": "#guard"
+    }
+   }
+  },
+  {
+   "name": "wrap_band",
+   "from": [
+    7.24,
+    0.2,
+    7.24
+   ],
+   "to": [
+    8.76,
+    0.65,
+    8.76
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      0.45
+     ],
+     "texture": "#binding"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      0.45
+     ],
+     "texture": "#binding"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      0.45
+     ],
+     "texture": "#binding"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      0.45
+     ],
+     "texture": "#binding"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      1.52
+     ],
+     "texture": "#binding"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      1.52
+     ],
+     "texture": "#binding"
+    }
+   }
+  },
+  {
+   "name": "wrap_band",
+   "from": [
+    7.24,
+    1.5,
+    7.24
+   ],
+   "to": [
+    8.76,
+    1.95,
+    8.76
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      0.45
+     ],
+     "texture": "#binding"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      0.45
+     ],
+     "texture": "#binding"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      0.45
+     ],
+     "texture": "#binding"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      0.45
+     ],
+     "texture": "#binding"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      1.52
+     ],
+     "texture": "#binding"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      1.52
+     ],
+     "texture": "#binding"
+    }
+   }
+  },
+  {
+   "name": "wrap_band",
+   "from": [
+    7.24,
+    2.8,
+    7.24
+   ],
+   "to": [
+    8.76,
+    3.25,
+    8.76
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      0.45
+     ],
+     "texture": "#binding"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      0.45
+     ],
+     "texture": "#binding"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      0.45
+     ],
+     "texture": "#binding"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      0.45
+     ],
+     "texture": "#binding"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      1.52
+     ],
+     "texture": "#binding"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      1.52
+     ],
+     "texture": "#binding"
+    }
+   }
+  },
+  {
+   "name": "wrap_band",
+   "from": [
+    7.24,
+    4.1,
+    7.24
+   ],
+   "to": [
+    8.76,
+    4.55,
+    8.76
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      0.45
+     ],
+     "texture": "#binding"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      0.45
+     ],
+     "texture": "#binding"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      0.45
+     ],
+     "texture": "#binding"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      0.45
+     ],
+     "texture": "#binding"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      1.52
+     ],
+     "texture": "#binding"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      1.52
+     ],
+     "texture": "#binding"
+    }
+   }
+  },
+  {
+   "name": "wrap_band",
+   "from": [
+    7.24,
+    5.4,
+    7.24
+   ],
+   "to": [
+    8.76,
+    5.85,
+    8.76
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      0.45
+     ],
+     "texture": "#binding"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      0.45
+     ],
+     "texture": "#binding"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      0.45
+     ],
+     "texture": "#binding"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      0.45
+     ],
+     "texture": "#binding"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      1.52
+     ],
+     "texture": "#binding"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      1.52
+     ],
+     "texture": "#binding"
+    }
+   }
+  },
+  {
+   "name": "wrap_band",
+   "from": [
+    7.24,
+    6.7,
+    7.24
+   ],
+   "to": [
+    8.76,
+    7.15,
+    8.76
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      0.45
+     ],
+     "texture": "#binding"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      0.45
+     ],
+     "texture": "#binding"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      0.45
+     ],
+     "texture": "#binding"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      0.45
+     ],
+     "texture": "#binding"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      1.52
+     ],
+     "texture": "#binding"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      1.52
+     ],
+     "texture": "#binding"
+    }
+   }
+  },
+  {
+   "name": "wrap_band",
+   "from": [
+    7.24,
+    8.0,
+    7.24
+   ],
+   "to": [
+    8.76,
+    8.45,
+    8.76
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      0.45
+     ],
+     "texture": "#binding"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      0.45
+     ],
+     "texture": "#binding"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      0.45
+     ],
+     "texture": "#binding"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      0.45
+     ],
+     "texture": "#binding"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      1.52
+     ],
+     "texture": "#binding"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      1.52
+     ],
+     "texture": "#binding"
+    }
+   }
+  },
+  {
+   "name": "wrap_band",
+   "from": [
+    7.24,
+    9.3,
+    7.24
+   ],
+   "to": [
+    8.76,
+    9.75,
+    8.76
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      0.45
+     ],
+     "texture": "#binding"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      0.45
+     ],
+     "texture": "#binding"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      0.45
+     ],
+     "texture": "#binding"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      0.45
+     ],
+     "texture": "#binding"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      1.52
+     ],
+     "texture": "#binding"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      1.52
+     ],
+     "texture": "#binding"
+    }
+   }
+  },
+  {
+   "name": "wrap_band",
+   "from": [
+    7.24,
+    10.6,
+    7.24
+   ],
+   "to": [
+    8.76,
+    11.05,
+    8.76
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      0.45
+     ],
+     "texture": "#binding"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      0.45
+     ],
+     "texture": "#binding"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      0.45
+     ],
+     "texture": "#binding"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      0.45
+     ],
+     "texture": "#binding"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      1.52
+     ],
+     "texture": "#binding"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      1.52
+     ],
+     "texture": "#binding"
+    }
+   }
+  },
+  {
+   "name": "wrap_band",
+   "from": [
+    7.24,
+    11.9,
+    7.24
+   ],
+   "to": [
+    8.76,
+    12.35,
+    8.76
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      0.45
+     ],
+     "texture": "#binding"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      0.45
+     ],
+     "texture": "#binding"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      0.45
+     ],
+     "texture": "#binding"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      0.45
+     ],
+     "texture": "#binding"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      1.52
+     ],
+     "texture": "#binding"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      1.52
+     ],
+     "texture": "#binding"
+    }
+   }
+  },
+  {
+   "name": "wrap_band",
+   "from": [
+    7.24,
+    13.2,
+    7.24
+   ],
+   "to": [
+    8.76,
+    13.65,
+    8.76
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      0.45
+     ],
+     "texture": "#binding"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      0.45
+     ],
+     "texture": "#binding"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      0.45
+     ],
+     "texture": "#binding"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      0.45
+     ],
+     "texture": "#binding"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      1.52
+     ],
+     "texture": "#binding"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      1.52
+     ],
+     "texture": "#binding"
+    }
+   }
+  },
+  {
+   "name": "wrap_band",
+   "from": [
+    7.24,
+    14.5,
+    7.24
+   ],
+   "to": [
+    8.76,
+    14.95,
+    8.76
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      0.45
+     ],
+     "texture": "#binding"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      0.45
+     ],
+     "texture": "#binding"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      0.45
+     ],
+     "texture": "#binding"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      0.45
+     ],
+     "texture": "#binding"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      1.52
+     ],
+     "texture": "#binding"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      1.52
+     ],
+     "texture": "#binding"
+    }
+   }
+  },
+  {
+   "name": "wrap_band",
+   "from": [
+    7.24,
+    15.8,
+    7.24
+   ],
+   "to": [
+    8.76,
+    16.25,
+    8.76
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      0.45
+     ],
+     "texture": "#binding"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      0.45
+     ],
+     "texture": "#binding"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      0.45
+     ],
+     "texture": "#binding"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      0.45
+     ],
+     "texture": "#binding"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      1.52
+     ],
+     "texture": "#binding"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      1.52
+     ],
+     "texture": "#binding"
+    }
+   }
+  },
+  {
+   "name": "wrap_band",
+   "from": [
+    7.24,
+    17.1,
+    7.24
+   ],
+   "to": [
+    8.76,
+    17.55,
+    8.76
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      0.45
+     ],
+     "texture": "#binding"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      0.45
+     ],
+     "texture": "#binding"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      0.45
+     ],
+     "texture": "#binding"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      0.45
+     ],
+     "texture": "#binding"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      1.52
+     ],
+     "texture": "#binding"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      1.52
+     ],
+     "texture": "#binding"
+    }
+   }
+  },
+  {
+   "name": "wrap_band",
+   "from": [
+    7.24,
+    18.4,
+    7.24
+   ],
+   "to": [
+    8.76,
+    18.85,
+    8.76
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      0.45
+     ],
+     "texture": "#binding"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      0.45
+     ],
+     "texture": "#binding"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      0.45
+     ],
+     "texture": "#binding"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      0.45
+     ],
+     "texture": "#binding"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      1.52
+     ],
+     "texture": "#binding"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      1.52
+     ],
+     "texture": "#binding"
+    }
+   }
+  },
+  {
+   "name": "wrap_band",
+   "from": [
+    7.24,
+    19.7,
+    7.24
+   ],
+   "to": [
+    8.76,
+    20.15,
+    8.76
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      0.45
+     ],
+     "texture": "#binding"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      0.45
+     ],
+     "texture": "#binding"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      0.45
+     ],
+     "texture": "#binding"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      0.45
+     ],
+     "texture": "#binding"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      1.52
+     ],
+     "texture": "#binding"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      1.52
+     ],
+     "texture": "#binding"
+    }
+   }
+  },
+  {
+   "name": "wrap_band",
+   "from": [
+    7.24,
+    21.0,
+    7.24
+   ],
+   "to": [
+    8.76,
+    21.45,
+    8.76
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      0.45
+     ],
+     "texture": "#binding"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      0.45
+     ],
+     "texture": "#binding"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      0.45
+     ],
+     "texture": "#binding"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      0.45
+     ],
+     "texture": "#binding"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      1.52
+     ],
+     "texture": "#binding"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      1.52
+     ],
+     "texture": "#binding"
+    }
+   }
+  },
+  {
+   "name": "wrap_band",
+   "from": [
+    7.24,
+    22.3,
+    7.24
+   ],
+   "to": [
+    8.76,
+    22.75,
+    8.76
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      0.45
+     ],
+     "texture": "#binding"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      0.45
+     ],
+     "texture": "#binding"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      0.45
+     ],
+     "texture": "#binding"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      0.45
+     ],
+     "texture": "#binding"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      1.52
+     ],
+     "texture": "#binding"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      1.52
+     ],
+     "texture": "#binding"
+    }
+   }
+  },
+  {
+   "name": "wrap_band",
+   "from": [
+    7.24,
+    23.6,
+    7.24
+   ],
+   "to": [
+    8.76,
+    24.05,
+    8.76
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      0.45
+     ],
+     "texture": "#binding"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      0.45
+     ],
+     "texture": "#binding"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      0.45
+     ],
+     "texture": "#binding"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      0.45
+     ],
+     "texture": "#binding"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      1.52
+     ],
+     "texture": "#binding"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      1.52,
+      1.52
+     ],
+     "texture": "#binding"
+    }
+   }
+  },
+  {
+   "name": "ferrule",
+   "from": [
+    6.2,
+    24.0,
+    6.6
+   ],
+   "to": [
+    10.6,
+    31.4,
+    9.4
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      4.4,
+      7.4
+     ],
+     "texture": "#gold"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      4.4,
+      7.4
+     ],
+     "texture": "#gold"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      2.8,
+      7.4
+     ],
+     "texture": "#gold"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      2.8,
+      7.4
+     ],
+     "texture": "#gold"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      4.4,
+      2.8
+     ],
+     "texture": "#gold"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      4.4,
+      2.8
+     ],
+     "texture": "#gold"
+    }
+   }
+  },
+  {
+   "name": "ferrule_lip",
+   "from": [
+    5.9,
+    30.6,
+    6.4
+   ],
+   "to": [
+    10.9,
+    31.8,
+    9.6
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      5.0,
+      1.2
+     ],
+     "texture": "#gold"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      5.0,
+      1.2
+     ],
+     "texture": "#gold"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      3.2,
+      1.2
+     ],
+     "texture": "#gold"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      3.2,
+      1.2
+     ],
+     "texture": "#gold"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      5.0,
+      3.2
+     ],
+     "texture": "#gold"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      5.0,
+      3.2
+     ],
+     "texture": "#gold"
+    }
+   }
+  },
+  {
+   "name": "ferrule_hole",
+   "from": [
+    8.4,
+    26.0,
+    6.5
+   ],
+   "to": [
+    9.8,
+    27.6,
+    9.5
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      1.4,
+      1.6
+     ],
+     "texture": "#notch"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      1.4,
+      1.6
+     ],
+     "texture": "#notch"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      3.0,
+      1.6
+     ],
+     "texture": "#notch"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      3.0,
+      1.6
+     ],
+     "texture": "#notch"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      1.4,
+      3.0
+     ],
+     "texture": "#notch"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      1.4,
+      3.0
+     ],
+     "texture": "#notch"
+    }
+   }
+  },
+  {
+   "name": "tassel",
+   "from": [
+    9.4,
+    17.5,
+    7.6
+   ],
+   "to": [
+    9.75,
+    24.0,
+    7.95
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      0.35,
+      6.5
+     ],
+     "texture": "#tassel"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      0.35,
+      6.5
+     ],
+     "texture": "#tassel"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      0.35,
+      6.5
+     ],
+     "texture": "#tassel"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      0.35,
+      6.5
+     ],
+     "texture": "#tassel"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      0.35,
+      0.35
+     ],
+     "texture": "#tassel"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      0.35,
+      0.35
+     ],
+     "texture": "#tassel"
+    }
+   }
+  },
+  {
+   "name": "tassel",
+   "from": [
+    9.9,
+    16.0,
+    7.9
+   ],
+   "to": [
+    10.25,
+    24.0,
+    8.25
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      0.35,
+      8.0
+     ],
+     "texture": "#tassel"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      0.35,
+      8.0
+     ],
+     "texture": "#tassel"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      0.35,
+      8.0
+     ],
+     "texture": "#tassel"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      0.35,
+      8.0
+     ],
+     "texture": "#tassel"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      0.35,
+      0.35
+     ],
+     "texture": "#tassel"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      0.35,
+      0.35
+     ],
+     "texture": "#tassel"
+    }
+   }
+  },
+  {
+   "name": "tassel",
+   "from": [
+    10.3,
+    18.5,
+    8.2
+   ],
+   "to": [
+    10.65,
+    24.0,
+    8.55
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      0.35,
+      5.5
+     ],
+     "texture": "#tassel"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      0.35,
+      5.5
+     ],
+     "texture": "#tassel"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      0.35,
+      5.5
+     ],
+     "texture": "#tassel"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      0.35,
+      5.5
+     ],
+     "texture": "#tassel"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      0.35,
+      0.35
+     ],
+     "texture": "#tassel"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      0.35,
+      0.35
+     ],
+     "texture": "#tassel"
+    }
+   }
+  },
+  {
+   "name": "tassel",
+   "from": [
+    8.9,
+    16.8,
+    7.6
+   ],
+   "to": [
+    9.25,
+    24.0,
+    7.95
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      0.35,
+      7.2
+     ],
+     "texture": "#tassel"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      0.35,
+      7.2
+     ],
+     "texture": "#tassel"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      0.35,
+      7.2
+     ],
+     "texture": "#tassel"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      0.35,
+      7.2
+     ],
+     "texture": "#tassel"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      0.35,
+      0.35
+     ],
+     "texture": "#tassel"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      0.35,
+      0.35
+     ],
+     "texture": "#tassel"
+    }
+   }
+  },
+  {
+   "name": "tassel",
+   "from": [
+    10.6,
+    19.6,
+    7.9
+   ],
+   "to": [
+    10.95,
+    24.0,
+    8.25
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      0.35,
+      4.4
+     ],
+     "texture": "#tassel"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      0.35,
+      4.4
+     ],
+     "texture": "#tassel"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      0.35,
+      4.4
+     ],
+     "texture": "#tassel"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      0.35,
+      4.4
+     ],
+     "texture": "#tassel"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      0.35,
+      0.35
+     ],
+     "texture": "#tassel"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      0.35,
+      0.35
+     ],
+     "texture": "#tassel"
+    }
+   }
+  },
+  {
+   "name": "crescent",
+   "from": [
+    5.3,
+    22.3,
+    7.25
+   ],
+   "to": [
+    6.2,
+    31.15,
+    8.75
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      8.85
+     ],
+     "texture": "#blade"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      8.85
+     ],
+     "texture": "#blade"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      1.5,
+      8.85
+     ],
+     "texture": "#blade"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      1.5,
+      8.85
+     ],
+     "texture": "#blade"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      1.5
+     ],
+     "texture": "#blade"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      1.5
+     ],
+     "texture": "#blade"
+    }
+   }
+  },
+  {
+   "name": "crescent_spine",
+   "from": [
+    5.3,
+    31.15,
+    7.2
+   ],
+   "to": [
+    6.2,
+    31.6,
+    8.8
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.45
+     ],
+     "texture": "#spine"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.45
+     ],
+     "texture": "#spine"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      1.6,
+      0.45
+     ],
+     "texture": "#spine"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      1.6,
+      0.45
+     ],
+     "texture": "#spine"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      1.6
+     ],
+     "texture": "#spine"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      1.6
+     ],
+     "texture": "#spine"
+    }
+   }
+  },
+  {
+   "name": "crescent_edge",
+   "from": [
+    5.3,
+    21.75,
+    7.75
+   ],
+   "to": [
+    6.2,
+    22.3,
+    8.25
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.55
+     ],
+     "texture": "#edge"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.55
+     ],
+     "texture": "#edge"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      0.5,
+      0.55
+     ],
+     "texture": "#edge"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      0.5,
+      0.55
+     ],
+     "texture": "#edge"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.5
+     ],
+     "texture": "#edge"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.5
+     ],
+     "texture": "#edge"
+    }
+   }
+  },
+  {
+   "name": "berserk_edge_glow",
+   "from": [
+    5.3,
+    21.6,
+    7.73
+   ],
+   "to": [
+    6.2,
+    21.85,
+    8.27
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.25
+     ],
+     "texture": "#crack"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.25
+     ],
+     "texture": "#crack"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      0.54,
+      0.25
+     ],
+     "texture": "#crack"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      0.54,
+      0.25
+     ],
+     "texture": "#crack"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.54
+     ],
+     "texture": "#crack"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.54
+     ],
+     "texture": "#crack"
+    }
+   },
+   "forge_data": {
+    "block_light": 15,
+    "sky_light": 15,
+    "ambient_occlusion": false
+   }
+  },
+  {
+   "name": "crescent",
+   "from": [
+    4.4,
+    22.582,
+    7.264
+   ],
+   "to": [
+    5.3,
+    31.084,
+    8.736
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      8.502
+     ],
+     "texture": "#blade"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      8.502
+     ],
+     "texture": "#blade"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      1.472,
+      8.502
+     ],
+     "texture": "#blade"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      1.472,
+      8.502
+     ],
+     "texture": "#blade"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      1.472
+     ],
+     "texture": "#blade"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      1.472
+     ],
+     "texture": "#blade"
+    }
+   }
+  },
+  {
+   "name": "crescent_spine",
+   "from": [
+    4.4,
+    31.084,
+    7.214
+   ],
+   "to": [
+    5.3,
+    31.534,
+    8.786
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.45
+     ],
+     "texture": "#spine"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.45
+     ],
+     "texture": "#spine"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      1.572,
+      0.45
+     ],
+     "texture": "#spine"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      1.572,
+      0.45
+     ],
+     "texture": "#spine"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      1.572
+     ],
+     "texture": "#spine"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      1.572
+     ],
+     "texture": "#spine"
+    }
+   }
+  },
+  {
+   "name": "crescent_edge",
+   "from": [
+    4.4,
+    22.032,
+    7.75
+   ],
+   "to": [
+    5.3,
+    22.582,
+    8.25
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.55
+     ],
+     "texture": "#edge"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.55
+     ],
+     "texture": "#edge"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      0.5,
+      0.55
+     ],
+     "texture": "#edge"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      0.5,
+      0.55
+     ],
+     "texture": "#edge"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.5
+     ],
+     "texture": "#edge"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.5
+     ],
+     "texture": "#edge"
+    }
+   }
+  },
+  {
+   "name": "berserk_crack",
+   "from": [
+    4.3,
+    27.357,
+    7.204
+   ],
+   "to": [
+    5.4,
+    28.057,
+    8.796
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      1.1,
+      0.7
+     ],
+     "texture": "#crack"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      1.1,
+      0.7
+     ],
+     "texture": "#crack"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      1.592,
+      0.7
+     ],
+     "texture": "#crack"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      1.592,
+      0.7
+     ],
+     "texture": "#crack"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      1.1,
+      1.592
+     ],
+     "texture": "#crack"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      1.1,
+      1.592
+     ],
+     "texture": "#crack"
+    }
+   },
+   "forge_data": {
+    "block_light": 15,
+    "sky_light": 15,
+    "ambient_occlusion": false
+   }
+  },
+  {
+   "name": "berserk_edge_glow",
+   "from": [
+    4.4,
+    21.882,
+    7.73
+   ],
+   "to": [
+    5.3,
+    22.132,
+    8.27
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.25
+     ],
+     "texture": "#crack"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.25
+     ],
+     "texture": "#crack"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      0.54,
+      0.25
+     ],
+     "texture": "#crack"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      0.54,
+      0.25
+     ],
+     "texture": "#crack"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.54
+     ],
+     "texture": "#crack"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.54
+     ],
+     "texture": "#crack"
+    }
+   },
+   "forge_data": {
+    "block_light": 15,
+    "sky_light": 15,
+    "ambient_occlusion": false
+   }
+  },
+  {
+   "name": "crescent",
+   "from": [
+    3.5,
+    22.862,
+    7.278
+   ],
+   "to": [
+    4.4,
+    31.013,
+    8.722
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      8.151
+     ],
+     "texture": "#blade"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      8.151
+     ],
+     "texture": "#blade"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      1.444,
+      8.151
+     ],
+     "texture": "#blade"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      1.444,
+      8.151
+     ],
+     "texture": "#blade"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      1.444
+     ],
+     "texture": "#blade"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      1.444
+     ],
+     "texture": "#blade"
+    }
+   }
+  },
+  {
+   "name": "crescent_spine",
+   "from": [
+    3.5,
+    31.013,
+    7.228
+   ],
+   "to": [
+    4.4,
+    31.463,
+    8.772
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.45
+     ],
+     "texture": "#spine"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.45
+     ],
+     "texture": "#spine"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      1.544,
+      0.45
+     ],
+     "texture": "#spine"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      1.544,
+      0.45
+     ],
+     "texture": "#spine"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      1.544
+     ],
+     "texture": "#spine"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      1.544
+     ],
+     "texture": "#spine"
+    }
+   }
+  },
+  {
+   "name": "crescent_edge",
+   "from": [
+    3.5,
+    22.312,
+    7.75
+   ],
+   "to": [
+    4.4,
+    22.862,
+    8.25
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.55
+     ],
+     "texture": "#edge"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.55
+     ],
+     "texture": "#edge"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      0.5,
+      0.55
+     ],
+     "texture": "#edge"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      0.5,
+      0.55
+     ],
+     "texture": "#edge"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.5
+     ],
+     "texture": "#edge"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.5
+     ],
+     "texture": "#edge"
+    }
+   }
+  },
+  {
+   "name": "berserk_edge_glow",
+   "from": [
+    3.5,
+    22.162,
+    7.73
+   ],
+   "to": [
+    4.4,
+    22.412,
+    8.27
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.25
+     ],
+     "texture": "#crack"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.25
+     ],
+     "texture": "#crack"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      0.54,
+      0.25
+     ],
+     "texture": "#crack"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      0.54,
+      0.25
+     ],
+     "texture": "#crack"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.54
+     ],
+     "texture": "#crack"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.54
+     ],
+     "texture": "#crack"
+    }
+   },
+   "forge_data": {
+    "block_light": 15,
+    "sky_light": 15,
+    "ambient_occlusion": false
+   }
+  },
+  {
+   "name": "crescent",
+   "from": [
+    2.6,
+    23.134,
+    7.292
+   ],
+   "to": [
+    3.5,
+    30.931,
+    8.708
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      7.797
+     ],
+     "texture": "#blade"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      7.797
+     ],
+     "texture": "#blade"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      1.416,
+      7.797
+     ],
+     "texture": "#blade"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      1.416,
+      7.797
+     ],
+     "texture": "#blade"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      1.416
+     ],
+     "texture": "#blade"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      1.416
+     ],
+     "texture": "#blade"
+    }
+   }
+  },
+  {
+   "name": "crescent_spine",
+   "from": [
+    2.6,
+    30.931,
+    7.242
+   ],
+   "to": [
+    3.5,
+    31.381,
+    8.758
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.45
+     ],
+     "texture": "#spine"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.45
+     ],
+     "texture": "#spine"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      1.516,
+      0.45
+     ],
+     "texture": "#spine"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      1.516,
+      0.45
+     ],
+     "texture": "#spine"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      1.516
+     ],
+     "texture": "#spine"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      1.516
+     ],
+     "texture": "#spine"
+    }
+   }
+  },
+  {
+   "name": "crescent_edge",
+   "from": [
+    2.6,
+    22.584,
+    7.75
+   ],
+   "to": [
+    3.5,
+    23.134,
+    8.25
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.55
+     ],
+     "texture": "#edge"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.55
+     ],
+     "texture": "#edge"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      0.5,
+      0.55
+     ],
+     "texture": "#edge"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      0.5,
+      0.55
+     ],
+     "texture": "#edge"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.5
+     ],
+     "texture": "#edge"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.5
+     ],
+     "texture": "#edge"
+    }
+   }
+  },
+  {
+   "name": "berserk_edge_glow",
+   "from": [
+    2.6,
+    22.434,
+    7.73
+   ],
+   "to": [
+    3.5,
+    22.684,
+    8.27
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.25
+     ],
+     "texture": "#crack"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.25
+     ],
+     "texture": "#crack"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      0.54,
+      0.25
+     ],
+     "texture": "#crack"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      0.54,
+      0.25
+     ],
+     "texture": "#crack"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.54
+     ],
+     "texture": "#crack"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.54
+     ],
+     "texture": "#crack"
+    }
+   },
+   "forge_data": {
+    "block_light": 15,
+    "sky_light": 15,
+    "ambient_occlusion": false
+   }
+  },
+  {
+   "name": "crescent",
+   "from": [
+    1.7,
+    23.393,
+    7.306
+   ],
+   "to": [
+    2.6,
+    30.834,
+    8.694
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      7.441
+     ],
+     "texture": "#blade"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      7.441
+     ],
+     "texture": "#blade"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      1.388,
+      7.441
+     ],
+     "texture": "#blade"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      1.388,
+      7.441
+     ],
+     "texture": "#blade"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      1.388
+     ],
+     "texture": "#blade"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      1.388
+     ],
+     "texture": "#blade"
+    }
+   }
+  },
+  {
+   "name": "crescent_spine",
+   "from": [
+    1.7,
+    30.834,
+    7.256
+   ],
+   "to": [
+    2.6,
+    31.284,
+    8.744
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.45
+     ],
+     "texture": "#spine"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.45
+     ],
+     "texture": "#spine"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      1.488,
+      0.45
+     ],
+     "texture": "#spine"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      1.488,
+      0.45
+     ],
+     "texture": "#spine"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      1.488
+     ],
+     "texture": "#spine"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      1.488
+     ],
+     "texture": "#spine"
+    }
+   }
+  },
+  {
+   "name": "crescent_edge",
+   "from": [
+    1.7,
+    22.843,
+    7.75
+   ],
+   "to": [
+    2.6,
+    23.393,
+    8.25
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.55
+     ],
+     "texture": "#edge"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.55
+     ],
+     "texture": "#edge"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      0.5,
+      0.55
+     ],
+     "texture": "#edge"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      0.5,
+      0.55
+     ],
+     "texture": "#edge"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.5
+     ],
+     "texture": "#edge"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.5
+     ],
+     "texture": "#edge"
+    }
+   }
+  },
+  {
+   "name": "berserk_crack",
+   "from": [
+    1.6,
+    24.2,
+    7.246
+   ],
+   "to": [
+    2.7,
+    24.9,
+    8.754
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      1.1,
+      0.7
+     ],
+     "texture": "#crack"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      1.1,
+      0.7
+     ],
+     "texture": "#crack"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      1.508,
+      0.7
+     ],
+     "texture": "#crack"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      1.508,
+      0.7
+     ],
+     "texture": "#crack"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      1.1,
+      1.508
+     ],
+     "texture": "#crack"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      1.1,
+      1.508
+     ],
+     "texture": "#crack"
+    }
+   },
+   "forge_data": {
+    "block_light": 15,
+    "sky_light": 15,
+    "ambient_occlusion": false
+   }
+  },
+  {
+   "name": "berserk_edge_glow",
+   "from": [
+    1.7,
+    22.693,
+    7.73
+   ],
+   "to": [
+    2.6,
+    22.943,
+    8.27
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.25
+     ],
+     "texture": "#crack"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.25
+     ],
+     "texture": "#crack"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      0.54,
+      0.25
+     ],
+     "texture": "#crack"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      0.54,
+      0.25
+     ],
+     "texture": "#crack"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.54
+     ],
+     "texture": "#crack"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.54
+     ],
+     "texture": "#crack"
+    }
+   },
+   "forge_data": {
+    "block_light": 15,
+    "sky_light": 15,
+    "ambient_occlusion": false
+   }
+  },
+  {
+   "name": "crescent",
+   "from": [
+    0.8,
+    23.634,
+    7.32
+   ],
+   "to": [
+    1.7,
+    30.716,
+    8.68
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      7.082
+     ],
+     "texture": "#blade"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      7.082
+     ],
+     "texture": "#blade"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      1.36,
+      7.082
+     ],
+     "texture": "#blade"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      1.36,
+      7.082
+     ],
+     "texture": "#blade"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      1.36
+     ],
+     "texture": "#blade"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      1.36
+     ],
+     "texture": "#blade"
+    }
+   }
+  },
+  {
+   "name": "crescent_spine",
+   "from": [
+    0.8,
+    30.716,
+    7.27
+   ],
+   "to": [
+    1.7,
+    31.166,
+    8.73
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.45
+     ],
+     "texture": "#spine"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.45
+     ],
+     "texture": "#spine"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      1.46,
+      0.45
+     ],
+     "texture": "#spine"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      1.46,
+      0.45
+     ],
+     "texture": "#spine"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      1.46
+     ],
+     "texture": "#spine"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      1.46
+     ],
+     "texture": "#spine"
+    }
+   }
+  },
+  {
+   "name": "crescent_edge",
+   "from": [
+    0.8,
+    23.084,
+    7.75
+   ],
+   "to": [
+    1.7,
+    23.634,
+    8.25
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.55
+     ],
+     "texture": "#edge"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.55
+     ],
+     "texture": "#edge"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      0.5,
+      0.55
+     ],
+     "texture": "#edge"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      0.5,
+      0.55
+     ],
+     "texture": "#edge"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.5
+     ],
+     "texture": "#edge"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.5
+     ],
+     "texture": "#edge"
+    }
+   }
+  },
+  {
+   "name": "berserk_edge_glow",
+   "from": [
+    0.8,
+    22.934,
+    7.73
+   ],
+   "to": [
+    1.7,
+    23.184,
+    8.27
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.25
+     ],
+     "texture": "#crack"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.25
+     ],
+     "texture": "#crack"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      0.54,
+      0.25
+     ],
+     "texture": "#crack"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      0.54,
+      0.25
+     ],
+     "texture": "#crack"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.54
+     ],
+     "texture": "#crack"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.54
+     ],
+     "texture": "#crack"
+    }
+   },
+   "forge_data": {
+    "block_light": 15,
+    "sky_light": 15,
+    "ambient_occlusion": false
+   }
+  },
+  {
+   "name": "crescent",
+   "from": [
+    -0.1,
+    23.852,
+    7.333
+   ],
+   "to": [
+    0.8,
+    30.572,
+    8.667
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      6.72
+     ],
+     "texture": "#blade"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      6.72
+     ],
+     "texture": "#blade"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      1.334,
+      6.72
+     ],
+     "texture": "#blade"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      1.334,
+      6.72
+     ],
+     "texture": "#blade"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      1.334
+     ],
+     "texture": "#blade"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      1.334
+     ],
+     "texture": "#blade"
+    }
+   }
+  },
+  {
+   "name": "crescent_spine",
+   "from": [
+    -0.1,
+    30.572,
+    7.283
+   ],
+   "to": [
+    0.8,
+    31.022,
+    8.717
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.45
+     ],
+     "texture": "#spine"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.45
+     ],
+     "texture": "#spine"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      1.434,
+      0.45
+     ],
+     "texture": "#spine"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      1.434,
+      0.45
+     ],
+     "texture": "#spine"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      1.434
+     ],
+     "texture": "#spine"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      1.434
+     ],
+     "texture": "#spine"
+    }
+   }
+  },
+  {
+   "name": "crescent_edge",
+   "from": [
+    -0.1,
+    23.302,
+    7.75
+   ],
+   "to": [
+    0.8,
+    23.852,
+    8.25
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.55
+     ],
+     "texture": "#edge"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.55
+     ],
+     "texture": "#edge"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      0.5,
+      0.55
+     ],
+     "texture": "#edge"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      0.5,
+      0.55
+     ],
+     "texture": "#edge"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.5
+     ],
+     "texture": "#edge"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.5
+     ],
+     "texture": "#edge"
+    }
+   }
+  },
+  {
+   "name": "berserk_edge_glow",
+   "from": [
+    -0.1,
+    23.152,
+    7.73
+   ],
+   "to": [
+    0.8,
+    23.402,
+    8.27
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.25
+     ],
+     "texture": "#crack"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.25
+     ],
+     "texture": "#crack"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      0.54,
+      0.25
+     ],
+     "texture": "#crack"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      0.54,
+      0.25
+     ],
+     "texture": "#crack"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.54
+     ],
+     "texture": "#crack"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.54
+     ],
+     "texture": "#crack"
+    }
+   },
+   "forge_data": {
+    "block_light": 15,
+    "sky_light": 15,
+    "ambient_occlusion": false
+   }
+  },
+  {
+   "name": "crescent",
+   "from": [
+    -1.0,
+    24.043,
+    7.347
+   ],
+   "to": [
+    -0.1,
+    30.397,
+    8.653
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      6.354
+     ],
+     "texture": "#blade"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      6.354
+     ],
+     "texture": "#blade"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      1.306,
+      6.354
+     ],
+     "texture": "#blade"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      1.306,
+      6.354
+     ],
+     "texture": "#blade"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      1.306
+     ],
+     "texture": "#blade"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      1.306
+     ],
+     "texture": "#blade"
+    }
+   }
+  },
+  {
+   "name": "crescent_spine",
+   "from": [
+    -1.0,
+    30.397,
+    7.297
+   ],
+   "to": [
+    -0.1,
+    30.847,
+    8.703
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.45
+     ],
+     "texture": "#spine"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.45
+     ],
+     "texture": "#spine"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      1.406,
+      0.45
+     ],
+     "texture": "#spine"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      1.406,
+      0.45
+     ],
+     "texture": "#spine"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      1.406
+     ],
+     "texture": "#spine"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      1.406
+     ],
+     "texture": "#spine"
+    }
+   }
+  },
+  {
+   "name": "crescent_edge",
+   "from": [
+    -1.0,
+    23.493,
+    7.75
+   ],
+   "to": [
+    -0.1,
+    24.043,
+    8.25
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.55
+     ],
+     "texture": "#edge"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.55
+     ],
+     "texture": "#edge"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      0.5,
+      0.55
+     ],
+     "texture": "#edge"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      0.5,
+      0.55
+     ],
+     "texture": "#edge"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.5
+     ],
+     "texture": "#edge"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.5
+     ],
+     "texture": "#edge"
+    }
+   }
+  },
+  {
+   "name": "berserk_crack",
+   "from": [
+    -1.1,
+    27.275,
+    7.287
+   ],
+   "to": [
+    0.0,
+    27.975,
+    8.713
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      1.1,
+      0.7
+     ],
+     "texture": "#crack"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      1.1,
+      0.7
+     ],
+     "texture": "#crack"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      1.426,
+      0.7
+     ],
+     "texture": "#crack"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      1.426,
+      0.7
+     ],
+     "texture": "#crack"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      1.1,
+      1.426
+     ],
+     "texture": "#crack"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      1.1,
+      1.426
+     ],
+     "texture": "#crack"
+    }
+   },
+   "forge_data": {
+    "block_light": 15,
+    "sky_light": 15,
+    "ambient_occlusion": false
+   }
+  },
+  {
+   "name": "berserk_edge_glow",
+   "from": [
+    -1.0,
+    23.343,
+    7.73
+   ],
+   "to": [
+    -0.1,
+    23.593,
+    8.27
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.25
+     ],
+     "texture": "#crack"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.25
+     ],
+     "texture": "#crack"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      0.54,
+      0.25
+     ],
+     "texture": "#crack"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      0.54,
+      0.25
+     ],
+     "texture": "#crack"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.54
+     ],
+     "texture": "#crack"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.54
+     ],
+     "texture": "#crack"
+    }
+   },
+   "forge_data": {
+    "block_light": 15,
+    "sky_light": 15,
+    "ambient_occlusion": false
+   }
+  },
+  {
+   "name": "crescent",
+   "from": [
+    -1.9,
+    24.2,
+    7.361
+   ],
+   "to": [
+    -1.0,
+    30.186,
+    8.639
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      5.986
+     ],
+     "texture": "#blade"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      5.986
+     ],
+     "texture": "#blade"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      1.278,
+      5.986
+     ],
+     "texture": "#blade"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      1.278,
+      5.986
+     ],
+     "texture": "#blade"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      1.278
+     ],
+     "texture": "#blade"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      1.278
+     ],
+     "texture": "#blade"
+    }
+   }
+  },
+  {
+   "name": "crescent_spine",
+   "from": [
+    -1.9,
+    30.186,
+    7.311
+   ],
+   "to": [
+    -1.0,
+    30.636,
+    8.689
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.45
+     ],
+     "texture": "#spine"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.45
+     ],
+     "texture": "#spine"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      1.378,
+      0.45
+     ],
+     "texture": "#spine"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      1.378,
+      0.45
+     ],
+     "texture": "#spine"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      1.378
+     ],
+     "texture": "#spine"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      1.378
+     ],
+     "texture": "#spine"
+    }
+   }
+  },
+  {
+   "name": "crescent_edge",
+   "from": [
+    -1.9,
+    23.65,
+    7.75
+   ],
+   "to": [
+    -1.0,
+    24.2,
+    8.25
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.55
+     ],
+     "texture": "#edge"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.55
+     ],
+     "texture": "#edge"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      0.5,
+      0.55
+     ],
+     "texture": "#edge"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      0.5,
+      0.55
+     ],
+     "texture": "#edge"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.5
+     ],
+     "texture": "#edge"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.5
+     ],
+     "texture": "#edge"
+    }
+   }
+  },
+  {
+   "name": "berserk_edge_glow",
+   "from": [
+    -1.9,
+    23.5,
+    7.73
+   ],
+   "to": [
+    -1.0,
+    23.75,
+    8.27
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.25
+     ],
+     "texture": "#crack"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.25
+     ],
+     "texture": "#crack"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      0.54,
+      0.25
+     ],
+     "texture": "#crack"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      0.54,
+      0.25
+     ],
+     "texture": "#crack"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.54
+     ],
+     "texture": "#crack"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.54
+     ],
+     "texture": "#crack"
+    }
+   },
+   "forge_data": {
+    "block_light": 15,
+    "sky_light": 15,
+    "ambient_occlusion": false
+   }
+  },
+  {
+   "name": "crescent",
+   "from": [
+    -2.8,
+    24.32,
+    7.375
+   ],
+   "to": [
+    -1.9,
+    29.934,
+    8.625
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      5.614
+     ],
+     "texture": "#blade"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      5.614
+     ],
+     "texture": "#blade"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      1.25,
+      5.614
+     ],
+     "texture": "#blade"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      1.25,
+      5.614
+     ],
+     "texture": "#blade"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      1.25
+     ],
+     "texture": "#blade"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      1.25
+     ],
+     "texture": "#blade"
+    }
+   }
+  },
+  {
+   "name": "crescent_spine",
+   "from": [
+    -2.8,
+    29.934,
+    7.325
+   ],
+   "to": [
+    -1.9,
+    30.384,
+    8.675
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.45
+     ],
+     "texture": "#spine"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.45
+     ],
+     "texture": "#spine"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      1.35,
+      0.45
+     ],
+     "texture": "#spine"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      1.35,
+      0.45
+     ],
+     "texture": "#spine"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      1.35
+     ],
+     "texture": "#spine"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      1.35
+     ],
+     "texture": "#spine"
+    }
+   }
+  },
+  {
+   "name": "crescent_edge",
+   "from": [
+    -2.8,
+    23.77,
+    7.75
+   ],
+   "to": [
+    -1.9,
+    24.32,
+    8.25
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.55
+     ],
+     "texture": "#edge"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.55
+     ],
+     "texture": "#edge"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      0.5,
+      0.55
+     ],
+     "texture": "#edge"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      0.5,
+      0.55
+     ],
+     "texture": "#edge"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.5
+     ],
+     "texture": "#edge"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.5
+     ],
+     "texture": "#edge"
+    }
+   }
+  },
+  {
+   "name": "berserk_edge_glow",
+   "from": [
+    -2.8,
+    23.62,
+    7.73
+   ],
+   "to": [
+    -1.9,
+    23.87,
+    8.27
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.25
+     ],
+     "texture": "#crack"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.25
+     ],
+     "texture": "#crack"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      0.54,
+      0.25
+     ],
+     "texture": "#crack"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      0.54,
+      0.25
+     ],
+     "texture": "#crack"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.54
+     ],
+     "texture": "#crack"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.54
+     ],
+     "texture": "#crack"
+    }
+   },
+   "forge_data": {
+    "block_light": 15,
+    "sky_light": 15,
+    "ambient_occlusion": false
+   }
+  },
+  {
+   "name": "crescent",
+   "from": [
+    -3.7,
+    24.397,
+    7.389
+   ],
+   "to": [
+    -2.8,
+    29.635,
+    8.611
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      5.238
+     ],
+     "texture": "#blade"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      5.238
+     ],
+     "texture": "#blade"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      1.222,
+      5.238
+     ],
+     "texture": "#blade"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      1.222,
+      5.238
+     ],
+     "texture": "#blade"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      1.222
+     ],
+     "texture": "#blade"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      1.222
+     ],
+     "texture": "#blade"
+    }
+   }
+  },
+  {
+   "name": "crescent_spine",
+   "from": [
+    -3.7,
+    29.635,
+    7.339
+   ],
+   "to": [
+    -2.8,
+    30.085,
+    8.661
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.45
+     ],
+     "texture": "#spine"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.45
+     ],
+     "texture": "#spine"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      1.322,
+      0.45
+     ],
+     "texture": "#spine"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      1.322,
+      0.45
+     ],
+     "texture": "#spine"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      1.322
+     ],
+     "texture": "#spine"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      1.322
+     ],
+     "texture": "#spine"
+    }
+   }
+  },
+  {
+   "name": "crescent_edge",
+   "from": [
+    -3.7,
+    23.847,
+    7.75
+   ],
+   "to": [
+    -2.8,
+    24.397,
+    8.25
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.55
+     ],
+     "texture": "#edge"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.55
+     ],
+     "texture": "#edge"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      0.5,
+      0.55
+     ],
+     "texture": "#edge"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      0.5,
+      0.55
+     ],
+     "texture": "#edge"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.5
+     ],
+     "texture": "#edge"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.5
+     ],
+     "texture": "#edge"
+    }
+   }
+  },
+  {
+   "name": "berserk_crack",
+   "from": [
+    -3.8,
+    25.182,
+    7.329
+   ],
+   "to": [
+    -2.7,
+    25.882,
+    8.671
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      1.1,
+      0.7
+     ],
+     "texture": "#crack"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      1.1,
+      0.7
+     ],
+     "texture": "#crack"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      1.342,
+      0.7
+     ],
+     "texture": "#crack"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      1.342,
+      0.7
+     ],
+     "texture": "#crack"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      1.1,
+      1.342
+     ],
+     "texture": "#crack"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      1.1,
+      1.342
+     ],
+     "texture": "#crack"
+    }
+   },
+   "forge_data": {
+    "block_light": 15,
+    "sky_light": 15,
+    "ambient_occlusion": false
+   }
+  },
+  {
+   "name": "berserk_edge_glow",
+   "from": [
+    -3.7,
+    23.697,
+    7.73
+   ],
+   "to": [
+    -2.8,
+    23.947,
+    8.27
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.25
+     ],
+     "texture": "#crack"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.25
+     ],
+     "texture": "#crack"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      0.54,
+      0.25
+     ],
+     "texture": "#crack"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      0.54,
+      0.25
+     ],
+     "texture": "#crack"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.54
+     ],
+     "texture": "#crack"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.54
+     ],
+     "texture": "#crack"
+    }
+   },
+   "forge_data": {
+    "block_light": 15,
+    "sky_light": 15,
+    "ambient_occlusion": false
+   }
+  },
+  {
+   "name": "crescent",
+   "from": [
+    -4.6,
+    24.427,
+    7.403
+   ],
+   "to": [
+    -3.7,
+    29.284,
+    8.597
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      4.857
+     ],
+     "texture": "#blade"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      4.857
+     ],
+     "texture": "#blade"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      1.194,
+      4.857
+     ],
+     "texture": "#blade"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      1.194,
+      4.857
+     ],
+     "texture": "#blade"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      1.194
+     ],
+     "texture": "#blade"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      1.194
+     ],
+     "texture": "#blade"
+    }
+   }
+  },
+  {
+   "name": "crescent_spine",
+   "from": [
+    -4.6,
+    29.284,
+    7.353
+   ],
+   "to": [
+    -3.7,
+    29.734,
+    8.647
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.45
+     ],
+     "texture": "#spine"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.45
+     ],
+     "texture": "#spine"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      1.294,
+      0.45
+     ],
+     "texture": "#spine"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      1.294,
+      0.45
+     ],
+     "texture": "#spine"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      1.294
+     ],
+     "texture": "#spine"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      1.294
+     ],
+     "texture": "#spine"
+    }
+   }
+  },
+  {
+   "name": "crescent_edge",
+   "from": [
+    -4.6,
+    23.877,
+    7.75
+   ],
+   "to": [
+    -3.7,
+    24.427,
+    8.25
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.55
+     ],
+     "texture": "#edge"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.55
+     ],
+     "texture": "#edge"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      0.5,
+      0.55
+     ],
+     "texture": "#edge"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      0.5,
+      0.55
+     ],
+     "texture": "#edge"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.5
+     ],
+     "texture": "#edge"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.5
+     ],
+     "texture": "#edge"
+    }
+   }
+  },
+  {
+   "name": "berserk_edge_glow",
+   "from": [
+    -4.6,
+    23.727,
+    7.73
+   ],
+   "to": [
+    -3.7,
+    23.977,
+    8.27
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.25
+     ],
+     "texture": "#crack"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.25
+     ],
+     "texture": "#crack"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      0.54,
+      0.25
+     ],
+     "texture": "#crack"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      0.54,
+      0.25
+     ],
+     "texture": "#crack"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.54
+     ],
+     "texture": "#crack"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.54
+     ],
+     "texture": "#crack"
+    }
+   },
+   "forge_data": {
+    "block_light": 15,
+    "sky_light": 15,
+    "ambient_occlusion": false
+   }
+  },
+  {
+   "name": "crescent",
+   "from": [
+    -5.5,
+    24.405,
+    7.417
+   ],
+   "to": [
+    -4.6,
+    28.876,
+    8.583
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      4.471
+     ],
+     "texture": "#blade"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      4.471
+     ],
+     "texture": "#blade"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      1.166,
+      4.471
+     ],
+     "texture": "#blade"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      1.166,
+      4.471
+     ],
+     "texture": "#blade"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      1.166
+     ],
+     "texture": "#blade"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      1.166
+     ],
+     "texture": "#blade"
+    }
+   }
+  },
+  {
+   "name": "crescent_spine",
+   "from": [
+    -5.5,
+    28.876,
+    7.367
+   ],
+   "to": [
+    -4.6,
+    29.326,
+    8.633
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.45
+     ],
+     "texture": "#spine"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.45
+     ],
+     "texture": "#spine"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      1.266,
+      0.45
+     ],
+     "texture": "#spine"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      1.266,
+      0.45
+     ],
+     "texture": "#spine"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      1.266
+     ],
+     "texture": "#spine"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      1.266
+     ],
+     "texture": "#spine"
+    }
+   }
+  },
+  {
+   "name": "crescent_edge",
+   "from": [
+    -5.5,
+    23.855,
+    7.75
+   ],
+   "to": [
+    -4.6,
+    24.405,
+    8.25
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.55
+     ],
+     "texture": "#edge"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.55
+     ],
+     "texture": "#edge"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      0.5,
+      0.55
+     ],
+     "texture": "#edge"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      0.5,
+      0.55
+     ],
+     "texture": "#edge"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.5
+     ],
+     "texture": "#edge"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.5
+     ],
+     "texture": "#edge"
+    }
+   }
+  },
+  {
+   "name": "berserk_edge_glow",
+   "from": [
+    -5.5,
+    23.705,
+    7.73
+   ],
+   "to": [
+    -4.6,
+    23.955,
+    8.27
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.25
+     ],
+     "texture": "#crack"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.25
+     ],
+     "texture": "#crack"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      0.54,
+      0.25
+     ],
+     "texture": "#crack"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      0.54,
+      0.25
+     ],
+     "texture": "#crack"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.54
+     ],
+     "texture": "#crack"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.54
+     ],
+     "texture": "#crack"
+    }
+   },
+   "forge_data": {
+    "block_light": 15,
+    "sky_light": 15,
+    "ambient_occlusion": false
+   }
+  },
+  {
+   "name": "crescent",
+   "from": [
+    -6.4,
+    24.325,
+    7.431
+   ],
+   "to": [
+    -5.5,
+    28.406,
+    8.569
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      4.081
+     ],
+     "texture": "#blade"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      4.081
+     ],
+     "texture": "#blade"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      1.138,
+      4.081
+     ],
+     "texture": "#blade"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      1.138,
+      4.081
+     ],
+     "texture": "#blade"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      1.138
+     ],
+     "texture": "#blade"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      1.138
+     ],
+     "texture": "#blade"
+    }
+   }
+  },
+  {
+   "name": "crescent_spine",
+   "from": [
+    -6.4,
+    28.406,
+    7.381
+   ],
+   "to": [
+    -5.5,
+    28.856,
+    8.619
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.45
+     ],
+     "texture": "#spine"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.45
+     ],
+     "texture": "#spine"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      1.238,
+      0.45
+     ],
+     "texture": "#spine"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      1.238,
+      0.45
+     ],
+     "texture": "#spine"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      1.238
+     ],
+     "texture": "#spine"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      1.238
+     ],
+     "texture": "#spine"
+    }
+   }
+  },
+  {
+   "name": "crescent_edge",
+   "from": [
+    -6.4,
+    23.775,
+    7.75
+   ],
+   "to": [
+    -5.5,
+    24.325,
+    8.25
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.55
+     ],
+     "texture": "#edge"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.55
+     ],
+     "texture": "#edge"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      0.5,
+      0.55
+     ],
+     "texture": "#edge"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      0.5,
+      0.55
+     ],
+     "texture": "#edge"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.5
+     ],
+     "texture": "#edge"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.5
+     ],
+     "texture": "#edge"
+    }
+   }
+  },
+  {
+   "name": "berserk_crack",
+   "from": [
+    -6.5,
+    26.087,
+    7.371
+   ],
+   "to": [
+    -5.4,
+    26.787,
+    8.629
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      1.1,
+      0.7
+     ],
+     "texture": "#crack"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      1.1,
+      0.7
+     ],
+     "texture": "#crack"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      1.258,
+      0.7
+     ],
+     "texture": "#crack"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      1.258,
+      0.7
+     ],
+     "texture": "#crack"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      1.1,
+      1.258
+     ],
+     "texture": "#crack"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      1.1,
+      1.258
+     ],
+     "texture": "#crack"
+    }
+   },
+   "forge_data": {
+    "block_light": 15,
+    "sky_light": 15,
+    "ambient_occlusion": false
+   }
+  },
+  {
+   "name": "berserk_edge_glow",
+   "from": [
+    -6.4,
+    23.625,
+    7.73
+   ],
+   "to": [
+    -5.5,
+    23.875,
+    8.27
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.25
+     ],
+     "texture": "#crack"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.25
+     ],
+     "texture": "#crack"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      0.54,
+      0.25
+     ],
+     "texture": "#crack"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      0.54,
+      0.25
+     ],
+     "texture": "#crack"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.54
+     ],
+     "texture": "#crack"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.54
+     ],
+     "texture": "#crack"
+    }
+   },
+   "forge_data": {
+    "block_light": 15,
+    "sky_light": 15,
+    "ambient_occlusion": false
+   }
+  },
+  {
+   "name": "crescent",
+   "from": [
+    -7.3,
+    24.185,
+    7.445
+   ],
+   "to": [
+    -6.4,
+    27.869,
+    8.555
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      3.684
+     ],
+     "texture": "#blade"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      3.684
+     ],
+     "texture": "#blade"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      1.11,
+      3.684
+     ],
+     "texture": "#blade"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      1.11,
+      3.684
+     ],
+     "texture": "#blade"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      1.11
+     ],
+     "texture": "#blade"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      1.11
+     ],
+     "texture": "#blade"
+    }
+   }
+  },
+  {
+   "name": "crescent_spine",
+   "from": [
+    -7.3,
+    27.869,
+    7.395
+   ],
+   "to": [
+    -6.4,
+    28.319,
+    8.605
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.45
+     ],
+     "texture": "#spine"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.45
+     ],
+     "texture": "#spine"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      1.21,
+      0.45
+     ],
+     "texture": "#spine"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      1.21,
+      0.45
+     ],
+     "texture": "#spine"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      1.21
+     ],
+     "texture": "#spine"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      1.21
+     ],
+     "texture": "#spine"
+    }
+   }
+  },
+  {
+   "name": "crescent_edge",
+   "from": [
+    -7.3,
+    23.635,
+    7.75
+   ],
+   "to": [
+    -6.4,
+    24.185,
+    8.25
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.55
+     ],
+     "texture": "#edge"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.55
+     ],
+     "texture": "#edge"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      0.5,
+      0.55
+     ],
+     "texture": "#edge"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      0.5,
+      0.55
+     ],
+     "texture": "#edge"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.5
+     ],
+     "texture": "#edge"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.5
+     ],
+     "texture": "#edge"
+    }
+   }
+  },
+  {
+   "name": "berserk_edge_glow",
+   "from": [
+    -7.3,
+    23.485,
+    7.73
+   ],
+   "to": [
+    -6.4,
+    23.735,
+    8.27
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.25
+     ],
+     "texture": "#crack"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.25
+     ],
+     "texture": "#crack"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      0.54,
+      0.25
+     ],
+     "texture": "#crack"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      0.54,
+      0.25
+     ],
+     "texture": "#crack"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.54
+     ],
+     "texture": "#crack"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.54
+     ],
+     "texture": "#crack"
+    }
+   },
+   "forge_data": {
+    "block_light": 15,
+    "sky_light": 15,
+    "ambient_occlusion": false
+   }
+  },
+  {
+   "name": "crescent",
+   "from": [
+    -8.2,
+    23.978,
+    7.459
+   ],
+   "to": [
+    -7.3,
+    27.259,
+    8.541
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      3.281
+     ],
+     "texture": "#blade"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      3.281
+     ],
+     "texture": "#blade"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      1.082,
+      3.281
+     ],
+     "texture": "#blade"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      1.082,
+      3.281
+     ],
+     "texture": "#blade"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      1.082
+     ],
+     "texture": "#blade"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      1.082
+     ],
+     "texture": "#blade"
+    }
+   }
+  },
+  {
+   "name": "crescent_spine",
+   "from": [
+    -8.2,
+    27.259,
+    7.409
+   ],
+   "to": [
+    -7.3,
+    27.709,
+    8.591
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.45
+     ],
+     "texture": "#spine"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.45
+     ],
+     "texture": "#spine"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      1.182,
+      0.45
+     ],
+     "texture": "#spine"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      1.182,
+      0.45
+     ],
+     "texture": "#spine"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      1.182
+     ],
+     "texture": "#spine"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      1.182
+     ],
+     "texture": "#spine"
+    }
+   }
+  },
+  {
+   "name": "crescent_edge",
+   "from": [
+    -8.2,
+    23.428,
+    7.75
+   ],
+   "to": [
+    -7.3,
+    23.978,
+    8.25
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.55
+     ],
+     "texture": "#edge"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.55
+     ],
+     "texture": "#edge"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      0.5,
+      0.55
+     ],
+     "texture": "#edge"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      0.5,
+      0.55
+     ],
+     "texture": "#edge"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.5
+     ],
+     "texture": "#edge"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.5
+     ],
+     "texture": "#edge"
+    }
+   }
+  },
+  {
+   "name": "berserk_edge_glow",
+   "from": [
+    -8.2,
+    23.278,
+    7.73
+   ],
+   "to": [
+    -7.3,
+    23.528,
+    8.27
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.25
+     ],
+     "texture": "#crack"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.25
+     ],
+     "texture": "#crack"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      0.54,
+      0.25
+     ],
+     "texture": "#crack"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      0.54,
+      0.25
+     ],
+     "texture": "#crack"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.54
+     ],
+     "texture": "#crack"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.54
+     ],
+     "texture": "#crack"
+    }
+   },
+   "forge_data": {
+    "block_light": 15,
+    "sky_light": 15,
+    "ambient_occlusion": false
+   }
+  },
+  {
+   "name": "crescent",
+   "from": [
+    -9.1,
+    23.702,
+    7.473
+   ],
+   "to": [
+    -8.2,
+    26.572,
+    8.527
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      2.87
+     ],
+     "texture": "#blade"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      2.87
+     ],
+     "texture": "#blade"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      1.054,
+      2.87
+     ],
+     "texture": "#blade"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      1.054,
+      2.87
+     ],
+     "texture": "#blade"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      1.054
+     ],
+     "texture": "#blade"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      1.054
+     ],
+     "texture": "#blade"
+    }
+   }
+  },
+  {
+   "name": "crescent_spine",
+   "from": [
+    -9.1,
+    26.572,
+    7.423
+   ],
+   "to": [
+    -8.2,
+    27.022,
+    8.577
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.45
+     ],
+     "texture": "#spine"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.45
+     ],
+     "texture": "#spine"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      1.154,
+      0.45
+     ],
+     "texture": "#spine"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      1.154,
+      0.45
+     ],
+     "texture": "#spine"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      1.154
+     ],
+     "texture": "#spine"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      1.154
+     ],
+     "texture": "#spine"
+    }
+   }
+  },
+  {
+   "name": "crescent_edge",
+   "from": [
+    -9.1,
+    23.152,
+    7.75
+   ],
+   "to": [
+    -8.2,
+    23.702,
+    8.25
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.55
+     ],
+     "texture": "#edge"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.55
+     ],
+     "texture": "#edge"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      0.5,
+      0.55
+     ],
+     "texture": "#edge"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      0.5,
+      0.55
+     ],
+     "texture": "#edge"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.5
+     ],
+     "texture": "#edge"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.5
+     ],
+     "texture": "#edge"
+    }
+   }
+  },
+  {
+   "name": "berserk_crack",
+   "from": [
+    -9.2,
+    24.228,
+    7.413
+   ],
+   "to": [
+    -8.1,
+    24.928,
+    8.587
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      1.1,
+      0.7
+     ],
+     "texture": "#crack"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      1.1,
+      0.7
+     ],
+     "texture": "#crack"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      1.174,
+      0.7
+     ],
+     "texture": "#crack"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      1.174,
+      0.7
+     ],
+     "texture": "#crack"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      1.1,
+      1.174
+     ],
+     "texture": "#crack"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      1.1,
+      1.174
+     ],
+     "texture": "#crack"
+    }
+   },
+   "forge_data": {
+    "block_light": 15,
+    "sky_light": 15,
+    "ambient_occlusion": false
+   }
+  },
+  {
+   "name": "berserk_edge_glow",
+   "from": [
+    -9.1,
+    23.002,
+    7.73
+   ],
+   "to": [
+    -8.2,
+    23.252,
+    8.27
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.25
+     ],
+     "texture": "#crack"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.25
+     ],
+     "texture": "#crack"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      0.54,
+      0.25
+     ],
+     "texture": "#crack"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      0.54,
+      0.25
+     ],
+     "texture": "#crack"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.54
+     ],
+     "texture": "#crack"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.54
+     ],
+     "texture": "#crack"
+    }
+   },
+   "forge_data": {
+    "block_light": 15,
+    "sky_light": 15,
+    "ambient_occlusion": false
+   }
+  },
+  {
+   "name": "crescent",
+   "from": [
+    -10.0,
+    23.352,
+    7.487
+   ],
+   "to": [
+    -9.1,
+    25.801,
+    8.513
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      2.449
+     ],
+     "texture": "#blade"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      2.449
+     ],
+     "texture": "#blade"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      1.026,
+      2.449
+     ],
+     "texture": "#blade"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      1.026,
+      2.449
+     ],
+     "texture": "#blade"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      1.026
+     ],
+     "texture": "#blade"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      1.026
+     ],
+     "texture": "#blade"
+    }
+   }
+  },
+  {
+   "name": "crescent_spine",
+   "from": [
+    -10.0,
+    25.801,
+    7.437
+   ],
+   "to": [
+    -9.1,
+    26.251,
+    8.563
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.45
+     ],
+     "texture": "#spine"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.45
+     ],
+     "texture": "#spine"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      1.126,
+      0.45
+     ],
+     "texture": "#spine"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      1.126,
+      0.45
+     ],
+     "texture": "#spine"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      1.126
+     ],
+     "texture": "#spine"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      1.126
+     ],
+     "texture": "#spine"
+    }
+   }
+  },
+  {
+   "name": "crescent_edge",
+   "from": [
+    -10.0,
+    22.802,
+    7.75
+   ],
+   "to": [
+    -9.1,
+    23.352,
+    8.25
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.55
+     ],
+     "texture": "#edge"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.55
+     ],
+     "texture": "#edge"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      0.5,
+      0.55
+     ],
+     "texture": "#edge"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      0.5,
+      0.55
+     ],
+     "texture": "#edge"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.5
+     ],
+     "texture": "#edge"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.5
+     ],
+     "texture": "#edge"
+    }
+   }
+  },
+  {
+   "name": "berserk_edge_glow",
+   "from": [
+    -10.0,
+    22.652,
+    7.73
+   ],
+   "to": [
+    -9.1,
+    22.902,
+    8.27
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.25
+     ],
+     "texture": "#crack"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.25
+     ],
+     "texture": "#crack"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      0.54,
+      0.25
+     ],
+     "texture": "#crack"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      0.54,
+      0.25
+     ],
+     "texture": "#crack"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.54
+     ],
+     "texture": "#crack"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.54
+     ],
+     "texture": "#crack"
+    }
+   },
+   "forge_data": {
+    "block_light": 15,
+    "sky_light": 15,
+    "ambient_occlusion": false
+   }
+  },
+  {
+   "name": "crescent",
+   "from": [
+    -10.9,
+    22.924,
+    7.5
+   ],
+   "to": [
+    -10.0,
+    24.943,
+    8.5
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      2.019
+     ],
+     "texture": "#blade"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      2.019
+     ],
+     "texture": "#blade"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      1.0,
+      2.019
+     ],
+     "texture": "#blade"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      1.0,
+      2.019
+     ],
+     "texture": "#blade"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      1.0
+     ],
+     "texture": "#blade"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      1.0
+     ],
+     "texture": "#blade"
+    }
+   }
+  },
+  {
+   "name": "crescent_spine",
+   "from": [
+    -10.9,
+    24.943,
+    7.45
+   ],
+   "to": [
+    -10.0,
+    25.393,
+    8.55
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.45
+     ],
+     "texture": "#spine"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.45
+     ],
+     "texture": "#spine"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      1.1,
+      0.45
+     ],
+     "texture": "#spine"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      1.1,
+      0.45
+     ],
+     "texture": "#spine"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      1.1
+     ],
+     "texture": "#spine"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      1.1
+     ],
+     "texture": "#spine"
+    }
+   }
+  },
+  {
+   "name": "crescent_edge",
+   "from": [
+    -10.9,
+    22.374,
+    7.75
+   ],
+   "to": [
+    -10.0,
+    22.924,
+    8.25
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.55
+     ],
+     "texture": "#edge"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.55
+     ],
+     "texture": "#edge"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      0.5,
+      0.55
+     ],
+     "texture": "#edge"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      0.5,
+      0.55
+     ],
+     "texture": "#edge"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.5
+     ],
+     "texture": "#edge"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.5
+     ],
+     "texture": "#edge"
+    }
+   }
+  },
+  {
+   "name": "berserk_edge_glow",
+   "from": [
+    -10.9,
+    22.224,
+    7.73
+   ],
+   "to": [
+    -10.0,
+    22.474,
+    8.27
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.25
+     ],
+     "texture": "#crack"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.25
+     ],
+     "texture": "#crack"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      0.54,
+      0.25
+     ],
+     "texture": "#crack"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      0.54,
+      0.25
+     ],
+     "texture": "#crack"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.54
+     ],
+     "texture": "#crack"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.54
+     ],
+     "texture": "#crack"
+    }
+   },
+   "forge_data": {
+    "block_light": 15,
+    "sky_light": 15,
+    "ambient_occlusion": false
+   }
+  },
+  {
+   "name": "crescent",
+   "from": [
+    -11.8,
+    22.416,
+    7.514
+   ],
+   "to": [
+    -10.9,
+    23.992,
+    8.486
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      1.576
+     ],
+     "texture": "#blade"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      1.576
+     ],
+     "texture": "#blade"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      0.972,
+      1.576
+     ],
+     "texture": "#blade"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      0.972,
+      1.576
+     ],
+     "texture": "#blade"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.972
+     ],
+     "texture": "#blade"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.972
+     ],
+     "texture": "#blade"
+    }
+   }
+  },
+  {
+   "name": "crescent_spine",
+   "from": [
+    -11.8,
+    23.992,
+    7.464
+   ],
+   "to": [
+    -10.9,
+    24.442,
+    8.536
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.45
+     ],
+     "texture": "#spine"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.45
+     ],
+     "texture": "#spine"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      1.072,
+      0.45
+     ],
+     "texture": "#spine"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      1.072,
+      0.45
+     ],
+     "texture": "#spine"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      1.072
+     ],
+     "texture": "#spine"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      1.072
+     ],
+     "texture": "#spine"
+    }
+   }
+  },
+  {
+   "name": "crescent_edge",
+   "from": [
+    -11.8,
+    21.866,
+    7.75
+   ],
+   "to": [
+    -10.9,
+    22.416,
+    8.25
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.55
+     ],
+     "texture": "#edge"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.55
+     ],
+     "texture": "#edge"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      0.5,
+      0.55
+     ],
+     "texture": "#edge"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      0.5,
+      0.55
+     ],
+     "texture": "#edge"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.5
+     ],
+     "texture": "#edge"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.5
+     ],
+     "texture": "#edge"
+    }
+   }
+  },
+  {
+   "name": "berserk_crack",
+   "from": [
+    -11.9,
+    22.864,
+    7.454
+   ],
+   "to": [
+    -10.8,
+    23.564,
+    8.546
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      1.1,
+      0.7
+     ],
+     "texture": "#crack"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      1.1,
+      0.7
+     ],
+     "texture": "#crack"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      1.092,
+      0.7
+     ],
+     "texture": "#crack"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      1.092,
+      0.7
+     ],
+     "texture": "#crack"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      1.1,
+      1.092
+     ],
+     "texture": "#crack"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      1.1,
+      1.092
+     ],
+     "texture": "#crack"
+    }
+   },
+   "forge_data": {
+    "block_light": 15,
+    "sky_light": 15,
+    "ambient_occlusion": false
+   }
+  },
+  {
+   "name": "berserk_edge_glow",
+   "from": [
+    -11.8,
+    21.716,
+    7.73
+   ],
+   "to": [
+    -10.9,
+    21.966,
+    8.27
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.25
+     ],
+     "texture": "#crack"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.25
+     ],
+     "texture": "#crack"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      0.54,
+      0.25
+     ],
+     "texture": "#crack"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      0.54,
+      0.25
+     ],
+     "texture": "#crack"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.54
+     ],
+     "texture": "#crack"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.54
+     ],
+     "texture": "#crack"
+    }
+   },
+   "forge_data": {
+    "block_light": 15,
+    "sky_light": 15,
+    "ambient_occlusion": false
+   }
+  },
+  {
+   "name": "crescent",
+   "from": [
+    -12.7,
+    21.828,
+    7.528
+   ],
+   "to": [
+    -11.8,
+    22.942,
+    8.472
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      1.114
+     ],
+     "texture": "#blade"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      1.114
+     ],
+     "texture": "#blade"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      0.944,
+      1.114
+     ],
+     "texture": "#blade"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      0.944,
+      1.114
+     ],
+     "texture": "#blade"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.944
+     ],
+     "texture": "#blade"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.944
+     ],
+     "texture": "#blade"
+    }
+   }
+  },
+  {
+   "name": "crescent_spine",
+   "from": [
+    -12.7,
+    22.942,
+    7.478
+   ],
+   "to": [
+    -11.8,
+    23.392,
+    8.522
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.45
+     ],
+     "texture": "#spine"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.45
+     ],
+     "texture": "#spine"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      1.044,
+      0.45
+     ],
+     "texture": "#spine"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      1.044,
+      0.45
+     ],
+     "texture": "#spine"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      1.044
+     ],
+     "texture": "#spine"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      1.044
+     ],
+     "texture": "#spine"
+    }
+   }
+  },
+  {
+   "name": "crescent_edge",
+   "from": [
+    -12.7,
+    21.278,
+    7.75
+   ],
+   "to": [
+    -11.8,
+    21.828,
+    8.25
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.55
+     ],
+     "texture": "#edge"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.55
+     ],
+     "texture": "#edge"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      0.5,
+      0.55
+     ],
+     "texture": "#edge"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      0.5,
+      0.55
+     ],
+     "texture": "#edge"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.5
+     ],
+     "texture": "#edge"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.5
+     ],
+     "texture": "#edge"
+    }
+   }
+  },
+  {
+   "name": "berserk_edge_glow",
+   "from": [
+    -12.7,
+    21.128,
+    7.73
+   ],
+   "to": [
+    -11.8,
+    21.378,
+    8.27
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.25
+     ],
+     "texture": "#crack"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.25
+     ],
+     "texture": "#crack"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      0.54,
+      0.25
+     ],
+     "texture": "#crack"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      0.54,
+      0.25
+     ],
+     "texture": "#crack"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.54
+     ],
+     "texture": "#crack"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.54
+     ],
+     "texture": "#crack"
+    }
+   },
+   "forge_data": {
+    "block_light": 15,
+    "sky_light": 15,
+    "ambient_occlusion": false
+   }
+  },
+  {
+   "name": "crescent",
+   "from": [
+    -13.6,
+    21.159,
+    7.542
+   ],
+   "to": [
+    -12.7,
+    21.788,
+    8.458
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.629
+     ],
+     "texture": "#blade"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.629
+     ],
+     "texture": "#blade"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      0.916,
+      0.629
+     ],
+     "texture": "#blade"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      0.916,
+      0.629
+     ],
+     "texture": "#blade"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.916
+     ],
+     "texture": "#blade"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.916
+     ],
+     "texture": "#blade"
+    }
+   }
+  },
+  {
+   "name": "crescent_spine",
+   "from": [
+    -13.6,
+    21.788,
+    7.492
+   ],
+   "to": [
+    -12.7,
+    22.238,
+    8.508
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.45
+     ],
+     "texture": "#spine"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.45
+     ],
+     "texture": "#spine"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      1.016,
+      0.45
+     ],
+     "texture": "#spine"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      1.016,
+      0.45
+     ],
+     "texture": "#spine"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      1.016
+     ],
+     "texture": "#spine"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      1.016
+     ],
+     "texture": "#spine"
+    }
+   }
+  },
+  {
+   "name": "crescent_edge",
+   "from": [
+    -13.6,
+    20.609,
+    7.75
+   ],
+   "to": [
+    -12.7,
+    21.159,
+    8.25
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.55
+     ],
+     "texture": "#edge"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.55
+     ],
+     "texture": "#edge"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      0.5,
+      0.55
+     ],
+     "texture": "#edge"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      0.5,
+      0.55
+     ],
+     "texture": "#edge"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.5
+     ],
+     "texture": "#edge"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.5
+     ],
+     "texture": "#edge"
+    }
+   }
+  },
+  {
+   "name": "berserk_edge_glow",
+   "from": [
+    -13.6,
+    20.459,
+    7.73
+   ],
+   "to": [
+    -12.7,
+    20.709,
+    8.27
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.25
+     ],
+     "texture": "#crack"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.25
+     ],
+     "texture": "#crack"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      0.54,
+      0.25
+     ],
+     "texture": "#crack"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      0.54,
+      0.25
+     ],
+     "texture": "#crack"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.54
+     ],
+     "texture": "#crack"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.54
+     ],
+     "texture": "#crack"
+    }
+   },
+   "forge_data": {
+    "block_light": 15,
+    "sky_light": 15,
+    "ambient_occlusion": false
+   }
+  },
+  {
+   "name": "crescent_tip",
+   "from": [
+    -14.5,
+    19.872,
+    7.75
+   ],
+   "to": [
+    -13.6,
+    20.976,
+    8.25
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      1.104
+     ],
+     "texture": "#edge"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      1.104
+     ],
+     "texture": "#edge"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      0.5,
+      1.104
+     ],
+     "texture": "#edge"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      0.5,
+      1.104
+     ],
+     "texture": "#edge"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.5
+     ],
+     "texture": "#edge"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.5
+     ],
+     "texture": "#edge"
+    }
+   }
+  },
+  {
+   "name": "crescent_tip",
+   "from": [
+    -15.4,
+    19.15,
+    7.75
+   ],
+   "to": [
+    -14.5,
+    19.6,
+    8.25
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.45
+     ],
+     "texture": "#edge"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.45
+     ],
+     "texture": "#edge"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      0.5,
+      0.45
+     ],
+     "texture": "#edge"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      0.5,
+      0.45
+     ],
+     "texture": "#edge"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.5
+     ],
+     "texture": "#edge"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      0.9,
+      0.5
+     ],
+     "texture": "#edge"
+    }
+   }
+  },
+  {
+   "name": "edge_notch",
+   "from": [
+    4.0,
+    22.087,
+    7.1
+   ],
+   "to": [
+    5.0,
+    23.507,
+    8.9
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      1.0,
+      1.42
+     ],
+     "texture": "#notch"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      1.0,
+      1.42
+     ],
+     "texture": "#notch"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      1.8,
+      1.42
+     ],
+     "texture": "#notch"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      1.8,
+      1.42
+     ],
+     "texture": "#notch"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      1.0,
+      1.8
+     ],
+     "texture": "#notch"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      1.0,
+      1.8
+     ],
+     "texture": "#notch"
+    }
+   }
+  },
+  {
+   "name": "edge_notch",
+   "from": [
+    1.6,
+    22.772,
+    7.1
+   ],
+   "to": [
+    2.6,
+    23.892,
+    8.9
+   ],
+   "rotation": {
+    "angle": -45,
+    "axis": "z",
+    "origin": [
+     8,
+     8,
+     8
+    ]
+   },
+   "faces": {
+    "north": {
+     "uv": [
+      0,
+      0,
+      1.0,
+      1.12
+     ],
+     "texture": "#notch"
+    },
+    "south": {
+     "uv": [
+      0,
+      0,
+      1.0,
+      1.12
+     ],
+     "texture": "#notch"
+    },
+    "east": {
+     "uv": [
+      0,
+      0,
+      1.8,
+      1.12
+     ],
+     "texture": "#notch"
+    },
+    "west": {
+     "uv": [
+      0,
+      0,
+      1.8,
+      1.12
+     ],
+     "texture": "#notch"
+    },
+    "up": {
+     "uv": [
+      0,
+      0,
+      1.0,
+      1.8
+     ],
+     "texture": "#notch"
+    },
+    "down": {
+     "uv": [
+      0,
+      0,
+      1.0,
+      1.8
+     ],
+     "texture": "#notch"
+    }
+   }
+  }
+ ]
+}

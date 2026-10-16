@@ -12,6 +12,7 @@ public final class ZanpakutoCarry {
         return switch (identity) {
             case CharacterData.RYUJIN -> ModItems.RYUJIN_JAKKA.get();
             case CharacterData.HYORINMARU -> ModItems.HYORINMARU.get();
+            case CharacterData.NOZARASHI -> ModItems.NOZARASHI.get();
             default -> ModItems.ASAUCHI.get();
         };
     }

@@ -341,6 +341,7 @@ public final class RyujinTechniqueService {
     public static void cancel(ServerPlayer player) {
         FlameWaveService.cancel(player);
         HyorinmaruTechniqueService.cancel(player);
+        NozarashiTechniqueService.cancel(player);
         Runtime runtime = ACTIVE.remove(player.getUUID());
         if (runtime != null) clearSwarm(runtime);
     }

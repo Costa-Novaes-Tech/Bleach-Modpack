@@ -23,6 +23,13 @@ public class ResourcesData {
         staminaRestTicks = com.bleachmod.common.StaminaPolicy.REST_TICKS;
         if (stamina == 0) staminaExhausted = true;
     }
+    /** Kendo finisher: the whole remaining stamina goes into one blow. Returns the amount spent. */
+    public float spendAllStamina() {
+        float spent = stamina;
+        stamina = 0; staminaExhausted = true;
+        staminaRestTicks = com.bleachmod.common.StaminaPolicy.REST_TICKS;
+        return spent;
+    }
     /** Returns false when an attempted sprint cannot be sustained. No reiatsu or progression mutation. */
     public boolean tickStamina(boolean effort) {
         if (effort && !staminaExhausted) {

@@ -11,11 +11,12 @@ public class CharacterData {
     private final java.util.Set<String> unlockedForms = new java.util.HashSet<>();
     public static final String RYUJIN = "ryujin_jakka";
     public static final String HYORINMARU = "hyorinmaru";
+    public static final String NOZARASHI = "nozarashi";
     public static final String ASAUCHI = "asauchi";
     private String zanpakutoIdentity = ASAUCHI;
     private final java.util.Set<String> unlockedTechniques = new java.util.HashSet<>();
     private final Map<String, Double> techniqueMasteries = new HashMap<>();
-    public static boolean knownIdentity(String identity) { return ASAUCHI.equals(identity) || RYUJIN.equals(identity) || HYORINMARU.equals(identity); }
+    public static boolean knownIdentity(String identity) { return ASAUCHI.equals(identity) || RYUJIN.equals(identity) || HYORINMARU.equals(identity) || NOZARASHI.equals(identity); }
     public boolean supportsForm(String form) { return knownIdentity(zanpakutoIdentity) && java.util.Set.of("sealed", "shikai", "bankai").contains(form); }
     private String techniqueKey(String form, int slot) { return zanpakutoIdentity + "|" + form + "|" + slot; }
     public boolean isTechniqueDiscovered(String form, int slot) { return unlockedTechniques.contains(techniqueKey(form, slot)); }

@@ -74,6 +74,9 @@ public final class TechniqueService {
         if (com.bleachmod.common.data.CharacterData.HYORINMARU.equals(data.getCharacter().getZanpakutoIdentity())) {
             HyorinmaruTechniqueService.executeSlot(player, data, slot); return;
         }
+        if (com.bleachmod.common.data.CharacterData.NOZARASHI.equals(data.getCharacter().getZanpakutoIdentity())) {
+            NozarashiTechniqueService.executeSlot(player, data, slot); return;
+        }
         if (slot == SLOT_1) {
             executeSlotOne(player, data);
         } else if (slot == SLOT_2) {

@@ -46,7 +46,9 @@ public final class ZanpakutoSheathLayer extends RenderLayer<AbstractClientPlayer
         if (player.isInvisible() || player.isSpectator() || !player.isAlive()) return;
         var motion = ZanpakutoMotion.motion(player); if (motion.previous == 0 || motion.previous < 0) return;
         PlayerCapability.get(player).ifPresent(data -> {
-            String id = data.getCharacter().getZanpakutoIdentity(); boolean ice = CharacterData.HYORINMARU.equals(id), fire = CharacterData.RYUJIN.equals(id);
+            String id = data.getCharacter().getZanpakutoIdentity();
+            if (CharacterData.NOZARASHI.equals(id)) { if (motion.previous == 1) carryBare(pose, buffers, light, player, data); return; }
+            boolean ice = CharacterData.HYORINMARU.equals(id), fire = CharacterData.RYUJIN.equals(id);
             pose.pushPose(); getParentModel().body.translateAndRotate(pose);
             // Player-model +X is the character's left: the previous negative sign put it on the right.
             boolean left = player.getMainArm() == net.minecraft.world.entity.HumanoidArm.RIGHT;
@@ -64,6 +66,30 @@ public final class ZanpakutoSheathLayer extends RenderLayer<AbstractClientPlayer
             }
             pose.popPose();
         });
+    }
+    /** Zaraki carries no scabbard: the bare katana hangs at the hip, the released cleaver rides on the back. */
+    private void carryBare(PoseStack pose, MultiBufferSource buffers, int light, AbstractClientPlayer player, PlayerData data) {
+        boolean cleaver = !Reference.FORM_SEALED.equals(data.getCharacter().getActiveForm())
+                && Reference.GROUP_ZANPAKUTO.equals(data.getCharacter().getActiveFormGroup());
+        boolean left = player.getMainArm() == net.minecraft.world.entity.HumanoidArm.RIGHT;
+        float side = left ? 1 : -1;
+        pose.pushPose(); getParentModel().body.translateAndRotate(pose);
+        if (cleaver) {
+            // Diagonal across the back, grip above the main-hand shoulder; body space is Y-down and faces -Z.
+            pose.translate(0, .5, .2);
+            pose.mulPose(Axis.ZP.rotationDegrees(side * 32)); pose.mulPose(Axis.YP.rotationDegrees(180));
+            pose.scale(.95F, .95F, .95F);
+        } else {
+            pose.translate(side * .32, .62, -.04);
+            pose.mulPose(Axis.YP.rotationDegrees(side * 25 + 90)); pose.mulPose(Axis.ZP.rotationDegrees(side * 26));
+            pose.scale(.7F, .7F, .7F);
+        }
+        // Undo the model's -45 degree diagonal and hang the blade below the grip.
+        pose.mulPose(Axis.ZP.rotationDegrees(45)); pose.translate(0, cleaver ? -.15 : .05, 0);
+        var stack = new net.minecraft.world.item.ItemStack(com.bleachmod.init.ModItems.NOZARASHI.get());
+        net.minecraft.client.Minecraft.getInstance().getItemRenderer().renderStatic(player, stack,
+                net.minecraft.world.item.ItemDisplayContext.NONE, false, pose, buffers, player.level(), light, OverlayTexture.NO_OVERLAY, player.getId());
+        pose.popPose();
     }
     private void draw(PoseStack pose, MultiBufferSource buffers, int light, String part, float r, float g, float b) {
         root.getChild(part).render(pose,buffers.getBuffer(RenderType.entityCutoutNoCull(MATERIAL)),light,OverlayTexture.NO_OVERLAY,r,g,b,1);

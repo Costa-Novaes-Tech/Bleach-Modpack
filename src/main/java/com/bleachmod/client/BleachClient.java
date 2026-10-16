@@ -54,6 +54,7 @@ public final class BleachClient {
         registerFormProperty(ModItems.ASAUCHI.get());
         registerFormProperty(ModItems.RYUJIN_JAKKA.get());
         registerFormProperty(ModItems.HYORINMARU.get());
+        registerFormProperty(ModItems.NOZARASHI.get());
     }
 
     private static void registerFormProperty(Item item) {
@@ -66,6 +67,7 @@ public final class BleachClient {
                 String identity = data.getCharacter().getZanpakutoIdentity();
                 if (item == ModItems.HYORINMARU.get() && !identity.equals(com.bleachmod.common.data.CharacterData.HYORINMARU)) return 0.0F;
                 if (item == ModItems.RYUJIN_JAKKA.get() && !identity.equals(com.bleachmod.common.data.CharacterData.RYUJIN)) return 0.0F;
+                if (item == ModItems.NOZARASHI.get() && !identity.equals(com.bleachmod.common.data.CharacterData.NOZARASHI)) return 0.0F;
                 if (item == ModItems.ASAUCHI.get() && !identity.equals(com.bleachmod.common.data.CharacterData.ASAUCHI)) return 0.0F;
                 String form = data.getCharacter().getActiveForm();
                 if (Reference.FORM_BANKAI.equals(form)) {

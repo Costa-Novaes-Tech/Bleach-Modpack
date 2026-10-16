@@ -43,6 +43,7 @@ public class TickHandler {
             TechniqueService.tickIgnition(player, data);
             com.bleachmod.common.technique.FlameWaveService.tick(player, data);
             com.bleachmod.common.technique.HyorinmaruTechniqueService.tick(player, data);
+            com.bleachmod.common.technique.NozarashiTechniqueService.tick(player, data);
             TechniqueService.tickFlameFanGround(player, data);
             TechniqueService.tickFlameBarrageGround(player, data);
             TechniqueService.tickFlameDash(player, data);

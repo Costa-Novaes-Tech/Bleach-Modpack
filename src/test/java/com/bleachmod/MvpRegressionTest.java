@@ -80,8 +80,17 @@ public final class MvpRegressionTest {
             status.load(status.save()); yes(!status.isInCombat());
             status.refreshCombat(200); status.clearTransientState(); yes(!status.isInCombat());
         });
+        test("Nozarashi kit: twelve slots, eyepatch drain only, Berserk Mode display name", () -> {
+            var defs = com.bleachmod.common.technique.TechniqueDefinitions.all().stream().filter(d -> d.identity().equals("nozarashi")).toList();
+            eq(12, defs.size());
+            for (var d : defs) eq(d.form().equals("sealed") && d.slot() == 3, d.drainPerTick() > 0);
+            eq("world_cleaver", com.bleachmod.common.technique.TechniqueDefinitions.require("nozarashi", "bankai", 4).id());
+            eq("form.bleachmod.nozarashi.bankai", com.bleachmod.common.evolution.FormNames.key("nozarashi", "bankai"));
+            eq("form.bleachmod.bankai", com.bleachmod.common.evolution.FormNames.key("hyorinmaru", "bankai"));
+            yes(com.bleachmod.common.data.CharacterData.knownIdentity("nozarashi"));
+        });
         test("Shared technique definitions preserve all homologated costs and cooldowns", () -> {
-            var definitions = com.bleachmod.common.technique.TechniqueDefinitions.all(); eq(24, definitions.size());
+            var definitions = com.bleachmod.common.technique.TechniqueDefinitions.all(); eq(36, definitions.size());
             Set<String> unique = new HashSet<>();
             for (var def : definitions) {
                 yes(unique.add(def.identity() + "|" + def.form() + "|" + def.slot()));
@@ -168,7 +177,7 @@ public final class MvpRegressionTest {
                 rejects(() -> com.bleachmod.common.visual.IceManifestation.releasePoint(origin, bankai, -1));
             }
         });
-        test("Effect palettes compose twelve bounded profiles and reject invalid definitions", () -> {
+        test("Effect palettes compose sixteen bounded profiles and reject invalid definitions", () -> {
             var library = com.bleachmod.common.visual.EffectLibrary.class;
             int profiles = 0;
             for (String palette : com.bleachmod.common.visual.EffectLibrary.palettes()) for (String shape : com.bleachmod.common.visual.EffectLibrary.shapes()) {
@@ -178,7 +187,7 @@ public final class MvpRegressionTest {
                     yes(Double.isFinite(point.x) && Double.isFinite(point.y) && Double.isFinite(point.z)); yes(point.lengthSqr() <= 49);
                 }
             }
-            eq(12, profiles);
+            eq(16, profiles);
             rejects(() -> com.bleachmod.common.visual.EffectLibrary.resolve("missing", "aura"));
             rejects(() -> com.bleachmod.common.visual.EffectLibrary.resolve("fire", "missing"));
             rejects(() -> com.bleachmod.common.visual.EffectLibrary.budget(4));
