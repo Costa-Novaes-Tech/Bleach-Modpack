@@ -126,6 +126,7 @@ public class ModEntityRenderers {
             if (renderer instanceof net.minecraft.client.renderer.entity.player.PlayerRenderer playerRenderer) {
                 playerRenderer.addLayer(new com.bleachmod.client.model.IceArmorLayer(playerRenderer,
                     event.getEntityModels().bakeLayer(com.bleachmod.client.model.IceArmorLayer.LAYER)));
+                playerRenderer.addLayer(new com.bleachmod.client.berserk.BerserkSkinLayer(playerRenderer));
                 playerRenderer.addLayer(new com.bleachmod.client.model.ZanpakutoSheathLayer(playerRenderer,
                     event.getEntityModels().bakeLayer(com.bleachmod.client.model.ZanpakutoSheathLayer.LAYER)));
             }

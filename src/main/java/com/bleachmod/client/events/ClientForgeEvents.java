@@ -33,6 +33,7 @@ public class ClientForgeEvents {
         Minecraft mc = Minecraft.getInstance();
         if (mc.player == null) {
             com.bleachmod.client.model.ZanpakutoMotion.clear();
+            com.bleachmod.client.berserk.BerserkSkins.clear();
             lastCharging = false;
             instantHeld = false;
             return;

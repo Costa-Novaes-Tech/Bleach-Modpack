@@ -121,6 +121,11 @@ repositories {
         name = 'MinecraftLibraries'
         url = 'https://libraries.minecraft.net/'
     }
+    maven {
+        // PlayerAnimator (KosmX): keyframed full-body player animations for release cinematics.
+        name = 'KosmX'
+        url = 'https://maven.kosmx.dev/'
+    }
     mavenCentral()
 
     // Put additional repositories for dependencies here.
@@ -141,6 +146,9 @@ dependencies {
     // If the group id is "net.minecraft" and the artifact id is one of ["client", "server", "joined"],
     // then special handling is done to allow a setup of a vanilla dependency without the use of an external repository.
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
+
+    // Required at runtime by the modpack: body animations for Zanpakuto release cinematics.
+    implementation fg.deobf("dev.kosmx.player-anim:player-animation-lib-forge:${player_anim_version}")
 
     // Example mod dependency with JEI - using fg.deobf() ensures the dependency is remapped to your development mappings
     // The JEI API is declared for compile time use, while the full JEI artifact is used at runtime

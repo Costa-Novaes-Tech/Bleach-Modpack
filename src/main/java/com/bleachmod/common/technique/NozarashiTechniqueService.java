@@ -62,6 +62,7 @@ public final class NozarashiTechniqueService {
     }
 
     public static void executeSlot(ServerPlayer player, PlayerData data, int slot) {
+        if (NozarashiReleaseEffects.inCinematic(player)) return;
         if (!equipped(player, data) || !Reference.GROUP_ZANPAKUTO.equals(data.getCharacter().getActiveFormGroup())) {
             player.displayClientMessage(Component.translatable("message.bleachmod.technique.requires_nozarashi"), true); return;
         }

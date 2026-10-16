@@ -23,6 +23,7 @@ public final class TechniqueDefinitionGameTests {
             h.getLevel().getChunkAt(p.blockPosition());
             var data = PlayerCapability.get(p).orElseThrow(() -> new IllegalStateException("Missing capability"));
             data.initializeShinigami(); data.getCharacter().bindZanpakuto(definition.identity()); data.getCharacter().preserveLegacyTechniques();
+            data.getCharacter().unlockTechnique(definition.form(), definition.slot());
             data.getSkills().get("zanpakuto").setLevel(2); data.getCharacter().unlockForm("shikai"); data.getCharacter().unlockForm("bankai");
             data.getCharacter().setMastery("zanpakuto", "shikai", 100); data.getCharacter().setActiveForm("zanpakuto", definition.form());
             p.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(com.bleachmod.common.ZanpakutoCarry.item(definition.identity())));

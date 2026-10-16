@@ -63,10 +63,15 @@ public final class NetworkHandler {
         CHANNEL.registerMessage(id++, ActionFeedbackS2C.class, ActionFeedbackS2C::encode, ActionFeedbackS2C::decode, ActionFeedbackS2C::handle, Optional.of(NetworkDirection.PLAY_TO_CLIENT));
         CHANNEL.registerMessage(id++, DamageIndicatorS2C.class, DamageIndicatorS2C::encode, DamageIndicatorS2C::decode, DamageIndicatorS2C::handle, Optional.of(NetworkDirection.PLAY_TO_CLIENT));
         CHANNEL.registerMessage(id++, OpenNpcQuestScreenS2C.class, OpenNpcQuestScreenS2C::encode, OpenNpcQuestScreenS2C::decode, OpenNpcQuestScreenS2C::handle, Optional.of(NetworkDirection.PLAY_TO_CLIENT));
+        CHANNEL.registerMessage(id++, com.bleachmod.common.network.s2c.ReleaseCinematicS2C.class, com.bleachmod.common.network.s2c.ReleaseCinematicS2C::encode, com.bleachmod.common.network.s2c.ReleaseCinematicS2C::decode, com.bleachmod.common.network.s2c.ReleaseCinematicS2C::handle, Optional.of(NetworkDirection.PLAY_TO_CLIENT));
     }
 
     public static void sendToServer(Object message) {
         CHANNEL.sendToServer(message);
+    }
+
+    public static void sendToTrackingAndSelf(Object message, ServerPlayer player) {
+        CHANNEL.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> player), message);
     }
 
     public static void sendToPlayer(Object message, ServerPlayer player) {
