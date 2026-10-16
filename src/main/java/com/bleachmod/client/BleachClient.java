@@ -49,6 +49,7 @@ public final class BleachClient {
     private static void onClientSetup(FMLClientSetupEvent event) {
         event.enqueueWork(BleachClient::registerItemProperties);
         com.bleachmod.client.cinematic.CinematicDirector.init();
+        com.bleachmod.client.berserk.NozarashiStance.init();
     }
 
     private static void registerItemProperties() {

@@ -74,6 +74,7 @@ public final class CombatEvents {
                 TechniqueService.applyIgnitionHit(player, data, event.getEntity());
                 com.bleachmod.common.technique.ReleasePassives.flameHit(player, data, event.getEntity());
                 com.bleachmod.common.technique.NozarashiTechniqueService.onDamageDealt(player, event.getAmount());
+                com.bleachmod.common.technique.NozarashiTechniqueService.meleeHammer(player, data, event.getEntity());
                 NetworkHandler.sendToPlayer(new DamageIndicatorS2C(event.getAmount()), player);
             }
         });

@@ -89,6 +89,22 @@ public final class MvpRegressionTest {
             eq("form.bleachmod.bankai", com.bleachmod.common.evolution.FormNames.key("hyorinmaru", "bankai"));
             yes(com.bleachmod.common.data.CharacterData.knownIdentity("nozarashi"));
         });
+        test("Nozarashi player animations parse with PlayerAnimator and match the server timeline", () -> {
+            var root = java.nio.file.Path.of("src/main/resources/assets/bleachmod/player_animation");
+            java.util.Map<String, Integer> expected = java.util.Map.of(
+                    "berserk_release", com.bleachmod.common.technique.NozarashiReleaseEffects.DURATION,
+                    "nozarashi_shoulder", 40, "nozarashi_hammer", 10);
+            for (var entry : expected.entrySet()) {
+                try (var reader = java.nio.file.Files.newBufferedReader(root.resolve(entry.getKey() + ".json"))) {
+                    var animations = dev.kosmx.playerAnim.core.data.gson.AnimationSerializing.deserializeAnimation(reader);
+                    eq(1, animations.size());
+                    var animation = animations.get(0);
+                    yes(Math.abs(entry.getValue() - animation.endTick) <= 1); // endTick is the last tick index
+                    yes(animation.getPart("rightArm").isEnabled());
+                    eq(entry.getKey().equals("nozarashi_shoulder"), animation.isInfinite());
+                } catch (java.io.IOException e) { throw new AssertionError(e); }
+            }
+        });
         test("Shared technique definitions preserve all homologated costs and cooldowns", () -> {
             var definitions = com.bleachmod.common.technique.TechniqueDefinitions.all(); eq(36, definitions.size());
             Set<String> unique = new HashSet<>();

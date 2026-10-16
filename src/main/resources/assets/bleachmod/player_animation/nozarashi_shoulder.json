@@ -1,0 +1,59 @@
+{
+ "format_version": "1.8.0",
+ "animations": {
+  "nozarashi_shoulder": {
+   "animation_length": 2.0,
+   "loop": true,
+   "bones": {
+    "right_arm": {
+     "rotation": {
+      "0.00": {
+       "vector": [
+        -145,
+        -20,
+        12
+       ],
+       "easing": "easeInOutSine"
+      },
+      "1.00": {
+       "vector": [
+        -149,
+        -20,
+        12
+       ],
+       "easing": "easeInOutSine"
+      },
+      "2.00": {
+       "vector": [
+        -145,
+        -20,
+        12
+       ],
+       "easing": "easeInOutSine"
+      }
+     }
+    },
+    "right_item": {
+     "rotation": {
+      "0.00": {
+       "vector": [
+        0,
+        0,
+        0
+       ],
+       "easing": "easeInOutSine"
+      },
+      "2.00": {
+       "vector": [
+        0,
+        0,
+        0
+       ],
+       "easing": "easeInOutSine"
+      }
+     }
+    }
+   }
+  }
+ }
+}

@@ -105,7 +105,8 @@ public final class NozarashiTechniqueService {
             case 3 -> battleThirst(player, r);
             default -> drinkNozarashi(player, forward);
         } else switch (slot) {
-            case 1 -> { r.chargeTicks = CHARGE_TICKS; r.chargeDirection = forward; r.chargeHits.clear(); BerserkVisuals.trail(player); }
+            case 1 -> { r.chargeTicks = CHARGE_TICKS; r.chargeDirection = forward; r.chargeHits.clear(); BerserkVisuals.trail(player);
+                NozarashiReleaseEffects.roar(player, 1.2F); NozarashiReleaseEffects.shake(player, 3); }
             case 2 -> { r.furyHits = 3; r.furyDelay = 0; }
             case 3 -> spiritualPressure(player, 10, 100, 2, true);
             default -> { r.cleaverTicks = CLEAVER_WINDUP; r.cleaverDirection = forward;
@@ -125,18 +126,34 @@ public final class NozarashiTechniqueService {
         return p.serverLevel().getEntitiesOfClass(LivingEntity.class, p.getBoundingBox().move(center.subtract(p.position())).inflate(radius),
                 e -> TechniqueTargets.allowed(p, e));
     }
+    /** Set while a technique deals damage, so melee hammer impacts do not repeat on technique hits. */
+    private static final ThreadLocal<Boolean> IN_TECHNIQUE = ThreadLocal.withInitial(() -> false);
     private static void hit(ServerPlayer p, LivingEntity target, float damage, int slot, Vec3 push, double lift) {
-        if (MasteryPracticeService.hurt(p, target, p.damageSources().playerAttack(p), damage, slot)) {
-            target.push(push.x, lift, push.z); target.hurtMarked = true;
-        }
+        IN_TECHNIQUE.set(true);
+        try {
+            if (MasteryPracticeService.hurt(p, target, p.damageSources().playerAttack(p), damage, slot)) {
+                target.push(push.x, lift, push.z); target.hurtMarked = true;
+            }
+        } finally { IN_TECHNIQUE.set(false); }
+    }
+    /** Every plain blow with Nozarashi lands like a hammer: crater, rubble and a dull metallic crash. */
+    public static void meleeHammer(ServerPlayer p, PlayerData d, LivingEntity target) {
+        if (IN_TECHNIQUE.get() || !equipped(p, d) || !Reference.GROUP_ZANPAKUTO.equals(d.getCharacter().getActiveFormGroup())) return;
+        String form = d.getCharacter().getActiveForm();
+        float strength = Reference.FORM_BANKAI.equals(form) ? 2.2F : Reference.FORM_SHIKAI.equals(form) ? 1.6F : 1F;
+        BerserkVisuals.impact(p, target.position(), strength);
+        p.serverLevel().playSound(null, target.blockPosition(), SoundEvents.ANVIL_LAND, p.getSoundSource(), .5F + strength * .25F, .5F);
+        if (strength > 2) { p.serverLevel().playSound(null, target.blockPosition(), SoundEvents.GENERIC_EXPLODE, p.getSoundSource(), .6F, .8F); NozarashiReleaseEffects.shake(p, 2); }
     }
 
     // ---- Sealed ----
     private static void brutalCut(ServerPlayer p, Vec3 forward) {
         for (LivingEntity t : targets(p, p.position(), 5)) if (inCone(p, t, p.position(), forward, 4.5, .8, Math.tan(Math.toRadians(45))))
             hit(p, t, 6, 1, forward.scale(.6), .2);
-        BerserkVisuals.sweep(p, forward, 4.5, Math.toRadians(50));
-        p.serverLevel().playSound(null, p.blockPosition(), SoundEvents.PLAYER_ATTACK_SWEEP, p.getSoundSource(), 1, .6F);
+        p.swing(net.minecraft.world.InteractionHand.MAIN_HAND, true);
+        BerserkVisuals.crescent(p, forward, 3, 3, false);
+        BerserkVisuals.impact(p, p.position().add(forward.scale(3)), 1.2F);
+        p.serverLevel().playSound(null, p.blockPosition(), SoundEvents.ANVIL_LAND, p.getSoundSource(), 1, .55F);
     }
     private static void spiritualPressure(ServerPlayer p, double radius, int ticks, int amplifier, boolean roar) {
         for (LivingEntity t : targets(p, p.position(), radius)) {
@@ -147,15 +164,18 @@ public final class NozarashiTechniqueService {
             if (roar) hit(p, t, 4, 3, away.scale(1.1), .35);
             else { t.push(away.x * .5, .1, away.z * .5); t.hurtMarked = true; MasteryPracticeService.control(p, t, 2); }
         }
-        for (int wave = 1; wave <= (roar ? 3 : 2); wave++) BerserkVisuals.ring(p, p.position(), radius * wave / (roar ? 3 : 2), roar ? 40 : 24, roar);
-        p.serverLevel().playSound(null, p.blockPosition(), roar ? SoundEvents.RAVAGER_ROAR : SoundEvents.WARDEN_HEARTBEAT, p.getSoundSource(), roar ? 2 : 1.5F, roar ? .6F : .8F);
-        if (roar) p.serverLevel().playSound(null, p.blockPosition(), SoundEvents.WARDEN_ROAR, p.getSoundSource(), 1, 1.2F);
+        for (int wave = 1; wave <= (roar ? 4 : 2); wave++) BerserkVisuals.ring(p, p.position(), radius * wave / (roar ? 4 : 2), roar ? 64 : 36, true);
+        if (roar) { NozarashiReleaseEffects.roar(p, 2.5F); NozarashiReleaseEffects.shake(p, 7); BerserkVisuals.pillar(p, Vec3.directionFromRotation(0, p.getYRot()), 4); }
+        else { p.serverLevel().playSound(null, p.blockPosition(), SoundEvents.WARDEN_HEARTBEAT, p.getSoundSource(), 2, .7F); NozarashiReleaseEffects.shake(p, 2); }
     }
     private static void setEyepatch(ServerPlayer p, Runtime r, boolean active) {
         r.eyepatch = active;
         if (active) {
-            BerserkVisuals.ring(p, p.position(), 2.5, 28, true);
-            p.serverLevel().playSound(null, p.blockPosition(), SoundEvents.WARDEN_HEARTBEAT, p.getSoundSource(), 2, .7F);
+            BerserkVisuals.ring(p, p.position(), 2.5, 40, true);
+            BerserkVisuals.ring(p, p.position(), 5, 56, true);
+            p.serverLevel().playSound(null, p.blockPosition(), SoundEvents.WARDEN_HEARTBEAT, p.getSoundSource(), 2.5F, .6F);
+            p.serverLevel().playSound(null, p.blockPosition(), SoundEvents.WARDEN_ANGRY, p.getSoundSource(), 1.5F, .7F);
+            NozarashiReleaseEffects.shake(p, 3);
         }
         p.displayClientMessage(Component.translatable("message.bleachmod.nozarashi.eyepatch." + (active ? "off" : "on")), true);
     }
@@ -165,8 +185,12 @@ public final class NozarashiTechniqueService {
         LivingEntity target = targets(p, p.position(), 5).stream().filter(t -> inCone(p, t, p.position(), forward, 4.5, .6, Math.tan(Math.toRadians(20))))
                 .min(Comparator.comparingDouble(p::distanceToSqr)).orElse(null);
         if (target != null) hit(p, target, damage, 4, forward.scale(1.2), .4);
-        BerserkVisuals.crescent(p, forward, 3, 3, true);
-        p.serverLevel().playSound(null, p.blockPosition(), SoundEvents.ANVIL_LAND, p.getSoundSource(), .8F, .6F);
+        p.swing(net.minecraft.world.InteractionHand.MAIN_HAND, true);
+        BerserkVisuals.crescent(p, forward, 3, 4, true);
+        BerserkVisuals.impact(p, p.position().add(forward.scale(3)), 1.5F + spent / 100F);
+        p.serverLevel().playSound(null, p.blockPosition(), SoundEvents.ANVIL_LAND, p.getSoundSource(), 1.2F, .45F);
+        p.serverLevel().playSound(null, p.blockPosition(), SoundEvents.GENERIC_EXPLODE, p.getSoundSource(), .8F, .7F);
+        NozarashiReleaseEffects.shake(p, 4);
         p.setSprinting(false);
     }
 
@@ -174,9 +198,12 @@ public final class NozarashiTechniqueService {
     private static void nozarashiCut(ServerPlayer p, Vec3 forward) {
         for (LivingEntity t : targets(p, p.position().add(forward.scale(6)), 7)) if (inCone(p, t, p.position(), forward, 12, 1.2, 0))
             hit(p, t, 10, 1, forward.scale(.3), .45);
-        BerserkVisuals.crescent(p, forward, 2.5, 4, false);
+        p.swing(net.minecraft.world.InteractionHand.MAIN_HAND, true);
+        BerserkVisuals.crescent(p, forward, 2.5, 5, true);
         BerserkVisuals.fissure(p, p.position(), forward, 12, false);
-        p.serverLevel().playSound(null, p.blockPosition(), SoundEvents.GENERIC_EXPLODE, p.getSoundSource(), .7F, .7F);
+        BerserkVisuals.impact(p, p.position().add(forward.scale(2.5)), 1.8F);
+        p.serverLevel().playSound(null, p.blockPosition(), SoundEvents.GENERIC_EXPLODE, p.getSoundSource(), 1.2F, .6F);
+        NozarashiReleaseEffects.shake(p, 5);
     }
     private static void crushingLeap(ServerPlayer p, Runtime r, Vec3 forward) {
         p.setDeltaMovement(forward.x * 1.1, 1.05, forward.z * 1.1); p.hurtMarked = true;
@@ -189,21 +216,29 @@ public final class NozarashiTechniqueService {
             if (t.distanceToSqr(p) > radius * radius) continue;
             hit(p, t, bankai ? 12 : 9, 2, t.position().subtract(p.position()).normalize().scale(.6), .6);
         }
-        BerserkVisuals.ring(p, p.position(), radius * .5, 24, true);
-        BerserkVisuals.ring(p, p.position(), radius, 36, true);
-        p.serverLevel().playSound(null, p.blockPosition(), SoundEvents.GENERIC_EXPLODE, p.getSoundSource(), 1.2F, .55F);
+        p.swing(net.minecraft.world.InteractionHand.MAIN_HAND, true);
+        BerserkVisuals.impact(p, p.position(), 2.5F);
+        BerserkVisuals.ring(p, p.position(), radius * .5, 40, true);
+        BerserkVisuals.ring(p, p.position(), radius, 56, true);
+        p.serverLevel().playSound(null, p.blockPosition(), SoundEvents.GENERIC_EXPLODE, p.getSoundSource(), 1.6F, .5F);
+        NozarashiReleaseEffects.shake(p, 6);
     }
     private static void battleThirst(ServerPlayer p, Runtime r) {
         r.thirstUntil = p.level().getGameTime() + THIRST_TICKS; r.thirst = 0;
-        BerserkVisuals.ring(p, p.position(), 2, 24, false);
+        BerserkVisuals.ring(p, p.position(), 2, 40, true);
+        NozarashiReleaseEffects.roar(p, 1.2F);
         p.serverLevel().playSound(null, p.blockPosition(), SoundEvents.WARDEN_HEARTBEAT, p.getSoundSource(), 2, 1);
     }
     private static void drinkNozarashi(ServerPlayer p, Vec3 forward) {
         for (LivingEntity t : targets(p, p.position().add(forward.scale(5)), 6)) if (inCone(p, t, p.position(), forward, 10, 1.4, Math.tan(Math.toRadians(8))))
             hit(p, t, 22, 4, forward.scale(.8), .7);
-        BerserkVisuals.crescent(p, forward, 6, 6, true);
-        BerserkVisuals.fissure(p, p.position(), forward, 10, true);
-        p.serverLevel().playSound(null, p.blockPosition(), SoundEvents.WARDEN_SONIC_BOOM, p.getSoundSource(), 1.3F, .8F);
+        p.swing(net.minecraft.world.InteractionHand.MAIN_HAND, true);
+        BerserkVisuals.crescent(p, forward, 6, 7, true);
+        BerserkVisuals.fissure(p, p.position(), forward, 14, true);
+        BerserkVisuals.impact(p, p.position().add(forward.scale(4)), 2.5F);
+        p.serverLevel().playSound(null, p.blockPosition(), SoundEvents.WARDEN_SONIC_BOOM, p.getSoundSource(), 1.6F, .7F);
+        p.serverLevel().playSound(null, p.blockPosition(), SoundEvents.GENERIC_EXPLODE, p.getSoundSource(), 1.4F, .55F);
+        NozarashiReleaseEffects.shake(p, 7);
     }
 
     // ---- Bankai: Berserk Mode ----
@@ -211,16 +246,24 @@ public final class NozarashiTechniqueService {
         Vec3 forward = Vec3.directionFromRotation(0, p.getYRot());
         for (LivingEntity t : targets(p, p.position(), 6)) if (inCone(p, t, p.position(), forward, 5, .8, Math.tan(Math.toRadians(30))))
             hit(p, t, index == 3 ? 12 : 8, 2, forward.scale(index == 3 ? 1 : .25), index == 3 ? .5 : .1);
-        if (index == 3) BerserkVisuals.crescent(p, forward, 4, 4, true); else BerserkVisuals.sweep(p, forward, 5, Math.toRadians(35));
-        p.serverLevel().playSound(null, p.blockPosition(), SoundEvents.PLAYER_ATTACK_SWEEP, p.getSoundSource(), 1.2F, .5F + index * .1F);
+        BerserkVisuals.crescent(p, forward, 4, index == 3 ? 5 : 3.5, index == 3);
+        BerserkVisuals.impact(p, p.position().add(forward.scale(3.5)), index == 3 ? 2.5F : 1.4F);
+        p.serverLevel().playSound(null, p.blockPosition(), SoundEvents.ANVIL_LAND, p.getSoundSource(), 1.2F, .4F + index * .1F);
+        if (index == 3) { p.serverLevel().playSound(null, p.blockPosition(), SoundEvents.GENERIC_EXPLODE, p.getSoundSource(), 1.3F, .6F); NozarashiReleaseEffects.roar(p, 1); }
+        NozarashiReleaseEffects.shake(p, index == 3 ? 6 : 3);
         p.swing(net.minecraft.world.InteractionHand.MAIN_HAND, true);
     }
     private static void worldCleaver(ServerPlayer p, Vec3 forward) {
         for (LivingEntity t : targets(p, p.position().add(forward.scale(CLEAVER_RANGE / 2)), CLEAVER_RANGE / 2 + 2))
             if (inCone(p, t, p.position(), forward, CLEAVER_RANGE, 2.5, 0)) hit(p, t, CLEAVER_DAMAGE, 4, forward.scale(1.2), .9);
-        BerserkVisuals.crescent(p, forward, 8, 6, true);
+        p.swing(net.minecraft.world.InteractionHand.MAIN_HAND, true);
+        BerserkVisuals.crescent(p, forward, 8, 8, true);
         BerserkVisuals.fissure(p, p.position(), forward, CLEAVER_RANGE, true);
-        BerserkVisuals.ring(p, p.position(), 3, 32, true);
+        BerserkVisuals.impact(p, p.position().add(forward.scale(4)), 2.5F);
+        BerserkVisuals.ring(p, p.position(), 3, 48, true);
+        BerserkVisuals.ring(p, p.position(), 7, 64, true);
+        NozarashiReleaseEffects.roar(p, 3);
+        NozarashiReleaseEffects.shake(p, 10);
         p.serverLevel().playSound(null, p.blockPosition(), SoundEvents.WARDEN_SONIC_BOOM, p.getSoundSource(), 2, .5F);
         p.serverLevel().playSound(null, p.blockPosition(), SoundEvents.GENERIC_EXPLODE, p.getSoundSource(), 1.5F, .5F);
         // Canon cost: the wielder's arm breaks under the strain. Never lethal on its own.
@@ -262,7 +305,8 @@ public final class NozarashiTechniqueService {
         if (r.furyHits > 0 && --r.furyDelay <= 0) { furyStrike(p, 4 - r.furyHits); r.furyHits--; r.furyDelay = 6; }
         if (r.cleaverTicks >= 0) {
             p.setDeltaMovement(0, Math.min(p.getDeltaMovement().y, 0), 0); p.hurtMarked = true;
-            if (r.cleaverTicks % 4 == 0) BerserkVisuals.ring(p, p.position(), 1.5 + r.cleaverTicks * .15, 20, false);
+            if (r.cleaverTicks % 2 == 0) BerserkVisuals.ring(p, p.position(), .8 + r.cleaverTicks * .2, 32, true);
+            if (r.cleaverTicks % 5 == 0) BerserkVisuals.aura(p, 3);
             if (r.cleaverTicks-- == 0) { r.cleaverTicks = -1; worldCleaver(p, r.cleaverDirection); }
         }
         if (r.idle()) ACTIVE.remove(p.getUUID());
