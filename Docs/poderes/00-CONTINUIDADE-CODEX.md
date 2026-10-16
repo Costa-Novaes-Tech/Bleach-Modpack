@@ -1,8 +1,8 @@
 # Continuidade do projeto — leia primeiro
 
-Atualizado em 15/10/2026. Resumo de passagem para nova conversa; consulte o código/Git antes de alterar. Este arquivo evita precisar importar o histórico completo do chat. Não substitui instruções atuais do usuário.
+Atualizado em 16/10/2026. Resumo de passagem para nova conversa; consulte o código/Git antes de alterar. Este arquivo evita precisar importar o histórico completo do chat. Não substitui instruções atuais do usuário.
 
-**Frente vigente: ciclo 49 — correção de Shibari/Hiasobi para playtest.** [Contrato e roteiro](49-shibari-solo-hiasobi-radial-2026-10-15.md). Rede continua com 20 blocos de diâmetro: âncora acima do solo, Hiasobi cobre o raio atual inteiro sem depender da mira, contenção reforçada com o mesmo ritmo de contração. Rede **2.17**, schema **8**; consultar Git e validação antes de retomar.
+**Frente vigente: ciclo 50 — Urahara/Benihime homologado; pesquisa de ferramentas e melhorias gerais.** Usuário aprovou o ciclo 49 após playtest em 16/10/2026. [Pesquisa e recomendações](50-homologacao-urahara-pesquisa-ferramentas-2026-10-16.md): autoria em Blockbench/pixel art, GeckoLib 4, piloto de animação do jogador e VFX. Nenhuma dependência adicionada nem nova feature escolhida automaticamente. Rede **2.17**, schema **8**; consultar Git antes de retomar.
 
 ## 1. Repositório e regras mantidas pelo usuário
 
@@ -139,3 +139,8 @@ Playtest do usuário aprovou a melhora visual e pediu correções de solo/área/
 
 
 Validação final: **check/build, 98 regressões e 113 GameTests obrigatórios aprovados**. Log `build/cycle49-validation.log`. Inclui piso real/mira nos pés/quatro quadrantes, dano radial com lançador sem visão, proteção de aliado/alvo fora da área e resistência ao deslocamento de fuga. Malha acima da âncora verificada por regressão. Ainda requer conferência visual e de sensação da contenção no cliente.
+
+
+## 13. Homologação e discussão vigente — ciclo 50
+
+Em 16/10/2026, usuário confirmou testes e **homologou Urahara/Benihime**, incluindo correções do ciclo 49. Não retomar refinamentos sem pedido novo. Frente atual é discutir melhorias gerais de animações, transformação, modelos, texturas, inimigos, ferramentas e bibliotecas. [Pesquisa com fontes primárias e ordem recomendada](50-homologacao-urahara-pesquisa-ferramentas-2026-10-16.md). Dependência funcional atual continua só Forge: bibliotecas listadas na arquitetura histórica pertencem sobretudo à referência Dragon Mine Z. Candidata GeckoLib 4.8.4 para Forge 1.20.1; PlayerAnimator legado existe, mas manutenção regular encerrada, PAL atual ainda exige verificar artefato/plataforma; Photon 1.x/LDLib em piloto separado. Não confundir documentação moderna NeoForge com nosso Forge 47.4.10. Better Combat/Epic Fight são alterações amplas de arquitetura, não uma instalação cosmética trivial. Nenhuma integração/runtime aprovado por esta pesquisa. Última build permanece 98 regressões/113 GameTests, rede 2.17/schema 8. Documentação isolada revisada; sem novos testes de código. A fila de personagens/prioridades segue preservada até escolha explícita da próxima frente.

@@ -1,5 +1,7 @@
 # Ciclo 49 — Shibari sobre o solo e Hiasobi em toda a rede
 
+> Homologação recebida em 16/10/2026: usuário testou e aprovou a feature. Urahara/Benihime concluído; nova frente é discutir ferramentas e melhorias gerais, conforme [ciclo 50](50-homologacao-urahara-pesquisa-ferramentas-2026-10-16.md).
+
 Branch `Feature-Poderes-bankais`, base limpa `aad0385`. Playtest recebido: a rede afundava quando lançada perto dos pés; Hiasobi atingia apenas parte dos inimigos; solicitado reforço da contenção sem alterar a velocidade de contração. Dimensão aprovada continua **20 blocos de diâmetro**.
 
 ## Correções
