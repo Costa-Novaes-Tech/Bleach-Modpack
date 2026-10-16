@@ -1,156 +1,237 @@
-"""Generates the three Nozarashi item models (sealed katana, Shikai cleaver, Berserk Mode cleaver).
+"""Generate Nozarashi's sealed, Shikai and red-cracked Bankai item models.
 
-Run from the repository root:  python tools/models/nozarashi_models.py
-The swords follow the Hyorinmaru convention: blade along +Y, every element rotated -45 degrees on Z around
-(8, 8, 8), vanilla block textures only. Vanilla limits element coordinates to [-16, 32], so the cleaver's
-size comes from the display transforms instead of longer elements.
+Run from the repository root: ``python tools/models/nozarashi_models.py``.
+The three forms intentionally have different silhouettes. All parts share the
+project's -45 degree item rotation and only use vanilla Minecraft textures.
 """
 import json
 from pathlib import Path
 
 OUT = Path(__file__).resolve().parents[2] / "src/main/resources/assets/bleachmod/models/item"
+ROTATION = {"angle": -45, "axis": "z", "origin": [8, 8, 8]}
 GLOW = {"block_light": 15, "sky_light": 15, "ambient_occlusion": False}
 
 
-def box(name, frm, to, tex, glow=False):
-    frm = [round(v, 3) for v in frm]
-    to = [round(v, 3) for v in to]
+def box(name, frm, to, texture, glow=False):
+    """Create one cuboid accepted by the vanilla item-model loader."""
+    frm = [round(value, 3) for value in frm]
+    to = [round(value, 3) for value in to]
     sx, sy, sz = (min(16, max(.1, to[i] - frm[i])) for i in range(3))
-    uv = {"north": [0, 0, sx, sy], "south": [0, 0, sx, sy], "east": [0, 0, sz, sy],
-          "west": [0, 0, sz, sy], "up": [0, 0, sx, sz], "down": [0, 0, sx, sz]}
-    element = {"name": name, "from": frm, "to": to,
-               "rotation": {"angle": -45, "axis": "z", "origin": [8, 8, 8]},
-               "faces": {face: {"uv": [round(v, 3) for v in coords], "texture": "#" + tex} for face, coords in uv.items()}}
+    uv = {
+        "north": [0, 0, sx, sy], "south": [0, 0, sx, sy],
+        "east": [0, 0, sz, sy], "west": [0, 0, sz, sy],
+        "up": [0, 0, sx, sz], "down": [0, 0, sx, sz],
+    }
+    element = {
+        "name": name, "from": frm, "to": to, "rotation": ROTATION,
+        "faces": {
+            face: {"uv": [round(value, 3) for value in coords], "texture": f"#{texture}"}
+            for face, coords in uv.items()
+        },
+    }
     if glow:
         element["forge_data"] = GLOW
     return element
 
 
-def handle(top, wrap="wrap", binding="binding", width=1.3):
-    """Long two-hand grip with diamond-like binding bands and a heavy pommel."""
+def sample(points, position):
+    """Linearly sample a normalized profile described by (position, value)."""
+    for (p0, value0), (p1, value1) in zip(points, points[1:]):
+        if position <= p1:
+            amount = (position - p0) / (p1 - p0)
+            return value0 + (value1 - value0) * amount
+    return points[-1][1]
+
+
+def wrapped_handle(top, width, wrap, binding, band_step=1.25):
     lo, hi = 8 - width / 2, 8 + width / 2
-    parts = [box("grip", [lo, 0, lo], [hi, top, hi], wrap),
-             box("pommel", [lo - .2, -0.6, lo - .2], [hi + .2, 0.2, hi + .2], "guard")]
-    y = 0.9
-    while y + .3 < top - .4:
-        parts.append(box("binding", [lo - .06, y, lo - .06], [hi + .06, y + .28, hi + .06], binding))
-        y += 1.15
+    parts = [box("grip", [lo, -.7, lo], [hi, top, hi], wrap)]
+    y, band = -.15, 0
+    while y < top - .5:
+        inset = .08 if band % 2 else 0
+        parts.append(box("grip_binding", [lo - .07 + inset, y, lo - .07],
+                         [hi + .07, min(top, y + .32), hi + .07 - inset], binding))
+        y += band_step
+        band += 1
     return parts
 
 
 def sealed():
-    """Zaraki's sealed blade: long, plain and chipped all along its edge from countless fights."""
-    parts = handle(7.2, width=1.25)
-    parts += [box("worn_tsuba", [6.3, 7.2, 7.1], [9.7, 7.75, 8.9], "guard"),
-              box("habaki", [7.35, 7.75, 7.65], [8.65, 8.4, 8.35], "guard")]
-    # Blade body in segments that drift toward the spine; the edge strip has gaps where it was chipped.
-    segments = [(8.4, 14, 0), (14, 20, .12), (20, 26, .3), (26, 29.4, .55)]
-    for y0, y1, shift in segments:
-        parts.append(box("blade", [7.45 + shift, y0, 7.8], [8.45 + shift, y1, 8.2], "blade"))
-        parts.append(box("spine", [8.43 + shift, y0, 7.74], [8.58 + shift, y1, 8.26], "spine"))
-    chips = [(9.6, 10.3), (12.4, 12.8), (16.1, 17.0), (19.2, 19.6), (22.8, 23.7), (25.3, 25.6)]
-    edge_y, cuts = 8.4, []
-    for c0, c1 in chips:
-        cuts.append((edge_y, c0)); edge_y = c1
-    cuts.append((edge_y, 29.4))
-    for y0, y1 in cuts:
-        shift = next(s for a, b, s in segments if a <= y0 < b)
-        parts.append(box("chipped_edge", [7.31 + shift, y0, 7.96], [7.46 + shift, y1, 8.04], "edge"))
-    for c0, c1 in chips:  # darker bites cut into the blade surface
-        shift = next(s for a, b, s in segments if a <= c0 < b)
-        parts.append(box("notch", [7.42 + shift, c0, 7.78], [7.75 + shift, c1, 8.22], "notch"))
-    parts += [box("kissaki", [8.05, 29.4, 7.8], [9.0, 30.3, 8.2], "blade"),
-              box("kissaki_tip", [8.6, 30.3, 7.85], [9.0, 31.0, 8.15], "blade")]
+    """The battered, oversized katana Zaraki carries before calling Nozarashi."""
+    parts = wrapped_handle(7.6, 1.35, "sealed_wrap", "sealed_binding", 1.05)
+    parts += [
+        box("worn_pommel", [7.05, -1.35, 7.05], [8.95, -.65, 8.95], "worn_gold"),
+        box("worn_tsuba", [5.9, 7.5, 7.05], [10.1, 8.2, 8.95], "worn_gold"),
+        box("habaki", [7.15, 8.15, 7.45], [8.85, 9.15, 8.55], "dark_steel"),
+    ]
+    blade_segments = [(9.1, 14.2, 0), (14.2, 19.2, .12), (19.2, 24.0, .32),
+                      (24.0, 28.2, .6), (28.2, 30.6, .95)]
+    chips = [(10.7, 11.35), (13.1, 13.55), (16.0, 16.8), (18.3, 18.8),
+             (21.5, 22.25), (25.0, 25.85), (27.35, 27.9)]
+    for y0, y1, shift in blade_segments:
+        parts.append(box("scarred_blade", [7.35 + shift, y0, 7.55],
+                         [8.55 + shift, y1, 8.45], "dark_steel"))
+        parts.append(box("heavy_spine", [8.48 + shift, y0, 7.45],
+                         [8.7 + shift, y1, 8.55], "spine"))
+    edge_y = 9.1
+    for chip_start, chip_end in chips + [(30.6, 30.6)]:
+        if edge_y < chip_start:
+            shift = next(value for start, end, value in blade_segments if start <= edge_y < end)
+            parts.append(box("broken_edge", [7.13 + shift, edge_y, 7.82],
+                             [7.39 + shift, chip_start, 8.18], "bright_edge"))
+        edge_y = chip_end
+    for chip_start, chip_end in chips:
+        shift = next(value for start, end, value in blade_segments if start <= chip_start < end)
+        parts.append(box("edge_bite", [7.32 + shift, chip_start, 7.48],
+                         [7.78 + shift, chip_end, 8.52], "notch"))
+    parts += [
+        box("broken_kissaki", [8.15, 28.9, 7.6], [9.45, 30.75, 8.4], "dark_steel"),
+        box("broken_tip", [8.85, 30.55, 7.72], [9.45, 31.45, 8.28], "bright_edge"),
+        box("blade_scar", [7.75, 17.4, 7.43], [8.45, 18.0, 8.57], "notch"),
+        box("blade_scar", [8.05, 23.1, 7.43], [8.7, 23.65, 8.57], "notch"),
+    ]
     return parts
 
 
-def cleaver(bankai):
-    """Nozarashi as in the anime: a long wrapped pole topped by a gold ferrule with green tassels, carrying a
-    huge crescent blade that sweeps out from the top and hangs down to a point. Berserk Mode darkens the steel
-    and splits it with glowing red cracks."""
-    import math
-    t = .3 if bankai else 0  # extra thickness in Berserk Mode
-    parts = [box("pole", [7.3, -0.5, 7.3], [8.7, 25.0, 8.7], "wrap"),
-             box("pommel", [7.1, -1.4, 7.1], [8.9, -0.5, 8.9], "guard")]
-    y = 0.2
-    while y < 23.8:  # dark diagonal-looking stripes of the wrap
-        parts.append(box("wrap_band", [7.24, y, 7.24], [8.76, y + .45, 8.76], "binding")); y += 1.3
-    # Gold ferrule clamping the blade, with a dark rivet hole as in the manga.
-    parts += [box("ferrule", [6.2, 24.0, 6.9 - t], [10.6, 31.4, 9.1 + t], "gold"),
-              box("ferrule_lip", [5.9, 30.6, 6.7 - t], [10.9, 31.8, 9.3 + t], "gold"),
-              box("ferrule_hole", [8.4, 26.0, 6.8 - t], [9.8, 27.6, 9.2 + t], "notch")]
-    for i, (x, length) in enumerate([(9.4, 6.5), (9.9, 8.0), (10.3, 5.5), (8.9, 7.2), (10.6, 4.4)]):
-        z = 7.6 + (i % 3) * .3
-        parts.append(box("tassel", [x, 24.0 - length, z], [x + .35, 24.0, z + .35], "tassel"))
-    # Crescent: vertical slices from the ferrule (u=0) to the hanging tip (u=1).
-    x0, x1, step = 6.2, -15.6, .9
-    n = int((x0 - x1) / step)
-    for i in range(n):
-        u = i / (n - 1)
-        top = 31.6 - 1.5 * u - 10.5 * u ** 3
-        height = 9.4 * (1 - u) ** .85 + .45
-        bottom = top - height
-        xa, xb = x0 - (i + 1) * step, x0 - i * step
-        thin = .32 * u
-        z0, z1 = 7.55 - t + thin, 8.45 + t - thin
-        if height < 1.2:  # the hanging point is pure cutting edge
-            parts.append(box("crescent_tip", [xa, bottom, 7.9 - t / 2], [xb, top, 8.1 + t / 2], "edge"))
-            continue
-        parts.append(box("crescent", [xa, bottom + .55, z0], [xb, top - .45, z1], "blade"))
-        parts.append(box("crescent_spine", [xa, top - .45, z0 - .05], [xb, top, z1 + .05], "spine"))
-        parts.append(box("crescent_edge", [xa, bottom, 7.9 - t / 2], [xb, bottom + .55, 8.1 + t / 2], "edge"))
-        if bankai and i % 3 == 1 and u < .85:  # glowing red veins running across the blade
-            mid = bottom + height * (.35 + .25 * math.sin(i))
-            parts.append(box("berserk_crack", [xa - .1, mid, z0 - .06], [xb + .1, mid + .7, z1 + .06], "crack", glow=True))
-        if bankai:
-            parts.append(box("berserk_edge_glow", [xa, bottom - .15, 7.88 - t / 2], [xb, bottom + .1, 8.12 + t / 2], "crack", glow=True))
-    # Notches bitten into the edge near the base, like the anime close-ups.
-    for xa, xb, depth in [(4.0, 5.0, 1.4), (1.6, 2.6, 1.1)]:
-        u = (x0 - xb) / (x0 - x1)
-        bottom = 31.6 - 1.5 * u - 10.5 * u ** 3 - (9.4 * (1 - u) ** .85 + .45)
-        parts.append(box("edge_notch", [xa, bottom - .02, 7.4 - t], [xb, bottom + depth, 8.6 + t], "notch"))
+def released_handle(bankai):
+    """A long grip on the same longitudinal axis as the released blade."""
+    wrap = "bankai_wrap" if bankai else "shikai_wrap"
+    binding = "bankai_binding" if bankai else "shikai_binding"
+    pommel = "bankai_spine" if bankai else "worn_gold"
+    lo, hi = 7.2, 8.8
+    parts = [box("released_grip", [lo, -15.0, lo], [hi, 7.0, hi], wrap),
+             box("released_pommel", [6.95, -15.7, 6.95], [9.05, -14.9, 9.05], pommel)]
+    y, band = -14.55, 0
+    while y < 6.45:
+        inset = .08 if band % 2 else 0
+        parts.append(box("grip_binding", [lo - .08 + inset, y, lo - .08],
+                         [hi + .08, y + .34, hi + .08 - inset], binding))
+        y += 1.16
+        band += 1
     return parts
 
 
-SEALED_TEXTURES = {"wrap": "minecraft:block/black_wool", "binding": "minecraft:block/light_gray_wool",
-                   "guard": "minecraft:block/anvil", "blade": "minecraft:block/iron_block",
-                   "spine": "minecraft:block/light_gray_concrete", "edge": "minecraft:block/quartz_block_side",
-                   "notch": "minecraft:block/gray_concrete", "particle": "minecraft:block/iron_block"}
-SHIKAI_TEXTURES = dict(SEALED_TEXTURES, wrap="minecraft:block/white_wool", binding="minecraft:block/brown_wool",
-                       blade="minecraft:block/iron_block", spine="minecraft:block/gray_concrete",
-                       gold="minecraft:block/gold_block", tassel="minecraft:block/green_wool",
-                       notch="minecraft:block/black_concrete")
-BANKAI_TEXTURES = dict(SHIKAI_TEXTURES, blade="minecraft:block/polished_blackstone",
-                       spine="minecraft:block/blackstone", edge="minecraft:block/red_concrete",
-                       binding="minecraft:block/black_wool", crack="minecraft:block/redstone_block",
-                       particle="minecraft:block/red_concrete")
+def released(bankai=False):
+    """Collinear released Nozarashi; Bankai reuses the silhouette with red damage effects."""
+    blade = "bankai_blade" if bankai else "shikai_blade"
+    spine = "bankai_spine" if bankai else "shikai_spine"
+    edge = "bankai_edge" if bankai else "bright_edge"
+    parts = released_handle(bankai)
+    parts += [
+        box("gold_ferrule", [4.7, 5.9, 6.55], [11.35, 12.6, 9.45], "gold"),
+        box("ferrule_cap", [4.4, 11.85, 6.4], [11.65, 13.0, 9.6], "gold"),
+        box("ferrule_shadow", [4.55, 5.8, 6.45], [5.4, 12.0, 9.55], "worn_gold"),
+        box("ferrule_rivet", [8.8, 6.7, 6.35], [10.45, 8.35, 9.65], "notch"),
+    ]
+    for index, (x, length) in enumerate([(9.5, 5.4), (10.0, 7.0), (10.5, 6.1),
+                                         (11.0, 7.7), (11.5, 4.8)]):
+        z = 7.3 + (index % 3) * .45
+        parts.append(box("green_tassel", [x, 6.6 - length, z],
+                         [x + .34, 6.75, z + .34], "tassel"))
+        if index % 2:
+            parts.append(box("tassel_knot", [x - .12, 5.95, z - .1],
+                             [x + .48, 6.8, z + .44], "tassel_dark"))
+
+    # Longitudinal blade: the grip continues into its base at y=9 and the
+    # weapon grows toward +Y.  Width is kept through 90% of the head; only the
+    # short kissaki closes, preserving the massive cleaver silhouette.
+    y_base, y_tip, step = 9.0, 31.6, .72
+    left_profile = [(0, -.8), (.18, -1.8), (.5, -3.25), (.78, -4.0),
+                    (.9, -3.5), (.97, 2.0), (1, 7.15)]
+    right_profile = [(0, 11.0), (.2, 11.35), (.5, 11.15), (.78, 10.4),
+                     (.92, 9.6), (1, 8.65)]
+    count = round((y_tip - y_base) / step)
+    crack_anchors = {8: 1.7, 15: 3.5, 22: .4}
+    for index in range(count):
+        u = (index + .5) / count
+        ya, yb = y_base + index * step, y_base + (index + 1) * step
+        left, right = sample(left_profile, u), sample(right_profile, u)
+        thickness = 2.55 - .55 * u
+        z0, z1 = 8 - thickness / 2, 8 + thickness / 2
+        edge_width = min(1.0, max(.45, (right - left) * .12))
+        parts.append(box("cleaver_body", [left + edge_width - .08, ya, z0],
+                         [right - .58, yb, z1], blade))
+        parts.append(box("cutting_edge", [left, ya, 7.32],
+                         [left + edge_width, yb, 8.68], edge))
+        parts.append(box("heavy_spine", [right - .65, ya, z0 - .14],
+                         [right, yb, z1 + .14], spine))
+        if bankai and index in crack_anchors:
+            start = max(left + edge_width + .25, crack_anchors[index])
+            end = min(right - .8, start + 3.8)
+            parts.append(box("glowing_crack", [start, ya + .18, z0 - .08],
+                             [end, ya + .46, z1 + .08], "crack", glow=True))
+            if end + .2 < right - .45:
+                parts.append(box("glowing_crack_branch", [end - .15, ya + .42, z0 - .08],
+                                 [min(right - .45, end + 1.25), ya + .68, z1 + .08], "crack", glow=True))
+    # Small heel damage from the reference, without changing the weapon axis.
+    parts += [
+        box("heel_notch", [-.65, 10.0, 6.95], [.35, 11.25, 9.05], "notch"),
+        box("heel_notch", [-1.45, 12.15, 7.05], [-.45, 13.1, 8.95], "notch"),
+    ]
+    return parts
 
 
-def display(hand, first, gui):
+def shikai():
+    return released(False)
+
+
+def bankai():
+    return released(True)
+
+
+SEALED_TEXTURES = {
+    "sealed_wrap": "minecraft:block/brown_wool", "sealed_binding": "minecraft:block/light_gray_wool",
+    "worn_gold": "minecraft:block/raw_gold_block", "dark_steel": "minecraft:block/polished_deepslate",
+    "spine": "minecraft:block/deepslate_tiles", "bright_edge": "minecraft:block/quartz_block_side",
+    "notch": "minecraft:block/black_concrete", "particle": "minecraft:block/polished_deepslate",
+}
+SHAIKAI_TEXTURES = {
+    "shikai_wrap": "minecraft:block/light_gray_wool", "shikai_binding": "minecraft:block/brown_wool",
+    "worn_gold": "minecraft:block/raw_gold_block", "gold": "minecraft:block/gold_block",
+    "tassel": "minecraft:block/green_wool", "tassel_dark": "minecraft:block/green_concrete",
+    "shikai_blade": "minecraft:block/black_concrete", "shikai_spine": "minecraft:block/polished_blackstone",
+    "bright_edge": "minecraft:block/quartz_block_side", "notch": "minecraft:block/blackstone",
+    "particle": "minecraft:block/black_concrete",
+}
+BANKAI_TEXTURES = {
+    "bankai_wrap": "minecraft:block/white_wool", "bankai_binding": "minecraft:block/light_gray_concrete",
+    "bankai_blade": "minecraft:block/polished_blackstone", "bankai_spine": "minecraft:block/obsidian",
+    "bankai_edge": "minecraft:block/red_concrete", "crack": "minecraft:block/redstone_block",
+    "gold": "minecraft:block/gold_block", "worn_gold": "minecraft:block/raw_gold_block",
+    "tassel": "minecraft:block/green_wool", "tassel_dark": "minecraft:block/green_concrete",
+    "notch": "minecraft:block/black_concrete", "particle": "minecraft:block/red_concrete",
+}
+
+
+def display(hand, first_person, gui, translation=None):
+    translation = translation if translation is not None else 4 + (hand - .85) * 6
     return {
-        "thirdperson_righthand": {"rotation": [0, -90, 55], "scale": [hand] * 3, "translation": [0, 4 + (hand - .85) * 6, .5]},
-        "thirdperson_lefthand": {"rotation": [0, 90, -55], "scale": [hand] * 3, "translation": [0, 4 + (hand - .85) * 6, .5]},
-        "firstperson_righthand": {"rotation": [0, -90, 25], "scale": [first] * 3, "translation": [1.13, 3.2, 1.13]},
-        "firstperson_lefthand": {"rotation": [0, 90, -25], "scale": [first] * 3, "translation": [1.13, 3.2, 1.13]},
+        "thirdperson_righthand": {"rotation": [0, -90, 55], "scale": [hand] * 3,
+                                  "translation": [0, translation, .5]},
+        "thirdperson_lefthand": {"rotation": [0, 90, -55], "scale": [hand] * 3,
+                                 "translation": [0, translation, .5]},
+        "firstperson_righthand": {"rotation": [0, -90, 25], "scale": [first_person] * 3,
+                                  "translation": [1.13, 3.2, 1.13]},
+        "firstperson_lefthand": {"rotation": [0, 90, -25], "scale": [first_person] * 3,
+                                 "translation": [1.13, 3.2, 1.13]},
         "gui": {"rotation": [0, 0, 0], "scale": [gui] * 3, "translation": [-3, -3, 0]},
         "fixed": {"rotation": [0, 0, 0], "scale": [gui] * 3, "translation": [-3, -3, 0]},
         "ground": {"scale": [.4] * 3, "translation": [0, 3, 0]},
     }
 
 
-def write(name, textures, elements, disp, overrides=None):
-    model = {"gui_light": "front", "textures": textures,
-             "display": disp, "elements": elements}
+def write(name, textures, elements, model_display, overrides=None):
+    model = {"gui_light": "front", "textures": textures, "display": model_display, "elements": elements}
     if overrides:
         model["overrides"] = overrides
     (OUT / f"{name}.json").write_text(json.dumps(model, indent=1) + "\n", encoding="utf-8")
 
 
 if __name__ == "__main__":
-    write("nozarashi", SEALED_TEXTURES, sealed(), display(1.0, .72, .6), [
+    write("nozarashi", SEALED_TEXTURES, sealed(), display(1.15, .78, .58), [
         {"predicate": {"bleachmod:form": 1}, "model": "bleachmod:item/nozarashi_shikai"},
-        {"predicate": {"bleachmod:form": 2}, "model": "bleachmod:item/nozarashi_bankai"}])
-    # Nozarashi towers over its wielder: about twice the katanas in hand.
-    write("nozarashi_shikai", SHIKAI_TEXTURES, cleaver(False), display(1.7, .85, .42))
-    write("nozarashi_bankai", BANKAI_TEXTURES, cleaver(True), display(1.85, .9, .42))
+        {"predicate": {"bleachmod:form": 2}, "model": "bleachmod:item/nozarashi_bankai"},
+    ])
+    write("nozarashi_shikai", SHAIKAI_TEXTURES, shikai(), display(2.05, .9, .39, 10.7))
+    write("nozarashi_bankai", BANKAI_TEXTURES, bankai(), display(1.78, .86, .42, 9.25))
     print("Nozarashi models written to", OUT)

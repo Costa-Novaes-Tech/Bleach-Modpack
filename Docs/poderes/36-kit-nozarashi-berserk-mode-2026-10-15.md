@@ -28,9 +28,9 @@ Protocolo de rede **2.10** (novo pacote). Schema de save inalterado: a identidad
 
 ## Modelos
 
-- **Selada:** katana longa e simples, com lascas no fio (trechos ausentes e mordidas escuras), guarda gasta, cabo preto enfaixado.
-- **Shikai:** cabo longo enfaixado em branco/marrom, virola dourada com furo e borlas verdes, e uma **lâmina crescente gigante** que sai do topo e desce até a ponta, com entalhes perto da base. Escala na mão: 1,7.
-- **Berserk Mode:** mesma silhueta, aço escuro (blackstone), fio vermelho e veios vermelhos **emissivos** (`forge_data` com luz 15). Escala na mão: 1,85.
+- **Selada:** katana muito longa e maltratada, com vários trechos realmente ausentes no fio, mordidas escuras, aço enegrecido, guarda dourada gasta e cabo marrom enfaixado. Escala na mão: 1,15.
+- **Shikai:** cabo longo claro com amarrações marrons, virola dourada com furo e borlas verdes, e uma **cabeça de cutelo negra colossal**, larga e quase retangular, com fio branco contínuo. Cabo, encaixe e lâmina compartilham o mesmo eixo longitudinal; a curvatura fica concentrada no dorso e o afunilamento apenas na ponta curta. Escala na mão: 2,05.
+- **Berserk Mode:** reutiliza a geometria e a orientação axial do Shikai, trocando o corpo por aço negro, o fio por vermelho e acrescentando rachaduras vermelhas emissivas (`forge_data` com luz 15). Escala na mão: 1,78.
 - Os elementos JSON ficam limitados a [-16, 32]; o tamanho vem dos `display`. Para ajustar, edite o gerador e rode `python tools/models/nozarashi_models.py`.
 
 ## Tabela de técnicas
