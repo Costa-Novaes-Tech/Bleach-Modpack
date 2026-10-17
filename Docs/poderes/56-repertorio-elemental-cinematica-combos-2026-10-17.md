@@ -1,5 +1,7 @@
 # Ciclo 56 — Repertório elemental, pose final e combos
 
+> Feedback posterior: Hyōrinmaru aceita por enquanto; Ryūjin precisa de correção visual. O [ciclo 57](57-prototipos-correcao-visual-ryujin-2026-10-17.md) registra os problemas da pose/VFX e apresenta estudos antes de codificar. Esta build ainda possui os problemas relatados.
+
 Data: 17/10/2026. Branch `Feature-Poderes-bankais`, base `30c7e28`, Git limpo ao iniciar. Usuário aprovou a primeira fatia e pediu conclusão do repertório Ryūjin/Hyōrinmaru, refinamento cinematográfico, dragão Shikai com +5 blocos, Bankai maior que o Ender Dragon e combos próprios. Contrato anterior: ciclos 54/55, M05/M06, identidade/vínculo/maestria e contrato de novos poderes. Sem integração do Zaraki, fetch ou push.
 
 ## Entrega
