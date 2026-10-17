@@ -1,5 +1,7 @@
 # Ciclo 51 — Better Combat, ferramentas e refatoração dos kits
 
+> Atualização de 17/10: usuário aprovou a animação Asauchi. [Ciclo 53](53-asauchi-3d-pose-bloqueio-2026-10-17.md) atualiza seu formato 3D e acrescenta pose de bloqueio com X às cinco zanpakutō; novo visual aguarda playtest. Zaraki ainda sem commit da equipe; ordem de bibliotecas e refatorações abaixo preservada.
+
 > Início autorizado e entregue no [ciclo 52](52-better-combat-piloto-asauchi-2026-10-16.md): dependências fixadas, adaptação de servidor e Asauchi piloto, 99 regressões/118 GameTests aprovados. A equipe providenciará o commit Zaraki; comparação/reuso e playtest de cliente ainda pendentes. A etapa 1 não está homologada apenas por essa validação automática.
 
 Data: 16/10/2026. Branch `Feature-Poderes-bankais`, Git limpo ao iniciar, HEAD `440a2ca`. Usuário autorizou **Better Combat**, pediu inclusão das bibliotecas/ferramentas pesquisadas no roadmap e revisão de **Hyōrinmaru e Ryūjin Jakka**, sempre orientada pelos documentos da equipe. Esta entrega analisa as referências e fecha uma proposta de integração por etapas; não instala bibliotecas no mod nem altera seus poderes nesta execução.

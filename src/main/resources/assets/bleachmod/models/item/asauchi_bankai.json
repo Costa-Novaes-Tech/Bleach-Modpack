@@ -1,6 +1,13 @@
 {
-  "parent": "bleachmod:item/katana_handheld",
+  "parent": "bleachmod:item/asauchi_katana",
   "textures": {
-    "layer0": "bleachmod:item/asauchi_bankai"
+    "layer0": "bleachmod:item/asauchi_bankai",
+    "particle": "bleachmod:item/asauchi_bankai",
+    "wrap": "minecraft:block/black_wool",
+    "binding": "minecraft:block/gray_concrete",
+    "fittings": "minecraft:block/gray_concrete",
+    "blade": "minecraft:block/red_concrete",
+    "edge": "minecraft:block/orange_concrete",
+    "spine": "minecraft:block/black_concrete"
   }
 }

@@ -1,10 +1,27 @@
 {
-  "parent": "bleachmod:item/katana_handheld",
+  "parent": "bleachmod:item/asauchi_katana",
   "textures": {
-    "layer0": "bleachmod:item/asauchi"
+    "layer0": "bleachmod:item/asauchi",
+    "particle": "bleachmod:item/asauchi",
+    "wrap": "minecraft:block/black_wool",
+    "binding": "minecraft:block/gray_concrete",
+    "fittings": "minecraft:block/gray_concrete",
+    "blade": "minecraft:block/iron_block",
+    "edge": "minecraft:block/white_concrete",
+    "spine": "minecraft:block/light_gray_concrete"
   },
   "overrides": [
-    { "predicate": { "bleachmod:form": 1 }, "model": "bleachmod:item/asauchi_shikai" },
-    { "predicate": { "bleachmod:form": 2 }, "model": "bleachmod:item/asauchi_bankai" }
+    {
+      "predicate": {
+        "bleachmod:form": 1
+      },
+      "model": "bleachmod:item/asauchi_shikai"
+    },
+    {
+      "predicate": {
+        "bleachmod:form": 2
+      },
+      "model": "bleachmod:item/asauchi_bankai"
+    }
   ]
 }

@@ -1,8 +1,8 @@
 # Continuidade do projeto — leia primeiro
 
-Atualizado em 16/10/2026. Resumo de passagem para nova conversa; consulte o código/Git antes de alterar. Este arquivo evita precisar importar o histórico completo do chat. Não substitui instruções atuais do usuário.
+Atualizado em 17/10/2026. Resumo de passagem para nova conversa; consulte o código/Git antes de alterar. Este arquivo evita precisar importar o histórico completo do chat. Não substitui instruções atuais do usuário.
 
-**Frente vigente: ciclo 52 — Better Combat integrado em piloto Asauchi, aguardando playtest e commit Zaraki da equipe.** [Contrato, dependências e instalação](52-better-combat-piloto-asauchi-2026-10-16.md). Better Combat 1.9.0 Forge + PlayerAnimator + Cloth Config agora são necessários; pacote completo em `build/combat-test-pack/mods`. Cobrança única por golpe e bloqueios de estado verificados. Rede **2.18**, schema **8**, 99 regressões/118 GameTests aprovados. Não declarar homologação visual/multiplayer real. Conferir Git e comparar o trabalho do colega quando disponível.
+**Frente vigente: ciclo 53 — animação Asauchi aprovada pelo usuário; novo modelo 3D e pose de bloqueio com X entregues para teste.** [Contrato visual e continuidade](53-asauchi-3d-pose-bloqueio-2026-10-17.md). Pose nas cinco zanpakutō, primeira/terceira pessoa, via snapshot de guarda e PlayerAnimator. [Dependências e contrato Better Combat](52-better-combat-piloto-asauchi-2026-10-16.md). Better Combat 1.9.0 Forge + PlayerAnimator + Cloth Config necessários; pacote completo em `build/combat-test-pack/mods`. Rede **2.18**, schema **8**, 99 regressões/118 GameTests aprovados. Conferência visual desta entrega e dois clientes reais pendentes. Zaraki ainda sem commit; roadmap do ciclo 51 preservado.
 
 ## 1. Repositório e regras mantidas pelo usuário
 
@@ -11,7 +11,7 @@ Atualizado em 16/10/2026. Resumo de passagem para nova conversa; consulte o cód
 - Branch de trabalho: `Feature-Poderes-bankais`. Nunca comitar na main. Commits locais são autorizados após validação; isso não autoriza push, merge, exclusões ou outras publicações não solicitadas.
 - A branch antiga `Feature-Bankais-Poderes` foi excluída pelo usuário por duplicação/atraso. Não recriar nem confundir os nomes.
 - Documentação desta frente: modificar somente `Docs/poderes`. Documentos de outras pastas podem ser consultados, mas não editados sem nova orientação.
-- Preservar texturas/modelos homologados, especialmente Asauchi. Aizen e Bankai original para ele estão adiados.
+- Preservar texturas/modelos homologados salvo pedido explícito de revisão. Atualização do formato Asauchi autorizada no ciclo 53. Aizen e Bankai original para ele estão adiados.
 - Trabalhar em português; informar alterações, validação e limites. Não pedir novamente autorização para tarefas já solicitadas; não presumir que proposta futura equivale a pedido de implementação.
 - Conferir status, branch e instruções locais; preservar alterações de outras pessoas. Não havia AGENTS.md localizado na revisão anterior; conferir novamente se o repositório mudou.
 
@@ -20,7 +20,7 @@ Atualizado em 16/10/2026. Resumo de passagem para nova conversa; consulte o cód
 Minecraft 1.20.1, Forge 47.4.10, Java 17, Gradle wrapper. Mod 0.2.0; protocolo de rede 2.18; schema persistente 8. Cliente e servidor devem usar a mesma build.
 
 - Ryujin Jakka e Hyōrinmaru possuem kits próprios nas formas selada/Shikai/Bankai, já testados pelo usuário. Seus detalhes históricos estão nos relatórios de poderes; não reabrir balanceamento/visuais sem solicitação.
-- Uma zanpakutō vinculada por vez. Pode trocar identidade, mantendo progresso separado. Asauchi é identidade própria, com Shikai/Bankai de bônus de dano e sem slots elementais; modelos preservados.
+- Uma zanpakutō vinculada por vez. Pode trocar identidade, mantendo progresso separado. Asauchi é identidade própria, com Shikai/Bankai de bônus de dano e sem slots elementais; formato 3D atualizado no ciclo 53, com paletas prateada/azul/vermelha.
 - Maestria por prática válida de forma/técnica, requisitos graduais e feedback no HUD. Modos administrativos gratuitos suspendem treino. Personagens legados preservam repertório conforme migração anterior ao schema 5.
 - Combat State automático: dano elegível inicia/renova 200 ticks. HUD informa combate; morte/reconexão/dimensão limpam estado. Não é Combat Mode manual. Ainda não altera recuperação de reiatsu ou penaliza logout.
 - Stamina máxima = 100 + 100 × R / (R + 20), com R sendo nível comprado de Resistência; R20 = 150, limite 200. Compra não recarrega saldo; redução limita saldo. Ainda existem sete atributos atuais, não a migração futura de cinco atributos.

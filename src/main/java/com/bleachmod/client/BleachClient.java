@@ -51,6 +51,7 @@ public final class BleachClient {
     private static void onClientSetup(FMLClientSetupEvent event) {
         event.enqueueWork(BleachClient::registerItemProperties);
         event.enqueueWork(com.bleachmod.client.compat.BetterCombatClientCompat::init);
+        event.enqueueWork(com.bleachmod.client.model.ZanpakutoGuardPose::init);
     }
 
     private static void registerItemProperties() {
