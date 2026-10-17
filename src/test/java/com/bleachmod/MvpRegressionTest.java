@@ -50,7 +50,7 @@ public final class MvpRegressionTest {
             var d = new PlayerData(); d.initializeShinigami(); d.getResources().spendBasicAttackStamina();
             var old = d.save(); old.putInt("schemaVersion", 7); old.remove("guard");
             var copy = new PlayerData(); copy.load(old); eq(100F, copy.getGuard().posture()); eq(96F, copy.getResources().getStamina());
-            yes(copy.getCharacter().save().equals(d.getCharacter().save())); eq(8, copy.save().getInt("schemaVersion"));
+            yes(copy.getCharacter().save().equals(d.getCharacter().save())); eq(9, copy.save().getInt("schemaVersion"));
         });
         test("Dodge directions rotate with yaw and diagonals have equal length", () -> {
             var p = com.bleachmod.common.DodgePolicy.direction(1, 0, 0);
@@ -133,7 +133,7 @@ public final class MvpRegressionTest {
             var legacy = new PlayerData(); legacy.initializeShinigami(); var saved = legacy.save(); saved.putInt("schemaVersion", 5);
             saved.getCompound("resources").remove("stamina"); saved.getCompound("resources").remove("staminaRestTicks");
             saved.getCompound("resources").remove("staminaExhausted"); var migrated = new PlayerData(); migrated.load(saved);
-            eq(100F, migrated.getResources().getStamina()); eq(8, migrated.save().getInt("schemaVersion"));
+            eq(100F, migrated.getResources().getStamina()); eq(9, migrated.save().getInt("schemaVersion"));
         });
         test("Combat state expires, refreshes and stays absent from persistent saves", () -> {
             var status = new StatusData(); status.refreshCombat(200);
@@ -157,19 +157,19 @@ public final class MvpRegressionTest {
             }
             for (String form : List.of("sealed", "shikai", "bankai")) {
                 for (int slot = 1; slot <= 4; slot++) yes(com.bleachmod.common.technique.TechniqueDefinitions.find("asauchi", form, slot).isEmpty());
-                float[] costs = form.equals("sealed") ? new float[]{8,8,12,18} : form.equals("shikai") ? new float[]{15,20,25,30} : new float[]{20,25,30,35};
-                int[] cooldowns = {100,160,240,300};
+                float[] costs = form.equals("sealed") ? new float[]{8,8,0,18} : form.equals("shikai") ? new float[]{15,20,18,30} : new float[]{20,25,30,35};
+                int[] cooldowns = form.equals("sealed") ? new int[]{100,160,0,300} : new int[]{100,160,240,300};
                 for (int slot = 1; slot <= 4; slot++) {
                     var def = com.bleachmod.common.technique.TechniqueDefinitions.require("hyorinmaru", form, slot);
                     eq(costs[slot - 1], def.cost()); eq(cooldowns[slot - 1], def.cooldownTicks());
                 }
                 boolean bankai = form.equals("bankai");
-                float[] fireCosts = bankai ? new float[]{20,25,40,45} : new float[]{0,15,40,25};
-                int[] fireCooldowns = bankai ? new int[]{100,80,300,1200} : new int[]{0,80,400,200};
+                float[] fireCosts = bankai ? new float[]{20,25,40,45} : form.equals("sealed") ? new float[]{8,8,0,0} : new float[]{15,25,40,35};
+                int[] fireCooldowns = bankai ? new int[]{100,160,300,1200} : form.equals("sealed") ? new int[]{60,80,0,0} : new int[]{80,100,300,300};
                 for (int slot = 1; slot <= 4; slot++) {
                     var def = com.bleachmod.common.technique.TechniqueDefinitions.require("ryujin_jakka", form, slot);
                     eq(fireCosts[slot - 1], def.cost()); eq(fireCooldowns[slot - 1], def.cooldownTicks());
-                    eq(!bankai && slot == 1 ? .05F : 0F, def.drainPerTick());
+                    eq(0F, def.drainPerTick());
                 }
             }
             rejects(() -> com.bleachmod.common.technique.TechniqueDefinitions.require("missing", "sealed", 1));
@@ -194,6 +194,32 @@ public final class MvpRegressionTest {
             c.addMastery("zanpakuto", "sealed", .5, 100); com.bleachmod.common.technique.TechniqueProgression.unlockEligible(c);
             changes = com.bleachmod.common.technique.MasteryFeedback.gained(before, c); eq(1, changes.size()); eq(0, changes.get(0).slot());
         });
+        test("Elemental migration follows attacks instead of transferring mastery to replacements", () -> {
+            var old = new CharacterData().save(); old.remove("techniqueRevision");
+            var mastery = old.getCompound("techniqueMasteries");
+            var unlocked = old.getCompound("unlockedTechniques");
+            mastery.putDouble("ryujin_jakka|bankai|2", 63);
+            unlocked.putBoolean("ryujin_jakka|bankai|2", true);
+            mastery.putDouble("hyorinmaru|bankai|3", 91);
+            unlocked.putBoolean("hyorinmaru|bankai|3", true);
+            var c = new CharacterData(); c.load(old); c.bindZanpakuto("ryujin_jakka");
+            eq(63D, c.getTechniqueMastery("shikai", 2)); yes(c.isTechniqueDiscovered("shikai", 2));
+            eq(0D, c.getTechniqueMastery("bankai", 2)); yes(!c.isTechniqueDiscovered("bankai", 2));
+            c.bindZanpakuto("hyorinmaru");
+            eq(0D, c.getTechniqueMastery("bankai", 3)); yes(!c.isTechniqueDiscovered("bankai", 3));
+            yes(c.save().getCompound("techniqueMasteries").contains("hyorinmaru|bankai|3"));
+            var roundTrip = new CharacterData(); roundTrip.load(c.save()); roundTrip.bindZanpakuto("ryujin_jakka");
+            eq(63D, roundTrip.getTechniqueMastery("shikai", 2));
+        });
+        test("Schema nine migration preserves balance and leaves transient cooldowns absent", () -> {
+            var d = new PlayerData(); d.initializeShinigami(); d.getResources().setCurrentReiatsu(43);
+            d.getStatus().setTechniqueSlot2CooldownTicks(87);
+            var tag = d.save(); tag.putInt("schemaVersion", 8);
+            var migrated = new PlayerData(); migrated.load(tag);
+            eq(43F, migrated.getResources().getCurrentReiatsu());
+            eq(0, migrated.getStatus().getTechniqueSlot1CooldownTicks());
+            eq(0, migrated.getStatus().getTechniqueSlot4CooldownTicks());
+        });
         test("Ice slot profiles preserve combat ranges and cover the whole glacial disk", () -> {
             for (int slot = 1; slot <= 2; slot++) {
                 var sealed = new com.bleachmod.common.visual.IceTechniqueVisuals.Cut(slot, false, false);
@@ -202,7 +228,7 @@ public final class MvpRegressionTest {
             var narrow = new com.bleachmod.common.visual.IceTechniqueVisuals.Cut(1, true, true);
             eq(24.0, narrow.range()); eq(1056, narrow.budget());
             eq(352, new com.bleachmod.common.visual.IceTechniqueVisuals.Cut(2, true, true).budget());
-            eq(320, new com.bleachmod.common.visual.IceTechniqueVisuals.Cut(1, true, false).budget());
+            eq(480, new com.bleachmod.common.visual.IceTechniqueVisuals.Cut(1, true, false).budget());
             eq(192, new com.bleachmod.common.visual.IceTechniqueVisuals.Cut(2, true, false).budget());
             rejects(() -> new com.bleachmod.common.visual.IceTechniqueVisuals.Cut(3, true, true));
             rejects(() -> new com.bleachmod.common.visual.IceTechniqueVisuals.Cut(1, false, true));
@@ -291,6 +317,7 @@ public final class MvpRegressionTest {
         test("Technique thresholds, permanent discoveries and archived practice", () -> {
             CharacterData d = new CharacterData(); d.initializeShinigami(); d.bindZanpakuto("hyorinmaru");
             for (int slot = 1; slot <= 4; slot++) {
+                if(slot==3){yes(!com.bleachmod.common.technique.TechniqueProgression.available(d,"sealed",slot));continue;}
                 int required = com.bleachmod.common.technique.TechniqueProgression.requirement(slot);
                 d.setMastery("zanpakuto", "sealed", Math.max(0, required - .5));
                 if (slot > 1) yes(!com.bleachmod.common.technique.TechniqueProgression.available(d, "sealed", slot));
@@ -324,9 +351,9 @@ public final class MvpRegressionTest {
             loaded.load(d.saveAppearance()); yes(loaded.isIceArmorVisual());
         });
         test("Guide distinguishes sealed armor and duel from released fields", () -> {
-            eq("ability.bleachmod.hyorinmaru.sealed_3", com.bleachmod.client.hud.ZanpakutoHud.abilityKey("hyorinmaru", "sealed", 3));
-            eq("ability.bleachmod.hyorinmaru.slot_3", com.bleachmod.client.hud.ZanpakutoHud.abilityKey("hyorinmaru", "bankai", 3));
-            eq("ability.bleachmod.ryujin.flame_tornado", com.bleachmod.client.hud.ZanpakutoHud.abilityKey("ryujin_jakka", "bankai", 3));
+            eq("ability.bleachmod.hyorinmaru.unavailable", com.bleachmod.client.hud.ZanpakutoHud.abilityKey("hyorinmaru", "sealed", 3));
+            eq("ability.bleachmod.hyorinmaru.sennen", com.bleachmod.client.hud.ZanpakutoHud.abilityKey("hyorinmaru", "bankai", 3));
+            eq("ability.bleachmod.ryujin.minami", com.bleachmod.client.hud.ZanpakutoHud.abilityKey("ryujin_jakka", "bankai", 3));
             try {
                 var lang = JsonParser.parseString(java.nio.file.Files.readString(java.nio.file.Path.of("src/main/resources/assets/bleachmod/lang/pt_br.json"))).getAsJsonObject();
                 for(String identity : List.of("hyorinmaru", "ryujin_jakka")) for(String form : List.of("sealed", "shikai", "bankai")) for(int slot=1;slot<=4;slot++)

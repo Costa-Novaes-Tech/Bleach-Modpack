@@ -7,7 +7,7 @@
       "bones": {
         "jaw": {
           "rotation": [
-            "8 + math.sin(query.anim_time * 225) * 7",
+            "30 + math.sin(query.anim_time * 225) * 6",
             0,
             0
           ]

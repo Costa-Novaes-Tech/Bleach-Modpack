@@ -33,16 +33,17 @@ public final class TechniqueDefinitions {
         Map<Key, Definition> entries = new LinkedHashMap<>();
         for (String form : List.of("sealed", "shikai", "bankai")) {
             boolean bankai = form.equals("bankai"), sealed = form.equals("sealed");
-            add(entries, CharacterData.RYUJIN, form, 1, bankai ? "flame_dash" : "ignition", "ability.bleachmod.ryujin." + (bankai ? "flame_dash" : "ignition"), bankai ? 20 : 0, bankai ? 100 : 0, bankai ? 0 : .05F);
-            add(entries, CharacterData.RYUJIN, form, 2, bankai ? "flame_fan" : "flame_barrage", "ability.bleachmod.ryujin." + (bankai ? "flame_fan" : "flame_barrage"), bankai ? 25 : 15, 80, 0);
-            add(entries, CharacterData.RYUJIN, form, 3, bankai ? "flame_tornado" : "flame_wall", "ability.bleachmod.ryujin." + (bankai ? "flame_tornado" : "flame_wall"), 40, bankai ? 300 : 400, 0);
-            add(entries, CharacterData.RYUJIN, form, 4, bankai ? "steam_cut" : "flame_bats", "ability.bleachmod.ryujin." + (bankai ? "steam_cut" : "flame_bats"), bankai ? 45 : 25, bankai ? 1200 : 200, 0);
-            String[] iceIds = sealed ? new String[]{"front_cut", "wide_cut", "ice_armor", "duel_control"}
-                    : new String[]{"ice_dragon", "wide_cut", "ice_barrier", "glacial_zone"};
-            float[] costs = sealed ? new float[]{8, 8, 12, 18} : bankai ? new float[]{20, 25, 30, 35} : new float[]{15, 20, 25, 30};
-            int[] cooldowns = {100, 160, 240, 300};
-            for (int slot = 1; slot <= 4; slot++) add(entries, CharacterData.HYORINMARU, form, slot, iceIds[slot - 1],
-                    "ability.bleachmod.hyorinmaru." + (sealed ? "sealed_" : "slot_") + slot, costs[slot - 1], cooldowns[slot - 1], 0);
+            String[] fireIds=sealed?new String[]{"sealed_cut","sealed_sweep","unavailable","unavailable"}
+                :bankai?new String[]{"flame_dash","higashi","minami","steam_cut"}:new String[]{"flame_barrage","flame_fan","flame_tornado","jokaku"};
+            float[] fireCosts=sealed?new float[]{8,8,0,0}:bankai?new float[]{20,25,40,45}:new float[]{15,25,40,35};
+            int[] fireCds=sealed?new int[]{60,80,0,0}:bankai?new int[]{100,160,300,1200}:new int[]{80,100,300,300};
+            for(int slot=1;slot<=4;slot++)add(entries,CharacterData.RYUJIN,form,slot,fireIds[slot-1],"ability.bleachmod.ryujin."+fireIds[slot-1],fireCosts[slot-1],fireCds[slot-1],0);
+            String[] iceIds=sealed?new String[]{"front_cut","wide_cut","unavailable","duel_control"}
+                :bankai?new String[]{"ice_dragon","ryusenka","sennen","glacial_zone"}:new String[]{"ice_dragon","crescent_chain","duel_control","glacial_zone"};
+            float[] costs=sealed?new float[]{8,8,0,18}:bankai?new float[]{20,25,30,35}:new float[]{15,20,18,30};
+            int[] cooldowns=sealed?new int[]{100,160,0,300}:new int[]{100,160,240,300};
+            for(int slot=1;slot<=4;slot++)add(entries,CharacterData.HYORINMARU,form,slot,iceIds[slot-1],
+                "ability.bleachmod.hyorinmaru."+iceIds[slot-1],costs[slot-1],cooldowns[slot-1],0);
         }
         for (String form : List.of("sealed", "shikai", "bankai")) {
             boolean bankai = form.equals("bankai");

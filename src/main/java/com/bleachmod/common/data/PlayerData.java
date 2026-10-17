@@ -88,7 +88,7 @@ public class PlayerData {
 
     public CompoundTag save() {
         CompoundTag tag = new CompoundTag();
-        tag.putInt("schemaVersion", 8);
+        tag.putInt("schemaVersion", 9);
         tag.put("guard", guard.save());
         tag.put("attributes", attributes.save());
         tag.put("character", character.save());
@@ -126,6 +126,9 @@ public class PlayerData {
             character.unlockForm("sealed");
             if (skills.getLevel("zanpakuto") >= 1 || character.getMastery("zanpakuto", "shikai") > 0) character.unlockForm("shikai");
             if (skills.getLevel("zanpakuto") >= 2 || character.getMastery("zanpakuto", "bankai") > 0) character.unlockForm("bankai");
+        }
+        if(tag.contains("schemaVersion") && tag.getInt("schemaVersion")<9 && tag.contains("status")) {
+            status.setIgnitionActive(false); // Retired sealed toggle must not survive the repertory migration.
         }
         dataLoaded = true;
         if (tag.getInt("schemaVersion") < 5 && tag.contains("character") && status.hasCreatedCharacter()) character.preserveLegacyTechniques();

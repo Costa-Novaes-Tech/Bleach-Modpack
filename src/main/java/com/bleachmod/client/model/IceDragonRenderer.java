@@ -10,7 +10,7 @@ import software.bernie.geckolib.renderer.GeoEntityRenderer;
 public final class IceDragonRenderer extends GeoEntityRenderer<IceDragonEntity> {
     public IceDragonRenderer(EntityRendererProvider.Context context){super(context,new Model());shadowRadius=0;}
     @Override public void render(IceDragonEntity dragon,float yaw,float partial,com.mojang.blaze3d.vertex.PoseStack pose,net.minecraft.client.renderer.MultiBufferSource buffers,int light){
-        pose.pushPose();float scale=dragon.getPhantomSize()==IceDragonEntity.BANKAI_SIZE?1.35F:.85F;pose.scale(scale,scale,scale);
+        pose.pushPose();float scale=dragon.getPhantomSize()==IceDragonEntity.BANKAI_SIZE?IceDragonEntity.BANKAI_VISUAL_SCALE:.85F;pose.scale(scale,scale,scale);
         super.render(dragon,yaw,partial,pose,buffers,light);pose.popPose();
     }
     private static final class Model extends GeoModel<IceDragonEntity>{

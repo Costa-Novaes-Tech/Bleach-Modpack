@@ -65,6 +65,7 @@ public final class ClientPacketHandler {
         }
         Entity entity = mc.level.getEntity(playerId);
         if (nbt.contains("releaseView")) com.bleachmod.client.model.ZanpakutoReleaseAnimation.accept(playerId, nbt.getCompound("releaseView"));
+        if (nbt.contains("elementalView")) com.bleachmod.client.model.ElementalActionVisuals.accept(playerId, nbt.getCompound("elementalView"));
         if (entity instanceof Player player) {
             PlayerCapability.get(player).ifPresent(data -> {
                 data.load(nbt);

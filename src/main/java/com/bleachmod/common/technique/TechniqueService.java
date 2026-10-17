@@ -71,6 +71,7 @@ public final class TechniqueService {
 
     public static void executeSlot(ServerPlayer player, PlayerData data, int slot) {
         if (!TechniqueProgression.authorize(player, data, slot)) return;
+        if (ElementalTechniqueService.elemental(data)) { ElementalTechniqueService.execute(player,data,slot); return; }
         if (com.bleachmod.common.data.CharacterData.BENIHIME.equals(data.getCharacter().getZanpakutoIdentity())) {
             BenihimeTechniqueService.executeSlot(player,data,slot);return;
         }
@@ -147,7 +148,7 @@ public final class TechniqueService {
         syncResources(player, data);
     }
 
-    private static void applyConcentratedSteamCut(ServerPlayer player) {
+    public static void applyConcentratedSteamCut(ServerPlayer player) {
         ServerLevel level = player.serverLevel();
         Vec3 origin = player.position();
         Vec3 direction = player.getLookAngle().normalize();
@@ -369,7 +370,7 @@ public final class TechniqueService {
         syncResources(player, data);
     }
 
-    private static void executeFlameDash(ServerPlayer player, PlayerData data) {
+    public static void executeFlameDash(ServerPlayer player, PlayerData data) {
         var definition = TechniqueDefinitions.require(data.getCharacter().getZanpakutoIdentity(), data.getCharacter().getActiveForm(), 1);
         if (!isRyujinJakkaEquipped(player)) {
             sendFeedback(player, Component.translatable("message.bleachmod.technique.requires_ryujin_jakka"));

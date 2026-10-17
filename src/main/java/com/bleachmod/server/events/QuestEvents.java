@@ -37,6 +37,7 @@ public class QuestEvents {
 
     @SubscribeEvent
     public static void onEntityKill(LivingDeathEvent event) {
+        if(event.getEntity().getPersistentData().getBoolean("bleachmod_ash_soldier"))return;
         if (event.getEntity() instanceof ServerPlayer deadPlayer) {
             handlePlayerQuestFailure(deadPlayer);
         }

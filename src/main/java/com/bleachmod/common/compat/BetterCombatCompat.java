@@ -26,13 +26,13 @@ public final class BetterCombatCompat {
     }
     private BetterCombatCompat(){ }
     public static boolean managed(ItemStack stack){return BuiltInRegistries.ITEM.getKey(stack.getItem()).getNamespace().equals(Reference.MOD_ID);}
-    public static boolean pilot(ItemStack stack){return stack.is(ModItems.ASAUCHI.get());}
+    public static boolean pilot(ItemStack stack){return stack.is(ModItems.ASAUCHI.get()) || stack.is(ModItems.RYUJIN_JAKKA.get()) || stack.is(ModItems.HYORINMARU.get());}
     public static boolean excluded(ItemStack stack){return managed(stack) && !pilot(stack);}
     public static boolean stateAllows(PlayerData d){return !d.getGuard().active() && !d.getGuard().broken()
             && !d.getStatus().isDodging() && !d.getStatus().isActionCharging() && d.getStatus().getFlameDashTicks()==0;}
     public static boolean canAttack(Player p){return p.isAlive() && !p.isSpectator() && !p.isUsingItem() && !p.isSleeping() && !p.isFullyFrozen()
             && PlayerCapability.get(p).map(BetterCombatCompat::stateAllows).orElse(true)
-            && (!(p instanceof ServerPlayer server) || !SenbonzakuraTechniqueService.busy(server) && !BenihimeTechniqueService.busy(server));}
+            && (!(p instanceof ServerPlayer server) || !ReleaseAnimationService.busy(server) && !ElementalTechniqueService.busy(server) && !SenbonzakuraTechniqueService.busy(server) && !BenihimeTechniqueService.busy(server));}
     public static void comboChanged(Player player,int combo){
         if(player instanceof ServerPlayer p && combo>=0 && pilot(p.getMainHandItem()))CURRENT.set(new Swing(p));
         else CURRENT.remove();

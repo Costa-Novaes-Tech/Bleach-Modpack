@@ -16,7 +16,7 @@ public final class BetterCombatClientCompat {
     private BetterCombatClientCompat(){ }
     public static void init(){BetterCombatClientEvents.ATTACK_START.register((p,hand)->cancelIfBlocked());}
     private static void cancelIfBlocked(){var mc=Minecraft.getInstance();var p=mc.player;
-        if(p!=null && BetterCombatCompat.pilot(p.getMainHandItem()) && (!BetterCombatCompat.canAttack(p) || ModKeybinds.GUARD.isDown() || com.bleachmod.common.data.PlayerCapability.get(p).map(d->d.getGuard().shownActive() || d.getGuard().shownBroken()).orElse(false)))
+        if(p!=null && BetterCombatCompat.pilot(p.getMainHandItem()) && (!BetterCombatCompat.canAttack(p) || com.bleachmod.client.model.ElementalActionVisuals.busy(p) || com.bleachmod.client.model.ZanpakutoReleaseAnimation.active(p) || ModKeybinds.GUARD.isDown() || com.bleachmod.common.data.PlayerCapability.get(p).map(d->d.getGuard().shownActive() || d.getGuard().shownBroken()).orElse(false)))
             ((MinecraftClient_BetterCombat)mc).cancelUpswing();
     }
     @SubscribeEvent public static void tick(TickEvent.ClientTickEvent event){if(event.phase==TickEvent.Phase.START)cancelIfBlocked();}

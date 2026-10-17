@@ -126,6 +126,12 @@ public final class RyujinTechniqueService {
         return true;
     }
 
+    public static void executePaidTornado(ServerPlayer p,PlayerData d) {
+        Runtime runtime=ACTIVE.computeIfAbsent(p.getUUID(),id->new Runtime(p));
+        runtime.area=new Area(true,p.position(),Vec3.directionFromRotation(0,p.getYRot()),p.level().getGameTime());
+        drawArea(runtime,p.position());
+    }
+
     public static void executeArea(ServerPlayer player, PlayerData data) {
         if (!TechniqueProgression.authorize(player, data, 3)) return;
         boolean tornado = bankai(data);
@@ -317,11 +323,11 @@ public final class RyujinTechniqueService {
             }
             if (runtime.area != null) {
                 Area area = runtime.area;
-                if (runtime.level.getGameTime() >= area.expiresAt || area.tornado != bankai(data)) runtime.area = null;
+                if (runtime.level.getGameTime() >= area.expiresAt || area.tornado && !data.getCharacter().getActiveForm().equals("shikai")) runtime.area = null;
                 else {
                     area.age++;
                     Vec3 center = area.tornado ? owner.position() : area.origin;
-                    damageArea(runtime, center, area.tornado ? TORNADO_DAMAGE : WALL_DAMAGE, area.tornado ? 2 : 3);
+                    damageArea(runtime, center, area.tornado ? TORNADO_DAMAGE : WALL_DAMAGE, 3);
                     if (area.age % (area.tornado ? 2 : WALL_DRAW_INTERVAL) == 0) drawArea(runtime, center);
                 }
             }
@@ -339,6 +345,7 @@ public final class RyujinTechniqueService {
     }
 
     public static void cancel(ServerPlayer player) {
+        ElementalTechniqueService.cancel(player);
         SenbonzakuraTechniqueService.cancel(player); BenihimeTechniqueService.cancel(player);
         FlameWaveService.cancel(player);
         HyorinmaruTechniqueService.cancel(player);

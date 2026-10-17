@@ -63,13 +63,17 @@ public final class ZanpakutoReleaseAnimation {
         @Override public Vec3f get3DTransform(String part,TransformType type,float partial,Vec3f value){
             var v=view(player);if(v==null)return value;
             float t=progress(player,v,partial),w=weight(t),sign=player.getMainArm()==HumanoidArm.RIGHT?1:-1;
+            if(v.bankai && v.identity.equals("ryujin_jakka"))w=Math.min(1,t*8);
             boolean sword=part.equals(sign>0?"rightArm":"leftArm"),seal=part.equals(sign>0?"leftArm":"rightArm");
             boolean fire=v.identity.equals("ryujin_jakka");
             if(type==TransformType.ROTATION){
-                if(sword)return fire && v.bankai?mix(value,-.65F,-.25F*sign,-.75F*sign,w)
-                        :mix(value,-1.35F,-.25F*sign,-.2F*sign,w);
+                if(sword){
+                    if(fire && v.bankai){float settle=Mth.clamp((t-.64F)/.16F,0,1);var ready=RyujinBankaiReadyPose.sword(sign);
+                        return mix(value,Mth.lerp(settle,-.65F,ready[0]),Mth.lerp(settle,-.25F*sign,ready[1]),Mth.lerp(settle,-.75F*sign,ready[2]),w);}
+                    return mix(value,-1.35F,-.25F*sign,-.2F*sign,w);
+                }
                 if(seal && player.getOffhandItem().isEmpty())return fire && v.bankai
-                        ?mix(value,-1.45F,(.65F-.9F*Math.min(1,t/.66F))*sign,.3F*sign,w)
+                        ?mix(value,-1.45F*(1-Mth.clamp((t-.67F)/.16F,0,1)),(.65F-.9F*Math.min(1,t/.66F))*sign*(1-Mth.clamp((t-.67F)/.16F,0,1)),.3F*sign*(1-Mth.clamp((t-.67F)/.16F,0,1)),w)
                         :mix(value,-1.05F,.4F*sign,.35F*sign,w);
                 if(part.equals("body"))return mix(value,0,-.12F*sign,0,w);
                 if(part.equals("rightItem") || part.equals("leftItem"))return mix(value,0,0,0,w);
@@ -78,6 +82,12 @@ public final class ZanpakutoReleaseAnimation {
                     || type==TransformType.BEND && (sword||seal))return mix(value,0,0,0,w);
             return value;
         }
+    }
+    @SubscribeEvent public static void fov(net.minecraftforge.client.event.ComputeFovModifierEvent e){
+        if(!com.bleachmod.client.ClientVisualConfig.CINEMATIC_FOV.get() || !(e.getPlayer() instanceof AbstractClientPlayer p))return;
+        var v=view(p);if(v==null || !v.bankai)return;
+        float t=progress(p,v,Minecraft.getInstance().getFrameTime());
+        e.setNewFovModifier(e.getNewFovModifier()*(1-.08F*(float)Math.sin(t*Math.PI)));
     }
     @SubscribeEvent public static void hand(RenderHandEvent e){
         var p=Minecraft.getInstance().player;if(p==null || e.getHand()!=InteractionHand.MAIN_HAND)return;

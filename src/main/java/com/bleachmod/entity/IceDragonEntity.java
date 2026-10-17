@@ -19,6 +19,8 @@ public final class IceDragonEntity extends Phantom implements software.bernie.ge
     private net.minecraft.server.level.ServerPlayer caster;
     private Vec3 origin = Vec3.ZERO, direction = Vec3.ZERO;
     private int life;
+    public static final double SHIKAI_RANGE=15, SHIKAI_HIT_RADIUS=.7, BANKAI_HIT_RADIUS=2.3;
+    public static final float BANKAI_VISUAL_SCALE=5.25F;
     public static final int BANKAI_SIZE = 12, BANKAI_LIFETIME = 30;
     public static final double BANKAI_SPEED = 0.8;
     private double speed = 0.7;
@@ -30,10 +32,10 @@ public final class IceDragonEntity extends Phantom implements software.bernie.ge
     }
     public void configure(net.minecraft.server.level.ServerPlayer p, Vec3 aim, boolean bankai, java.util.Set<UUID> hits) {
         this.hits=hits;this.bankai=bankai;this.form=bankai?"bankai":"shikai";
-        owner = p.getUUID(); caster = p; origin = p.position().add(aim.scale(1.5)).add(0, 1.2, 0); direction = aim;
-        life = bankai ? BANKAI_LIFETIME+2 : 16; speed = bankai ? BANKAI_SPEED : 0.7;
+        owner = p.getUUID(); caster = p; origin = p.position().add(aim.scale(1.5)).add(0, bankai?3.2:1.2, 0); direction = aim;
+        life = bankai ? BANKAI_LIFETIME+2 : 23; speed = bankai ? BANKAI_SPEED : 0.7;
         float yaw=(float)Math.toDegrees(Math.atan2(-aim.x,aim.z));
-        setPhantomSize(bankai ? BANKAI_SIZE : 2); setPos(p.position().add(0,1.2,0)); setYRot(yaw); setYBodyRot(yaw);
+        setPhantomSize(bankai ? BANKAI_SIZE : 2); setPos(p.position().add(0,bankai?3.2:1.2,0)); setYRot(yaw); setYBodyRot(yaw);
     }
     @Override public void tick() {
         super.tick();
@@ -43,14 +45,16 @@ public final class IceDragonEntity extends Phantom implements software.bernie.ge
                 || !PlayerCapability.get(p).map(d -> HyorinmaruTechniqueService.equipped(p, d) && form.equals(d.getCharacter().getActiveForm())).orElse(false)) {
             discard(); return;
         }
-        double range=bankai?24:10;
+        double range=bankai?24:SHIKAI_RANGE;
         Vec3 next = origin.add(direction.scale(Math.min(range-1.5,tickCount * speed)));
         if (!level().hasChunkAt(net.minecraft.core.BlockPos.containing(next))) { discard(); return; }
         Vec3 previous=position();
         var block=level().clip(new net.minecraft.world.level.ClipContext(previous,next,net.minecraft.world.level.ClipContext.Block.COLLIDER,net.minecraft.world.level.ClipContext.Fluid.NONE,this));
         if(block.getType()!=net.minecraft.world.phys.HitResult.Type.MISS){discard();return;}
-        var area=new net.minecraft.world.phys.AABB(previous,next).inflate(bankai?.7:.45);
+        var area=new net.minecraft.world.phys.AABB(previous,next).inflate(bankai?BANKAI_HIT_RADIUS:SHIKAI_HIT_RADIUS);
         for(var target:level().getEntitiesOfClass(LivingEntity.class,area,t->com.bleachmod.common.technique.TechniqueTargets.allowed(p,t))) {
+            double along=target.getBoundingBox().getCenter().subtract(origin).dot(direction)+1.5;
+            if(along<0 || along>range+.3)continue;
             if(hits.size()>=64 || hits.contains(target.getUUID()) || !p.hasLineOfSight(target))continue;
             hits.add(target.getUUID());
             if(com.bleachmod.common.technique.MasteryPracticeService.hurt(p,target,p.damageSources().playerAttack(p),bankai?12:8,1))

@@ -1,6 +1,6 @@
 {
   "hud.bleachmod.benihime.path_charges": "Path: %s/3 charges",
-"item.bleachmod.benihime": "Benihime",
+  "item.bleachmod.benihime": "Benihime",
   "message.bleachmod.benihime.sealed": "Sealed Benihime: train with your sword to discover Shikai.",
   "message.bleachmod.benihime.busy": "Finish your current technique first.",
   "message.bleachmod.benihime.cooldown": "Benihime technique is cooling down.",
@@ -23,7 +23,6 @@
   "hud.bleachmod.benihime.charges": "Restructured strikes: %s",
   "hud.bleachmod.benihime.path": "Corridor: %s s",
   "hud.bleachmod.benihime.regen": "Regeneration + allied healing",
-
   "hud.bleachmod.senbon.haku_charge": "Charging → 16-block dash",
   "hud.bleachmod.senbon.prison": "Prison and levitation · %s s",
   "item.bleachmod.senbonzakura": "Senbonzakura",
@@ -255,5 +254,22 @@
   "hud.bleachmod.technique.drain": "Drain: %s reiatsu/s",
   "hud.bleachmod.combat.active": "In combat",
   "hud.bleachmod.stamina": "Stamina %s/%s",
-  "message.bleachmod.senbonzakura.invalid_target": "Target region is outside loaded chunks or the world border."
+  "message.bleachmod.senbonzakura.invalid_target": "Target region is outside loaded chunks or the world border.",
+  "ability.bleachmod.ryujin.sealed_cut": "Draw Cut",
+  "ability.bleachmod.ryujin.sealed_sweep": "Sword Sweep",
+  "ability.bleachmod.ryujin.unavailable": "No sealed technique",
+  "ability.bleachmod.ryujin.jokaku": "Jōkaku Enjō — Flame Prison",
+  "ability.bleachmod.ryujin.higashi": "Higashi — Annihilation Cut",
+  "ability.bleachmod.ryujin.minami": "Minami — Ash Army",
+  "ability.bleachmod.hyorinmaru.front_cut": "Forward Cut",
+  "ability.bleachmod.hyorinmaru.wide_cut": "Wide Cut",
+  "ability.bleachmod.hyorinmaru.unavailable": "No sealed technique",
+  "ability.bleachmod.hyorinmaru.duel_control": "Glacial Shock",
+  "ability.bleachmod.hyorinmaru.ice_dragon": "Ice Dragon",
+  "ability.bleachmod.hyorinmaru.crescent_chain": "Crescent Chain",
+  "ability.bleachmod.hyorinmaru.ryusenka": "Ryūsenka",
+  "ability.bleachmod.hyorinmaru.sennen": "Sennen Hyōrō",
+  "ability.bleachmod.hyorinmaru.glacial_zone": "Glacial Zone",
+  "ability.bleachmod.hyorinmaru.bloom": "Hyōten Hyakkasō",
+  "message.bleachmod.ice.bloom_wait": "The field needs 3 seconds to prepare the ice flowers."
 }

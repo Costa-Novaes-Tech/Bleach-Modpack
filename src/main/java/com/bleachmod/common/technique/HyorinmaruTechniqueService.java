@@ -23,6 +23,7 @@ public final class HyorinmaruTechniqueService {
     public static final int SHIKAI_ZONE_RADIUS = 10, BANKAI_ZONE_RADIUS = 30;
     private HyorinmaruTechniqueService() { }
     public static void cancel(ServerPlayer player) {
+        ElementalTechniqueService.cancel(player);
         FIELDS.remove(player.getUUID()); GlacialSnowData.get(player.serverLevel()).release(player.serverLevel(), player.getUUID());
         IceArmorService.cancel(player); IceControlService.cancel(player); BlizzardWeatherData.cancel(player);
         var dragon = DRAGONS.remove(player.getUUID()); if (dragon != null) dragon.forEach(net.minecraft.world.entity.Entity::discard);
@@ -31,6 +32,12 @@ public final class HyorinmaruTechniqueService {
     public static void unload(net.minecraft.world.level.Level level) {
         FIELDS.values().removeIf(f -> f.dimension.equals(level.dimension())); IceArmorService.unload(level); IceControlService.unload(level);
         DRAGONS.values().removeIf(dragon -> { dragon.removeIf(e -> { if(e.level()!=level)return false;e.discard();return true; });return dragon.isEmpty(); });
+    }
+    public static boolean hasBankaiZone(ServerPlayer p) { var f=FIELDS.get(p.getUUID());return f!=null && f.bankai && !f.barrier && p.level().getGameTime()<f.expires; }
+    public static Vec3 consumeBloom(ServerPlayer p) {
+        var f=FIELDS.get(p.getUUID());if(f==null || !f.bankai || f.barrier)return null;
+        long left=f.expires-p.level().getGameTime();if(left<=0 || left>60)return null;
+        FIELDS.remove(p.getUUID());GlacialSnowData.get(p.serverLevel()).release(p.serverLevel(),p.getUUID());return f.origin;
     }
     public static boolean isActive(ServerPlayer player) { return FIELDS.containsKey(player.getUUID()); }
     public static boolean equipped(ServerPlayer p, PlayerData d) {
@@ -75,7 +82,7 @@ public final class HyorinmaruTechniqueService {
         else if (!released) duelControl(player, forward);
         else {
             Field field = new Field(slot == 3 ? player.position().add(forward.scale(3)) : player.position(), forward,
-                    slot == 3, bankai, form, player.level().dimension(), player.level().getGameTime() + (slot == 3 ? 60 : 80));
+                    slot == 3, bankai, form, player.level().dimension(), player.level().getGameTime() + (slot == 3 ? 60 : bankai ? 120 : 80));
             GlacialSnowData.get(player.serverLevel()).release(player.serverLevel(), player.getUUID());
             FIELDS.put(player.getUUID(), field); // One field per owner, including free-cast test mode.
         }

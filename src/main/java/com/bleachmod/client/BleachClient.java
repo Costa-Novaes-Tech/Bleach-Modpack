@@ -18,6 +18,7 @@ public final class BleachClient {
     }
 
     public static void init(FMLJavaModLoadingContext context) {
+        net.minecraftforge.fml.ModLoadingContext.get().registerConfig(net.minecraftforge.fml.config.ModConfig.Type.CLIENT,ClientVisualConfig.SPEC,"bleachmod-client.toml");
         IEventBus modBus = context.getModEventBus();
         modBus.addListener(BleachClient::registerKeys);
         modBus.addListener(BleachClient::registerOverlays);
@@ -53,6 +54,8 @@ public final class BleachClient {
         event.enqueueWork(com.bleachmod.client.compat.BetterCombatClientCompat::init);
         event.enqueueWork(com.bleachmod.client.model.ZanpakutoGuardPose::init);
         event.enqueueWork(com.bleachmod.client.model.ZanpakutoReleaseAnimation::init);
+        event.enqueueWork(com.bleachmod.client.model.ElementalActionVisuals::init);
+        event.enqueueWork(com.bleachmod.client.model.RyujinBankaiReadyPose::init);
     }
 
     private static void registerItemProperties() {

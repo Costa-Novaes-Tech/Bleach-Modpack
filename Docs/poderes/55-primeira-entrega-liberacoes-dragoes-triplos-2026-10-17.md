@@ -1,5 +1,7 @@
 # Ciclo 55 — Primeira entrega: liberações animadas e dragões triplos
 
+> Entrega posterior: [ciclo 56](56-repertorio-elemental-cinematica-combos-2026-10-17.md) implementa o repertório revisado completo, combos Ryūjin/Hyōrinmaru, pose final e dragões gigantes. Consulte sua matriz vigente; descrições abaixo registram o estado histórico.
+
 Data: 17/10/2026. Branch `Feature-Poderes-bankais`, base limpa `7f9c743`. Usuário autorizou seguir com a proposta 54, rejeitou Nishi defensiva, pediu identidade distinta para Rajada/Leque, selo de chamas na espada ao liberar Bankai Ryūjin e três dragões simultâneos em direções distintas na Bankai Hyōrinmaru. A imagem fornecida orienta a espada abaixada/horizontal e recolhimento do fogo. Não contém instruções técnicas.
 
 **Esta é a primeira fatia funcional prevista ao final da proposta 54: animação comum de liberação e novo dragão. Não é a entrega de todo o repertório substituto.** Rajada/Leque, Higashi, prisão de fogo, Minami, corrente crescente, Ryūsenka, Sennen Hyōrō e continuação floral ainda entram nas próximas etapas de refatoração. O kit antigo continua nas demais teclas até essa migração explícita. Não declarar que Nishi foi implementada ou removida do runtime: ela só existia na proposta.

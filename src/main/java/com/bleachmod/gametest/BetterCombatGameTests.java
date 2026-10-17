@@ -27,7 +27,7 @@ public final class BetterCombatGameTests {
     public static void pilotProfileLoadsWithoutEnablingOtherKitsOrDualWield(GameTestHelper h){var p=player(h);
         var profile=WeaponRegistry.getAttributes(p.getMainHandItem());h.assertTrue(profile!=null && profile.attacks().length==3 && profile.attackRange()==3,"Pilot profile missing");
         for(var attack:profile.attacks())h.assertTrue(attack.damageMultiplier()==1,"Pilot unexpectedly changes damage multiplier");
-        for(var item:new net.minecraft.world.item.Item[]{ModItems.RYUJIN_JAKKA.get(),ModItems.HYORINMARU.get(),ModItems.SENBONZAKURA.get(),ModItems.BENIHIME.get()})
+        for(var item:new net.minecraft.world.item.Item[]{ModItems.SENBONZAKURA.get(),ModItems.BENIHIME.get()})
             h.assertTrue(WeaponRegistry.getAttributes(new ItemStack(item))==null,"Automatic fallback enabled an unreviewed kit");
         p.setItemSlot(EquipmentSlot.OFFHAND,new ItemStack(Items.DIAMOND_SWORD));h.assertTrue(!PlayerAttackHelper.isDualWielding(p),"Pilot enabled unapproved dual wield");h.succeed();}
     @GameTest(template="empty",batch="bc_scope")

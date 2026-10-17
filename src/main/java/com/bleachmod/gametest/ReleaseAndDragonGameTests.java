@@ -22,7 +22,16 @@ public final class ReleaseAndDragonGameTests {
         try(var model=new java.io.InputStreamReader(Objects.requireNonNull(ReleaseAndDragonGameTests.class.getResourceAsStream("/assets/bleachmod/geo/ice_dragon.geo.json")),java.nio.charset.StandardCharsets.UTF_8);
             var animation=new java.io.InputStreamReader(Objects.requireNonNull(ReleaseAndDragonGameTests.class.getResourceAsStream("/assets/bleachmod/animations/ice_dragon.animation.json")),java.nio.charset.StandardCharsets.UTF_8)) {
             var gson=software.bernie.geckolib.util.JsonUtil.GEO_GSON;
-            var geometry=gson.fromJson(model,software.bernie.geckolib.loading.json.raw.Model.class);
+            var modelJson=com.google.gson.JsonParser.parseReader(model).getAsJsonObject();
+            var geometry=gson.fromJson(modelJson,software.bernie.geckolib.loading.json.raw.Model.class);
+            double minZ=Double.POSITIVE_INFINITY,maxZ=Double.NEGATIVE_INFINITY;int jawDetails=0;
+            for(var element:modelJson.getAsJsonArray("minecraft:geometry").get(0).getAsJsonObject().getAsJsonArray("bones")){
+                var bone=element.getAsJsonObject();var cubes=bone.getAsJsonArray("cubes");
+                if(cubes==null)continue;
+                if(bone.get("name").getAsString().equals("jaw"))jawDetails=cubes.size();
+                for(var elementCube:cubes){var cube=elementCube.getAsJsonObject();double z=cube.getAsJsonArray("origin").get(2).getAsDouble();minZ=Math.min(minZ,z);maxZ=Math.max(maxZ,z+cube.getAsJsonArray("size").get(2).getAsDouble());}
+            }
+            h.assertTrue((maxZ-minZ)/16*IceDragonEntity.BANKAI_VISUAL_SCALE>EntityType.ENDER_DRAGON.getWidth() && jawDetails>=10,"Bankai silhouette or articulated jaw lost its imposing scale/detail");
             var root=com.google.gson.JsonParser.parseReader(animation).getAsJsonObject();
             var clips=gson.fromJson(root.getAsJsonObject("animations"),software.bernie.geckolib.loading.object.BakedAnimations.class);
             h.assertTrue(geometry.minecraftGeometry()[0].bones().length>=18 && clips.getAnimation("animation.ice_dragon.flight")!=null,"Dragon geometry or animation failed to load");

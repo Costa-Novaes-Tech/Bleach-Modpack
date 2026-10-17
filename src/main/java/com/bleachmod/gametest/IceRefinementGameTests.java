@@ -86,48 +86,21 @@ public final class IceRefinementGameTests {
         z.setItemSlot(EquipmentSlot.HEAD, new ItemStack(net.minecraft.world.item.Items.IRON_HELMET));
         z.setPos(p.getX(),p.getY(),p.getZ()+ahead); h.getLevel().getChunkAt(z.blockPosition()); h.getLevel().addFreshEntity(z); return z;
     }
-    @GameTest(template="empty",timeoutTicks=145)
-    public static void sealedArmorReducesDamageAndExpiresWithoutPersistentBuff(GameTestHelper h) {
-        var p = player(h); var z = mob(h,p,2); TechniqueService.executeSlot(p,data(p),3);
-        var hit = new net.minecraftforge.event.entity.living.LivingHurtEvent(p,p.damageSources().mobAttack(z),4);
-        com.bleachmod.server.events.CombatEvents.hurt(hit);
-        h.assertTrue(hit.getAmount()==3 && IceArmorService.active(p),"Armor did not reduce physical damage by 25%");
-        h.assertTrue(data(p).getResources().getCurrentReiatsu()==88,"Armor cost incorrect");
-        h.assertTrue(data(p).getCharacter().saveAppearance().getBoolean("iceArmorVisual") && !data(p).getCharacter().save().contains("iceArmorVisual"),"Visual armor persisted as progress");
-        h.onEachTick(() -> IceArmorService.tick(p));
-        h.runAfterDelay(125,()->{ try {
-            h.assertTrue(!IceArmorService.active(p) && !data(p).getCharacter().isIceArmorVisual(),"Expired armor remained active");
-            var normal = new net.minecraftforge.event.entity.living.LivingHurtEvent(p,p.damageSources().mobAttack(z),4);
-            com.bleachmod.server.events.CombatEvents.hurt(normal); h.assertTrue(normal.getAmount()==4,"Expired armor still reduced damage");
-        } finally { HyorinmaruTechniqueService.cancel(p); z.discard(); } h.succeed(); });
-    }
+
     @GameTest(template="empty",timeoutTicks=70)
     public static void sealedDuelFreezesOnlyNearestTargetAndDealsVanillaColdDamage(GameTestHelper h) {
         // Nearest-target selection must not see mobs from adjacent concurrent test arenas.
         var p=player(h);p.setPos(p.getX(),p.getY()+12,p.getZ());var near=mob(h,p,3);var far=mob(h,p,4);
         h.runAfterDelay(5,()->{
             TechniqueService.executeSlot(p,data(p),4);
-            h.assertTrue(near.getTicksFrozen()>=near.getTicksRequiredToFreeze() && far.getTicksFrozen()==0,"Duel was not single-target");
+            h.runAfterDelay(7,()->{h.assertTrue(near.getTicksFrozen()>=near.getTicksRequiredToFreeze() && far.getTicksFrozen()==0,"Duel was not single-target");
             h.assertTrue(near.hasEffect(net.minecraft.world.effect.MobEffects.MOVEMENT_SLOWDOWN) && near.getDeltaMovement().lengthSqr()>0,"Duel lacked slow or knockback");
-            h.assertTrue(data(p).getResources().getCurrentReiatsu()==82,"Duel cost incorrect");
+            h.assertTrue(data(p).getResources().getCurrentReiatsu()==82,"Duel cost incorrect");});
         });
         h.runAfterDelay(50,()->{ try { h.assertTrue(near.getHealth()<20 && far.getHealth()==20,"Vanilla freezing damage missing or affected second target"); }
             finally { HyorinmaruTechniqueService.cancel(p); near.discard(); far.discard(); } h.succeed(); });
     }
-    @GameTest(template="empty",timeoutTicks=55)
-    public static void sealedSlashReachesSixBlocksAndIceDragonIsTemporary(GameTestHelper h) {
-        var p=player(h); var z=mob(h,p,5);
-        h.runAfterDelay(5,()->{
-            TechniqueService.executeSlot(p,data(p),1); h.assertTrue(z.getHealth()<20,"Longer sealed slash missed target at five blocks");
-            data(p).getStatus().setTechniqueSlot1CooldownTicks(0); data(p).getCharacter().unlockForm("shikai"); data(p).getSkills().get("zanpakuto").setLevel(1);
-            data(p).getCharacter().setActiveForm("zanpakuto","shikai"); TechniqueService.executeSlot(p,data(p),1);
-            var dragons=h.getLevel().getEntitiesOfClass(com.bleachmod.entity.IceDragonEntity.class,p.getBoundingBox().inflate(6));
-            h.assertTrue(!dragons.isEmpty() && dragons.stream().noneMatch(net.minecraft.world.entity.Entity::isPickable),"Native ice model not spawned or pickable");
-        });
-        h.runAfterDelay(35,()->{ try {
-            h.assertTrue(h.getLevel().getEntitiesOfClass(com.bleachmod.entity.IceDragonEntity.class,p.getBoundingBox().inflate(20)).isEmpty(),"Expired cosmetic dragon remains");
-        } finally { HyorinmaruTechniqueService.cancel(p); z.discard(); } h.succeed(); });
-    }
+
     @GameTest(template="empty",batch="ice_weather")
     public static void weatherRestoresOverlapAndRestartAndRespectsDesertAndDimensions(GameTestHelper h) {
         var level=h.getLevel(); var weather=level.getServer().getWorldData().overworldData();

@@ -81,7 +81,7 @@ public final class FormModeHandler {
     }
 
     private static void transform(ServerPlayer player, PlayerData data, boolean instant) {
-        if (com.bleachmod.common.technique.ReleaseAnimationService.busy(player)) return;
+        if (com.bleachmod.common.technique.ReleaseAnimationService.busy(player) || com.bleachmod.common.technique.ElementalTechniqueService.busy(player)) return;
         FormData target = TransformationsHelper.getSelectedFormData(data);
         if (target == null) {
             return;
