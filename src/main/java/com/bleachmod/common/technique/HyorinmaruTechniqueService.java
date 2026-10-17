@@ -19,18 +19,18 @@ public final class HyorinmaruTechniqueService {
     private record Field(Vec3 origin, Vec3 forward, boolean barrier, boolean bankai, String form,
                          net.minecraft.resources.ResourceKey<net.minecraft.world.level.Level> dimension, long expires) { }
     private static final Map<UUID, Field> FIELDS = new HashMap<>();
-    private static final Map<UUID, com.bleachmod.entity.IceDragonEntity> DRAGONS = new HashMap<>();
+    private static final Map<UUID, List<com.bleachmod.entity.IceDragonEntity>> DRAGONS = new HashMap<>();
     public static final int SHIKAI_ZONE_RADIUS = 10, BANKAI_ZONE_RADIUS = 30;
     private HyorinmaruTechniqueService() { }
     public static void cancel(ServerPlayer player) {
         FIELDS.remove(player.getUUID()); GlacialSnowData.get(player.serverLevel()).release(player.serverLevel(), player.getUUID());
         IceArmorService.cancel(player); IceControlService.cancel(player); BlizzardWeatherData.cancel(player);
-        var dragon = DRAGONS.remove(player.getUUID()); if (dragon != null) dragon.discard();
+        var dragon = DRAGONS.remove(player.getUUID()); if (dragon != null) dragon.forEach(net.minecraft.world.entity.Entity::discard);
     }
-    public static void clear() { FIELDS.clear(); DRAGONS.values().forEach(net.minecraft.world.entity.Entity::discard); DRAGONS.clear(); IceArmorService.clear(); IceControlService.clear(); }
+    public static void clear() { FIELDS.clear(); DRAGONS.values().forEach(list -> list.forEach(net.minecraft.world.entity.Entity::discard)); DRAGONS.clear(); IceArmorService.clear(); IceControlService.clear(); }
     public static void unload(net.minecraft.world.level.Level level) {
         FIELDS.values().removeIf(f -> f.dimension.equals(level.dimension())); IceArmorService.unload(level); IceControlService.unload(level);
-        DRAGONS.values().removeIf(dragon -> { if (dragon.level() != level) return false; dragon.discard(); return true; });
+        DRAGONS.values().removeIf(dragon -> { dragon.removeIf(e -> { if(e.level()!=level)return false;e.discard();return true; });return dragon.isEmpty(); });
     }
     public static boolean isActive(ServerPlayer player) { return FIELDS.containsKey(player.getUUID()); }
     public static boolean equipped(ServerPlayer p, PlayerData d) {
@@ -84,6 +84,17 @@ public final class HyorinmaruTechniqueService {
         SyncHelper.resources(player);
     }
     private static void strike(ServerPlayer p, int slot, boolean released, boolean bankai, Vec3 forward) {
+        if(released && slot==1) {
+            var old=DRAGONS.remove(p.getUUID());if(old!=null)old.forEach(net.minecraft.world.entity.Entity::discard);
+            var group=new ArrayList<com.bleachmod.entity.IceDragonEntity>();var hits=new HashSet<UUID>();
+            for(double angle:bankai?new double[]{0,-25,25}:new double[]{0}) {
+                var dragon=com.bleachmod.registry.ModEntities.ICE_DRAGON.get().create(p.serverLevel());
+                if(dragon==null)continue;
+                var aim=forward.yRot((float)Math.toRadians(angle));
+                dragon.configure(p,aim,bankai,hits);if(p.serverLevel().addFreshEntity(dragon))group.add(dragon);
+            }
+            DRAGONS.put(p.getUUID(),group);return;
+        }
         var visual = new IceTechniqueVisuals.Cut(slot, released, bankai);
         double range = visual.range();
         double halfAngle = visual.halfAngle();
@@ -102,12 +113,8 @@ public final class HyorinmaruTechniqueService {
         }
         IceTechniqueVisuals.cut(p, visual, forward);
         p.serverLevel().playSound(null, p.blockPosition(), net.minecraft.sounds.SoundEvents.PLAYER_ATTACK_SWEEP, p.getSoundSource(), 0.8F, 0.8F);
-        if (released && slot == 1) {
-            var old = DRAGONS.remove(p.getUUID()); if (old != null) old.discard();
-            var dragon = com.bleachmod.registry.ModEntities.ICE_DRAGON.get().create(p.serverLevel());
-            if (dragon != null) { dragon.configure(p, forward, bankai); if (p.serverLevel().addFreshEntity(dragon)) DRAGONS.put(p.getUUID(), dragon); }
-        }
     }
+
     private static void duelControl(ServerPlayer p, Vec3 forward) {
         LivingEntity target = p.serverLevel().getEntitiesOfClass(LivingEntity.class, p.getBoundingBox().inflate(5), e -> {
             Vec3 delta = e.position().subtract(p.position()); double ahead = delta.dot(forward);
@@ -121,7 +128,7 @@ public final class HyorinmaruTechniqueService {
     }
     public static void tick(ServerPlayer p, PlayerData d) {
         IceArmorService.tick(p); BlizzardWeatherData.tickCaster(p, d);
-        var dragon = DRAGONS.get(p.getUUID()); if (dragon != null && dragon.isRemoved()) DRAGONS.remove(p.getUUID());
+        var dragon = DRAGONS.get(p.getUUID()); if (dragon != null) { dragon.removeIf(net.minecraft.world.entity.Entity::isRemoved); if(dragon.isEmpty())DRAGONS.remove(p.getUUID()); }
         Field f = FIELDS.get(p.getUUID());
         if (f == null) return;
         long time = p.level().getGameTime();

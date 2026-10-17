@@ -29,7 +29,7 @@ public final class ZanpakutoMotion {
         });
         return motion;
     }
-    public static void clear() { MOTIONS.clear(); ZanpakutoGuardPose.clear(); }
+    public static void clear() { MOTIONS.clear(); ZanpakutoGuardPose.clear(); ZanpakutoReleaseAnimation.clear(); }
     private static final HumanoidModel.ArmPose DRAW = HumanoidModel.ArmPose.create("BLEACH_ZANPAKUTO_DRAW", false, (model, entity, arm) -> {
         if (!(entity instanceof AbstractClientPlayer player)) return;
         var motion = motion(player); float p = motion.progress(player.tickCount, 0);
@@ -39,6 +39,7 @@ public final class ZanpakutoMotion {
     });
     @SubscribeEvent public static void beforePlayer(RenderLivingEvent.Pre<?, ?> event) {
         if (!(event.getEntity() instanceof AbstractClientPlayer player) || !(event.getRenderer().getModel() instanceof PlayerModel<?> model)) return;
+        if (ZanpakutoReleaseAnimation.active(player)) return;
         if (ZanpakutoGuardPose.engaged(player, event.getPartialTick())) return;
         var motion = motion(player);
         if (motion.progress(player.tickCount, event.getPartialTick()) >= 1 || player.isInvisible() || player.isSpectator()) return;
@@ -47,6 +48,7 @@ public final class ZanpakutoMotion {
     }
     @SubscribeEvent public static void firstPerson(RenderHandEvent event) {
         var player = Minecraft.getInstance().player; if (player == null) return;
+        if (ZanpakutoReleaseAnimation.active(player)) return;
         if (ZanpakutoGuardPose.engaged(player, event.getPartialTick())) return;
         var motion = motion(player); float p = motion.progress(player.tickCount, event.getPartialTick());
         if (p >= 1 || motion.previous == 0 || (motion.hand == 2) != (event.getHand() == net.minecraft.world.InteractionHand.MAIN_HAND)) return;

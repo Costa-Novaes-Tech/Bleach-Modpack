@@ -141,6 +141,8 @@ repositories {
 configurations { combatRuntimeArtifacts { transitive = false } }
 
 dependencies {
+    implementation fg.deobf("maven.modrinth:geckolib:aC5KMoNg")
+    combatRuntimeArtifacts "maven.modrinth:geckolib:aC5KMoNg"
     implementation fg.deobf("maven.modrinth:better-combat:${better_combat_version}")
     implementation fg.deobf("maven.modrinth:playeranimator:${player_animator_version}")
     implementation fg.deobf("maven.modrinth:cloth-config:${cloth_config_version}")

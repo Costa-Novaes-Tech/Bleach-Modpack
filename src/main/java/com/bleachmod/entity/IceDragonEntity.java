@@ -9,8 +9,12 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import java.util.UUID;
 
-/** A cosmetic ice familiar using the native Phantom skeleton, with no AI, hitbox damage or persistence. */
-public final class IceDragonEntity extends Phantom {
+/** Transient projectile; Phantom is retained only as the registered entity/attribute base. */
+public final class IceDragonEntity extends Phantom implements software.bernie.geckolib.animatable.GeoEntity {
+    private final software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache geoCache=software.bernie.geckolib.util.GeckoLibUtil.createInstanceCache(this);
+    private java.util.Set<UUID> hits=new java.util.HashSet<>();
+    private String form;
+    private boolean bankai;
     private UUID owner;
     private net.minecraft.server.level.ServerPlayer caster;
     private Vec3 origin = Vec3.ZERO, direction = Vec3.ZERO;
@@ -22,24 +26,46 @@ public final class IceDragonEntity extends Phantom {
         super(type, level); setNoAi(true); setNoGravity(true); noPhysics = true; setSilent(true);
     }
     public void configure(net.minecraft.server.level.ServerPlayer p, Vec3 aim, boolean bankai) {
+        configure(p,aim,bankai,new java.util.HashSet<>());
+    }
+    public void configure(net.minecraft.server.level.ServerPlayer p, Vec3 aim, boolean bankai, java.util.Set<UUID> hits) {
+        this.hits=hits;this.bankai=bankai;this.form=bankai?"bankai":"shikai";
         owner = p.getUUID(); caster = p; origin = p.position().add(aim.scale(1.5)).add(0, 1.2, 0); direction = aim;
-        life = bankai ? BANKAI_LIFETIME : 14; speed = bankai ? BANKAI_SPEED : 0.7;
-        setPhantomSize(bankai ? BANKAI_SIZE : 2); setPos(origin); setYRot(p.getYRot()); setYBodyRot(p.getYRot());
+        life = bankai ? BANKAI_LIFETIME+2 : 16; speed = bankai ? BANKAI_SPEED : 0.7;
+        float yaw=(float)Math.toDegrees(Math.atan2(-aim.x,aim.z));
+        setPhantomSize(bankai ? BANKAI_SIZE : 2); setPos(p.position().add(0,1.2,0)); setYRot(yaw); setYBodyRot(yaw);
     }
     @Override public void tick() {
         super.tick();
         if (level().isClientSide) return;
         var p = caster;
         if (p == null || p.level() != level() || !p.isAlive() || tickCount >= life
-                || !PlayerCapability.get(p).map(d -> HyorinmaruTechniqueService.equipped(p, d) && !"sealed".equals(d.getCharacter().getActiveForm())).orElse(false)) {
+                || !PlayerCapability.get(p).map(d -> HyorinmaruTechniqueService.equipped(p, d) && form.equals(d.getCharacter().getActiveForm())).orElse(false)) {
             discard(); return;
         }
-        Vec3 next = origin.add(direction.scale(tickCount * speed));
+        double range=bankai?24:10;
+        Vec3 next = origin.add(direction.scale(Math.min(range-1.5,tickCount * speed)));
         if (!level().hasChunkAt(net.minecraft.core.BlockPos.containing(next))) { discard(); return; }
+        Vec3 previous=position();
+        var block=level().clip(new net.minecraft.world.level.ClipContext(previous,next,net.minecraft.world.level.ClipContext.Block.COLLIDER,net.minecraft.world.level.ClipContext.Fluid.NONE,this));
+        if(block.getType()!=net.minecraft.world.phys.HitResult.Type.MISS){discard();return;}
+        var area=new net.minecraft.world.phys.AABB(previous,next).inflate(bankai?.7:.45);
+        for(var target:level().getEntitiesOfClass(LivingEntity.class,area,t->com.bleachmod.common.technique.TechniqueTargets.allowed(p,t))) {
+            if(hits.size()>=64 || hits.contains(target.getUUID()) || !p.hasLineOfSight(target))continue;
+            hits.add(target.getUUID());
+            if(com.bleachmod.common.technique.MasteryPracticeService.hurt(p,target,p.damageSources().playerAttack(p),bankai?12:8,1))
+                com.bleachmod.common.technique.IceControlService.chill(p,target,60,bankai?2:1,1);
+        }
         setPos(next); setDeltaMovement(Vec3.ZERO);
         IceTechniqueVisuals.dragon(p, position());
     }
     @Override public boolean hurt(net.minecraft.world.damagesource.DamageSource source, float amount) { return false; }
     @Override public boolean isPickable() { return false; }
     @Override public boolean isPushable() { return false; }
+    @Override public boolean shouldBeSaved() { return false; }
+    @Override public void registerControllers(software.bernie.geckolib.core.animation.AnimatableManager.ControllerRegistrar controllers) {
+        controllers.add(new software.bernie.geckolib.core.animation.AnimationController<>(this,"flight",0,state->state.setAndContinue(
+                software.bernie.geckolib.core.animation.RawAnimation.begin().thenLoop("animation.ice_dragon.flight"))));
+    }
+    @Override public software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache getAnimatableInstanceCache(){return geoCache;}
 }

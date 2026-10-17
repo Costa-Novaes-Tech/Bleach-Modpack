@@ -1,5 +1,7 @@
 # Ciclo 54 — Pesquisa e proposta: Ryūjin, Hyōrinmaru e liberações animadas
 
+> Atualização: usuário autorizou seguir, rejeitou Nishi defensiva e pediu Rajada/Leque distintos, selo de chamas e três dragões Bankai. [Ciclo 55](55-primeira-entrega-liberacoes-dragoes-triplos-2026-10-17.md) registra a direção corrigida (Higashi ofensivo no lugar de Nishi) e entrega a primeira fatia de liberações/dragões com GeckoLib. Demais técnicas abaixo continuam roteiro de refatoração, não implementação completa.
+
 Data: 17/10/2026. Branch `Feature-Poderes-bankais`, base limpa `ca5c365`. **Estado: proposta para discussão; sem alteração de código, assets, dependências ou build nesta etapa.** O pedido é pesquisar novo repertório, preservar capacidades selecionadas e passivas e planejar animações de técnicas/transformação com a qualidade demonstrada pela referência Zaraki. O commit da equipe ainda não está disponível.
 
 ## 1. Decisões recebidas e limites

@@ -180,21 +180,26 @@ public final class RyujinGameTests {
         data.getCharacter().setMastery("zanpakuto", "bankai", 100);
         data.getResources().setCurrentReiatsu(0);
         command(player, "reiatsu free");
-        for (String form : java.util.List.of("shikai", "bankai")) {
-            data.getCharacter().setSelectedForm("zanpakuto", form);
-            com.bleachmod.server.events.FormModeHandler.attemptTransform(player, data);
-            helper.assertTrue(form.equals(data.getCharacter().getActiveForm()), "Free transform failed: " + form);
+        helper.onEachTick(() -> com.bleachmod.common.technique.ReleaseAnimationService.tick(player));
+        data.getCharacter().setSelectedForm("zanpakuto", "shikai");
+        com.bleachmod.server.events.FormModeHandler.attemptTransform(player,data);
+        helper.runAfterDelay(25,()->{
+            helper.assertTrue("shikai".equals(data.getCharacter().getActiveForm()),"Free animated Shikai failed");
+            data.getCharacter().setSelectedForm("zanpakuto", "bankai");
+            com.bleachmod.server.events.FormModeHandler.attemptTransform(player,data);
+        });
+        helper.runAfterDelay(90,()->{try{
+            helper.assertTrue("bankai".equals(data.getCharacter().getActiveForm()),"Free animated Bankai failed");
             com.bleachmod.server.events.TickHandler.onPlayerTick(new net.minecraftforge.event.TickEvent.PlayerTickEvent(
                     net.minecraftforge.event.TickEvent.Phase.END, player));
-            helper.assertTrue(form.equals(data.getCharacter().getActiveForm()), "Free form reverted: " + form);
-            helper.assertTrue(data.getResources().getCurrentReiatsu() == 0, "Free form changed balance");
-        }
-        command(player, "reiatsu restore");
-        com.bleachmod.server.events.TickHandler.onPlayerTick(new net.minecraftforge.event.TickEvent.PlayerTickEvent(
-                net.minecraftforge.event.TickEvent.Phase.END, player));
-        helper.assertTrue("sealed".equals(data.getCharacter().getActiveForm()), "Normal drain did not revert empty Bankai");
-        helper.succeed();
+            helper.assertTrue("bankai".equals(data.getCharacter().getActiveForm()) && data.getResources().getCurrentReiatsu()==0,"Free form/balance changed");
+            command(player,"reiatsu restore");
+            com.bleachmod.server.events.TickHandler.onPlayerTick(new net.minecraftforge.event.TickEvent.PlayerTickEvent(
+                    net.minecraftforge.event.TickEvent.Phase.END, player));
+            helper.assertTrue("sealed".equals(data.getCharacter().getActiveForm()),"Normal drain did not revert empty Bankai");
+        }finally{com.bleachmod.common.technique.ReleaseAnimationService.cancel(player);}helper.succeed();});
     }
+
     private static FakePlayer player(GameTestHelper helper) {
         FakePlayer player = new FakePlayer(helper.getLevel(), new GameProfile(UUID.randomUUID(), "RyujinTest"));
         data(player).initializeShinigami(); data(player).getCharacter().bindZanpakuto("ryujin_jakka"); data(player).getCharacter().preserveLegacyTechniques();

@@ -52,6 +52,7 @@ public final class BleachClient {
         event.enqueueWork(BleachClient::registerItemProperties);
         event.enqueueWork(com.bleachmod.client.compat.BetterCombatClientCompat::init);
         event.enqueueWork(com.bleachmod.client.model.ZanpakutoGuardPose::init);
+        event.enqueueWork(com.bleachmod.client.model.ZanpakutoReleaseAnimation::init);
     }
 
     private static void registerItemProperties() {

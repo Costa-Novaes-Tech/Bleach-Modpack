@@ -80,9 +80,9 @@ public final class HyorinmaruGameTests {
     @GameTest(template = "empty")
     public static void iceStrikeDamagesSlowsAndCooldownPreventsSecondDebit(GameTestHelper h) {
         var p = player(h); release(p, "shikai"); var z = zombie(h, p, 3);
-        h.runAfterDelay(5, () -> { try {
-            TechniqueService.executeSlot(p, data(p), 1);
-            h.assertTrue(z.getHealth() < 20 && z.hasEffect(MobEffects.MOVEMENT_SLOWDOWN), "Ice strike missed or lacked slow");
+        h.runAfterDelay(5, () -> TechniqueService.executeSlot(p, data(p), 1));
+        h.runAfterDelay(10, () -> { try {
+            h.assertTrue(z.getHealth() < 20 && z.hasEffect(MobEffects.MOVEMENT_SLOWDOWN), "Traveling ice dragon missed or lacked slow");
             h.assertTrue(data(p).getResources().getCurrentReiatsu() == 85, "Wrong Shikai cost");
             TechniqueService.executeSlot(p, data(p), 1);
             h.assertTrue(data(p).getResources().getCurrentReiatsu() == 85, "Cooldown debited again");

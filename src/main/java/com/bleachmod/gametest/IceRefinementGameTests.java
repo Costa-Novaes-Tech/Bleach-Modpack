@@ -67,11 +67,11 @@ public final class IceRefinementGameTests {
         var dragon=new com.bleachmod.entity.IceDragonEntity[1];
         h.runAfterDelay(5,()->{
             TechniqueService.executeSlot(p,d,1);
-            h.assertTrue(inside.getHealth()<20 && outside.getHealth()==20,"Bankai dragon strike range must be 24");
+            h.assertTrue(inside.getHealth()==20 && outside.getHealth()==20,"Dragon must travel before applying damage");
             dragon[0]=h.getLevel().getEntitiesOfClass(com.bleachmod.entity.IceDragonEntity.class,p.getBoundingBox().inflate(5)).get(0);
             h.assertTrue(dragon[0].getPhantomSize()==12 && !dragon[0].isPickable(),"Dragon is not enlarged or became interactive");
         });
-        h.runAfterDelay(32,()->h.assertTrue(dragon[0].getZ()-p.getZ()>21 && !dragon[0].isRemoved(),"Visual dragon did not travel its extended range"));
+        h.runAfterDelay(34,()->{ h.assertTrue(dragon[0].getZ()-p.getZ()>21 && !dragon[0].isRemoved(),"Dragon did not travel its extended range"); h.assertTrue(inside.getHealth()<20 && outside.getHealth()==20,"Bankai dragon strike range must remain 24"); });
         h.runAfterDelay(40,()->{ try { h.assertTrue(dragon[0].isRemoved(),"Extended dragon did not expire"); }
             finally { HyorinmaruTechniqueService.cancel(p); inside.discard(); outside.discard(); } h.succeed(); });
     }

@@ -51,7 +51,7 @@ public final class IceArmorLayer extends RenderLayer<AbstractClientPlayer, Playe
             }
             if (stage == 3) {
                 draw(pose, buffers, light, getParentModel().body, root.getChild("tail"), 1);
-                ModelPart wing = root.getChild("wing"); wing.zRot = -0.15F + (float) Math.sin(age * 0.08) * 0.05F;
+                ModelPart wing = root.getChild("wing"); wing.zRot = net.minecraft.util.Mth.lerp(ZanpakutoReleaseAnimation.iceGrowth(player,partialTick),-1.4F,-.15F) + (float) Math.sin(age * 0.08) * 0.05F;
                 draw(pose, buffers, light, getParentModel().body, wing, 1);
                 draw(pose, buffers, light, getParentModel().body, wing, -1);
             }

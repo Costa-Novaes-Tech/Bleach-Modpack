@@ -32,7 +32,7 @@ public class ModEntityRenderers {
     public static void registerRenderers(
             EntityRenderersEvent.RegisterRenderers event
     ) {
-        event.registerEntityRenderer(ModEntities.ICE_DRAGON.get(), IceDragonRenderer::new);
+        event.registerEntityRenderer(ModEntities.ICE_DRAGON.get(), com.bleachmod.client.model.IceDragonRenderer::new);
         event.registerEntityRenderer(
                 ModEntities.HOLLOW.get(),
                 HollowRenderer::new
@@ -131,13 +131,6 @@ public class ModEntityRenderers {
             }
         }
     }
-    public static final class IceDragonRenderer extends net.minecraft.client.renderer.entity.PhantomRenderer {
-        public IceDragonRenderer(EntityRendererProvider.Context context) { super(context); layers.clear(); }
-        @Override public ResourceLocation getTextureLocation(net.minecraft.world.entity.monster.Phantom entity) {
-            return new ResourceLocation("minecraft", "textures/block/packed_ice.png");
-        }
-    }
-
     public static class QuestNpcRenderer extends MobRenderer<QuestNpcEntity, PlayerModel<QuestNpcEntity>> {
         public QuestNpcRenderer(EntityRendererProvider.Context context) {
             super(context, new PlayerModel<>(context.bakeLayer(ModelLayers.PLAYER), false), 0.5F);
