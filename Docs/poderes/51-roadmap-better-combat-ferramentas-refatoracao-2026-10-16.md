@@ -1,5 +1,7 @@
 # Ciclo 51 — Better Combat, ferramentas e refatoração dos kits
 
+> Atualização posterior: [ciclo 59](59-liberacoes-gestos-senbon-benihime-asauchi-2026-10-17.md) implementa as liberações restantes e gestos Senbon/Benihime com a infraestrutura atual. Modelos finais de inimigos, VFX especializados e integração Zaraki continuam etapas futuras; não foi instalado outro mod nesta rodada.
+
 > Entrega posterior: [ciclo 56](56-repertorio-elemental-cinematica-combos-2026-10-17.md) implementa o repertório revisado completo, combos Ryūjin/Hyōrinmaru, pose final e dragões gigantes. Consulte sua matriz vigente; descrições abaixo registram o estado histórico.
 
 > Pesquisa dos novos repertórios e liberações solicitados em 17/10 registrada no [ciclo 54](54-proposta-refatoracao-ryujin-hyorinmaru-liberacoes-2026-10-17.md). Ataques selecionados/passivas preservados como direção; matriz e redistribuição por forma propostas, sem código novo. Serviço comum de liberação e novo dragão serão candidatos de piloto das etapas de autoria/VFX antes de refatorar os kits; a ordem geral abaixo permanece.

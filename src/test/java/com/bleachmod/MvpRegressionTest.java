@@ -954,6 +954,31 @@ public final class MvpRegressionTest {
             eq(hip.arm().x,left.arm().x);eq(-hip.arm().y,left.arm().y);
             eq(-hip.body().y,left.body().y);
         });
+        test("Remaining technique animations have bounded mirrored curves and cannot persist after their lease", () -> {
+            for(var entry:com.bleachmod.common.visual.SignatureChoreography.LENGTHS.entrySet()){
+                int end=entry.getValue();
+                for(int age=0;age<=end;age++){
+                    var r=com.bleachmod.common.visual.SignatureChoreography.sample(entry.getKey(),age,end,1);
+                    var l=com.bleachmod.common.visual.SignatureChoreography.sample(entry.getKey(),age,end,-1);
+                    yes(Double.isFinite(r.arm().lengthSqr()+r.body().lengthSqr()));
+                    yes(r.weight()>=0 && r.weight()<=1);yes(Math.abs(r.arm().y+l.arm().y)<1e-9);
+                }
+                eq(0F,com.bleachmod.common.visual.SignatureChoreography.sample(entry.getKey(),end,end,1).weight());
+            }
+            eq(18,com.bleachmod.common.visual.SignatureChoreography.LENGTHS.size());
+        });
+        test("Remaining releases recover to neutral and reject invalid time", () -> {
+            for(String identity:List.of("senbonzakura","benihime","asauchi"))for(int length:new int[]{24,60}){
+                yes(com.bleachmod.common.visual.SignatureChoreography.release(identity,length/2F,length,1).weight()>0);
+                eq(0F,com.bleachmod.common.visual.SignatureChoreography.release(identity,length,length,1).weight());
+                eq(0D,com.bleachmod.common.visual.SignatureChoreography.release(identity,Float.NaN,length,1).arm().lengthSqr());
+            }
+        });
+        test("Senbon release uses two rows of tall blades with a bounded construct budget", () -> {
+            var quads=com.bleachmod.common.visual.SenbonConstructGeometry.build(com.bleachmod.common.network.s2c.SenbonPetalsS2C.SWORDS,net.minecraft.world.phys.Vec3.ZERO,new net.minecraft.world.phys.Vec3(0,0,1),7,.5,4);
+            double top=quads.stream().flatMap(q->List.of(q.a(),q.b(),q.c(),q.d()).stream()).mapToDouble(v->v.y).max().orElse(0);
+            yes(top>6 && quads.size()<1200);
+        });
         System.out.println("PASS: "+count+" regression scenarios");
     }
     private static PlayerData player(){PlayerData d=new PlayerData();d.initializeShinigami();d.getCharacter().bindZanpakuto("ryujin_jakka");d.getCharacter().preserveLegacyTechniques();return d;}

@@ -345,6 +345,7 @@ public final class RyujinTechniqueService {
     }
 
     public static void cancel(ServerPlayer player) {
+        SignatureAnimationService.cancel(player);
         ElementalTechniqueService.cancel(player);
         SenbonzakuraTechniqueService.cancel(player); BenihimeTechniqueService.cancel(player);
         FlameWaveService.cancel(player);

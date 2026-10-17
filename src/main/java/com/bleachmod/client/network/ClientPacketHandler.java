@@ -64,6 +64,7 @@ public final class ClientPacketHandler {
             return;
         }
         Entity entity = mc.level.getEntity(playerId);
+        if(nbt.contains("signatureView")) com.bleachmod.client.model.SignatureActionVisuals.accept(playerId,nbt.getCompound("signatureView"));
         if (nbt.contains("releaseView")) com.bleachmod.client.model.ZanpakutoReleaseAnimation.accept(playerId, nbt.getCompound("releaseView"));
         if (nbt.contains("elementalView")) com.bleachmod.client.model.ElementalActionVisuals.accept(playerId, nbt.getCompound("elementalView"));
         if (entity instanceof Player player) {

@@ -57,6 +57,7 @@ public final class SyncHelper {
             CompoundTag tag = new CompoundTag();
             tag.put("character", data.getCharacter().saveAppearance());
             tag.put("releaseView", com.bleachmod.common.technique.ReleaseAnimationService.snapshot(player));
+            tag.put("signatureView", com.bleachmod.common.technique.SignatureAnimationService.snapshot(player));
             tag.put("elementalView", com.bleachmod.common.technique.ElementalTechniqueService.snapshot(player));
             tag.put("guardView", data.getGuard().snapshot());
             NetworkHandler.CHANNEL.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> player), new AppearanceSyncS2C(player.getId(), tag));
@@ -73,6 +74,7 @@ public final class SyncHelper {
             CompoundTag tag = new CompoundTag();
             tag.put("character", data.getCharacter().saveAppearance());
             tag.put("releaseView", com.bleachmod.common.technique.ReleaseAnimationService.snapshot(subject));
+            tag.put("signatureView", com.bleachmod.common.technique.SignatureAnimationService.snapshot(subject));
             tag.put("elementalView", com.bleachmod.common.technique.ElementalTechniqueService.snapshot(subject));
             tag.put("guardView", data.getGuard().snapshot());
             NetworkHandler.sendToPlayer(new AppearanceSyncS2C(subject.getId(), tag), observer);

@@ -11,6 +11,13 @@ public final class SenbonConstructGeometry {
     public static List<Quad> build(int shape,Vec3 origin,Vec3 forward,double radius,double progress,int pattern) {
         var out=new ArrayList<Quad>();Vec3 left=SenbonGeometry.left(forward),up=new Vec3(0,1,0);
         if(shape==SWORDS) {
+            if(pattern==4){
+                for(int side:new int[]{-1,1})for(int i=0;i<6;i++){
+                    Vec3 base=origin.add(left.scale(side*3.5)).add(forward.scale(-4+i*2));
+                    sword(out,base,up,forward,7,false);
+                }
+                return List.copyOf(out);
+            }
             double collapse=pattern==2 ? Math.max(.12,1-progress*.88) : pattern==1 ? Math.max(.12,1-(progress-.5)*1.75) : 1;
             for(int row=0;row<2;row++) for(int i=0;i<16;i++) {
                 double angle=2*Math.PI*(i+row*.5)/16;

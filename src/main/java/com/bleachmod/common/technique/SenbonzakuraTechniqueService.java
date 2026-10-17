@@ -112,6 +112,7 @@ public final class SenbonzakuraTechniqueService {
             field.bloom=now;
             field.bloomTicks=(int)Math.min(SenbonPolicy.BLOOM_WINDUP,def.windowTicks()-age-1);
             if(field.bloomTicks==0)finishField(s);
+            SignatureAnimationService.play(p,"floral_bloom",Math.max(1,field.bloomTicks));
             sync(p); return true;
         }
         if (bankai && slot==3 && scene(p)) {
@@ -120,6 +121,7 @@ public final class SenbonzakuraTechniqueService {
             if (!d.getResources().consumeReiatsu(def.cost())) return fail(p,"energy");
             s.sceneStart=-1;
             s.attack=new Attack(Kind.IKKA_ATTACK,3,now,p.position().add(0,1,0),SenbonGeometry.forward(p.getYRot()));
+            SignatureAnimationService.play(p,"ikka_senjinka");
             sync(p);return true;
         }
         var definition=TechniqueDefinitions.require(CharacterData.SENBONZAKURA,s.form,slot);
@@ -142,6 +144,7 @@ public final class SenbonzakuraTechniqueService {
         else if (slot==3) { s.sceneStart=now;s.wardUntil=0; }
         else { s.sceneStart=-1;s.wardUntil=0;s.attack=new Attack(Kind.HAKU,slot,now,o,f); }
         p.serverLevel().playSound(null,p.blockPosition(),SoundEvents.AMETHYST_BLOCK_CHIME,p.getSoundSource(),.6F,bankai?.7F:1.3F);
+        SignatureAnimationService.play(p,definition.id());
         sync(p); return true;
     }
     private static boolean fail(ServerPlayer p,String key) { p.displayClientMessage(Component.translatable("message.bleachmod.senbonzakura."+key),true);return false; }
@@ -362,6 +365,7 @@ public final class SenbonzakuraTechniqueService {
         tag.putInt("ward",(int)Math.max(0,s.wardUntil-now)); return tag;
     }
     public static void cancel(ServerPlayer p) {
+        SignatureAnimationService.cancel(p,CharacterData.SENBONZAKURA);
         State s=ACTIVE.remove(p.getUUID());if(s!=null)stopAttack(s);
         var reach=p.getAttribute(ForgeMod.ENTITY_REACH.get());if(reach!=null)reach.removeModifier(REACH_ID);
         PlayerCapability.get(p).ifPresent(d->{ if(d.getCharacter().getSenbonBlade()!=0) { d.getCharacter().setSenbonBlade(0);SyncHelper.appearance(p); } });

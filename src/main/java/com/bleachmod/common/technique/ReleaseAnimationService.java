@@ -32,7 +32,7 @@ public final class ReleaseAnimationService {
     private ReleaseAnimationService() { }
     public static boolean supports(PlayerData d, String group, String form) {
         return group.equals("zanpakuto") && List.of("shikai","bankai").contains(form)
-                && List.of(CharacterData.RYUJIN,CharacterData.HYORINMARU).contains(d.getCharacter().getZanpakutoIdentity());
+                && List.of(CharacterData.RYUJIN,CharacterData.HYORINMARU,CharacterData.SENBONZAKURA,CharacterData.BENIHIME,CharacterData.ASAUCHI).contains(d.getCharacter().getZanpakutoIdentity());
     }
     public static boolean busy(ServerPlayer p) { return ACTIVE.containsKey(p.getUUID()); }
     public static void begin(ServerPlayer p, PlayerData d, String group, String form, float cost) {

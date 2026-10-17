@@ -39,7 +39,7 @@ public final class ZanpakutoReleaseAnimation {
         if(world!=level){clear();world=level;}
         String identity=tag.getString("identity"),form=tag.getString("form");
         int duration=tag.getInt("duration"),elapsed=tag.getInt("elapsed");
-        if(!List.of("ryujin_jakka","hyorinmaru").contains(identity) || !List.of("shikai","bankai").contains(form)
+        if(!List.of("ryujin_jakka","hyorinmaru","senbonzakura","benihime","asauchi").contains(identity) || !List.of("shikai","bankai").contains(form)
                 || duration!=(form.equals("bankai")?60:24) || elapsed<0 || elapsed>=duration){VIEWS.remove(id);return;}
         VIEWS.put(id,new View(identity,form.equals("bankai"),duration,level.getGameTime()-elapsed));
     }
@@ -49,6 +49,7 @@ public final class ZanpakutoReleaseAnimation {
                 || !PlayerCapability.get(p).map(d->d.getCharacter().getZanpakutoIdentity().equals(v.identity)).orElse(false))return null;
         return v;
     }
+    public static float manifestationGrowth(AbstractClientPlayer p,float partial){var v=view(p);return v==null?1:Mth.clamp((progress(p,v,partial)-.66F)/.3F,0,1);}
     public static boolean active(AbstractClientPlayer p){return view(p)!=null;}
     public static float iceGrowth(AbstractClientPlayer p,float partial){var v=view(p);return v==null?1:Mth.clamp((progress(p,v,partial)-.66F)/.3F,0,1);}
     private static float progress(AbstractClientPlayer p,View v,float partial){return Mth.clamp((p.level().getGameTime()-v.start+partial)/v.duration,0,1);}
@@ -63,6 +64,7 @@ public final class ZanpakutoReleaseAnimation {
         @Override public Vec3f get3DTransform(String part,TransformType type,float partial,Vec3f value){
             var v=view(player);if(v==null)return value;
             float t=progress(player,v,partial),w=weight(t),sign=player.getMainArm()==HumanoidArm.RIGHT?1:-1;
+            if(List.of("senbonzakura","benihime","asauchi").contains(v.identity))return RyujinActionVisuals.transform(player,com.bleachmod.common.visual.SignatureChoreography.release(v.identity,t*v.duration,v.duration,sign),part,type,value);
             if(v.bankai && v.identity.equals("ryujin_jakka"))return RyujinActionVisuals.transform(player,com.bleachmod.common.visual.RyujinChoreography.release(t*v.duration,sign),part,type,value);
             boolean sword=part.equals(sign>0?"rightArm":"leftArm"),seal=part.equals(sign>0?"leftArm":"rightArm");
             boolean fire=v.identity.equals("ryujin_jakka");
@@ -88,6 +90,7 @@ public final class ZanpakutoReleaseAnimation {
     @SubscribeEvent public static void hand(RenderHandEvent e){
         var p=Minecraft.getInstance().player;if(p==null || e.getHand()!=InteractionHand.MAIN_HAND)return;
         var v=view(p);if(v==null)return;
+        if(List.of("senbonzakura","benihime","asauchi").contains(v.identity)){RyujinActionVisuals.hand(e.getPoseStack(),com.bleachmod.common.visual.SignatureChoreography.release(v.identity,progress(p,v,e.getPartialTick())*v.duration,v.duration,p.getMainArm()==HumanoidArm.RIGHT?1:-1));return;}
         if(v.bankai && v.identity.equals("ryujin_jakka")){RyujinActionVisuals.hand(e.getPoseStack(),com.bleachmod.common.visual.RyujinChoreography.release(progress(p,v,e.getPartialTick())*v.duration,p.getMainArm()==HumanoidArm.RIGHT?1:-1));return;}
         float w=weight(progress(p,v,e.getPartialTick())),sign=p.getMainArm()==HumanoidArm.RIGHT?1:-1;
         var pose=e.getPoseStack();
@@ -102,6 +105,7 @@ public final class ZanpakutoReleaseAnimation {
         for(var entry:VIEWS.entrySet()){
             if(!(mc.level.getEntity(entry.getKey()) instanceof AbstractClientPlayer p) || view(p)==null || mc.player==null || mc.player.distanceToSqr(p)>64*64)continue;
             var v=entry.getValue();float t=progress(p,v,0);
+            if(List.of("senbonzakura","benihime","asauchi").contains(v.identity)){SignatureActionVisuals.releaseParticles(p,v.identity,t,v.bankai);if(p==mc.player && mc instanceof net.bettercombat.api.MinecraftClient_BetterCombat bc)bc.cancelUpswing();continue;}
             if(v.bankai && v.identity.equals("ryujin_jakka")){RyujinActionVisuals.releaseParticles(p,t*v.duration);if(p==mc.player && mc instanceof net.bettercombat.api.MinecraftClient_BetterCombat bc)bc.cancelUpswing();continue;}
             boolean fire=v.identity.equals("ryujin_jakka");
             var forward=Vec3.directionFromRotation(0,p.getYRot());var side=new Vec3(-forward.z,0,forward.x);
