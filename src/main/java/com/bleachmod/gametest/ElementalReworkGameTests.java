@@ -60,7 +60,10 @@ public final class ElementalReworkGameTests {
         var floor=new ArrayList<BlockPos>();for(int x=-4;x<=4;x++)for(int z=-4;z<=7;z++){var pos=p.blockPosition().offset(x,-1,z);floor.add(pos);h.getLevel().setBlock(pos,net.minecraft.world.level.block.Blocks.STONE.defaultBlockState(),3);}
         TechniqueService.executeSlot(p,d(p),3);final List<net.minecraft.world.entity.monster.WitherSkeleton> soldiers=new ArrayList<>();
         h.runAfterDelay(20,()->{soldiers.addAll(h.getLevel().getEntitiesOfClass(net.minecraft.world.entity.monster.WitherSkeleton.class,p.getBoundingBox().inflate(8),e->e.getPersistentData().hasUUID("ashOwner") && e.getPersistentData().getUUID("ashOwner").equals(p.getUUID())));
-            h.assertTrue(soldiers.size()==6,"Minami did not create six owned soldiers");var xp=new net.minecraftforge.event.entity.living.LivingExperienceDropEvent(soldiers.get(0),p,20);ElementalTechniqueService.xp(xp);h.assertTrue(xp.getDroppedExperience()==0,"Soldier leaked vanilla XP");});
+            h.assertTrue(soldiers.size()==6,"Minami did not create six owned soldiers");
+            var view=ElementalTechniqueService.snapshot(p).getList("casts",10).getCompound(0);var ids=view.getIntArray("soldiers");
+            h.assertTrue(ids.length==6 && Arrays.stream(ids).allMatch(id->soldiers.stream().anyMatch(s->s.getId()==id)),"Late observer snapshot has missing or foreign ash soldiers");
+            var xp=new net.minecraftforge.event.entity.living.LivingExperienceDropEvent(soldiers.get(0),p,20);ElementalTechniqueService.xp(xp);h.assertTrue(xp.getDroppedExperience()==0,"Soldier leaked vanilla XP");});
         h.runAfterDelay(70,()->{try{h.assertTrue(t.getHealth()<80,"Army never attacked its hostile target");clean(p);h.assertTrue(soldiers.stream().allMatch(Entity::isRemoved),"Army survived cancellation");}finally{clean(p,t);for(var pos:floor)h.getLevel().setBlock(pos,net.minecraft.world.level.block.Blocks.AIR.defaultBlockState(),3);}h.succeed();});}
     @GameTest(template="empty",batch="new_freecast",timeoutTicks=60)
     public static void freeTestModeDoesNotBypassGestureButAllowsNextCast(GameTestHelper h){var p=player(h,"ryujin_jakka","shikai");var d=d(p);d.getResources().setCostsDisabled(true);d.getResources().setCurrentReiatsu(0);d.getStatus().setCooldownsDisabled(true);
@@ -95,6 +98,14 @@ public final class ElementalReworkGameTests {
             h.assertTrue(target.getHealth()<80 && h.getLevel().getBlockState(stone).isAir() && h.getLevel().getBlockState(bedrock).is(net.minecraft.world.level.block.Blocks.BEDROCK),"Steam impact lost its terrain/damage contract");
             h.assertTrue(d(p).getResources().getCurrentReiatsu()==55 && d(p).getStatus().getTechniqueSlot4CooldownTicks()==1200,"Steam cut charged incorrectly");
         }finally{clean(p,target);h.getLevel().setBlock(stone,net.minecraft.world.level.block.Blocks.AIR.defaultBlockState(),3);h.getLevel().setBlock(bedrock,net.minecraft.world.level.block.Blocks.AIR.defaultBlockState(),3);}h.succeed();});
+    }
+    @GameTest(template="empty",batch="ryujin_authored_dash")
+    public static void flameDashUsesItsOwnActionWithoutVanillaRiptideAttack(GameTestHelper h){
+        var p=player(h,"ryujin_jakka","bankai");TechniqueService.executeSlot(p,d(p),1);
+        try{h.assertTrue(!p.isAutoSpinAttack() && d(p).getStatus().getFlameDashTicks()==16,"Vanilla spinning attack overrides the sword dash");
+            h.assertTrue(d(p).getResources().getCurrentReiatsu()==80 && d(p).getStatus().getTechniqueSlot1CooldownTicks()==100,"Dash resource contract changed");
+            h.assertTrue(ElementalTechniqueService.snapshot(p).getList("casts",10).getCompound(0).getString("kind").equals("flame_dash"),"Missing authored dash timeline");
+        }finally{d(p).getStatus().setFlameDashTicks(0);clean(p);}h.succeed();
     }
     @GameTest(template="empty",batch="new_cinematic_locks",timeoutTicks=50)
     public static void specialGestureCannotBeBypassedByPhysicalAttackGuardOrDodge(GameTestHelper h){var p=player(h,"ryujin_jakka","bankai");var t=target(h,p,0,2);TechniqueService.executeSlot(p,d(p),2);

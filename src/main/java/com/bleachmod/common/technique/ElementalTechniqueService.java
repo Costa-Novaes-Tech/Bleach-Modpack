@@ -50,7 +50,8 @@ public final class ElementalTechniqueService {
     }
     public static CompoundTag snapshot(ServerPlayer p){var out=new CompoundTag();var list=new ListTag();
         for(var c:CASTS.getOrDefault(p.getUUID(),List.of())){var t=new CompoundTag();t.putString("kind",c.kind);t.putInt("age",c.age());t.putInt("duration",c.duration);t.putInt("gesture",c.gesture);t.putFloat("yaw",p.getYRot());
-            t.putDouble("x",c.origin.x);t.putDouble("y",c.origin.y);t.putDouble("z",c.origin.z);t.putDouble("dx",c.forward.x);t.putDouble("dz",c.forward.z);t.putDouble("radius",c.radius);t.putBoolean("ice",c.identity.equals(CharacterData.HYORINMARU));list.add(t);}
+            t.putDouble("x",c.origin.x);t.putDouble("y",c.origin.y);t.putDouble("z",c.origin.z);t.putDouble("dx",c.forward.x);t.putDouble("dz",c.forward.z);t.putDouble("radius",c.radius);t.putBoolean("ice",c.identity.equals(CharacterData.HYORINMARU));
+            if(c.kind.equals("minami"))t.putIntArray("soldiers",c.soldiers.stream().filter(Entity::isAlive).limit(6).mapToInt(Entity::getId).toArray());list.add(t);}
         out.put("casts",list);return out;
     }
     public static void cancel(ServerPlayer p){var list=CASTS.remove(p.getUUID());if(list!=null){list.forEach(c->c.soldiers.forEach(Entity::discard));SyncHelper.appearance(p);}}
@@ -110,6 +111,13 @@ public final class ElementalTechniqueService {
         if(c.hits.size()>=64 && !c.hits.contains(t.getUUID()) || once && c.hits.contains(t.getUUID()))return false;
         c.hits.add(t.getUUID());
         boolean dealt=MasteryPracticeService.hurt(c.owner,t,c.owner.damageSources().playerAttack(c.owner),damage,c.slot);
+        if(dealt && c.kind.equals("higashi")){
+            var pos=t.getBoundingBox().getCenter();var level=c.owner.serverLevel();
+            level.sendParticles(ParticleTypes.FLAME,pos.x,pos.y,pos.z,16,.22,.3,.22,.045);
+            level.sendParticles(ParticleTypes.ELECTRIC_SPARK,pos.x,pos.y,pos.z,12,.17,.24,.17,.07);
+            level.sendParticles(ParticleTypes.SMOKE,pos.x,pos.y,pos.z,4,.18,.25,.18,.02);
+            level.playSound(null,t.blockPosition(),net.minecraft.sounds.SoundEvents.FIRECHARGE_USE,c.owner.getSoundSource(),.65F,1.35F);
+        }
         if(dealt && c.identity.equals(CharacterData.RYUJIN) && !c.form.equals("sealed"))t.setSecondsOnFire(c.form.equals("bankai")?4:3);return dealt;
     }
     private static void chill(Cast c,LivingEntity t,int ticks){
@@ -167,6 +175,7 @@ public final class ElementalTechniqueService {
             mob.setNoAi(true);mob.getPersistentData().putBoolean(ASH,true);mob.getPersistentData().putUUID("ashOwner",p.getUUID());mob.setItemSlot(EquipmentSlot.MAINHAND,ItemStack.EMPTY);
             for(var slot:EquipmentSlot.values())mob.setDropChance(slot,0);mob.setHealth(6);c.soldiers.add(mob);p.serverLevel().addFreshEntity(mob);
         }
+        if(age==16)SyncHelper.appearance(p); // Publish IDs once, for emergence and late observers.
         c.soldiers.removeIf(e->!e.isAlive() || e.isRemoved());
         for(var mob:c.soldiers){
             var t=targets(c,p.position(),16).stream().filter(e->!e.getPersistentData().getBoolean(ASH) && (e instanceof Enemy || e instanceof ServerPlayer) && mob.hasLineOfSight(e)).min(Comparator.comparingDouble(mob::distanceToSqr)).orElse(null);

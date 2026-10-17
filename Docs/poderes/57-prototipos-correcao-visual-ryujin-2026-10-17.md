@@ -1,5 +1,7 @@
 # Ciclo 57 — Correção de direção visual da Ryūjin, antes de implementar
 
+> Estudos aprovados pelo usuário e implementados no [ciclo 58](58-ryujin-coreografias-chamas-implementadas-2026-10-17.md). Este documento registra a etapa de protótipos; seu estado sem alterações de runtime é histórico.
+
 Data: 17/10/2026. Branch `Feature-Poderes-bankais`, HEAD de entrada `31ad11b`, Git limpo ao iniciar. **Esta entrega contém somente documentação, imagens conceituais e estudos animados. Nenhum arquivo do mod em src, dependência, build ou pacote jogável foi alterado.**
 
 ## Feedback recebido

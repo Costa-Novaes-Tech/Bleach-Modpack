@@ -922,6 +922,38 @@ public final class MvpRegressionTest {
             eq(100,status.getBenihimeHud().getInt("shield"));status.getBenihimeHud().putInt("charges",0);eq(3,status.getBenihimeHud().getInt("charges"));
             yes(!status.save().contains("benihimeHud"));
         });
+        test("Bankai seal points the authored katana outward in both hands and always releases the pose", () -> {
+            for(float sign:new float[]{1,-1}){
+                var pose=com.bleachmod.common.visual.RyujinChoreography.release(50,sign);
+                var blade=com.bleachmod.common.visual.RyujinChoreography.bladeDirection(pose);
+                yes(blade.x*sign>.85 && blade.z>0 && Math.abs(blade.y)<.2);
+                var end=com.bleachmod.common.visual.RyujinChoreography.release(60,sign);
+                eq(0F,end.weight());eq(0D,end.arm().lengthSqr());
+                eq(0F,com.bleachmod.common.visual.RyujinChoreography.release(80,sign).weight());
+            }
+        });
+        test("All ten fire gestures have finite continuous curves and return to the base animation", () -> {
+            int[] ends={16,16,16,22,18,20,16,22,22,32};int n=0;
+            for(var kind:com.bleachmod.common.visual.RyujinChoreography.ATTACKS){
+                int end=ends[n++];var previous=com.bleachmod.common.visual.RyujinChoreography.attack(kind,0,1);
+                for(float age=.25F;age<end;age+=.25F){
+                    var current=com.bleachmod.common.visual.RyujinChoreography.attack(kind,age,1);
+                    yes(Double.isFinite(current.arm().lengthSqr()+current.body().lengthSqr()+current.handRotation().lengthSqr()));
+                    yes(current.arm().distanceTo(previous.arm())<.9);previous=current;
+                }
+                eq(0F,com.bleachmod.common.visual.RyujinChoreography.attack(kind,end,1).weight());
+                eq(0F,com.bleachmod.common.visual.RyujinChoreography.attack(kind,Float.NaN,1).weight());
+            }
+            eq(10,n);
+        });
+        test("Higashi coils the torso at the hip instead of sharing Rajada's overhead preparation", () -> {
+            var hip=com.bleachmod.common.visual.RyujinChoreography.attack("higashi",10,1);
+            var overhead=com.bleachmod.common.visual.RyujinChoreography.attack("flame_barrage",4,1);
+            yes(hip.arm().x>-1 && overhead.arm().x<-2.5 && hip.body().y<-.4);
+            var left=com.bleachmod.common.visual.RyujinChoreography.attack("higashi",10,-1);
+            eq(hip.arm().x,left.arm().x);eq(-hip.arm().y,left.arm().y);
+            eq(-hip.body().y,left.body().y);
+        });
         System.out.println("PASS: "+count+" regression scenarios");
     }
     private static PlayerData player(){PlayerData d=new PlayerData();d.initializeShinigami();d.getCharacter().bindZanpakuto("ryujin_jakka");d.getCharacter().preserveLegacyTechniques();return d;}

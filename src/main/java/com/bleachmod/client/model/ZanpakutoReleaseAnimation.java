@@ -63,18 +63,14 @@ public final class ZanpakutoReleaseAnimation {
         @Override public Vec3f get3DTransform(String part,TransformType type,float partial,Vec3f value){
             var v=view(player);if(v==null)return value;
             float t=progress(player,v,partial),w=weight(t),sign=player.getMainArm()==HumanoidArm.RIGHT?1:-1;
-            if(v.bankai && v.identity.equals("ryujin_jakka"))w=Math.min(1,t*8);
+            if(v.bankai && v.identity.equals("ryujin_jakka"))return RyujinActionVisuals.transform(player,com.bleachmod.common.visual.RyujinChoreography.release(t*v.duration,sign),part,type,value);
             boolean sword=part.equals(sign>0?"rightArm":"leftArm"),seal=part.equals(sign>0?"leftArm":"rightArm");
             boolean fire=v.identity.equals("ryujin_jakka");
             if(type==TransformType.ROTATION){
                 if(sword){
-                    if(fire && v.bankai){float settle=Mth.clamp((t-.64F)/.16F,0,1);var ready=RyujinBankaiReadyPose.sword(sign);
-                        return mix(value,Mth.lerp(settle,-.65F,ready[0]),Mth.lerp(settle,-.25F*sign,ready[1]),Mth.lerp(settle,-.75F*sign,ready[2]),w);}
                     return mix(value,-1.35F,-.25F*sign,-.2F*sign,w);
                 }
-                if(seal && player.getOffhandItem().isEmpty())return fire && v.bankai
-                        ?mix(value,-1.45F*(1-Mth.clamp((t-.67F)/.16F,0,1)),(.65F-.9F*Math.min(1,t/.66F))*sign*(1-Mth.clamp((t-.67F)/.16F,0,1)),.3F*sign*(1-Mth.clamp((t-.67F)/.16F,0,1)),w)
-                        :mix(value,-1.05F,.4F*sign,.35F*sign,w);
+                if(seal && player.getOffhandItem().isEmpty())return mix(value,-1.05F,.4F*sign,.35F*sign,w);
                 if(part.equals("body"))return mix(value,0,-.12F*sign,0,w);
                 if(part.equals("rightItem") || part.equals("leftItem"))return mix(value,0,0,0,w);
             }
@@ -92,6 +88,7 @@ public final class ZanpakutoReleaseAnimation {
     @SubscribeEvent public static void hand(RenderHandEvent e){
         var p=Minecraft.getInstance().player;if(p==null || e.getHand()!=InteractionHand.MAIN_HAND)return;
         var v=view(p);if(v==null)return;
+        if(v.bankai && v.identity.equals("ryujin_jakka")){RyujinActionVisuals.hand(e.getPoseStack(),com.bleachmod.common.visual.RyujinChoreography.release(progress(p,v,e.getPartialTick())*v.duration,p.getMainArm()==HumanoidArm.RIGHT?1:-1));return;}
         float w=weight(progress(p,v,e.getPartialTick())),sign=p.getMainArm()==HumanoidArm.RIGHT?1:-1;
         var pose=e.getPoseStack();
         pose.translate(-sign*.2*w,-.05*w,-.1*w);
@@ -105,6 +102,7 @@ public final class ZanpakutoReleaseAnimation {
         for(var entry:VIEWS.entrySet()){
             if(!(mc.level.getEntity(entry.getKey()) instanceof AbstractClientPlayer p) || view(p)==null || mc.player==null || mc.player.distanceToSqr(p)>64*64)continue;
             var v=entry.getValue();float t=progress(p,v,0);
+            if(v.bankai && v.identity.equals("ryujin_jakka")){RyujinActionVisuals.releaseParticles(p,t*v.duration);if(p==mc.player && mc instanceof net.bettercombat.api.MinecraftClient_BetterCombat bc)bc.cancelUpswing();continue;}
             boolean fire=v.identity.equals("ryujin_jakka");
             var forward=Vec3.directionFromRotation(0,p.getYRot());var side=new Vec3(-forward.z,0,forward.x);
             float sign=p.getMainArm()==HumanoidArm.RIGHT?1:-1;
