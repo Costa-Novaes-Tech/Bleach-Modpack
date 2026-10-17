@@ -1,5 +1,7 @@
 # Ciclo 51 — Better Combat, ferramentas e refatoração dos kits
 
+> Pesquisa dos novos repertórios e liberações solicitados em 17/10 registrada no [ciclo 54](54-proposta-refatoracao-ryujin-hyorinmaru-liberacoes-2026-10-17.md). Ataques selecionados/passivas preservados como direção; matriz e redistribuição por forma propostas, sem código novo. Serviço comum de liberação e novo dragão serão candidatos de piloto das etapas de autoria/VFX antes de refatorar os kits; a ordem geral abaixo permanece.
+
 > Atualização de 17/10: usuário aprovou a animação Asauchi. [Ciclo 53](53-asauchi-3d-pose-bloqueio-2026-10-17.md) atualiza seu formato 3D e acrescenta pose de bloqueio com X às cinco zanpakutō; novo visual aguarda playtest. Zaraki ainda sem commit da equipe; ordem de bibliotecas e refatorações abaixo preservada.
 
 > Início autorizado e entregue no [ciclo 52](52-better-combat-piloto-asauchi-2026-10-16.md): dependências fixadas, adaptação de servidor e Asauchi piloto, 99 regressões/118 GameTests aprovados. A equipe providenciará o commit Zaraki; comparação/reuso e playtest de cliente ainda pendentes. A etapa 1 não está homologada apenas por essa validação automática.

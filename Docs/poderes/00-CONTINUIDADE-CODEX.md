@@ -2,6 +2,8 @@
 
 Atualizado em 17/10/2026. Resumo de passagem para nova conversa; consulte o código/Git antes de alterar. Este arquivo evita precisar importar o histórico completo do chat. Não substitui instruções atuais do usuário.
 
+**Discussão vigente — ciclo 54:** usuário pediu novo repertório Ryūjin/Hyōrinmaru mais fiel à obra, preservando ataques selecionados e passivas, e liberações animadas inspiradas na qualidade do vídeo Zaraki. [Pesquisa, matriz proposta por forma e plano de animações](54-proposta-refatoracao-ryujin-hyorinmaru-liberacoes-2026-10-17.md). Preservar fogo: Corte de Vapor, Rajada, Investida, Tornado e Leque; gelo: Choque, Zonas normal/ampliada e Dragão com novo modelo/ataque. Barreira de Geada substituível. Reorganização por forma, novos poderes e timings estão propostos, não implementados. Próxima execução deve fechar contratos e integrar ferramentas/pilotos conforme roadmap 51. Código/build continuam ciclo 53 abaixo.
+
 **Frente vigente: ciclo 53 — animação Asauchi aprovada pelo usuário; novo modelo 3D e pose de bloqueio com X entregues para teste.** [Contrato visual e continuidade](53-asauchi-3d-pose-bloqueio-2026-10-17.md). Pose nas cinco zanpakutō, primeira/terceira pessoa, via snapshot de guarda e PlayerAnimator. [Dependências e contrato Better Combat](52-better-combat-piloto-asauchi-2026-10-16.md). Better Combat 1.9.0 Forge + PlayerAnimator + Cloth Config necessários; pacote completo em `build/combat-test-pack/mods`. Rede **2.18**, schema **8**, 99 regressões/118 GameTests aprovados. Conferência visual desta entrega e dois clientes reais pendentes. Zaraki ainda sem commit; roadmap do ciclo 51 preservado.
 
 ## 1. Repositório e regras mantidas pelo usuário
