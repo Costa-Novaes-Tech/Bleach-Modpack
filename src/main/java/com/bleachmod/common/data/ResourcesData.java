@@ -15,6 +15,14 @@ public class ResourcesData {
     private int staminaRestTicks;
     private boolean staminaExhausted;
     public float getStamina() { return stamina; }
+    public void markStaminaEffort() { staminaRestTicks = com.bleachmod.common.StaminaPolicy.REST_TICKS; }
+    public boolean trySpendDodgeStamina() {
+        if (stamina < com.bleachmod.common.DodgePolicy.COST) return false;
+        stamina -= com.bleachmod.common.DodgePolicy.COST;
+        markStaminaEffort();
+        if (stamina == 0) staminaExhausted = true;
+        return true;
+    }
     public boolean isStaminaExhausted() { return staminaExhausted; }
     public void fillStamina() { stamina = maxStamina; staminaRestTicks = 0; staminaExhausted = false; }
     /** Basic attacks remain possible at zero; charge available stamina and postpone recovery. */

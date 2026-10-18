@@ -20,6 +20,9 @@ public final class SyncHelper {
     public static void full(ServerPlayer player) {
         PlayerCapability.get(player).ifPresent(data -> {
             CompoundTag tag = data.save();
+            tag.put("senbonHud", com.bleachmod.common.technique.SenbonzakuraTechniqueService.hud(player));
+            tag.put("benihimeHud",com.bleachmod.common.technique.BenihimeTechniqueService.hud(player));
+            tag.put("guardView", data.getGuard().snapshot());
             tag.put("techniqueHud", data.getStatus().techniqueHud());
             NetworkHandler.sendToPlayer(new PlayerSyncS2C(player.getId(), tag), player);
         });
@@ -29,6 +32,9 @@ public final class SyncHelper {
         PlayerCapability.get(player).ifPresent(data -> {
             CompoundTag tag = new CompoundTag();
             tag.put("resources", data.getResources().save());
+            tag.put("senbonHud", com.bleachmod.common.technique.SenbonzakuraTechniqueService.hud(player));
+            tag.put("benihimeHud",com.bleachmod.common.technique.BenihimeTechniqueService.hud(player));
+            tag.put("guardView", data.getGuard().snapshot());
             tag.put("status", data.getStatus().save());
             tag.put("techniqueHud", data.getStatus().techniqueHud());
             NetworkHandler.sendToPlayer(new ResourceSyncS2C(player.getId(), tag), player);
@@ -50,6 +56,7 @@ public final class SyncHelper {
             com.bleachmod.common.ZanpakutoCarry.update(player, data);
             CompoundTag tag = new CompoundTag();
             tag.put("character", data.getCharacter().saveAppearance());
+            tag.put("guardView", data.getGuard().snapshot());
             NetworkHandler.CHANNEL.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> player), new AppearanceSyncS2C(player.getId(), tag));
         });
     }
@@ -63,6 +70,7 @@ public final class SyncHelper {
             com.bleachmod.common.ZanpakutoCarry.update(subject, data);
             CompoundTag tag = new CompoundTag();
             tag.put("character", data.getCharacter().saveAppearance());
+            tag.put("guardView", data.getGuard().snapshot());
             NetworkHandler.sendToPlayer(new AppearanceSyncS2C(subject.getId(), tag), observer);
         });
     }

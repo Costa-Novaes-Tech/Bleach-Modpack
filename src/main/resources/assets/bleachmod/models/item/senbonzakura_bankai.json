@@ -1,0 +1,1966 @@
+{
+  "parent": "bleachmod:item/ryujin_katana_handheld",
+  "textures": {
+    "white": "minecraft:block/quartz_block_side",
+    "gold": "minecraft:block/gold_block",
+    "spine": "minecraft:block/light_gray_concrete",
+    "wrap": "minecraft:block/magenta_terracotta",
+    "blade": "minecraft:block/iron_block",
+    "particle": "minecraft:block/pink_concrete",
+    "ghost": "minecraft:block/pink_stained_glass",
+    "ghost_edge": "minecraft:block/white_stained_glass"
+  },
+  "elements": [
+    {
+      "rotation": {
+        "origin": [
+          8,
+          8,
+          8
+        ],
+        "angle": -45,
+        "axis": "z"
+      },
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#wrap"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#wrap"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#wrap"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#wrap"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#wrap"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#wrap"
+        }
+      },
+      "to": [
+        8.65,
+        7,
+        8.65
+      ],
+      "name": "blue_wrapped_handle",
+      "from": [
+        7.35,
+        0,
+        7.35
+      ]
+    },
+    {
+      "rotation": {
+        "origin": [
+          8,
+          8,
+          8
+        ],
+        "angle": -45,
+        "axis": "z"
+      },
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gold"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gold"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gold"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gold"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gold"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gold"
+        }
+      },
+      "to": [
+        8.8,
+        0.5,
+        8.8
+      ],
+      "name": "gold_pommel",
+      "from": [
+        7.2,
+        0,
+        7.2
+      ]
+    },
+    {
+      "rotation": {
+        "origin": [
+          8,
+          8,
+          8
+        ],
+        "angle": -45,
+        "axis": "z"
+      },
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#white"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#white"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#white"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#white"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#white"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#white"
+        }
+      },
+      "to": [
+        8.75,
+        1.45,
+        8.75
+      ],
+      "name": "white_binding",
+      "from": [
+        7.25,
+        1.2,
+        7.25
+      ]
+    },
+    {
+      "rotation": {
+        "origin": [
+          8,
+          8,
+          8
+        ],
+        "angle": -45,
+        "axis": "z"
+      },
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#white"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#white"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#white"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#white"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#white"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#white"
+        }
+      },
+      "to": [
+        8.75,
+        2.55,
+        8.75
+      ],
+      "name": "white_binding",
+      "from": [
+        7.25,
+        2.3,
+        7.25
+      ]
+    },
+    {
+      "rotation": {
+        "origin": [
+          8,
+          8,
+          8
+        ],
+        "angle": -45,
+        "axis": "z"
+      },
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#white"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#white"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#white"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#white"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#white"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#white"
+        }
+      },
+      "to": [
+        8.75,
+        3.65,
+        8.75
+      ],
+      "name": "white_binding",
+      "from": [
+        7.25,
+        3.4,
+        7.25
+      ]
+    },
+    {
+      "rotation": {
+        "origin": [
+          8,
+          8,
+          8
+        ],
+        "angle": -45,
+        "axis": "z"
+      },
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#white"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#white"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#white"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#white"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#white"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#white"
+        }
+      },
+      "to": [
+        8.75,
+        4.75,
+        8.75
+      ],
+      "name": "white_binding",
+      "from": [
+        7.25,
+        4.5,
+        7.25
+      ]
+    },
+    {
+      "rotation": {
+        "origin": [
+          8,
+          8,
+          8
+        ],
+        "angle": -45,
+        "axis": "z"
+      },
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#white"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#white"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#white"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#white"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#white"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#white"
+        }
+      },
+      "to": [
+        8.75,
+        5.85,
+        8.75
+      ],
+      "name": "white_binding",
+      "from": [
+        7.25,
+        5.6,
+        7.25
+      ]
+    },
+    {
+      "name": "blade_surface",
+      "rotation": {
+        "axis": "z",
+        "angle": -45,
+        "origin": [
+          8,
+          8,
+          8
+        ]
+      },
+      "from": [
+        7.47,
+        7.7,
+        7.8
+      ],
+      "to": [
+        8.430000000000001,
+        13,
+        8.2
+      ],
+      "faces": {
+        "west": {
+          "texture": "#ghost",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "east": {
+          "texture": "#ghost",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "down": {
+          "texture": "#ghost",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "south": {
+          "texture": "#ghost",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "north": {
+          "texture": "#ghost",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "up": {
+          "texture": "#ghost",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "name": "single_cutting_edge",
+      "rotation": {
+        "axis": "z",
+        "angle": -45,
+        "origin": [
+          8,
+          8,
+          8
+        ]
+      },
+      "from": [
+        7.35,
+        7.7,
+        7.97
+      ],
+      "to": [
+        7.489999999999999,
+        13,
+        8.03
+      ],
+      "faces": {
+        "west": {
+          "texture": "#ghost_edge",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "east": {
+          "texture": "#ghost_edge",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "down": {
+          "texture": "#ghost_edge",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "south": {
+          "texture": "#ghost_edge",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "north": {
+          "texture": "#ghost_edge",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "up": {
+          "texture": "#ghost_edge",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "name": "blunt_spine",
+      "rotation": {
+        "axis": "z",
+        "angle": -45,
+        "origin": [
+          8,
+          8,
+          8
+        ]
+      },
+      "from": [
+        8.41,
+        7.7,
+        7.75
+      ],
+      "to": [
+        8.55,
+        13,
+        8.25
+      ],
+      "faces": {
+        "west": {
+          "texture": "#ghost",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "east": {
+          "texture": "#ghost",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "down": {
+          "texture": "#ghost",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "south": {
+          "texture": "#ghost",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "north": {
+          "texture": "#ghost",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "up": {
+          "texture": "#ghost",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "name": "blade_surface",
+      "rotation": {
+        "axis": "z",
+        "angle": -45,
+        "origin": [
+          8,
+          8,
+          8
+        ]
+      },
+      "from": [
+        7.57,
+        13,
+        7.8
+      ],
+      "to": [
+        8.530000000000001,
+        18,
+        8.2
+      ],
+      "faces": {
+        "west": {
+          "texture": "#ghost",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "east": {
+          "texture": "#ghost",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "down": {
+          "texture": "#ghost",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "south": {
+          "texture": "#ghost",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "north": {
+          "texture": "#ghost",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "up": {
+          "texture": "#ghost",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "name": "single_cutting_edge",
+      "rotation": {
+        "axis": "z",
+        "angle": -45,
+        "origin": [
+          8,
+          8,
+          8
+        ]
+      },
+      "from": [
+        7.45,
+        13,
+        7.97
+      ],
+      "to": [
+        7.59,
+        18,
+        8.03
+      ],
+      "faces": {
+        "west": {
+          "texture": "#ghost_edge",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "east": {
+          "texture": "#ghost_edge",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "down": {
+          "texture": "#ghost_edge",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "south": {
+          "texture": "#ghost_edge",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "north": {
+          "texture": "#ghost_edge",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "up": {
+          "texture": "#ghost_edge",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "name": "blunt_spine",
+      "rotation": {
+        "axis": "z",
+        "angle": -45,
+        "origin": [
+          8,
+          8,
+          8
+        ]
+      },
+      "from": [
+        8.51,
+        13,
+        7.75
+      ],
+      "to": [
+        8.65,
+        18,
+        8.25
+      ],
+      "faces": {
+        "west": {
+          "texture": "#ghost",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "east": {
+          "texture": "#ghost",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "down": {
+          "texture": "#ghost",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "south": {
+          "texture": "#ghost",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "north": {
+          "texture": "#ghost",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "up": {
+          "texture": "#ghost",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "name": "blade_surface",
+      "rotation": {
+        "axis": "z",
+        "angle": -45,
+        "origin": [
+          8,
+          8,
+          8
+        ]
+      },
+      "from": [
+        7.7700000000000005,
+        18,
+        7.8
+      ],
+      "to": [
+        8.73,
+        23,
+        8.2
+      ],
+      "faces": {
+        "west": {
+          "texture": "#ghost",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "east": {
+          "texture": "#ghost",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "down": {
+          "texture": "#ghost",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "south": {
+          "texture": "#ghost",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "north": {
+          "texture": "#ghost",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "up": {
+          "texture": "#ghost",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "name": "single_cutting_edge",
+      "rotation": {
+        "axis": "z",
+        "angle": -45,
+        "origin": [
+          8,
+          8,
+          8
+        ]
+      },
+      "from": [
+        7.65,
+        18,
+        7.97
+      ],
+      "to": [
+        7.79,
+        23,
+        8.03
+      ],
+      "faces": {
+        "west": {
+          "texture": "#ghost_edge",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "east": {
+          "texture": "#ghost_edge",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "down": {
+          "texture": "#ghost_edge",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "south": {
+          "texture": "#ghost_edge",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "north": {
+          "texture": "#ghost_edge",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "up": {
+          "texture": "#ghost_edge",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "name": "blunt_spine",
+      "rotation": {
+        "axis": "z",
+        "angle": -45,
+        "origin": [
+          8,
+          8,
+          8
+        ]
+      },
+      "from": [
+        8.709999999999999,
+        18,
+        7.75
+      ],
+      "to": [
+        8.85,
+        23,
+        8.25
+      ],
+      "faces": {
+        "west": {
+          "texture": "#ghost",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "east": {
+          "texture": "#ghost",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "down": {
+          "texture": "#ghost",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "south": {
+          "texture": "#ghost",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "north": {
+          "texture": "#ghost",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "up": {
+          "texture": "#ghost",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "name": "blade_surface",
+      "rotation": {
+        "axis": "z",
+        "angle": -45,
+        "origin": [
+          8,
+          8,
+          8
+        ]
+      },
+      "from": [
+        8.12,
+        23,
+        7.8
+      ],
+      "to": [
+        9.08,
+        26.5,
+        8.2
+      ],
+      "faces": {
+        "west": {
+          "texture": "#ghost",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "east": {
+          "texture": "#ghost",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "down": {
+          "texture": "#ghost",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "south": {
+          "texture": "#ghost",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "north": {
+          "texture": "#ghost",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "up": {
+          "texture": "#ghost",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "name": "single_cutting_edge",
+      "rotation": {
+        "axis": "z",
+        "angle": -45,
+        "origin": [
+          8,
+          8,
+          8
+        ]
+      },
+      "from": [
+        8.0,
+        23,
+        7.97
+      ],
+      "to": [
+        8.14,
+        26.5,
+        8.03
+      ],
+      "faces": {
+        "west": {
+          "texture": "#ghost_edge",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "east": {
+          "texture": "#ghost_edge",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "down": {
+          "texture": "#ghost_edge",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "south": {
+          "texture": "#ghost_edge",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "north": {
+          "texture": "#ghost_edge",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "up": {
+          "texture": "#ghost_edge",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "name": "blunt_spine",
+      "rotation": {
+        "axis": "z",
+        "angle": -45,
+        "origin": [
+          8,
+          8,
+          8
+        ]
+      },
+      "from": [
+        9.059999999999999,
+        23,
+        7.75
+      ],
+      "to": [
+        9.2,
+        26.5,
+        8.25
+      ],
+      "faces": {
+        "west": {
+          "texture": "#ghost",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "east": {
+          "texture": "#ghost",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "down": {
+          "texture": "#ghost",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "south": {
+          "texture": "#ghost",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "north": {
+          "texture": "#ghost",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "up": {
+          "texture": "#ghost",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "name": "asymmetric_kissaki",
+      "rotation": {
+        "axis": "z",
+        "angle": -45,
+        "origin": [
+          8,
+          8,
+          8
+        ]
+      },
+      "from": [
+        8.3,
+        26.5,
+        7.8
+      ],
+      "to": [
+        9.4,
+        27.4,
+        8.2
+      ],
+      "faces": {
+        "west": {
+          "texture": "#ghost",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "east": {
+          "texture": "#ghost",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "down": {
+          "texture": "#ghost",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "south": {
+          "texture": "#ghost",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "north": {
+          "texture": "#ghost",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "up": {
+          "texture": "#ghost",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "name": "spine_tip",
+      "rotation": {
+        "axis": "z",
+        "angle": -45,
+        "origin": [
+          8,
+          8,
+          8
+        ]
+      },
+      "from": [
+        8.9,
+        27.4,
+        7.85
+      ],
+      "to": [
+        9.4,
+        28.2,
+        8.15
+      ],
+      "faces": {
+        "west": {
+          "texture": "#ghost",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "east": {
+          "texture": "#ghost",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "down": {
+          "texture": "#ghost",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "south": {
+          "texture": "#ghost",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "north": {
+          "texture": "#ghost",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        },
+        "up": {
+          "texture": "#ghost",
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ]
+        }
+      }
+    },
+    {
+      "name": "senbon_square_guard",
+      "from": [
+        5.8,
+        7,
+        5.8
+      ],
+      "to": [
+        6.3,
+        7.55,
+        10.2
+      ],
+      "rotation": {
+        "origin": [
+          8,
+          8,
+          8
+        ],
+        "angle": -45,
+        "axis": "z"
+      },
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gold"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gold"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gold"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gold"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gold"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gold"
+        }
+      }
+    },
+    {
+      "name": "senbon_square_guard",
+      "from": [
+        9.7,
+        7,
+        5.8
+      ],
+      "to": [
+        10.2,
+        7.55,
+        10.2
+      ],
+      "rotation": {
+        "origin": [
+          8,
+          8,
+          8
+        ],
+        "angle": -45,
+        "axis": "z"
+      },
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gold"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gold"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gold"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gold"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gold"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gold"
+        }
+      }
+    },
+    {
+      "name": "senbon_square_guard",
+      "from": [
+        6.3,
+        7,
+        5.8
+      ],
+      "to": [
+        9.7,
+        7.55,
+        6.3
+      ],
+      "rotation": {
+        "origin": [
+          8,
+          8,
+          8
+        ],
+        "angle": -45,
+        "axis": "z"
+      },
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gold"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gold"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gold"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gold"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gold"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gold"
+        }
+      }
+    },
+    {
+      "name": "senbon_square_guard",
+      "from": [
+        6.3,
+        7,
+        9.7
+      ],
+      "to": [
+        9.7,
+        7.55,
+        10.2
+      ],
+      "rotation": {
+        "origin": [
+          8,
+          8,
+          8
+        ],
+        "angle": -45,
+        "axis": "z"
+      },
+      "faces": {
+        "north": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gold"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gold"
+        },
+        "east": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gold"
+        },
+        "west": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gold"
+        },
+        "up": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gold"
+        },
+        "down": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#gold"
+        }
+      }
+    }
+  ],
+  "render_type": "minecraft:translucent"
+}

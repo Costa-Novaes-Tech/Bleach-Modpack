@@ -1,3 +1,13 @@
+> **Ciclo 40 — 15/10/2026:** playtest recebido; escudo refinado, esquiva/guarda habilitadas no criativo sem voo e esquiva ampliada para 3,5 blocos nominais. Build, 80 regressões e 73 GameTests aprovados. [Contrato e nova conferência](40-refinamento-escudo-criativo-esquiva-ishida-2026-10-15.md). Ishida adicionado à fila; Byakuya continua próximo.
+
+> **Ciclo 39 — 15/10/2026:** bloqueio/Postura/Guard Break juntos, escudo visível; segurar X configurável. Protocolo 2.11, schema 8. Build, 80 regressões e 71 GameTests obrigatórios aprovados; playtest pendente. [Contrato e roteiro](39-bloqueio-postura-guard-break-2026-10-15.md). Próximo kit: Byakuya; Mentor/Proficiências adiados para confirmação com a equipe.
+
+> **Ciclo 37 — 15/10/2026:** esquiva Alt + direção implementada para playtest; protocolo 2.10, schema 7. Build, 76 regressões e 67 GameTests obrigatórios aprovados. [Contrato, limites, homologação e próximas opções](37-esquiva-direcional-stamina-2026-10-15.md). Os registros abaixo são históricos.
+
+> **Nova conversa — entrada recomendada, 15/10/2026:** leia primeiro [Continuidade do projeto](00-CONTINUIDADE-CODEX.md). O resumo reúne estado homologado, branch/restrições, protocolo/schema, mapa técnico, validações e proposta seguinte. Não é necessário importar todo o histórico nem reler todos os relatórios. Os registros abaixo permanecem como histórico.
+
+> **Estado vigente — ciclo 36, 13/10/2026:** proporção/inclinação finais da bainha homologadas pelo usuário; documentação consolidada de combate, stamina, armas indestrutíveis e saque/guarda. [Contratos atuais, arquivos, histórico e próxima proposta](36-consolidacao-homologacao-proximos-passos-2026-10-13.md). Próxima recomendação: esquiva curta com stamina, ainda sem implementação. Registros anteriores abaixo são históricos.
+
 > **Estado vigente — ciclo 35, 13/10/2026:** bainha ampliada em 15% e inclinada mais 18 graus para baixo, mantendo curva e lado corrigido. [Arquivo, valores e conferência visual](35-escala-inclinacao-bainha-2026-10-13.md). Ajuste final aguarda homologação; registros anteriores abaixo são históricos.
 
 > **Estado vigente — ciclo 34, 13/10/2026:** stamina do ciclo 33 homologada; bainha menor, afunilada e curva, lado anatômico corrigido com ajuste de gesto. Tooltip de Resistência na tela K informa stamina máxima. [Arquivos, causa, proporções e roteiro](34-refinamento-bainha-tooltip-resistencia-2026-10-13.md). Refinamento visual aguarda homologação; registros anteriores abaixo são históricos.
@@ -160,3 +170,8 @@ Bainha encurtada/afinada com curva discreta; posição corrigida para esquerda a
 ## Ciclo 35 — Proporção e inclinação da bainha
 
 Escala +15%, inclinação adicional de 18 graus para baixo; curva, lado e espadas preservados. [Arquivo e roteiro visual](35-escala-inclinacao-bainha-2026-10-13.md).
+
+
+## Ciclo 36 — Consolidação e encerramento visual
+
+Homologação final recebida do usuário para bainha, proporção e inclinação. Stamina/progressão e estado de combate aprovados nos testes anteriores. Consolidado o histórico técnico dos ciclos 30–35, arquivos, contratos e limites. [Relatório de fechamento e proposta de esquiva](36-consolidacao-homologacao-proximos-passos-2026-10-13.md). Próxima fatia proposta: esquiva direcional curta com stamina; depois bloqueio/Postura. Nenhuma dessas ações foi implementada neste ciclo documental.

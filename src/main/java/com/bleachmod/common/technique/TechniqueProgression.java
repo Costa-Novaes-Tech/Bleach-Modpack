@@ -21,11 +21,14 @@ public final class TechniqueProgression {
             case CharacterData.ASAUCHI -> player.getMainHandItem().is(ModItems.ASAUCHI.get());
             case CharacterData.RYUJIN -> player.getMainHandItem().is(ModItems.RYUJIN_JAKKA.get());
             case CharacterData.HYORINMARU -> player.getMainHandItem().is(ModItems.HYORINMARU.get());
+            case CharacterData.SENBONZAKURA -> player.getMainHandItem().is(ModItems.SENBONZAKURA.get());
+            case CharacterData.BENIHIME -> player.getMainHandItem().is(ModItems.BENIHIME.get());
             case CharacterData.NOZARASHI -> player.getMainHandItem().is(ModItems.NOZARASHI.get());
             default -> false;
         };
     }
     public static boolean authorize(ServerPlayer player, PlayerData data, int slot) {
+        if (data.getStatus().isDodging() || data.getGuard().active() || data.getGuard().broken()) return false;
         if (!data.getStatus().hasCreatedCharacter() || !player.isAlive() || player.isSpectator()
                 || !"shinigami".equals(data.getCharacter().getRace()) || slot < 1 || slot > 4) return false;
         if (CharacterData.ASAUCHI.equals(data.getCharacter().getZanpakutoIdentity())) {
@@ -34,6 +37,9 @@ public final class TechniqueProgression {
         if (!equipped(player, data) || !"zanpakuto".equals(data.getCharacter().getActiveFormGroup())) return false;
         String form = data.getCharacter().getActiveForm();
         if (!TransformationsHelper.isUnlocked(data, "zanpakuto", form)) return false;
+        if (TechniqueDefinitions.find(data.getCharacter().getZanpakutoIdentity(), form, slot).isEmpty()) {
+            player.displayClientMessage(Component.translatable("message.bleachmod."+data.getCharacter().getZanpakutoIdentity()+".sealed"), true); return false;
+        }
         if (!available(data.getCharacter(), form, slot)) {
             player.displayClientMessage(Component.translatable("message.bleachmod.technique.mastery_required",
                     TechniqueDefinitions.require(data.getCharacter().getZanpakutoIdentity(), form, slot).mastery()), true); return false;

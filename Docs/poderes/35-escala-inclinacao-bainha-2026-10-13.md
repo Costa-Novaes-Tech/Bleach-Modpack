@@ -1,3 +1,5 @@
+> **Estado vigente — ciclo 36, 13/10/2026:** proporção/inclinação finais da bainha homologadas pelo usuário; documentação consolidada de combate, stamina, armas indestrutíveis e saque/guarda. [Contratos atuais, arquivos, histórico e próxima proposta](36-consolidacao-homologacao-proximos-passos-2026-10-13.md). Próxima recomendação: esquiva curta com stamina, ainda sem implementação. Registros anteriores abaixo são históricos.
+
 # Ciclo 35 — Ajuste final de escala e inclinação da bainha
 
 Data: 13/10/2026. Branch: Feature-Poderes-bankais. Após teste visual do ciclo 34, o usuário pediu aumento aproximado de 15% no tamanho/grossura e mais 15–20 graus de inclinação para baixo.
@@ -19,3 +21,7 @@ O lado corrigido da cintura, espelhamento para canhotos, cores por identidade, p
 3. Saque/guarde, teste mão secundária e canhotos. Não deve mudar o lado corrigido ou deixar a animação presa.
 
 Após aprovação visual, manter a recomendação de próxima feature: esquiva curta com stamina.
+
+## Homologação posterior — 13/10/2026
+
+Usuário aprovou o visual final após o ciclo 35. Encaixe/proporção/inclinação encerrados neste escopo. [Consolidação e próximos passos](36-consolidacao-homologacao-proximos-passos-2026-10-13.md). Pendências de teste descritas acima registram o estado histórico da entrega e não invalidam esse aceite visual.

@@ -18,6 +18,8 @@ public final class TechniqueDefinitionGameTests {
     @GameTest(template = "empty", batch = "definitions")
     public static void everyKitCastUsesItsDefinitionAndKeepsTestOverrides(GameTestHelper h) {
         for (var definition : TechniqueDefinitions.all()) {
+            // Net detonation and supported corridor require fixtures covered by BenihimeGameTests.
+            if(definition.identity().equals("benihime") && definition.slot()==4)continue;
             var p = new FakePlayer(h.getLevel(), new GameProfile(UUID.randomUUID(), "DefinitionTest"));
             var pos = h.absolutePos(new BlockPos(1, 1, 1)); p.setPos(pos.getX() + .5, h.getLevel().getMaxBuildHeight() - 20, pos.getZ() + .5);
             h.getLevel().getChunkAt(p.blockPosition());
@@ -26,6 +28,8 @@ public final class TechniqueDefinitionGameTests {
             data.getCharacter().unlockTechnique(definition.form(), definition.slot());
             data.getSkills().get("zanpakuto").setLevel(2); data.getCharacter().unlockForm("shikai"); data.getCharacter().unlockForm("bankai");
             data.getCharacter().setMastery("zanpakuto", "shikai", 100); data.getCharacter().setActiveForm("zanpakuto", definition.form());
+            if (definition.identity().equals("senbonzakura") || definition.identity().equals("benihime")) data.getCharacter().setMastery("zanpakuto",definition.form(),100);
+            if(definition.identity().equals("benihime"))p.setHealth(12);
             p.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(com.bleachmod.common.ZanpakutoCarry.item(definition.identity())));
             try {
                 float before = data.getResources().getCurrentReiatsu();

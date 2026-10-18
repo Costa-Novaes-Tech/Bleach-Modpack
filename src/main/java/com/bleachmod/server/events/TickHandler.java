@@ -28,15 +28,20 @@ public class TickHandler {
         PlayerCapability.get(player).ifPresent(data -> {
             if (com.bleachmod.common.ZanpakutoCarry.update(player, data)) SyncHelper.appearance(player);
             if (!data.getStatus().hasCreatedCharacter()) {
+                com.bleachmod.common.technique.SenbonzakuraTechniqueService.cancel(player); com.bleachmod.common.technique.BenihimeTechniqueService.cancel(player);
                 return;
             }
             if (!player.isAlive() || player.isSpectator()) {
+                com.bleachmod.common.technique.SenbonzakuraTechniqueService.cancel(player); com.bleachmod.common.technique.BenihimeTechniqueService.cancel(player);
                 data.resetTransientState();
+                com.bleachmod.common.GuardService.publish(player, data);
                 return;
             }
 
             data.getStatus().tickTransientState();
+            com.bleachmod.common.GuardService.tick(player, data);
             com.bleachmod.common.StaminaService.tick(player, data);
+            com.bleachmod.common.DodgeService.tick(player, data);
 
             float previousEnergy = data.getResources().getCurrentReiatsu();
             int previousCharge = data.getResources().getActionCharge();
@@ -47,6 +52,7 @@ public class TickHandler {
             TechniqueService.tickFlameFanGround(player, data);
             TechniqueService.tickFlameBarrageGround(player, data);
             TechniqueService.tickFlameDash(player, data);
+            com.bleachmod.common.technique.SenbonzakuraTechniqueService.tick(player, data); com.bleachmod.common.technique.BenihimeTechniqueService.tick(player,data);
             FormData active = TransformationsHelper.getActiveFormData(data);
             float drain = active == null ? 0.0F : CombatBalance.formDrain((float) active.getEnergyDrain(),
                     data.getAttributes().level(AttributeData.CONTROL));

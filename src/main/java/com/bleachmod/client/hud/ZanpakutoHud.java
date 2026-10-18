@@ -15,7 +15,7 @@ public final class ZanpakutoHud {
     private ZanpakutoHud() { }
     public static String abilityKey(String identity, String form, int slot) {
         if (CharacterData.ASAUCHI.equals(identity)) return "message.bleachmod.asauchi.no_techniques";
-        return TechniqueDefinitions.require(identity, form, slot).nameKey();
+        return TechniqueDefinitions.find(identity, form, slot).map(TechniqueDefinitions.Definition::nameKey).orElse("message.bleachmod."+identity+".sealed");
     }
     public static final IGuiOverlay OVERLAY = (gui, g, partialTick, w, h) -> {
         var mc = Minecraft.getInstance(); if (mc.player == null || mc.options.hideGui) return;
@@ -32,13 +32,20 @@ public final class ZanpakutoHud {
             g.drawString(mc.font, mc.font.plainSubstrByWidth(mastery, width - 16), 8, 19, 0x89CDE8, false);
             var keys = new net.minecraft.client.KeyMapping[]{ModKeybinds.TECHNIQUE_SLOT_1, ModKeybinds.TECHNIQUE_SLOT_2, ModKeybinds.TECHNIQUE_SLOT_3, ModKeybinds.TECHNIQUE_SLOT_4};
             boolean unlocked = TransformationsHelper.isUnlocked(d, "zanpakuto", form);
-            boolean asauchi = CharacterData.ASAUCHI.equals(identity);
+            boolean asauchi = CharacterData.ASAUCHI.equals(identity) || TechniqueDefinitions.find(identity,form,1).isEmpty();
             if (asauchi) g.drawString(mc.font, Component.translatable("hud.bleachmod.asauchi.practice"), 8, 38, 0xFFFFFF, false);
             for (int i = 0; i < 4; i++) {
                 if (asauchi) break;
                 int slot = i + 1;
                 var definition = TechniqueDefinitions.require(identity, form, slot);
                 String name = Component.translatable(abilityKey(identity, form, i + 1)).getString();
+                var senbon=d.getStatus().getSenbonHud();
+                if (CharacterData.SENBONZAKURA.equals(identity) && form.equals("bankai")) {
+                    if (slot==2 && senbon.getInt("fieldRemaining")>0 && senbon.getInt("fieldReady")==0)
+                        name=Component.translatable(TechniqueDefinitions.FLORAL_BLOOM.nameKey()).getString();
+                    if (slot==3 && senbon.getInt("sceneRemaining")>0 && senbon.getInt("sceneReady")==0)
+                        name=Component.translatable(TechniqueDefinitions.IKKA.nameKey()).getString();
+                }
                 String key = "[" + keys[i].getTranslatedKeyMessage().getString() + "] ";
                 boolean available = unlocked && com.bleachmod.common.technique.TechniqueProgression.available(d.getCharacter(), form, slot);
                 g.drawString(mc.font, mc.font.plainSubstrByWidth(key + name, width - 16), 8, 33 + i * 25, available ? 0xFFFFFF : 0xA6A6A6, false);
@@ -49,6 +56,23 @@ public final class ZanpakutoHud {
                 String resources = definition.drainPerTick() > 0
                         ? Component.translatable("hud.bleachmod.technique.drain", MasteryFeedback.value(definition.drainPerTick() * 20)).getString()
                         : Component.translatable("hud.bleachmod.technique.cost", MasteryFeedback.value(definition.cost()), MasteryFeedback.value(definition.cooldownTicks() / 20.0)).getString();
+                if (CharacterData.SENBONZAKURA.equals(identity) && form.equals("bankai")) {
+                    if (slot==2 && senbon.getInt("fieldRemaining")>0)
+                        resources=Component.translatable(senbon.getBoolean("bloom") ? "hud.bleachmod.senbon.bloom" : "hud.bleachmod.senbon.field",
+                                (senbon.getInt("fieldReady")+19)/20,(senbon.getInt("fieldRemaining")+19)/20).getString();
+                    if (slot==3 && senbon.getInt("sceneRemaining")>0)
+                        resources=Component.translatable("hud.bleachmod.senbon.scene",(senbon.getInt("sceneReady")+19)/20,(senbon.getInt("sceneRemaining")+19)/20).getString();
+                    if(slot==4 && d.getCharacter().getSenbonBlade()==2)resources=Component.translatable("hud.bleachmod.senbon.haku_charge").getString();
+                }
+                if(CharacterData.SENBONZAKURA.equals(identity) && !form.equals("bankai") && slot==3 && senbon.getInt("prison")>0)
+                    resources=Component.translatable("hud.bleachmod.senbon.prison",(senbon.getInt("prison")+19)/20).getString();
+                if(CharacterData.BENIHIME.equals(identity)) {
+                    var view=d.getStatus().getBenihimeHud();
+                    if(form.equals("shikai") && slot==2 && view.getInt("shield")>0)resources=Component.translatable("hud.bleachmod.benihime.shield",view.getInt("shield")).getString();
+                    if(form.equals("shikai") && slot==4)resources=Component.translatable(view.getInt("net")>0?"hud.bleachmod.benihime.detonate":"hud.bleachmod.benihime.need_net").getString();
+                    if(form.equals("bankai") && slot==3 && view.getInt("charges")>0)resources=Component.translatable("hud.bleachmod.benihime.charges",view.getInt("charges")).getString();
+                    if(form.equals("bankai") && slot==4)resources=Component.translatable("hud.bleachmod.benihime.path_charges",view.getInt("pathCharges")).getString();
+                }
                 g.drawString(mc.font, mc.font.plainSubstrByWidth(resources, width - 16), 8, 51 + i * 25, 0x85AAC2, false);
             }
             String next = "sealed".equals(form) ? "shikai" : "shikai".equals(form) ? "bankai" : "";
@@ -66,6 +90,10 @@ public final class ZanpakutoHud {
             }
             if (d.getStatus().areCooldownsDisabled() || d.getResources().areCostsDisabled())
                 g.drawString(mc.font, Component.translatable("hud.bleachmod.mastery.test_mode"), 8, 153, 0xF1B46B, false);
+            else if (CharacterData.SENBONZAKURA.equals(identity) && form.equals("bankai"))
+                g.drawString(mc.font,Component.translatable("hud.bleachmod.senbon.reach"),8,153,0xFFBBD8,false);
+            else if(CharacterData.BENIHIME.equals(identity) && form.equals("bankai"))
+                g.drawString(mc.font,Component.translatable("hud.bleachmod.benihime.regen"),8,153,0xF1BBC5,false);
             g.pose().popPose();
         });
     };

@@ -339,6 +339,7 @@ public final class RyujinTechniqueService {
     }
 
     public static void cancel(ServerPlayer player) {
+        SenbonzakuraTechniqueService.cancel(player); BenihimeTechniqueService.cancel(player);
         FlameWaveService.cancel(player);
         HyorinmaruTechniqueService.cancel(player);
         NozarashiTechniqueService.cancel(player);
@@ -361,6 +362,7 @@ public final class RyujinTechniqueService {
         if (overworld != null) BlizzardWeatherData.get(overworld).restore(overworld);
         FlameWaveService.clear();
         HyorinmaruTechniqueService.clear();
+        SenbonzakuraTechniqueService.clear(); BenihimeTechniqueService.clear();
         ACTIVE.values().forEach(RyujinTechniqueService::clearSwarm);
         ACTIVE.clear();
     }
@@ -368,6 +370,7 @@ public final class RyujinTechniqueService {
         if (event.getLevel() instanceof net.minecraft.server.level.ServerLevel level) {
             FlameWaveService.unload(level);
             HyorinmaruTechniqueService.unload(level);
+            SenbonzakuraTechniqueService.unload(level); BenihimeTechniqueService.unload(level);
         }
         ACTIVE.values().removeIf(runtime -> {
             if (runtime.level != event.getLevel()) return false;

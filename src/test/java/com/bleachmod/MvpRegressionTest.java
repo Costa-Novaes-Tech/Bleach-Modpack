@@ -16,6 +16,73 @@ import java.util.*;
 public final class MvpRegressionTest {
     private static int count;
     public static void main(String[] args) {
+        test("Guard posture breaks without spending stamina and requires release", () -> {
+            var d = new PlayerData(); d.initializeShinigami(); var g = d.getGuard();
+            yes(g.request(0)); yes(!g.absorb(50)); eq(50F, g.posture());
+            yes(g.absorb(50)); yes(g.broken()); yes(!g.active()); eq(0F, g.posture());
+            eq(100F, d.getResources().getStamina());
+            for (int i = 1; i <= 30; i++) g.tick(i);
+            yes(!g.broken()); eq(10F, g.posture()); yes(!g.request(30));
+            g.release(); yes(g.request(32));
+        });
+        test("Guard lease expires and recovery requires lowering the guard", () -> {
+            var g = new GuardData(); yes(g.request(0)); g.absorb(20);
+            for (int i = 1; i <= 30; i++) { if (i % 5 == 0) yes(g.request(i)); g.tick(i); }
+            eq(80F, g.posture()); yes(g.active()); g.tick(42); yes(!g.active());
+            g.release(); for (int i = 43; i < 70; i++) g.tick(i); eq(100F, g.posture());
+        });
+        test("Guard snapshot is sanitized and persistence never restores held input", () -> {
+            var g = new GuardData(); g.request(0); g.absorb(30);
+            var saved = g.save(); yes(!saved.contains("active"));
+            var copy = new GuardData(); copy.load(saved); eq(70F, copy.posture()); yes(!copy.active());
+            copy.readSnapshot(g.snapshot()); yes(copy.shownActive()); eq(70F, copy.shownPosture());
+            var bad = new CompoundTag(); bad.putFloat("posture", Float.NaN); bad.putBoolean("active", true);
+            copy.readSnapshot(bad); eq(0F, copy.shownPosture()); yes(!copy.shownActive());
+            g.absorb(100); copy.load(g.save()); yes(copy.broken()); eq(20, copy.breakTicks());
+        });
+        test("Guard cone, pressure limits and schema 7 migration preserve previous progress", () -> {
+            yes(com.bleachmod.common.GuardPolicy.inFront(0, new net.minecraft.world.phys.Vec3(0,0,1)));
+            yes(!com.bleachmod.common.GuardPolicy.inFront(0, new net.minecraft.world.phys.Vec3(0,0,-1)));
+            yes(!com.bleachmod.common.GuardPolicy.inFront(0, new net.minecraft.world.phys.Vec3(1,0,0)));
+            yes(!com.bleachmod.common.GuardPolicy.inFront(0, net.minecraft.world.phys.Vec3.ZERO));
+            eq(8F, com.bleachmod.common.GuardPolicy.pressure(.1F)); eq(50F, com.bleachmod.common.GuardPolicy.pressure(100));
+            eq(0F, com.bleachmod.common.GuardPolicy.pressure(Float.NaN));
+            var d = new PlayerData(); d.initializeShinigami(); d.getResources().spendBasicAttackStamina();
+            var old = d.save(); old.putInt("schemaVersion", 7); old.remove("guard");
+            var copy = new PlayerData(); copy.load(old); eq(100F, copy.getGuard().posture()); eq(96F, copy.getResources().getStamina());
+            yes(copy.getCharacter().save().equals(d.getCharacter().save())); eq(8, copy.save().getInt("schemaVersion"));
+        });
+        test("Dodge directions rotate with yaw and diagonals have equal length", () -> {
+            var p = com.bleachmod.common.DodgePolicy.direction(1, 0, 0);
+            yes(p.distanceTo(new net.minecraft.world.phys.Vec3(0,0,1)) < .00001);
+            yes(com.bleachmod.common.DodgePolicy.direction(0, 1, 0).x > .99);
+            yes(com.bleachmod.common.DodgePolicy.direction(0, -1, 0).x < -.99);
+            yes(com.bleachmod.common.DodgePolicy.direction(0, 0, 0).z < -.99);
+            yes(com.bleachmod.common.DodgePolicy.direction(1, 0, 90).x < -.99);
+            yes(Math.abs(com.bleachmod.common.DodgePolicy.direction(1, 1, 45).length() - 1) < .00001);
+            yes(!com.bleachmod.common.DodgePolicy.validInput(Integer.MIN_VALUE, 0));
+            yes(com.bleachmod.common.DodgePolicy.direction(2, 0, 0).lengthSqr() == 0);
+        });
+        test("Dodge requires full stamina, keeps reiatsu and pauses regeneration", () -> {
+            var r = new ResourcesData(); r.setCostsDisabled(true); r.setCurrentReiatsu(50);
+            for (int i = 0; i < 6; i++) yes(r.trySpendDodgeStamina());
+            eq(10F, r.getStamina()); yes(!r.trySpendDodgeStamina()); eq(10F, r.getStamina());
+            for (int i = 0; i < 20; i++) r.tickStamina(false);
+            eq(10F, r.getStamina()); r.tickStamina(false); eq(11F, r.getStamina()); eq(50F, r.getCurrentReiatsu());
+            var tag = r.save(); tag.putFloat("stamina", 15); r.load(tag);
+            yes(r.trySpendDodgeStamina()); eq(0F, r.getStamina()); yes(r.isStaminaExhausted());
+        });
+        test("Dodge interval survives form changes but lifecycle clears transient movement", () -> {
+            var s = new StatusData(); s.beginDodge(new net.minecraft.world.phys.Vec3(1,0,0), 100);
+            yes(!s.canDodge(100));
+            for (int i = 0; i < 5; i++) s.advanceDodge(); eq(0, s.getDodgeTicks());
+            s.stopDodge(); yes(!s.canDodge(111)); yes(s.canDodge(112));
+            s.beginDodge(new net.minecraft.world.phys.Vec3(1,0,0), 112); s.clearTransformationState();
+            yes(!s.isDodging()); yes(!s.canDodge(123)); yes(s.canDodge(124));
+            s.clearTransientState(); yes(s.canDodge(0));
+            s.beginDodge(new net.minecraft.world.phys.Vec3(1,0,0), 100); s.load(s.save());
+            yes(!s.isDodging()); yes(s.canDodge(0));
+        });
         test("Resistance stamina curve has diminishing returns without free refills", () -> {
             eq(100F, com.bleachmod.common.StaminaPolicy.maximum(0));
             eq(150F, com.bleachmod.common.StaminaPolicy.maximum(20));
@@ -66,7 +133,7 @@ public final class MvpRegressionTest {
             var legacy = new PlayerData(); legacy.initializeShinigami(); var saved = legacy.save(); saved.putInt("schemaVersion", 5);
             saved.getCompound("resources").remove("stamina"); saved.getCompound("resources").remove("staminaRestTicks");
             saved.getCompound("resources").remove("staminaExhausted"); var migrated = new PlayerData(); migrated.load(saved);
-            eq(100F, migrated.getResources().getStamina()); eq(7, migrated.save().getInt("schemaVersion"));
+            eq(100F, migrated.getResources().getStamina()); eq(8, migrated.save().getInt("schemaVersion"));
         });
         test("Combat state expires, refreshes and stays absent from persistent saves", () -> {
             var status = new StatusData(); status.refreshCombat(200);
@@ -124,7 +191,7 @@ public final class MvpRegressionTest {
             } catch (java.io.IOException e) { throw new AssertionError(e); }
         });
         test("Shared technique definitions preserve all homologated costs and cooldowns", () -> {
-            var definitions = com.bleachmod.common.technique.TechniqueDefinitions.all(); eq(36, definitions.size());
+            var definitions = com.bleachmod.common.technique.TechniqueDefinitions.all(); eq(56, definitions.size());
             Set<String> unique = new HashSet<>();
             for (var def : definitions) {
                 yes(unique.add(def.identity() + "|" + def.form() + "|" + def.slot()));
@@ -736,6 +803,135 @@ public final class MvpRegressionTest {
             map.getAsJsonObject("shikai").addProperty("maxMastery",60);
             map.getAsJsonObject("bankai").addProperty("unlockOnMastery",61);
             rejects(()->FormRegistry.parse(json.toString()));
+        });
+        test("Senbon horizontal cut moves from anatomical right to left",()->{
+            var zero=net.minecraft.world.phys.Vec3.ZERO;
+            for(float yaw:new float[]{0,90,180,270}) {
+                var f=com.bleachmod.common.visual.SenbonGeometry.forward(yaw);
+                var left=com.bleachmod.common.visual.SenbonGeometry.left(f);
+                yes(com.bleachmod.common.visual.SenbonGeometry.cut(zero,f,0,0,6).dot(left)<0);
+                yes(com.bleachmod.common.visual.SenbonGeometry.cut(zero,f,0,1,6).dot(left)>0);
+            }
+        });
+        test("Senbon final cut rises and diagonal cuts descend",()->{
+            var zero=net.minecraft.world.phys.Vec3.ZERO;var f=new net.minecraft.world.phys.Vec3(0,0,1);
+            for(int pattern:new int[]{2,3}) yes(com.bleachmod.common.visual.SenbonGeometry.cut(zero,f,pattern,0,6).y>
+                    com.bleachmod.common.visual.SenbonGeometry.cut(zero,f,pattern,1,6).y);
+            yes(com.bleachmod.common.visual.SenbonGeometry.cut(zero,f,4,0,6).y<0);
+            yes(com.bleachmod.common.visual.SenbonGeometry.cut(zero,f,4,1,6).y>0);
+        });
+        test("floral contour remains within fixed damage radius",()->{
+            for(int n=0;n<360;n++) {double r=com.bleachmod.common.visual.SenbonGeometry.flowerRadius(10,Math.toRadians(n));yes(r>=5.999 && r<=10);}
+            var center=new net.minecraft.world.phys.Vec3(10,20,30);
+            yes(com.bleachmod.common.visual.SenbonGeometry.inside(center,center.add(10,0,0),10,3));
+            yes(!com.bleachmod.common.visual.SenbonGeometry.inside(center,center.add(10.01,0,0),10,3));
+            yes(!com.bleachmod.common.visual.SenbonGeometry.inside(center,center.add(0,3.01,0),10,3));
+        });
+        test("Senbon identity and independent mastery survive save",()->{
+            var d=player();d.getCharacter().bindZanpakuto("senbonzakura");d.getCharacter().setMastery("zanpakuto","shikai",43);
+            var copy=new PlayerData();copy.load(d.save());eq("senbonzakura",copy.getCharacter().getZanpakutoIdentity());
+            eq(43D,copy.getCharacter().getMastery("zanpakuto","shikai"));
+            copy.getCharacter().bindZanpakuto("ryujin_jakka");copy.getCharacter().setMastery("zanpakuto","shikai",12);
+            copy.getCharacter().bindZanpakuto("senbonzakura");eq(43D,copy.getCharacter().getMastery("zanpakuto","shikai"));
+        });
+        test("Senbon sealed and released repertoires share access metadata",()->{
+            eq(12L,com.bleachmod.common.technique.TechniqueDefinitions.all().stream().filter(d->d.identity().equals("senbonzakura")).count());
+            yes(com.bleachmod.common.technique.TechniqueDefinitions.find("senbonzakura","sealed",1).isPresent());
+            var bloom=com.bleachmod.common.technique.TechniqueDefinitions.FLORAL_BLOOM;
+            eq(40,bloom.readyTicks());eq(120,bloom.windowTicks());eq(0F,bloom.cost());
+        });
+        test("Senbon visual packet rejects invalid frames",()->{
+            var zero=net.minecraft.world.phys.Vec3.ZERO;var f=new net.minecraft.world.phys.Vec3(0,0,1);
+            yes(new com.bleachmod.common.network.s2c.SenbonPetalsS2C(0,zero,f,6,1,0,1,7).valid());
+            yes(!new com.bleachmod.common.network.s2c.SenbonPetalsS2C(0,zero,f,Float.NaN,1,0,1,7).valid());
+            yes(!new com.bleachmod.common.network.s2c.SenbonPetalsS2C(12,zero,f,6,1,0,1,7).valid());
+            yes(!new com.bleachmod.common.network.s2c.SenbonPetalsS2C(0,zero,zero,6,1,0,1,7).valid());
+        });
+        test("large floral field packet roundtrips owner and rejects excess radius",()->{
+            var zero=net.minecraft.world.phys.Vec3.ZERO;var f=new net.minecraft.world.phys.Vec3(0,0,1);
+            var frame=new com.bleachmod.common.network.s2c.SenbonPetalsS2C(4,zero,f,40,.5F,0,17,5);
+            var buffer=new net.minecraft.network.FriendlyByteBuf(io.netty.buffer.Unpooled.buffer());
+            try {yes(frame.valid());com.bleachmod.common.network.s2c.SenbonPetalsS2C.encode(frame,buffer);
+                eq(frame,com.bleachmod.common.network.s2c.SenbonPetalsS2C.decode(buffer));}finally{buffer.release();}
+            yes(!new com.bleachmod.common.network.s2c.SenbonPetalsS2C(4,zero,f,49,.5F,0,17,5).valid());
+        });
+        test("Senkei and Hakuteiken geometry is bounded and has pointed blades",()->{
+            var zero=net.minecraft.world.phys.Vec3.ZERO;var f=new net.minecraft.world.phys.Vec3(0,0,1);
+            var swords=com.bleachmod.common.visual.SenbonConstructGeometry.build(8,zero,f,7,.2,0);
+            eq(160,swords.size());eq(32L,swords.stream().filter(q->q.c().equals(q.d())).count());
+            var wings=com.bleachmod.common.visual.SenbonConstructGeometry.build(9,zero,f,4,1,0);
+            yes(wings.size()<128);yes(wings.stream().anyMatch(q->q.a().x< -3));yes(wings.stream().anyMatch(q->q.a().x>3));
+            var lance=com.bleachmod.common.visual.SenbonConstructGeometry.build(11,zero,f,12,1,0);
+            eq(4,lance.size());yes(lance.stream().allMatch(q->q.c().z==12));
+        });
+        test("petal emission is reduced and garden radius is explicit",()->{
+            eq(32,com.bleachmod.common.network.s2c.SenbonPetalsS2C.particleCount(0));
+            eq(6,com.bleachmod.common.network.s2c.SenbonPetalsS2C.particleCount(10));
+            eq(35D,com.bleachmod.common.technique.SenbonPolicy.FIELD_RADIUS);
+            eq(8D,com.bleachmod.common.technique.SenbonPolicy.CUT_RANGE);
+            eq(14D,com.bleachmod.common.technique.SenbonPolicy.STREAM_RANGE);
+            eq(11D,com.bleachmod.common.technique.SenbonPolicy.CONVERGENCE_RANGE);
+        });
+        test("garden intensity increases without changing other petal layers",()->{
+            eq(128,com.bleachmod.common.network.s2c.SenbonPetalsS2C.particleCount(4));
+            eq(128,com.bleachmod.common.network.s2c.SenbonPetalsS2C.particleCount(5));
+            eq(112,com.bleachmod.common.network.s2c.SenbonPetalsS2C.particleCount(6,2));
+            eq(36,com.bleachmod.common.network.s2c.SenbonPetalsS2C.particleCount(6,0));
+            eq(32,com.bleachmod.common.network.s2c.SenbonPetalsS2C.particleCount(0));
+            eq(16D,com.bleachmod.common.technique.SenbonPolicy.HAKU_STEP*com.bleachmod.common.technique.SenbonPolicy.HAKU_DASH_TICKS);
+        });
+        test("Ikka blades converge radially from both sides",()->{
+            var zero=net.minecraft.world.phys.Vec3.ZERO;var f=new net.minecraft.world.phys.Vec3(0,0,1);
+            var mesh=com.bleachmod.common.visual.SenbonConstructGeometry.build(8,zero,f,14,0,2);
+            eq(160,mesh.size());
+            var tips=mesh.stream().filter(q->q.c().equals(q.d())).map(q->q.c()).toList();
+            eq(32,tips.size());yes(tips.stream().anyMatch(p->p.x>10));yes(tips.stream().anyMatch(p->p.x< -10));
+            yes(tips.stream().anyMatch(p->p.z>10));yes(tips.stream().anyMatch(p->p.z< -10));
+        });
+        test("Benihime has eight owned techniques and no elemental sealed slots",()->{
+            yes(com.bleachmod.common.data.CharacterData.knownIdentity("benihime"));
+            eq(8L,com.bleachmod.common.technique.TechniqueDefinitions.all().stream().filter(d->d.identity().equals("benihime")).count());
+            yes(com.bleachmod.common.technique.TechniqueDefinitions.find("benihime","sealed",1).isEmpty());
+            var d=player();d.getCharacter().bindZanpakuto("benihime");d.getCharacter().setMastery("zanpakuto","shikai",62);
+            var copy=new PlayerData();copy.load(d.save());eq("benihime",copy.getCharacter().getZanpakutoIdentity());eq(62D,copy.getCharacter().getMastery("zanpakuto","shikai"));
+            copy.getCharacter().bindZanpakuto("senbonzakura");eq(0D,copy.getCharacter().getMastery("zanpakuto","shikai"));
+        });
+        test("Benihime visual packet roundtrips and rejects invalid data",()->{
+            var zero=net.minecraft.world.phys.Vec3.ZERO;var f=new net.minecraft.world.phys.Vec3(0,0,1);
+            var frame=new com.bleachmod.common.network.s2c.BenihimeFrameS2C(5,0,zero,zero,f,18,.5F,1);
+            var buffer=new net.minecraft.network.FriendlyByteBuf(io.netty.buffer.Unpooled.buffer());
+            try{yes(frame.valid());com.bleachmod.common.network.s2c.BenihimeFrameS2C.encode(frame,buffer);eq(frame,com.bleachmod.common.network.s2c.BenihimeFrameS2C.decode(buffer));}finally{buffer.release();}
+            yes(!new com.bleachmod.common.network.s2c.BenihimeFrameS2C(5,0,zero,zero,f,25,.5F,1).valid());
+            yes(!new com.bleachmod.common.network.s2c.BenihimeFrameS2C(5,0,zero,zero,f,18,Float.NaN,1).valid());
+        });
+        test("Benihime manifestation and every effect have finite bounded geometry",()->{
+            var zero=net.minecraft.world.phys.Vec3.ZERO;var f=new net.minecraft.world.phys.Vec3(0,0,1);
+            for(int kind=0;kind<=8;kind++){
+                var frame=new com.bleachmod.common.network.s2c.BenihimeFrameS2C(1,kind,zero,f.scale(10),f,3,.5F,1);
+                var mesh=com.bleachmod.common.visual.BenihimeGeometry.build(frame);yes(!mesh.isEmpty() && mesh.size()<1200);
+                for(var q:mesh)for(var v:List.of(q.a(),q.b(),q.c(),q.d()))yes(Double.isFinite(v.x) && Double.isFinite(v.y) && Double.isFinite(v.z));
+            }
+        });
+        test("Benihime path charges survive form effect cancellation",()->{
+            var status=new StatusData();status.useBenihimePath();status.clearTransformationState();eq(2,status.getBenihimePathCharges());
+            status.useBenihimePath();eq(1,status.getBenihimePathCharges());status.useBenihimePath();status.setTechniqueSlot4CooldownTicks(260);status.clearTransformationState();eq(0,status.getBenihimePathCharges());
+            status.setTechniqueSlot4CooldownTicks(0);eq(3,status.getBenihimePathCharges());
+        });
+        test("Benihime idle hands animate and manifestation stays behind owner",()->{
+            var o=net.minecraft.world.phys.Vec3.ZERO;var f=new net.minecraft.world.phys.Vec3(0,0,1);
+            var a=com.bleachmod.common.visual.BenihimeGeometry.build(new com.bleachmod.common.network.s2c.BenihimeFrameS2C(1,0,o,o,f,18,0,0));
+            var b=com.bleachmod.common.visual.BenihimeGeometry.build(new com.bleachmod.common.network.s2c.BenihimeFrameS2C(1,0,o,o,f,18,.25F,0));yes(!a.equals(b));
+            yes(a.stream().flatMap(q->java.util.stream.Stream.of(q.a(),q.b(),q.c(),q.d())).mapToDouble(v->v.y).max().orElse(0)>10);
+        });
+        test("Benihime net mesh stays above its surface anchor",()->{
+            var o=new net.minecraft.world.phys.Vec3(2,65.1,2);var f=new net.minecraft.world.phys.Vec3(0,0,1);
+            var mesh=com.bleachmod.common.visual.BenihimeGeometry.build(new com.bleachmod.common.network.s2c.BenihimeFrameS2C(1,3,o,o,f,10,1,1));
+            yes(mesh.stream().flatMap(q->java.util.stream.Stream.of(q.a(),q.b(),q.c(),q.d())).allMatch(v->v.y>=o.y-.03));
+        });
+        test("Benihime HUD leases are transient and snapshots isolated",()->{
+            var status=new StatusData();var tag=new net.minecraft.nbt.CompoundTag();tag.putInt("shield",900);tag.putInt("charges",3);status.readBenihimeHud(tag);
+            eq(100,status.getBenihimeHud().getInt("shield"));status.getBenihimeHud().putInt("charges",0);eq(3,status.getBenihimeHud().getInt("charges"));
+            yes(!status.save().contains("benihimeHud"));
         });
         System.out.println("PASS: "+count+" regression scenarios");
     }
