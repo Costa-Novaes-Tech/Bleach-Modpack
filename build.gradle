@@ -74,6 +74,11 @@ minecraft {
             // Please read: https://stackoverflow.com/questions/2031163/when-to-use-the-different-log-levels
             property 'forge.logging.console.level', 'debug'
 
+            // Remap dependency mixin refmaps (for example WorldEdit) from SRG names
+            // to the official mappings used by this userdev workspace.
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${buildDir}/createSrgToMcp/output.srg"
+
             mods {
                 "${mod_id}" {
                     source sourceSets.main
@@ -84,6 +89,10 @@ minecraft {
         client {
             // Comma-separated list of namespaces to load gametests from. Empty = all namespaces.
             property 'forge.enabledGameTestNamespaces', mod_id
+
+            // Keep the userdev client responsive on 16 GB development machines while the
+            // Gradle launcher remains alive. G1 favors short pauses over a large elastic heap.
+            jvmArgs '-Xms512m', '-Xmx2G', '-XX:+UseG1GC', '-XX:MaxGCPauseMillis=50'
         }
 
         server {
@@ -113,6 +122,10 @@ minecraft {
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 repositories {
+    flatDir {
+        name = 'ValidationMods'
+        dirs 'run/validation-dependencies'
+    }
     maven {
         name = 'MinecraftForge'
         url = 'https://maven.minecraftforge.net/'
@@ -149,6 +162,10 @@ dependencies {
 
     // Required at runtime by the modpack: body animations for Zanpakuto release cinematics.
     implementation fg.deobf("dev.kosmx.player-anim:player-animation-lib-forge:${player_anim_version}")
+
+    // WorldEdit is used to validate generated schematics in the development client.
+    // ForgeGradle must remap the published mod jar to the userdev mappings.
+    runtimeOnly fg.deobf("local:worldedit-mod:7.2.15")
 
     // Example mod dependency with JEI - using fg.deobf() ensures the dependency is remapped to your development mappings
     // The JEI API is declared for compile time use, while the full JEI artifact is used at runtime
