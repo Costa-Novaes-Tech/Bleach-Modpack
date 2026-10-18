@@ -2,6 +2,13 @@
 
 ## 1. Summary
 
+> **Atualização 18/10/2026 — protótipo Modo História implementado.** Decisões que substituem partes deste plano:
+> - As dimensões `bleachmod:soul_society` e `bleachmod:hueco_mundo` (noite fixa) existem só em mundos criados com o tipo de mundo **Modo História** (`data/bleachmod/worldgen/world_preset/history_mode.json`); mundos normais não as têm.
+> - A instalação automática dos mapas, antes fora de escopo, foi adotada: `HistoryMapInstaller` copia `history-maps/` para o save antes de carregar os níveis, uma única vez, e põe o spawn de todas as raças na cidade (Overworld).
+> - Hueco Mundo (Las Noches) entrou; Wahrwelt ficou de fora (mapas pagos).
+> - Viagem provisória por três itens de TP sem custo; Senkaimon, Garganta, custo de reiatsu, retorno e pouso seguro continuam pendentes conforme este plano.
+> - Detalhes dos mapas e procedimento de atualização: `history-maps/README.md`.
+
 Proposta de 11/09/2026, ainda não implementada. Criar a dimensão `bleachmod:soul_society`, instalar nela uma cópia validada do mapa fornecido e oferecer viagem de ida e volta controlada pelo servidor. Começar com destinos fixos e interface de Senkaimon; reaproveitar capability, reiatsu e rede do Bleach. Separar o registro da dimensão, o conteúdo construído do mapa e as regras de acesso. O mapa é necessário para fechar a importação e homologar a experiência, mas não bloqueia o desenvolvimento do serviço com uma área de teste.
 
 ## 2. Context and Problem

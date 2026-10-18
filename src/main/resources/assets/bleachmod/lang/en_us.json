@@ -275,5 +275,11 @@
   "message.bleachmod.nozarashi.eyepatch.on": "Eyepatch put back on.",
   "message.bleachmod.nozarashi.kendo_exhausted": "Too exhausted for a Kendō strike.",
   "message.bleachmod.nozarashi.recoil": "The cut splits the world… and your arm with it.",
-  "subtitles.bleachmod.voice.bankai_zaraki": "Zaraki shouts: Bankai!"
+  "subtitles.bleachmod.voice.bankai_zaraki": "Zaraki shouts: Bankai!",
+  "generator.bleachmod.history_mode": "History Mode",
+  "item.bleachmod.travel_human_world": "Travel: Human World",
+  "item.bleachmod.travel_soul_society": "Travel: Soul Society",
+  "item.bleachmod.travel_hueco_mundo": "Travel: Hueco Mundo",
+  "message.bleachmod.travel.history_only": "This destination only exists in History Mode worlds.",
+  "message.bleachmod.travel.invalid_state": "Dismount and get out of bed before travelling."
 }

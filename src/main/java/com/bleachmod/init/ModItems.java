@@ -3,7 +3,9 @@ package com.bleachmod.init;
 import com.bleachmod.Reference;
 import com.bleachmod.registry.ModEntities;
 import net.minecraft.world.item.Item;
+import com.bleachmod.common.item.WorldTravelItem;
 import com.bleachmod.common.item.ZanpakutoItem;
+import com.bleachmod.server.world.HistoryWorld;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -31,6 +33,14 @@ public final class ModItems {
     /** Zaraki Kenpachi's notched blade; its Shikai becomes the oversized Nozarashi cleaver. */
     public static final RegistryObject<Item> NOZARASHI = ITEMS.register("nozarashi",
             ZanpakutoItem::new);
+
+    /** Temporary History Mode travel items; replaced later by Senkaimon/Garganta. */
+    public static final RegistryObject<Item> TRAVEL_HUMAN_WORLD = ITEMS.register("travel_human_world",
+            () -> new WorldTravelItem(HistoryWorld.HUMAN_WORLD));
+    public static final RegistryObject<Item> TRAVEL_SOUL_SOCIETY = ITEMS.register("travel_soul_society",
+            () -> new WorldTravelItem(HistoryWorld.SOUL_SOCIETY));
+    public static final RegistryObject<Item> TRAVEL_HUECO_MUNDO = ITEMS.register("travel_hueco_mundo",
+            () -> new WorldTravelItem(HistoryWorld.HUECO_MUNDO));
 
     public static final RegistryObject<Item> HOLLOW_SPAWN_EGG =
             ITEMS.register(

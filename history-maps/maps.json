@@ -1,0 +1,38 @@
+{
+  "format": 1,
+  "maps": {
+    "human_world": {
+      "dimension": "minecraft:overworld",
+      "source": "Horizon City - Advanced World 1.20.1",
+      "data_version": 3465,
+      "spawn": {
+        "x": 19.5,
+        "y": 65,
+        "z": -116.5,
+        "yaw": 0
+      }
+    },
+    "soul_society": {
+      "dimension": "bleachmod:soul_society",
+      "source": "SoulSociety (1.12.2, convertido para 1.20.1)",
+      "data_version": 3465,
+      "spawn": {
+        "x": 282.5,
+        "y": 121,
+        "z": -33.5,
+        "yaw": 0
+      }
+    },
+    "hueco_mundo": {
+      "dimension": "bleachmod:hueco_mundo",
+      "source": "LasNoches REFLEXION (1.11.2, convertido para 1.20.1)",
+      "data_version": 3465,
+      "spawn": {
+        "x": 2528.913,
+        "y": 41,
+        "z": 2540.894,
+        "yaw": 0
+      }
+    }
+  }
+}

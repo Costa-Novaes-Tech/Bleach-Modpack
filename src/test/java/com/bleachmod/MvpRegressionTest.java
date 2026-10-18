@@ -933,8 +933,22 @@ public final class MvpRegressionTest {
             eq(100,status.getBenihimeHud().getInt("shield"));status.getBenihimeHud().putInt("charges",0);eq(3,status.getBenihimeHud().getInt("charges"));
             yes(!status.save().contains("benihimeHud"));
         });
+        test("History Mode map manifest keeps every map and rejects malformed entries",()->{
+            var maps=historyManifest("{\"maps\":{\"human_world\":{\"dimension\":\"minecraft:overworld\",\"spawn\":{\"x\":19.5,\"y\":65,\"z\":-116.5}},"
+                    +"\"hueco_mundo\":{\"dimension\":\"bleachmod:hueco_mundo\",\"spawn\":{\"x\":2528.9,\"y\":41,\"z\":2540.9,\"yaw\":90}}}}");
+            eq(List.of("human_world","hueco_mundo"),List.copyOf(maps.keySet()));
+            var hueco=maps.get("hueco_mundo");eq("bleachmod:hueco_mundo",hueco.dimensionId().toString());eq(41.0,hueco.y());eq(90F,hueco.yaw());
+            eq(0F,maps.get("human_world").yaw());
+            historyRejects("{\"maps\":{\"Bad Id\":{\"dimension\":\"minecraft:overworld\",\"spawn\":{\"x\":0,\"y\":0,\"z\":0}}}}");
+            historyRejects("{\"maps\":{\"a\":{\"dimension\":\"minecraft:overworld\"}}}");
+            historyRejects("{\"maps\":{\"a\":{\"dimension\":\"minecraft:overworld\",\"spawn\":{\"x\":NaN,\"y\":0,\"z\":0}}}}");
+            historyRejects("{\"maps\":{\"a\":{\"dimension\":\"Not Valid\",\"spawn\":{\"x\":0,\"y\":0,\"z\":0}}}}");
+            historyRejects("not json");
+        });
         System.out.println("PASS: "+count+" regression scenarios");
     }
+    private static Map<String,com.bleachmod.server.world.HistoryWorld.Destination> historyManifest(String json){try{var f=java.nio.file.Files.createTempFile("maps",".json");try{java.nio.file.Files.writeString(f,json);return com.bleachmod.server.world.HistoryWorld.parse(f);}finally{java.nio.file.Files.deleteIfExists(f);}}catch(java.io.IOException e){throw new IllegalArgumentException(e);}}
+    private static void historyRejects(String json){rejects(()->historyManifest(json));}
     private static PlayerData player(){PlayerData d=new PlayerData();d.initializeShinigami();d.getCharacter().bindZanpakuto("ryujin_jakka");d.getCharacter().preserveLegacyTechniques();return d;}
     private static Quest quest(){Quest q=new Quest();q.setStringId("q");q.getObjectives().add(new KillObjective("minecraft:zombie",5,KillObjective.SpawnMode.NATURAL,KillObjective.CountMode.ANY_MATCHING));q.getRewards().add(new TpsReward(100));return q;}
     private static JsonObject forms(){JsonObject r=new JsonObject(),groups=new JsonObject();groups.add("zanpakuto",FormDefaults.shinigamiGroup().toJson());r.add("shinigami",groups);return r;}
