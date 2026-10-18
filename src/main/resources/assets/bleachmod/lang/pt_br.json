@@ -271,5 +271,7 @@
   "ability.bleachmod.hyorinmaru.sennen": "Sennen Hyōrō",
   "ability.bleachmod.hyorinmaru.glacial_zone": "Zona Glacial",
   "ability.bleachmod.hyorinmaru.bloom": "Hyōten Hyakkasō",
-  "message.bleachmod.ice.bloom_wait": "O campo precisa preparar as flores por 3 segundos."
+  "message.bleachmod.ice.bloom_wait": "O campo precisa preparar as flores por 3 segundos.",
+  "death.attack.higashi_execution": "%1$s foi incinerado pela Higashi de %2$s",
+  "death.attack.higashi_execution.player": "%1$s foi incinerado pela Higashi de %2$s"
 }

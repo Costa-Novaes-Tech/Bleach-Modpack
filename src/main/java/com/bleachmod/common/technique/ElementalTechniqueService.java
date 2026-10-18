@@ -131,8 +131,9 @@ public final class ElementalTechniqueService {
             case "front_cut","wide_cut","sealed_cut","sealed_sweep","higashi"->{
                 if(age!=(c.kind.equals("higashi")?12:6))break;
                 double angle=c.kind.endsWith("sweep") || c.kind.equals("wide_cut")?.8:.35;
-                for(var t:targets(c,c.origin,c.radius)){Vec3 delta=t.position().subtract(c.origin);double along=delta.dot(c.forward),side=Math.abs(delta.x*c.forward.z-delta.z*c.forward.x);
-                    if(Math.abs(delta.y)<=3 && along>=0 && along<=c.radius && side<=.7+along*angle && visible(c,t,c.origin))hit(c,t,c.kind.equals("higashi")?16:3,true);}
+                var victims=targets(c,c.origin,c.radius).stream().filter(t->{Vec3 delta=t.position().subtract(c.origin);double along=delta.dot(c.forward),side=Math.abs(delta.x*c.forward.z-delta.z*c.forward.x);return Math.abs(delta.y)<=3&&along>=0&&along<=c.radius&&side<=.7+along*angle&&visible(c,t,c.origin);}).toList();
+                LivingEntity execution=c.kind.equals("higashi")?victims.stream().filter(t->HigashiExecutionService.eligible(p,t)).min(Comparator.comparingDouble(t->1-p.getLookAngle().dot(t.getBoundingBox().getCenter().subtract(p.getEyePosition()).normalize()))).orElse(null):null;
+                for(var t:victims){if(t==execution){c.hits.add(t.getUUID());HigashiExecutionService.execute(p,t);}else hit(c,t,c.kind.equals("higashi")?16:3,true);}
             }
             case "flame_barrage"->{if(age<6 || age>14)break;double step=age-6;
                 Vec3 a=c.origin.add(c.forward.scale(Math.max(0,step-1))),b=c.origin.add(c.forward.scale(step));

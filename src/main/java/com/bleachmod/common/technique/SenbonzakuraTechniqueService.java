@@ -341,7 +341,7 @@ public final class SenbonzakuraTechniqueService {
         if (field.bloom>=0) {
             int stage=(int)(now-field.bloom);
             if(stage>=field.bloomTicks) { finishField(s);sync(s.owner);return; }
-            if (stage%2==0) s.draw(FLOWER,field.center,f,SenbonPolicy.FIELD_RADIUS,stage/(double)field.bloomTicks,0);
+            if (stage%2==0) { s.draw(FIELD,field.center,f,SenbonPolicy.FIELD_RADIUS,stage/(double)field.bloomTicks,3);s.draw(FLOWER,field.center,f,SenbonPolicy.FIELD_RADIUS,stage/(double)field.bloomTicks,3); }
             return;
         }
         if (age<6 && age%2==0) s.draw(GUARD,s.owner.position(),f,1.5,age/6.0,0);
@@ -352,7 +352,7 @@ public final class SenbonzakuraTechniqueService {
     private static void finishField(State s) {
         Field field=s.field;if(field==null)return;
         var f=SenbonGeometry.forward(s.owner.getYRot());
-        s.draw(FLOWER,field.center,f,SenbonPolicy.FIELD_RADIUS,1,0);
+        s.draw(FLOWER,field.center,f,SenbonPolicy.FIELD_RADIUS,1,4);
         pulse(s,field.center,SenbonPolicy.FIELD_RADIUS,SenbonPolicy.FIELD_BLOOM_DAMAGE,2);
         s.draw(RISE,field.center,f,SenbonPolicy.FIELD_RADIUS,1,2);s.field=null;
     }

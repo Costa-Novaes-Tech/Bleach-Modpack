@@ -857,9 +857,9 @@ public final class MvpRegressionTest {
             eq(11D,com.bleachmod.common.technique.SenbonPolicy.CONVERGENCE_RANGE);
         });
         test("garden intensity increases without changing other petal layers",()->{
-            eq(128,com.bleachmod.common.network.s2c.SenbonPetalsS2C.particleCount(4));
+            eq(192,com.bleachmod.common.network.s2c.SenbonPetalsS2C.particleCount(4));
             eq(128,com.bleachmod.common.network.s2c.SenbonPetalsS2C.particleCount(5));
-            eq(112,com.bleachmod.common.network.s2c.SenbonPetalsS2C.particleCount(6,2));
+            eq(160,com.bleachmod.common.network.s2c.SenbonPetalsS2C.particleCount(6,2));
             eq(36,com.bleachmod.common.network.s2c.SenbonPetalsS2C.particleCount(6,0));
             eq(32,com.bleachmod.common.network.s2c.SenbonPetalsS2C.particleCount(0));
             eq(16D,com.bleachmod.common.technique.SenbonPolicy.HAKU_STEP*com.bleachmod.common.technique.SenbonPolicy.HAKU_DASH_TICKS);
@@ -978,6 +978,28 @@ public final class MvpRegressionTest {
             var quads=com.bleachmod.common.visual.SenbonConstructGeometry.build(com.bleachmod.common.network.s2c.SenbonPetalsS2C.SWORDS,net.minecraft.world.phys.Vec3.ZERO,new net.minecraft.world.phys.Vec3(0,0,1),7,.5,4);
             double top=quads.stream().flatMap(q->List.of(q.a(),q.b(),q.c(),q.d()).stream()).mapToDouble(v->v.y).max().orElse(0);
             yes(top>6 && quads.size()<1200);
+        });
+        test("Higashi execution checks seven percent before damage and rejects invalid life", () -> {
+            yes(com.bleachmod.common.technique.HigashiExecutionService.belowThreshold(7,100));
+            yes(com.bleachmod.common.technique.HigashiExecutionService.belowThreshold(70,1000));
+            yes(!com.bleachmod.common.technique.HigashiExecutionService.belowThreshold(7.001F,100));
+            yes(!com.bleachmod.common.technique.HigashiExecutionService.belowThreshold(0,100));
+            yes(!com.bleachmod.common.technique.HigashiExecutionService.belowThreshold(Float.NaN,100));
+        });
+        test("Floral morph preserves two thirds of ground samples and the interior coverage", () -> {
+            int unchanged=0,interior=0;for(int i=0;i<1200;i++){
+                var a=com.bleachmod.common.visual.SenbonGardenGeometry.point(35,i,1200,0);
+                var b=com.bleachmod.common.visual.SenbonGardenGeometry.point(35,i,1200,1);
+                if(a.distanceToSqr(b)<1e-10)unchanged++;if(b.horizontalDistance()<17.5)interior++;
+                yes(b.horizontalDistance()<=35.001);
+            }
+            yes(unchanged>=800&&interior>=190);
+        });
+        test("Confirmed execution packet validates positions and round trips without client instructions", () -> {
+            var m=new com.bleachmod.common.network.s2c.HigashiExecutionS2C(1,2,new net.minecraft.world.phys.Vec3(0,70,0),new net.minecraft.world.phys.Vec3(0,70,3),.6F,1.8F);yes(m.valid());
+            var buffer=new net.minecraft.network.FriendlyByteBuf(io.netty.buffer.Unpooled.buffer());try{com.bleachmod.common.network.s2c.HigashiExecutionS2C.encode(m,buffer);eq(m,com.bleachmod.common.network.s2c.HigashiExecutionS2C.decode(buffer));}finally{buffer.release();}
+            yes(!new com.bleachmod.common.network.s2c.HigashiExecutionS2C(1,1,m.attacker(),m.victim(),.6F,1.8F).valid());
+            yes(!new com.bleachmod.common.network.s2c.HigashiExecutionS2C(1,2,m.attacker(),new net.minecraft.world.phys.Vec3(0,70,100),.6F,1.8F).valid());
         });
         System.out.println("PASS: "+count+" regression scenarios");
     }

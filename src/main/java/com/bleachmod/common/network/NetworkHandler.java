@@ -76,6 +76,9 @@ public final class NetworkHandler {
         CHANNEL.registerMessage(id++, com.bleachmod.common.network.s2c.BenihimeFrameS2C.class,
                 com.bleachmod.common.network.s2c.BenihimeFrameS2C::encode,com.bleachmod.common.network.s2c.BenihimeFrameS2C::decode,
                 com.bleachmod.common.network.s2c.BenihimeFrameS2C::handle,Optional.of(NetworkDirection.PLAY_TO_CLIENT));
+        CHANNEL.registerMessage(id++,com.bleachmod.common.network.s2c.HigashiExecutionS2C.class,
+                com.bleachmod.common.network.s2c.HigashiExecutionS2C::encode,com.bleachmod.common.network.s2c.HigashiExecutionS2C::decode,
+                com.bleachmod.common.network.s2c.HigashiExecutionS2C::handle,Optional.of(NetworkDirection.PLAY_TO_CLIENT));
     }
 
     public static void sendToServer(Object message) {

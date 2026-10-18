@@ -20,12 +20,13 @@ public final class SenbonPetalEffects {
     public static void draw(SenbonPetalsS2C m) {
         var mc=Minecraft.getInstance(); var level=mc.level;
         if (level==null || mc.player==null || !m.valid() || mc.player.distanceToSqr(m.origin())>96*96) return;
+        SenbonGardenFloor.accept(m);
         if(m.shape()==SWORDS || m.shape()==WINGS || m.shape()==LANCE)SenbonConstructRenderer.accept(m);
         if (previous!=level || tick!=level.getGameTime()) { previous=level; tick=level.getGameTime(); emitted=0; }
         var random=new Random(m.seed()); Vec3 o=m.origin(), f=m.forward().normalize(), left=SenbonGeometry.left(f);
         int count=SenbonPetalsS2C.particleCount(m.shape(),m.pattern());
         Vec3 wind=new Vec3(.025+Math.sin(level.getGameTime()*.025)*.012,.008,.012);
-        for (int i=0;i<count && emitted<256;i++) {
+        for (int i=0;i<count && emitted<384;i++) {
             double a=2*Math.PI*i/count, r=m.radius(); Vec3 p, v=Vec3.ZERO;
             switch(m.shape()) {
                 case ARC -> {
@@ -39,12 +40,14 @@ public final class SenbonPetalEffects {
                     p=o.add(Math.cos(angle)*rr,random.nextDouble()*2.6,Math.sin(angle)*rr);v=new Vec3(-Math.sin(angle)*.035,.02,Math.cos(angle)*.035); }
                 case GUARD, AURA -> { double rr=m.radius()*(.7+.3*random.nextDouble()); p=o.add(Math.cos(a+m.progress()*6)*rr,random.nextDouble()*2.4,Math.sin(a+m.progress()*6)*rr); v=new Vec3(-Math.sin(a)*.025,.015,Math.cos(a)*.025); }
                 case FIELD, FLOWER -> {
-                    double rr=m.shape()==FIELD ? r*Math.sqrt(random.nextDouble()) : SenbonGeometry.flowerRadius(r,a);
+                    double base=r*Math.sqrt(random.nextDouble());
+                    double rr=m.shape()==FIELD || i%3!=0?base:base+(SenbonGeometry.flowerRadius(r,a)-base)*m.progress();
                     p=o.add(Math.cos(a)*rr,0,Math.sin(a)*rr);
                     if (!level.hasChunkAt(BlockPos.containing(p))) continue;
                     var hit=level.clip(new ClipContext(p.add(0,3,0),p.add(0,-3,0),ClipContext.Block.COLLIDER,ClipContext.Fluid.NONE,mc.player));
                     if (hit.getType()==HitResult.Type.MISS) continue;
-                    p=hit.getLocation().add(0,.08+random.nextDouble()*(m.shape()==FIELD?1.2:.4),0);
+                    p=hit.getLocation().add(0,.08+random.nextDouble()*(m.shape()==FIELD?.8:.5),0);
+                    if(m.shape()==FLOWER)v=new Vec3(0,.015+m.progress()*.035,0);
                 }
                 case RISE -> { double rr=r*Math.sqrt(random.nextDouble()); p=o.add(Math.cos(a)*rr,random.nextDouble()*(m.pattern()==2?1.2:.4),Math.sin(a)*rr); v=new Vec3(Math.cos(a)*.02,.18+random.nextDouble()*.16,Math.sin(a)*.02); }
                 case RADIAL -> { double rr=r*m.progress(); p=o.add(Math.cos(a)*rr,.3+random.nextDouble()*(m.pattern()==2?2.2:1.3),Math.sin(a)*rr); v=new Vec3(Math.cos(a)*.12,.015,Math.sin(a)*.12); }
