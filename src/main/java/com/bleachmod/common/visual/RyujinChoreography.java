@@ -44,6 +44,14 @@ public final class RyujinChoreography {
             default->interpolate(neutral(0),neutral(0),0,sign,0);
         };
     }
+    /** Execution shot: draw at the hip, strike on tick 12, hold the follow-through then recover. */
+    public static Pose execution(float age,float sign){
+        return curve(age,sign,neutral(0),k(6,-.8,-1.05,-.25,.1,-.65,.18,-.6,0,-.3),
+                k(10,-.9,-1.2,-.3,.12,-.8,.22,-.65,0,-.35),
+                k(13,-1.35,1.1,.25,-.05,.65,-.18,.15,0,.2),
+                k(18,-1.1,.95,.18,.02,.5,-.1,.1,0,.15),
+                k(30,-.6,.6,.08,0,.2,-.03,0,0,0),neutral(44));
+    }
     /** No idle layer: outward pose exists only inside the 60-tick release and fades out by tick 60. */
     public static Pose release(float age,float sign){
         return curve(age,sign,neutral(0),

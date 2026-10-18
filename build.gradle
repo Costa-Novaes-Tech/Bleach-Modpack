@@ -139,8 +139,19 @@ repositories {
 }
 
 configurations { combatRuntimeArtifacts { transitive = false } }
+configurations { photonPilotArtifacts { transitive = false } }
+def photonPilotEnabled = providers.gradleProperty('photonPilot').map { it.toBoolean() }.getOrElse(false)
 
 dependencies {
+    // Optional VFX laboratory. Base pack stays at five jars; -PphotonPilot=true enables runtime.
+    compileOnly fg.deobf("maven.modrinth:photon-editor:a7chTVuf")
+    compileOnly fg.deobf("maven.modrinth:ldlib:ONxYJpRz")
+    photonPilotArtifacts "maven.modrinth:photon-editor:a7chTVuf"
+    photonPilotArtifacts "maven.modrinth:ldlib:ONxYJpRz"
+    if (photonPilotEnabled) {
+        runtimeOnly fg.deobf("maven.modrinth:photon-editor:a7chTVuf")
+        runtimeOnly fg.deobf("maven.modrinth:ldlib:ONxYJpRz")
+    }
     implementation fg.deobf("maven.modrinth:geckolib:aC5KMoNg")
     combatRuntimeArtifacts "maven.modrinth:geckolib:aC5KMoNg"
     implementation fg.deobf("maven.modrinth:better-combat:${better_combat_version}")
@@ -249,4 +260,13 @@ tasks.register('prepareCombatTestPack', Copy) {
     from configurations.combatRuntimeArtifacts
     from tasks.named('jar')
     into layout.buildDirectory.dir('combat-test-pack/mods')
+}
+
+tasks.register('preparePhotonTestPack', Sync) {
+    dependsOn tasks.named('build')
+    from(configurations.combatRuntimeArtifacts) { into 'mods' }
+    from(configurations.photonPilotArtifacts) { into 'mods' }
+    from(tasks.named('jar')) { into 'mods' }
+    from('src/photonPilot/config') { into 'config' }
+    into layout.buildDirectory.dir('photon-test-pack')
 }

@@ -36,3 +36,16 @@ description='''${mod_description}'''
     versionRange="[4.8.4,4.9)"
     ordering="AFTER"
     side="BOTH"
+
+[[dependencies.${mod_id}]]
+    modId="photon"
+    mandatory=false
+    versionRange="[1.1.17,1.2)"
+    ordering="AFTER"
+    side="CLIENT"
+[[dependencies.${mod_id}]]
+    modId="ldlib"
+    mandatory=false
+    versionRange="[1.0.42,1.1)"
+    ordering="AFTER"
+    side="CLIENT"

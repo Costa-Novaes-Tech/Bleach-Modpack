@@ -1,5 +1,7 @@
 # Ciclo 38 — Ordem escolhida: defesa, treinamento e novos kits
 
+> **Atualização ciclo 62:** [câmera Higashi e piloto Photon/LDLib](62-higashi-camera-dirigida-piloto-photon-2026-10-18.md). Bancada antecipada por pedido explícito enquanto se analisa o vídeo do ciclo 60; sete JARs apenas no pacote experimental, base com cinco. A biblioteca já foi compilada/carregada no perfil de teste; cliente/editor e erros recuperados de dist no dedicado permanecem por validar. Integração Zaraki ainda não realizada, demais prioridades preservadas.
+
 ## Roadmap vigente — 18/10/2026, ciclo 61
 
 [Revisão consolidada, pendências e integração Zaraki](61-revisao-roadmap-pendencias-integracao-zaraki-2026-10-18.md). Ciclos 52–60 já implementaram Better Combat/PlayerAnimator/GeckoLib, revisão Ryūjin/Hyōrinmaru, liberações/gestos e os ajustes Higashi/Jardim agora em playtest. Não reiniciar essas entregas com base na fila histórica abaixo.

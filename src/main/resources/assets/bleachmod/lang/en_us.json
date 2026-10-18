@@ -273,5 +273,7 @@
   "ability.bleachmod.hyorinmaru.bloom": "Hyōten Hyakkasō",
   "message.bleachmod.ice.bloom_wait": "The field needs 3 seconds to prepare the ice flowers.",
   "death.attack.higashi_execution": "%1$s was incinerated by %2$s's Higashi",
-  "death.attack.higashi_execution.player": "%1$s was incinerated by %2$s's Higashi"
+  "death.attack.higashi_execution.player": "%1$s was incinerated by %2$s's Higashi",
+  "message.bleachmod.photon.test": "Photon pilot started: embers and ash, no damage.",
+  "message.bleachmod.photon.unavailable": "Pilot unavailable: install Photon 1.1.17 and LDLib 1.0.42 Forge or check the log."
 }

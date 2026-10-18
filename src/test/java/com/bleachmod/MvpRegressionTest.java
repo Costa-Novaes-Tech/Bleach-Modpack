@@ -1001,6 +1001,27 @@ public final class MvpRegressionTest {
             yes(!new com.bleachmod.common.network.s2c.HigashiExecutionS2C(1,1,m.attacker(),m.victim(),.6F,1.8F).valid());
             yes(!new com.bleachmod.common.network.s2c.HigashiExecutionS2C(1,2,m.attacker(),new net.minecraft.world.phys.Vec3(0,70,100),.6F,1.8F).valid());
         });
+        test("Higashi shots frame attacker and victim without changing the line of action", () -> {
+            var a=new net.minecraft.world.phys.Vec3(10,70,20);
+            for(double distance:new double[]{1,2,4})for(float age=0;age<44;age+=.25F){
+                var b=a.add(0,0,distance);var shot=com.bleachmod.common.visual.HigashiCinematicPath.sample(a,b,2,age);
+                var look=shot.focus().subtract(shot.eye()).normalize();var right=look.cross(new net.minecraft.world.phys.Vec3(0,1,0)).normalize();var up=right.cross(look).normalize();double tan=Math.tan(Math.toRadians(shot.fov()/2));
+                for(var at:List.of(a.add(0,1,0),b.add(0,1,0))){var delta=at.subtract(shot.eye());double depth=delta.dot(look);yes(depth>0);yes(Math.abs(delta.dot(right))<depth*tan*16/9);yes(Math.abs(delta.dot(up))<depth*tan);}
+                yes(shot.eye().x<a.x&&shot.fov()>=60&&shot.fov()<=66);
+                float yaw=com.bleachmod.common.visual.HigashiCinematicPath.yaw(shot.eye(),shot.focus()),pitch=com.bleachmod.common.visual.HigashiCinematicPath.pitch(shot.eye(),shot.focus());
+                yes(Float.isFinite(yaw)&&Float.isFinite(pitch));yes(net.minecraft.world.phys.Vec3.directionFromRotation(pitch,yaw).distanceToSqr(look)<1e-6);
+            }
+        });
+        test("Higashi authored execution recovers and mirrors without an idle lease", () -> {
+            for(float age=0;age<=48;age+=.25F){var right=com.bleachmod.common.visual.RyujinChoreography.execution(age,1);var left=com.bleachmod.common.visual.RyujinChoreography.execution(age,-1);
+                yes(Double.isFinite(right.arm().lengthSqr()+right.body().lengthSqr()));eq(right.arm().x,left.arm().x);eq(right.arm().y,-left.arm().y);yes(right.weight()>=0&&right.weight()<=1);
+                if(age>=44)eq(0F,right.weight());
+            }
+        });
+        test("Higashi preview packets remain distinct from confirmed death", () -> {
+            var preview=new com.bleachmod.common.network.s2c.HigashiExecutionS2C(1,2,new net.minecraft.world.phys.Vec3(0,70,0),new net.minecraft.world.phys.Vec3(0,70,3),.6F,1.8F,false);
+            yes(preview.valid()&&!preview.confirmed());var b=new net.minecraft.network.FriendlyByteBuf(io.netty.buffer.Unpooled.buffer());try{com.bleachmod.common.network.s2c.HigashiExecutionS2C.encode(preview,b);eq(preview,com.bleachmod.common.network.s2c.HigashiExecutionS2C.decode(b));}finally{b.release();}
+        });
         System.out.println("PASS: "+count+" regression scenarios");
     }
     private static PlayerData player(){PlayerData d=new PlayerData();d.initializeShinigami();d.getCharacter().bindZanpakuto("ryujin_jakka");d.getCharacter().preserveLegacyTechniques();return d;}

@@ -1,5 +1,7 @@
 # Ciclo 61 — roadmap revisto e próximas entregas
 
+> **Atualização ciclo 62:** [câmera Higashi e piloto Photon/LDLib](62-higashi-camera-dirigida-piloto-photon-2026-10-18.md). Bancada antecipada por pedido explícito enquanto se analisa o vídeo do ciclo 60; sete JARs apenas no pacote experimental, base com cinco. A biblioteca já foi compilada/carregada no perfil de teste; cliente/editor e erros recuperados de dist no dedicado permanecem por validar. Integração Zaraki ainda não realizada, demais prioridades preservadas.
+
 Revisão de 18/10/2026, solicitada enquanto o usuário testa Higashi/Jardim. Git limpo ao iniciar, branch `Feature-Poderes-bankais`, base `971824f`. Revisão documental e leitura de refs locais; sem fetch, merge, instalação ou alteração de gameplay. Este documento atualiza a ordem técnica dos ciclos 38/51 sem aprovar automaticamente novos kits.
 
 ## Estado real das entregas

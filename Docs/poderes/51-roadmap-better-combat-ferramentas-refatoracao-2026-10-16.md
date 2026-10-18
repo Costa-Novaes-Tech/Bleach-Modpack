@@ -1,5 +1,7 @@
 # Ciclo 51 — Better Combat, ferramentas e refatoração dos kits
 
+> **Atualização ciclo 62:** [câmera Higashi e piloto Photon/LDLib](62-higashi-camera-dirigida-piloto-photon-2026-10-18.md). Bancada antecipada por pedido explícito enquanto se analisa o vídeo do ciclo 60; sete JARs apenas no pacote experimental, base com cinco. A biblioteca já foi compilada/carregada no perfil de teste; cliente/editor e erros recuperados de dist no dedicado permanecem por validar. Integração Zaraki ainda não realizada, demais prioridades preservadas.
+
 > **Roadmap revisto em 18/10 — [ciclo 61](61-revisao-roadmap-pendencias-integracao-zaraki-2026-10-18.md):** bibliotecas de combate/GeckoLib e refatorações elementais já implementadas; ciclo 60 em playtest. `origin/bankai-zaraki` disponível localmente em `c17d274`; agora falta compatibilizar a integração, câmeras, rede e pacote. Photon/LDLib, medição e fluxo de autoria continuam pendentes. As etapas abaixo preservam a proposta histórica, não o estado atual de instalação.
 
 > Atualização posterior: [ciclo 59](59-liberacoes-gestos-senbon-benihime-asauchi-2026-10-17.md) implementa as liberações restantes e gestos Senbon/Benihime com a infraestrutura atual. Modelos finais de inimigos, VFX especializados e integração Zaraki continuam etapas futuras; não foi instalado outro mod nesta rodada.

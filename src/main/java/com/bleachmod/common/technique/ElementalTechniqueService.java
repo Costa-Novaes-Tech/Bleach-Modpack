@@ -94,7 +94,8 @@ public final class ElementalTechniqueService {
             case "duel_control"->{duration=14;gesture=14;radius=5;}
             default->{duration=16;gesture=16;radius=6;}
         }
-        add(p,d,kind,slot,duration,gesture,origin,radius);
+        var accepted=add(p,d,kind,slot,duration,gesture,origin,radius);
+        if(kind.equals("higashi")){var candidate=executionTarget(accepted,cutVictims(accepted,.35));if(candidate!=null)HigashiExecutionService.preview(p,candidate);}
         p.serverLevel().playSound(null,p.blockPosition(),ice?net.minecraft.sounds.SoundEvents.GLASS_BREAK:net.minecraft.sounds.SoundEvents.BLAZE_SHOOT,p.getSoundSource(),.65F,bankai?.7F:1.1F);
         SyncHelper.resources(p);
     }
@@ -107,6 +108,8 @@ public final class ElementalTechniqueService {
     }
     private static List<LivingEntity> targets(Cast c,Vec3 center,double radius){return c.owner.serverLevel().getEntitiesOfClass(LivingEntity.class,new AABB(center,center).inflate(radius,4,radius),t->TechniqueTargets.allowed(c.owner,t));}
     private static boolean visible(Cast c,LivingEntity t,Vec3 origin){return c.owner.level().clip(new ClipContext(origin.add(0,1,0),t.getBoundingBox().getCenter(),ClipContext.Block.COLLIDER,ClipContext.Fluid.NONE,c.owner)).getType()==HitResult.Type.MISS;}
+    private static List<LivingEntity> cutVictims(Cast c,double angle){return targets(c,c.origin,c.radius).stream().filter(t->{Vec3 delta=t.position().subtract(c.origin);double along=delta.dot(c.forward),side=Math.abs(delta.x*c.forward.z-delta.z*c.forward.x);return Math.abs(delta.y)<=3&&along>=0&&along<=c.radius&&side<=.7+along*angle&&visible(c,t,c.origin);}).toList();}
+    private static LivingEntity executionTarget(Cast c,List<LivingEntity> victims){return victims.stream().filter(t->HigashiExecutionService.eligible(c.owner,t)).min(Comparator.comparingDouble(t->1-c.owner.getLookAngle().dot(t.getBoundingBox().getCenter().subtract(c.owner.getEyePosition()).normalize()))).orElse(null);}
     private static boolean hit(Cast c,LivingEntity t,float damage,boolean once){
         if(c.hits.size()>=64 && !c.hits.contains(t.getUUID()) || once && c.hits.contains(t.getUUID()))return false;
         c.hits.add(t.getUUID());
@@ -131,8 +134,8 @@ public final class ElementalTechniqueService {
             case "front_cut","wide_cut","sealed_cut","sealed_sweep","higashi"->{
                 if(age!=(c.kind.equals("higashi")?12:6))break;
                 double angle=c.kind.endsWith("sweep") || c.kind.equals("wide_cut")?.8:.35;
-                var victims=targets(c,c.origin,c.radius).stream().filter(t->{Vec3 delta=t.position().subtract(c.origin);double along=delta.dot(c.forward),side=Math.abs(delta.x*c.forward.z-delta.z*c.forward.x);return Math.abs(delta.y)<=3&&along>=0&&along<=c.radius&&side<=.7+along*angle&&visible(c,t,c.origin);}).toList();
-                LivingEntity execution=c.kind.equals("higashi")?victims.stream().filter(t->HigashiExecutionService.eligible(p,t)).min(Comparator.comparingDouble(t->1-p.getLookAngle().dot(t.getBoundingBox().getCenter().subtract(p.getEyePosition()).normalize()))).orElse(null):null;
+                var victims=cutVictims(c,angle);
+                LivingEntity execution=c.kind.equals("higashi")?executionTarget(c,victims):null;
                 for(var t:victims){if(t==execution){c.hits.add(t.getUUID());HigashiExecutionService.execute(p,t);}else hit(c,t,c.kind.equals("higashi")?16:3,true);}
             }
             case "flame_barrage"->{if(age<6 || age>14)break;double step=age-6;

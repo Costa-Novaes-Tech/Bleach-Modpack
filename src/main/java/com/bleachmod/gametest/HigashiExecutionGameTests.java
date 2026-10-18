@@ -30,4 +30,10 @@ public final class HigashiExecutionGameTests {
     public static void aboveThresholdIsNormalDamageAndAlliesRemainProtected(GameTestHelper h){var p=player(h);var above=target(h,p,0,71);above.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE,200,255));var ally=target(h,p,.5,50);var protectedMob=target(h,p,-.5,50);protectedMob.setInvulnerable(true);
         var score=h.getLevel().getScoreboard();var team=score.addPlayerTeam("exe"+UUID.randomUUID().toString().substring(0,7));score.addPlayerToTeam(p.getScoreboardName(),team);score.addPlayerToTeam(ally.getScoreboardName(),team);TechniqueService.executeSlot(p,d(p),2);
         h.runAfterDelay(15,()->{try{h.assertTrue(above.isAlive()&&above.getHealth()==71&&ally.getHealth()==50&&protectedMob.getHealth()==50,"Threshold, ally or invulnerability policy bypassed");}finally{score.removePlayerTeam(team);RyujinTechniqueService.cancel(p);above.discard();ally.discard();protectedMob.discard();}h.succeed();});}
+    @GameTest(template="empty",batch="execution_healed",timeoutTicks=40)
+    public static void previewDoesNotExecuteVictimHealedBeforeImpact(GameTestHelper h){var p=player(h);var t=target(h,p,0,70);t.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE,200,255));TechniqueService.executeSlot(p,d(p),2);
+        h.runAfterDelay(6,()->t.setHealth(200));h.runAfterDelay(15,()->{try{h.assertTrue(t.isAlive()&&t.getHealth()==200,"Cinematic preview committed a kill despite healing");h.assertTrue(d(p).getResources().getCurrentReiatsu()==75,"Preview duplicated the cost");}finally{RyujinTechniqueService.cancel(p);t.discard();}h.succeed();});}
+    @GameTest(template="empty",batch="execution_cancel_preview",timeoutTicks=40)
+    public static void canceledCastAfterPreviewCannotKill(GameTestHelper h){var p=player(h);var t=target(h,p,0,70);TechniqueService.executeSlot(p,d(p),2);h.runAfterDelay(6,()->RyujinTechniqueService.cancel(p));
+        h.runAfterDelay(15,()->{try{h.assertTrue(t.isAlive()&&t.getHealth()==70,"Preview escaped normal cast cancellation");}finally{RyujinTechniqueService.cancel(p);t.discard();}h.succeed();});}
 }
