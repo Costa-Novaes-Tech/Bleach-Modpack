@@ -38,6 +38,7 @@ public class ClientForgeEvents {
         if (mc.player == null) {
             guardHeld = false;
             com.bleachmod.client.model.ZanpakutoMotion.clear();
+            com.bleachmod.client.berserk.BerserkSkins.clear();
             lastCharging = false;
             instantHeld = false;
             return;

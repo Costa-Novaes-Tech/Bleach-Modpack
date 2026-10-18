@@ -8,7 +8,7 @@ public final class TechniqueDefinitions {
     public record Definition(String identity, String form, int slot, String id, String nameKey,
                              int mastery, float cost, int cooldownTicks, float drainPerTick) {
         public Definition {
-            if (!List.of(CharacterData.RYUJIN, CharacterData.HYORINMARU, CharacterData.SENBONZAKURA, CharacterData.BENIHIME).contains(identity)
+            if (!List.of(CharacterData.RYUJIN, CharacterData.HYORINMARU, CharacterData.SENBONZAKURA, CharacterData.BENIHIME, CharacterData.NOZARASHI).contains(identity)
                     || !List.of("sealed", "shikai", "bankai").contains(form) || slot < 1 || slot > 4
                     || id == null || id.isBlank() || nameKey == null || nameKey.isBlank() || mastery < 0 || mastery > 100
                     || !Float.isFinite(cost) || cost < 0 || cooldownTicks < 0 || !Float.isFinite(drainPerTick) || drainPerTick < 0)
@@ -43,6 +43,15 @@ public final class TechniqueDefinitions {
             int[] cooldowns = {100, 160, 240, 300};
             for (int slot = 1; slot <= 4; slot++) add(entries, CharacterData.HYORINMARU, form, slot, iceIds[slot - 1],
                     "ability.bleachmod.hyorinmaru." + (sealed ? "sealed_" : "slot_") + slot, costs[slot - 1], cooldowns[slot - 1], 0);
+            // Zaraki Kenpachi: brute force when sealed, the Nozarashi cleaver in Shikai, Berserk Mode in Bankai.
+            String[] brute = sealed ? new String[]{"brutal_cut", "spiritual_pressure", "eyepatch", "kendo"}
+                    : bankai ? new String[]{"berserk_charge", "fury", "roar", "world_cleaver"}
+                    : new String[]{"nozarashi_cut", "crushing_leap", "battle_thirst", "drink_nozarashi"};
+            float[] bruteCosts = sealed ? new float[]{10, 15, 0, 20} : bankai ? new float[]{25, 30, 35, 60} : new float[]{20, 25, 25, 40};
+            int[] bruteCooldowns = sealed ? new int[]{60, 200, 100, 300} : bankai ? new int[]{100, 160, 300, 1200} : new int[]{120, 160, 400, 400};
+            for (int slot = 1; slot <= 4; slot++) add(entries, CharacterData.NOZARASHI, form, slot, brute[slot - 1],
+                    "ability.bleachmod.nozarashi." + brute[slot - 1], bruteCosts[slot - 1], bruteCooldowns[slot - 1],
+                    sealed && slot == 3 ? .1F : 0);
         }
         for (String form : List.of("sealed", "shikai", "bankai")) {
             boolean bankai = form.equals("bankai");

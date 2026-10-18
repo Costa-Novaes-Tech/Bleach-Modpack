@@ -76,10 +76,15 @@ public final class NetworkHandler {
         CHANNEL.registerMessage(id++, com.bleachmod.common.network.s2c.BenihimeFrameS2C.class,
                 com.bleachmod.common.network.s2c.BenihimeFrameS2C::encode,com.bleachmod.common.network.s2c.BenihimeFrameS2C::decode,
                 com.bleachmod.common.network.s2c.BenihimeFrameS2C::handle,Optional.of(NetworkDirection.PLAY_TO_CLIENT));
+        CHANNEL.registerMessage(id++, com.bleachmod.common.network.s2c.ReleaseCinematicS2C.class, com.bleachmod.common.network.s2c.ReleaseCinematicS2C::encode, com.bleachmod.common.network.s2c.ReleaseCinematicS2C::decode, com.bleachmod.common.network.s2c.ReleaseCinematicS2C::handle, Optional.of(NetworkDirection.PLAY_TO_CLIENT));
     }
 
     public static void sendToServer(Object message) {
         CHANNEL.sendToServer(message);
+    }
+
+    public static void sendToTrackingAndSelf(Object message, ServerPlayer player) {
+        CHANNEL.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> player), message);
     }
 
     public static void sendToPlayer(Object message, ServerPlayer player) {

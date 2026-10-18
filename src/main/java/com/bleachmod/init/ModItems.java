@@ -28,6 +28,10 @@ public final class ModItems {
     public static final RegistryObject<Item> SENBONZAKURA = ITEMS.register("senbonzakura", ZanpakutoItem::new);
     public static final RegistryObject<Item> BENIHIME = ITEMS.register("benihime", ZanpakutoItem::new);
 
+    /** Zaraki Kenpachi's notched blade; its Shikai becomes the oversized Nozarashi cleaver. */
+    public static final RegistryObject<Item> NOZARASHI = ITEMS.register("nozarashi",
+            ZanpakutoItem::new);
+
     public static final RegistryObject<Item> HOLLOW_SPAWN_EGG =
             ITEMS.register(
                     "hollow_spawn_egg",

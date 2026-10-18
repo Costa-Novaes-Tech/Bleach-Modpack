@@ -16,8 +16,16 @@ import java.util.UUID;
 
 @GameTestHolder("bleachmod") @PrefixGameTestTemplate(false)
 public final class IceRefinementGameTests {
-    @GameTest(template="empty",batch="weather_packets")
-    public static void restoringWeatherAndClearCommandSynchronizeConnectedClients(GameTestHelper h) throws ReflectiveOperationException {
+    @GameTest(template="empty",batch="weather_packets",timeoutTicks=120)
+    public static void restoringWeatherAndClearCommandSynchronizeConnectedClients(GameTestHelper h) {
+        // Overworld weather and its lease are global: a lease left by an earlier batch (it expires within
+        // 40 ticks) would turn this test's acquire/release into no-ops. Start only once the lease is idle.
+        h.startSequence()
+                .thenWaitUntil(() -> h.assertTrue(BlizzardWeatherData.get(h.getLevel()).idle(), "Weather lease still held by another test"))
+                .thenExecute(() -> { try { weatherPacketsBody(h); } catch (ReflectiveOperationException e) { throw new IllegalStateException(e); } })
+                .thenSucceed();
+    }
+    private static void weatherPacketsBody(GameTestHelper h) throws ReflectiveOperationException {
         var level=h.getLevel(); var p=player(h);
         // The public roster is read-only. Only this fixture accesses the backing list, removing its fake recipient in finally.
         var field=net.minecraft.server.players.PlayerList.class.getDeclaredField("players"); field.setAccessible(true);
@@ -51,7 +59,6 @@ public final class IceRefinementGameTests {
                     && packets.stream().anyMatch(packet -> packet.getEvent()==net.minecraft.network.protocol.game.ClientboundGameEventPacket.THUNDER_LEVEL_CHANGE && Math.abs(packet.getParam()-0.6F)<0.001F),"Client received rain-weighted thunder instead of original intensity");
             level.setWeatherParameters(400,600,false,false); level.setRainLevel(0); level.setThunderLevel(0);
         } finally { control.release(level,owner); players.remove(p); p.connection=previous; }
-        h.succeed();
     }
     private static void assertDryPackets(GameTestHelper h, java.util.List<net.minecraft.network.protocol.game.ClientboundGameEventPacket> packets) {
         h.assertTrue(packets.stream().anyMatch(p -> p.getEvent()==net.minecraft.network.protocol.game.ClientboundGameEventPacket.STOP_RAINING),"Client never received STOP_RAINING");
@@ -220,6 +227,9 @@ public final class IceRefinementGameTests {
         h.runAfterDelay(20,() -> { try {
             h.assertTrue(center.getHealth()<20 && far.getHealth()<20,"Zone failed to cover interior or 28-block target");
             h.assertTrue(outside.getHealth()==20,"Zone exceeded 30-block radius");
-        } finally { HyorinmaruTechniqueService.cancel(p); center.discard(); far.discard(); outside.discard(); } h.succeed(); });
+        } finally {
+            d.getCharacter().setActiveForm("zanpakuto","sealed"); // the caster tick must release, not renew, the weather lease
+            HyorinmaruTechniqueService.cancel(p); center.discard(); far.discard(); outside.discard();
+        } h.succeed(); });
     }
 }

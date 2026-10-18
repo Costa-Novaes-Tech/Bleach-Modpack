@@ -101,7 +101,7 @@ public final class ReiatsuHud {
                         (int) data.getResources().getCurrentReiatsu(),
                         (int) data.getResources().getMaxReiatsu()), 0xE8C547),
                 new InfoLine(Component.translatable("hud.bleachmod.target",
-                        Component.translatable("form.bleachmod." + data.getCharacter().getActiveForm())), 0xCAB7FF),
+                        com.bleachmod.common.evolution.FormNames.of(data.getCharacter(), data.getCharacter().getActiveForm())), 0xCAB7FF),
                 new InfoLine(Component.translatable("hud.bleachmod.tp",
                         (int) data.getResources().getTrainingPoints()), 0xA0E8A0),
                 new InfoLine(Component.translatable("hud.bleachmod.cooldowns",

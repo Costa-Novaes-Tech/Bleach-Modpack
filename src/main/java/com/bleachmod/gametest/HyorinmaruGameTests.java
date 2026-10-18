@@ -131,6 +131,10 @@ public final class HyorinmaruGameTests {
             if (com.bleachmod.common.technique.BlizzardWeatherData.eligible(p.serverLevel(), p.blockPosition())) {
                 h.assertTrue(com.bleachmod.common.technique.BlizzardWeatherData.get(p.serverLevel()).isManaged(), "Zone expiration cancelled ongoing Bankai weather");
             }
-        } finally { scoreboard.removePlayerTeam(team); ally.discard(); enemy.discard(); RyujinTechniqueService.cancel(p); } h.succeed(); });
+        } finally {
+            // Leave Bankai first: onEachTick may still run the caster after cleanup and must release, not renew, the weather lease.
+            data(p).getCharacter().setActiveForm("zanpakuto", "sealed");
+            scoreboard.removePlayerTeam(team); ally.discard(); enemy.discard(); RyujinTechniqueService.cancel(p);
+        } h.succeed(); });
     }
 }

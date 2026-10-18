@@ -21,7 +21,7 @@ public final class FormWheelScreen extends Screen {
         for(int i=0;i<names.size();i++) {
             String form=names.get(i); double angle=-Math.PI/2+i*2*Math.PI/names.size();
             int x=width/2+(int)(Math.cos(angle)*radius)-48, y=height/2+(int)(Math.sin(angle)*radius)-10;
-            buttons.put(form,addRenderableWidget(Button.builder(Component.translatable("form.bleachmod."+form),b->{
+            buttons.put(form,addRenderableWidget(Button.builder(com.bleachmod.common.evolution.FormNames.of(d.getCharacter(),form),b->{
                 NetworkHandler.sendToServer(new SelectFormC2S("zanpakuto",form)); onClose();
             }).bounds(x,y,96,20).build()));
         }
@@ -40,7 +40,7 @@ public final class FormWheelScreen extends Screen {
         g.drawCenteredString(font,Component.translatable("screen.bleachmod.wheel_hint"),width/2,height-36,0xFFFFFF);
         g.drawCenteredString(font,Component.translatable("screen.bleachmod.no_active_skills"),width/2,height-22,0xCAB7FF);
         PlayerCapability.get(minecraft.player).ifPresent(d->{
-            g.drawCenteredString(font,Component.translatable("form.bleachmod."+d.getCharacter().getSelectedForm()),width/2,height/2-4,0xE8C547);
+            g.drawCenteredString(font,com.bleachmod.common.evolution.FormNames.of(d.getCharacter(),d.getCharacter().getSelectedForm()),width/2,height/2-4,0xE8C547);
         });
         super.render(g,mx,my,dt);
     }
