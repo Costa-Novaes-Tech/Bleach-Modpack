@@ -2,6 +2,8 @@
 
 Atualizado em 18/10/2026. Resumo de passagem para nova conversa; consulte o código/Git antes de alterar. Este arquivo evita precisar importar o histórico completo do chat. Não substitui instruções atuais do usuário.
 
+**Planejamento vigente — [revisão do roadmap, ciclo 61](61-revisao-roadmap-pendencias-integracao-zaraki-2026-10-18.md):** playtest 60 em andamento. A ref local `origin/bankai-zaraki` já contém o kit/cinemática em `c17d274`; não continuar dizendo que falta o commit. Integração ainda não feita: conciliar câmeras/animações, rede (Zaraki 2.18 × nossa 2.23), PlayerAnimator único, Better Combat e testes. WorldEdit da branch da equipe é ferramenta local, não requisito do pack. Depois: assets/áudio/medição e piloto Photon; Ishida próximo kit, Mentor/Proficiências aguardam equipe. Revisões elementais já implementadas; preservá-las e receber feedback. Esta revisão só mudou documentos, sem fetch/merge/runtime.
+
 **Entrega vigente — ciclo 60:** [Higashi: execução e Jardim persistente](60-higashi-execucao-jardim-persistente-2026-10-18.md). Higashi Bankai executa um alvo elegível mais alinhado à mira com vida positiva até 7% antes do impacto, ignorando defesas/Totem; política de aliados/PvP/invulneráveis e eventos Forge preservados. Câmera local opcional de 32 ticks após morte confirmada, chamas/cinzas; morte/loot normais. Jardim mantém dois terços das pétalas do solo no interior durante a flor, reforça cobertura/subida e conserva raio 35/janela 2–6 s. Rede **2.23**, schema **9**, **110 regressões/135 GameTests aprovados**, pacote cinco JARs e mesmas dependências. Câmera, densidade/FPS e dois clientes reais aguardam playtest. Demais kits e roadmap preservados.
 
 **Entrega anterior — ciclo 59:** [liberações e gestos Senbonzakura/Benihime/Asauchi](59-liberacoes-gestos-senbon-benihime-asauchi-2026-10-17.md). Autorizada implementação das animações restantes: Shikai/Bankai dessas três identidades na timeline servidor; duas fileiras de lâminas na ativação Senbon, surgimento gradual da manifestação Benihime, liberação espiritual Asauchi, 18 gestos de técnicas/continuações e alternância cosmética dos swings vanilla Senbon/Beni. Capacidades e visuais homologados preservados como base; Ryūjin/Hyōrinmaru mantidas. Rede **2.22**, schema **9**, 107 regressões/132 GameTests. Pacote cinco JARs, mesmas dependências. Conferência visual e dois clientes reais pendentes. Better Combat autoritativo continua somente Asauchi/Ryūjin/Hyōrinmaru; não cortar o alcance passivo Senbon ao migrar hitboxes.
@@ -23,7 +25,7 @@ Atualizado em 18/10/2026. Resumo de passagem para nova conversa; consulte o cód
 - Projeto local: `C:\Users\joaop\Downloads\Projeto_Programacao_BleachMod\Bleach-Modpack`.
 - GitHub atual: https://github.com/Costa-Novaes-Tech/Bleach-Modpack. Origin local ainda usa GabrielCNovaesDev/Bleach-Modpack.git, que redireciona; não foi alterado.
 - Branch de trabalho: `Feature-Poderes-bankais`. Nunca comitar na main. Commits locais são autorizados após validação; isso não autoriza push, merge, exclusões ou outras publicações não solicitadas.
-- A branch antiga `Feature-Bankais-Poderes` foi excluída pelo usuário por duplicação/atraso. Não recriar nem confundir os nomes.
+- A branch antiga `Feature-Bankais-Poderes` foi retirada pelo usuário do fluxo por duplicação/atraso. A listagem local ainda contém refs com esse nome; não reutilizar nem confundir com `Feature-Poderes-bankais`, e não excluir refs nesta revisão.
 - Documentação desta frente: modificar somente `Docs/poderes`. Documentos de outras pastas podem ser consultados, mas não editados sem nova orientação.
 - Preservar texturas/modelos homologados salvo pedido explícito de revisão. Atualização do formato Asauchi autorizada no ciclo 53. Aizen e Bankai original para ele estão adiados.
 - Trabalhar em português; informar alterações, validação e limites. Não pedir novamente autorização para tarefas já solicitadas; não presumir que proposta futura equivale a pedido de implementação.
@@ -93,7 +95,7 @@ $env:JAVA_HOME='C:\Program Files\Eclipse Adoptium\jdk-17.0.20.101-hotspot'
 
 O caminho do JDK é desta máquina; conferir em outro ambiente. Offline depende do cache já preparado. Não iniciar duas execuções Gradle simultâneas. Documentação isolada requer revisão de links/diff, não nova build. Nunca apresentar teste automatizado como homologação visual.
 
-## 6. Feature escolhida e próximos passos
+## 6. Histórico das escolhas — ciclos 37–43 (roadmap vigente no ciclo 61)
 
 O usuário escolheu implementar esquiva direcional universal com stamina. Após discutir dois toques em WASD, preferiu **Alt + direção**. Implementação do ciclo 37 concluída para playtest; não voltar a propor dois toques como controle vigente. Após testar esta feature, retomar a escolha da próxima implementação com o usuário.
 

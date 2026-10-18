@@ -1,3 +1,5 @@
+> **Entrada atual — 18/10/2026:** [continuidade](00-CONTINUIDADE-CODEX.md), [roadmap revisto](61-revisao-roadmap-pendencias-integracao-zaraki-2026-10-18.md) e [Higashi/Jardim em teste](60-higashi-execucao-jardim-persistente-2026-10-18.md). Byakuya/Urahara já foram entregues; revisões elementais e animações posteriores estão nos ciclos 52–60. Os avisos de “próximo kit” abaixo são históricos; este manual ainda requer consolidação completa após a integração Zaraki.
+
 > **Ciclo 40 — 15/10/2026:** playtest recebido; escudo refinado, esquiva/guarda habilitadas no criativo sem voo e esquiva ampliada para 3,5 blocos nominais. Build, 80 regressões e 73 GameTests aprovados. [Contrato e nova conferência](40-refinamento-escudo-criativo-esquiva-ishida-2026-10-15.md). Ishida adicionado à fila; Byakuya continua próximo.
 
 > **Ciclo 39 — 15/10/2026:** bloqueio/Postura/Guard Break juntos, escudo visível; segurar X configurável. Protocolo 2.11, schema 8. Build, 80 regressões e 71 GameTests obrigatórios aprovados; playtest pendente. [Contrato e roteiro](39-bloqueio-postura-guard-break-2026-10-15.md). Próximo kit: Byakuya; Mentor/Proficiências adiados para confirmação com a equipe.

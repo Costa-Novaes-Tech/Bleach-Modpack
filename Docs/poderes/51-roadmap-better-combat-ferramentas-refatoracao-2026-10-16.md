@@ -1,5 +1,7 @@
 # Ciclo 51 — Better Combat, ferramentas e refatoração dos kits
 
+> **Roadmap revisto em 18/10 — [ciclo 61](61-revisao-roadmap-pendencias-integracao-zaraki-2026-10-18.md):** bibliotecas de combate/GeckoLib e refatorações elementais já implementadas; ciclo 60 em playtest. `origin/bankai-zaraki` disponível localmente em `c17d274`; agora falta compatibilizar a integração, câmeras, rede e pacote. Photon/LDLib, medição e fluxo de autoria continuam pendentes. As etapas abaixo preservam a proposta histórica, não o estado atual de instalação.
+
 > Atualização posterior: [ciclo 59](59-liberacoes-gestos-senbon-benihime-asauchi-2026-10-17.md) implementa as liberações restantes e gestos Senbon/Benihime com a infraestrutura atual. Modelos finais de inimigos, VFX especializados e integração Zaraki continuam etapas futuras; não foi instalado outro mod nesta rodada.
 
 > Entrega posterior: [ciclo 56](56-repertorio-elemental-cinematica-combos-2026-10-17.md) implementa o repertório revisado completo, combos Ryūjin/Hyōrinmaru, pose final e dragões gigantes. Consulte sua matriz vigente; descrições abaixo registram o estado histórico.

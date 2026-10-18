@@ -1,6 +1,14 @@
 # Ciclo 38 — Ordem escolhida: defesa, treinamento e novos kits
 
-## Atualização vigente — 16/10/2026, ciclo 51
+## Roadmap vigente — 18/10/2026, ciclo 61
+
+[Revisão consolidada, pendências e integração Zaraki](61-revisao-roadmap-pendencias-integracao-zaraki-2026-10-18.md). Ciclos 52–60 já implementaram Better Combat/PlayerAnimator/GeckoLib, revisão Ryūjin/Hyōrinmaru, liberações/gestos e os ajustes Higashi/Jardim agora em playtest. Não reiniciar essas entregas com base na fila histórica abaixo.
+
+A referência local `origin/bankai-zaraki` já contém Nozarashi/Berserk e cinemática (`c17d274`); a pendência passa a ser compatibilizar e integrar, sem merge automático. Ordem técnica recomendada: retorno do playtest 60 → compatibilização Zaraki e validação conjunta → fluxo de assets/câmeras/áudio e medição → piloto Photon/LDLib. **Ishida permanece próximo kit de personagem; Mentor/Proficiências aguardam equipe; Aizen adiado; Gin removido.** Senbon/Benihime ainda não usam as hitboxes Better Combat; preservar alcance passivo ao avaliar essa migração.
+
+As listas abaixo são histórico: a revisão de Hyōrinmaru deixou de ser uma tarefa futura ao final da fila, e Byakuya/Urahara já foram implementados e homologados em suas versões anteriores. A nova revisão visual mantém seu próprio playtest.
+
+## Registro da atualização de 16/10/2026 — ciclo 51
 
 Defesa/esquiva, Byakuya e Urahara estão homologados. Usuário autorizou **Better Combat**, inclusão das ferramentas/bibliotecas pesquisadas e revisão tanto de **Hyōrinmaru quanto de Ryūjin Jakka**. [Análise do vídeo/skill, arquitetura e critérios](51-roadmap-better-combat-ferramentas-refatoracao-2026-10-16.md). As decisões históricas abaixo não proíbem essa nova frente.
 
