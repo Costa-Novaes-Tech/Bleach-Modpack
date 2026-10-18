@@ -32,6 +32,11 @@ public final class NozarashiReleaseEffects {
     public static final String BERSERK_RELEASE = "berserk_release", IMPACT = "impact";
     public static final int DURATION = 140, ERUPTION = 45, REVEAL = 47, SECOND_ROAR = 68, GRAB = 112, SLAM = 124;
     public static final int[] POUNDS = {24, 32, 40};
+    /**
+     * The "Bankai" voice line starts with the cinematic: "Ban-" lands around the first pound (~1.2 s) and the
+     * shouted "-KAAAI" runs from ~1.7 s to ~3.0 s, through the eruption. Competing sounds are ducked until then.
+     */
+    public static final int VOICE_TICKS = 84;
     private record Cinematic(long start, Vec3 anchor, Vec3 forward) { }
     private static final Map<UUID, Cinematic> ACTIVE = new HashMap<>();
     private NozarashiReleaseEffects() { }
@@ -64,7 +69,8 @@ public final class NozarashiReleaseEffects {
             if (Reference.FORM_BANKAI.equals(event.getNewForm())) {
                 ACTIVE.put(p.getUUID(), new Cinematic(p.level().getGameTime(), p.position(), forward));
                 NetworkHandler.sendToTrackingAndSelf(new ReleaseCinematicS2C(p.getId(), BERSERK_RELEASE, DURATION), p);
-                play(p, SoundEvents.WARDEN_HEARTBEAT, 3, .5F);
+                play(p, com.bleachmod.init.ModSounds.BANKAI_ZARAKI.get(), 2.5F, 1); // audible ~40 blocks around him
+                play(p, SoundEvents.WARDEN_HEARTBEAT, 1.2F, .5F);
             } else {
                 // Shikai: "Drink, Nozarashi" — a violent crimson burst, no cinematic.
                 BerserkVisuals.ring(p, p.position(), 2, 36, true);
@@ -83,15 +89,16 @@ public final class NozarashiReleaseEffects {
         // Freeze in place; the client also suppresses input while its camera runs.
         p.setDeltaMovement(0, Math.min(0, p.getDeltaMovement().y), 0); p.hurtMarked = true;
         // Heartbeat accelerating with the rage.
-        if (t < ERUPTION && (t % Math.max(4, 14 - t / 4) == 0)) play(p, SoundEvents.WARDEN_HEARTBEAT, 3, .5F + t * .012F);
-        if (t == 6) play(p, SoundEvents.WARDEN_ANGRY, 2, .6F);
-        if (t == 16) play(p, SoundEvents.ZOGLIN_ANGRY, 2, .5F);
+        // Heartbeat and growls stay under the voice line.
+        if (t < ERUPTION && (t % Math.max(4, 14 - t / 4) == 0)) play(p, SoundEvents.WARDEN_HEARTBEAT, 1.2F, .5F + t * .012F);
+        if (t == 6) play(p, SoundEvents.WARDEN_ANGRY, 1, .6F);
+        if (t == 16) play(p, SoundEvents.ZOGLIN_ANGRY, 1, .5F);
         if (t >= 8 && t < ERUPTION && t % 4 == 0) BerserkVisuals.ring(p, p.position(), .5 + (t - 8) * .09, 20, false);
         for (int pound : POUNDS) if (t == pound) { // fists hammering the ground
             Vec3 fist = p.position().add(c.forward.scale(.9));
             BerserkVisuals.impact(p, fist, 1.5F + (t - POUNDS[0]) * .08F);
             BerserkTerrain.crater(p, fist, 1.3, 1);
-            play(p, SoundEvents.ANVIL_LAND, 1.4F, .4F); play(p, SoundEvents.GENERIC_EXPLODE, .8F, .7F);
+            play(p, SoundEvents.ANVIL_LAND, .8F, .4F); play(p, SoundEvents.GENERIC_EXPLODE, .4F, .7F);
             shake(p, 3 + (t - POUNDS[0]) / 6);
         }
         if (t == ERUPTION) {
@@ -99,8 +106,9 @@ public final class NozarashiReleaseEffects {
             BerserkTerrain.crater(p, p.position(), 5.5, 3, 1.3); // the wielder stays on a pillar of ground
             BerserkVisuals.ring(p, p.position(), 3, 48, true);
             BerserkVisuals.ring(p, p.position(), 6, 64, true);
-            play(p, SoundEvents.GENERIC_EXPLODE, 3, .45F); play(p, SoundEvents.WARDEN_SONIC_BOOM, 2, .5F);
-            roar(p, 3);
+            // The shouted "-KAAAI" is still going: the blast and roar sit under it.
+            play(p, SoundEvents.GENERIC_EXPLODE, 1.8F, .45F); play(p, SoundEvents.WARDEN_SONIC_BOOM, 1.2F, .5F);
+            roar(p, 1.2F);
             shake(p, 10);
             for (LivingEntity e : level.getEntitiesOfClass(LivingEntity.class, p.getBoundingBox().inflate(12), e -> TechniqueTargets.allowed(p, e))) {
                 Vec3 away = e.position().subtract(p.position()).normalize();

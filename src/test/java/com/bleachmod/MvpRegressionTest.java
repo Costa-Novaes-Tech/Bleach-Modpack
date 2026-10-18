@@ -105,6 +105,24 @@ public final class MvpRegressionTest {
                 } catch (java.io.IOException e) { throw new AssertionError(e); }
             }
         });
+        test("Bankai voice line is a declared mono Ogg Vorbis that fits the ducked voice window", () -> {
+            try {
+                var assets = java.nio.file.Path.of("src/main/resources/assets/bleachmod");
+                String json = java.nio.file.Files.readString(assets.resolve("sounds.json"));
+                yes(json.contains("\"voice.bankai_zaraki\"") && json.contains("\"bleachmod:bankai_zaraki\""));
+                byte[] ogg = java.nio.file.Files.readAllBytes(assets.resolve("sounds/bankai_zaraki.ogg"));
+                // First page: 27-byte header + 1 lacing byte, then the Vorbis identification packet.
+                eq("OggS", new String(ogg, 0, 4, java.nio.charset.StandardCharsets.US_ASCII));
+                eq("\u0001vorbis", new String(ogg, 28, 7, java.nio.charset.StandardCharsets.US_ASCII));
+                eq(1, ogg[39] & 0xFF); // mono, so the line is positional around the wielder
+                var header = java.nio.ByteBuffer.wrap(ogg).order(java.nio.ByteOrder.LITTLE_ENDIAN);
+                int rate = header.getInt(40);
+                int last = -1; // the last page's granule position is the total sample count
+                for (int i = ogg.length - 4; i >= 0 && last < 0; i--) if (ogg[i] == 'O' && ogg[i + 1] == 'g' && ogg[i + 2] == 'g' && ogg[i + 3] == 'S') last = i;
+                double seconds = header.getLong(last + 6) / (double) rate;
+                yes(seconds > 3.5 && seconds * 20 <= com.bleachmod.common.technique.NozarashiReleaseEffects.VOICE_TICKS);
+            } catch (java.io.IOException e) { throw new AssertionError(e); }
+        });
         test("Shared technique definitions preserve all homologated costs and cooldowns", () -> {
             var definitions = com.bleachmod.common.technique.TechniqueDefinitions.all(); eq(36, definitions.size());
             Set<String> unique = new HashSet<>();
