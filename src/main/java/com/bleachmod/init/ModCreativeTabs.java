@@ -21,6 +21,9 @@ public final class ModCreativeTabs {
                 output.accept(ModItems.HYORINMARU.get());
                 output.accept(ModItems.SENBONZAKURA.get()); output.accept(ModItems.BENIHIME.get());
                 output.accept(ModItems.NOZARASHI.get());
+                output.accept(ModItems.TRAVEL_HUMAN_WORLD.get());
+                output.accept(ModItems.TRAVEL_SOUL_SOCIETY.get());
+                output.accept(ModItems.TRAVEL_HUECO_MUNDO.get());
                 output.accept(ModItems.HOLLOW_SPAWN_EGG.get());
                 ModItems.npcSpawnEggs().values().forEach(egg -> output.accept(egg.get()));
             })

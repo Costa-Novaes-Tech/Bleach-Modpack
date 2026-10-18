@@ -79,6 +79,9 @@ minecraft {
             property 'mixin.env.remapRefMap', 'true'
             property 'mixin.env.refMapRemappingFile', "${buildDir}/createSrgToMcp/output.srg"
 
+            // History Mode maps are versioned in the repository instead of living inside run/.
+            property 'bleachmod.mapsDir', project.file('history-maps').absolutePath
+
             mods {
                 "${mod_id}" {
                     source sourceSets.main

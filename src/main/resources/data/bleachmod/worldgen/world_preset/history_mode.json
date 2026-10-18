@@ -1,0 +1,64 @@
+{
+  "dimensions": {
+    "minecraft:overworld": {
+      "type": "minecraft:overworld",
+      "generator": {
+        "type": "minecraft:flat",
+        "settings": {
+          "biome": "minecraft:plains",
+          "lakes": false,
+          "features": false,
+          "structure_overrides": [],
+          "layers": [
+            { "block": "minecraft:bedrock", "height": 1 },
+            { "block": "minecraft:stone", "height": 125 },
+            { "block": "minecraft:dirt", "height": 2 },
+            { "block": "minecraft:grass_block", "height": 1 }
+          ]
+        }
+      }
+    },
+    "minecraft:the_nether": {
+      "type": "minecraft:the_nether",
+      "generator": {
+        "type": "minecraft:noise",
+        "settings": "minecraft:nether",
+        "biome_source": { "type": "minecraft:multi_noise", "preset": "minecraft:nether" }
+      }
+    },
+    "minecraft:the_end": {
+      "type": "minecraft:the_end",
+      "generator": {
+        "type": "minecraft:noise",
+        "settings": "minecraft:end",
+        "biome_source": { "type": "minecraft:the_end" }
+      }
+    },
+    "bleachmod:soul_society": {
+      "type": "bleachmod:soul_society",
+      "generator": {
+        "type": "minecraft:flat",
+        "settings": {
+          "biome": "minecraft:the_void",
+          "lakes": false,
+          "features": false,
+          "structure_overrides": [],
+          "layers": [{ "block": "minecraft:air", "height": 1 }]
+        }
+      }
+    },
+    "bleachmod:hueco_mundo": {
+      "type": "bleachmod:hueco_mundo",
+      "generator": {
+        "type": "minecraft:flat",
+        "settings": {
+          "biome": "minecraft:the_void",
+          "lakes": false,
+          "features": false,
+          "structure_overrides": [],
+          "layers": [{ "block": "minecraft:air", "height": 1 }]
+        }
+      }
+    }
+  }
+}
