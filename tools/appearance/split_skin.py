@@ -208,6 +208,24 @@ def save(img, path):
     img.resize((64 * SCALE, 64 * SCALE), Image.NEAREST).save(path)
 
 
+def load_skin(path):
+    """Opens a skin as 64x64 RGBA; legacy 64x32 skins get mirrored left limbs, like vanilla does."""
+    img = Image.open(path).convert("RGBA")
+    if img.size == (64, 64):
+        return img
+    if img.size != (64, 32):
+        raise ValueError(f"{path}: {img.size[0]}x{img.size[1]}, only 64x64 and 64x32 skins are supported")
+    out = Image.new("RGBA", (64, 64), (0, 0, 0, 0))
+    out.paste(img, (0, 0))
+    swap = {"right": "left", "left": "right"}
+    for src, dst in (((0, 16, 4, 12, 4), (16, 48, 4, 12, 4)), ((40, 16, 4, 12, 4), (32, 48, 4, 12, 4))):
+        to = faces(dst)
+        for name, (x, y, w, h) in faces(src).items():
+            dx, dy, _, _ = to[swap.get(name, name)]
+            out.paste(img.crop((x, y, x + w, y + h)).transpose(Image.FLIP_LEFT_RIGHT), (dx, dy))
+    return out
+
+
 def dropped_skins(known):
     """Entries for PNGs in SKINS_DIR that the manifest does not list yet."""
     entries = []
@@ -225,8 +243,8 @@ def dropped_skins(known):
             continue
         path = os.path.join(SKINS_DIR, file)
         size = Image.open(path).size
-        if size != (64, 64):
-            print(f"  skipped {file}: {size[0]}x{size[1]}, only 64x64 skins are supported")
+        if size not in ((64, 64), (64, 32)):
+            print(f"  skipped {file}: {size[0]}x{size[1]}, only 64x64 and 64x32 skins are supported")
             continue
         entry = {"name": name, "file": os.path.relpath(path, ROOT),
                  "source": {"author": "unknown", "license": "unverified", "origin": "tools/appearance/skins"}}
@@ -256,7 +274,7 @@ def main():
     sheet = []
     for npc in manifest["skins"]:
         name = npc["name"]
-        img = Image.open(os.path.join(ROOT, npc["file"])).convert("RGBA")
+        img = load_skin(os.path.join(ROOT, npc["file"]))
         pieces, skin = split(img, npc)
         for category, piece in pieces.items():
             if category in npc.get("skip", []) or piece.empty():

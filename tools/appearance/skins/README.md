@@ -1,6 +1,6 @@
 # Skins para recortar
 
-Coloque aqui skins de Minecraft **64×64** em PNG, com o nome do personagem em minúsculas e `_` no lugar de espaços:
+Coloque aqui skins de Minecraft **64×64** (ou o formato antigo 64×32, convertido automaticamente) em PNG, com o nome do personagem em minúsculas e `_` no lugar de espaços:
 
 ```
 kenpachi.png
