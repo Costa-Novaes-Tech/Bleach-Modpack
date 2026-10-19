@@ -1,0 +1,54 @@
+{
+  "anchor": "center",
+  "size": [920, 518],
+  "art_density": 2,
+  "max_width_fraction": 0.98,
+  "max_height_fraction": 0.98,
+  "debug": false,
+  "elements": [
+    {"id": "fill", "type": "image", "texture": "ui/window_fill.png", "pos": [62, 52], "size": [798, 385]},
+    {"id": "frame", "type": "image", "texture": "ui/window_frame.png", "pos": [58, 47], "size": [805, 393], "slice": [200, 40, 190, 40]},
+    {"id": "header", "type": "image", "texture": "ui/header_plaque.png", "pos": [240, 2]},
+    {"id": "title", "type": "text", "text": "{title}", "font": "bleachmod:title", "uppercase": true, "pos": [460, 39], "align": "center", "valign": "middle", "shadow": false, "letter_spacing": -3, "max_width": 330},
+    {"id": "list_panel", "type": "image", "texture": "journal/list_panel.png", "pos": [72, 318]},
+
+    {"id": "row{i}", "type": "button", "repeat": {"count": 5, "step": [0, 49]}, "texture": "journal/quest_row.png", "pos": [80, 82], "states": ["normal", "hover", "selected", "completed", "locked"], "state_if": {"selected": "row{i}_selected", "completed": "row{i}_done", "locked": "row{i}_locked"}, "visible_if": "row{i}_visible", "action": "row:{i}", "text": "{row{i}_name}", "label_pos": [46, 21], "scale": 0.85},
+    {"id": "row{i}_icon", "type": "image", "repeat": {"count": 5, "step": [0, 49]}, "texture": "ui/icon_flame.png", "pos": [92, 86], "visible_if": "row{i}_visible"},
+
+    {"id": "scroll_track", "type": "image", "texture": "journal/scroll_track.png", "pos": [384, 100], "size": [15, 210]},
+    {"id": "scroll_thumb", "type": "image", "texture": "journal/scroll_thumb.png", "states": ["normal", "hover", "pressed"], "pos": [385, 102], "slide_value": "list_scroll", "slide_range": 170},
+    {"id": "scroll_up", "type": "button", "texture": "journal/scroll_up.png", "states": ["normal", "hover", "pressed", "disabled"], "pos": [383, 82], "enabled_if": "can_up", "action": "scroll_up"},
+    {"id": "scroll_down", "type": "button", "texture": "journal/scroll_down.png", "states": ["normal", "hover", "pressed", "disabled"], "pos": [383, 311], "enabled_if": "can_down", "action": "scroll_down"},
+    {"id": "page_prev", "type": "button", "texture": "journal/page_prev.png", "states": ["normal", "hover", "pressed", "disabled"], "pos": [86, 340], "enabled_if": "can_up", "action": "page_prev"},
+    {"id": "page_next", "type": "button", "texture": "journal/page_next.png", "states": ["normal", "hover", "pressed", "disabled"], "pos": [332, 340], "enabled_if": "can_down", "action": "page_next"},
+
+    {"id": "parchment", "type": "image", "texture": "ui/parchment_journal.png", "pos": [416, 70]},
+    {"id": "deco_mask", "type": "image", "texture": "ui/parchment_mask.png", "pos": [684, 78], "tint": "#B3FFFFFF"},
+    {"id": "deco_castle", "type": "image", "texture": "ui/parchment_castle.png", "pos": [702, 322], "tint": "#B3FFFFFF"},
+    {"id": "deco_splash", "type": "image", "texture": "ui/parchment_splash.png", "pos": [598, 348]},
+    {"id": "title_brush", "type": "image", "texture": "ui/title_brush.png", "pos": [430, 86], "visible_if": "has_quest"},
+    {"id": "quest_title", "type": "text", "text": "{quest_title}", "font": "bleachmod:title", "pos": [456, 113], "valign": "middle", "shadow": false, "max_width": 200, "letter_spacing": -4, "visible_if": "has_quest"},
+    {"id": "quest_desc", "type": "text", "text": "{quest_desc}", "pos": [443, 142], "wrap": true, "max_width": 290, "line_height": 15, "max_lines": 4, "scale": 0.75, "color": "#3A2A1C", "shadow": false, "visible_if": "has_quest"},
+    {"id": "notice", "type": "text", "text": "{notice}", "pos": [443, 204], "wrap": true, "max_width": 290, "max_lines": 1, "scale": 0.7, "color": "#8B1A1A", "shadow": false, "visible_if": "has_notice"},
+
+    {"id": "objectives_bar", "type": "image", "texture": "ui/section_header.png", "pos": [440, 214]},
+    {"id": "objectives_label", "type": "text", "translate": "screen.bleachmod.journal.objectives", "uppercase": true, "bold": true, "color": "#5FD4FF", "pos": [476, 233], "valign": "middle", "scale": 0.85},
+    {"id": "obj{i}_marker", "type": "image", "repeat": {"count": 3, "step": [0, 17]}, "texture": "journal/objective_marker.png", "states": ["pending", "done", "failed"], "state_if": {"done": "obj{i}_done", "failed": "obj{i}_failed"}, "pos": [455, 255], "visible_if": "obj{i}_visible"},
+    {"id": "obj{i}_text", "type": "text", "repeat": {"count": 3, "step": [0, 17]}, "text": "{obj{i}_text}", "pos": [478, 263], "valign": "middle", "scale": 0.75, "color": "#3A2A1C", "shadow": false, "max_width": 340, "visible_if": "obj{i}_visible"},
+
+    {"id": "rewards_bar", "type": "image", "texture": "ui/section_header.png", "pos": [440, 306]},
+    {"id": "rewards_label", "type": "text", "translate": "screen.bleachmod.journal.rewards", "uppercase": true, "bold": true, "color": "#5FD4FF", "pos": [476, 325], "valign": "middle", "scale": 0.85},
+    {"id": "rew{i}_slot", "type": "image", "repeat": {"count": 2, "step": [0, 38]}, "texture": "journal/reward_slot.png", "pos": [455, 346], "visible_if": "rew{i}_visible"},
+    {"id": "rew{i}_icon", "type": "image", "repeat": {"count": 2, "step": [0, 38]}, "texture": "ui/icon_flame_small.png", "pos": [463, 350], "visible_if": "rew{i}_visible"},
+    {"id": "rew{i}_text", "type": "text", "repeat": {"count": 2, "step": [0, 38]}, "text": "{rew{i}_text}", "pos": [500, 363], "valign": "middle", "scale": 0.8, "color": "#3A2A1C", "shadow": false, "max_width": 200, "visible_if": "rew{i}_visible"},
+    {"id": "stamp_pt", "type": "image", "texture": "journal/stamp_completed_pt_br.png", "pos": [640, 360], "visible_if": "stamp_pt"},
+    {"id": "stamp_en", "type": "image", "texture": "journal/stamp_completed_en_us.png", "pos": [640, 360], "visible_if": "stamp_en"},
+
+    {"id": "flame_left", "type": "image", "texture": "ui/corner_flame_left.png", "pos": [12, 410]},
+    {"id": "flame_right", "type": "image", "texture": "ui/corner_flame_right.png", "pos": [856, 410]},
+    {"id": "start", "type": "button", "texture": "ui/button_wide.png", "states": ["normal", "hover", "pressed", "disabled"], "pos": [58, 442], "enabled_if": "can_start", "action": "start", "translate": "screen.bleachmod.journal.start"},
+    {"id": "claim", "type": "button", "texture": "ui/button_wide.png", "states": ["normal", "hover", "pressed", "disabled"], "pos": [260, 442], "enabled_if": "can_claim", "action": "claim", "translate": "screen.bleachmod.journal.claim"},
+    {"id": "track", "type": "button", "texture": "ui/button_wide.png", "states": ["normal", "hover", "pressed", "disabled"], "pos": [464, 442], "enabled_if": "can_track", "action": "track", "text": "{track_label}"},
+    {"id": "character", "type": "button", "texture": "ui/button_wide.png", "states": ["normal", "hover", "pressed", "disabled"], "pos": [669, 442], "action": "character", "translate": "screen.bleachmod.status"}
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "anchor": "center",
+  "size": [920, 518],
+  "art_density": 2,
+  "max_width_fraction": 0.98,
+  "max_height_fraction": 0.98,
+  "debug": false,
+  "elements": [
+    {"id": "fill", "type": "image", "texture": "ui/window_fill.png", "pos": [58, 50], "size": [804, 435]},
+    {"id": "frame", "type": "image", "texture": "ui/window_frame.png", "pos": [52, 44], "size": [815, 447], "slice": [200, 40, 190, 40]},
+    {"id": "header", "type": "image", "texture": "ui/header_plaque.png", "pos": [240, 2]},
+    {"id": "title", "type": "text", "text": "{title}", "font": "bleachmod:title", "uppercase": true, "pos": [460, 39], "align": "center", "valign": "middle", "shadow": false, "letter_spacing": -3, "max_width": 330},
+    {"id": "portrait_bg", "type": "image", "texture": "character/portrait_bg.png", "pos": [80, 87]},
+    {"id": "portrait_frame", "type": "image", "texture": "character/portrait_frame.png", "pos": [70, 77]},
+    {"id": "preview", "type": "entity", "source": "player", "pos": [110, 110], "size": [178, 242], "scale": 82, "yaw_value": "preview_yaw"},
+
+    {"id": "info_panel", "type": "image", "texture": "character/info_panel.png", "pos": [337, 79]},
+    {"id": "divider", "type": "image", "texture": "character/divider_flame.png", "pos": [337, 192]},
+    {"id": "sp", "type": "text", "text": "{sp}", "pos": [356, 104], "valign": "middle", "color": "#9BE8A0"},
+    {"id": "bp", "type": "text", "text": "{bp}", "pos": [607, 104], "valign": "middle", "color": "#F4D35E"},
+    {"id": "forms", "type": "text", "text": "{forms}", "pos": [356, 132], "valign": "middle", "max_width": 470},
+    {"id": "shikai_mastery", "type": "text", "text": "{shikai_mastery}", "pos": [356, 158], "valign": "middle", "color": "#CAB7FF"},
+    {"id": "bankai_mastery", "type": "text", "text": "{bankai_mastery}", "pos": [356, 180], "valign": "middle", "color": "#CAB7FF"},
+
+    {"id": "attr{i}_card", "type": "image", "repeat": {"count": 4, "start": 0, "step": [0, 51]}, "texture": "character/attribute_card.png", "pos": [337, 222]},
+    {"id": "attr{i}_icon", "type": "image", "repeat": {"count": 4, "start": 0, "step": [0, 51]}, "texture": "character/attribute_icons.png", "cells": 7, "cell": "{i}", "pos": [346, 230]},
+    {"id": "attr{i}_label", "type": "text", "repeat": {"count": 4, "start": 0, "step": [0, 51]}, "text": "{attr{i}_label}", "pos": [393, 244], "valign": "middle", "scale": 0.9, "max_width": 112},
+    {"id": "attr{i}_buy", "type": "button", "repeat": {"count": 4, "start": 0, "step": [0, 51]}, "texture": "character/buy_button.png", "states": ["normal", "hover", "pressed", "disabled"], "pos": [509, 230], "enabled_if": "attr{i}_ok", "action": "buy:{i}", "text": "{attr{i}_cost}", "scale": 0.8, "tooltip": "{attr{i}_tip}"},
+    {"id": "attr{i}_card", "type": "image", "repeat": {"count": 3, "start": 4, "step": [0, 51]}, "texture": "character/attribute_card.png", "pos": [598, 222]},
+    {"id": "attr{i}_icon", "type": "image", "repeat": {"count": 3, "start": 4, "step": [0, 51]}, "texture": "character/attribute_icons.png", "cells": 7, "cell": "{i}", "pos": [607, 230]},
+    {"id": "attr{i}_label", "type": "text", "repeat": {"count": 3, "start": 4, "step": [0, 51]}, "text": "{attr{i}_label}", "pos": [654, 244], "valign": "middle", "scale": 0.9, "max_width": 112},
+    {"id": "attr{i}_buy", "type": "button", "repeat": {"count": 3, "start": 4, "step": [0, 51]}, "texture": "character/buy_button.png", "states": ["normal", "hover", "pressed", "disabled"], "pos": [770, 230], "enabled_if": "attr{i}_ok", "action": "buy:{i}", "text": "{attr{i}_cost}", "scale": 0.8, "tooltip": "{attr{i}_tip}"},
+
+    {"id": "flame_left", "type": "image", "texture": "ui/corner_flame_left.png", "pos": [12, 410]},
+    {"id": "flame_right", "type": "image", "texture": "ui/corner_flame_right.png", "pos": [856, 410]},
+    {"id": "skill", "type": "button", "texture": "ui/footer_character.png", "states": ["normal", "hover", "pressed", "dim"], "pos": [72, 431], "enabled_if": "skill_ok", "action": "skill", "text": "{skill_label}", "scale": 0.9, "color": "#D8E6F5", "disabled_color": "#9AA6B8", "tooltip": "{skill_tip}"}
+  ]
+}

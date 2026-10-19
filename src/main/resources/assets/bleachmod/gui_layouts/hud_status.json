@@ -1,0 +1,33 @@
+{
+  "anchor": "top_left",
+  "offset": [8, 6],
+  "size": [480, 118],
+  "art_density": 2,
+  "max_width_fraction": 0.6,
+  "debug": false,
+  "elements": [
+    { "id": "panel", "type": "image", "texture": "hud/status_panel.png", "pos": [0, 0] },
+
+    { "id": "health", "type": "bar", "pos": [143, 31], "size": [267, 13], "skew": 12, "skew_end": 11,
+      "texture": "hud/status_fill_health.png" },
+    { "id": "reiatsu", "type": "bar", "pos": [166, 60], "size": [254, 13], "skew": 11, "skew_end": 13,
+      "texture": "hud/status_fill_reiatsu.png" },
+    { "id": "transform", "type": "bar", "pos": [186, 89], "size": [232, 13], "skew": 11, "skew_end": 12,
+      "texture": "hud/status_fill_transform.png" },
+
+    { "id": "health_pct", "type": "text", "text": "{health}%", "pos": [432, 38],
+      "align": "center", "valign": "middle", "scale": 0.75, "max_width": 38 },
+    { "id": "reiatsu_pct", "type": "text", "text": "{reiatsu}%", "pos": [439, 67],
+      "align": "center", "valign": "middle", "scale": 0.75, "max_width": 38 },
+    { "id": "transform_pct", "type": "text", "text": "{transform}%", "pos": [435, 96],
+      "align": "center", "valign": "middle", "scale": 0.75, "max_width": 38 },
+
+    { "id": "stamina_label", "type": "text", "translate": "hud.bleachmod.stamina",
+      "args": ["{stamina_now}", "{stamina_max}"], "pos": [0, 124],
+      "color": "#77DDAA", "color_if": { "stamina_exhausted": "#FF8855" } },
+    { "id": "stamina", "type": "bar", "pos": [0, 144], "size": [240, 8],
+      "color": "#77DDAA", "color_if": { "stamina_exhausted": "#FF8855" }, "background": "#CC222222" },
+    { "id": "combat", "type": "text", "translate": "hud.bleachmod.combat.active", "pos": [0, 158],
+      "color": "#F2A06B", "visible_if": "in_combat" }
+  ]
+}

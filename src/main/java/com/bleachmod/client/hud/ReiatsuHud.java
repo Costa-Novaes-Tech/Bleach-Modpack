@@ -1,16 +1,13 @@
 package com.bleachmod.client.hud;
 
-import com.bleachmod.client.BleachTextures;
+import com.bleachmod.client.gui.layout.LayoutContext;
+import com.bleachmod.client.gui.layout.LayoutRenderer;
 import com.bleachmod.common.CombatBalance;
 import com.bleachmod.common.data.AttributeData;
 import com.bleachmod.common.data.PlayerCapability;
 import com.bleachmod.common.data.PlayerData;
 import net.minecraft.client.Minecraft;
-import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
-
-import java.util.List;
 
 /**
  * Renders the compact Bleach HUD: VIDA / REIATSU / TRANSFORMACAO stay in a
@@ -41,82 +38,26 @@ public final class ReiatsuHud {
 
     private static void renderPanel(Minecraft mc, net.minecraft.client.gui.GuiGraphics g,
                                     int screenWidth, int screenHeight, PlayerData data) {
-        HudLayout.Panel panel = HudLayout.panel(screenWidth, screenHeight);
-        float scale = panel.scale();
-        int panelSrcW = BleachTextures.HUD_SRC_W;
-        int panelSrcH = BleachTextures.HUD_SRC_H;
-        int x = panel.x();
-        int y = panel.y();
-        int staminaY = y + panel.height() + 3;
-        int staminaWidth = Math.min(120, panel.width());
-        int staminaColor = data.getResources().isStaminaExhausted() ? 0xFFFF8855 : 0xFF77DDAA;
-        g.drawString(mc.font, Component.translatable("hud.bleachmod.stamina",
-                (int) Math.ceil(data.getResources().getStamina()), (int) Math.ceil(data.getResources().getMaxStamina())), x, staminaY, staminaColor, true);
-        g.fill(x, staminaY + 10, x + staminaWidth, staminaY + 14, 0xCC222222);
-        g.fill(x, staminaY + 10, x + (int) (staminaWidth * data.getResources().getStamina()
-                / data.getResources().getMaxStamina()), staminaY + 14, staminaColor);
-        if (data.getStatus().isHudInCombat())
-            g.drawString(mc.font, Component.translatable("hud.bleachmod.combat.active"), x, staminaY + 17, 0xF2A06B, true);
+        // Positions, sizes and colors live in assets/bleachmod/gui_layouts/hud_*.json;
+        // this method only supplies the live values.
+        var resources = data.getResources();
+        LayoutContext context = new LayoutContext()
+                .value("health", computeHealthRatio(mc, data))
+                .value("reiatsu", resources.getCurrentReiatsu() / Math.max(1f, resources.getMaxReiatsu()))
+                .value("transform", computeTransformRatio(mc, data))
+                .value("stamina", resources.getStamina() / Math.max(1f, resources.getMaxStamina()))
+                .text("stamina_now", (int) Math.ceil(resources.getStamina()))
+                .text("stamina_max", (int) Math.ceil(resources.getMaxStamina()))
+                .text("reiatsu_now", (int) resources.getCurrentReiatsu())
+                .text("reiatsu_max", (int) resources.getMaxReiatsu())
+                .text("form", com.bleachmod.common.evolution.FormNames.of(data.getCharacter(), data.getCharacter().getActiveForm()))
+                .text("tp", (int) resources.getTrainingPoints())
+                .text("cooldowns", formatCooldowns(data))
+                .flag("stamina_exhausted", resources.isStaminaExhausted())
+                .flag("in_combat", data.getStatus().isHudInCombat());
 
-        // Panel base (hud_panel_full.png) drawn at scale.
-        g.pose().pushPose();
-        g.pose().translate(x, y, 0);
-        g.pose().scale(scale, scale, 1.0F);
-        BleachTextures.blit(g, BleachTextures.HUD_PANEL, 0, 0, panelSrcW, panelSrcH, panelSrcW, panelSrcH);
-        g.pose().popPose();
-
-        // Three bar rows: VIDA, REIATSU, TRANSFORMACAO.
-        // Each fill uses the measured bounds of its own well. The three rows have
-        // different left edges and widths because their labels and right caps differ.
-        float healthRatio = computeHealthRatio(mc, data);
-        float reiatsuRatio = Math.max(0f, Math.min(1f,
-                data.getResources().getCurrentReiatsu() / Math.max(1f, data.getResources().getMaxReiatsu())));
-        float transformRatio = computeTransformRatio(mc, data);
-
-        drawConceptBar(g, x, y, scale,
-                BleachTextures.HUD_HEALTH_BOUNDS,
-                BleachTextures.HUD_HEALTH_FILL, healthRatio);
-        drawConceptBar(g, x, y, scale,
-                BleachTextures.HUD_REIATSU_BOUNDS,
-                BleachTextures.HUD_REIATSU_FILL, reiatsuRatio);
-        drawConceptBar(g, x, y, scale,
-                BleachTextures.HUD_TRANSFORM_BOUNDS,
-                BleachTextures.HUD_TRANSFORM_FILL, transformRatio);
-
-        // Percentage labels (drawn in code so they track the live value).
-        drawPercentLabel(g, mc.font, x, y, scale,
-                BleachTextures.HUD_HEALTH_BOUNDS, healthRatio * 100f);
-        drawPercentLabel(g, mc.font, x, y, scale,
-                BleachTextures.HUD_REIATSU_BOUNDS, reiatsuRatio * 100f);
-        drawPercentLabel(g, mc.font, x, y, scale,
-                BleachTextures.HUD_TRANSFORM_BOUNDS, transformRatio * 100f);
-
-        drawInformation(g, mc, screenWidth, screenHeight, data);
-    }
-
-    private static void drawInformation(net.minecraft.client.gui.GuiGraphics g, Minecraft mc,
-                                        int screenWidth, int screenHeight, PlayerData data) {
-        List<InfoLine> lines = List.of(
-                new InfoLine(Component.translatable("hud.bleachmod.reiatsu",
-                        (int) data.getResources().getCurrentReiatsu(),
-                        (int) data.getResources().getMaxReiatsu()), 0xE8C547),
-                new InfoLine(Component.translatable("hud.bleachmod.target",
-                        com.bleachmod.common.evolution.FormNames.of(data.getCharacter(), data.getCharacter().getActiveForm())), 0xCAB7FF),
-                new InfoLine(Component.translatable("hud.bleachmod.tp",
-                        (int) data.getResources().getTrainingPoints()), 0xA0E8A0),
-                new InfoLine(Component.translatable("hud.bleachmod.cooldowns",
-                        formatCooldowns(data)), 0xFFD090)
-        );
-        int lineStep = mc.font.lineHeight + 2;
-        int blockWidth = lines.stream().mapToInt(line -> mc.font.width(line.text())).max().orElse(0);
-        int blockHeight = mc.font.lineHeight + lineStep * (lines.size() - 1);
-        HudLayout.Point position = HudLayout.information(screenWidth, screenHeight, blockWidth, blockHeight);
-
-        for (int index = 0; index < lines.size(); index++) {
-            InfoLine line = lines.get(index);
-            g.drawString(mc.font, line.text(), position.x(), position.y() + index * lineStep,
-                    line.color(), true);
-        }
+        LayoutRenderer.render(g, mc.font, "hud_status", context, screenWidth, screenHeight);
+        LayoutRenderer.render(g, mc.font, "hud_info", context, screenWidth, screenHeight);
     }
 
     private static String formatCooldowns(PlayerData data) {
@@ -158,56 +99,5 @@ public final class ReiatsuHud {
             previousRender = 0L;
         }
         return Math.max(0f, Math.min(1f, shownCharge / 100f));
-    }
-
-    private static void drawConceptBar(net.minecraft.client.gui.GuiGraphics g, int panelX, int panelY,
-                                       float scale, BleachTextures.HudBarBounds bounds,
-                                       ResourceLocation fillTexture, float ratio) {
-        if (ratio <= 0f) {
-            return;
-        }
-        int destY = panelY + Math.round(bounds.y() * scale);
-        int destH = Math.max(1, Math.round(bounds.height() * scale));
-
-        // Draw one GUI-pixel slice at a time. Both sides interpolate between their
-        // measured top and bottom positions, producing the same slanted well as the
-        // reference instead of a rectangular fill that crosses the frame.
-        for (int row = 0; row < destH; row++) {
-            float t = destH == 1 ? 0.5F : (row + 0.5F) / destH;
-            float sourceRow = t * bounds.height();
-            int left = panelX + Math.round(lerp(bounds.topX(), bounds.bottomX(), t) * scale);
-            int right = panelX + Math.round(lerp(bounds.topRight(), bounds.bottomRight(), t) * scale);
-            int fullWidth = Math.max(1, right - left);
-            int visibleWidth = Math.max(1, Math.round(fullWidth * ratio));
-            int srcY = Math.min(BleachTextures.HUD_FILL_SRC_H - 1,
-                    (int) (sourceRow * BleachTextures.HUD_FILL_SRC_H / bounds.height()));
-
-            BleachTextures.blitSlice(g, fillTexture, left, destY + row, visibleWidth, 1,
-                    0, srcY,
-                    Math.max(1, Math.round(BleachTextures.HUD_FILL_SRC_W * ratio)), 1,
-                    BleachTextures.HUD_FILL_SRC_W, BleachTextures.HUD_FILL_SRC_H);
-        }
-    }
-
-    private static float lerp(int start, int end, float amount) {
-        return start + (end - start) * amount;
-    }
-
-    private static void drawPercentLabel(net.minecraft.client.gui.GuiGraphics g, net.minecraft.client.gui.Font font,
-                                         int panelX, int panelY, float scale,
-                                         BleachTextures.HudBarBounds bounds, float percent) {
-        int pct = Math.round(percent);
-        String text = pct + "%";
-        float textScale = Math.max(0.72F, Math.min(1.0F, scale / 0.14F));
-        int rightX = panelX + Math.round(bounds.percentRight() * scale);
-        int centerY = panelY + Math.round((bounds.y() + bounds.height() / 2f) * scale);
-        g.pose().pushPose();
-        g.pose().translate(rightX, centerY, 0);
-        g.pose().scale(textScale, textScale, 1.0F);
-        g.drawString(font, text, -font.width(text), -font.lineHeight / 2, 0xFFFFFFFF, true);
-        g.pose().popPose();
-    }
-
-    private record InfoLine(Component text, int color) {
     }
 }

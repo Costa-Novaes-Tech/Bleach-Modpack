@@ -10,9 +10,6 @@ import com.bleachmod.common.network.c2s.UpdateAppearanceC2S;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.gui.screens.inventory.InventoryScreen;
-import net.minecraft.world.entity.LivingEntity;
-import org.joml.Quaternionf;
 import net.minecraft.network.chat.Component;
 
 import java.util.ArrayList;
@@ -200,7 +197,7 @@ public class CharacterAppearanceScreen extends Screen {
         }
         if (minecraft.player != null) {
             AppearanceClient.preview(minecraft.player.getUUID(), look);
-            renderPreview(graphics, previewX(), previewY(), 70, previewYaw, minecraft.player);
+            EntityPreview.render(graphics, previewX(), previewY(), 70, previewYaw, minecraft.player);
             graphics.drawCenteredString(font, Component.translatable("screen.bleachmod.appearance.rotate_hint"), previewX(), previewY() + 14, 0xFF9A927C);
         }
         super.render(graphics, mouseX, mouseY, partialTick);
@@ -209,24 +206,6 @@ public class CharacterAppearanceScreen extends Screen {
     private int previewX() { return Math.max(300, width * 2 / 3); }
 
     private int previewY() { return height / 2 + 70; }
-
-    /** Inventory-style render with a fixed, viewer-facing pose turned by {@code yaw}; the entity's rotations are restored. */
-    private static void renderPreview(GuiGraphics graphics, int x, int y, int scale, float yaw, LivingEntity entity) {
-        float body = entity.yBodyRot, bodyO = entity.yBodyRotO, rot = entity.getYRot(), pitch = entity.getXRot();
-        float head = entity.yHeadRot, headO = entity.yHeadRotO;
-        float facing = 180.0F + yaw;
-        entity.yBodyRot = entity.yBodyRotO = facing;
-        entity.setYRot(facing);
-        entity.setXRot(0.0F);
-        entity.yHeadRot = entity.yHeadRotO = facing;
-        InventoryScreen.renderEntityInInventory(graphics, x, y, scale, new Quaternionf().rotateZ((float) Math.PI), new Quaternionf(), entity);
-        entity.yBodyRot = body;
-        entity.yBodyRotO = bodyO;
-        entity.setYRot(rot);
-        entity.setXRot(pitch);
-        entity.yHeadRot = head;
-        entity.yHeadRotO = headO;
-    }
 
     private boolean overPreview(double mouseX, double mouseY) {
         return Math.abs(mouseX - previewX()) <= 60 && mouseY >= previewY() - 160 && mouseY <= previewY() + 20;

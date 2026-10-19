@@ -7,7 +7,7 @@ import com.bleachmod.common.quest.objectives.*;
 import com.bleachmod.common.quest.rewards.*;
 import com.bleachmod.common.evolution.*;
 import com.bleachmod.common.ProgressionService;
-import com.bleachmod.client.hud.HudLayout;
+import com.bleachmod.client.gui.layout.*;
 import com.google.gson.*;
 import net.minecraft.nbt.CompoundTag;
 import java.util.*;
@@ -767,17 +767,69 @@ public final class MvpRegressionTest {
             PlayerProvider replacement=new PlayerProvider();replacement.deserializeNBT(provider.serializeNBT());
             eq(321F,replacement.getData().getResources().getTrainingPoints());
         });
-        test("HUD panel remains compact across GUI widths",()->{
-            HudLayout.Panel narrow=HudLayout.panel(339,189), normal=HudLayout.panel(509,189), wide=HudLayout.panel(1017,189);
-            yes(narrow.width()<normal.width());yes(normal.width()<wide.width());
-            yes(narrow.width()<=339*.60F);yes(normal.width()<=509*.60F);yes(wide.width()<1017*.35F);
+        test("HUD status panel keeps native pixel size and only shrinks on narrow GUIs",()->{
+            GuiLayout status=layout("hud_status");
+            var narrow=LayoutGeometry.place(status,339,189); var normal=LayoutGeometry.place(status,509,189); var wide=LayoutGeometry.place(status,1017,189);
+            eq(240F,normal.width(status));eq(240F,wide.width(status));
+            yes(narrow.width(status)<normal.width(status));yes(narrow.width(status)<=339*.60F);
             yes(normal.x()>0);yes(normal.y()>0);
         });
-        test("HUD information stays beside or above the hotbar",()->{
-            HudLayout.Point beside=HudLayout.information(509,189,110,31);
-            yes(beside.x()+110<=509/2-91);yes(beside.y()+31<=189);
-            HudLayout.Point above=HudLayout.information(320,180,110,31);
-            eq(6,above.x());yes(above.y()+31<=180-22-6);
+        test("HUD information sits in the lower-left corner, above the hotbar on narrow GUIs",()->{
+            GuiLayout info=layout("hud_info");
+            var corner=LayoutGeometry.place(info,509,189);
+            eq(6F,corner.x());eq(189F-6,corner.y()+corner.height(info));yes(corner.x()+corner.width(info)<=509/2F-91);
+            var above=LayoutGeometry.place(info,320,180);
+            eq(6F,above.x());yes(above.y()+above.height(info)<=180-22-6);
+        });
+        test("GUI layouts parse and bar fills match their wells pixel for pixel",()->{
+            var dir=java.nio.file.Path.of("src/main/resources/assets/bleachmod/gui_layouts");
+            try(var files=java.nio.file.Files.list(dir)){
+                for(var file:files.filter(f->f.toString().endsWith(".json")).toList()){
+                    String id=file.getFileName().toString().replace(".json","");
+                    GuiLayout layout=layout(id);
+                    for(var element:layout.elements()){
+                        if(element instanceof GuiLayout.Image image){var img=texture(image.texture());
+                            if(img.getWidth()%image.states().count()!=0)throw new AssertionError(id+"/"+image.common().id()+": "+img.getWidth()+"px nao divide em "+image.states().count()+" estados");}
+                        if(element instanceof GuiLayout.Button button){var img=texture(button.texture());
+                            if(img.getWidth()%button.states().count()!=0)throw new AssertionError(id+"/"+button.common().id()+": "+img.getWidth()+"px nao divide em "+button.states().count()+" estados");}
+                        if(!(element instanceof GuiLayout.Bar bar)) continue;
+                        for(int row=0;row<bar.h();row++){int[] span=LayoutGeometry.barRow(bar.w(),bar.h(),bar.skew(),bar.skewEnd(),row);yes(span[0]>=0&&span[1]<=bar.w()&&span[0]<span[1]);}
+                        if(bar.texture()!=null){var img=texture(bar.texture());
+                            if(img.getWidth()!=bar.w()||img.getHeight()!=bar.h())throw new AssertionError(id+"/"+bar.common().id()+": fill "+img.getWidth()+"x"+img.getHeight()+" != bar "+bar.w()+"x"+bar.h());}
+                    }
+                }
+            }catch(java.io.IOException e){throw new RuntimeException(e);}
+        });
+        test("GUI screen layouts expand repeats and keep every element inside the canvas",()->{
+            GuiLayout journal=layout("journal");
+            long rows=journal.elements().stream().filter(e->e.common().id().matches("row[0-9]")).count();
+            eq(5L,rows);
+            var row3=(GuiLayout.Button)journal.elements().stream().filter(e->e.common().id().equals("row3")).findFirst().orElseThrow();
+            eq("row:3",row3.action());eq("row3_selected",row3.states().stateIf().get("selected"));
+            var icon=(GuiLayout.Image)layout("character").elements().stream().filter(e->e.common().id().equals("attr5_icon")).findFirst().orElseThrow();
+            eq(5,icon.states().cell());eq(7,icon.states().count());
+            for(String id:List.of("journal","form_wheel","character")){
+                GuiLayout l=layout(id);
+                for(var e:l.elements()){var c=e.common();
+                    if(c.x()<0||c.y()<0||c.x()>l.width()||c.y()>l.height())throw new AssertionError(id+"/"+c.id()+" fora do canvas");}
+                var small=LayoutGeometry.place(l,480,270);yes(small.width(l)<=480&&small.height(l)<=270);
+            }
+            var cells=new GuiLayout.States(List.of("normal","hover","pressed","disabled"),Map.of("pressed","x"),-1);
+            yes(GuiLayout.States.NONE.count()==1);eq(4,cells.count());
+        });
+        test("GUI layout errors name the element and field",()->{
+            String message=null;
+            try{GuiLayoutParser.parse("x","{\"size\":[10,10],\"elements\":[{\"id\":\"vida\",\"type\":\"bar\",\"pos\":[0,0]}]}");}
+            catch(GuiLayoutParser.LayoutException e){message=e.getMessage();}
+            yes(message!=null&&message.contains("vida")&&message.contains("size"));
+            message=null;
+            try{GuiLayoutParser.parse("x","{\"size\":[10,10],\"elements\":[{\"type\":\"rect\",\"size\":[1,1],\"color\":\"azul\"}]}");}
+            catch(GuiLayoutParser.LayoutException e){message=e.getMessage();}
+            yes(message!=null&&message.contains("color")&&message.contains("azul"));
+            var ctx=new LayoutContext().value("health",.504F).text("tp",7).flag("in_combat",true);
+            eq("50%",ctx.resolve("{health}%"));eq(7,ctx.resolve("{tp}"));eq("{nada}",ctx.resolve("{nada}"));
+            yes(ctx.test("in_combat"));yes(!ctx.test("!in_combat"));yes(ctx.test(null));
+            eq(0xFFFF8855,ctx.color(0xFF77DDAA,Map.of("in_combat",0xFFFF8855)));
         });
         test("client form snapshot cannot overwrite logical server snapshot",()->{
             var initial=FormRegistry.parse(forms().toString());FormRegistry.installServer(initial);
@@ -1020,6 +1072,14 @@ public final class MvpRegressionTest {
     private static PlayerData player(){PlayerData d=new PlayerData();d.initializeShinigami();d.getCharacter().bindZanpakuto("ryujin_jakka");d.getCharacter().preserveLegacyTechniques();return d;}
     private static Quest quest(){Quest q=new Quest();q.setStringId("q");q.getObjectives().add(new KillObjective("minecraft:zombie",5,KillObjective.SpawnMode.NATURAL,KillObjective.CountMode.ANY_MATCHING));q.getRewards().add(new TpsReward(100));return q;}
     private static JsonObject forms(){JsonObject r=new JsonObject(),groups=new JsonObject();groups.add("zanpakuto",FormDefaults.shinigamiGroup().toJson());r.add("shinigami",groups);return r;}
+    private static GuiLayout layout(String id){
+        try{return GuiLayoutParser.parse(id,java.nio.file.Files.readString(java.nio.file.Path.of("src/main/resources/assets/bleachmod/gui_layouts/"+id+".json")));}
+        catch(java.io.IOException e){throw new RuntimeException(e);}
+    }
+    private static java.awt.image.BufferedImage texture(net.minecraft.resources.ResourceLocation location){
+        try{return javax.imageio.ImageIO.read(java.nio.file.Path.of("src/main/resources/assets",location.getNamespace(),location.getPath()).toFile());}
+        catch(java.io.IOException e){throw new AssertionError("missing texture "+location,e);}
+    }
     private static void test(String name,Runnable action){try{action.run();count++;System.out.println("PASS "+name);}catch(Throwable e){throw new AssertionError(name,e);}}
     private static void yes(boolean value){if(!value)throw new AssertionError("Expected true");}
     private static void eq(Object expected,Object actual){if(!Objects.equals(expected,actual))throw new AssertionError("Expected "+expected+" but got "+actual);}

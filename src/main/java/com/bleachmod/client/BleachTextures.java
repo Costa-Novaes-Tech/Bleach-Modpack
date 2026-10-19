@@ -15,10 +15,6 @@ public final class BleachTextures {
     public static final ResourceLocation ICON_OBJECTIVE_KILL = gui("hud/icon_objective_kill.png");
     public static final ResourceLocation ICON_OBJECTIVE_ITEM = gui("hud/icon_objective_item.png");
     public static final ResourceLocation ICON_QUEST_TRACK = gui("hud/icon_quest_track.png");
-    public static final ResourceLocation HUD_PANEL = gui("hud/hud_panel_full.png");
-    public static final ResourceLocation HUD_HEALTH_FILL = gui("hud/hud_health_fill.png");
-    public static final ResourceLocation HUD_REIATSU_FILL = gui("hud/hud_reiatsu_fill.png");
-    public static final ResourceLocation HUD_TRANSFORM_FILL = gui("hud/hud_transform_fill.png");
 
     public static final ResourceLocation FORM_SEALED = gui("forms/sealed.png");
     public static final ResourceLocation FORM_SHIKAI = gui("forms/shikai.png");
@@ -83,30 +79,6 @@ public final class BleachTextures {
     public static final int TOAST_FAIL_SRC = 987;
     public static final int TOAST_CLAIM_SRC = 663;
 
-    // HUD conceitual (hud_panel_full.png, 2169 x 725).
-    // Medidas reais extraidas pixel-a-pixel do PNG (slots horizontais onde os fills aparecem).
-    public static final int HUD_SRC_W = 2169;
-    public static final int HUD_SRC_H = 725;
-    // Cada fill (hud_*_fill.png) tem 1280 x 110. Os pocos do painel, entretanto,
-    // nao formam uma grade uniforme: os rotulos avancam progressivamente para a
-    // direita e as duas extremidades internas sao inclinadas. O preenchimento cobre
-    // todo o poco ate a borda direita, como na referencia conceitual. Coordenadas
-    // medidas no PNG original (antes da escala responsiva aplicada pelo HudLayout).
-    public record HudBarBounds(int topX, int topRight, int bottomX, int bottomRight,
-                               int y, int height, int percentRight) {
-    }
-
-    // The wells are parallelograms rather than rectangles. These four horizontal
-    // limits follow the inner edges visible in the original concept reference.
-    public static final HudBarBounds HUD_HEALTH_BOUNDS =
-            new HudBarBounds(705, 2110, 665, 2035, 234, 71, 2048);
-    public static final HudBarBounds HUD_REIATSU_BOUNDS =
-            new HudBarBounds(820, 2138, 775, 2073, 364, 75, 2055);
-    public static final HudBarBounds HUD_TRANSFORM_BOUNDS =
-            new HudBarBounds(880, 2085, 850, 1995, 492, 75, 2038);
-
-    public static final int HUD_FILL_SRC_W = 1280;   // largura real do fill base
-    public static final int HUD_FILL_SRC_H = 110;    // altura do fill base
 
     private BleachTextures() {
     }

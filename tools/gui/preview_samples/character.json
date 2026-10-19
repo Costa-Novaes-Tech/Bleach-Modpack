@@ -1,0 +1,13 @@
+{
+  "flags": ["attr0_ok", "attr1_ok", "attr2_ok", "attr4_ok"],
+  "texts": {
+    "title": "Character",
+    "sp": "Spirit Points: 0", "bp": "BP: 0", "forms": "Active: Sealed | Target: Sealed",
+    "shikai_mastery": "Shikai mastery: 0 / 100", "bankai_mastery": "Bankai mastery: 0 / 100",
+    "attr0_label": "Zanjutsu  0", "attr1_label": "Hakuda  0", "attr2_label": "Vitality  0", "attr3_label": "Resistance  0",
+    "attr4_label": "Kidou  0", "attr5_label": "Reserve  0", "attr6_label": "Control  0",
+    "attr0_cost": "100 SP", "attr1_cost": "100 SP", "attr2_cost": "100 SP", "attr3_cost": "100 SP",
+    "attr4_cost": "100 SP", "attr5_cost": "100 SP", "attr6_cost": "100 SP",
+    "skill_label": "Discover the form through mastery training"
+  }
+}
