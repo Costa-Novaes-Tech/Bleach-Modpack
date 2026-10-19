@@ -997,6 +997,22 @@ public final class MvpRegressionTest {
             eq(0x111111,com.bleachmod.client.appearance.SkinCompositor.tint("eye",look,0x111111));
             eq(-1,com.bleachmod.client.appearance.SkinCompositor.tint("none",look,0x111111));
         });
+        test("Every roster NPC has a skin, a spawn egg model and names in both languages",()->{
+            var roster=com.bleachmod.registry.NpcRoster.entries(); yes(roster.size()>=30);
+            var ids=new HashSet<String>();
+            JsonObject pt, en;
+            try(var a=MvpRegressionTest.class.getResourceAsStream("/assets/bleachmod/lang/pt_br.json");var b=MvpRegressionTest.class.getResourceAsStream("/assets/bleachmod/lang/en_us.json")){
+                pt=JsonParser.parseReader(new java.io.InputStreamReader(a,java.nio.charset.StandardCharsets.UTF_8)).getAsJsonObject();
+                en=JsonParser.parseReader(new java.io.InputStreamReader(b,java.nio.charset.StandardCharsets.UTF_8)).getAsJsonObject();
+            }catch(java.io.IOException e){throw new RuntimeException(e);}
+            for(var npc:roster){
+                yes(ids.add(npc.id()));
+                yes(MvpRegressionTest.class.getResource("/assets/bleachmod/textures/entity/"+npc.id()+".png")!=null);
+                yes(MvpRegressionTest.class.getResource("/assets/bleachmod/models/item/npc_"+npc.id()+"_spawn_egg.json")!=null);
+                for(var lang:List.of(pt,en)){ yes(lang.has("entity.bleachmod.npc_"+npc.id())); yes(lang.has("item.bleachmod.npc_"+npc.id()+"_spawn_egg")); }
+            }
+            rejects(()->com.bleachmod.registry.NpcRoster.parse(JsonParser.parseString("{\"npcs\":[{\"id\":\"Bad Id\",\"eggPrimary\":\"#000000\",\"eggSecondary\":\"#000000\"}]}").getAsJsonObject()));
+        });
         System.out.println("PASS: "+count+" regression scenarios");
     }
     private static Map<String,com.bleachmod.server.world.HistoryWorld.Destination> historyManifest(String json){try{var f=java.nio.file.Files.createTempFile("maps",".json");try{java.nio.file.Files.writeString(f,json);return com.bleachmod.server.world.HistoryWorld.parse(f);}finally{java.nio.file.Files.deleteIfExists(f);}}catch(java.io.IOException e){throw new IllegalArgumentException(e);}}

@@ -759,6 +759,228 @@
       }
     },
     {
+      "id": "hair:ginjo",
+      "category": "hair",
+      "inspiredBy": "ginjo",
+      "layers": [
+        {
+          "texture": "bleachmod:textures/appearance/hair/ginjo.png",
+          "tint": "none"
+        },
+        {
+          "texture": "bleachmod:textures/appearance/hair/ginjo_tint.png",
+          "tint": "hair"
+        }
+      ],
+      "source": {
+        "author": "unknown",
+        "license": "unverified",
+        "origin": "tools/appearance/skins"
+      },
+      "defaultColor": "#3E3E3E"
+    },
+    {
+      "id": "eyes:ginjo",
+      "category": "eyes",
+      "inspiredBy": "ginjo",
+      "layers": [
+        {
+          "texture": "bleachmod:textures/appearance/eyes/ginjo.png",
+          "tint": "none"
+        },
+        {
+          "texture": "bleachmod:textures/appearance/eyes/ginjo_tint.png",
+          "tint": "eye"
+        }
+      ],
+      "source": {
+        "author": "unknown",
+        "license": "unverified",
+        "origin": "tools/appearance/skins"
+      },
+      "defaultColor": "#EDB99A"
+    },
+    {
+      "id": "mouth:ginjo",
+      "category": "mouth",
+      "inspiredBy": "ginjo",
+      "layers": [
+        {
+          "texture": "bleachmod:textures/appearance/mouth/ginjo.png",
+          "tint": "none"
+        }
+      ],
+      "source": {
+        "author": "unknown",
+        "license": "unverified",
+        "origin": "tools/appearance/skins"
+      }
+    },
+    {
+      "id": "outfit:ginjo",
+      "category": "outfit",
+      "inspiredBy": "ginjo",
+      "layers": [
+        {
+          "texture": "bleachmod:textures/appearance/outfit/ginjo.png",
+          "tint": "none"
+        }
+      ],
+      "source": {
+        "author": "unknown",
+        "license": "unverified",
+        "origin": "tools/appearance/skins"
+      }
+    },
+    {
+      "id": "hair:grimmjow",
+      "category": "hair",
+      "inspiredBy": "grimmjow",
+      "layers": [
+        {
+          "texture": "bleachmod:textures/appearance/hair/grimmjow.png",
+          "tint": "none"
+        },
+        {
+          "texture": "bleachmod:textures/appearance/hair/grimmjow_tint.png",
+          "tint": "hair"
+        }
+      ],
+      "source": {
+        "author": "unknown",
+        "license": "unverified",
+        "origin": "tools/appearance/skins"
+      },
+      "defaultColor": "#66CCFF"
+    },
+    {
+      "id": "eyes:grimmjow",
+      "category": "eyes",
+      "inspiredBy": "grimmjow",
+      "layers": [
+        {
+          "texture": "bleachmod:textures/appearance/eyes/grimmjow.png",
+          "tint": "none"
+        },
+        {
+          "texture": "bleachmod:textures/appearance/eyes/grimmjow_tint.png",
+          "tint": "eye"
+        }
+      ],
+      "source": {
+        "author": "unknown",
+        "license": "unverified",
+        "origin": "tools/appearance/skins"
+      },
+      "defaultColor": "#EEA58B"
+    },
+    {
+      "id": "mouth:grimmjow",
+      "category": "mouth",
+      "inspiredBy": "grimmjow",
+      "layers": [
+        {
+          "texture": "bleachmod:textures/appearance/mouth/grimmjow.png",
+          "tint": "none"
+        }
+      ],
+      "source": {
+        "author": "unknown",
+        "license": "unverified",
+        "origin": "tools/appearance/skins"
+      }
+    },
+    {
+      "id": "outfit:grimmjow",
+      "category": "outfit",
+      "inspiredBy": "grimmjow",
+      "layers": [
+        {
+          "texture": "bleachmod:textures/appearance/outfit/grimmjow.png",
+          "tint": "none"
+        }
+      ],
+      "source": {
+        "author": "unknown",
+        "license": "unverified",
+        "origin": "tools/appearance/skins"
+      }
+    },
+    {
+      "id": "hair:harribel",
+      "category": "hair",
+      "inspiredBy": "harribel",
+      "layers": [
+        {
+          "texture": "bleachmod:textures/appearance/hair/harribel.png",
+          "tint": "none"
+        },
+        {
+          "texture": "bleachmod:textures/appearance/hair/harribel_tint.png",
+          "tint": "hair"
+        }
+      ],
+      "source": {
+        "author": "unknown",
+        "license": "unverified",
+        "origin": "tools/appearance/skins"
+      },
+      "defaultColor": "#EFC48D"
+    },
+    {
+      "id": "eyes:harribel",
+      "category": "eyes",
+      "inspiredBy": "harribel",
+      "layers": [
+        {
+          "texture": "bleachmod:textures/appearance/eyes/harribel.png",
+          "tint": "none"
+        },
+        {
+          "texture": "bleachmod:textures/appearance/eyes/harribel_tint.png",
+          "tint": "eye"
+        }
+      ],
+      "source": {
+        "author": "unknown",
+        "license": "unverified",
+        "origin": "tools/appearance/skins"
+      },
+      "defaultColor": "#D2845F"
+    },
+    {
+      "id": "mouth:harribel",
+      "category": "mouth",
+      "inspiredBy": "harribel",
+      "layers": [
+        {
+          "texture": "bleachmod:textures/appearance/mouth/harribel.png",
+          "tint": "none"
+        }
+      ],
+      "source": {
+        "author": "unknown",
+        "license": "unverified",
+        "origin": "tools/appearance/skins"
+      }
+    },
+    {
+      "id": "outfit:harribel",
+      "category": "outfit",
+      "inspiredBy": "harribel",
+      "layers": [
+        {
+          "texture": "bleachmod:textures/appearance/outfit/harribel.png",
+          "tint": "none"
+        }
+      ],
+      "source": {
+        "author": "unknown",
+        "license": "unverified",
+        "origin": "tools/appearance/skins"
+      }
+    },
+    {
       "id": "hair:hinamori",
       "category": "hair",
       "inspiredBy": "hinamori",
@@ -956,6 +1178,180 @@
       }
     },
     {
+      "id": "hair:hiyori",
+      "category": "hair",
+      "inspiredBy": "hiyori",
+      "layers": [
+        {
+          "texture": "bleachmod:textures/appearance/hair/hiyori.png",
+          "tint": "none"
+        },
+        {
+          "texture": "bleachmod:textures/appearance/hair/hiyori_tint.png",
+          "tint": "hair"
+        }
+      ],
+      "source": {
+        "author": "unknown",
+        "license": "unverified",
+        "origin": "tools/appearance/skins"
+      },
+      "defaultColor": "#FFE787"
+    },
+    {
+      "id": "eyes:hiyori",
+      "category": "eyes",
+      "inspiredBy": "hiyori",
+      "layers": [
+        {
+          "texture": "bleachmod:textures/appearance/eyes/hiyori.png",
+          "tint": "none"
+        },
+        {
+          "texture": "bleachmod:textures/appearance/eyes/hiyori_tint.png",
+          "tint": "eye"
+        }
+      ],
+      "source": {
+        "author": "unknown",
+        "license": "unverified",
+        "origin": "tools/appearance/skins"
+      },
+      "defaultColor": "#FFB34F"
+    },
+    {
+      "id": "outfit:hiyori",
+      "category": "outfit",
+      "inspiredBy": "hiyori",
+      "layers": [
+        {
+          "texture": "bleachmod:textures/appearance/outfit/hiyori.png",
+          "tint": "none"
+        }
+      ],
+      "source": {
+        "author": "unknown",
+        "license": "unverified",
+        "origin": "tools/appearance/skins"
+      }
+    },
+    {
+      "id": "hair:ichigo_bankai",
+      "category": "hair",
+      "inspiredBy": "ichigo_bankai",
+      "layers": [
+        {
+          "texture": "bleachmod:textures/appearance/hair/ichigo_bankai.png",
+          "tint": "none"
+        },
+        {
+          "texture": "bleachmod:textures/appearance/hair/ichigo_bankai_tint.png",
+          "tint": "hair"
+        }
+      ],
+      "source": {
+        "author": "unknown",
+        "license": "unverified",
+        "origin": "tools/appearance/skins"
+      },
+      "defaultColor": "#FF7600"
+    },
+    {
+      "id": "eyes:ichigo_bankai",
+      "category": "eyes",
+      "inspiredBy": "ichigo_bankai",
+      "layers": [
+        {
+          "texture": "bleachmod:textures/appearance/eyes/ichigo_bankai.png",
+          "tint": "none"
+        },
+        {
+          "texture": "bleachmod:textures/appearance/eyes/ichigo_bankai_tint.png",
+          "tint": "eye"
+        }
+      ],
+      "source": {
+        "author": "unknown",
+        "license": "unverified",
+        "origin": "tools/appearance/skins"
+      },
+      "defaultColor": "#ED8E69"
+    },
+    {
+      "id": "outfit:ichigo_bankai",
+      "category": "outfit",
+      "inspiredBy": "ichigo_bankai",
+      "layers": [
+        {
+          "texture": "bleachmod:textures/appearance/outfit/ichigo_bankai.png",
+          "tint": "none"
+        }
+      ],
+      "source": {
+        "author": "unknown",
+        "license": "unverified",
+        "origin": "tools/appearance/skins"
+      }
+    },
+    {
+      "id": "hair:ichigo_school",
+      "category": "hair",
+      "inspiredBy": "ichigo_school",
+      "layers": [
+        {
+          "texture": "bleachmod:textures/appearance/hair/ichigo_school.png",
+          "tint": "none"
+        },
+        {
+          "texture": "bleachmod:textures/appearance/hair/ichigo_school_tint.png",
+          "tint": "hair"
+        }
+      ],
+      "source": {
+        "author": "unknown",
+        "license": "unverified",
+        "origin": "tools/appearance/skins"
+      },
+      "defaultColor": "#FF7B14"
+    },
+    {
+      "id": "eyes:ichigo_school",
+      "category": "eyes",
+      "inspiredBy": "ichigo_school",
+      "layers": [
+        {
+          "texture": "bleachmod:textures/appearance/eyes/ichigo_school.png",
+          "tint": "none"
+        },
+        {
+          "texture": "bleachmod:textures/appearance/eyes/ichigo_school_tint.png",
+          "tint": "eye"
+        }
+      ],
+      "source": {
+        "author": "unknown",
+        "license": "unverified",
+        "origin": "tools/appearance/skins"
+      },
+      "defaultColor": "#0765F1"
+    },
+    {
+      "id": "outfit:ichigo_school",
+      "category": "outfit",
+      "inspiredBy": "ichigo_school",
+      "layers": [
+        {
+          "texture": "bleachmod:textures/appearance/outfit/ichigo_school.png",
+          "tint": "none"
+        }
+      ],
+      "source": {
+        "author": "unknown",
+        "license": "unverified",
+        "origin": "tools/appearance/skins"
+      }
+    },
+    {
       "id": "hair:ikkaku",
       "category": "hair",
       "inspiredBy": "ikkaku",
@@ -1090,6 +1486,59 @@
       "layers": [
         {
           "texture": "bleachmod:textures/appearance/outfit/kenpachi.png",
+          "tint": "none"
+        }
+      ],
+      "source": {
+        "author": "unknown",
+        "license": "unverified",
+        "origin": "tools/appearance/skins"
+      }
+    },
+    {
+      "id": "hair:kensei",
+      "category": "hair",
+      "inspiredBy": "kensei",
+      "layers": [
+        {
+          "texture": "bleachmod:textures/appearance/hair/kensei.png",
+          "tint": "none"
+        },
+        {
+          "texture": "bleachmod:textures/appearance/hair/kensei_tint.png",
+          "tint": "hair"
+        }
+      ],
+      "source": {
+        "author": "unknown",
+        "license": "unverified",
+        "origin": "tools/appearance/skins"
+      },
+      "defaultColor": "#C0BDB8"
+    },
+    {
+      "id": "eyes:kensei",
+      "category": "eyes",
+      "inspiredBy": "kensei",
+      "layers": [
+        {
+          "texture": "bleachmod:textures/appearance/eyes/kensei.png",
+          "tint": "none"
+        }
+      ],
+      "source": {
+        "author": "unknown",
+        "license": "unverified",
+        "origin": "tools/appearance/skins"
+      }
+    },
+    {
+      "id": "outfit:kensei",
+      "category": "outfit",
+      "inspiredBy": "kensei",
+      "layers": [
+        {
+          "texture": "bleachmod:textures/appearance/outfit/kensei.png",
           "tint": "none"
         }
       ],
@@ -1238,6 +1687,80 @@
       }
     },
     {
+      "id": "hair:love",
+      "category": "hair",
+      "inspiredBy": "love",
+      "layers": [
+        {
+          "texture": "bleachmod:textures/appearance/hair/love.png",
+          "tint": "none"
+        },
+        {
+          "texture": "bleachmod:textures/appearance/hair/love_tint.png",
+          "tint": "hair"
+        }
+      ],
+      "source": {
+        "author": "unknown",
+        "license": "unverified",
+        "origin": "tools/appearance/skins"
+      },
+      "defaultColor": "#433329"
+    },
+    {
+      "id": "eyes:love",
+      "category": "eyes",
+      "inspiredBy": "love",
+      "layers": [
+        {
+          "texture": "bleachmod:textures/appearance/eyes/love.png",
+          "tint": "none"
+        },
+        {
+          "texture": "bleachmod:textures/appearance/eyes/love_tint.png",
+          "tint": "eye"
+        }
+      ],
+      "source": {
+        "author": "unknown",
+        "license": "unverified",
+        "origin": "tools/appearance/skins"
+      },
+      "defaultColor": "#F2BF91"
+    },
+    {
+      "id": "mouth:love",
+      "category": "mouth",
+      "inspiredBy": "love",
+      "layers": [
+        {
+          "texture": "bleachmod:textures/appearance/mouth/love.png",
+          "tint": "none"
+        }
+      ],
+      "source": {
+        "author": "unknown",
+        "license": "unverified",
+        "origin": "tools/appearance/skins"
+      }
+    },
+    {
+      "id": "outfit:love",
+      "category": "outfit",
+      "inspiredBy": "love",
+      "layers": [
+        {
+          "texture": "bleachmod:textures/appearance/outfit/love.png",
+          "tint": "none"
+        }
+      ],
+      "source": {
+        "author": "unknown",
+        "license": "unverified",
+        "origin": "tools/appearance/skins"
+      }
+    },
+    {
       "id": "hair:mayuri",
       "category": "hair",
       "inspiredBy": "mayuri",
@@ -1297,6 +1820,144 @@
       "layers": [
         {
           "texture": "bleachmod:textures/appearance/outfit/mayuri.png",
+          "tint": "none"
+        }
+      ],
+      "source": {
+        "author": "unknown",
+        "license": "unverified",
+        "origin": "tools/appearance/skins"
+      }
+    },
+    {
+      "id": "hair:nel",
+      "category": "hair",
+      "inspiredBy": "nel",
+      "layers": [
+        {
+          "texture": "bleachmod:textures/appearance/hair/nel.png",
+          "tint": "none"
+        }
+      ],
+      "source": {
+        "author": "unknown",
+        "license": "unverified",
+        "origin": "tools/appearance/skins"
+      }
+    },
+    {
+      "id": "eyes:nel",
+      "category": "eyes",
+      "inspiredBy": "nel",
+      "layers": [
+        {
+          "texture": "bleachmod:textures/appearance/eyes/nel.png",
+          "tint": "none"
+        }
+      ],
+      "source": {
+        "author": "unknown",
+        "license": "unverified",
+        "origin": "tools/appearance/skins"
+      }
+    },
+    {
+      "id": "mouth:nel",
+      "category": "mouth",
+      "inspiredBy": "nel",
+      "layers": [
+        {
+          "texture": "bleachmod:textures/appearance/mouth/nel.png",
+          "tint": "none"
+        }
+      ],
+      "source": {
+        "author": "unknown",
+        "license": "unverified",
+        "origin": "tools/appearance/skins"
+      }
+    },
+    {
+      "id": "outfit:nel",
+      "category": "outfit",
+      "inspiredBy": "nel",
+      "layers": [
+        {
+          "texture": "bleachmod:textures/appearance/outfit/nel.png",
+          "tint": "none"
+        }
+      ],
+      "source": {
+        "author": "unknown",
+        "license": "unverified",
+        "origin": "tools/appearance/skins"
+      }
+    },
+    {
+      "id": "hair:nnoitra",
+      "category": "hair",
+      "inspiredBy": "nnoitra",
+      "layers": [
+        {
+          "texture": "bleachmod:textures/appearance/hair/nnoitra.png",
+          "tint": "none"
+        },
+        {
+          "texture": "bleachmod:textures/appearance/hair/nnoitra_tint.png",
+          "tint": "hair"
+        }
+      ],
+      "source": {
+        "author": "unknown",
+        "license": "unverified",
+        "origin": "tools/appearance/skins"
+      },
+      "defaultColor": "#303030"
+    },
+    {
+      "id": "eyes:nnoitra",
+      "category": "eyes",
+      "inspiredBy": "nnoitra",
+      "layers": [
+        {
+          "texture": "bleachmod:textures/appearance/eyes/nnoitra.png",
+          "tint": "none"
+        },
+        {
+          "texture": "bleachmod:textures/appearance/eyes/nnoitra_tint.png",
+          "tint": "eye"
+        }
+      ],
+      "source": {
+        "author": "unknown",
+        "license": "unverified",
+        "origin": "tools/appearance/skins"
+      },
+      "defaultColor": "#513861"
+    },
+    {
+      "id": "mouth:nnoitra",
+      "category": "mouth",
+      "inspiredBy": "nnoitra",
+      "layers": [
+        {
+          "texture": "bleachmod:textures/appearance/mouth/nnoitra.png",
+          "tint": "none"
+        }
+      ],
+      "source": {
+        "author": "unknown",
+        "license": "unverified",
+        "origin": "tools/appearance/skins"
+      }
+    },
+    {
+      "id": "outfit:nnoitra",
+      "category": "outfit",
+      "inspiredBy": "nnoitra",
+      "layers": [
+        {
+          "texture": "bleachmod:textures/appearance/outfit/nnoitra.png",
           "tint": "none"
         }
       ],
@@ -1418,6 +2079,60 @@
       }
     },
     {
+      "id": "hair:shinji",
+      "category": "hair",
+      "inspiredBy": "shinji",
+      "layers": [
+        {
+          "texture": "bleachmod:textures/appearance/hair/shinji_tint.png",
+          "tint": "hair"
+        }
+      ],
+      "source": {
+        "author": "unknown",
+        "license": "unverified",
+        "origin": "tools/appearance/skins"
+      },
+      "defaultColor": "#FFE66D"
+    },
+    {
+      "id": "eyes:shinji",
+      "category": "eyes",
+      "inspiredBy": "shinji",
+      "layers": [
+        {
+          "texture": "bleachmod:textures/appearance/eyes/shinji.png",
+          "tint": "none"
+        },
+        {
+          "texture": "bleachmod:textures/appearance/eyes/shinji_tint.png",
+          "tint": "eye"
+        }
+      ],
+      "source": {
+        "author": "unknown",
+        "license": "unverified",
+        "origin": "tools/appearance/skins"
+      },
+      "defaultColor": "#D1B288"
+    },
+    {
+      "id": "outfit:shinji",
+      "category": "outfit",
+      "inspiredBy": "shinji",
+      "layers": [
+        {
+          "texture": "bleachmod:textures/appearance/outfit/shinji.png",
+          "tint": "none"
+        }
+      ],
+      "source": {
+        "author": "unknown",
+        "license": "unverified",
+        "origin": "tools/appearance/skins"
+      }
+    },
+    {
       "id": "hair:soifon",
       "category": "hair",
       "inspiredBy": "soifon",
@@ -1461,6 +2176,207 @@
       "layers": [
         {
           "texture": "bleachmod:textures/appearance/outfit/soifon.png",
+          "tint": "none"
+        }
+      ],
+      "source": {
+        "author": "unknown",
+        "license": "unverified",
+        "origin": "tools/appearance/skins"
+      }
+    },
+    {
+      "id": "hair:starrk",
+      "category": "hair",
+      "inspiredBy": "starrk",
+      "layers": [
+        {
+          "texture": "bleachmod:textures/appearance/hair/starrk.png",
+          "tint": "none"
+        },
+        {
+          "texture": "bleachmod:textures/appearance/hair/starrk_tint.png",
+          "tint": "hair"
+        }
+      ],
+      "source": {
+        "author": "unknown",
+        "license": "unverified",
+        "origin": "tools/appearance/skins"
+      },
+      "defaultColor": "#3F1E15"
+    },
+    {
+      "id": "eyes:starrk",
+      "category": "eyes",
+      "inspiredBy": "starrk",
+      "layers": [
+        {
+          "texture": "bleachmod:textures/appearance/eyes/starrk.png",
+          "tint": "none"
+        },
+        {
+          "texture": "bleachmod:textures/appearance/eyes/starrk_tint.png",
+          "tint": "eye"
+        }
+      ],
+      "source": {
+        "author": "unknown",
+        "license": "unverified",
+        "origin": "tools/appearance/skins"
+      },
+      "defaultColor": "#DCB183"
+    },
+    {
+      "id": "mouth:starrk",
+      "category": "mouth",
+      "inspiredBy": "starrk",
+      "layers": [
+        {
+          "texture": "bleachmod:textures/appearance/mouth/starrk.png",
+          "tint": "none"
+        }
+      ],
+      "source": {
+        "author": "unknown",
+        "license": "unverified",
+        "origin": "tools/appearance/skins"
+      }
+    },
+    {
+      "id": "outfit:starrk",
+      "category": "outfit",
+      "inspiredBy": "starrk",
+      "layers": [
+        {
+          "texture": "bleachmod:textures/appearance/outfit/starrk.png",
+          "tint": "none"
+        }
+      ],
+      "source": {
+        "author": "unknown",
+        "license": "unverified",
+        "origin": "tools/appearance/skins"
+      }
+    },
+    {
+      "id": "hair:szayelaporro",
+      "category": "hair",
+      "inspiredBy": "szayelaporro",
+      "layers": [
+        {
+          "texture": "bleachmod:textures/appearance/hair/szayelaporro.png",
+          "tint": "none"
+        },
+        {
+          "texture": "bleachmod:textures/appearance/hair/szayelaporro_tint.png",
+          "tint": "hair"
+        }
+      ],
+      "source": {
+        "author": "unknown",
+        "license": "unverified",
+        "origin": "tools/appearance/skins"
+      },
+      "defaultColor": "#FFB0CA"
+    },
+    {
+      "id": "eyes:szayelaporro",
+      "category": "eyes",
+      "inspiredBy": "szayelaporro",
+      "layers": [
+        {
+          "texture": "bleachmod:textures/appearance/eyes/szayelaporro.png",
+          "tint": "none"
+        },
+        {
+          "texture": "bleachmod:textures/appearance/eyes/szayelaporro_tint.png",
+          "tint": "eye"
+        }
+      ],
+      "source": {
+        "author": "unknown",
+        "license": "unverified",
+        "origin": "tools/appearance/skins"
+      },
+      "defaultColor": "#F3BB7B"
+    },
+    {
+      "id": "outfit:szayelaporro",
+      "category": "outfit",
+      "inspiredBy": "szayelaporro",
+      "layers": [
+        {
+          "texture": "bleachmod:textures/appearance/outfit/szayelaporro.png",
+          "tint": "none"
+        }
+      ],
+      "source": {
+        "author": "unknown",
+        "license": "unverified",
+        "origin": "tools/appearance/skins"
+      }
+    },
+    {
+      "id": "hair:tosen",
+      "category": "hair",
+      "inspiredBy": "tosen",
+      "layers": [
+        {
+          "texture": "bleachmod:textures/appearance/hair/tosen.png",
+          "tint": "none"
+        }
+      ],
+      "source": {
+        "author": "unknown",
+        "license": "unverified",
+        "origin": "tools/appearance/skins"
+      }
+    },
+    {
+      "id": "eyes:tosen",
+      "category": "eyes",
+      "inspiredBy": "tosen",
+      "layers": [
+        {
+          "texture": "bleachmod:textures/appearance/eyes/tosen.png",
+          "tint": "none"
+        },
+        {
+          "texture": "bleachmod:textures/appearance/eyes/tosen_tint.png",
+          "tint": "eye"
+        }
+      ],
+      "source": {
+        "author": "unknown",
+        "license": "unverified",
+        "origin": "tools/appearance/skins"
+      },
+      "defaultColor": "#9777CE"
+    },
+    {
+      "id": "mouth:tosen",
+      "category": "mouth",
+      "inspiredBy": "tosen",
+      "layers": [
+        {
+          "texture": "bleachmod:textures/appearance/mouth/tosen.png",
+          "tint": "none"
+        }
+      ],
+      "source": {
+        "author": "unknown",
+        "license": "unverified",
+        "origin": "tools/appearance/skins"
+      }
+    },
+    {
+      "id": "outfit:tosen",
+      "category": "outfit",
+      "inspiredBy": "tosen",
+      "layers": [
+        {
+          "texture": "bleachmod:textures/appearance/outfit/tosen.png",
           "tint": "none"
         }
       ],

@@ -62,6 +62,12 @@ public final class ModItems {
     public static final RegistryObject<Item> NPC_URAHARA_SPAWN_EGG = npcEgg("urahara", ModEntities.NPC_URAHARA, 0x506644, 0xD4A17C);
     public static final RegistryObject<Item> NPC_ULQUIORRA_SPAWN_EGG = npcEgg("ulquiorra", ModEntities.NPC_ULQUIORRA, 0xE8E5DB, 0x315B4D);
 
+    static {
+        for (com.bleachmod.registry.NpcRoster.Entry npc : com.bleachmod.registry.NpcRoster.entries())
+            if (!NPC_SPAWN_EGGS.containsKey(npc.id()))
+                npcEgg(npc.id(), ModEntities.questNpcs().get(npc.id()), npc.eggPrimary(), npc.eggSecondary());
+    }
+
     private static RegistryObject<Item> npcEgg(String npcId,
                                                 RegistryObject<? extends net.minecraft.world.entity.EntityType<? extends net.minecraft.world.entity.Mob>> entityType,
                                                 int primary, int secondary) {
@@ -72,7 +78,7 @@ public final class ModItems {
     }
 
     public static Map<String, RegistryObject<Item>> npcSpawnEggs() {
-        return Map.copyOf(NPC_SPAWN_EGGS);
+        return java.util.Collections.unmodifiableMap(NPC_SPAWN_EGGS);
     }
 
     private ModItems() {

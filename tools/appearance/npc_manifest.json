@@ -1,5 +1,5 @@
 {
-  "_comment": "Source skins for tools/appearance/split_skin.py. Every skin must keep source/author/license filled before a public release.",
+  "_comment": "Source skins for tools/appearance/split_skin.py. Every skin must keep source/author/license filled before a public release. names: display names for NPCs and editor pieces coming from tools/appearance/skins (string, or {pt, en}).",
   "skinColors": [
     "#F3D2B5",
     "#EBC09B",
@@ -114,5 +114,65 @@
       },
       "skinTolerance": 8
     }
-  ]
+  ],
+  "names": {
+    "aizen": "Sōsuke Aizen",
+    "aizen_hogyoku": "Sōsuke Aizen (Hōgyoku)",
+    "aizen_sealed": {
+      "pt": "Sōsuke Aizen (selado)",
+      "en": "Sōsuke Aizen (sealed)"
+    },
+    "hinamori": "Momo Hinamori",
+    "hisagi": "Shūhei Hisagi",
+    "hitsugaya": "Tōshirō Hitsugaya",
+    "ikkaku": "Ikkaku Madarame",
+    "kenpachi": "Kenpachi Zaraki",
+    "komamura": "Sajin Komamura",
+    "kyoraku": "Shunsui Kyōraku",
+    "mayuri": "Mayuri Kurotsuchi",
+    "rangiku": "Rangiku Matsumoto",
+    "renji": "Renji Abarai",
+    "soifon": "Soi Fon",
+    "ukitake": "Jūshirō Ukitake",
+    "unohana": "Retsu Unohana",
+    "urahara_hatless": {
+      "pt": "Kisuke Urahara (sem chapéu)",
+      "en": "Kisuke Urahara (no hat)"
+    },
+    "yoruichi": "Yoruichi Shihōin",
+    "yumichika": "Yumichika Ayasegawa",
+    "starrk": {
+      "pt": "Coyote Starrk",
+      "en": "Coyote Starrk",
+      "short": "Starrk"
+    },
+    "grimmjow": "Grimmjow Jaegerjaquez",
+    "harribel": {
+      "pt": "Tier Harribel",
+      "en": "Tier Harribel",
+      "short": "Harribel"
+    },
+    "shinji": "Shinji Hirako",
+    "ichigo_bankai": "Ichigo Kurosaki (Bankai)",
+    "ichigo_school": {
+      "pt": "Ichigo Kurosaki (escola)",
+      "en": "Ichigo Kurosaki (school)"
+    },
+    "tosen": {
+      "pt": "Kaname Tōsen",
+      "en": "Kaname Tōsen",
+      "short": "Tōsen"
+    },
+    "kensei": "Kensei Muguruma",
+    "ginjo": {
+      "pt": "Kūgo Ginjō",
+      "en": "Kūgo Ginjō",
+      "short": "Ginjō"
+    },
+    "love": "Love Aikawa",
+    "nel": "Nel Tu",
+    "nnoitra": "Nnoitra Gilga",
+    "hiyori": "Hiyori Sarugaki",
+    "szayelaporro": "Szayelaporro Granz"
+  }
 }
