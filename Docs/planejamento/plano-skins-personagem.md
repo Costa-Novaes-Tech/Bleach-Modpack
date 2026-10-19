@@ -25,7 +25,7 @@ Simplificações em relação ao plano abaixo:
 - Se o jogador desligar "Chapéu" nas opções de skin do Minecraft, a parte externa do cabelo some.
 - **Licença:** as 8 skins de NPC estão marcadas `"license": "unverified"` no manifesto e no catálogo. Antes de uma versão pública, cada uma precisa de autorização do autor, licença livre ou redesenho (§13.3).
 
-**Atualização (19/10/2026, tarde):** catálogo com 148 peças de 41 skins (8 NPCs originais + 33 em `tools/appearance/skins/`: Gotei 13, Vizards, Fullbringers, Arrancar/Espada e variantes do Ichigo e do Aizen). `split_skin.py` também converte skins 64×32 e transforma cada skin da pasta em **NPC sem quest**: textura de entidade, ovo gerador, nomes pt/en e `data/bleachmod/npcs/roster.json`, lido por `NpcRoster` ao registrar entidades e itens. Os 8 NPCs antigos continuam com suas quests; os novos abrem a tela de missões vazia até receberem quests por JSON (`questGiver` = id do NPC).
+**Atualização (19/10/2026, tarde):** catálogo com 149 peças de 41 skins (8 NPCs originais + 33 em `tools/appearance/skins/`: Gotei 13, Vizards, Fullbringers, Arrancar/Espada e variantes do Ichigo e do Aizen). `split_skin.py` também converte skins 64×32 e transforma cada skin da pasta em **NPC sem quest**: textura de entidade, ovo gerador, nomes pt/en e `data/bleachmod/npcs/roster.json`, lido por `NpcRoster` ao registrar entidades e itens. Os 8 NPCs antigos continuam com suas quests; os novos abrem a tela de missões vazia até receberem quests por JSON (`questGiver` = id do NPC).
 
 Para gerar as peças de novo: `python3 tools/appearance/split_skin.py --preview pecas.png`. Ajustes por skin ficam no manifesto (`skinTolerance`, `skinSample`, `tintHair`, `mouthRow`, `skip`).
 
