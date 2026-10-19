@@ -8,6 +8,9 @@ The catalog consumed by the mod (data/bleachmod/appearance/catalog.json) is rewr
 from the manifest, so run this again after editing the manifest or the source skins.
 
     python3 tools/appearance/split_skin.py [--preview out.png]
+
+New skins: drop 64x64 PNGs named after the character (kenpachi.png, renji.png) into
+tools/appearance/skins/ and run the command again.
 """
 import argparse
 import colorsys
@@ -20,6 +23,9 @@ RES = os.path.join(ROOT, "src", "main", "resources")
 TEX = os.path.join(RES, "assets", "bleachmod", "textures", "appearance")
 CATALOG = os.path.join(RES, "data", "bleachmod", "appearance", "catalog.json")
 MANIFEST = os.path.join(os.path.dirname(__file__), "npc_manifest.json")
+# Drop-in folder: every <name>.png here becomes pieces too; an optional <name>.json beside it
+# carries the source (author, license, link) and the same tuning keys as a manifest entry.
+SKINS_DIR = os.path.join(os.path.dirname(__file__), "skins")
 SCALE = 2  # 64x64 sources -> 128x128 pieces
 
 # Box UVs of the vanilla player model: (u, v, width, height, depth).
@@ -202,12 +208,46 @@ def save(img, path):
     img.resize((64 * SCALE, 64 * SCALE), Image.NEAREST).save(path)
 
 
+def dropped_skins(known):
+    """Entries for PNGs in SKINS_DIR that the manifest does not list yet."""
+    entries = []
+    if not os.path.isdir(SKINS_DIR):
+        return entries
+    for file in sorted(os.listdir(SKINS_DIR)):
+        name, ext = os.path.splitext(file)
+        if ext.lower() != ".png":
+            continue
+        name = name.lower().replace("-", "_").replace(" ", "_")
+        if not name.replace("_", "").isalnum() or not name.isascii():
+            print(f"  skipped {file}: use letters, digits and _ in the file name")
+            continue
+        if name in known:
+            continue
+        path = os.path.join(SKINS_DIR, file)
+        size = Image.open(path).size
+        if size != (64, 64):
+            print(f"  skipped {file}: {size[0]}x{size[1]}, only 64x64 skins are supported")
+            continue
+        entry = {"name": name, "file": os.path.relpath(path, ROOT),
+                 "source": {"author": "unknown", "license": "unverified", "origin": "tools/appearance/skins"}}
+        sidecar = os.path.join(SKINS_DIR, os.path.splitext(file)[0] + ".json")
+        if os.path.exists(sidecar):
+            with open(sidecar, encoding="utf-8") as f:
+                extra = json.load(f)
+            entry["source"].update(extra.pop("source", {}))
+            entry.update(extra)
+        entries.append(entry)
+        known.add(name)
+    return entries
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument("--preview", help="write a contact sheet of every generated piece")
     args = parser.parse_args()
     with open(MANIFEST, encoding="utf-8") as f:
         manifest = json.load(f)
+    manifest["skins"] += dropped_skins({npc["name"] for npc in manifest["skins"]})
 
     entries = [{"id": "base:default", "category": "base", "layers": [
         {"texture": "bleachmod:textures/appearance/base/default_tint.png", "tint": "skin"}],

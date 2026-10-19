@@ -135,7 +135,18 @@ public class CharacterAppearanceScreen extends Screen {
     private Component pieceName(String id) {
         if (id.isEmpty()) return Component.translatable("screen.bleachmod.appearance.none");
         String who = catalog.piece(id).map(AppearanceCatalog.Piece::inspiredBy).orElse(id);
-        return Component.translatableWithFallback("appearance.bleachmod.inspired." + who, who);
+        return Component.translatableWithFallback("appearance.bleachmod.inspired." + who, prettyName(who));
+    }
+
+    /** "kenpachi_zaraki" -> "Kenpachi Zaraki", for pieces without a translation yet. */
+    private static String prettyName(String id) {
+        StringBuilder out = new StringBuilder();
+        for (String word : id.split("_")) {
+            if (word.isEmpty()) continue;
+            if (out.length() > 0) out.append(' ');
+            out.append(Character.toUpperCase(word.charAt(0))).append(word.substring(1));
+        }
+        return out.toString();
     }
 
     private static Component swatch(int rgb) {
