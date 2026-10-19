@@ -176,7 +176,13 @@ dependencies {
 
     // WorldEdit is used to validate generated schematics in the development client.
     // ForgeGradle must remap the published mod jar to the userdev mappings.
-    runtimeOnly fg.deobf("local:worldedit-mod:7.2.15")
+    // Optional dev tool: run/ is gitignored, so a fresh clone has no jar. Only add it when present,
+    // otherwise the failed lookup breaks the whole deobf configuration (PlayerAnimator included).
+    if (file('run/validation-dependencies/worldedit-mod-7.2.15.jar').exists()) {
+        runtimeOnly fg.deobf("local:worldedit-mod:7.2.15")
+    } else {
+        logger.lifecycle('WorldEdit jar not found in run/validation-dependencies; running without it.')
+    }
 
     // Example mod dependency with JEI - using fg.deobf() ensures the dependency is remapped to your development mappings
     // The JEI API is declared for compile time use, while the full JEI artifact is used at runtime

@@ -4,7 +4,9 @@
 
 Build 0.2.0 aprovado com 32 regressões. Quatro GameTests aprovados em run-gametest. Executar gradlew.bat build e gradlew.bat runGameTestServer; dependências locais permitem --offline. Relatórios anteriores com 19/26/28 testes são históricos.
 
-[Relatório atual](../planejamento/relatorio-implementacao-mvp-2026-09-10.md). As seções de Dragon Mine Z abaixo são referência do original.
+[Relatório atual](../planejamento/relatorio-implementacao-mvp-2026-09-10.md).
+
+> **Bleach (19/10/2026):** o WorldEdit de validação é um jar local em `run/validation-dependencies/worldedit-mod-7.2.15.jar`. A pasta `run/` está no `.gitignore`, então um clone novo não tem esse arquivo. O `build.gradle` só adiciona o WorldEdit quando o jar existe. Sem ele, o jogo roda normalmente. Para validar schematics, copie o jar para essa pasta. Toda dependência obrigatória precisa vir de um repositório Maven declarado no `build.gradle`, nunca de uma pasta ignorada pelo git. As seções de Dragon Mine Z abaixo são referência do original.
 
 
 Documento de referência para o fork Bleach. Fonte analisada: clone em `dragonminez/` (versão 2.1.3).
