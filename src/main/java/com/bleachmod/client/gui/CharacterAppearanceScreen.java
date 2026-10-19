@@ -11,6 +11,8 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.InventoryScreen;
+import net.minecraft.world.entity.LivingEntity;
+import org.joml.Quaternionf;
 import net.minecraft.network.chat.Component;
 
 import java.util.ArrayList;
@@ -30,6 +32,9 @@ public class CharacterAppearanceScreen extends Screen {
     private final AppearanceCatalog catalog = AppearanceCatalog.get();
     private final List<Row> rows = new ArrayList<>();
     private boolean pending;
+    /** Preview turntable: the model faces the viewer and turns only while the player drags it. */
+    private float previewYaw;
+    private boolean draggingPreview;
 
     private record Row(Component label, Supplier<Component> value, int top) { }
 
@@ -194,11 +199,59 @@ public class CharacterAppearanceScreen extends Screen {
             graphics.drawCenteredString(font, row.value().get(), 165, row.top() + 6, 0xFFFFFFFF);
         }
         if (minecraft.player != null) {
-            int cx = Math.max(300, width * 2 / 3), cy = height / 2 + 70;
             AppearanceClient.preview(minecraft.player.getUUID(), look);
-            InventoryScreen.renderEntityInInventoryFollowsMouse(graphics, cx, cy, 70, cx - mouseX, cy - 110 - mouseY, minecraft.player);
+            renderPreview(graphics, previewX(), previewY(), 70, previewYaw, minecraft.player);
+            graphics.drawCenteredString(font, Component.translatable("screen.bleachmod.appearance.rotate_hint"), previewX(), previewY() + 14, 0xFF9A927C);
         }
         super.render(graphics, mouseX, mouseY, partialTick);
+    }
+
+    private int previewX() { return Math.max(300, width * 2 / 3); }
+
+    private int previewY() { return height / 2 + 70; }
+
+    /** Inventory-style render with a fixed, viewer-facing pose turned by {@code yaw}; the entity's rotations are restored. */
+    private static void renderPreview(GuiGraphics graphics, int x, int y, int scale, float yaw, LivingEntity entity) {
+        float body = entity.yBodyRot, bodyO = entity.yBodyRotO, rot = entity.getYRot(), pitch = entity.getXRot();
+        float head = entity.yHeadRot, headO = entity.yHeadRotO;
+        float facing = 180.0F + yaw;
+        entity.yBodyRot = entity.yBodyRotO = facing;
+        entity.setYRot(facing);
+        entity.setXRot(0.0F);
+        entity.yHeadRot = entity.yHeadRotO = facing;
+        InventoryScreen.renderEntityInInventory(graphics, x, y, scale, new Quaternionf().rotateZ((float) Math.PI), new Quaternionf(), entity);
+        entity.yBodyRot = body;
+        entity.yBodyRotO = bodyO;
+        entity.setYRot(rot);
+        entity.setXRot(pitch);
+        entity.yHeadRot = head;
+        entity.yHeadRotO = headO;
+    }
+
+    private boolean overPreview(double mouseX, double mouseY) {
+        return Math.abs(mouseX - previewX()) <= 60 && mouseY >= previewY() - 160 && mouseY <= previewY() + 20;
+    }
+
+    @Override
+    public boolean mouseClicked(double mouseX, double mouseY, int button) {
+        if (super.mouseClicked(mouseX, mouseY, button)) return true;
+        draggingPreview = button == 0 && overPreview(mouseX, mouseY);
+        return draggingPreview;
+    }
+
+    @Override
+    public boolean mouseDragged(double mouseX, double mouseY, int button, double dragX, double dragY) {
+        if (draggingPreview && button == 0) {
+            previewYaw = (previewYaw - (float) dragX * 2.0F) % 360.0F;
+            return true;
+        }
+        return super.mouseDragged(mouseX, mouseY, button, dragX, dragY);
+    }
+
+    @Override
+    public boolean mouseReleased(double mouseX, double mouseY, int button) {
+        if (button == 0) draggingPreview = false;
+        return super.mouseReleased(mouseX, mouseY, button);
     }
 
     @Override

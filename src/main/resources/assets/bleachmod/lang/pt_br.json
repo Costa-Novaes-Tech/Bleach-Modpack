@@ -408,5 +408,6 @@
   "entity.bleachmod.npc_yoruichi": "Yoruichi Shihōin",
   "item.bleachmod.npc_yoruichi_spawn_egg": "Ovo gerador de Yoruichi Shihōin",
   "entity.bleachmod.npc_yumichika": "Yumichika Ayasegawa",
-  "item.bleachmod.npc_yumichika_spawn_egg": "Ovo gerador de Yumichika Ayasegawa"
+  "item.bleachmod.npc_yumichika_spawn_egg": "Ovo gerador de Yumichika Ayasegawa",
+  "screen.bleachmod.appearance.rotate_hint": "Clique e arraste para girar"
 }

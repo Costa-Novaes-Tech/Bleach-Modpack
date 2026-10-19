@@ -408,5 +408,6 @@
   "entity.bleachmod.npc_yoruichi": "Yoruichi Shihōin",
   "item.bleachmod.npc_yoruichi_spawn_egg": "Yoruichi Shihōin Spawn Egg",
   "entity.bleachmod.npc_yumichika": "Yumichika Ayasegawa",
-  "item.bleachmod.npc_yumichika_spawn_egg": "Yumichika Ayasegawa Spawn Egg"
+  "item.bleachmod.npc_yumichika_spawn_egg": "Yumichika Ayasegawa Spawn Egg",
+  "screen.bleachmod.appearance.rotate_hint": "Click and drag to rotate"
 }
