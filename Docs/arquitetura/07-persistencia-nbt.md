@@ -1,3 +1,7 @@
+# Atualização Bleach — aparência do personagem (19/10/2026)
+
+Schema **9**: raiz do jogador ganha `appearance` = {`vanilla`: bool, `slim`: bool, `skin`: int RGB, `hairColor`: int (−1 = original), `eyeColor`: int (−1 = original), `pieces`: {`base`, `outfit`, `hair`, `eyes`, `mouth`: id ou ""}}. Sem o composto (schema ≤ 8), `vanilla` fica verdadeiro. No login, `AppearanceService.normalize` troca peças que saíram do catálogo pelo padrão da raça. Plano completo: [personalização de skin](../planejamento/plano-skins-personagem.md).
+
 # Atualização Bleach — ciclo Ryūjin de 03/10/2026
 
 O protocolo atual é 2.3, schema do jogador 3. TechniqueService resolve os quatro slots; RyujinTechniqueService mantém áreas e enxames transitórios fora do NBT. StatusData inclui recarga F3. Trocas de forma e normalização preservam cooldowns; eventos de morte/logout/dimensão, forma, unload e parada limpam efeitos/invocações. Não há pacote novo. Partículas não aplicam dano. Contrato: [Ryūjin atual](../poderes/08-contrato-ryujin-circulo-tornado-morcegos.md).

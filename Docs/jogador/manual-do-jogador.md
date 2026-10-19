@@ -6,7 +6,9 @@ Este manual descreve o código atual. A verificação visual em jogo e com dois 
 
 ## 1. Começar
 
-Confirme Shinigami na primeira entrada; aguarde a resposta do servidor. Você recebe Asauchi e 100 de reiatsu. Hollow e Hollow Boss já existem como mobs de teste; isso não libera a raça Hollow. Quests em mundos antigos podem manter alvos anteriores. Consulte os objetivos reais no diário.
+Confirme Shinigami na primeira entrada. Em seguida abre o editor de aparência: escolha modelo, traje, cabelo, olhos, boca e cores (as peças vêm dos personagens do anime) ou marque "Usar minha skin do Minecraft". Confirmar cria o personagem; aguarde a resposta do servidor. Depois da criação, o visual só muda por um NPC ou item ainda a definir (ou pelo comando de operador abaixo). Você recebe Asauchi e 100 de reiatsu. Hollow e Hollow Boss já existem como mobs de teste; isso não libera a raça Hollow. Quests em mundos antigos podem manter alvos anteriores. Consulte os objetivos reais no diário.
+
+Além dos oito NPCs com missões (Ichigo, Rukia, Byakuya, Orihime, Urahara, Uryū, Sado e Ulquiorra), há 33 personagens sem missões por enquanto, com ovo gerador na aba criativa do mod (Aizen, Kenpachi, Renji, Hitsugaya, Grimmjow, Shinji, entre outros).
 
 O Asauchi pode ser fabricado em uma bancada:
 
@@ -193,6 +195,12 @@ Exigem permissão 2 e personagem já confirmado. Troque Player pelo nome do joga
 
 ```
 /bleachreload quests
+/bleachdev appearance show Player
+/bleachdev appearance set Player hair hair:rukia
+/bleachdev appearance set Player hairColor #F08A2C
+/bleachdev appearance set Player vanilla true
+/bleachdev appearance reset Player
+/bleachdev appearance edit Player
 /bleachdev points add Player 1000
 /bleachdev skill set Player zanpakuto 2
 /bleachdev mastery set Player zanpakuto shikai 25

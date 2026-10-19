@@ -77,6 +77,8 @@ public final class NetworkHandler {
                 com.bleachmod.common.network.s2c.BenihimeFrameS2C::encode,com.bleachmod.common.network.s2c.BenihimeFrameS2C::decode,
                 com.bleachmod.common.network.s2c.BenihimeFrameS2C::handle,Optional.of(NetworkDirection.PLAY_TO_CLIENT));
         CHANNEL.registerMessage(id++, com.bleachmod.common.network.s2c.ReleaseCinematicS2C.class, com.bleachmod.common.network.s2c.ReleaseCinematicS2C::encode, com.bleachmod.common.network.s2c.ReleaseCinematicS2C::decode, com.bleachmod.common.network.s2c.ReleaseCinematicS2C::handle, Optional.of(NetworkDirection.PLAY_TO_CLIENT));
+        CHANNEL.registerMessage(id++, com.bleachmod.common.network.c2s.UpdateAppearanceC2S.class, com.bleachmod.common.network.c2s.UpdateAppearanceC2S::encode, com.bleachmod.common.network.c2s.UpdateAppearanceC2S::decode, com.bleachmod.common.network.c2s.UpdateAppearanceC2S::handle, Optional.of(NetworkDirection.PLAY_TO_SERVER));
+        CHANNEL.registerMessage(id++, com.bleachmod.common.network.s2c.OpenAppearanceEditorS2C.class, com.bleachmod.common.network.s2c.OpenAppearanceEditorS2C::encode, com.bleachmod.common.network.s2c.OpenAppearanceEditorS2C::decode, com.bleachmod.common.network.s2c.OpenAppearanceEditorS2C::handle, Optional.of(NetworkDirection.PLAY_TO_CLIENT));
     }
 
     public static void sendToServer(Object message) {

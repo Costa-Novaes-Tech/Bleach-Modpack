@@ -22,6 +22,7 @@ public final class BleachClient {
         modBus.addListener(BleachClient::registerKeys);
         modBus.addListener(BleachClient::registerOverlays);
         modBus.addListener(BleachClient::onClientSetup);
+        modBus.addListener(BleachClient::registerReloadListeners);
     }
 
     private static void registerKeys(RegisterKeyMappingsEvent event) {
@@ -46,6 +47,12 @@ public final class BleachClient {
         event.registerAboveAll("bleach_toast", com.bleachmod.client.gui.StoryToastManager.OVERLAY);
         event.registerAboveAll("bleach_damage", com.bleachmod.client.hud.DamageHud.OVERLAY);
         event.registerAboveAll("bleach_zanpakuto_guide", com.bleachmod.client.hud.ZanpakutoHud.OVERLAY);
+    }
+
+    private static void registerReloadListeners(net.minecraftforge.client.event.RegisterClientReloadListenersEvent event) {
+        // Appearance layers come from resource packs; rebuild composed skins after F3+T or a pack change.
+        event.registerReloadListener((net.minecraft.server.packs.resources.ResourceManagerReloadListener) manager ->
+                com.bleachmod.client.appearance.SkinCompositor.clear());
     }
 
     private static void onClientSetup(FMLClientSetupEvent event) {
