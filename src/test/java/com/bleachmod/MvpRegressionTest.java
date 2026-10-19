@@ -50,7 +50,7 @@ public final class MvpRegressionTest {
             var d = new PlayerData(); d.initializeShinigami(); d.getResources().spendBasicAttackStamina();
             var old = d.save(); old.putInt("schemaVersion", 7); old.remove("guard");
             var copy = new PlayerData(); copy.load(old); eq(100F, copy.getGuard().posture()); eq(96F, copy.getResources().getStamina());
-            yes(copy.getCharacter().save().equals(d.getCharacter().save())); eq(8, copy.save().getInt("schemaVersion"));
+            yes(copy.getCharacter().save().equals(d.getCharacter().save())); eq(9, copy.save().getInt("schemaVersion"));
         });
         test("Dodge directions rotate with yaw and diagonals have equal length", () -> {
             var p = com.bleachmod.common.DodgePolicy.direction(1, 0, 0);
@@ -133,7 +133,7 @@ public final class MvpRegressionTest {
             var legacy = new PlayerData(); legacy.initializeShinigami(); var saved = legacy.save(); saved.putInt("schemaVersion", 5);
             saved.getCompound("resources").remove("stamina"); saved.getCompound("resources").remove("staminaRestTicks");
             saved.getCompound("resources").remove("staminaExhausted"); var migrated = new PlayerData(); migrated.load(saved);
-            eq(100F, migrated.getResources().getStamina()); eq(8, migrated.save().getInt("schemaVersion"));
+            eq(100F, migrated.getResources().getStamina()); eq(9, migrated.save().getInt("schemaVersion"));
         });
         test("Combat state expires, refreshes and stays absent from persistent saves", () -> {
             var status = new StatusData(); status.refreshCombat(200);
