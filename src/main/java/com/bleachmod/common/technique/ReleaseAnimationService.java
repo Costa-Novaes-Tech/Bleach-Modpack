@@ -34,7 +34,7 @@ public final class ReleaseAnimationService {
         return group.equals("zanpakuto") && List.of("shikai","bankai").contains(form)
                 && List.of(CharacterData.RYUJIN,CharacterData.HYORINMARU,CharacterData.SENBONZAKURA,CharacterData.BENIHIME,CharacterData.ASAUCHI).contains(d.getCharacter().getZanpakutoIdentity());
     }
-    public static boolean busy(ServerPlayer p) { return ACTIVE.containsKey(p.getUUID()); }
+    public static boolean busy(ServerPlayer p) { return ACTIVE.containsKey(p.getUUID()) || NozarashiReleaseEffects.inCinematic(p); }
     public static void begin(ServerPlayer p, PlayerData d, String group, String form, float cost) {
         if(busy(p) || !TechniqueProgression.equipped(p,d) || d.getStatus().isDodging() || d.getStatus().getFlameDashTicks()>0) return;
         RyujinTechniqueService.cancel(p);

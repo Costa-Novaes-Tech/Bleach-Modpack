@@ -28,7 +28,7 @@ public final class ZanpakutoHud {
             g.pose().pushPose(); g.pose().scale(scale, scale, 1); g.pose().translate(x, Math.max(110, y), 0);
             g.fill(0,0,width,height,0xCC102333); g.fill(0,0,2,height,0xFF85D7F0);
             g.drawString(mc.font, Component.translatable("item.bleachmod." + identity), 8, 6, 0xDFF7FF, false);
-            String mastery = Component.translatable("form.bleachmod." + form).getString() + " · " + MasteryFeedback.value(d.getCharacter().getMastery("zanpakuto", form)) + "/100";
+            String mastery = com.bleachmod.common.evolution.FormNames.of(identity, form).getString() + " · " + MasteryFeedback.value(d.getCharacter().getMastery("zanpakuto", form)) + "/100";
             g.drawString(mc.font, mc.font.plainSubstrByWidth(mastery, width - 16), 8, 19, 0x89CDE8, false);
             var keys = new net.minecraft.client.KeyMapping[]{ModKeybinds.TECHNIQUE_SLOT_1, ModKeybinds.TECHNIQUE_SLOT_2, ModKeybinds.TECHNIQUE_SLOT_3, ModKeybinds.TECHNIQUE_SLOT_4};
             boolean unlocked = TransformationsHelper.isUnlocked(d, "zanpakuto", form);
@@ -83,7 +83,7 @@ public final class ZanpakutoHud {
                 int threshold = "shikai".equals(next) ? TechniqueProgression.SHIKAI_MASTERY : TechniqueProgression.BANKAI_MASTERY;
                 String sourceForm = "shikai".equals(next) ? "sealed" : "shikai";
                 double current = d.getCharacter().getMastery("zanpakuto", sourceForm);
-                var nextName = Component.translatable("form.bleachmod." + next);
+                var nextName = com.bleachmod.common.evolution.FormNames.of(d.getCharacter(), next);
                 String gate = TransformationsHelper.isUnlocked(d, "zanpakuto", next)
                         ? Component.translatable("hud.bleachmod.mastery.form_ready", nextName).getString()
                         : current < threshold ? Component.translatable("hud.bleachmod.mastery.form_train", nextName, MasteryFeedback.value(current), threshold).getString()

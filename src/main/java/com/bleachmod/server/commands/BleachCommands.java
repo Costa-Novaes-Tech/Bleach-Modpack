@@ -43,9 +43,10 @@ public final class BleachCommands {
             })));
         var root=literal("bleachdev").requires(s->s.hasPermission(2));
         AssetBenchCommands.attach(root);
+        AppearanceCommands.attach(root);
         root.then(literal("zanpakuto").then(literal("bind").then(argument("player",EntityArgument.player())
             .then(argument("identity",StringArgumentType.word())
-                .suggests((ctx,b)->SharedSuggestionProvider.suggest(java.util.List.of("asauchi","ryujin_jakka","hyorinmaru","senbonzakura","benihime"),b))
+                .suggests((ctx,b)->SharedSuggestionProvider.suggest(java.util.List.of("asauchi","ryujin_jakka","hyorinmaru","senbonzakura","benihime","nozarashi"),b))
                 .executes(ctx->mutate(ctx,(p,d)->{
                     if (!Reference.RACE_SHINIGAMI.equals(d.getCharacter().getRace())) throw new IllegalArgumentException("Shinigami required");
                     d.getCharacter().bindZanpakuto(StringArgumentType.getString(ctx,"identity"));

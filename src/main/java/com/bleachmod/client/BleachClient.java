@@ -23,6 +23,7 @@ public final class BleachClient {
         modBus.addListener(BleachClient::registerKeys);
         modBus.addListener(BleachClient::registerOverlays);
         modBus.addListener(BleachClient::onClientSetup);
+        modBus.addListener(BleachClient::registerReloadListeners);
     }
 
     private static void registerKeys(RegisterKeyMappingsEvent event) {
@@ -49,6 +50,12 @@ public final class BleachClient {
         event.registerAboveAll("bleach_zanpakuto_guide", com.bleachmod.client.hud.ZanpakutoHud.OVERLAY);
     }
 
+    private static void registerReloadListeners(net.minecraftforge.client.event.RegisterClientReloadListenersEvent event) {
+        // Appearance layers come from resource packs; rebuild composed skins after F3+T or a pack change.
+        event.registerReloadListener((net.minecraft.server.packs.resources.ResourceManagerReloadListener) manager ->
+                com.bleachmod.client.appearance.SkinCompositor.clear());
+    }
+
     private static void onClientSetup(FMLClientSetupEvent event) {
         event.enqueueWork(BleachClient::registerItemProperties);
         event.enqueueWork(com.bleachmod.client.compat.BetterCombatClientCompat::init);
@@ -57,6 +64,8 @@ public final class BleachClient {
         event.enqueueWork(com.bleachmod.client.model.ElementalActionVisuals::init);
         event.enqueueWork(com.bleachmod.client.model.HigashiExecutionVisuals::init);
         event.enqueueWork(com.bleachmod.client.model.SignatureActionVisuals::init);
+        event.enqueueWork(com.bleachmod.client.cinematic.CinematicDirector::init);
+        event.enqueueWork(com.bleachmod.client.berserk.NozarashiStance::init);
     }
 
     private static void registerItemProperties() {
@@ -64,6 +73,7 @@ public final class BleachClient {
         registerFormProperty(ModItems.RYUJIN_JAKKA.get());
         registerFormProperty(ModItems.HYORINMARU.get());
         registerFormProperty(ModItems.SENBONZAKURA.get()); registerFormProperty(ModItems.BENIHIME.get());
+        registerFormProperty(ModItems.NOZARASHI.get());
     }
 
     private static void registerFormProperty(Item item) {
@@ -77,6 +87,7 @@ public final class BleachClient {
                 if (item == ModItems.SENBONZAKURA.get() && !identity.equals(com.bleachmod.common.data.CharacterData.SENBONZAKURA)) return 0.0F;
                 if (item == ModItems.HYORINMARU.get() && !identity.equals(com.bleachmod.common.data.CharacterData.HYORINMARU)) return 0.0F;
                 if (item == ModItems.RYUJIN_JAKKA.get() && !identity.equals(com.bleachmod.common.data.CharacterData.RYUJIN)) return 0.0F;
+                if (item == ModItems.NOZARASHI.get() && !identity.equals(com.bleachmod.common.data.CharacterData.NOZARASHI)) return 0.0F;
                 if (item == ModItems.ASAUCHI.get() && !identity.equals(com.bleachmod.common.data.CharacterData.ASAUCHI)) return 0.0F;
                 if (item == ModItems.BENIHIME.get() && !identity.equals(com.bleachmod.common.data.CharacterData.BENIHIME)) return 0.0F;
                 String form=data.getCharacter().getActiveForm();

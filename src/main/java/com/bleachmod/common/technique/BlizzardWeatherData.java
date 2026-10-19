@@ -34,6 +34,8 @@ public final class BlizzardWeatherData extends SavedData {
     }
     public static boolean supportsBiome(Biome biome, BlockPos pos) { return biome.getPrecipitationAt(pos) != Biome.Precipitation.NONE; }
     public boolean isManaged() { return managed; }
+    /** No caster lease, no managed storm and no pending command sync. */
+    public boolean idle() { return owners.isEmpty() && !managed && !commandSyncPending; }
     public void acquire(ServerLevel level, UUID owner) {
         boolean existing = !owners.isEmpty();
         owners.put(owner, level.getGameTime() + 40);

@@ -79,10 +79,17 @@ public final class NetworkHandler {
         CHANNEL.registerMessage(id++,com.bleachmod.common.network.s2c.HigashiExecutionS2C.class,
                 com.bleachmod.common.network.s2c.HigashiExecutionS2C::encode,com.bleachmod.common.network.s2c.HigashiExecutionS2C::decode,
                 com.bleachmod.common.network.s2c.HigashiExecutionS2C::handle,Optional.of(NetworkDirection.PLAY_TO_CLIENT));
+        CHANNEL.registerMessage(id++, com.bleachmod.common.network.s2c.ReleaseCinematicS2C.class, com.bleachmod.common.network.s2c.ReleaseCinematicS2C::encode, com.bleachmod.common.network.s2c.ReleaseCinematicS2C::decode, com.bleachmod.common.network.s2c.ReleaseCinematicS2C::handle, Optional.of(NetworkDirection.PLAY_TO_CLIENT));
+        CHANNEL.registerMessage(id++, com.bleachmod.common.network.c2s.UpdateAppearanceC2S.class, com.bleachmod.common.network.c2s.UpdateAppearanceC2S::encode, com.bleachmod.common.network.c2s.UpdateAppearanceC2S::decode, com.bleachmod.common.network.c2s.UpdateAppearanceC2S::handle, Optional.of(NetworkDirection.PLAY_TO_SERVER));
+        CHANNEL.registerMessage(id++, com.bleachmod.common.network.s2c.OpenAppearanceEditorS2C.class, com.bleachmod.common.network.s2c.OpenAppearanceEditorS2C::encode, com.bleachmod.common.network.s2c.OpenAppearanceEditorS2C::decode, com.bleachmod.common.network.s2c.OpenAppearanceEditorS2C::handle, Optional.of(NetworkDirection.PLAY_TO_CLIENT));
     }
 
     public static void sendToServer(Object message) {
         CHANNEL.sendToServer(message);
+    }
+
+    public static void sendToTrackingAndSelf(Object message, ServerPlayer player) {
+        CHANNEL.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> player), message);
     }
 
     public static void sendToPlayer(Object message, ServerPlayer player) {

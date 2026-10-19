@@ -14,6 +14,8 @@ public class PlayerData {
     private final StatusData status = new StatusData();
     private final GuardData guard = new GuardData();
     public GuardData getGuard() { return guard; }
+    private final com.bleachmod.common.appearance.AppearanceData appearance = new com.bleachmod.common.appearance.AppearanceData();
+    public com.bleachmod.common.appearance.AppearanceData getAppearance() { return appearance; }
     private final PlayerQuestData playerQuestData = new PlayerQuestData();
     private boolean dataLoaded;
     private final AttributeData attributes = new AttributeData();
@@ -92,6 +94,7 @@ public class PlayerData {
         tag.put("guard", guard.save());
         tag.put("attributes", attributes.save());
         tag.put("character", character.save());
+        tag.put("appearance", appearance.save());
         tag.put("resources", resources.save());
         tag.put("skills", skills.save());
         tag.put("status", status.save());
@@ -105,6 +108,8 @@ public class PlayerData {
         if (tag.contains("character")) {
             character.load(tag.getCompound("character"));
         }
+        // Saves before schema 9 have no appearance and keep the player's own Minecraft skin.
+        if (tag.contains("appearance")) appearance.load(tag.getCompound("appearance"));
         if (tag.contains("resources")) {
             resources.load(tag.getCompound("resources"));
         }

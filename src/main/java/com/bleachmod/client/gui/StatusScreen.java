@@ -59,11 +59,11 @@ public final class StatusScreen extends Screen {
         if(d!=null) {
             g.drawString(font,Component.translatable("hud.bleachmod.tp",(int)d.getResources().getTrainingPoints()),left+8,top+26,0xA0E8A0);
             g.drawString(font,Component.translatable("screen.bleachmod.bp",Math.round(d.getBattlePower())),left+190,top+26,0xF4D35E);
-            g.drawString(font,Component.translatable("screen.bleachmod.forms",Component.translatable("form.bleachmod."+d.getCharacter().getActiveForm()),
-                Component.translatable("form.bleachmod."+d.getCharacter().getSelectedForm())),left+8,top+40,0xFFFFFF);
+            g.drawString(font,Component.translatable("screen.bleachmod.forms",com.bleachmod.common.evolution.FormNames.of(d.getCharacter(),d.getCharacter().getActiveForm()),
+                com.bleachmod.common.evolution.FormNames.of(d.getCharacter(),d.getCharacter().getSelectedForm())),left+8,top+40,0xFFFFFF);
             int y=top+56;
             for(String form:List.of("shikai","bankai")) {
-                g.drawString(font,Component.translatable("screen.bleachmod.mastery",Component.translatable("form.bleachmod."+form),
+                g.drawString(font,Component.translatable("screen.bleachmod.mastery",com.bleachmod.common.evolution.FormNames.of(d.getCharacter(),form),
                     (int)d.getCharacter().getMastery("zanpakuto",form)),left+8,y,0xCAB7FF); y+=13;
             }
             int index=0;

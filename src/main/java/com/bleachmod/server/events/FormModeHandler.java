@@ -58,7 +58,7 @@ public final class FormModeHandler {
         data.getResources().setActionCharge(0);
         data.getStatus().setActionCharging(false);
         MinecraftForge.EVENT_BUS.post(new BleachEvents.FormChangeEvent(player, oldGroup, oldForm, data.getCharacter().getActiveFormGroup(), next));
-        player.displayClientMessage(Component.translatable("message.bleachmod.form.descend", Component.translatable("form.bleachmod." + next)), true);
+        player.displayClientMessage(Component.translatable("message.bleachmod.form.descend", com.bleachmod.common.evolution.FormNames.of(data.getCharacter(), next)), true);
         SyncHelper.appearance(player);
         SyncHelper.full(player);
     }
@@ -127,7 +127,7 @@ public final class FormModeHandler {
         data.getStatus().setActionCharging(false);
         MinecraftForge.EVENT_BUS.post(new BleachEvents.FormChangeEvent(player, oldGroup, oldForm, group, form));
         player.displayClientMessage(Component.translatable("message.bleachmod.transformation",
-                Component.translatable("form.bleachmod." + form)), true);
+                com.bleachmod.common.evolution.FormNames.of(data.getCharacter(), form)), true);
         SyncHelper.appearance(player);
         SyncHelper.resources(player);
         return true;

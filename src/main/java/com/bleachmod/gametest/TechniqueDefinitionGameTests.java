@@ -25,12 +25,12 @@ public final class TechniqueDefinitionGameTests {
             h.getLevel().getChunkAt(p.blockPosition());
             var data = PlayerCapability.get(p).orElseThrow(() -> new IllegalStateException("Missing capability"));
             data.initializeShinigami(); data.getCharacter().bindZanpakuto(definition.identity()); data.getCharacter().preserveLegacyTechniques();
+            data.getCharacter().unlockTechnique(definition.form(), definition.slot());
             data.getSkills().get("zanpakuto").setLevel(2); data.getCharacter().unlockForm("shikai"); data.getCharacter().unlockForm("bankai");
             data.getCharacter().setMastery("zanpakuto", "shikai", 100); data.getCharacter().setActiveForm("zanpakuto", definition.form());
             if (definition.identity().equals("senbonzakura") || definition.identity().equals("benihime")) data.getCharacter().setMastery("zanpakuto",definition.form(),100);
             if(definition.identity().equals("benihime"))p.setHealth(12);
-            p.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(switch(definition.identity()) {
-                case "ryujin_jakka" -> ModItems.RYUJIN_JAKKA.get();case "senbonzakura" -> ModItems.SENBONZAKURA.get();case "benihime"->ModItems.BENIHIME.get();default -> ModItems.HYORINMARU.get(); }));
+            p.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(com.bleachmod.common.ZanpakutoCarry.item(definition.identity())));
             try {
                 float before = data.getResources().getCurrentReiatsu();
                 TechniqueService.executeSlot(p, data, definition.slot());
@@ -41,7 +41,8 @@ public final class TechniqueDefinitionGameTests {
                 };
                 h.assertTrue(cooldown == definition.cooldownTicks(), "Cooldown differs from definition: " + definition);
                 if (definition.drainPerTick() > 0) {
-                    TechniqueService.tickIgnition(p, data);
+                    if ("nozarashi".equals(definition.identity())) com.bleachmod.common.technique.NozarashiTechniqueService.tick(p, data);
+                    else TechniqueService.tickIgnition(p, data);
                     h.assertTrue(Math.abs(data.getResources().getCurrentReiatsu() - (before - definition.drainPerTick())) < .001, "Continuous drain differs from definition");
                 }
                 RyujinTechniqueService.cancel(p);

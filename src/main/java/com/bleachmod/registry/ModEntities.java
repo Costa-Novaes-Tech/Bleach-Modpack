@@ -59,6 +59,11 @@ public class ModEntities {
     public static final RegistryObject<EntityType<QuestNpcEntity>> NPC_URAHARA = registerNpc("urahara");
     public static final RegistryObject<EntityType<QuestNpcEntity>> NPC_ULQUIORRA = registerNpc("ulquiorra");
 
+    static {
+        // Skin-only NPCs from the roster; the quest givers above keep their fields for direct references.
+        for (NpcRoster.Entry npc : NpcRoster.entries()) if (!NPCS.containsKey(npc.id())) registerNpc(npc.id());
+    }
+
     private static RegistryObject<EntityType<QuestNpcEntity>> registerNpc(String npcId) {
         RegistryObject<EntityType<QuestNpcEntity>> result = ENTITY_TYPES.register(
                 "npc_" + npcId,
@@ -71,8 +76,9 @@ public class ModEntities {
         return result;
     }
 
+    /** Every NPC (quest givers and skin-only ones), in registration order. */
     public static Map<String, RegistryObject<EntityType<QuestNpcEntity>>> questNpcs() {
-        return Map.copyOf(NPCS);
+        return java.util.Collections.unmodifiableMap(NPCS);
     }
 
     public static String getNpcId(EntityType<?> type) {

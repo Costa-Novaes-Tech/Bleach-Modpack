@@ -3,10 +3,14 @@
   "minVersion": "0.8",
   "package": "com.bleachmod.mixin",
   "compatibilityLevel": "JAVA_17",
+  "refmap": "bleachmod.refmap.json",
   "mixins": [
     "BetterCombatPlayerMixin",
     "BetterCombatRegistryMixin",
     "BetterCombatHandMixin"
+  ],
+  "client": [
+    "client.AbstractClientPlayerMixin"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -66,6 +66,8 @@ Declaradas também em `mods.toml` com `type="incompatible"`. Motivo observado: c
 
 ## Mixin e access transformer
 
+> **Bleach (19/10/2026):** primeiro mixin do projeto. Plugin `org.spongepowered.mixin` 0.7.+ (repositório Sponge em `settings.gradle`), processor `org.spongepowered:mixin:0.8.5:processor`, config `bleachmod.mixins.json`, refmap `bleachmod.refmap.json` e `MixinConfigs` no manifesto. Um único mixin de cliente, `AbstractClientPlayerMixin`, injeta em `getSkinTextureLocation` e `getModelName` para usar a skin composta e o modelo slim/clássico.
+
 - Plugin Mixin: SpongePowered 0.7.38 / processor 0.8.7
 - Config: `src/main/resources/dragonminez.mixins.json`
 - Refmap: `dragonminez.refmap.json`

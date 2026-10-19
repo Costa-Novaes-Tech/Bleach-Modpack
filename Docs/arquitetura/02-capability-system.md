@@ -1,3 +1,7 @@
+# Atualização Bleach — aparência do personagem (19/10/2026)
+
+`PlayerData` ganhou `AppearanceData` (`common/appearance/`), salvo sob `appearance`; schema do jogador **9**. Campos: `vanilla` (usar a skin do Minecraft), `slim`, `skin`, `hairColor` e `eyeColor` (−1 = cor original da peça) e `pieces` (`base`, `outfit`, `hair`, `eyes`, `mouth`, ids do catálogo). Saves anteriores não têm o composto e continuam com a skin do Minecraft. A cópia de morte/dimensão leva a aparência junto. Plano completo: [personalização de skin](../planejamento/plano-skins-personagem.md).
+
 # Atualização Bleach — ciclo Ryūjin de 03/10/2026
 
 O protocolo atual é 2.3, schema do jogador 3. TechniqueService resolve os quatro slots; RyujinTechniqueService mantém áreas e enxames transitórios fora do NBT. StatusData inclui recarga F3. Trocas de forma e normalização preservam cooldowns; eventos de morte/logout/dimensão, forma, unload e parada limpam efeitos/invocações. Não há pacote novo. Partículas não aplicam dano. Contrato: [Ryūjin atual](../poderes/08-contrato-ryujin-circulo-tornado-morcegos.md).

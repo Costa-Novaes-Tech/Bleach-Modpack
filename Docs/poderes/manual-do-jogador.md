@@ -1,3 +1,5 @@
+> **Integração 63 — 19/10:** [Zaraki, História, aparência e poderes revisados](63-integracao-main-zaraki-aparencia-historia-2026-10-19.md), rede 2.25. Usar a mesma build nos clientes/servidor; Photon permanece piloto opcional. Os avisos anteriores são históricos.
+
 > **Ciclo 62 — teste atual:** [nova câmera Higashi e piloto Photon](62-higashi-camera-dirigida-piloto-photon-2026-10-18.md), rede 2.24. Pacote normal cinco JARs; Photon/LDLib e comandos de bancada são opcionais, em pacote separado. Ler o roteiro e os limites do piloto antes dos registros históricos abaixo.
 
 > **Entrada atual — 18/10/2026:** [continuidade](00-CONTINUIDADE-CODEX.md), [roadmap revisto](61-revisao-roadmap-pendencias-integracao-zaraki-2026-10-18.md) e [Higashi/Jardim em teste](60-higashi-execucao-jardim-persistente-2026-10-18.md). Byakuya/Urahara já foram entregues; revisões elementais e animações posteriores estão nos ciclos 52–60. Os avisos de “próximo kit” abaixo são históricos; este manual ainda requer consolidação completa após a integração Zaraki.

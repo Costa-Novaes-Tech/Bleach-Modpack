@@ -50,7 +50,7 @@ public final class HigashiExecutionVisuals {
             if(BURNS.size()>=8)BURNS.remove(BURNS.keySet().iterator().next());BURNS.put(m.target(),new Burn(m,now));
             PhotonPilotBridge.incinerate(m.victim(),m.width(),m.height());
         }
-        if(mc.player!=null&&mc.player.getId()==m.owner()&&ClientVisualConfig.EXECUTION_CAMERA.get()&&mc.screen==null&&mc.getCameraEntity()==mc.player&&now>=dismissedUntil){
+        if(mc.player!=null&&mc.player.getId()==m.owner()&&!com.bleachmod.client.cinematic.CinematicDirector.localActive()&&ClientVisualConfig.EXECUTION_CAMERA.get()&&mc.screen==null&&mc.getCameraEntity()==mc.player&&now>=dismissedUntil){
             if(cinematic==null){previousType=mc.options.getCameraType();mc.options.setCameraType(CameraType.THIRD_PERSON_BACK);}
             cinematic=pose;
             if(mc instanceof net.bettercombat.api.MinecraftClient_BetterCombat bc)bc.cancelUpswing();
@@ -58,6 +58,7 @@ public final class HigashiExecutionVisuals {
     }
     private static void restore(){var mc=Minecraft.getInstance();if(previousType!=null&&mc.options.getCameraType()==CameraType.THIRD_PERSON_BACK)mc.options.setCameraType(previousType);previousType=null;cinematic=null;}
     private static void dismiss(){var mc=Minecraft.getInstance();if(mc.player!=null)POSES.remove(mc.player.getId());dismissedUntil=now()+44;restore();}
+    public static void yieldToRelease(){if(cinematic!=null)dismiss();}
     private static void reset(){restore();BURNS.clear();POSES.clear();world=null;emitted=Long.MIN_VALUE;dismissedUntil=Long.MIN_VALUE;}
     private static boolean cameraActive(){var mc=Minecraft.getInstance();return cinematic!=null&&world==mc.level&&mc.player!=null&&mc.getCameraEntity()==mc.player&&mc.options.getCameraType()==CameraType.THIRD_PERSON_BACK;}
     private static Pose pose(AbstractClientPlayer p){var value=POSES.get(p.getId());

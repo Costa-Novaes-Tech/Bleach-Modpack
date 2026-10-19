@@ -23,6 +23,7 @@ public final class BleachCommon {
         com.bleachmod.init.ModBlocks.BLOCKS.register(modBus);
         ModCreativeTabs.TABS.register(modBus);
         ModEntities.ENTITY_TYPES.register(modBus);
+        com.bleachmod.init.ModSounds.SOUND_EVENTS.register(modBus);
 
         modBus.addListener(BleachCommon::commonSetup);
     }

@@ -1,3 +1,7 @@
+# Atualização Bleach — aparência do personagem (19/10/2026)
+
+Protocolo **2.19**. `ConfirmCharacterC2S(race, appearance)` cria raça e aparência no mesmo pacote; `UpdateAppearanceC2S(appearance)` só é aceito dentro da janela de edição aberta pelo servidor (`AppearanceService.openEditor`, hoje via `/bleachdev appearance edit`; NPC/item a definir), que vale para um envio e expira em 10 min; `OpenAppearanceEditorS2C` abre o editor. Todo NBT recebido passa por `AppearanceData.sanitize` contra o catálogo e a raça. `SyncHelper.appearance/appearanceTo` incluem `appearance` no snapshot visual enviado a quem rastreia o jogador. A prévia do editor é só local. Plano completo: [personalização de skin](../planejamento/plano-skins-personagem.md).
+
 # Atualização Bleach — ciclo Ryūjin de 03/10/2026
 
 O protocolo atual é 2.3, schema do jogador 3. TechniqueService resolve os quatro slots; RyujinTechniqueService mantém áreas e enxames transitórios fora do NBT. StatusData inclui recarga F3. Trocas de forma e normalização preservam cooldowns; eventos de morte/logout/dimensão, forma, unload e parada limpam efeitos/invocações. Não há pacote novo. Partículas não aplicam dano. Contrato: [Ryūjin atual](../poderes/08-contrato-ryujin-circulo-tornado-morcegos.md).

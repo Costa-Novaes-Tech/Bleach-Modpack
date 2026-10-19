@@ -23,7 +23,8 @@ public final class BasicAttackStamina {
                 || target == player || target.level() != player.level() || player.isAlliedTo(target)) return;
         var weapon = player.getMainHandItem();
         if (!weapon.is(ModItems.ASAUCHI.get()) && !weapon.is(ModItems.RYUJIN_JAKKA.get())
-                && !weapon.is(ModItems.HYORINMARU.get()) && !weapon.is(ModItems.SENBONZAKURA.get()) && !weapon.is(ModItems.BENIHIME.get())) return;
+                && !weapon.is(ModItems.HYORINMARU.get()) && !weapon.is(ModItems.SENBONZAKURA.get()) && !weapon.is(ModItems.BENIHIME.get())
+                && !weapon.is(ModItems.NOZARASHI.get())) return;
         PlayerCapability.get(player).ifPresent(data -> {
             if (!data.getStatus().hasCreatedCharacter()) return;
             if (!com.bleachmod.common.compat.BetterCombatCompat.chargeStamina(player)) return;

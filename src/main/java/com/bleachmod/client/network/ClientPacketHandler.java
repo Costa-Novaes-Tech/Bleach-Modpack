@@ -54,6 +54,15 @@ public final class ClientPacketHandler {
         }
     }
 
+    public static void handleOpenAppearanceEditor() {
+        Minecraft mc = Minecraft.getInstance();
+        if (mc.player == null) return;
+        PlayerCapability.get(mc.player).ifPresent(data -> {
+            if (data.getStatus().hasCreatedCharacter())
+                mc.setScreen(new com.bleachmod.client.gui.CharacterAppearanceScreen(data.getCharacter().getRace(), false));
+        });
+    }
+
     public static void handleOpenNpcQuestScreen(OpenNpcQuestScreenS2C msg) {
         Minecraft.getInstance().setScreen(new NpcQuestScreen(msg.npcId(), msg.entityId()));
     }

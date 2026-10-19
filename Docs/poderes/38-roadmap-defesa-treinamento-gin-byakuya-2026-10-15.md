@@ -1,5 +1,7 @@
 # Ciclo 38 — Ordem escolhida: defesa, treinamento e novos kits
 
+> **Ciclo 63 — 19/10:** [integração da main e engenharia reversa Zaraki](63-integracao-main-zaraki-aparencia-historia-2026-10-19.md). Código Zaraki, História e aparência já estão na main `611f8a6`; a feature incorpora esse estado e concilia conflitos com os kits/animações atuais. Próximos passos: validar o conjunto em cliente e iterar a apresentação Higashi/Photon. Ishida continua próximo kit, Mentor/Proficiências aguardam equipe.
+
 > **Atualização ciclo 62:** [câmera Higashi e piloto Photon/LDLib](62-higashi-camera-dirigida-piloto-photon-2026-10-18.md). Bancada antecipada por pedido explícito enquanto se analisa o vídeo do ciclo 60; sete JARs apenas no pacote experimental, base com cinco. A biblioteca já foi compilada/carregada no perfil de teste; cliente/editor e erros recuperados de dist no dedicado permanecem por validar. Integração Zaraki ainda não realizada, demais prioridades preservadas.
 
 ## Roadmap vigente — 18/10/2026, ciclo 61

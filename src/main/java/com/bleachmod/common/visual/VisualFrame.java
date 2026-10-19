@@ -11,6 +11,8 @@ public final class VisualFrame {
     public static final int LIMIT = 48;
     public static final int PRODUCTION_LIMIT = 160;
     public static final int TECHNIQUE_LIMIT = 1056;
+    /** User-approved (cycle 37) ceiling for the Zaraki/Berserk kit only: maximum destruction feel. */
+    public static final int OVERDRIVE_LIMIT = 4000;
     public enum Audience { OWNER, NEARBY }
     public static int budget(int intensity) {
         if (intensity < 1 || intensity > 3) throw new IllegalArgumentException("Intensity must be 1..3");
@@ -42,6 +44,11 @@ public final class VisualFrame {
     public static VisualFrame technique(ServerPlayer owner, Vec3 anchor, int limit) {
         if (!finite(anchor) || limit < 1 || limit > TECHNIQUE_LIMIT) throw new IllegalArgumentException("Invalid technique frame");
         return new VisualFrame(owner, owner.serverLevel(), Audience.NEARBY, limit, anchor, 6);
+    }
+    /** Berserk-only frame: larger budget and spread, same audience, range and chunk rules. */
+    public static VisualFrame overdrive(ServerPlayer owner, Vec3 anchor, int limit) {
+        if (!finite(anchor) || limit < 1 || limit > OVERDRIVE_LIMIT) throw new IllegalArgumentException("Invalid overdrive frame");
+        return new VisualFrame(owner, owner.serverLevel(), Audience.NEARBY, limit, anchor, 10);
     }
     /** Vanilla normal particle range is measured from each emission, in its own dimension. */
     public boolean includes(ServerPlayer receiver, Vec3 point) {

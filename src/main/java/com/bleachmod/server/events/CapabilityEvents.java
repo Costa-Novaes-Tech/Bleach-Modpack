@@ -54,6 +54,7 @@ public final class CapabilityEvents {
             if (event.getEntity() instanceof ServerPlayer player) {
                 PlayerCapability.get(player).ifPresent(data -> com.bleachmod.common.ProgressionService.normalize(player, data));
                 PlayerCapability.get(player).ifPresent(data -> data.getPlayerQuestData().bindDefinitions());
+                PlayerCapability.get(player).ifPresent(com.bleachmod.common.appearance.AppearanceService::normalize);
                 SyncHelper.questRegistry(player);
                 SyncHelper.full(player);
             }
@@ -89,6 +90,7 @@ public final class CapabilityEvents {
         @SubscribeEvent
         public static void logout(PlayerEvent.PlayerLoggedOutEvent event) {
             PlayerCapability.get(event.getEntity()).ifPresent(data -> data.resetTransientState());
+            if (event.getEntity() instanceof ServerPlayer player) com.bleachmod.common.appearance.AppearanceService.forget(player);
         }
     }
 }

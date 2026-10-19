@@ -3,6 +3,7 @@ plugins {
     id 'idea'
     id 'maven-publish'
     id 'net.minecraftforge.gradle' version '6.0.54'
+    id 'org.spongepowered.mixin' version '0.7.+'
 }
 
 version = mod_version
@@ -61,7 +62,6 @@ minecraft {
         // applies to all the run configs below
         configureEach {
             workingDirectory project.file('run')
-            args '--mixin.config', 'bleachmod.mixins.json'
             property 'mixin.env.remapRefMap', 'true'
             property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
 
@@ -77,6 +77,10 @@ minecraft {
             // Please read: https://stackoverflow.com/questions/2031163/when-to-use-the-different-log-levels
             property 'forge.logging.console.level', 'debug'
 
+
+            // History Mode maps are versioned in the repository instead of living inside run/.
+            property 'bleachmod.mapsDir', project.file('history-maps').absolutePath
+
             mods {
                 "${mod_id}" {
                     source sourceSets.main
@@ -87,6 +91,10 @@ minecraft {
         client {
             // Comma-separated list of namespaces to load gametests from. Empty = all namespaces.
             property 'forge.enabledGameTestNamespaces', mod_id
+
+            // Keep the userdev client responsive on 16 GB development machines while the
+            // Gradle launcher remains alive. G1 favors short pauses over a large elastic heap.
+            jvmArgs '-Xms512m', '-Xmx2G', '-XX:+UseG1GC', '-XX:MaxGCPauseMillis=50'
         }
 
         server {
@@ -98,7 +106,8 @@ minecraft {
         // By default, the server will crash when no gametests are provided.
         // The gametest system is also enabled by default for other run configs under the /test command.
         gameTestServer {
-            workingDirectory project.file('run-gametest')
+            // Keep optional-mod registry entries out of the baseline test save.
+            workingDirectory project.file(providers.gradleProperty('photonPilot').map { it.toBoolean() }.getOrElse(false) ? 'run-gametest/photon' : 'run-gametest/base')
             property 'forge.enabledGameTestNamespaces', mod_id
         }
 
@@ -116,6 +125,10 @@ minecraft {
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 repositories {
+    flatDir {
+        name = 'ValidationMods'
+        dirs 'run/validation-dependencies'
+    }
     maven {
         name = 'MinecraftForge'
         url = 'https://maven.minecraftforge.net/'
@@ -123,6 +136,11 @@ repositories {
     maven {
         name = 'MinecraftLibraries'
         url = 'https://libraries.minecraft.net/'
+    }
+    maven {
+        // PlayerAnimator (KosmX): keyframed full-body player animations for release cinematics.
+        name = 'KosmX'
+        url = 'https://maven.kosmx.dev/'
     }
     mavenCentral()
     maven { url = 'https://api.modrinth.com/maven'; content { includeGroup 'maven.modrinth' } }
@@ -138,11 +156,18 @@ repositories {
     // }
 }
 
+// Client mixins (character appearance). The plugin adds the config to every run and writes the refmap.
+mixin {
+    add sourceSets.main, "${mod_id}.refmap.json"
+    config "${mod_id}.mixins.json"
+}
+
 configurations { combatRuntimeArtifacts { transitive = false } }
 configurations { photonPilotArtifacts { transitive = false } }
 def photonPilotEnabled = providers.gradleProperty('photonPilot').map { it.toBoolean() }.getOrElse(false)
 
 dependencies {
+    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
     // Optional VFX laboratory. Base pack stays at five jars; -PphotonPilot=true enables runtime.
     compileOnly fg.deobf("maven.modrinth:photon-editor:a7chTVuf")
     compileOnly fg.deobf("maven.modrinth:ldlib:ONxYJpRz")
@@ -166,6 +191,15 @@ dependencies {
     // If the group id is "net.minecraft" and the artifact id is one of ["client", "server", "joined"],
     // then special handling is done to allow a setup of a vanilla dependency without the use of an external repository.
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
+
+    // Required at runtime by the modpack: body animations for Zanpakuto release cinematics.
+    // PlayerAnimator is supplied once through the pinned Modrinth Forge artifact above.
+
+    // WorldEdit is used to validate generated schematics in the development client.
+    // ForgeGradle must remap the published mod jar to the userdev mappings.
+    if (providers.gradleProperty("validationWorldEdit").map { it.toBoolean() }.getOrElse(false)) {
+        runtimeOnly fg.deobf("local:worldedit-mod:7.2.15")
+    }
 
     // Example mod dependency with JEI - using fg.deobf() ensures the dependency is remapped to your development mappings
     // The JEI API is declared for compile time use, while the full JEI artifact is used at runtime
@@ -206,14 +240,14 @@ tasks.named('processResources', ProcessResources).configure {
 tasks.named('jar', Jar).configure {
     manifest {
         attributes([
-                'MixinConfigs'            : 'bleachmod.mixins.json',
                 'Specification-Title'     : mod_id,
                 'Specification-Vendor'    : mod_authors,
                 'Specification-Version'   : '1', // We are version 1 of ourselves
                 'Implementation-Title'    : project.name,
                 'Implementation-Version'  : project.jar.archiveVersion,
                 'Implementation-Vendor'   : mod_authors,
-                'Implementation-Timestamp': new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+                'Implementation-Timestamp': new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
+                'MixinConfigs'            : "${mod_id}.mixins.json"
         ])
     }
 

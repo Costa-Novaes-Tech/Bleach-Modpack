@@ -147,8 +147,51 @@ public final class MvpRegressionTest {
             status.load(status.save()); yes(!status.isInCombat());
             status.refreshCombat(200); status.clearTransientState(); yes(!status.isInCombat());
         });
+        test("Nozarashi kit: twelve slots, eyepatch drain only, Berserk Mode display name", () -> {
+            var defs = com.bleachmod.common.technique.TechniqueDefinitions.all().stream().filter(d -> d.identity().equals("nozarashi")).toList();
+            eq(12, defs.size());
+            for (var d : defs) eq(d.form().equals("sealed") && d.slot() == 3, d.drainPerTick() > 0);
+            eq("world_cleaver", com.bleachmod.common.technique.TechniqueDefinitions.require("nozarashi", "bankai", 4).id());
+            eq("form.bleachmod.nozarashi.bankai", com.bleachmod.common.evolution.FormNames.key("nozarashi", "bankai"));
+            eq("form.bleachmod.bankai", com.bleachmod.common.evolution.FormNames.key("hyorinmaru", "bankai"));
+            yes(com.bleachmod.common.data.CharacterData.knownIdentity("nozarashi"));
+        });
+        test("Nozarashi player animations parse with PlayerAnimator and match the server timeline", () -> {
+            var root = java.nio.file.Path.of("src/main/resources/assets/bleachmod/player_animation");
+            java.util.Map<String, Integer> expected = java.util.Map.of(
+                    "berserk_release", com.bleachmod.common.technique.NozarashiReleaseEffects.DURATION,
+                    "nozarashi_shoulder", 40, "nozarashi_hammer", 10);
+            for (var entry : expected.entrySet()) {
+                try (var reader = java.nio.file.Files.newBufferedReader(root.resolve(entry.getKey() + ".json"))) {
+                    var animations = dev.kosmx.playerAnim.core.data.gson.AnimationSerializing.deserializeAnimation(reader);
+                    eq(1, animations.size());
+                    var animation = animations.get(0);
+                    yes(Math.abs(entry.getValue() - animation.endTick) <= 1); // endTick is the last tick index
+                    yes(animation.getPart("rightArm").isEnabled());
+                    eq(entry.getKey().equals("nozarashi_shoulder"), animation.isInfinite());
+                } catch (java.io.IOException e) { throw new AssertionError(e); }
+            }
+        });
+        test("Bankai voice line is a declared mono Ogg Vorbis that fits the ducked voice window", () -> {
+            try {
+                var assets = java.nio.file.Path.of("src/main/resources/assets/bleachmod");
+                String json = java.nio.file.Files.readString(assets.resolve("sounds.json"));
+                yes(json.contains("\"voice.bankai_zaraki\"") && json.contains("\"bleachmod:bankai_zaraki\""));
+                byte[] ogg = java.nio.file.Files.readAllBytes(assets.resolve("sounds/bankai_zaraki.ogg"));
+                // First page: 27-byte header + 1 lacing byte, then the Vorbis identification packet.
+                eq("OggS", new String(ogg, 0, 4, java.nio.charset.StandardCharsets.US_ASCII));
+                eq("\u0001vorbis", new String(ogg, 28, 7, java.nio.charset.StandardCharsets.US_ASCII));
+                eq(1, ogg[39] & 0xFF); // mono, so the line is positional around the wielder
+                var header = java.nio.ByteBuffer.wrap(ogg).order(java.nio.ByteOrder.LITTLE_ENDIAN);
+                int rate = header.getInt(40);
+                int last = -1; // the last page's granule position is the total sample count
+                for (int i = ogg.length - 4; i >= 0 && last < 0; i--) if (ogg[i] == 'O' && ogg[i + 1] == 'g' && ogg[i + 2] == 'g' && ogg[i + 3] == 'S') last = i;
+                double seconds = header.getLong(last + 6) / (double) rate;
+                yes(seconds > 3.5 && seconds * 20 <= com.bleachmod.common.technique.NozarashiReleaseEffects.VOICE_TICKS);
+            } catch (java.io.IOException e) { throw new AssertionError(e); }
+        });
         test("Shared technique definitions preserve all homologated costs and cooldowns", () -> {
-            var definitions = com.bleachmod.common.technique.TechniqueDefinitions.all(); eq(44, definitions.size());
+            var definitions = com.bleachmod.common.technique.TechniqueDefinitions.all(); eq(56, definitions.size());
             Set<String> unique = new HashSet<>();
             for (var def : definitions) {
                 yes(unique.add(def.identity() + "|" + def.form() + "|" + def.slot()));
@@ -261,7 +304,7 @@ public final class MvpRegressionTest {
                 rejects(() -> com.bleachmod.common.visual.IceManifestation.releasePoint(origin, bankai, -1));
             }
         });
-        test("Effect palettes compose twelve bounded profiles and reject invalid definitions", () -> {
+        test("Effect palettes compose sixteen bounded profiles and reject invalid definitions", () -> {
             var library = com.bleachmod.common.visual.EffectLibrary.class;
             int profiles = 0;
             for (String palette : com.bleachmod.common.visual.EffectLibrary.palettes()) for (String shape : com.bleachmod.common.visual.EffectLibrary.shapes()) {
@@ -271,7 +314,7 @@ public final class MvpRegressionTest {
                     yes(Double.isFinite(point.x) && Double.isFinite(point.y) && Double.isFinite(point.z)); yes(point.lengthSqr() <= 49);
                 }
             }
-            eq(12, profiles);
+            eq(16, profiles);
             rejects(() -> com.bleachmod.common.visual.EffectLibrary.resolve("missing", "aura"));
             rejects(() -> com.bleachmod.common.visual.EffectLibrary.resolve("fire", "missing"));
             rejects(() -> com.bleachmod.common.visual.EffectLibrary.budget(4));
@@ -1022,8 +1065,98 @@ public final class MvpRegressionTest {
             var preview=new com.bleachmod.common.network.s2c.HigashiExecutionS2C(1,2,new net.minecraft.world.phys.Vec3(0,70,0),new net.minecraft.world.phys.Vec3(0,70,3),.6F,1.8F,false);
             yes(preview.valid()&&!preview.confirmed());var b=new net.minecraft.network.FriendlyByteBuf(io.netty.buffer.Unpooled.buffer());try{com.bleachmod.common.network.s2c.HigashiExecutionS2C.encode(preview,b);eq(preview,com.bleachmod.common.network.s2c.HigashiExecutionS2C.decode(b));}finally{b.release();}
         });
+        test("History Mode map manifest keeps every map and rejects malformed entries",()->{
+            var maps=historyManifest("{\"maps\":{\"human_world\":{\"dimension\":\"minecraft:overworld\",\"spawn\":{\"x\":19.5,\"y\":65,\"z\":-116.5}},"
+                    +"\"hueco_mundo\":{\"dimension\":\"bleachmod:hueco_mundo\",\"spawn\":{\"x\":2528.9,\"y\":41,\"z\":2540.9,\"yaw\":90}}}}");
+            eq(List.of("human_world","hueco_mundo"),List.copyOf(maps.keySet()));
+            var hueco=maps.get("hueco_mundo");eq("bleachmod:hueco_mundo",hueco.dimensionId().toString());eq(41.0,hueco.y());eq(90F,hueco.yaw());
+            eq(0F,maps.get("human_world").yaw());
+            historyRejects("{\"maps\":{\"Bad Id\":{\"dimension\":\"minecraft:overworld\",\"spawn\":{\"x\":0,\"y\":0,\"z\":0}}}}");
+            historyRejects("{\"maps\":{\"a\":{\"dimension\":\"minecraft:overworld\"}}}");
+            historyRejects("{\"maps\":{\"a\":{\"dimension\":\"minecraft:overworld\",\"spawn\":{\"x\":NaN,\"y\":0,\"z\":0}}}}");
+            historyRejects("{\"maps\":{\"a\":{\"dimension\":\"Not Valid\",\"spawn\":{\"x\":0,\"y\":0,\"z\":0}}}}");
+            historyRejects("not json");
+        });
+        test("Appearance catalog is valid and every layer texture is bundled",()->{
+            var catalog=com.bleachmod.common.appearance.AppearanceCatalog.get();
+            for(String category:com.bleachmod.common.appearance.AppearanceCatalog.CATEGORIES) for(String id:catalog.ids(category)){
+                var piece=catalog.piece(id).orElseThrow(); yes(!piece.layers().isEmpty());
+                for(var layer:piece.layers()){
+                    String path="/assets/"+layer.texture().replace(":","/");
+                    yes(MvpRegressionTest.class.getResource(path)!=null);
+                }
+            }
+            yes(catalog.valid("hair:ichigo","hair","shinigami")); yes(!catalog.valid("hair:ichigo","outfit","shinigami"));
+            eq("base:default",catalog.defaults("shinigami").pieces().get("base"));
+            rejects(()->com.bleachmod.common.appearance.AppearanceCatalog.color("orange"));
+            rejects(()->com.bleachmod.common.appearance.AppearanceCatalog.parse(JsonParser.parseString(
+                "{\"pieces\":[{\"id\":\"hair:x\",\"category\":\"outfit\",\"layers\":[]}],\"defaults\":{}}").getAsJsonObject()));
+        });
+        test("Appearance from the network is sanitized against the catalog and race",()->{
+            var catalog=com.bleachmod.common.appearance.AppearanceCatalog.get();
+            var look=new com.bleachmod.common.appearance.AppearanceData();
+            look.setUseVanillaSkin(false); look.setPiece("hair","hair:does_not_exist"); look.setPiece("outfit","hair:ichigo");
+            look.setPiece("base",""); look.setPiece("mouth",""); look.setPiece("eyes","eyes:rukia");
+            look.sanitize(catalog,"shinigami");
+            eq(catalog.defaults("shinigami").pieces().get("hair"),look.piece("hair"));
+            eq(catalog.defaults("shinigami").pieces().get("outfit"),look.piece("outfit"));
+            eq("base:default",look.piece("base")); eq("",look.piece("mouth")); eq("eyes:rukia",look.piece("eyes"));
+            var tag=look.save(); tag.putInt("skin",0x7FFFFFFF); tag.putInt("hairColor",-7);
+            tag.getCompound("pieces").putString("hair","x".repeat(200)); tag.getCompound("pieces").putString("unknown","hair:ichigo");
+            var copy=new com.bleachmod.common.appearance.AppearanceData(); copy.applyDefaults(catalog,"shinigami"); copy.load(tag); copy.sanitize(catalog,"shinigami");
+            eq(0xFFFFFF,copy.skinColor()); eq(-1,copy.hairColor()); eq(catalog.defaults("shinigami").pieces().get("hair"),copy.piece("hair"));
+            yes(!copy.save().getCompound("pieces").contains("unknown"));
+            var other=look.copy(); eq(look.textureKey(),other.textureKey()); other.setSkinColor(0x123456); yes(!look.textureKey().equals(other.textureKey()));
+        });
+        test("Saves before schema 9 keep the Minecraft skin and appearance survives a copy",()->{
+            var d=new PlayerData(); d.initializeShinigami();
+            var legacy=d.save(); legacy.remove("appearance"); legacy.putInt("schemaVersion",8);
+            var loaded=new PlayerData(); loaded.load(legacy); yes(loaded.getAppearance().usesVanillaSkin());
+            d.getAppearance().applyDefaults(com.bleachmod.common.appearance.AppearanceCatalog.get(),"shinigami"); d.getAppearance().setUseVanillaSkin(false);
+            d.getAppearance().setPiece("hair","hair:rukia"); d.getAppearance().setSlim(true);
+            var clone=new PlayerData(); clone.copyFrom(d);
+            eq(9,d.save().getInt("schemaVersion")); yes(!clone.getAppearance().usesVanillaSkin());
+            eq("hair:rukia",clone.getAppearance().piece("hair")); yes(clone.getAppearance().isSlim());
+        });
+        test("Composed skin blends tinted layers source-over",()->{
+            int abgrGray=0xFF000000|200<<16|200<<8|200;
+            eq(0xFF000000|(200*0x56/255)<<16|(200*0x34/255)<<8|(200*0x12/255),com.bleachmod.client.appearance.SkinCompositor.blend(0,abgrGray,0x123456));
+            eq(0xFF0000FF,com.bleachmod.client.appearance.SkinCompositor.blend(0xFF00FF00,0xFF0000FF,-1));
+            int half=com.bleachmod.client.appearance.SkinCompositor.blend(0xFF000000,0x80FFFFFF,-1); eq(255,half>>>24); yes((half&255)>120&&(half&255)<136);
+            eq(0,com.bleachmod.client.appearance.SkinCompositor.blend(0,0,-1)&0xFF000000);
+            var look=new com.bleachmod.common.appearance.AppearanceData(); look.setHairColor(0xABCDEF);
+            eq(0xABCDEF,com.bleachmod.client.appearance.SkinCompositor.tint("hair",look,0x111111));
+            eq(0x111111,com.bleachmod.client.appearance.SkinCompositor.tint("eye",look,0x111111));
+            eq(-1,com.bleachmod.client.appearance.SkinCompositor.tint("none",look,0x111111));
+        });
+        test("Every roster NPC has a skin, a spawn egg model and names in both languages",()->{
+            var roster=com.bleachmod.registry.NpcRoster.entries(); yes(roster.size()>=30);
+            var ids=new HashSet<String>();
+            JsonObject pt, en;
+            try(var a=MvpRegressionTest.class.getResourceAsStream("/assets/bleachmod/lang/pt_br.json");var b=MvpRegressionTest.class.getResourceAsStream("/assets/bleachmod/lang/en_us.json")){
+                pt=JsonParser.parseReader(new java.io.InputStreamReader(a,java.nio.charset.StandardCharsets.UTF_8)).getAsJsonObject();
+                en=JsonParser.parseReader(new java.io.InputStreamReader(b,java.nio.charset.StandardCharsets.UTF_8)).getAsJsonObject();
+            }catch(java.io.IOException e){throw new RuntimeException(e);}
+            for(var npc:roster){
+                yes(ids.add(npc.id()));
+                yes(MvpRegressionTest.class.getResource("/assets/bleachmod/textures/entity/"+npc.id()+".png")!=null);
+                yes(MvpRegressionTest.class.getResource("/assets/bleachmod/models/item/npc_"+npc.id()+"_spawn_egg.json")!=null);
+                for(var lang:List.of(pt,en)){ yes(lang.has("entity.bleachmod.npc_"+npc.id())); yes(lang.has("item.bleachmod.npc_"+npc.id()+"_spawn_egg")); }
+            }
+            rejects(()->com.bleachmod.registry.NpcRoster.parse(JsonParser.parseString("{\"npcs\":[{\"id\":\"Bad Id\",\"eggPrimary\":\"#000000\",\"eggSecondary\":\"#000000\"}]}").getAsJsonObject()));
+        });
+        test("Main schema 9 preserves Nozarashi and appearance while migrating elemental numeric keys",()->{
+            var d=new PlayerData();d.initializeShinigami();d.getCharacter().bindZanpakuto("nozarashi");d.getCharacter().unlockTechnique("bankai",4);d.getCharacter().addTechniqueMastery("bankai",4,63);
+            d.getAppearance().applyDefaults(com.bleachmod.common.appearance.AppearanceCatalog.get(),"shinigami");d.getAppearance().setSlim(true);d.getAppearance().setUseVanillaSkin(false);
+            var tag=d.save();var character=tag.getCompound("character");character.remove("techniqueRevision");character.getCompound("techniqueMasteries").putDouble("ryujin_jakka|bankai|2",45);
+            var loaded=new PlayerData();loaded.load(tag);yes(loaded.getCharacter().isTechniqueDiscovered("bankai",4));eq(63D,loaded.getCharacter().getTechniqueMastery("bankai",4));yes(loaded.getAppearance().isSlim()&&!loaded.getAppearance().usesVanillaSkin());
+            loaded.getCharacter().bindZanpakuto("ryujin_jakka");eq(45D,loaded.getCharacter().getTechniqueMastery("shikai",2));
+            var clone=new PlayerData();clone.copyFrom(loaded);clone.getCharacter().bindZanpakuto("nozarashi");eq(63D,clone.getCharacter().getTechniqueMastery("bankai",4));
+        });
         System.out.println("PASS: "+count+" regression scenarios");
     }
+    private static Map<String,com.bleachmod.server.world.HistoryWorld.Destination> historyManifest(String json){try{var f=java.nio.file.Files.createTempFile("maps",".json");try{java.nio.file.Files.writeString(f,json);return com.bleachmod.server.world.HistoryWorld.parse(f);}finally{java.nio.file.Files.deleteIfExists(f);}}catch(java.io.IOException e){throw new IllegalArgumentException(e);}}
+    private static void historyRejects(String json){rejects(()->historyManifest(json));}
     private static PlayerData player(){PlayerData d=new PlayerData();d.initializeShinigami();d.getCharacter().bindZanpakuto("ryujin_jakka");d.getCharacter().preserveLegacyTechniques();return d;}
     private static Quest quest(){Quest q=new Quest();q.setStringId("q");q.getObjectives().add(new KillObjective("minecraft:zombie",5,KillObjective.SpawnMode.NATURAL,KillObjective.CountMode.ANY_MATCHING));q.getRewards().add(new TpsReward(100));return q;}
     private static JsonObject forms(){JsonObject r=new JsonObject(),groups=new JsonObject();groups.add("zanpakuto",FormDefaults.shinigamiGroup().toJson());r.add("shinigami",groups);return r;}

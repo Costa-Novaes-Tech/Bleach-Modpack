@@ -85,7 +85,7 @@ public final class MasteryPracticeService {
             if (slot > 0) character.addTechniqueMastery(character.getActiveForm(), slot, TECHNIQUE_GAIN);
             TechniqueProgression.unlockEligible(character);
             for (var unlock : MasteryFeedback.gained(before, character)) {
-                var formName = net.minecraft.network.chat.Component.translatable("form.bleachmod." + unlock.form());
+                var formName = com.bleachmod.common.evolution.FormNames.of(character, unlock.form());
                 owner.sendSystemMessage(unlock.slot() == 0
                         ? net.minecraft.network.chat.Component.translatable("message.bleachmod.mastery.form_discovered", formName)
                         : net.minecraft.network.chat.Component.translatable("message.bleachmod.mastery.slot_unlocked", unlock.slot(), formName));

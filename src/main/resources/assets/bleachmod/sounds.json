@@ -1,0 +1,10 @@
+{
+  "voice.bankai_zaraki": {
+    "subtitle": "subtitles.bleachmod.voice.bankai_zaraki",
+    "sounds": [
+      {
+        "name": "bleachmod:bankai_zaraki"
+      }
+    ]
+  }
+}
