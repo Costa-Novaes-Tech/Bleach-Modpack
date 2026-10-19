@@ -1,0 +1,10 @@
+{
+  "flags": ["sealed_selectable", "shikai_selectable", "sealed_active", "progress_sealed", "has_practice", "has_next"],
+  "texts": {
+    "title": "Select transformation",
+    "zanpakuto_name": "Asauchi", "current_form": "Sealed", "progress_text": "0 / 100",
+    "practice": "Practice with sword attacks", "next_unlock": "Shikai: train 0/20",
+    "hint": "Click to select. Use R to transform.", "hint_skills": "Active techniques are not available yet."
+  },
+  "values": {"progress": 0.35}
+}

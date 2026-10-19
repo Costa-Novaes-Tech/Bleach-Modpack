@@ -1,0 +1,15 @@
+{
+  "flags": ["row0_visible", "row1_visible", "row2_visible", "row3_visible", "row4_visible", "row0_selected", "row3_done",
+            "can_down", "has_quest", "obj0_visible", "rew0_visible", "can_start", "can_track"],
+  "texts": {
+    "title": "Mission Journal",
+    "row0_name": "Hollow Hunt", "row1_name": "Name Your Blade", "row2_name": "Bankai Threshold",
+    "row3_name": "A Captain's Discipline", "row4_name": "Substitute in Action",
+    "quest_title": "Hollow Hunt",
+    "quest_desc": "Defeat 5 zombies, the MVP's temporary enemies. Then collect your points in the journal.",
+    "obj0_text": "Defeat 6 x Hollow [0/6]",
+    "rew0_text": "200 spirit points",
+    "track_label": "Track"
+  },
+  "values": {"list_scroll": 0.0}
+}

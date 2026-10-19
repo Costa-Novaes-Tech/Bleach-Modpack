@@ -1,0 +1,572 @@
+{
+  "source_root": "art-src/gui",
+  "texture_root": "src/main/resources/assets/bleachmod/textures/gui",
+  "assets": [
+    {
+      "source": "hud/painel_status.png",
+      "output": "hud/status_panel.png",
+      "grid": 4.47,
+      "trim": true,
+      "note": "Meia grade da arte (~9px) para manter os rotulos legiveis; desenhado com art_density 2."
+    },
+    {
+      "source": "hud/fill_vida.png",
+      "output": "hud/status_fill_health.png",
+      "crop": [
+        6,
+        10,
+        1274,
+        99
+      ],
+      "width": 267,
+      "height": 13,
+      "note": "Poco cinza VIDA: x 143..409 (topo), termina na diagonal antes do espaco da porcentagem."
+    },
+    {
+      "source": "hud/fill_reiatsu.png",
+      "output": "hud/status_fill_reiatsu.png",
+      "crop": [
+        6,
+        10,
+        1274,
+        99
+      ],
+      "width": 254,
+      "height": 13,
+      "note": "Poco cinza REIATSU: x 166..419 (topo)."
+    },
+    {
+      "source": "hud/fill_transformacao.png",
+      "output": "hud/status_fill_transform.png",
+      "crop": [
+        6,
+        10,
+        1274,
+        99
+      ],
+      "width": 232,
+      "height": 13,
+      "note": "Poco cinza TRANSFORMACAO: x 186..417 (topo)."
+    },
+    {
+      "source": "hud/ui/header_plaque.png",
+      "output": "ui/header_plaque.png",
+      "autocrop": true,
+      "width": 440,
+      "note": "Placa do titulo; o texto e desenhado pelo jogo com a fonte bleachmod:title."
+    },
+    {
+      "source": "hud/ui/window_frame.png",
+      "output": "ui/window_frame.png",
+      "autocrop": true,
+      "width": 520,
+      "note": "Moldura usada em nine-slice (slice no layout); centro transparente."
+    },
+    {
+      "source": "hud/ui/window_fill_1.png",
+      "output": "ui/window_fill.png",
+      "remove_checker": true,
+      "crop": [
+        50,
+        95,
+        1490,
+        925
+      ],
+      "width": 800,
+      "height": 420,
+      "note": "So o miolo de window_fill_1 (a moldura propria dele e descartada). window_fill_2 nao e usado."
+    },
+    {
+      "source": "hud/ui/corner_flame_right.png",
+      "output": "ui/corner_flame_right.png",
+      "autocrop": true,
+      "width": 52
+    },
+    {
+      "source": "hud/ui/corner_flame_right.png",
+      "output": "ui/corner_flame_left.png",
+      "autocrop": true,
+      "width": 52,
+      "mirror": true,
+      "note": "Espelho da direita."
+    },
+    {
+      "source": "hud/ui/parchment.png",
+      "output": "ui/parchment_journal.png",
+      "autocrop": true,
+      "width": 425,
+      "height": 359,
+      "note": "Pergaminho no tamanho exato do Diario."
+    },
+    {
+      "source": "hud/ui/parchment.png",
+      "output": "ui/parchment_guide.png",
+      "autocrop": true,
+      "width": 267,
+      "height": 366,
+      "note": "Pergaminho no tamanho exato do Guia da Zanpakuto."
+    },
+    {
+      "source": "hud/ui/parchment_mask.png",
+      "output": "ui/parchment_mask.png",
+      "autocrop": true,
+      "width": 150
+    },
+    {
+      "source": "hud/ui/parchment_mask.png",
+      "output": "ui/parchment_mask_small.png",
+      "autocrop": true,
+      "width": 95
+    },
+    {
+      "source": "hud/ui/parchment_castle.png",
+      "output": "ui/parchment_castle.png",
+      "autocrop": true,
+      "width": 130
+    },
+    {
+      "source": "hud/ui/parchment_castle.png",
+      "output": "ui/parchment_castle_small.png",
+      "autocrop": true,
+      "width": 85
+    },
+    {
+      "source": "hud/ui/parchment_splash.png",
+      "output": "ui/parchment_splash.png",
+      "autocrop": true,
+      "width": 230
+    },
+    {
+      "source": "hud/ui/scene_night.png",
+      "output": "ui/scene_night.png",
+      "crop": [
+        0,
+        160,
+        1254,
+        1087
+      ],
+      "width": 514,
+      "height": 380,
+      "note": "Faixa central da cena, na proporcao da area da roda."
+    },
+    {
+      "source": "hud/ui/section_header.png",
+      "output": "ui/section_header.png",
+      "autocrop": true,
+      "width": 275
+    },
+    {
+      "source": "hud/ui/section_header.png",
+      "output": "ui/section_header_small.png",
+      "autocrop": true,
+      "width": 180
+    },
+    {
+      "source": "hud/ui/title_brush.png",
+      "output": "ui/title_brush.png",
+      "autocrop": true,
+      "width": 236,
+      "height": 48
+    },
+    {
+      "source": "hud/ui/title_brush.png",
+      "output": "ui/title_brush_small.png",
+      "autocrop": true,
+      "width": 198,
+      "height": 36
+    },
+    {
+      "source": "hud/ui/button_wide.png",
+      "output": "ui/button_wide.png",
+      "autocrop": true,
+      "width": 190,
+      "height": 47,
+      "derive": [
+        "hover",
+        "pressed",
+        "disabled"
+      ],
+      "note": "Arte so tem o estado normal; hover/pressed/disabled gerados por script. Folha: normal|hover|pressed|disabled."
+    },
+    {
+      "source": "hud/ui/footer_bar_form_selection.png",
+      "output": "ui/footer_form.png",
+      "autocrop": true,
+      "width": 809,
+      "height": 51
+    },
+    {
+      "source": "hud/ui/footer_bar_character_tip.png",
+      "output": "ui/footer_character.png",
+      "autocrop": true,
+      "width": 776,
+      "height": 47,
+      "derive": [
+        "hover",
+        "pressed",
+        "disabled"
+      ],
+      "note": "E o botao de comprar nivel da Zanpakuto; estados gerados por script."
+    },
+    {
+      "source": "hud/ui/icon_flame.png",
+      "output": "ui/icon_flame.png",
+      "autocrop": true,
+      "width": 26,
+      "note": "Tambem e o icone de quest e de recompensa (decisao: sem quest_icon/reward_icons proprios)."
+    },
+    {
+      "source": "hud/ui/icon_flame.png",
+      "output": "ui/icon_flame_small.png",
+      "autocrop": true,
+      "width": 20
+    },
+    {
+      "source": "hud/journal/list_panel.png",
+      "output": "journal/list_panel.png",
+      "width": 338
+    },
+    {
+      "source": "hud/journal/quest_row_variations.png",
+      "output": "journal/quest_row.png",
+      "cells": {
+        "auto": 5
+      },
+      "cell_width": 286,
+      "cell_height": 42,
+      "note": "Folha: normal|hover|selected|completed|locked."
+    },
+    {
+      "source": "hud/journal/quest_icon_variations.png",
+      "output": "journal/objective_marker.png",
+      "cells": {
+        "auto": 3
+      },
+      "cell_width": 16,
+      "cell_height": 16,
+      "note": "Sao os marcadores de objetivo: pending|done|failed."
+    },
+    {
+      "source": "hud/journal/scroll_thumb_variations.png",
+      "output": "journal/scroll_thumb.png",
+      "cells": {
+        "auto": 3
+      },
+      "cell_width": 12,
+      "note": "Folha: normal|hover|pressed."
+    },
+    {
+      "source": "hud/journal/scroll_track.png",
+      "output": "journal/scroll_track.png",
+      "autocrop": true,
+      "width": 15,
+      "height": 228
+    },
+    {
+      "source": "hud/journal/scroll_arrow_variations.png",
+      "output": "journal/scroll_up.png",
+      "cells": [
+        [
+          105,
+          128,
+          373,
+          392
+        ],
+        [
+          459,
+          128,
+          727,
+          392
+        ],
+        [
+          813,
+          128,
+          1081,
+          392
+        ],
+        [
+          1166,
+          128,
+          1434,
+          392
+        ]
+      ],
+      "cell_width": 16,
+      "cell_height": 16,
+      "note": "Linha de cima da folha; os rotulos NORMAL/HOVER/... ficam fora do recorte."
+    },
+    {
+      "source": "hud/journal/scroll_arrow_variations.png",
+      "output": "journal/scroll_down.png",
+      "cells": [
+        [
+          105,
+          539,
+          373,
+          803
+        ],
+        [
+          458,
+          539,
+          726,
+          803
+        ],
+        [
+          813,
+          540,
+          1081,
+          804
+        ],
+        [
+          1166,
+          540,
+          1434,
+          804
+        ]
+      ],
+      "cell_width": 16,
+      "cell_height": 16
+    },
+    {
+      "source": "hud/journal/page_button_variations.png",
+      "output": "journal/page_prev.png",
+      "cells": [
+        [
+          59,
+          312,
+          378,
+          526
+        ],
+        [
+          396,
+          311,
+          715,
+          525
+        ],
+        [
+          733,
+          312,
+          1052,
+          526
+        ],
+        [
+          1070,
+          312,
+          1389,
+          526
+        ]
+      ],
+      "cell_width": 50,
+      "cell_height": 34,
+      "note": "Folha: normal|hover|pressed|disabled."
+    },
+    {
+      "source": "hud/journal/page_button_variations.png",
+      "output": "journal/page_next.png",
+      "cells": [
+        [
+          59,
+          554,
+          378,
+          768
+        ],
+        [
+          396,
+          554,
+          715,
+          768
+        ],
+        [
+          733,
+          554,
+          1052,
+          768
+        ],
+        [
+          1070,
+          554,
+          1389,
+          768
+        ]
+      ],
+      "cell_width": 50,
+      "cell_height": 34
+    },
+    {
+      "source": "hud/journal/reward_slot.png",
+      "output": "journal/reward_slot.png",
+      "autocrop": true,
+      "width": 36
+    },
+    {
+      "source": "hud/journal/stamp_completed_en_us.png",
+      "output": "journal/stamp_completed_en_us.png",
+      "autocrop": true,
+      "width": 190
+    },
+    {
+      "source": "hud/journal/stamp_completed_pt_br.png",
+      "output": "journal/stamp_completed_pt_br.png",
+      "autocrop": true,
+      "width": 190
+    },
+    {
+      "source": "hud/forms/wheel_ring.png",
+      "output": "forms/wheel_ring.png",
+      "autocrop": true,
+      "width": 302
+    },
+    {
+      "source": "hud/forms/wheel_core.png",
+      "output": "forms/wheel_core.png",
+      "autocrop": true,
+      "width": 82
+    },
+    {
+      "source": "hud/forms/medal_sealed.png",
+      "output": "forms/medal_sealed.png",
+      "isolate": {
+        "min_luma": 75,
+        "close": 4,
+        "grow": 2
+      },
+      "cells": [
+        [
+          26,
+          90,
+          446,
+          640
+        ],
+        [
+          457,
+          90,
+          877,
+          640
+        ],
+        [
+          885,
+          90,
+          1305,
+          640
+        ],
+        [
+          1327,
+          90,
+          1747,
+          640
+        ]
+      ],
+      "cell_width": 176,
+      "note": "A arte tem sombra opaca e rotulos escritos; isolate remove a sombra e o recorte ignora os rotulos. Folha: normal|hover|active|locked."
+    },
+    {
+      "source": "hud/forms/medal_shikai.png",
+      "output": "forms/medal_shikai.png",
+      "cells": {
+        "auto": 4
+      },
+      "cell_width": 176,
+      "note": "Grade 2x2 na arte. Folha: normal|hover|active|locked."
+    },
+    {
+      "source": "hud/forms/medal_bankai.png",
+      "output": "forms/medal_bankai.png",
+      "cells": {
+        "auto": 4
+      },
+      "cell_width": 176,
+      "note": "O estado locked ja vem com cadeado na arte."
+    },
+    {
+      "source": "hud/forms/lock.png",
+      "output": "forms/lock.png",
+      "autocrop": true,
+      "width": 30,
+      "note": "Sobreposto aos medalhoes Selada/Shikai bloqueados."
+    },
+    {
+      "source": "hud/forms/progress_bar.png",
+      "output": "forms/progress_bar.png",
+      "autocrop": true,
+      "width": 205
+    },
+    {
+      "source": "hud/forms/progress_fill_sealed.png",
+      "output": "forms/progress_fill_sealed.png",
+      "autocrop": true,
+      "width": 197,
+      "height": 9
+    },
+    {
+      "source": "hud/forms/progress_fill_shikai.png",
+      "output": "forms/progress_fill_shikai.png",
+      "autocrop": true,
+      "width": 197,
+      "height": 9
+    },
+    {
+      "source": "hud/forms/progress_fill_bankai.png",
+      "output": "forms/progress_fill_bankai.png",
+      "autocrop": true,
+      "width": 197,
+      "height": 9
+    },
+    {
+      "source": "hud/character/portrait_frame.png",
+      "output": "character/portrait_frame.png",
+      "autocrop": true,
+      "width": 255,
+      "height": 341
+    },
+    {
+      "source": "hud/character/portrait_bg.png",
+      "output": "character/portrait_bg.png",
+      "width": 238,
+      "height": 323,
+      "note": "Cena + pedestal runico numa so imagem (C-2 e C-3 unidos)."
+    },
+    {
+      "source": "hud/character/info_panel.png",
+      "output": "character/info_panel.png",
+      "width": 510,
+      "height": 133
+    },
+    {
+      "source": "hud/character/divider_flame.png",
+      "output": "character/divider_flame.png",
+      "autocrop": true,
+      "width": 510
+    },
+    {
+      "source": "hud/character/attribute_card.png",
+      "output": "character/attribute_card.png",
+      "autocrop": true,
+      "width": 252,
+      "height": 44,
+      "note": "Sem variacoes por enquanto (sem nivel maximo)."
+    },
+    {
+      "source": "hud/character/attribute_icons.png",
+      "output": "character/attribute_icons.png",
+      "cells": {
+        "auto": 7
+      },
+      "cell_width": 28,
+      "cell_height": 28,
+      "note": "Ordem = AttributeData.IDS: zanjutsu|hakuda|vitality|resistance|kidou|reserve|control."
+    },
+    {
+      "source": "hud/character/buy_button.png",
+      "output": "character/buy_button.png",
+      "autocrop": true,
+      "width": 72,
+      "height": 28,
+      "derive": [
+        "hover",
+        "pressed",
+        "disabled"
+      ],
+      "note": "Folha: normal|hover|pressed|disabled (3 ultimos gerados por script)."
+    }
+  ]
+}
