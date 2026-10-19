@@ -1,0 +1,95 @@
+{
+  "format_version": "1.8.0",
+  "animations": {
+    "animation.ice_dragon.flight": {
+      "loop": true,
+      "animation_length": 1.6,
+      "bones": {
+        "jaw": {
+          "rotation": [
+            "30 + math.sin(query.anim_time * 225) * 6",
+            0,
+            0
+          ]
+        },
+        "head": {
+          "rotation": [
+            "math.sin(query.anim_time * 225) * 3",
+            0,
+            0
+          ]
+        },
+        "segment_0": {
+          "rotation": [
+            "math.sin(query.anim_time * 225 - 0) * 3",
+            "math.sin(query.anim_time * 225 - 0) * 5",
+            0
+          ]
+        },
+        "segment_1": {
+          "rotation": [
+            "math.sin(query.anim_time * 225 - 28) * 3",
+            "math.sin(query.anim_time * 225 - 28) * 5",
+            0
+          ]
+        },
+        "segment_2": {
+          "rotation": [
+            "math.sin(query.anim_time * 225 - 56) * 3",
+            "math.sin(query.anim_time * 225 - 56) * 5",
+            0
+          ]
+        },
+        "segment_3": {
+          "rotation": [
+            "math.sin(query.anim_time * 225 - 84) * 3",
+            "math.sin(query.anim_time * 225 - 84) * 5",
+            0
+          ]
+        },
+        "segment_4": {
+          "rotation": [
+            "math.sin(query.anim_time * 225 - 112) * 3",
+            "math.sin(query.anim_time * 225 - 112) * 5",
+            0
+          ]
+        },
+        "segment_5": {
+          "rotation": [
+            "math.sin(query.anim_time * 225 - 140) * 3",
+            "math.sin(query.anim_time * 225 - 140) * 5",
+            0
+          ]
+        },
+        "segment_6": {
+          "rotation": [
+            "math.sin(query.anim_time * 225 - 168) * 3",
+            "math.sin(query.anim_time * 225 - 168) * 5",
+            0
+          ]
+        },
+        "segment_7": {
+          "rotation": [
+            "math.sin(query.anim_time * 225 - 196) * 3",
+            "math.sin(query.anim_time * 225 - 196) * 5",
+            0
+          ]
+        },
+        "segment_8": {
+          "rotation": [
+            "math.sin(query.anim_time * 225 - 224) * 3",
+            "math.sin(query.anim_time * 225 - 224) * 5",
+            0
+          ]
+        },
+        "segment_9": {
+          "rotation": [
+            "math.sin(query.anim_time * 225 - 252) * 3",
+            "math.sin(query.anim_time * 225 - 252) * 5",
+            0
+          ]
+        }
+      }
+    }
+  }
+}

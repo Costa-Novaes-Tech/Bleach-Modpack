@@ -20,7 +20,7 @@ import java.util.Map;
 /**
  * Zaraki's way of carrying Nozarashi: blade resting over the shoulder, and every swing (plain attack or
  * technique) comes down like a hammer. Third-person body animation only; first person keeps vanilla hands.
- * Layers sit below the release cinematic (priority 1000), which overrides them while it plays.
+ * Layers sit below the release cinematic (priority 5000), which overrides them while it plays.
  */
 @Mod.EventBusSubscriber(modid = Reference.MOD_ID, value = Dist.CLIENT)
 public final class NozarashiStance {

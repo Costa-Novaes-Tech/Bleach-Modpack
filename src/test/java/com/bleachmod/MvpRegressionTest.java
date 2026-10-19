@@ -200,19 +200,19 @@ public final class MvpRegressionTest {
             }
             for (String form : List.of("sealed", "shikai", "bankai")) {
                 for (int slot = 1; slot <= 4; slot++) yes(com.bleachmod.common.technique.TechniqueDefinitions.find("asauchi", form, slot).isEmpty());
-                float[] costs = form.equals("sealed") ? new float[]{8,8,12,18} : form.equals("shikai") ? new float[]{15,20,25,30} : new float[]{20,25,30,35};
-                int[] cooldowns = {100,160,240,300};
+                float[] costs = form.equals("sealed") ? new float[]{8,8,0,18} : form.equals("shikai") ? new float[]{15,20,18,30} : new float[]{20,25,30,35};
+                int[] cooldowns = form.equals("sealed") ? new int[]{100,160,0,300} : new int[]{100,160,240,300};
                 for (int slot = 1; slot <= 4; slot++) {
                     var def = com.bleachmod.common.technique.TechniqueDefinitions.require("hyorinmaru", form, slot);
                     eq(costs[slot - 1], def.cost()); eq(cooldowns[slot - 1], def.cooldownTicks());
                 }
                 boolean bankai = form.equals("bankai");
-                float[] fireCosts = bankai ? new float[]{20,25,40,45} : new float[]{0,15,40,25};
-                int[] fireCooldowns = bankai ? new int[]{100,80,300,1200} : new int[]{0,80,400,200};
+                float[] fireCosts = bankai ? new float[]{20,25,40,45} : form.equals("sealed") ? new float[]{8,8,0,0} : new float[]{15,25,40,35};
+                int[] fireCooldowns = bankai ? new int[]{100,160,300,1200} : form.equals("sealed") ? new int[]{60,80,0,0} : new int[]{80,100,300,300};
                 for (int slot = 1; slot <= 4; slot++) {
                     var def = com.bleachmod.common.technique.TechniqueDefinitions.require("ryujin_jakka", form, slot);
                     eq(fireCosts[slot - 1], def.cost()); eq(fireCooldowns[slot - 1], def.cooldownTicks());
-                    eq(!bankai && slot == 1 ? .05F : 0F, def.drainPerTick());
+                    eq(0F, def.drainPerTick());
                 }
             }
             rejects(() -> com.bleachmod.common.technique.TechniqueDefinitions.require("missing", "sealed", 1));
@@ -237,6 +237,32 @@ public final class MvpRegressionTest {
             c.addMastery("zanpakuto", "sealed", .5, 100); com.bleachmod.common.technique.TechniqueProgression.unlockEligible(c);
             changes = com.bleachmod.common.technique.MasteryFeedback.gained(before, c); eq(1, changes.size()); eq(0, changes.get(0).slot());
         });
+        test("Elemental migration follows attacks instead of transferring mastery to replacements", () -> {
+            var old = new CharacterData().save(); old.remove("techniqueRevision");
+            var mastery = old.getCompound("techniqueMasteries");
+            var unlocked = old.getCompound("unlockedTechniques");
+            mastery.putDouble("ryujin_jakka|bankai|2", 63);
+            unlocked.putBoolean("ryujin_jakka|bankai|2", true);
+            mastery.putDouble("hyorinmaru|bankai|3", 91);
+            unlocked.putBoolean("hyorinmaru|bankai|3", true);
+            var c = new CharacterData(); c.load(old); c.bindZanpakuto("ryujin_jakka");
+            eq(63D, c.getTechniqueMastery("shikai", 2)); yes(c.isTechniqueDiscovered("shikai", 2));
+            eq(0D, c.getTechniqueMastery("bankai", 2)); yes(!c.isTechniqueDiscovered("bankai", 2));
+            c.bindZanpakuto("hyorinmaru");
+            eq(0D, c.getTechniqueMastery("bankai", 3)); yes(!c.isTechniqueDiscovered("bankai", 3));
+            yes(c.save().getCompound("techniqueMasteries").contains("hyorinmaru|bankai|3"));
+            var roundTrip = new CharacterData(); roundTrip.load(c.save()); roundTrip.bindZanpakuto("ryujin_jakka");
+            eq(63D, roundTrip.getTechniqueMastery("shikai", 2));
+        });
+        test("Schema nine migration preserves balance and leaves transient cooldowns absent", () -> {
+            var d = new PlayerData(); d.initializeShinigami(); d.getResources().setCurrentReiatsu(43);
+            d.getStatus().setTechniqueSlot2CooldownTicks(87);
+            var tag = d.save(); tag.putInt("schemaVersion", 8);
+            var migrated = new PlayerData(); migrated.load(tag);
+            eq(43F, migrated.getResources().getCurrentReiatsu());
+            eq(0, migrated.getStatus().getTechniqueSlot1CooldownTicks());
+            eq(0, migrated.getStatus().getTechniqueSlot4CooldownTicks());
+        });
         test("Ice slot profiles preserve combat ranges and cover the whole glacial disk", () -> {
             for (int slot = 1; slot <= 2; slot++) {
                 var sealed = new com.bleachmod.common.visual.IceTechniqueVisuals.Cut(slot, false, false);
@@ -245,7 +271,7 @@ public final class MvpRegressionTest {
             var narrow = new com.bleachmod.common.visual.IceTechniqueVisuals.Cut(1, true, true);
             eq(24.0, narrow.range()); eq(1056, narrow.budget());
             eq(352, new com.bleachmod.common.visual.IceTechniqueVisuals.Cut(2, true, true).budget());
-            eq(320, new com.bleachmod.common.visual.IceTechniqueVisuals.Cut(1, true, false).budget());
+            eq(480, new com.bleachmod.common.visual.IceTechniqueVisuals.Cut(1, true, false).budget());
             eq(192, new com.bleachmod.common.visual.IceTechniqueVisuals.Cut(2, true, false).budget());
             rejects(() -> new com.bleachmod.common.visual.IceTechniqueVisuals.Cut(3, true, true));
             rejects(() -> new com.bleachmod.common.visual.IceTechniqueVisuals.Cut(1, false, true));
@@ -334,6 +360,7 @@ public final class MvpRegressionTest {
         test("Technique thresholds, permanent discoveries and archived practice", () -> {
             CharacterData d = new CharacterData(); d.initializeShinigami(); d.bindZanpakuto("hyorinmaru");
             for (int slot = 1; slot <= 4; slot++) {
+                if(slot==3){yes(!com.bleachmod.common.technique.TechniqueProgression.available(d,"sealed",slot));continue;}
                 int required = com.bleachmod.common.technique.TechniqueProgression.requirement(slot);
                 d.setMastery("zanpakuto", "sealed", Math.max(0, required - .5));
                 if (slot > 1) yes(!com.bleachmod.common.technique.TechniqueProgression.available(d, "sealed", slot));
@@ -367,9 +394,9 @@ public final class MvpRegressionTest {
             loaded.load(d.saveAppearance()); yes(loaded.isIceArmorVisual());
         });
         test("Guide distinguishes sealed armor and duel from released fields", () -> {
-            eq("ability.bleachmod.hyorinmaru.sealed_3", com.bleachmod.client.hud.ZanpakutoHud.abilityKey("hyorinmaru", "sealed", 3));
-            eq("ability.bleachmod.hyorinmaru.slot_3", com.bleachmod.client.hud.ZanpakutoHud.abilityKey("hyorinmaru", "bankai", 3));
-            eq("ability.bleachmod.ryujin.flame_tornado", com.bleachmod.client.hud.ZanpakutoHud.abilityKey("ryujin_jakka", "bankai", 3));
+            eq("ability.bleachmod.hyorinmaru.unavailable", com.bleachmod.client.hud.ZanpakutoHud.abilityKey("hyorinmaru", "sealed", 3));
+            eq("ability.bleachmod.hyorinmaru.sennen", com.bleachmod.client.hud.ZanpakutoHud.abilityKey("hyorinmaru", "bankai", 3));
+            eq("ability.bleachmod.ryujin.minami", com.bleachmod.client.hud.ZanpakutoHud.abilityKey("ryujin_jakka", "bankai", 3));
             try {
                 var lang = JsonParser.parseString(java.nio.file.Files.readString(java.nio.file.Path.of("src/main/resources/assets/bleachmod/lang/pt_br.json"))).getAsJsonObject();
                 for(String identity : List.of("hyorinmaru", "ryujin_jakka")) for(String form : List.of("sealed", "shikai", "bankai")) for(int slot=1;slot<=4;slot++)
@@ -873,9 +900,9 @@ public final class MvpRegressionTest {
             eq(11D,com.bleachmod.common.technique.SenbonPolicy.CONVERGENCE_RANGE);
         });
         test("garden intensity increases without changing other petal layers",()->{
-            eq(128,com.bleachmod.common.network.s2c.SenbonPetalsS2C.particleCount(4));
+            eq(192,com.bleachmod.common.network.s2c.SenbonPetalsS2C.particleCount(4));
             eq(128,com.bleachmod.common.network.s2c.SenbonPetalsS2C.particleCount(5));
-            eq(112,com.bleachmod.common.network.s2c.SenbonPetalsS2C.particleCount(6,2));
+            eq(160,com.bleachmod.common.network.s2c.SenbonPetalsS2C.particleCount(6,2));
             eq(36,com.bleachmod.common.network.s2c.SenbonPetalsS2C.particleCount(6,0));
             eq(32,com.bleachmod.common.network.s2c.SenbonPetalsS2C.particleCount(0));
             eq(16D,com.bleachmod.common.technique.SenbonPolicy.HAKU_STEP*com.bleachmod.common.technique.SenbonPolicy.HAKU_DASH_TICKS);
@@ -928,10 +955,115 @@ public final class MvpRegressionTest {
             var mesh=com.bleachmod.common.visual.BenihimeGeometry.build(new com.bleachmod.common.network.s2c.BenihimeFrameS2C(1,3,o,o,f,10,1,1));
             yes(mesh.stream().flatMap(q->java.util.stream.Stream.of(q.a(),q.b(),q.c(),q.d())).allMatch(v->v.y>=o.y-.03));
         });
+        test("Better Combat pilot honors guard dodge and charge states",()->{
+            var d=player();yes(com.bleachmod.common.compat.BetterCombatCompat.stateAllows(d));d.getGuard().request(1);yes(!com.bleachmod.common.compat.BetterCombatCompat.stateAllows(d));
+            d.getGuard().release();d.getStatus().beginDodge(new net.minecraft.world.phys.Vec3(1,0,0),1);yes(!com.bleachmod.common.compat.BetterCombatCompat.stateAllows(d));d.getStatus().stopDodge();
+            d.getStatus().setActionCharging(true);yes(!com.bleachmod.common.compat.BetterCombatCompat.stateAllows(d));
+        });
         test("Benihime HUD leases are transient and snapshots isolated",()->{
             var status=new StatusData();var tag=new net.minecraft.nbt.CompoundTag();tag.putInt("shield",900);tag.putInt("charges",3);status.readBenihimeHud(tag);
             eq(100,status.getBenihimeHud().getInt("shield"));status.getBenihimeHud().putInt("charges",0);eq(3,status.getBenihimeHud().getInt("charges"));
             yes(!status.save().contains("benihimeHud"));
+        });
+        test("Bankai seal points the authored katana outward in both hands and always releases the pose", () -> {
+            for(float sign:new float[]{1,-1}){
+                var pose=com.bleachmod.common.visual.RyujinChoreography.release(50,sign);
+                var blade=com.bleachmod.common.visual.RyujinChoreography.bladeDirection(pose);
+                yes(blade.x*sign>.85 && blade.z>0 && Math.abs(blade.y)<.2);
+                var end=com.bleachmod.common.visual.RyujinChoreography.release(60,sign);
+                eq(0F,end.weight());eq(0D,end.arm().lengthSqr());
+                eq(0F,com.bleachmod.common.visual.RyujinChoreography.release(80,sign).weight());
+            }
+        });
+        test("All ten fire gestures have finite continuous curves and return to the base animation", () -> {
+            int[] ends={16,16,16,22,18,20,16,22,22,32};int n=0;
+            for(var kind:com.bleachmod.common.visual.RyujinChoreography.ATTACKS){
+                int end=ends[n++];var previous=com.bleachmod.common.visual.RyujinChoreography.attack(kind,0,1);
+                for(float age=.25F;age<end;age+=.25F){
+                    var current=com.bleachmod.common.visual.RyujinChoreography.attack(kind,age,1);
+                    yes(Double.isFinite(current.arm().lengthSqr()+current.body().lengthSqr()+current.handRotation().lengthSqr()));
+                    yes(current.arm().distanceTo(previous.arm())<.9);previous=current;
+                }
+                eq(0F,com.bleachmod.common.visual.RyujinChoreography.attack(kind,end,1).weight());
+                eq(0F,com.bleachmod.common.visual.RyujinChoreography.attack(kind,Float.NaN,1).weight());
+            }
+            eq(10,n);
+        });
+        test("Higashi coils the torso at the hip instead of sharing Rajada's overhead preparation", () -> {
+            var hip=com.bleachmod.common.visual.RyujinChoreography.attack("higashi",10,1);
+            var overhead=com.bleachmod.common.visual.RyujinChoreography.attack("flame_barrage",4,1);
+            yes(hip.arm().x>-1 && overhead.arm().x<-2.5 && hip.body().y<-.4);
+            var left=com.bleachmod.common.visual.RyujinChoreography.attack("higashi",10,-1);
+            eq(hip.arm().x,left.arm().x);eq(-hip.arm().y,left.arm().y);
+            eq(-hip.body().y,left.body().y);
+        });
+        test("Remaining technique animations have bounded mirrored curves and cannot persist after their lease", () -> {
+            for(var entry:com.bleachmod.common.visual.SignatureChoreography.LENGTHS.entrySet()){
+                int end=entry.getValue();
+                for(int age=0;age<=end;age++){
+                    var r=com.bleachmod.common.visual.SignatureChoreography.sample(entry.getKey(),age,end,1);
+                    var l=com.bleachmod.common.visual.SignatureChoreography.sample(entry.getKey(),age,end,-1);
+                    yes(Double.isFinite(r.arm().lengthSqr()+r.body().lengthSqr()));
+                    yes(r.weight()>=0 && r.weight()<=1);yes(Math.abs(r.arm().y+l.arm().y)<1e-9);
+                }
+                eq(0F,com.bleachmod.common.visual.SignatureChoreography.sample(entry.getKey(),end,end,1).weight());
+            }
+            eq(18,com.bleachmod.common.visual.SignatureChoreography.LENGTHS.size());
+        });
+        test("Remaining releases recover to neutral and reject invalid time", () -> {
+            for(String identity:List.of("senbonzakura","benihime","asauchi"))for(int length:new int[]{24,60}){
+                yes(com.bleachmod.common.visual.SignatureChoreography.release(identity,length/2F,length,1).weight()>0);
+                eq(0F,com.bleachmod.common.visual.SignatureChoreography.release(identity,length,length,1).weight());
+                eq(0D,com.bleachmod.common.visual.SignatureChoreography.release(identity,Float.NaN,length,1).arm().lengthSqr());
+            }
+        });
+        test("Senbon release uses two rows of tall blades with a bounded construct budget", () -> {
+            var quads=com.bleachmod.common.visual.SenbonConstructGeometry.build(com.bleachmod.common.network.s2c.SenbonPetalsS2C.SWORDS,net.minecraft.world.phys.Vec3.ZERO,new net.minecraft.world.phys.Vec3(0,0,1),7,.5,4);
+            double top=quads.stream().flatMap(q->List.of(q.a(),q.b(),q.c(),q.d()).stream()).mapToDouble(v->v.y).max().orElse(0);
+            yes(top>6 && quads.size()<1200);
+        });
+        test("Higashi execution checks seven percent before damage and rejects invalid life", () -> {
+            yes(com.bleachmod.common.technique.HigashiExecutionService.belowThreshold(7,100));
+            yes(com.bleachmod.common.technique.HigashiExecutionService.belowThreshold(70,1000));
+            yes(!com.bleachmod.common.technique.HigashiExecutionService.belowThreshold(7.001F,100));
+            yes(!com.bleachmod.common.technique.HigashiExecutionService.belowThreshold(0,100));
+            yes(!com.bleachmod.common.technique.HigashiExecutionService.belowThreshold(Float.NaN,100));
+        });
+        test("Floral morph preserves two thirds of ground samples and the interior coverage", () -> {
+            int unchanged=0,interior=0;for(int i=0;i<1200;i++){
+                var a=com.bleachmod.common.visual.SenbonGardenGeometry.point(35,i,1200,0);
+                var b=com.bleachmod.common.visual.SenbonGardenGeometry.point(35,i,1200,1);
+                if(a.distanceToSqr(b)<1e-10)unchanged++;if(b.horizontalDistance()<17.5)interior++;
+                yes(b.horizontalDistance()<=35.001);
+            }
+            yes(unchanged>=800&&interior>=190);
+        });
+        test("Confirmed execution packet validates positions and round trips without client instructions", () -> {
+            var m=new com.bleachmod.common.network.s2c.HigashiExecutionS2C(1,2,new net.minecraft.world.phys.Vec3(0,70,0),new net.minecraft.world.phys.Vec3(0,70,3),.6F,1.8F);yes(m.valid());
+            var buffer=new net.minecraft.network.FriendlyByteBuf(io.netty.buffer.Unpooled.buffer());try{com.bleachmod.common.network.s2c.HigashiExecutionS2C.encode(m,buffer);eq(m,com.bleachmod.common.network.s2c.HigashiExecutionS2C.decode(buffer));}finally{buffer.release();}
+            yes(!new com.bleachmod.common.network.s2c.HigashiExecutionS2C(1,1,m.attacker(),m.victim(),.6F,1.8F).valid());
+            yes(!new com.bleachmod.common.network.s2c.HigashiExecutionS2C(1,2,m.attacker(),new net.minecraft.world.phys.Vec3(0,70,100),.6F,1.8F).valid());
+        });
+        test("Higashi shots frame attacker and victim without changing the line of action", () -> {
+            var a=new net.minecraft.world.phys.Vec3(10,70,20);
+            for(double distance:new double[]{1,2,4})for(float age=0;age<44;age+=.25F){
+                var b=a.add(0,0,distance);var shot=com.bleachmod.common.visual.HigashiCinematicPath.sample(a,b,2,age);
+                var look=shot.focus().subtract(shot.eye()).normalize();var right=look.cross(new net.minecraft.world.phys.Vec3(0,1,0)).normalize();var up=right.cross(look).normalize();double tan=Math.tan(Math.toRadians(shot.fov()/2));
+                for(var at:List.of(a.add(0,1,0),b.add(0,1,0))){var delta=at.subtract(shot.eye());double depth=delta.dot(look);yes(depth>0);yes(Math.abs(delta.dot(right))<depth*tan*16/9);yes(Math.abs(delta.dot(up))<depth*tan);}
+                yes(shot.eye().x<a.x&&shot.fov()>=60&&shot.fov()<=66);
+                float yaw=com.bleachmod.common.visual.HigashiCinematicPath.yaw(shot.eye(),shot.focus()),pitch=com.bleachmod.common.visual.HigashiCinematicPath.pitch(shot.eye(),shot.focus());
+                yes(Float.isFinite(yaw)&&Float.isFinite(pitch));yes(net.minecraft.world.phys.Vec3.directionFromRotation(pitch,yaw).distanceToSqr(look)<1e-6);
+            }
+        });
+        test("Higashi authored execution recovers and mirrors without an idle lease", () -> {
+            for(float age=0;age<=48;age+=.25F){var right=com.bleachmod.common.visual.RyujinChoreography.execution(age,1);var left=com.bleachmod.common.visual.RyujinChoreography.execution(age,-1);
+                yes(Double.isFinite(right.arm().lengthSqr()+right.body().lengthSqr()));eq(right.arm().x,left.arm().x);eq(right.arm().y,-left.arm().y);yes(right.weight()>=0&&right.weight()<=1);
+                if(age>=44)eq(0F,right.weight());
+            }
+        });
+        test("Higashi preview packets remain distinct from confirmed death", () -> {
+            var preview=new com.bleachmod.common.network.s2c.HigashiExecutionS2C(1,2,new net.minecraft.world.phys.Vec3(0,70,0),new net.minecraft.world.phys.Vec3(0,70,3),.6F,1.8F,false);
+            yes(preview.valid()&&!preview.confirmed());var b=new net.minecraft.network.FriendlyByteBuf(io.netty.buffer.Unpooled.buffer());try{com.bleachmod.common.network.s2c.HigashiExecutionS2C.encode(preview,b);eq(preview,com.bleachmod.common.network.s2c.HigashiExecutionS2C.decode(b));}finally{b.release();}
         });
         test("History Mode map manifest keeps every map and rejects malformed entries",()->{
             var maps=historyManifest("{\"maps\":{\"human_world\":{\"dimension\":\"minecraft:overworld\",\"spawn\":{\"x\":19.5,\"y\":65,\"z\":-116.5}},"
@@ -1012,6 +1144,14 @@ public final class MvpRegressionTest {
                 for(var lang:List.of(pt,en)){ yes(lang.has("entity.bleachmod.npc_"+npc.id())); yes(lang.has("item.bleachmod.npc_"+npc.id()+"_spawn_egg")); }
             }
             rejects(()->com.bleachmod.registry.NpcRoster.parse(JsonParser.parseString("{\"npcs\":[{\"id\":\"Bad Id\",\"eggPrimary\":\"#000000\",\"eggSecondary\":\"#000000\"}]}").getAsJsonObject()));
+        });
+        test("Main schema 9 preserves Nozarashi and appearance while migrating elemental numeric keys",()->{
+            var d=new PlayerData();d.initializeShinigami();d.getCharacter().bindZanpakuto("nozarashi");d.getCharacter().unlockTechnique("bankai",4);d.getCharacter().addTechniqueMastery("bankai",4,63);
+            d.getAppearance().applyDefaults(com.bleachmod.common.appearance.AppearanceCatalog.get(),"shinigami");d.getAppearance().setSlim(true);d.getAppearance().setUseVanillaSkin(false);
+            var tag=d.save();var character=tag.getCompound("character");character.remove("techniqueRevision");character.getCompound("techniqueMasteries").putDouble("ryujin_jakka|bankai|2",45);
+            var loaded=new PlayerData();loaded.load(tag);yes(loaded.getCharacter().isTechniqueDiscovered("bankai",4));eq(63D,loaded.getCharacter().getTechniqueMastery("bankai",4));yes(loaded.getAppearance().isSlim()&&!loaded.getAppearance().usesVanillaSkin());
+            loaded.getCharacter().bindZanpakuto("ryujin_jakka");eq(45D,loaded.getCharacter().getTechniqueMastery("shikai",2));
+            var clone=new PlayerData();clone.copyFrom(loaded);clone.getCharacter().bindZanpakuto("nozarashi");eq(63D,clone.getCharacter().getTechniqueMastery("bankai",4));
         });
         System.out.println("PASS: "+count+" regression scenarios");
     }

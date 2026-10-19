@@ -81,6 +81,7 @@ public final class FormModeHandler {
     }
 
     private static void transform(ServerPlayer player, PlayerData data, boolean instant) {
+        if (com.bleachmod.common.technique.ReleaseAnimationService.busy(player) || com.bleachmod.common.technique.ElementalTechniqueService.busy(player)) return;
         FormData target = TransformationsHelper.getSelectedFormData(data);
         if (target == null) {
             return;
@@ -110,16 +111,25 @@ public final class FormModeHandler {
             player.displayClientMessage(Component.translatable("message.bleachmod.form.no_reiatsu", (int) cost), true);
             return;
         }
-        data.getResources().consumeReiatsu(cost);
+        if (com.bleachmod.common.technique.ReleaseAnimationService.supports(data, group, target.getName())) {
+            com.bleachmod.common.technique.ReleaseAnimationService.begin(player,data,group,target.getName(),cost);
+            return;
+        }
+        completeAnimatedRelease(player,data,group,target.getName(),cost);
+    }
+
+    public static boolean completeAnimatedRelease(ServerPlayer player, PlayerData data, String group, String form, float cost) {
+        if (!player.isAlive() || !TransformationsHelper.isSelectable(data,group,form) || !data.getResources().consumeReiatsu(cost)) return false;
         String oldGroup = data.getCharacter().getActiveFormGroup();
         String oldForm = data.getCharacter().getActiveForm();
-        data.getCharacter().setActiveForm(group, target.getName());
+        data.getCharacter().setActiveForm(group, form);
         data.getResources().setActionCharge(0);
         data.getStatus().setActionCharging(false);
-        MinecraftForge.EVENT_BUS.post(new BleachEvents.FormChangeEvent(player, oldGroup, oldForm, group, target.getName()));
+        MinecraftForge.EVENT_BUS.post(new BleachEvents.FormChangeEvent(player, oldGroup, oldForm, group, form));
         player.displayClientMessage(Component.translatable("message.bleachmod.transformation",
-                com.bleachmod.common.evolution.FormNames.of(data.getCharacter(), target.getName())), true);
+                com.bleachmod.common.evolution.FormNames.of(data.getCharacter(), form)), true);
         SyncHelper.appearance(player);
         SyncHelper.resources(player);
+        return true;
     }
 }

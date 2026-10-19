@@ -12,7 +12,7 @@ public final class IceTechniqueVisuals {
         public Cut {
             if (slot < 1 || slot > 2 || bankai && !released) throw new IllegalArgumentException("Invalid ice cut");
         }
-        public double range() { return !released ? 6 : slot == 1 ? (bankai ? 24 : 10) : (bankai ? 8 : 6); }
+        public double range() { return !released ? 6 : slot == 1 ? (bankai ? 24 : 15) : (bankai ? 8 : 6); }
         public double halfAngle() { return Math.toRadians(slot == 1 ? 15 : 35); }
         public int samples() { return (int) (range() * 2); }
         public int snowCount() { return bankai ? 18 : released ? 12 : 8; }

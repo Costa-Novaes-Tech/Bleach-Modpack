@@ -1,0 +1,46 @@
+{
+  "engine": "pyopenjtalk-plus",
+  "version": "0.4.1-post9",
+  "voice": "HTS Mei normal, generic pitch-adjusted Japanese placeholder",
+  "license": "CC-BY-3.0",
+  "attribution": "HTS Voice Mei, released by MMDAgent Project Team; Copyright (c) 2009-2013 Nagoya Institute of Technology, Department of Computer Science",
+  "source": "https://github.com/tsukumijima/pyopenjtalk-plus/blob/master/pyopenjtalk/htsvoice/LICENSE_mei_normal.htsvoice",
+  "processing": "Local CPU only; kana input; original and lowered-pitch WAVs kept for comparison; no actor imitation",
+  "quality": "Provisional synthetic voice; Japanese pronunciation/intonation and game mix require human listening",
+  "phrases": {
+    "bankai": {
+      "display": "卍解",
+      "kana": "バンカイ",
+      "cueTick": 28,
+      "speed": 0.86,
+      "maximumSeconds": 1.8,
+      "phonemes": "b a N k a i",
+      "halfTone": -7,
+      "sourceDurationSeconds": 1.235,
+      "finalDurationSeconds": 1.227437641723356,
+      "tempoFactor": 1.0,
+      "file": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\src\\main\\resources\\assets\\bleachmod\\sounds\\benihime_voice_bankai.ogg",
+      "bytes": 10420,
+      "sha256": "f55c9b866da8e47f119f12ca6f826a032c661d0d6dc54a2a587361acab057111",
+      "encodeExitCode": 0,
+      "decodeExitCode": 0
+    },
+    "name": {
+      "display": "観音開紅姫改メ",
+      "kana": "カンノンビラキ ベニヒメ アラタメ",
+      "cueTick": 460,
+      "speed": 0.86,
+      "maximumSeconds": 3.5,
+      "phonemes": "k a N n o N b i r a k i b e n i h i m e a r a t a m e",
+      "halfTone": -7,
+      "sourceDurationSeconds": 2.735,
+      "finalDurationSeconds": 2.7298412698412697,
+      "tempoFactor": 1.0,
+      "file": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\src\\main\\resources\\assets\\bleachmod\\sounds\\benihime_voice_name.ogg",
+      "bytes": 21534,
+      "sha256": "32bbdebf189e2eacc1f1c2ef7e9e5b3f85f155009eef5028bc7e2d74e57d4b8d",
+      "encodeExitCode": 0,
+      "decodeExitCode": 0
+    }
+  }
+}

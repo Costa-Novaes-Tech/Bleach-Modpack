@@ -121,7 +121,7 @@ public final class BenihimeTechniqueService {
         if(!bankai && slot==2){s.shield=BenihimePolicy.SHIELD_CAPACITY;s.shieldUntil=now+BenihimePolicy.SHIELD_TICKS;d.getGuard().release();}
         else if(bankai && slot==3){s.charges=3;s.buffUntil=now+BenihimePolicy.BUFF_TICKS;}
         else {s.action=new Action(slot,now,origin,f,end);if(bankai && slot==2)s.action.recipient=recipient.getUUID();if(!bankai && slot==4){s.action.detonationNet=s.net;s.action.radius=netRadius(s.net,now);s.net=null;}}
-        s.level.playSound(null,p.blockPosition(),SoundEvents.AMETHYST_BLOCK_CHIME,p.getSoundSource(),.65F,bankai?.65F:1.15F);SyncHelper.resources(p);return true;
+        s.level.playSound(null,p.blockPosition(),SoundEvents.AMETHYST_BLOCK_CHIME,p.getSoundSource(),.65F,bankai?.65F:1.15F);SignatureAnimationService.play(p,def.id());SyncHelper.resources(p);return true;
     }
     private static LivingEntity healingTarget(State s){Vec3 from=s.owner.getEyePosition(),to=from.add(s.owner.getLookAngle().scale(BenihimePolicy.HEAL_RANGE));
         return s.level.getEntitiesOfClass(LivingEntity.class,new AABB(from,to).inflate(1),e->healable(s.owner,e) && e!=s.owner && s.owner.hasLineOfSight(e))
@@ -244,7 +244,7 @@ public final class BenihimeTechniqueService {
     public static CompoundTag hud(ServerPlayer p){var tag=new CompoundTag();var s=current(p);if(s==null)return tag;long now=s.level.getGameTime();
         tag.putInt("pathCharges",PlayerCapability.get(p).map(d->d.getStatus().getBenihimePathCharges()).orElse(3));tag.putInt("shield",(int)Math.ceil(Math.max(0,s.shield)));if(s.net!=null)tag.putInt("net",(int)Math.max(0,BenihimePolicy.NET_TICKS-(now-s.net.start)));
         tag.putInt("charges",s.buffUntil>now?s.charges:0);if(s.path!=null)tag.putInt("path",(int)Math.max(0,BenihimePolicy.PATH_TICKS-(now-s.path.start)));return tag;}
-    public static void cancel(ServerPlayer p){var s=ACTIVE.remove(p.getUUID());if(s!=null)s.draw(CLEAR,p.position(),p.position(),0,0,0);}
+    public static void cancel(ServerPlayer p){SignatureAnimationService.cancel(p,CharacterData.BENIHIME);var s=ACTIVE.remove(p.getUUID());if(s!=null)s.draw(CLEAR,p.position(),p.position(),0,0,0);}
     public static void clear(){for(var s:List.copyOf(ACTIVE.values()))cancel(s.owner);ACTIVE.clear();SUPPORT.clear();}
     public static void unload(net.minecraft.world.level.Level level){for(var s:List.copyOf(ACTIVE.values()))if(s.level==level)cancel(s.owner);SUPPORT.values().removeIf(v->v.level==level);}
 }

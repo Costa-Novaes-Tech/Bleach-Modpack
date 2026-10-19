@@ -56,6 +56,10 @@ public final class SyncHelper {
             com.bleachmod.common.ZanpakutoCarry.update(player, data);
             CompoundTag tag = new CompoundTag();
             tag.put("character", data.getCharacter().saveAppearance());
+            tag.put("releaseView", com.bleachmod.common.technique.ReleaseAnimationService.snapshot(player));
+            tag.put("benihimeEntrance", com.bleachmod.common.technique.BenihimeEntranceService.snapshot(player));
+            tag.put("signatureView", com.bleachmod.common.technique.SignatureAnimationService.snapshot(player));
+            tag.put("elementalView", com.bleachmod.common.technique.ElementalTechniqueService.snapshot(player));
             tag.put("appearance", data.getAppearance().save());
             tag.put("guardView", data.getGuard().snapshot());
             NetworkHandler.CHANNEL.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> player), new AppearanceSyncS2C(player.getId(), tag));
@@ -71,6 +75,10 @@ public final class SyncHelper {
             com.bleachmod.common.ZanpakutoCarry.update(subject, data);
             CompoundTag tag = new CompoundTag();
             tag.put("character", data.getCharacter().saveAppearance());
+            tag.put("releaseView", com.bleachmod.common.technique.ReleaseAnimationService.snapshot(subject));
+            tag.put("benihimeEntrance", com.bleachmod.common.technique.BenihimeEntranceService.snapshot(subject));
+            tag.put("signatureView", com.bleachmod.common.technique.SignatureAnimationService.snapshot(subject));
+            tag.put("elementalView", com.bleachmod.common.technique.ElementalTechniqueService.snapshot(subject));
             tag.put("appearance", data.getAppearance().save());
             tag.put("guardView", data.getGuard().snapshot());
             NetworkHandler.sendToPlayer(new AppearanceSyncS2C(subject.getId(), tag), observer);

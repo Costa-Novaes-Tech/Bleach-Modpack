@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "recorded_at_utc": "2026-10-19T16:42:50.2248855Z",
+  "scope": "project-local build/benihime-qa-68; no global PATH or admin installation",
+  "blockbench": {
+    "version": "5.2.2",
+    "platform": "Windows portable executable",
+    "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\build\\benihime-qa-68\\tools\\blockbench-windows-portable\\Blockbench_5.2.2_portable.exe",
+    "source": "https://github.com/JannisX11/blockbench/releases/download/v5.2.2/Blockbench_5.2.2_portable.exe",
+    "release": "https://github.com/JannisX11/blockbench/releases/tag/v5.2.2",
+    "license": "GPL-3.0",
+    "license_source": "https://github.com/JannisX11/blockbench/blob/v5.2.2/LICENSE.MD",
+    "sha256": "2c29819ac9ad2f0abcfda2ba6eed8a75afcb1ead58412b6f6152d2eb9e81e827",
+    "official_digest_matched": true,
+    "size_bytes": 105436440,
+    "file_version": "5.2.2",
+    "authenticode_status": "Valid",
+    "signer": "CN=Jannis Tobias Petersen, O=Jannis Tobias Petersen, S=Schleswig-Holstein, C=DE",
+    "verification": "Portable GUI opened editable source successfully; official plugin manager reports GeckoLib Models & Animations v4.2.5 Installed",
+    "plugin_geckolib": "Installed v4.2.5 through official Blockbench manager; runtime export pipeline still pending",
+    "unused_download": "Blockbench_x64_5.2.2.zip contains macOS Blockbench.app, not Windows; SHA256 verified but never executed",
+    "pe_machine": "0x14c",
+    "architecture": "Windows portable launcher PE x86 (0x14c); GUI successfully launched, embedded Electron payload architecture not independently verified"
+  },
+  "ffmpeg": {
+    "version": "7.1-essentials_build-www.gyan.dev",
+    "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\build\\benihime-qa-68\\tools\\ffmpeg\\ffmpeg.exe",
+    "source": "Existing imageio_ffmpeg 0.6.0 package in Temp/bleach-video-tools, copied locally",
+    "origin_project": "https://github.com/imageio/imageio-ffmpeg",
+    "upstream_windows_build": "https://www.gyan.dev/ffmpeg/builds/",
+    "license": "GPLv3 build (--enable-gpl --enable-version3)",
+    "sha256": "2ce797a0f88d7f067180338fb227f7b1928ea727bd9a4d7a1d022f7c52af71a3",
+    "architecture": "Windows x86_64",
+    "version_exit_code": 0,
+    "devices": [
+      "gdigrab",
+      "dshow"
+    ],
+    "smoke_encode_decode_exit_code": 0,
+    "smoke_video_is_minecraft_evidence": false,
+    "ffprobe": "Not located; no download needed for current decoding/metadata workflow"
+  },
+  "not_installed": [
+    "Blender",
+    "Audacity",
+    "OBS",
+    "Playwright",
+    "Additional Java or Gradle"
+  ],
+  "notes": [
+    "Tools readiness does not prove Minecraft visual validation",
+    "No paid tools, system changes, production assets or git operations performed"
+  ]
+}

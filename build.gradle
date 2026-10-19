@@ -62,6 +62,8 @@ minecraft {
         // applies to all the run configs below
         configureEach {
             workingDirectory project.file('run')
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
 
             // Recommended logging data for a userdev environment
             // The markers can be added/remove as needed separated by commas.
@@ -75,10 +77,6 @@ minecraft {
             // Please read: https://stackoverflow.com/questions/2031163/when-to-use-the-different-log-levels
             property 'forge.logging.console.level', 'debug'
 
-            // Remap dependency mixin refmaps (for example WorldEdit) from SRG names
-            // to the official mappings used by this userdev workspace.
-            property 'mixin.env.remapRefMap', 'true'
-            property 'mixin.env.refMapRemappingFile', "${buildDir}/createSrgToMcp/output.srg"
 
             // History Mode maps are versioned in the repository instead of living inside run/.
             property 'bleachmod.mapsDir', project.file('history-maps').absolutePath
@@ -91,6 +89,11 @@ minecraft {
         }
 
         client {
+            if (providers.gradleProperty('benihimeQa').map { it.toBoolean() }.getOrElse(false)) {
+                workingDirectory project.file(providers.gradleProperty('photonPilot').map { it.toBoolean() }.getOrElse(false) ? 'run-benihime-qa/photon' : 'run-benihime-qa/base')
+                property 'bleachmod.benihimeQa', 'true'
+                args '--width', '1280', '--height', '720'
+            }
             // Comma-separated list of namespaces to load gametests from. Empty = all namespaces.
             property 'forge.enabledGameTestNamespaces', mod_id
 
@@ -108,7 +111,8 @@ minecraft {
         // By default, the server will crash when no gametests are provided.
         // The gametest system is also enabled by default for other run configs under the /test command.
         gameTestServer {
-            workingDirectory project.file('run-gametest')
+            // Keep optional-mod registry entries out of the baseline test save.
+            workingDirectory project.file(providers.gradleProperty('photonPilot').map { it.toBoolean() }.getOrElse(false) ? 'run-gametest/photon' : 'run-gametest/base')
             property 'forge.enabledGameTestNamespaces', mod_id
         }
 
@@ -144,6 +148,7 @@ repositories {
         url = 'https://maven.kosmx.dev/'
     }
     mavenCentral()
+    maven { url = 'https://api.modrinth.com/maven'; content { includeGroup 'maven.modrinth' } }
 
     // Put additional repositories for dependencies here.
     // ForgeGradle also adds the Forge maven and Maven Central, but keeping them
@@ -162,8 +167,29 @@ mixin {
     config "${mod_id}.mixins.json"
 }
 
+configurations { combatRuntimeArtifacts { transitive = false } }
+configurations { photonPilotArtifacts { transitive = false } }
+def photonPilotEnabled = providers.gradleProperty('photonPilot').map { it.toBoolean() }.getOrElse(false)
+
 dependencies {
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
+    // Optional VFX laboratory. Base pack stays at five jars; -PphotonPilot=true enables runtime.
+    compileOnly fg.deobf("maven.modrinth:photon-editor:a7chTVuf")
+    compileOnly fg.deobf("maven.modrinth:ldlib:ONxYJpRz")
+    photonPilotArtifacts "maven.modrinth:photon-editor:a7chTVuf"
+    photonPilotArtifacts "maven.modrinth:ldlib:ONxYJpRz"
+    if (photonPilotEnabled) {
+        runtimeOnly fg.deobf("maven.modrinth:photon-editor:a7chTVuf")
+        runtimeOnly fg.deobf("maven.modrinth:ldlib:ONxYJpRz")
+    }
+    implementation fg.deobf("maven.modrinth:geckolib:aC5KMoNg")
+    combatRuntimeArtifacts "maven.modrinth:geckolib:aC5KMoNg"
+    implementation fg.deobf("maven.modrinth:better-combat:${better_combat_version}")
+    implementation fg.deobf("maven.modrinth:playeranimator:${player_animator_version}")
+    implementation fg.deobf("maven.modrinth:cloth-config:${cloth_config_version}")
+    combatRuntimeArtifacts "maven.modrinth:better-combat:${better_combat_version}"
+    combatRuntimeArtifacts "maven.modrinth:playeranimator:${player_animator_version}"
+    combatRuntimeArtifacts "maven.modrinth:cloth-config:${cloth_config_version}"
     // Specify the version of Minecraft to use.
     // Any artifact can be supplied so long as it has a "userdev" classifier artifact and is a compatible patcher artifact.
     // The "userdev" classifier will be requested and setup by ForgeGradle.
@@ -172,11 +198,13 @@ dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
 
     // Required at runtime by the modpack: body animations for Zanpakuto release cinematics.
-    implementation fg.deobf("dev.kosmx.player-anim:player-animation-lib-forge:${player_anim_version}")
+    // PlayerAnimator is supplied once through the pinned Modrinth Forge artifact above.
 
     // WorldEdit is used to validate generated schematics in the development client.
     // ForgeGradle must remap the published mod jar to the userdev mappings.
-    runtimeOnly fg.deobf("local:worldedit-mod:7.2.15")
+    if (providers.gradleProperty("validationWorldEdit").map { it.toBoolean() }.getOrElse(false)) {
+        runtimeOnly fg.deobf("local:worldedit-mod:7.2.15")
+    }
 
     // Example mod dependency with JEI - using fg.deobf() ensures the dependency is remapped to your development mappings
     // The JEI API is declared for compile time use, while the full JEI artifact is used at runtime
@@ -199,6 +227,10 @@ dependencies {
 // When "copyIdeResources" is enabled, this will also run before the game launches in IDE environments.
 // See https://docs.gradle.org/current/dsl/org.gradle.language.jvm.tasks.ProcessResources.html
 tasks.named('processResources', ProcessResources).configure {
+    from('Docs/poderes/licencas/69-voz-benihime-mei.md') {
+        into 'META-INF/licenses'
+        rename { 'benihime-voice.txt' }
+    }
     var replaceProperties = [
             minecraft_version: minecraft_version, minecraft_version_range: minecraft_version_range,
             forge_version: forge_version, forge_version_range: forge_version_range,
@@ -264,3 +296,20 @@ tasks.register('regressionTest', JavaExec) {
 }
 tasks.named('check') { dependsOn tasks.named('regressionTest') }
 
+
+// External original jars, not deobfuscated development artifacts, ready for the pilot installation.
+tasks.register('prepareCombatTestPack', Copy) {
+    dependsOn tasks.named('build')
+    from configurations.combatRuntimeArtifacts
+    from tasks.named('jar')
+    into layout.buildDirectory.dir('combat-test-pack/mods')
+}
+
+tasks.register('preparePhotonTestPack', Sync) {
+    dependsOn tasks.named('build')
+    from(configurations.combatRuntimeArtifacts) { into 'mods' }
+    from(configurations.photonPilotArtifacts) { into 'mods' }
+    from(tasks.named('jar')) { into 'mods' }
+    from('src/photonPilot/config') { into 'config' }
+    into layout.buildDirectory.dir('photon-test-pack')
+}

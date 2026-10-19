@@ -1,0 +1,27 @@
+{
+  "durationSeconds": 28,
+  "sampleRate": 22050,
+  "channels": 2,
+  "seed": 68019,
+  "pcmPeakDbfs": -8.53750738700967,
+  "pcmRmsDbfs": -20.39540759677164,
+  "voiceDucksSeconds": [
+    [
+      1.4,
+      3.2
+    ],
+    [
+      22.8,
+      27.1
+    ]
+  ],
+  "gainComparedWithCycle68Db": 10.881360887005513,
+  "source": "Original local mathematical synthesis; no samples or voices",
+  "encodeExitCode": 0,
+  "file": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\src\\main\\resources\\assets\\bleachmod\\sounds\\benihime_entrance.ogg",
+  "bytes": 83619,
+  "sha256": "d11b6a9d5cc11fbbf3be79ba51436a6dbd0dd9b55d31f8a6924e626d29dbc88c",
+  "decodeExitCode": 0,
+  "decodeLog": "Input #0, ogg, from 'C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\src\\main\\resources\\assets\\bleachmod\\sounds\\benihime_entrance.ogg':\n  Duration: 00:00:28.00, start: 0.000000, bitrate: 23 kb/s\n  Stream #0:0: Audio: vorbis, 22050 Hz, stereo, fltp, 77 kb/s\n      Metadata:\n        encoder         : Lavc61.19.100 libvorbis\n        title           : Benihime Entrance - Original Atmospheric Cue\n        comment         : Original deterministic local synthesis; no external recordings or voices\nStream mapping:\n  Stream #0:0 -> #0:0 (vorbis (native) -> pcm_s16le (native))\nPress [q] to stop, [?] for help\nOutput #0, null, to 'pipe:':\n  Metadata:\n    encoder         : Lavf61.7.100\n  Stream #0:0: Audio: pcm_s16le, 22050 Hz, stereo, s16, 705 kb/s\n      Metadata:\n        comment         : Original deterministic local synthesis; no external recordings or voices\n        title           : Benihime Entrance - Original Atmospheric Cue\n        encoder         : Lavc61.19.100 pcm_s16le\n[out#0/null @ 000001a9198a6e80] video:0KiB audio:2412KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: unknown\nsize=N/A time=00:00:28.00 bitrate=N/A speed=1.37e+03x    \n",
+  "listeningReview": "Pending in-game listening and mix validation"
+}

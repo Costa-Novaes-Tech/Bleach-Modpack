@@ -1,0 +1,207 @@
+{
+  "branch": "Feature-Poderes-bankais",
+  "head": "ca9a06747819496bf36a1ad9e56be7dc6e16120a",
+  "workingTreeChanges": true,
+  "sourceFiles": [
+    {
+      "path": ".agents/skills/bleach-mod-dev/SKILL.md",
+      "sha256": "3bc30322914398f41b79b7d9a04839f66da0d2837c459511ab4e9dcf92fe33ed"
+    },
+    {
+      "path": ".agents/skills/bleach-mod-dev/references/ferramentas-e-instalacao.md",
+      "sha256": "ff0bcc577659cc5735cc27189bd76b041469c7a1f64c6d97633c43b427d9deb8"
+    },
+    {
+      "path": ".agents/skills/bleach-mod-dev/references/matriz-benihime.md",
+      "sha256": "417d27e37c30f98e006ae916b27798b1438b7913c1518a62183f7faff887a2e3"
+    },
+    {
+      "path": ".agents/skills/bleach-mod-dev/references/perfil-agente.md",
+      "sha256": "604a235f66f516d00eff198932fcc1422bc11210880841c7d57d89feddcdbd3f"
+    },
+    {
+      "path": ".agents/skills/bleach-mod-dev/scripts/preflight.ps1",
+      "sha256": "635e744ebc6cc0eb12cbd2832a339ccf3223c117dca07c593aed84d14ee6dc2b"
+    },
+    {
+      "path": ".codex/agents/bleach_visual_qa.toml",
+      "sha256": "bef224b4da024d7d130658e9a1cb800b99b22261c4ff2047995aa82d5e03f53d"
+    },
+    {
+      "path": ".gitignore",
+      "sha256": "cc7ef1bbbd729508960eb11a8787e3746761d204b769613349e8ca45d0e48ad3"
+    },
+    {
+      "path": "build.gradle",
+      "sha256": "1ab5d3ebeb3de99b7c80caf63155fbc7a6f742fecfc09fbc995d38b56ae1d38e"
+    },
+    {
+      "path": "src/main/java/com/bleachmod/Reference.java",
+      "sha256": "26c086988d85d5f49f5cd9c1c5650775a7d20a149e2c92035cf7aeca7ca45c1c"
+    },
+    {
+      "path": "src/main/java/com/bleachmod/client/BleachClient.java",
+      "sha256": "cb28a642cdeb660fc51b04752f2a27b653edfed54018bee8f00a8f0d23873547"
+    },
+    {
+      "path": "src/main/java/com/bleachmod/client/ClientVisualConfig.java",
+      "sha256": "d5f53726c7655f23966be70d9d9bdcb5427630cf493c1701702c2e06e5895f70"
+    },
+    {
+      "path": "src/main/java/com/bleachmod/client/cinematic/BenihimeEntranceClient.java",
+      "sha256": "6a24e0ba8f4abe51db7111771f6325f9f7bf3e8eefd8e2da7add239ac01d23b5"
+    },
+    {
+      "path": "src/main/java/com/bleachmod/client/cinematic/BenihimeQaBootstrap.java",
+      "sha256": "ef86942fb64569ec674aab0ff716dd0554525c0d7987e1071a1a68618ee07331"
+    },
+    {
+      "path": "src/main/java/com/bleachmod/client/network/ClientPacketHandler.java",
+      "sha256": "6ed16dafe569544d53bc6d38fddfaea18125702bfe1e6f8711f3cd869d1c7607"
+    },
+    {
+      "path": "src/main/java/com/bleachmod/client/particle/BenihimeRenderer.java",
+      "sha256": "9ed0f680ad8ecce55701b99d214ec2d29860f5dc3cfebf3e53da9edf9d44b97a"
+    },
+    {
+      "path": "src/main/java/com/bleachmod/common/network/SyncHelper.java",
+      "sha256": "a0683049ac89677c2fcc9b2c3cc2d95a9b40a6d742a2fd4191030ab3e5a2af51"
+    },
+    {
+      "path": "src/main/java/com/bleachmod/common/technique/BenihimeEntranceService.java",
+      "sha256": "294a755cf2d7f6cf25e8d8adf96ba10a9f49fdb750a87a5d8a1b1740a554965b"
+    },
+    {
+      "path": "src/main/java/com/bleachmod/common/technique/ReleaseAnimationService.java",
+      "sha256": "917954087708d00a5d76ac18daaa86262ff2bea6f5fb2a4212fdf9826e256990"
+    },
+    {
+      "path": "src/main/java/com/bleachmod/common/visual/BenihimeEntranceGeometry.java",
+      "sha256": "17dc2dba3cd72f4d6728511b8a04ba9e865d53ec1256d62265467d0596aa0d6c"
+    },
+    {
+      "path": "src/main/java/com/bleachmod/common/visual/BenihimeEntranceTimeline.java",
+      "sha256": "95b2d4b16172a38969c6f12b251e483a512c603348ac03135992be0cd4cc33a7"
+    },
+    {
+      "path": "src/main/java/com/bleachmod/common/visual/BenihimeFollowMotion.java",
+      "sha256": "be516469333455c97f31163d7261bf926d71172cbc3496dab8cd3875b246956d"
+    },
+    {
+      "path": "src/main/java/com/bleachmod/common/visual/BenihimePlayerPose.java",
+      "sha256": "252153b23376a6d1707eaae79a93142997c0b92e3b1fe7debc70cbe7c240a062"
+    },
+    {
+      "path": "src/main/java/com/bleachmod/gametest/BenihimeEntranceGameTests.java",
+      "sha256": "00c87b5504b8e26cfa5bd672c3c961aeb391c87f1bf201db23c986b5ed31bed4"
+    },
+    {
+      "path": "src/main/java/com/bleachmod/init/ModSounds.java",
+      "sha256": "c04dab00d72fdf1de69ab45b85379afe8570a07c70b9d3a3dd7d16411f66f456"
+    },
+    {
+      "path": "src/main/java/com/bleachmod/server/commands/BenihimeQaWorld.java",
+      "sha256": "cf1f29835a115f773182176755ab377a7f2d38694d3aa4736b18ec703633bcd6"
+    },
+    {
+      "path": "src/main/resources/assets/bleachmod/sounds.json",
+      "sha256": "9ba2f3a3ebf7ffe720022eaaba3bc784cba43cff28da5a1577b880f60700f343"
+    },
+    {
+      "path": "src/main/resources/assets/bleachmod/sounds/benihime_entrance.ogg",
+      "sha256": "b38485c16fab556591e24aa90cc426fc0f4a6baa0f785af90c680bfe9af00046"
+    },
+    {
+      "path": "tools/audio/generate_benihime_entrance.py",
+      "sha256": "7a5b33e7e7ae680338dda4f346bd5c4a71418d638eb54bd6a4627f1b0ee0ff61"
+    },
+    {
+      "path": "tools/models/benihime_entrance.py",
+      "sha256": "1fb07d534a4448d7c55677ea4ce9fffeb16efbe544045b58e3e3350c4c0592c1"
+    },
+    {
+      "path": "tools/models/source/benihime_entrance.bbmodel",
+      "sha256": "eee75e30d77c449e0b919cf36a8fb2b1ccdd1ab93e63fb4aa5a7c8c84c539cc3"
+    },
+    {
+      "path": "tools/qa/benihime_evidence.py",
+      "sha256": "4e3811b30c90afb289ac0aedc4380682cd2b94c273176184a35bf4ce3ae369ba"
+    }
+  ],
+  "packs": {
+    "combat-test-pack": [
+      {
+        "file": "better-combat-1.9.0+1.20.1-forge.jar",
+        "sizeBytes": 1054339,
+        "sha256": "49c69dccf2c641246b4e3deca81ebac21f0ee119e81fc713b838b8e33569eea1"
+      },
+      {
+        "file": "bleachmod-0.2.0.jar",
+        "sizeBytes": 13009466,
+        "sha256": "0e19a22cf4dcbaa79ec368ea5df19eff8592f89a14e17f2abf77c668a1357ed8"
+      },
+      {
+        "file": "cloth-config-11.1.136+forge.jar",
+        "sizeBytes": 1181413,
+        "sha256": "1e895e85cf5b1e1905ef3178ec155c8badfe22a1577b92c09143a5aa1f4ce0f2"
+      },
+      {
+        "file": "geckolib-aC5KMoNg.jar",
+        "sizeBytes": 1038209,
+        "sha256": "4518779a31b6c2abb92c98b5ad17ef3d60177df68626bfc86c44de2764913c2b"
+      },
+      {
+        "file": "playeranimator-1.0.2-rc1+1.20-forge.jar",
+        "sizeBytes": 181437,
+        "sha256": "90d9965cb9efdbda29fdc5610be3914cf7008bf5c392ff34f7ab25f96a852691"
+      }
+    ],
+    "photon-test-pack": [
+      {
+        "file": "better-combat-1.9.0+1.20.1-forge.jar",
+        "sizeBytes": 1054339,
+        "sha256": "49c69dccf2c641246b4e3deca81ebac21f0ee119e81fc713b838b8e33569eea1"
+      },
+      {
+        "file": "bleachmod-0.2.0.jar",
+        "sizeBytes": 13009466,
+        "sha256": "0e19a22cf4dcbaa79ec368ea5df19eff8592f89a14e17f2abf77c668a1357ed8"
+      },
+      {
+        "file": "cloth-config-11.1.136+forge.jar",
+        "sizeBytes": 1181413,
+        "sha256": "1e895e85cf5b1e1905ef3178ec155c8badfe22a1577b92c09143a5aa1f4ce0f2"
+      },
+      {
+        "file": "geckolib-aC5KMoNg.jar",
+        "sizeBytes": 1038209,
+        "sha256": "4518779a31b6c2abb92c98b5ad17ef3d60177df68626bfc86c44de2764913c2b"
+      },
+      {
+        "file": "ldlib-ONxYJpRz.jar",
+        "sizeBytes": 3088005,
+        "sha256": "b6cc3420f05bbfa9f5dec6782307cf556722697561cbc3faa494bd15b1d79fb5"
+      },
+      {
+        "file": "photon-editor-a7chTVuf.jar",
+        "sizeBytes": 5078005,
+        "sha256": "3bd09a759744e9e3b3e7315eaafa9dcd27945ef13331148e8b8169950560e5fb"
+      },
+      {
+        "file": "playeranimator-1.0.2-rc1+1.20-forge.jar",
+        "sizeBytes": 181437,
+        "sha256": "90d9965cb9efdbda29fdc5610be3914cf7008bf5c392ff34f7ab25f96a852691"
+      }
+    ]
+  },
+  "networkProtocol": "2.26",
+  "schema": 9,
+  "validation": {
+    "baseRegression": 123,
+    "baseRequiredGameTests": 145,
+    "photonRegression": 123,
+    "photonRequiredGameTests": 145,
+    "baseExitCode": 0,
+    "photonExitCode": 0
+  }
+}

@@ -19,6 +19,7 @@ import net.minecraftforge.fml.common.Mod;
 public final class GuardService {
     private GuardService() { }
     public static boolean eligible(ServerPlayer p, PlayerData d) {
+        if (com.bleachmod.common.technique.ReleaseAnimationService.busy(p) || com.bleachmod.common.technique.ElementalTechniqueService.busy(p)) return false;
         return d.getStatus().hasCreatedCharacter() && p.isAlive() && !p.isSpectator()
                 && !p.isSleeping() && !p.isPassenger() && !p.getAbilities().flying && !p.isFallFlying()
                 && !p.isUsingItem() && !p.isFullyFrozen() && !d.getStatus().isActionCharging()
@@ -72,6 +73,7 @@ public final class GuardService {
     }
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public static void attack(AttackEntityEvent event) {
+        if (event.getEntity() instanceof ServerPlayer releasing && (com.bleachmod.common.technique.ReleaseAnimationService.busy(releasing) || com.bleachmod.common.technique.ElementalTechniqueService.busy(releasing))) { event.setCanceled(true); return; }
         if (event.getEntity() instanceof ServerPlayer p)
             PlayerCapability.get(p).ifPresent(d -> { if (d.getGuard().active()
                     || com.bleachmod.common.technique.SenbonzakuraTechniqueService.busy(p) || com.bleachmod.common.technique.BenihimeTechniqueService.busy(p)

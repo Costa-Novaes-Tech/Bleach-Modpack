@@ -25,14 +25,15 @@ public final class SenbonConstructRenderer {
                         .setCullState(NO_CULL).setWriteMaskState(COLOR_WRITE).setOutputState(PARTICLES_TARGET).createCompositeState(false));
     }
     private record Key(int owner,int shape) { }
-    private record Frame(SenbonPetalsS2C packet,long until) { }
+    private record Frame(SenbonPetalsS2C packet,long until,long born) { }
     private static final Map<Key,Frame> FRAMES=new LinkedHashMap<>();
     private SenbonConstructRenderer() { }
     public static void accept(SenbonPetalsS2C m) {
         var level=Minecraft.getInstance().level;if(level==null)return;
         var key=new Key(m.ownerId(),m.shape());
         if(!FRAMES.containsKey(key) && FRAMES.size()>=32)FRAMES.remove(FRAMES.keySet().iterator().next());
-        FRAMES.put(key,new Frame(m,level.getGameTime()+7));
+        var previous=FRAMES.get(key);long born=previous==null || previous.packet.pattern()!=m.pattern()?level.getGameTime():previous.born;
+        FRAMES.put(key,new Frame(m,level.getGameTime()+7,born));
     }
     @SubscribeEvent public static void render(RenderLevelStageEvent event) {
         if(event.getStage()!=RenderLevelStageEvent.Stage.AFTER_PARTICLES)return;
@@ -45,9 +46,12 @@ public final class SenbonConstructRenderer {
         var matrix=pose.last().pose();
         for(var frame:FRAMES.values()) {
             var m=frame.packet();if(mc.player.distanceToSqr(m.origin())>96*96)continue;
+            boolean swords=m.shape()==com.bleachmod.common.network.s2c.SenbonPetalsS2C.SWORDS;
+            float grow=swords && m.pattern()==4?net.minecraft.util.Mth.clamp((m.progress()-.2F)/.25F,0,1):swords && m.pattern()==0?net.minecraft.util.Mth.clamp((mc.level.getGameTime()+event.getPartialTick()-frame.born)/10F,0,1):1;
+            float fade=swords && m.pattern()==4?1-net.minecraft.util.Mth.clamp((m.progress()-.55F)/.2F,0,1):1;
             for(var q:SenbonConstructGeometry.build(m.shape(),m.origin().subtract(camera),m.forward(),m.radius(),m.progress(),m.pattern()))
                 for(var v:List.of(q.a(),q.b(),q.c(),q.d()))
-                    vertices.vertex(matrix,(float)v.x,(float)v.y,(float)v.z).color(q.red(),q.green(),q.blue(),q.alpha()).endVertex();
+                    vertices.vertex(matrix,(float)v.x,(float)(m.origin().y-camera.y+(v.y-m.origin().y+camera.y)*grow),(float)v.z).color(q.red(),q.green(),q.blue(),(int)(q.alpha()*grow*fade)).endVertex();
         }
         buffers.endBatch(Types.GLOW);pose.popPose();
     }

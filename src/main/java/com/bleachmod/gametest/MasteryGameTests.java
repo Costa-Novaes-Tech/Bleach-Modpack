@@ -83,8 +83,10 @@ public final class MasteryGameTests {
         h.assertTrue(d.getResources().getCurrentReiatsu() == before && d.getStatus().getTechniqueSlot4CooldownTicks() == 0, "Locked technique consumed resources");
         d.getCharacter().setMastery("zanpakuto", "sealed", 60);
         TechniqueService.executeSlot(p, d, 4);
+        });
+        h.runAfterDelay(13, () -> {
         h.assertTrue(d.getCharacter().getMastery("zanpakuto", "sealed") == 60.5 && d.getCharacter().getTechniqueMastery("sealed", 4) == 1, "Accepted control practice missing");
-        h.assertTrue(z.hasEffect(net.minecraft.world.effect.MobEffects.MOVEMENT_SLOWDOWN), "Control did not occur"); h.succeed();
+        h.assertTrue(z.hasEffect(net.minecraft.world.effect.MobEffects.MOVEMENT_SLOWDOWN), "Control did not occur"); RyujinTechniqueService.cancel(p); z.discard(); h.succeed();
         });
     }
     @GameTest(template = "empty", timeoutTicks = 200)
@@ -117,36 +119,38 @@ public final class MasteryGameTests {
         h.succeed();
     }
     @GameTest(template = "empty", timeoutTicks = 200)
-    public static void ignitionTrainsThroughAcceptedSwordHitsNotThroughItsToggle(GameTestHelper h) {
+    public static void sealedFireCutTrainsOnlyAtItsAcceptedImpact(GameTestHelper h) {
         var p = player(h); var d = data(p); d.getCharacter().bindZanpakuto("ryujin_jakka");
         p.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(ModItems.RYUJIN_JAKKA.get()));
-        TechniqueService.executeSlot(p, d, 1);
-        h.assertTrue(TechniqueService.isIgnitionActive(d) && d.getCharacter().getTechniqueMastery("sealed", 1) == 0, "Toggle awarded practice");
-        var z = target(h, p); z.hurt(p.damageSources().playerAttack(p), 1);
-        h.assertTrue(d.getCharacter().getMastery("zanpakuto", "sealed") == .5 && d.getCharacter().getTechniqueMastery("sealed", 1) == 1, "Ignited melee practice missing or duplicated");
-        h.succeed();
+        var z = target(h, p); TechniqueService.executeSlot(p, d, 1);
+        h.assertTrue(!TechniqueService.isIgnitionActive(d) && d.getCharacter().getTechniqueMastery("sealed", 1) == 0, "Preparation awarded practice or ignited the sealed sword");
+        h.runAfterDelay(10, () -> { try {
+            h.assertTrue(d.getCharacter().getMastery("zanpakuto", "sealed") == .5 && d.getCharacter().getTechniqueMastery("sealed", 1) == 1, "Accepted cut practice missing or duplicated");
+            h.assertTrue(!z.isOnFire(), "Sealed cut still ignites targets");
+        } finally { RyujinTechniqueService.cancel(p); z.discard(); } h.succeed(); });
     }
     @GameTest(template = "empty", timeoutTicks = 200)
-    public static void activeArmorTrainsDefenseButInvulnerableAndAlliedTargetsDoNot(GameTestHelper h) {
+    public static void passiveIceProtectionDoesNotTrainRetiredArmorOrAlliedTargets(GameTestHelper h) {
         var p = player(h); var d = data(p); var z = target(h, p);
         z.setInvulnerable(true); z.hurt(p.damageSources().playerAttack(p), 1);
         h.assertTrue(d.getCharacter().getMastery("zanpakuto", "sealed") == 0, "Invulnerable target earned practice");
         z.setInvulnerable(false); d.getCharacter().bindZanpakuto("hyorinmaru");
         p.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(ModItems.HYORINMARU.get()));
-        d.getCharacter().setMastery("zanpakuto", "sealed", 40); TechniqueService.executeSlot(p, d, 3);
+        d.getSkills().get("zanpakuto").setLevel(2); d.getCharacter().unlockForm("shikai");
+        d.getCharacter().setMastery("zanpakuto", "shikai", 40); d.getCharacter().setActiveForm("zanpakuto", "shikai");
         // Forge FakePlayer rejects vanilla damage; dispatch the accepted hurt/damage pipeline explicitly.
         var hit = new net.minecraftforge.event.entity.living.LivingHurtEvent(p, p.damageSources().mobAttack(z), 1);
         net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(hit);
-        h.assertTrue(hit.getAmount() == .75F, "Active armor did not reduce the incoming blow");
+        h.assertTrue(Math.abs(hit.getAmount() - .85F) < .0001F, "Shikai passive did not reduce the incoming blow");
         net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(new net.minecraftforge.event.entity.living.LivingDamageEvent(p, hit.getSource(), hit.getAmount()));
-        h.assertTrue(d.getCharacter().getMastery("zanpakuto", "sealed") == 40.5 && d.getCharacter().getTechniqueMastery("sealed", 3) == 1, "Active armor practice missing");
+        h.assertTrue(d.getCharacter().getMastery("zanpakuto", "shikai") == 40 && d.getCharacter().getTechniqueMastery("shikai", 3) == 0, "Passive protection trained a technique");
         var team = h.getLevel().getScoreboard().addPlayerTeam("xp" + UUID.randomUUID().toString().substring(0, 8));
         h.getLevel().getScoreboard().addPlayerToTeam(p.getScoreboardName(), team);
         h.getLevel().getScoreboard().addPlayerToTeam(z.getScoreboardName(), team);
         h.runAfterDelay(25, () -> {
             try {
                 MasteryPracticeService.noteIntent(p); MasteryPracticeService.control(p, z, 1);
-                h.assertTrue(d.getCharacter().getMastery("zanpakuto", "sealed") == 40.5, "Ally earned practice");
+                h.assertTrue(d.getCharacter().getMastery("zanpakuto", "shikai") == 40, "Ally earned practice");
             } finally { h.getLevel().getScoreboard().removePlayerTeam(team); }
             h.succeed();
         });

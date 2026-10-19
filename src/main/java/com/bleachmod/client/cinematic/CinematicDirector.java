@@ -37,6 +37,7 @@ public final class CinematicDirector {
     private record Running(String kind, long start, int duration, Vec3 anchor, Vec3 forward) { }
     private static final Map<Integer, Running> RUNNING = new HashMap<>();
     private static CameraType previousCamera;
+    private static net.minecraft.client.multiplayer.ClientLevel world;
     private static Method setPosition;
     private CinematicDirector() { }
 
@@ -44,7 +45,7 @@ public final class CinematicDirector {
     public static void init() {
         PlayerAnimationAccess.REGISTER_ANIMATION_EVENT.register((player, stack) -> {
             var layer = new ModifierLayer<IAnimation>();
-            stack.addAnimLayer(1000, layer);
+            stack.addAnimLayer(5000, layer);
             PlayerAnimationAccess.getPlayerAssociatedData(player).set(ANIMATION_LAYER, layer);
         });
     }
@@ -52,12 +53,14 @@ public final class CinematicDirector {
     public static void start(int entityId, String kind, int duration) {
         var mc = Minecraft.getInstance();
         if (mc.level == null || !(mc.level.getEntity(entityId) instanceof AbstractClientPlayer player)) return;
+        if(world!=mc.level){clear();world=mc.level;}
         if (NozarashiReleaseEffects.IMPACT.equals(kind)) { shake(player, duration); return; }
         if (duration <= 0) { finish(entityId, player); return; }
         RUNNING.put(entityId, new Running(kind, mc.level.getGameTime(), duration, player.position(),
                 Vec3.directionFromRotation(0, player.getYRot())));
         animate(player, kind);
         if (player == mc.player) {
+            com.bleachmod.client.model.HigashiExecutionVisuals.yieldToRelease();
             if (previousCamera == null) previousCamera = mc.options.getCameraType();
             mc.options.setCameraType(CameraType.THIRD_PERSON_BACK);
         }
@@ -91,18 +94,25 @@ public final class CinematicDirector {
     }
     private static Running local() {
         var mc = Minecraft.getInstance();
-        return mc.player == null ? null : RUNNING.get(mc.player.getId());
+        return mc.player == null || world!=mc.level ? null : RUNNING.get(mc.player.getId());
     }
+    public static boolean localActive(){return local()!=null;}
+    private static void clear(){
+        if(world!=null)for(int id:RUNNING.keySet())if(world.getEntity(id) instanceof AbstractClientPlayer p)animate(p,null);
+        RUNNING.clear();var mc=Minecraft.getInstance();if(previousCamera!=null)mc.options.setCameraType(previousCamera);
+        previousCamera=null;world=null;shakeTicks=0;
+    }
+    @SubscribeEvent public static void logout(ClientPlayerNetworkEvent.LoggingOut event){clear();}
 
     @SubscribeEvent public static void tick(TickEvent.ClientTickEvent event) {
         var mc = Minecraft.getInstance();
         if (event.phase != TickEvent.Phase.END) return;
-        if (mc.level == null) { RUNNING.clear(); previousCamera = null; shakeTicks = 0; return; }
+        if (mc.level == null || world!=mc.level) { clear(); return; }
         if (shakeTicks > 0) shakeTicks--;
         RUNNING.entrySet().removeIf(entry -> {
             var running = entry.getValue();
-            if (mc.level.getGameTime() - running.start < running.duration) return false;
             var entity = mc.level.getEntity(entry.getKey());
+            if (entity!=null && entity.isAlive() && mc.level.getGameTime() - running.start < running.duration) return false;
             if (entity instanceof AbstractClientPlayer player) animate(player, null);
             if (entity == mc.player && previousCamera != null) { mc.options.setCameraType(previousCamera); previousCamera = null; }
             return true;

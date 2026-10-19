@@ -1,0 +1,59 @@
+{
+  "duration": 28,
+  "fps": 24,
+  "chapters": [
+    [
+      0,
+      "01 / Ajoelhar"
+    ],
+    [
+      2,
+      "02 / Bankai"
+    ],
+    [
+      3.6,
+      "03 / Cortina sobe fechada"
+    ],
+    [
+      5.4,
+      "04 / Espera: surpresa preservada"
+    ],
+    [
+      6.9,
+      "05 / Dedos e giro do punho"
+    ],
+    [
+      8.3,
+      "06 / Pegar a borda central"
+    ],
+    [
+      8.8,
+      "07 / Puxar o tecido"
+    ],
+    [
+      11.8,
+      "08 / Rosto sereno"
+    ],
+    [
+      13,
+      "09 / Corpo atravessa"
+    ],
+    [
+      16,
+      "10 / Apoio e pausa"
+    ],
+    [
+      19,
+      "11 / Erguer o tronco"
+    ],
+    [
+      22.2,
+      "12 / Fios e nome completo"
+    ],
+    [
+      26,
+      "13 / Estabilizacao"
+    ]
+  ],
+  "type": "procedural_3d_previsualization_not_game_capture"
+}

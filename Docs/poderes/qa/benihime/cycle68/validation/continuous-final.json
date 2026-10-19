@@ -1,0 +1,21 @@
+{
+  "source": "FFmpeg 7.1 gdigrab, title=Minecraft* Forge 1.20.1 - Singleplayer",
+  "requestedFps": 20,
+  "durationSeconds": 85,
+  "audio": false,
+  "sha256": "4618656a07df6df0f7f8437ab3801bec638cfa8f9d7ab7806bb37670f22c810d",
+  "limitations": [
+    "Window recording rate is not a Minecraft frametime benchmark",
+    "No voice or audio was captured",
+    "Camera collision in confined spaces and other player perspectives remain unvalidated"
+  ],
+  "runs": [
+    "1792444963540",
+    "1792444998518",
+    "1792445030710"
+  ],
+  "version": "Final orientation interpolation; matches final source before delivery build",
+  "actualEncodedFrames": 1688,
+  "droppedFramesReported": 8,
+  "decodeExitCode": 0
+}

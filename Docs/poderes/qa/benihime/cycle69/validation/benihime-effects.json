@@ -1,0 +1,41 @@
+{
+  "curtain": {
+    "durationSeconds": 2.8,
+    "channels": 1,
+    "rate": 22050,
+    "peakDbfs": -12.140105643513852,
+    "rmsDbfs": -26.551951972243643,
+    "cueSeconds": 3.6,
+    "proposedVolume": 0.7,
+    "sha256": "4de101ddf7754a0983fd0a35f478a922e80b3c3e7ebfbd2fc6edf5f4e00d3e9e",
+    "decodeExitCode": 0,
+    "bytes": 20088,
+    "origin": "Original deterministic mathematical synthesis; no samples"
+  },
+  "reveal": {
+    "durationSeconds": 2.4,
+    "channels": 1,
+    "rate": 22050,
+    "peakDbfs": -12.813300879148013,
+    "rmsDbfs": -24.049409698969193,
+    "cueSeconds": 11.8,
+    "proposedVolume": 0.8,
+    "sha256": "f3f4fe4e5595f1fcba4637536caa024373a9ef124f9b579f569260ba92ab41c9",
+    "decodeExitCode": 0,
+    "bytes": 16264,
+    "origin": "Original deterministic mathematical synthesis; no samples"
+  },
+  "threads": {
+    "durationSeconds": 1.8,
+    "channels": 1,
+    "rate": 22050,
+    "peakDbfs": -14.275172442116116,
+    "rmsDbfs": -30.467814593468724,
+    "cueSeconds": 22.5,
+    "proposedVolume": 0.6,
+    "sha256": "4b495ba66aeafdec5345e33dba6fb8df076e430872221ba0a51d5ad42667d84b",
+    "decodeExitCode": 0,
+    "bytes": 14034,
+    "origin": "Original deterministic mathematical synthesis; no samples"
+  }
+}

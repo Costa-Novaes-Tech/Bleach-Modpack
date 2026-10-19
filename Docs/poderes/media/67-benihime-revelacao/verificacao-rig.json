@@ -1,0 +1,8 @@
+{
+  "arm_length_error": 1.1546319456101628e-14,
+  "wrist_to_grip_anchor_error": 0,
+  "closed_seam_overlap": 0.09,
+  "hidden_until": 5.4,
+  "first_separation": 6.95,
+  "rig_samples": 673
+}

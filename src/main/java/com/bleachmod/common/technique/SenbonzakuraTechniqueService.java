@@ -112,6 +112,7 @@ public final class SenbonzakuraTechniqueService {
             field.bloom=now;
             field.bloomTicks=(int)Math.min(SenbonPolicy.BLOOM_WINDUP,def.windowTicks()-age-1);
             if(field.bloomTicks==0)finishField(s);
+            SignatureAnimationService.play(p,"floral_bloom",Math.max(1,field.bloomTicks));
             sync(p); return true;
         }
         if (bankai && slot==3 && scene(p)) {
@@ -120,6 +121,7 @@ public final class SenbonzakuraTechniqueService {
             if (!d.getResources().consumeReiatsu(def.cost())) return fail(p,"energy");
             s.sceneStart=-1;
             s.attack=new Attack(Kind.IKKA_ATTACK,3,now,p.position().add(0,1,0),SenbonGeometry.forward(p.getYRot()));
+            SignatureAnimationService.play(p,"ikka_senjinka");
             sync(p);return true;
         }
         var definition=TechniqueDefinitions.require(CharacterData.SENBONZAKURA,s.form,slot);
@@ -142,6 +144,7 @@ public final class SenbonzakuraTechniqueService {
         else if (slot==3) { s.sceneStart=now;s.wardUntil=0; }
         else { s.sceneStart=-1;s.wardUntil=0;s.attack=new Attack(Kind.HAKU,slot,now,o,f); }
         p.serverLevel().playSound(null,p.blockPosition(),SoundEvents.AMETHYST_BLOCK_CHIME,p.getSoundSource(),.6F,bankai?.7F:1.3F);
+        SignatureAnimationService.play(p,definition.id());
         sync(p); return true;
     }
     private static boolean fail(ServerPlayer p,String key) { p.displayClientMessage(Component.translatable("message.bleachmod.senbonzakura."+key),true);return false; }
@@ -338,7 +341,7 @@ public final class SenbonzakuraTechniqueService {
         if (field.bloom>=0) {
             int stage=(int)(now-field.bloom);
             if(stage>=field.bloomTicks) { finishField(s);sync(s.owner);return; }
-            if (stage%2==0) s.draw(FLOWER,field.center,f,SenbonPolicy.FIELD_RADIUS,stage/(double)field.bloomTicks,0);
+            if (stage%2==0) { s.draw(FIELD,field.center,f,SenbonPolicy.FIELD_RADIUS,stage/(double)field.bloomTicks,3);s.draw(FLOWER,field.center,f,SenbonPolicy.FIELD_RADIUS,stage/(double)field.bloomTicks,3); }
             return;
         }
         if (age<6 && age%2==0) s.draw(GUARD,s.owner.position(),f,1.5,age/6.0,0);
@@ -349,7 +352,7 @@ public final class SenbonzakuraTechniqueService {
     private static void finishField(State s) {
         Field field=s.field;if(field==null)return;
         var f=SenbonGeometry.forward(s.owner.getYRot());
-        s.draw(FLOWER,field.center,f,SenbonPolicy.FIELD_RADIUS,1,0);
+        s.draw(FLOWER,field.center,f,SenbonPolicy.FIELD_RADIUS,1,4);
         pulse(s,field.center,SenbonPolicy.FIELD_RADIUS,SenbonPolicy.FIELD_BLOOM_DAMAGE,2);
         s.draw(RISE,field.center,f,SenbonPolicy.FIELD_RADIUS,1,2);s.field=null;
     }
@@ -362,6 +365,7 @@ public final class SenbonzakuraTechniqueService {
         tag.putInt("ward",(int)Math.max(0,s.wardUntil-now)); return tag;
     }
     public static void cancel(ServerPlayer p) {
+        SignatureAnimationService.cancel(p,CharacterData.SENBONZAKURA);
         State s=ACTIVE.remove(p.getUUID());if(s!=null)stopAttack(s);
         var reach=p.getAttribute(ForgeMod.ENTITY_REACH.get());if(reach!=null)reach.removeModifier(REACH_ID);
         PlayerCapability.get(p).ifPresent(d->{ if(d.getCharacter().getSenbonBlade()!=0) { d.getCharacter().setSenbonBlade(0);SyncHelper.appearance(p); } });

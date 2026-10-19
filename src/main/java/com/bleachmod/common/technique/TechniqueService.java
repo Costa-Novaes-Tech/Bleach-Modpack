@@ -71,6 +71,7 @@ public final class TechniqueService {
 
     public static void executeSlot(ServerPlayer player, PlayerData data, int slot) {
         if (!TechniqueProgression.authorize(player, data, slot)) return;
+        if (ElementalTechniqueService.elemental(data)) { ElementalTechniqueService.execute(player,data,slot); return; }
         if (com.bleachmod.common.data.CharacterData.BENIHIME.equals(data.getCharacter().getZanpakutoIdentity())) {
             BenihimeTechniqueService.executeSlot(player,data,slot);return;
         }
@@ -150,7 +151,7 @@ public final class TechniqueService {
         syncResources(player, data);
     }
 
-    private static void applyConcentratedSteamCut(ServerPlayer player) {
+    public static void applyConcentratedSteamCut(ServerPlayer player) {
         ServerLevel level = player.serverLevel();
         Vec3 origin = player.position();
         Vec3 direction = player.getLookAngle().normalize();
@@ -179,7 +180,7 @@ public final class TechniqueService {
         }
 
         Vec3 impact = origin.add(direction.scale(STEAM_CUT_RANGE));
-        level.sendParticles(ParticleTypes.SOUL_FIRE_FLAME, impact.x, impact.y, impact.z,
+        level.sendParticles(ParticleTypes.SMALL_FLAME, impact.x, impact.y, impact.z,
                 18, 0.75D, 0.75D, 0.75D, 0.045D);
         level.sendParticles(ParticleTypes.CLOUD, impact.x, impact.y, impact.z,
                 110, 1.1D, 1.4D, 1.1D, 0.09D);
@@ -223,16 +224,18 @@ public final class TechniqueService {
     }
 
     private static void spawnSteamCutLine(ServerLevel level, Vec3 center, Vec3 direction) {
-        level.sendParticles(ParticleTypes.SOUL_FIRE_FLAME, center.x, center.y, center.z,
-                4, 0.18D, 0.25D, 0.18D, 0.025D);
-        level.sendParticles(ParticleTypes.CLOUD, center.x, center.y, center.z,
-                24, 0.35D, 1.25D, 0.35D, 0.055D);
-        Vec3 perpendicular = new Vec3(-direction.z, direction.x, 0.0D);
-        if (perpendicular.lengthSqr() > 0.0001D) {
-            perpendicular = perpendicular.normalize();
-            level.sendParticles(ParticleTypes.END_ROD, center.x, center.y, center.z,
-                    3, perpendicular.x * 0.3D, perpendicular.y * 0.3D, perpendicular.z * 0.3D, 0.02D);
+        level.sendParticles(ParticleTypes.FLAME, center.x, center.y + .5, center.z,
+                8, .18, .4, .18, .025);
+        level.sendParticles(ParticleTypes.SMALL_FLAME, center.x, center.y + .8, center.z,
+                4, .12, .5, .12, .025);
+        Vec3 side = new Vec3(-direction.z, 0, direction.x);
+        side = side.lengthSqr() > .0001 ? side.normalize() : new Vec3(1,0,0);
+        // Smoke stays at the sides so the incandescent path remains readable.
+        for (int sign : new int[]{-1,1}) {
+            Vec3 at = center.add(side.scale(sign * .7));
+            level.sendParticles(ParticleTypes.SMOKE, at.x, at.y + .5, at.z, 2,.15,.5,.15,.025);
         }
+        level.sendParticles(ParticleTypes.ELECTRIC_SPARK,center.x,center.y+.6,center.z,2,.08,.35,.08,.02);
     }
 
     private static void executeFlameFan(ServerPlayer player, PlayerData data) {
@@ -285,7 +288,7 @@ public final class TechniqueService {
     }
 
     private static void spawnFlameFanImpact(ServerLevel level, LivingEntity target) {
-        level.sendParticles(ParticleTypes.SOUL_FIRE_FLAME, target.getX(), target.getY() + target.getBbHeight() * 0.5D,
+        level.sendParticles(ParticleTypes.SMALL_FLAME, target.getX(), target.getY() + target.getBbHeight() * 0.5D,
                 target.getZ(), 32, 0.45D, 0.55D, 0.45D, 0.045D);
     }
 
@@ -348,7 +351,7 @@ public final class TechniqueService {
     private static void sendBarrageGroundParticles(ServerLevel level, BlockPos surface, boolean dense) {
         level.sendParticles(ParticleTypes.FLAME, surface.getX() + 0.5D, surface.getY() + 0.18D,
                 surface.getZ() + 0.5D, dense ? 14 : 4, 0.28D, 0.12D, 0.28D, 0.035D);
-        level.sendParticles(ParticleTypes.SOUL_FIRE_FLAME, surface.getX() + 0.5D, surface.getY() + 0.28D,
+        level.sendParticles(ParticleTypes.SMALL_FLAME, surface.getX() + 0.5D, surface.getY() + 0.28D,
                 surface.getZ() + 0.5D, dense ? 5 : 1, 0.2D, 0.12D, 0.2D, 0.02D);
         level.sendParticles(ParticleTypes.SMOKE, surface.getX() + 0.5D, surface.getY() + 0.38D,
                 surface.getZ() + 0.5D, dense ? 3 : 1, 0.18D, 0.14D, 0.18D, 0.012D);
@@ -372,7 +375,7 @@ public final class TechniqueService {
         syncResources(player, data);
     }
 
-    private static void executeFlameDash(ServerPlayer player, PlayerData data) {
+    public static void executeFlameDash(ServerPlayer player, PlayerData data) {
         var definition = TechniqueDefinitions.require(data.getCharacter().getZanpakutoIdentity(), data.getCharacter().getActiveForm(), 1);
         if (!isRyujinJakkaEquipped(player)) {
             sendFeedback(player, Component.translatable("message.bleachmod.technique.requires_ryujin_jakka"));
@@ -393,7 +396,7 @@ public final class TechniqueService {
         data.getStatus().beginFlameDash();
         data.getStatus().setTechniqueSlot1CooldownTicks(definition.cooldownTicks());
         data.getStatus().setFlameDashTicks(FLAME_DASH_DURATION_TICKS);
-        player.startAutoSpinAttack(FLAME_DASH_DURATION_TICKS);
+        // Custom dash owns movement/contact; vanilla Riptide would override the authored sword pose.
         spawnDashBurst(player.serverLevel(), player);
         sendFeedback(player, Component.translatable("message.bleachmod.technique.flame_dash"));
         syncResources(player, data);
@@ -434,7 +437,7 @@ public final class TechniqueService {
         ServerLevel level = player.serverLevel();
         for (BlockPos surface : data.getStatus().getFlameFanGroundPositions()) {
             if (player.tickCount % 2 == 0) {
-                level.sendParticles(ParticleTypes.SOUL_FIRE_FLAME, surface.getX() + 0.5D,
+                level.sendParticles(ParticleTypes.SMALL_FLAME, surface.getX() + 0.5D,
                         surface.getY() + 0.35D, surface.getZ() + 0.5D,
                         16, 0.34D, 0.18D, 0.34D, 0.04D);
             }
@@ -564,7 +567,7 @@ public final class TechniqueService {
     private static void spawnDashBurst(ServerLevel level, ServerPlayer player) {
         level.sendParticles(ParticleTypes.FLAME, player.getX(), player.getY() + 0.8D,
                 player.getZ(), 42, 0.65D, 0.55D, 0.65D, 0.12D);
-        level.sendParticles(ParticleTypes.SOUL_FIRE_FLAME, player.getX(), player.getY() + 0.8D,
+        level.sendParticles(ParticleTypes.SMALL_FLAME, player.getX(), player.getY() + 0.8D,
                 player.getZ(), 16, 0.45D, 0.45D, 0.45D, 0.08D);
         level.sendParticles(ParticleTypes.LAVA, player.getX(), player.getY() + 0.8D,
                 player.getZ(), 10, 0.5D, 0.35D, 0.5D, 0.04D);
@@ -579,7 +582,7 @@ public final class TechniqueService {
         double z = player.getZ() + back.z;
         level.sendParticles(ParticleTypes.FLAME, x, y, z, 18,
                 0.45D, 0.45D, 0.45D, 0.09D);
-        level.sendParticles(ParticleTypes.SOUL_FIRE_FLAME, x, y, z, 5,
+        level.sendParticles(ParticleTypes.SMALL_FLAME, x, y, z, 5,
                 0.28D, 0.28D, 0.28D, 0.06D);
         level.sendParticles(ParticleTypes.LAVA, x, y, z, 2,
                 0.2D, 0.2D, 0.2D, 0.02D);

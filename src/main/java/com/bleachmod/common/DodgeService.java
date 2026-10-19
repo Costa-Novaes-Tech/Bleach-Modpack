@@ -29,6 +29,7 @@ public final class DodgeService {
     }
 
     public static boolean request(ServerPlayer p, PlayerData data, int forward, int left) {
+        if (com.bleachmod.common.technique.ReleaseAnimationService.busy(p) || com.bleachmod.common.technique.ElementalTechniqueService.busy(p)) return false;
         var state = data.getStatus();
         if (com.bleachmod.common.technique.BenihimeTechniqueService.busy(p) || com.bleachmod.common.technique.SenbonzakuraTechniqueService.busy(p)
                 || data.getGuard().active() || data.getGuard().broken() || !DodgePolicy.validInput(forward, left)

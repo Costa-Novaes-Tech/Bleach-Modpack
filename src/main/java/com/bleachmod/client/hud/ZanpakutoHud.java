@@ -39,6 +39,7 @@ public final class ZanpakutoHud {
                 int slot = i + 1;
                 var definition = TechniqueDefinitions.require(identity, form, slot);
                 String name = Component.translatable(abilityKey(identity, form, i + 1)).getString();
+                if(identity.equals("hyorinmaru") && form.equals("bankai") && slot==4 && com.bleachmod.client.model.ElementalActionVisuals.bloomReady(mc.player))name=Component.translatable("ability.bleachmod.hyorinmaru.bloom").getString();
                 var senbon=d.getStatus().getSenbonHud();
                 if (CharacterData.SENBONZAKURA.equals(identity) && form.equals("bankai")) {
                     if (slot==2 && senbon.getInt("fieldRemaining")>0 && senbon.getInt("fieldReady")==0)
@@ -49,6 +50,7 @@ public final class ZanpakutoHud {
                 String key = "[" + keys[i].getTranslatedKeyMessage().getString() + "] ";
                 boolean available = unlocked && com.bleachmod.common.technique.TechniqueProgression.available(d.getCharacter(), form, slot);
                 g.drawString(mc.font, mc.font.plainSubstrByWidth(key + name, width - 16), 8, 33 + i * 25, available ? 0xFFFFFF : 0xA6A6A6, false);
+                if (definition.id().equals("unavailable")) continue;
                 String requirement = available ? Component.translatable("hud.bleachmod.mastery.technique", MasteryFeedback.value(d.getCharacter().getTechniqueMastery(form, slot))).getString()
                         : !unlocked ? Component.translatable("hud.bleachmod.mastery.form_locked").getString()
                         : Component.translatable("hud.bleachmod.mastery.required", MasteryFeedback.value(d.getCharacter().getMastery("zanpakuto", form)), definition.mastery()).getString();

@@ -12,8 +12,12 @@ public record SenbonPetalsS2C(int shape, Vec3 origin, Vec3 forward, float radius
     public static final int ARC=0, STREAM=1, CONVERGE=2, GUARD=3, FIELD=4, FLOWER=5, RISE=6, RADIAL=7, SWORDS=8, WINGS=9, AURA=10, LANCE=11;
     public static int particleCount(int shape) { return particleCount(shape,0); }
     public static int particleCount(int shape,int pattern) {
-        if(pattern==2 && (shape==RISE || shape==RADIAL))return 112;
-        return switch(shape) { case AURA->6;case ARC->32;case FIELD,FLOWER->128;case SWORDS,WINGS->12;case LANCE->20;default->36; };
+        if(shape==FIELD&&pattern==3)return 96;
+        if(shape==FLOWER&&pattern==3)return 144;
+        if(shape==FLOWER&&pattern==4)return 80;
+        if(shape==RISE&&pattern==2)return 160;
+        if(pattern==2 && shape==RADIAL)return 112;
+        return switch(shape) { case AURA->6;case ARC->32;case FIELD->192;case FLOWER->128;case SWORDS,WINGS->12;case LANCE->20;default->36; };
     }
     public boolean valid() {
         return shape >= 0 && shape <= LANCE && finite(origin) && finite(forward) && forward.lengthSqr() > .1

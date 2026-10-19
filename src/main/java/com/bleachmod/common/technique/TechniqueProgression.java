@@ -13,7 +13,7 @@ public final class TechniqueProgression {
     public static int requirement(int slot) { return TechniqueDefinitions.slotRequirement(slot); }
     public static boolean available(CharacterData character, String form, int slot) {
         var definition = TechniqueDefinitions.find(character.getZanpakutoIdentity(), form, slot);
-        return definition.isPresent() && character.supportsForm(form) && (character.isTechniqueDiscovered(form, slot)
+        return definition.isPresent() && !definition.get().id().equals("unavailable") && character.supportsForm(form) && (character.isTechniqueDiscovered(form, slot)
                 || character.getMastery("zanpakuto", form) >= definition.get().mastery());
     }
     public static boolean equipped(ServerPlayer player, PlayerData data) {
@@ -28,6 +28,7 @@ public final class TechniqueProgression {
         };
     }
     public static boolean authorize(ServerPlayer player, PlayerData data, int slot) {
+        if (ReleaseAnimationService.busy(player) || ElementalTechniqueService.busy(player)) return false;
         if (data.getStatus().isDodging() || data.getGuard().active() || data.getGuard().broken()) return false;
         if (!data.getStatus().hasCreatedCharacter() || !player.isAlive() || player.isSpectator()
                 || !"shinigami".equals(data.getCharacter().getRace()) || slot < 1 || slot > 4) return false;
@@ -37,6 +38,7 @@ public final class TechniqueProgression {
         if (!equipped(player, data) || !"zanpakuto".equals(data.getCharacter().getActiveFormGroup())) return false;
         String form = data.getCharacter().getActiveForm();
         if (!TransformationsHelper.isUnlocked(data, "zanpakuto", form)) return false;
+        if (TechniqueDefinitions.find(data.getCharacter().getZanpakutoIdentity(), form, slot).map(d->d.id().equals("unavailable")).orElse(false)) return false;
         if (TechniqueDefinitions.find(data.getCharacter().getZanpakutoIdentity(), form, slot).isEmpty()) {
             player.displayClientMessage(Component.translatable("message.bleachmod."+data.getCharacter().getZanpakutoIdentity()+".sealed"), true); return false;
         }

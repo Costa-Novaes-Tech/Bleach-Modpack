@@ -65,24 +65,13 @@ public final class HyorinmaruGameTests {
         h.assertTrue(d.getCharacter().getZanpakutoIdentity().equals("hyorinmaru") && d.getCharacter().getActiveForm().equals("sealed"), "Operator bind failed");
         h.assertTrue(d.getStatus().getTechniqueSlot2CooldownTicks() == 80, "Bind bypassed cooldown"); h.succeed();
     }
-    @GameTest(template = "empty", timeoutTicks = 50)
-    public static void frostBarrierSlowsWithoutDamageAndCancelsWithItemChange(GameTestHelper h) {
-        var p = player(h); release(p, "shikai"); var z = zombie(h, p, 3);
-        h.onEachTick(() -> HyorinmaruTechniqueService.tick(p, data(p)));
-        h.runAfterDelay(5, () -> TechniqueService.executeSlot(p, data(p), 3));
-        h.runAfterDelay(20, () -> { try {
-            h.assertTrue(z.getHealth() == 20 && z.hasEffect(MobEffects.MOVEMENT_SLOWDOWN), "Barrier did not provide harmless control");
-            h.assertTrue(data(p).getResources().getCurrentReiatsu() == 75, "Barrier cost changed");
-            p.setItemSlot(EquipmentSlot.MAINHAND, ItemStack.EMPTY); HyorinmaruTechniqueService.tick(p, data(p));
-            h.assertTrue(!HyorinmaruTechniqueService.isActive(p), "Unequipping sword left barrier running");
-        } finally { z.discard(); RyujinTechniqueService.cancel(p); } h.succeed(); });
-    }
+
     @GameTest(template = "empty")
     public static void iceStrikeDamagesSlowsAndCooldownPreventsSecondDebit(GameTestHelper h) {
         var p = player(h); release(p, "shikai"); var z = zombie(h, p, 3);
-        h.runAfterDelay(5, () -> { try {
-            TechniqueService.executeSlot(p, data(p), 1);
-            h.assertTrue(z.getHealth() < 20 && z.hasEffect(MobEffects.MOVEMENT_SLOWDOWN), "Ice strike missed or lacked slow");
+        h.runAfterDelay(5, () -> TechniqueService.executeSlot(p, data(p), 1));
+        h.runAfterDelay(10, () -> { try {
+            h.assertTrue(z.getHealth() < 20 && z.hasEffect(MobEffects.MOVEMENT_SLOWDOWN), "Traveling ice dragon missed or lacked slow");
             h.assertTrue(data(p).getResources().getCurrentReiatsu() == 85, "Wrong Shikai cost");
             TechniqueService.executeSlot(p, data(p), 1);
             h.assertTrue(data(p).getResources().getCurrentReiatsu() == 85, "Cooldown debited again");
@@ -91,30 +80,8 @@ public final class HyorinmaruGameTests {
             h.assertTrue(data(p).getResources().getCurrentReiatsu() == 0 && data(p).getStatus().getTechniqueSlot2CooldownTicks() == 0, "Ice kit ignored free test controls");
         } finally { RyujinTechniqueService.cancel(p); z.discard(); } h.succeed(); });
     }
-    @GameTest(template = "empty")
-    public static void flameWavesFinishWithExactGroundDurationsAndCancelOnFormChange(GameTestHelper h) {
-        var p = player(h); p.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(ModItems.RYUJIN_JAKKA.get()));
-        var d = data(p); d.getStatus().setCooldownsDisabled(true); d.getResources().setCostsDisabled(true);
-        d.getSkills().get("zanpakuto").setLevel(2); d.getCharacter().unlockForm("shikai"); d.getCharacter().unlockForm("bankai"); d.getCharacter().setMastery("zanpakuto", "shikai", 25);
-        for (int x = -16; x <= 16; x++) for (int z = 0; z <= 15; z++) {
-            BlockPos floor = BlockPos.containing(p.getX() + x, p.getY() - 1, p.getZ() + z);
-            if (h.getLevel().hasChunkAt(floor)) h.getLevel().setBlock(floor, Blocks.STONE.defaultBlockState(), 3);
-        }
-        for (String form : java.util.List.of("sealed", "shikai", "bankai")) {
-            d.getCharacter().setActiveForm("zanpakuto", form); TechniqueService.executeSlot(p, d, 2);
-            h.assertTrue(FlameWaveService.isActive(p), "Wave missing for " + form);
-            h.assertTrue(d.getStatus().getFlameFanGroundTicks() == 0 && d.getStatus().getFlameBarrageGroundTicks() == 0, "Ground began before collapse");
-            int range = form.equals("bankai") ? 14 : 8;
-            for (int tick = 0; tick < range + FlameWaveService.COLLAPSE_TICKS; tick++) FlameWaveService.tick(p, d);
-            h.assertTrue(!FlameWaveService.isActive(p), "Wave never completed");
-            h.assertTrue(form.equals("bankai") ? d.getStatus().getFlameFanGroundTicks() == 80 : d.getStatus().getFlameBarrageGroundTicks() == 60, "Ground duration changed");
-            h.assertTrue(form.equals("bankai") ? !d.getStatus().getFlameFanGroundPositions().isEmpty() : !d.getStatus().getFlameBarrageGroundPositions().isEmpty(), "Wave left no supported ground");
-        }
-        TechniqueService.executeSlot(p, d, 2); d.getCharacter().setActiveForm("zanpakuto", "sealed"); FlameWaveService.tick(p, d);
-        h.assertTrue(!FlameWaveService.isActive(p), "Form change left a wave running");
-        RyujinTechniqueService.cancel(p); h.succeed();
-    }
-    @GameTest(template = "empty", batch = "zone_legacy", timeoutTicks = 120)
+
+    @GameTest(template = "empty", batch = "zone_legacy", timeoutTicks = 150)
     public static void iceZoneExpiresAndNeverAffectsAllies(GameTestHelper h) {
         var p = player(h); release(p, "bankai"); var ally = zombie(h, p, 2); var enemy = zombie(h, p, 3);
         var scoreboard = h.getLevel().getScoreboard(); var team = scoreboard.addPlayerTeam("ice" + UUID.randomUUID().toString().substring(0,8));
@@ -125,7 +92,7 @@ public final class HyorinmaruGameTests {
             h.assertTrue(ally.getHealth() == 20 && !ally.hasEffect(MobEffects.MOVEMENT_SLOWDOWN), "Ice zone affected ally");
             h.assertTrue(enemy.getHealth() < 20 && enemy.hasEffect(MobEffects.MOVEMENT_SLOWDOWN), "Ice zone missed enemy");
         });
-        h.runAfterDelay(95, () -> { try {
+        h.runAfterDelay(130, () -> { try {
             HyorinmaruTechniqueService.tick(p, data(p));
             h.assertTrue(!HyorinmaruTechniqueService.isActive(p), "Expired zone remains active");
             if (com.bleachmod.common.technique.BlizzardWeatherData.eligible(p.serverLevel(), p.blockPosition())) {

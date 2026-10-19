@@ -59,4 +59,3 @@ Causa real: `zone_legacy` e `zone_radius` (Bankai da Hyōrinmaru) chamavam o cas
 - Os dois testes voltam o jogador para a forma selada antes de cancelar, para o caster liberar o lease em vez de renovar.
 - `BlizzardWeatherData.idle()`: o teste de pacotes espera o lease global ficar livre antes de executar (timeout de 120 ticks), sem mudar nenhuma asserção.
 - Resultado: 64/64 em 5 execuções seguidas com WorldEdit (antes falhava 7/7) e 3/3 sem WorldEdit.
-

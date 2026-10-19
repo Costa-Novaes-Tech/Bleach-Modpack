@@ -1,0 +1,47 @@
+{
+  "duration": 22,
+  "fps": 24,
+  "chapters": [
+    [
+      0,
+      "01 / Ajoelhar"
+    ],
+    [
+      2,
+      "02 / Close: Bankai"
+    ],
+    [
+      3.6,
+      "03 / Recuo e cortina"
+    ],
+    [
+      5.2,
+      "04 / Primeira mao"
+    ],
+    [
+      8,
+      "05 / Rosto entre as dobras"
+    ],
+    [
+      10.2,
+      "06 / Saida do corpo"
+    ],
+    [
+      12.6,
+      "07 / Maos no chao"
+    ],
+    [
+      15.5,
+      "08 / Erguer o tronco"
+    ],
+    [
+      18.6,
+      "09 / Fios e nome completo"
+    ],
+    [
+      21,
+      "10 / Encerramento"
+    ]
+  ],
+  "type": "procedural_3d_previsualization_not_game_capture"
+}

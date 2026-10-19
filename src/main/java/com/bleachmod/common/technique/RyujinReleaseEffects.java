@@ -39,6 +39,7 @@ public final class RyujinReleaseEffects {
                 player.getSoundSource(), 0.8F, bankai ? 0.6F : 1.1F);
     }
     @SubscribeEvent public static void aura(TickEvent.PlayerTickEvent event) {
+        if (event.player instanceof ServerPlayer p && ReleaseAnimationService.busy(p)) return;
         if (event.phase != TickEvent.Phase.END || !(event.player instanceof ServerPlayer player)
                 || !player.isAlive() || player.isSpectator() || player.tickCount % 8 != 0
                 || !TechniqueService.isRyujinJakkaEquipped(player)) return;

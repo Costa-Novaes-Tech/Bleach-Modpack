@@ -1,0 +1,56 @@
+## Feature-Poderes-bankais...origin/Feature-Poderes-bankais
+ M .gitignore
+MM Docs/poderes/00-CONTINUIDADE-CODEX.md
+AM Docs/poderes/64-revisao-planejamento-animacoes-benihime-ryujin-2026-10-19.md
+A  Docs/poderes/media/64-benihime-video/referencia-ativacao.jpg
+ M build.gradle
+ M src/main/java/com/bleachmod/Reference.java
+ M src/main/java/com/bleachmod/client/BleachClient.java
+ M src/main/java/com/bleachmod/client/ClientVisualConfig.java
+ M src/main/java/com/bleachmod/client/network/ClientPacketHandler.java
+ M src/main/java/com/bleachmod/client/particle/BenihimeRenderer.java
+ M src/main/java/com/bleachmod/common/network/SyncHelper.java
+ M src/main/java/com/bleachmod/common/technique/ReleaseAnimationService.java
+ M src/main/java/com/bleachmod/init/ModSounds.java
+ M src/main/resources/assets/bleachmod/lang/en_us.json
+ M src/main/resources/assets/bleachmod/lang/pt_br.json
+ M src/main/resources/assets/bleachmod/sounds.json
+?? .agents/
+?? .codex/
+?? Docs/poderes/65-storyboard-entrada-benihime-cortina-2026-10-19.md
+?? Docs/poderes/66-previa-benihime-abertura-central-penumbra-2026-10-19.md
+?? Docs/poderes/67-previa-benihime-cortina-fechada-pega-rosto-2026-10-19.md
+?? Docs/poderes/68-infraestrutura-qa-entrada-benihime-2026-10-19.md
+?? Docs/poderes/69-benihime-em-pe-empunhadura-audio-japones-2026-10-19.md
+?? Docs/poderes/licencas/
+?? Docs/poderes/media/65-benihime-entrada/
+?? Docs/poderes/media/66-benihime-revisao/
+?? Docs/poderes/media/67-benihime-revelacao/
+?? Docs/poderes/media/69-benihime-postura-audio/
+?? Docs/poderes/qa/
+?? src/main/java/com/bleachmod/client/cinematic/BenihimeEntranceAudio.java
+?? src/main/java/com/bleachmod/client/cinematic/BenihimeEntranceClient.java
+?? src/main/java/com/bleachmod/client/cinematic/BenihimeQaBootstrap.java
+?? src/main/java/com/bleachmod/common/technique/BenihimeEntranceService.java
+?? src/main/java/com/bleachmod/common/visual/BenihimeAudioTimeline.java
+?? src/main/java/com/bleachmod/common/visual/BenihimeEntranceGeometry.java
+?? src/main/java/com/bleachmod/common/visual/BenihimeEntranceTimeline.java
+?? src/main/java/com/bleachmod/common/visual/BenihimeFollowMotion.java
+?? src/main/java/com/bleachmod/common/visual/BenihimePlayerPose.java
+?? src/main/java/com/bleachmod/gametest/BenihimeAudioGameTests.java
+?? src/main/java/com/bleachmod/gametest/BenihimeEntranceGameTests.java
+?? src/main/java/com/bleachmod/gametest/BenihimeStandingGripGameTests.java
+?? src/main/java/com/bleachmod/server/commands/BenihimeQaWorld.java
+?? src/main/resources/assets/bleachmod/sounds/benihime_curtain.ogg
+?? src/main/resources/assets/bleachmod/sounds/benihime_entrance.ogg
+?? src/main/resources/assets/bleachmod/sounds/benihime_reveal.ogg
+?? src/main/resources/assets/bleachmod/sounds/benihime_threads.ogg
+?? src/main/resources/assets/bleachmod/sounds/benihime_voice_bankai.ogg
+?? src/main/resources/assets/bleachmod/sounds/benihime_voice_name.ogg
+?? tools/audio/generate_benihime_effects.py
+?? tools/audio/generate_benihime_entrance.py
+?? tools/audio/generate_benihime_voice_ja.py
+?? tools/audio/preview_benihime_mix.py
+?? tools/models/benihime_entrance.py
+?? tools/models/source/
+?? tools/qa/

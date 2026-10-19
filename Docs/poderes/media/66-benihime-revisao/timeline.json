@@ -1,0 +1,56 @@
+{
+  "duration": 26,
+  "fps": 24,
+  "chapters": [
+    [
+      0,
+      "01 / Ajoelhar"
+    ],
+    [
+      2,
+      "02 / Bankai"
+    ],
+    [
+      3.6,
+      "03 / Presenca na penumbra"
+    ],
+    [
+      5.4,
+      "04 / Abertura central"
+    ],
+    [
+      7,
+      "05 / Mao e dobra do tecido"
+    ],
+    [
+      10,
+      "06 / Rosto ja presente"
+    ],
+    [
+      12,
+      "07 / Saida continua"
+    ],
+    [
+      15,
+      "08 / Apoio e pausa"
+    ],
+    [
+      18,
+      "09 / Erguer o tronco"
+    ],
+    [
+      21.2,
+      "10 / Fios e nome completo"
+    ],
+    [
+      24,
+      "11 / Estabilizacao"
+    ]
+  ],
+  "type": "procedural_3d_previsualization_not_game_capture",
+  "clearance": {
+    "samples": 13411,
+    "minimum_margin_blocks": 0.1688,
+    "curtain_center_z": 12.1
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "videoSha256": "f0cba2d7a1c3417401afa6fb704f6f0de25ce5b431aec68528655a67c541868a",
+  "source": "FFmpeg gdigrab, Minecraft window only",
+  "requestedFps": 20,
+  "encodedFrames": 1696,
+  "reportedDroppedFrames": 4,
+  "seconds": 85,
+  "audioCaptured": false,
+  "decodeExitCode": 0,
+  "runs": {
+    "1792446837965": {
+      "frames": 287,
+      "reportedFpsMin": 36,
+      "reportedFpsMedian": 55,
+      "reportedFpsMax": 101,
+      "environment": {
+        "world": "Benihime-QA-68-1792446817608",
+        "dayTime": 1,
+        "renderer": "Intel(R) Iris(R) Xe Graphics",
+        "cpuThreads": 12,
+        "maxHeapBytes": 2147483648,
+        "renderDistance": 6,
+        "captureSamplingTicks": 2
+      }
+    },
+    "1792446872915": {
+      "frames": 282,
+      "reportedFpsMin": 64,
+      "reportedFpsMedian": 89.0,
+      "reportedFpsMax": 100,
+      "environment": {
+        "world": "Benihime-QA-68-1792446817608",
+        "dayTime": 6000,
+        "renderer": "Intel(R) Iris(R) Xe Graphics",
+        "cpuThreads": 12,
+        "maxHeapBytes": 2147483648,
+        "renderDistance": 6,
+        "captureSamplingTicks": 2
+      }
+    },
+    "1792446905076": {
+      "frames": 282,
+      "reportedFpsMin": 64,
+      "reportedFpsMedian": 86.0,
+      "reportedFpsMax": 97,
+      "environment": {
+        "world": "Benihime-QA-68-1792446817608",
+        "dayTime": 6000,
+        "renderer": "Intel(R) Iris(R) Xe Graphics",
+        "cpuThreads": 12,
+        "maxHeapBytes": 2147483648,
+        "renderDistance": 6,
+        "captureSamplingTicks": 2
+      }
+    }
+  },
+  "limitation": "Movie is silent; offline audio preview is a separate render. Sampled FPS is not a frametime benchmark."
+}

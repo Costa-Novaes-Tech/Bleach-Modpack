@@ -20,7 +20,11 @@ public class CharacterData {
     private final Map<String, Double> techniqueMasteries = new HashMap<>();
     public static boolean knownIdentity(String identity) { return ASAUCHI.equals(identity) || RYUJIN.equals(identity) || HYORINMARU.equals(identity) || SENBONZAKURA.equals(identity) || BENIHIME.equals(identity) || NOZARASHI.equals(identity); }
     public boolean supportsForm(String form) { return knownIdentity(zanpakutoIdentity) && java.util.Set.of("sealed", "shikai", "bankai").contains(form); }
-    private String techniqueKey(String form, int slot) { return zanpakutoIdentity + "|" + form + "|" + slot; }
+    private String techniqueKey(String form, int slot) {
+        String suffix=(RYUJIN.equals(zanpakutoIdentity) || HYORINMARU.equals(zanpakutoIdentity))
+                ? com.bleachmod.common.technique.TechniqueDefinitions.find(zanpakutoIdentity,form,slot).map(d->d.id()).orElse("unavailable") : Integer.toString(slot);
+        return zanpakutoIdentity + "|" + form + "|" + suffix;
+    }
     public boolean isTechniqueDiscovered(String form, int slot) { return unlockedTechniques.contains(techniqueKey(form, slot)); }
     public void unlockTechnique(String form, int slot) { if (supportsForm(form) && !ASAUCHI.equals(zanpakutoIdentity) && slot >= 1 && slot <= 4) unlockedTechniques.add(techniqueKey(form, slot)); }
     public double getTechniqueMastery(String form, int slot) { return techniqueMasteries.getOrDefault(techniqueKey(form, slot), 0D); }
@@ -34,7 +38,8 @@ public class CharacterData {
             boolean owned = id.equals(active) || (RYUJIN.equals(id) ? unlockedForms.stream().anyMatch(f -> !f.contains("|"))
                     || formMasteries.keySet().stream().anyMatch(k -> k.startsWith("zanpakuto:"))
                     : unlockedForms.stream().anyMatch(f -> f.startsWith(id + "|")) || formMasteries.keySet().stream().anyMatch(k -> k.startsWith(id + "|")));
-            if (owned) for (String form : java.util.List.of("sealed", "shikai", "bankai")) for (int slot = 1; slot <= 4; slot++) unlockedTechniques.add(id + "|" + form + "|" + slot);
+            if (owned) for (var definition:com.bleachmod.common.technique.TechniqueDefinitions.all())
+                if(definition.identity().equals(id) && !definition.id().equals("unavailable")) unlockedTechniques.add(id+"|"+definition.form()+"|"+definition.id());
         }
     }
     private boolean iceArmorVisual;
@@ -149,6 +154,7 @@ public class CharacterData {
 
     public CompoundTag save() {
         CompoundTag tag = new CompoundTag();
+        tag.putInt("techniqueRevision",2);
         tag.putString("race", race);
         tag.putString("zanpakutoIdentity", zanpakutoIdentity);
         tag.putString("selectedFormGroup", selectedFormGroup);
@@ -179,6 +185,7 @@ public class CharacterData {
             techniqueMasteries.clear(); CompoundTag values = tag.getCompound("techniqueMasteries");
             for (String key : values.getAllKeys()) { double value = values.getDouble(key); techniqueMasteries.put(key, Double.isFinite(value) ? Math.max(0, Math.min(100, value)) : 0); }
         }
+        if(tag.getInt("techniqueRevision")<2 && (tag.contains("techniqueMasteries") || tag.contains("unlockedTechniques")))migrateElementalTechniques();
         if (tag.contains("unlockedForms")) { unlockedForms.clear(); unlockedForms.addAll(tag.getCompound("unlockedForms").getAllKeys()); }
         if (tag.contains("race")) {
             race = tag.getString("race");
@@ -208,5 +215,22 @@ public class CharacterData {
         String key = (group == null ? "" : group.toLowerCase(Locale.ROOT)) + ":"
                 + (form == null ? "" : form.toLowerCase(Locale.ROOT));
         return Reference.GROUP_ZANPAKUTO.equalsIgnoreCase(group) ? identityKey(key) : key;
+    }
+    /** Preserve semantic attacks across slot moves; retired numeric keys remain archived. */
+    private void migrateElementalTechniques(){
+        for(String id:java.util.List.of(RYUJIN,HYORINMARU))for(String form:java.util.List.of("sealed","shikai","bankai"))for(int slot=1;slot<=4;slot++){
+            String old=id+"|"+form+"|"+slot,next=null;
+            if(id.equals(RYUJIN)){
+                if(!form.equals("bankai") && slot==2)next=id+"|shikai|flame_barrage";
+                if(form.equals("bankai"))next=switch(slot){case 1->id+"|bankai|flame_dash";case 2->id+"|shikai|flame_fan";case 3->id+"|shikai|flame_tornado";default->id+"|bankai|steam_cut";};
+            }else{
+                if(form.equals("sealed"))next=switch(slot){case 1->id+"|sealed|front_cut";case 2->id+"|sealed|wide_cut";case 4->id+"|sealed|duel_control";default->null;};
+                else if(slot==1)next=id+"|"+form+"|ice_dragon";
+                else if(slot==4)next=id+"|"+form+"|glacial_zone";
+            }
+            if(next==null)continue;
+            if(unlockedTechniques.contains(old))unlockedTechniques.add(next);
+            if(techniqueMasteries.containsKey(old))techniqueMasteries.merge(next,techniqueMasteries.get(old),Math::max);
+        }
     }
 }

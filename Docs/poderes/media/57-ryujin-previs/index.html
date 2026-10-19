@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ryūjin — estudos de movimento</title>
+<style>
+:root{color-scheme:dark;font:16px/1.5 system-ui;background:#0f141c;color:#eee9df}*{box-sizing:border-box}body{margin:auto;max-width:1200px;padding:28px}h1{font-size:28px;margin:0}p{color:#b8c2ce;max-width:84ch}main{display:grid;grid-template-columns:245px minmax(0,1fr);gap:24px}nav{display:flex;flex-direction:column;gap:7px}button{font:inherit;text-align:left;color:inherit;background:#1c2531;border:1px solid #384557;padding:10px 14px;border-radius:6px;cursor:pointer}button[aria-pressed=true]{border-color:#ffad42;background:#3c2c1b}button:focus-visible,a:focus-visible{outline:3px solid #ffb94a}img{max-width:100%;height:auto;border:1px solid #354251;border-radius:8px}#movie{display:block;width:100%}#still{display:none;width:100%}.toolbar{display:flex;gap:10px;margin:12px 0}.caption{color:#ffc478}a{color:#ffca86}details{margin-top:25px}summary{cursor:pointer;padding:10px 0}footer{margin-top:24px;color:#9eaebe;font-size:14px}@media(max-width:700px){body{padding:15px}main{grid-template-columns:1fr}nav{display:grid;grid-template-columns:1fr 1fr}button{font-size:14px}}
+</style></head><body>
+<h1>Ryūjin · revisão visual 57</h1>
+<p>11 estudos: transformação e dez ataques. Animação procedural de movimento, fora do Minecraft. As imagens conceituais mostram a direção artística; os GIFs mostram a sequência. Nenhuma alteração aplicada ao mod.</p>
+<main><nav aria-label="Escolher estudo" id="clips"></nav><section aria-label="Prévia selecionada">
+<h2 id="name"></h2><p id="description" class="caption" aria-live="polite"></p>
+<img id="movie" alt="Estudo animado do movimento selecionado"><img id="still" alt="Quadros de preparação, ação e recuperação">
+<div class="toolbar"><button type="button" id="toggle">Pausar nos quadros</button><button type="button" id="restart">Recomeçar</button></div>
+<p id="method"></p><a id="download" download>Salvar GIF</a>
+</section></main>
+<details><summary>Painel conceitual de todos os ataques</summary><img src="12-conceito-geral.png" alt="Conceitos ilustrados de todos os ataques Ryūjin, com partículas de chamas"></details>
+<details><summary>Higashi · preparação, corte e recuperação</summary><img src="13-conceito-higashi.png" alt="Storyboard ilustrado da Higashi com movimento do corpo e chamas de contato"></details>
+<footer>Tempos das prévias foram alongados para leitura. Não representam novas durações de dano, alcance ou recarga. Sem captura de gameplay. Sem alterações à Hyōrinmaru.</footer>
+<script>
+const studies=[
+['01-selo-bankai','Bankai · selo e pose breve','Chamas recolhem → lâmina apontada para fora → pausa breve → postura normal.','Remover a camada de pose permanente. Animar braço e item dentro da timeline de liberação; limpar todas as transformações no encerramento.'],
+['02-corte-frontal','Selada · H · Corte frontal','Espada sobe, corte descendente, recuperação. Sem fogo na selada.','PlayerAnimator: ombro, antebraço, tronco e pernas; manter o frame de impacto do corte físico.'],
+['03-varredura','Selada · N · Varredura','Pés firmes, quadril gira, espada cruza horizontalmente, volta à guarda.','Keyframes próprios de tronco e braço; conferir lâmina fora do corpo e espelhamento canhoto.'],
+['04-rajada','Shikai · H · Rajada','Corte descendente lança frente estreita de chamas pelo chão.','Substituir o quad translúcido por FLAME/SMALL_FLAME, brasas e fumaça curta; emissor acompanha a frente do ataque.'],
+['05-leque','Shikai · N · Leque','Varredura da direita para a esquerda com rastro de chamas.','Arco aberto de 140°, sem giro completo de 360°. Amostrar partículas ao longo do setor em movimento, sem preencher com superfície translúcida.'],
+['06-tornado','Shikai · B · Tornado','Espada roda; duas hélices de fogo sobem mantendo o centro livre.','Animar ombros e quadril. Conservar o anel móvel e o vão central; partículas com velocidade tangencial.'],
+['07-jokaku','Shikai · C · Jōkaku','Espada aponta a região; línguas de fogo sobem e envolvem a área.','Trocar a malha translúcida por emissores na circunferência e nervuras da cúpula. Chamas deixam aberturas para enxergar.'],
+['08-investida','Bankai · H · Investida','Inclinação do tronco, espada à frente e avanço com rastro de fogo.','Sincronizar pose e emissor com o deslocamento real do servidor; trilha curta de fogo e brasas, sem criar outro dash.'],
+['09-higashi','Bankai · N · Higashi','Recuo do ombro → giro de quadril → corte seco com fio branco quente e faíscas no contato.','Animação exclusiva de braço, tronco e base; chama compacta no fio, pulso curto de fogo no contato e cinzas. O passo da prévia indica transferência de peso, não aumento de alcance nem dash novo.'],
+['10-minami','Bankai · B · Minami','Lâmina desce até o chão; seis figuras carbonizadas emergem entre fogo e cinzas.','Ajoelhamento discreto/torso inclinado, rachaduras de brasas apenas visuais e surgimento escalonado dos soldados; sem novos blocos ou dano de terreno.'],
+['11-vapor','Bankai · C · Corte de Vapor','Preparação alta, corte pesado e trajetória longa de fogo com fumaça nas laterais.','Concentrar o núcleo de partículas; abrir o centro da fumaça para leitura. Conservar executor, alcance e proteção de blocos.']
+];
+let selected=0,paused=false;
+const nav=document.getElementById('clips'), movie=document.getElementById('movie'),still=document.getElementById('still');
+const buttons=studies.map((s,i)=>{const b=document.createElement('button');b.type='button';b.textContent=s[1];b.onclick=()=>select(i);nav.appendChild(b);return b});
+function select(i){selected=i;const s=studies[i];buttons.forEach((b,j)=>b.setAttribute('aria-pressed',String(i===j)));document.getElementById('name').textContent=s[1];document.getElementById('description').textContent=s[2];document.getElementById('method').textContent=s[3];movie.src=s[0]+'.gif';still.src=s[0]+'-quadros.png';const a=document.getElementById('download');a.href=movie.src;sync()}
+function sync(){movie.style.display=paused?'none':'block';still.style.display=paused?'block':'none';document.getElementById('toggle').textContent=paused?'Reproduzir animação':'Pausar nos quadros'}
+document.getElementById('toggle').onclick=()=>{paused=!paused;sync()};
+document.getElementById('restart').onclick=()=>{movie.src=studies[selected][0]+'.gif';paused=false;sync()};select(0);
+</script></body></html>

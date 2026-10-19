@@ -24,6 +24,7 @@ public final class HyorinmaruReleaseEffects {
         });
     }
     @SubscribeEvent public static void aura(TickEvent.PlayerTickEvent event) {
+        if(event.player instanceof ServerPlayer p && ReleaseAnimationService.busy(p))return;
         if(event.phase!=TickEvent.Phase.END || !(event.player instanceof ServerPlayer p) || p.tickCount%8!=0 || !p.isAlive() || p.isSpectator()) return;
         PlayerCapability.get(p).ifPresent(d->{
             if(!d.getStatus().hasCreatedCharacter() || !CharacterData.HYORINMARU.equals(d.getCharacter().getZanpakutoIdentity())) return;

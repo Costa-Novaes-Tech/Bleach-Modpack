@@ -1,0 +1,19 @@
+{
+  "parent": "bettercombat:sword",
+  "attributes": {
+    "attack_range": 3.0,
+    "category": "bleach_katana",
+    "two_handed": false,
+    "attacks": [
+      {
+        "damage_multiplier": 1.0
+      },
+      {
+        "damage_multiplier": 1.0
+      },
+      {
+        "damage_multiplier": 1.0
+      }
+    ]
+  }
+}

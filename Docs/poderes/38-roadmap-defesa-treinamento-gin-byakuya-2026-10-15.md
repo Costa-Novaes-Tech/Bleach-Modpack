@@ -1,5 +1,41 @@
 # Ciclo 38 — Ordem escolhida: defesa, treinamento e novos kits
 
+> **Ciclo 63 — 19/10:** [integração da main e engenharia reversa Zaraki](63-integracao-main-zaraki-aparencia-historia-2026-10-19.md). Código Zaraki, História e aparência já estão na main `611f8a6`; a feature incorpora esse estado e concilia conflitos com os kits/animações atuais. Próximos passos: validar o conjunto em cliente e iterar a apresentação Higashi/Photon. Ishida continua próximo kit, Mentor/Proficiências aguardam equipe.
+
+> **Atualização ciclo 62:** [câmera Higashi e piloto Photon/LDLib](62-higashi-camera-dirigida-piloto-photon-2026-10-18.md). Bancada antecipada por pedido explícito enquanto se analisa o vídeo do ciclo 60; sete JARs apenas no pacote experimental, base com cinco. A biblioteca já foi compilada/carregada no perfil de teste; cliente/editor e erros recuperados de dist no dedicado permanecem por validar. Integração Zaraki ainda não realizada, demais prioridades preservadas.
+
+## Roadmap vigente — 18/10/2026, ciclo 61
+
+[Revisão consolidada, pendências e integração Zaraki](61-revisao-roadmap-pendencias-integracao-zaraki-2026-10-18.md). Ciclos 52–60 já implementaram Better Combat/PlayerAnimator/GeckoLib, revisão Ryūjin/Hyōrinmaru, liberações/gestos e os ajustes Higashi/Jardim agora em playtest. Não reiniciar essas entregas com base na fila histórica abaixo.
+
+A referência local `origin/bankai-zaraki` já contém Nozarashi/Berserk e cinemática (`c17d274`); a pendência passa a ser compatibilizar e integrar, sem merge automático. Ordem técnica recomendada: retorno do playtest 60 → compatibilização Zaraki e validação conjunta → fluxo de assets/câmeras/áudio e medição → piloto Photon/LDLib. **Ishida permanece próximo kit de personagem; Mentor/Proficiências aguardam equipe; Aizen adiado; Gin removido.** Senbon/Benihime ainda não usam as hitboxes Better Combat; preservar alcance passivo ao avaliar essa migração.
+
+As listas abaixo são histórico: a revisão de Hyōrinmaru deixou de ser uma tarefa futura ao final da fila, e Byakuya/Urahara já foram implementados e homologados em suas versões anteriores. A nova revisão visual mantém seu próprio playtest.
+
+## Registro da atualização de 16/10/2026 — ciclo 51
+
+Defesa/esquiva, Byakuya e Urahara estão homologados. Usuário autorizou **Better Combat**, inclusão das ferramentas/bibliotecas pesquisadas e revisão tanto de **Hyōrinmaru quanto de Ryūjin Jakka**. [Análise do vídeo/skill, arquitetura e critérios](51-roadmap-better-combat-ferramentas-refatoracao-2026-10-16.md). As decisões históricas abaixo não proíbem essa nova frente.
+
+Ordem técnica **proposta para discussão**:
+
+| Etapa | Frente |
+|---|---|
+| 0 | Localizar/reaproveitar a integração e os assets Nozarashi do colega, fixar versões e baseline. |
+| 1 | Better Combat + PlayerAnimator/Cloth Config e dependências efetivas, com adaptação às regras Bleach. |
+| 2 | Blockbench + GeckoLib 4; fluxo de texturas Aseprite/LibreSprite, animação e áudio Audacity; Blender complementar. |
+| 3 | Photon 1.x/LDLib em bancada, diagnóstico spark e liberação/trilha piloto. |
+| 4 | Revisar e refatorar Hyōrinmaru por forma/slot, conforme documentos da equipe. |
+| 5 | Revisar e refatorar Ryūjin Jakka por forma/slot, conforme documentos da equipe. |
+| 6 | Uryū Ishida, com Curios conforme contrato de acessórios. |
+| 7 | Mentor e Proficiências, ainda dependentes da confirmação da equipe. |
+| Coordenada com equipe | SmartBrainLib/IA e TerraBlender/worldgen nas etapas dos módulos existentes. |
+
+Better Combat entrou no escopo autorizado; versões e contratos de novos movesets ainda serão fechados na integração. A revisão de Hyōrinmaru deixa de ser a única revisão de kit prevista, e a antiga posição ao final da fila fica sucedida por esta proposta de organização. Não instalar todas as bibliotecas num único passo nem tratar aprovação de ferramentas como aprovação de poderes novos sem tabela. Gin continua removido; Aizen adiado.
+
+---
+
+## Registro histórico do ciclo 38
+
 Data: 15/10/2026. Branch: `Feature-Poderes-bankais`. Entrega de planejamento, sem alterações de código.
 
 ## Decisão do usuário

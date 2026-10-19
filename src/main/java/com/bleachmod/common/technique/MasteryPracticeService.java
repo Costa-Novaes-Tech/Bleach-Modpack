@@ -66,7 +66,7 @@ public final class MasteryPracticeService {
         credit(owner,target,slot,false);
     }
     private static void credit(ServerPlayer owner,LivingEntity target,int slot,boolean healing) {
-        if (!owner.isAlive() || owner.isSpectator() || target.isInvulnerable())return;
+        if (!owner.isAlive() || owner.isSpectator() || target.isInvulnerable() || target.getPersistentData().getBoolean("bleachmod_ash_soldier"))return;
         if(healing ? !BenihimeTechniqueService.healable(owner,target)
                 : !(target instanceof Enemy || target instanceof ServerPlayer) || !TechniqueTargets.allowed(owner,target))return;
         PlayerCapability.get(owner).ifPresent(data -> {
