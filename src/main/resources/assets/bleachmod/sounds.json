@@ -1,9 +1,63 @@
 {
+  "benihime.entrance": {
+    "sounds": [
+      {
+        "name": "bleachmod:benihime_entrance",
+        "stream": true,
+        "volume": 0.8
+      }
+    ]
+  },
   "voice.bankai_zaraki": {
     "subtitle": "subtitles.bleachmod.voice.bankai_zaraki",
     "sounds": [
       {
         "name": "bleachmod:bankai_zaraki"
+      }
+    ]
+  },
+  "voice.benihime_bankai": {
+    "subtitle": "subtitles.bleachmod.voice.benihime_bankai",
+    "sounds": [
+      {
+        "name": "bleachmod:benihime_voice_bankai",
+        "stream": true
+      }
+    ]
+  },
+  "voice.benihime_name": {
+    "subtitle": "subtitles.bleachmod.voice.benihime_name",
+    "sounds": [
+      {
+        "name": "bleachmod:benihime_voice_name",
+        "stream": true
+      }
+    ]
+  },
+  "benihime.curtain": {
+    "subtitle": "subtitles.bleachmod.benihime.curtain",
+    "sounds": [
+      {
+        "name": "bleachmod:benihime_curtain",
+        "stream": false
+      }
+    ]
+  },
+  "benihime.reveal": {
+    "subtitle": "subtitles.bleachmod.benihime.reveal",
+    "sounds": [
+      {
+        "name": "bleachmod:benihime_reveal",
+        "stream": false
+      }
+    ]
+  },
+  "benihime.threads": {
+    "subtitle": "subtitles.bleachmod.benihime.threads",
+    "sounds": [
+      {
+        "name": "bleachmod:benihime_threads",
+        "stream": false
       }
     ]
   }

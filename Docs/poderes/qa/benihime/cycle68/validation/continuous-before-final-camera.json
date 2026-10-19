@@ -1,0 +1,10 @@
+{
+  "source": "FFmpeg gdigrab; Minecraft window only",
+  "requestedFps": 20,
+  "actualEncodedFrames": 1693,
+  "droppedFramesReported": 6,
+  "durationSeconds": 85,
+  "audio": false,
+  "sha256": "8e92dec4fe42782ae27252f4d76f6f1d769676861687b329514b0db86e12e8f5",
+  "limitation": "Diagnostic recording before final orientation interpolation correction. Not final camera evidence."
+}

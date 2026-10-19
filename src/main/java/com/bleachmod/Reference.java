@@ -4,7 +4,7 @@ import net.minecraft.resources.ResourceLocation;
 
 public final class Reference {
     public static final String MOD_ID = "bleachmod";
-    public static final String NETWORK_PROTOCOL = "2.25"; // Combined powers, Zaraki and appearance packets.
+    public static final String NETWORK_PROTOCOL = "2.27"; // Adds Benihime Japanese voice and presentation sound events.
 
     public static final String RACE_SHINIGAMI = "shinigami";
     public static final String GROUP_ZANPAKUTO = "zanpakuto";

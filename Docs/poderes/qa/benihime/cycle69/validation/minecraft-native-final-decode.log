@@ -1,0 +1,29 @@
+Input #0, mov,mp4,m4a,3gp,3g2,mj2, from 'build/benihime-qa-69/minecraft-native-final.mp4':
+  Metadata:
+    major_brand     : isom
+    minor_version   : 512
+    compatible_brands: isomiso2avc1mp41
+    encoder         : Lavf61.7.100
+  Duration: 00:01:25.00, start: 0.000000, bitrate: 1867 kb/s
+  Stream #0:0[0x1](und): Video: h264 (Constrained Baseline) (avc1 / 0x31637661), yuv420p(progressive), 1280x720, 1866 kb/s, 19.95 fps, 20 tbr, 10240 tbn (default)
+      Metadata:
+        handler_name    : VideoHandler
+        vendor_id       : [0][0][0][0]
+        encoder         : Lavc61.19.100 libx264
+Stream mapping:
+  Stream #0:0 -> #0:0 (h264 (native) -> wrapped_avframe (native))
+Output #0, null, to 'NUL':
+  Metadata:
+    major_brand     : isom
+    minor_version   : 512
+    compatible_brands: isomiso2avc1mp41
+    encoder         : Lavf61.7.100
+  Stream #0:0(und): Video: wrapped_avframe, yuv420p(progressive), 1280x720, q=2-31, 200 kb/s, 20 fps, 20 tbn (default)
+      Metadata:
+        handler_name    : VideoHandler
+        vendor_id       : [0][0][0][0]
+        encoder         : Lavc61.19.100 wrapped_avframe
+frame=  632 fps=0.0 q=-0.0 size=N/A time=00:00:31.50 bitrate=N/A speed=60.3x    
+frame= 1280 fps=1224 q=-0.0 size=N/A time=00:01:04.15 bitrate=N/A speed=61.3x    
+[out#0/null @ 000002cdd3c4dd00] video:729KiB audio:0KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: unknown
+frame= 1696 fps=1335 q=-0.0 Lsize=N/A time=00:01:25.00 bitrate=N/A speed=66.9x    

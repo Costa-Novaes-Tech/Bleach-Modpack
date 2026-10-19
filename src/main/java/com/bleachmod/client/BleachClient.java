@@ -65,6 +65,7 @@ public final class BleachClient {
         event.enqueueWork(com.bleachmod.client.model.HigashiExecutionVisuals::init);
         event.enqueueWork(com.bleachmod.client.model.SignatureActionVisuals::init);
         event.enqueueWork(com.bleachmod.client.cinematic.CinematicDirector::init);
+        event.enqueueWork(com.bleachmod.client.cinematic.BenihimeEntranceClient::init);
         event.enqueueWork(com.bleachmod.client.berserk.NozarashiStance::init);
     }
 

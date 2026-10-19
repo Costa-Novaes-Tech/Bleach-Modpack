@@ -39,6 +39,7 @@ public final class ReleaseAnimationService {
         if(busy(p) || !TechniqueProgression.equipped(p,d) || d.getStatus().isDodging() || d.getStatus().getFlameDashTicks()>0) return;
         RyujinTechniqueService.cancel(p);
         ACTIVE.put(p.getUUID(),new Release(p,d,group,form,cost));
+        if(d.getCharacter().getZanpakutoIdentity().equals("benihime")&&form.equals("bankai"))BenihimeEntranceService.begin(p);
         d.getStatus().setIgnitionActive(false);d.getGuard().interrupt();
         SyncHelper.appearance(p);
     }

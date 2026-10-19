@@ -1,0 +1,93 @@
+{
+  "kind": "Offline audio-only mix preview, not in-game evidence",
+  "durationSeconds": 28.0,
+  "channels": 2,
+  "sampleRate": 22050,
+  "peakDbfs": -1.6446776398452314,
+  "rmsDbfs": -21.15049009166707,
+  "clippedPcmSamples": 0,
+  "cues": [
+    {
+      "asset": "entrance",
+      "tick": 0,
+      "volume": 0.8,
+      "pitch": 1
+    },
+    {
+      "asset": "voice_bankai",
+      "tick": 28,
+      "volume": 1,
+      "pitch": 1
+    },
+    {
+      "asset": "voice_name",
+      "tick": 460,
+      "volume": 1,
+      "pitch": 1
+    },
+    {
+      "asset": "curtain",
+      "tick": 72,
+      "volume": 0.7,
+      "pitch": 1
+    },
+    {
+      "asset": "curtain",
+      "tick": 176,
+      "volume": 0.35,
+      "pitch": 1.2
+    },
+    {
+      "asset": "reveal",
+      "tick": 236,
+      "volume": 0.8,
+      "pitch": 1
+    },
+    {
+      "asset": "threads",
+      "tick": 450,
+      "volume": 0.6,
+      "pitch": 1
+    }
+  ],
+  "command": [
+    "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\build\\benihime-qa-68\\tools\\ffmpeg\\ffmpeg.exe",
+    "-v",
+    "error",
+    "-nostdin",
+    "-y",
+    "-i",
+    "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\src\\main\\resources\\assets\\bleachmod\\sounds\\benihime_entrance.ogg",
+    "-i",
+    "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\src\\main\\resources\\assets\\bleachmod\\sounds\\benihime_voice_bankai.ogg",
+    "-i",
+    "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\src\\main\\resources\\assets\\bleachmod\\sounds\\benihime_voice_name.ogg",
+    "-i",
+    "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\src\\main\\resources\\assets\\bleachmod\\sounds\\benihime_curtain.ogg",
+    "-i",
+    "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\src\\main\\resources\\assets\\bleachmod\\sounds\\benihime_reveal.ogg",
+    "-i",
+    "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\src\\main\\resources\\assets\\bleachmod\\sounds\\benihime_threads.ogg",
+    "-filter_complex",
+    "[0:a]aformat=sample_rates=22050:channel_layouts=stereo,volume=0.8[music];[1:a]pan=stereo|c0=c0|c1=c0,aformat=sample_rates=22050,adelay=1400|1400[bankai];[2:a]pan=stereo|c0=c0|c1=c0,aformat=sample_rates=22050,adelay=23000|23000[name];[3:a]asplit=2[cloth1][cloth2];[cloth1]pan=stereo|c0=c0|c1=c0,aformat=sample_rates=22050,volume=0.7,adelay=3600|3600[curtain];[cloth2]asetrate=26460,aresample=22050,pan=stereo|c0=c0|c1=c0,volume=0.35,adelay=8800|8800[grip];[4:a]pan=stereo|c0=c0|c1=c0,aformat=sample_rates=22050,volume=0.8,adelay=11800|11800[reveal];[5:a]pan=stereo|c0=c0|c1=c0,aformat=sample_rates=22050,volume=0.6,adelay=22500|22500[threads];[music][bankai][name][curtain][grip][reveal][threads]amix=inputs=7:duration=longest:normalize=0,apad=whole_dur=28,atrim=duration=28[mix]",
+    "-map",
+    "[mix]",
+    "-c:a",
+    "pcm_s24le",
+    "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\build\\benihime-qa-69\\mix-preview-OFFLINE-NOT-MINECRAFT.wav"
+  ],
+  "inputHashes": {
+    "benihime_entrance.ogg": "d11b6a9d5cc11fbbf3be79ba51436a6dbd0dd9b55d31f8a6924e626d29dbc88c",
+    "benihime_voice_bankai.ogg": "f55c9b866da8e47f119f12ca6f826a032c661d0d6dc54a2a587361acab057111",
+    "benihime_voice_name.ogg": "32bbdebf189e2eacc1f1c2ef7e9e5b3f85f155009eef5028bc7e2d74e57d4b8d",
+    "benihime_curtain.ogg": "4de101ddf7754a0983fd0a35f478a922e80b3c3e7ebfbd2fc6edf5f4e00d3e9e",
+    "benihime_reveal.ogg": "f3f4fe4e5595f1fcba4637536caa024373a9ef124f9b579f569260ba92ab41c9",
+    "benihime_threads.ogg": "4b495ba66aeafdec5345e33dba6fb8df076e430872221ba0a51d5ad42667d84b"
+  },
+  "wavSha256": "f37cd49ee1653b5faad351891fa4d83a55b20f32ec685569eb9f6c42f427b9ca",
+  "oggSha256": "6a9df3b76a6079ac6ffba836cb0d2ea83c9541638160890ff970f68dc3f1a450",
+  "mixExitCode": 0,
+  "decodeExitCode": 0,
+  "limitations": "No Minecraft category sliders, distance attenuation, occlusion, device response or real game scheduling represented; human listening pending",
+  "recommendation": "Keep requested starting volumes if measured headroom remains; confirm VOICE versus MUSIC/SFX in Minecraft before further gain increases"
+}

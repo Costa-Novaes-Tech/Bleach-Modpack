@@ -1,5 +1,7 @@
 # Ciclo 64 — revisão visual Benihime e Ryūjin, sem implementação
 
+> Roteiro da entrada sucedido pelo [ciclo 65](65-storyboard-entrada-benihime-cortina-2026-10-19.md): cortina, revelação por partes, pausa no chão e postura dos fios. Inventário abaixo continua referência; duração de 5–6 s é proposta histórica.
+
 19/10/2026. Base `ca9a067`, branch `Feature-Poderes-bankais`, Git limpo ao iniciar. Feedback: animações/cenas Ryūjin e Benihime ainda insatisfatórias; **Zaraki aprovado, não alterar**. Pedido restrito a inventário, análise do vídeo e planejamento. Nenhuma mudança em código, dependências, regras, pacotes ou cinemática Zaraki.
 
 ## Fontes conferidas

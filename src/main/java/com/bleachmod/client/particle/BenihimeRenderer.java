@@ -25,10 +25,15 @@ public final class BenihimeRenderer {
     }
     private record Key(int owner,int kind){ }
     private record Frame(BenihimeFrameS2C packet,long until){ }
-    private static final class Pose {net.minecraft.world.phys.Vec3 position,forward;double time;Pose(net.minecraft.world.phys.Vec3 p,net.minecraft.world.phys.Vec3 f,double t){position=p;forward=f;time=t;}}
+    private static final class Pose {com.bleachmod.common.visual.BenihimeFollowMotion.Pose follow;double time,idleStart;Pose(net.minecraft.world.phys.Vec3 p,float yaw,double t){follow=new com.bleachmod.common.visual.BenihimeFollowMotion.Pose(p,yaw);time=t;idleStart=t;}}
     private static final Map<Integer,Pose> POSES=new HashMap<>();
     private static final Map<Key,Frame> FRAMES=new LinkedHashMap<>();
     private BenihimeRenderer(){ }
+    public static void beginFollowing(int owner,net.minecraft.world.phys.Vec3 anchor,net.minecraft.world.phys.Vec3 forward){
+        var level=Minecraft.getInstance().level;if(level==null)return;
+        float yaw=(float)Math.toDegrees(Math.atan2(-forward.x,forward.z));
+        POSES.put(owner,new Pose(anchor,yaw,level.getGameTime()));
+    }
     public static void accept(BenihimeFrameS2C m){var level=Minecraft.getInstance().level;if(level==null || !m.valid())return;
         if(m.kind()==CLEAR){FRAMES.keySet().removeIf(k->k.owner==m.owner());POSES.remove(m.owner());return;}
         var key=new Key(m.owner(),m.kind());
@@ -44,17 +49,20 @@ public final class BenihimeRenderer {
             var type=pass==0?Types.FIGURE:Types.THREAD;var vertices=buffers.getBuffer(type);boolean emitted=false;
             for(var frame:FRAMES.values()){
                 var m=frame.packet;if((m.kind()==QUEEN)!=(pass==0) || mc.player.distanceToSqr(m.origin())>80*80)continue;
+                if(m.kind()==QUEEN && com.bleachmod.client.cinematic.BenihimeEntranceClient.active(m.owner())){POSES.remove(m.owner());continue;}
                 var origin=m.origin();var end=m.end();var forward=m.forward();var entity=mc.level.getEntity(m.owner());
                 if(entity!=null && (m.kind()==QUEEN || m.kind()==SHIELD || m.kind()==BUFF)){origin=entity.getPosition(event.getPartialTick());end=origin;forward=com.bleachmod.common.visual.SenbonGeometry.forward(entity.getYRot());}
                 float progress=m.progress();
                 if(m.kind()==QUEEN){double now=mc.level.getGameTime()+event.getPartialTick();var pose=POSES.get(m.owner());
-                    if(pose==null || pose.position.distanceToSqr(origin)>32*32){pose=new Pose(origin,forward,now);POSES.put(m.owner(),pose);}
-                    double alpha=1-Math.exp(-Math.max(0,now-pose.time)*.18);pose.position=pose.position.lerp(origin,alpha);pose.forward=pose.forward.lerp(forward,alpha).normalize();pose.time=now;
-                    origin=pose.position;forward=pose.forward.lengthSqr()<.1?forward:pose.forward;progress=(float)((now%120)/120.0);
+                    float yaw=entity!=null?entity.getYRot():(float)Math.toDegrees(Math.atan2(-forward.x,forward.z));
+                    if(pose==null){pose=new Pose(origin,yaw,now);POSES.put(m.owner(),pose);}
+                    pose.follow=com.bleachmod.common.visual.BenihimeFollowMotion.advance(pose.follow,origin,yaw,now-pose.time);pose.time=now;
+                    origin=pose.follow.anchor();forward=pose.follow.forward();progress=(float)((now%120)/120.0);
                 }
                 var local=new BenihimeFrameS2C(m.owner(),m.kind(),origin.subtract(camera),end.subtract(camera),forward,m.radius(),progress,m.variant());
                 float growth=m.kind()==QUEEN && entity instanceof net.minecraft.client.player.AbstractClientPlayer player?com.bleachmod.client.model.ZanpakutoReleaseAnimation.manifestationGrowth(player,event.getPartialTick()):1;
-                for(var q:BenihimeGeometry.build(local))for(var v:List.of(q.a(),q.b(),q.c(),q.d())){
+                var geometry=m.kind()==QUEEN?com.bleachmod.common.visual.BenihimeEntranceGeometry.buildIdle(local.origin(),local.forward(),mc.level.getGameTime()+event.getPartialTick()-POSES.get(m.owner()).idleStart,m.variant()):BenihimeGeometry.build(local);
+                for(var q:geometry)for(var v:List.of(q.a(),q.b(),q.c(),q.d())){
                     int c=q.color();double y=local.origin().y+(v.y-local.origin().y)*growth;vertices.vertex(matrix,(float)v.x,(float)y,(float)v.z).color(c>>>24,(c>>>16)&255,(c>>>8)&255,(int)((c&255)*growth)).endVertex();emitted=true;
                 }
             }
