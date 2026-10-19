@@ -193,6 +193,17 @@ Rota: concluir missão 1 → concluir/receber missão 2 → comprar Zanpakutō 1
 
 Exigem permissão 2 e personagem já confirmado. Troque Player pelo nome do jogador:
 
+Atalho para testar Bankai com um único comando:
+
+```
+/bleachdev bankai Player ryujin_jakka
+/bleachdev bankai Player
+```
+
+Com a Zanpakutō informada, ele vincula essa lâmina. Sem ela, usa a lâmina atual (não funciona com Asauchi). Em seguida: sobe a skill Zanpakutō para 2, descobre Shikai e Bankai, eleva o domínio de Shikai e de Bankai até os mínimos dos JSONs de formas do mundo (padrão 25 e 50), entrega a espada se ela não estiver no inventário e deixa a Bankai selecionada. Basta segurar a espada e ativar a transformação. Nunca reduz nível nem domínio já maiores.
+
+Demais comandos:
+
 ```
 /bleachreload quests
 /bleachdev appearance show Player
