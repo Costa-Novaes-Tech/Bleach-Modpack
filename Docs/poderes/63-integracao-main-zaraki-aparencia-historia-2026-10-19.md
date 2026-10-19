@@ -87,3 +87,9 @@ O GameTest novo confere exclusão de fallback Better Combat, ativação da timel
 Ainda dependem de playtest gráfico: prioridade/retorno de poses, troca de câmera Zaraki↔Higashi, nova skin classic/slim com a arma, observador, editor/Photon, mundo História e viagens. Compilação e GameTests não comprovam FPS ou renderização. O feedback de que a animação Higashi ainda precisa melhorar continua aberto.
 
 Entrega Git: merge resolvido e validado **na feature**, preparado para publicação dessa branch e proposta de revisão contra main. Não há arquivos com conflitos remanescentes; a revisão inclui `611f8a6` como ancestral. Não criar commit direto na main nem publicar mapas/artefatos gerados fora do conteúdo já versionado pela equipe. Aizen adiado, Gin removido e prioridades restantes preservadas.
+
+## Estado remoto confirmado
+
+Merge publicado na `Feature-Poderes-bankais` em **`7a87f26`**, com pais `48734cc` e `611f8a6`; main permanece intacta. A comparação no GitHub confirmou **Able to merge / These branches can be automatically merged**. [Comparação para revisão e abertura do PR](https://github.com/Costa-Novaes-Tech/Bleach-Modpack/compare/main...Feature-Poderes-bankais).
+
+A tentativa de criar o PR pelo conector recebeu HTTP **403 — Resource not accessible by integration**. O navegador disponível está sem login; nenhum PR foi criado. A resolução dos conflitos e o push da feature foram concluídos; abertura/revisão do PR é a etapa restante para integrar à main.
