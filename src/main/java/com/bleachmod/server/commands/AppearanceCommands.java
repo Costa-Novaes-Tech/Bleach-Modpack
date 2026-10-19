@@ -44,7 +44,7 @@ public final class AppearanceCommands {
                                 .then(argument("value", StringArgumentType.greedyString())
                                         .suggests((ctx, b) -> SharedSuggestionProvider.suggest(values(StringArgumentType.getString(ctx, "field")), b))
                                         .executes(ctx -> change(ctx, (data, race) -> set(data.getAppearance(), race,
-                                                StringArgumentType.getString(ctx, "field"), StringArgumentType.getString(ctx, "value").trim())))))))));
+                                                StringArgumentType.getString(ctx, "field"), StringArgumentType.getString(ctx, "value").trim()))))))));
     }
 
     private interface Change { void apply(PlayerData data, String race); }
