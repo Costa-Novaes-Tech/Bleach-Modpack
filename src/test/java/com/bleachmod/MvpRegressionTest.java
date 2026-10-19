@@ -945,6 +945,58 @@ public final class MvpRegressionTest {
             historyRejects("{\"maps\":{\"a\":{\"dimension\":\"Not Valid\",\"spawn\":{\"x\":0,\"y\":0,\"z\":0}}}}");
             historyRejects("not json");
         });
+        test("Appearance catalog is valid and every layer texture is bundled",()->{
+            var catalog=com.bleachmod.common.appearance.AppearanceCatalog.get();
+            for(String category:com.bleachmod.common.appearance.AppearanceCatalog.CATEGORIES) for(String id:catalog.ids(category)){
+                var piece=catalog.piece(id).orElseThrow(); yes(!piece.layers().isEmpty());
+                for(var layer:piece.layers()){
+                    String path="/assets/"+layer.texture().replace(":","/");
+                    yes(MvpRegressionTest.class.getResource(path)!=null);
+                }
+            }
+            yes(catalog.valid("hair:ichigo","hair","shinigami")); yes(!catalog.valid("hair:ichigo","outfit","shinigami"));
+            eq("base:default",catalog.defaults("shinigami").pieces().get("base"));
+            rejects(()->com.bleachmod.common.appearance.AppearanceCatalog.color("orange"));
+            rejects(()->com.bleachmod.common.appearance.AppearanceCatalog.parse(JsonParser.parseString(
+                "{\"pieces\":[{\"id\":\"hair:x\",\"category\":\"outfit\",\"layers\":[]}],\"defaults\":{}}").getAsJsonObject()));
+        });
+        test("Appearance from the network is sanitized against the catalog and race",()->{
+            var catalog=com.bleachmod.common.appearance.AppearanceCatalog.get();
+            var look=new com.bleachmod.common.appearance.AppearanceData();
+            look.setUseVanillaSkin(false); look.setPiece("hair","hair:does_not_exist"); look.setPiece("outfit","hair:ichigo");
+            look.setPiece("base",""); look.setPiece("mouth",""); look.setPiece("eyes","eyes:rukia");
+            look.sanitize(catalog,"shinigami");
+            eq(catalog.defaults("shinigami").pieces().get("hair"),look.piece("hair"));
+            eq(catalog.defaults("shinigami").pieces().get("outfit"),look.piece("outfit"));
+            eq("base:default",look.piece("base")); eq("",look.piece("mouth")); eq("eyes:rukia",look.piece("eyes"));
+            var tag=look.save(); tag.putInt("skin",0x7FFFFFFF); tag.putInt("hairColor",-7);
+            tag.getCompound("pieces").putString("hair","x".repeat(200)); tag.getCompound("pieces").putString("unknown","hair:ichigo");
+            var copy=new com.bleachmod.common.appearance.AppearanceData(); copy.applyDefaults(catalog,"shinigami"); copy.load(tag); copy.sanitize(catalog,"shinigami");
+            eq(0xFFFFFF,copy.skinColor()); eq(-1,copy.hairColor()); eq(catalog.defaults("shinigami").pieces().get("hair"),copy.piece("hair"));
+            yes(!copy.save().getCompound("pieces").contains("unknown"));
+            var other=look.copy(); eq(look.textureKey(),other.textureKey()); other.setSkinColor(0x123456); yes(!look.textureKey().equals(other.textureKey()));
+        });
+        test("Saves before schema 9 keep the Minecraft skin and appearance survives a copy",()->{
+            var d=new PlayerData(); d.initializeShinigami();
+            var legacy=d.save(); legacy.remove("appearance"); legacy.putInt("schemaVersion",8);
+            var loaded=new PlayerData(); loaded.load(legacy); yes(loaded.getAppearance().usesVanillaSkin());
+            d.getAppearance().applyDefaults(com.bleachmod.common.appearance.AppearanceCatalog.get(),"shinigami"); d.getAppearance().setUseVanillaSkin(false);
+            d.getAppearance().setPiece("hair","hair:rukia"); d.getAppearance().setSlim(true);
+            var clone=new PlayerData(); clone.copyFrom(d);
+            eq(9,d.save().getInt("schemaVersion")); yes(!clone.getAppearance().usesVanillaSkin());
+            eq("hair:rukia",clone.getAppearance().piece("hair")); yes(clone.getAppearance().isSlim());
+        });
+        test("Composed skin blends tinted layers source-over",()->{
+            int abgrGray=0xFF000000|200<<16|200<<8|200;
+            eq(0xFF000000|(200*0x56/255)<<16|(200*0x34/255)<<8|(200*0x12/255),com.bleachmod.client.appearance.SkinCompositor.blend(0,abgrGray,0x123456));
+            eq(0xFF0000FF,com.bleachmod.client.appearance.SkinCompositor.blend(0xFF00FF00,0xFF0000FF,-1));
+            int half=com.bleachmod.client.appearance.SkinCompositor.blend(0xFF000000,0x80FFFFFF,-1); eq(255,half>>>24); yes((half&255)>120&&(half&255)<136);
+            eq(0,com.bleachmod.client.appearance.SkinCompositor.blend(0,0,-1)&0xFF000000);
+            var look=new com.bleachmod.common.appearance.AppearanceData(); look.setHairColor(0xABCDEF);
+            eq(0xABCDEF,com.bleachmod.client.appearance.SkinCompositor.tint("hair",look,0x111111));
+            eq(0x111111,com.bleachmod.client.appearance.SkinCompositor.tint("eye",look,0x111111));
+            eq(-1,com.bleachmod.client.appearance.SkinCompositor.tint("none",look,0x111111));
+        });
         System.out.println("PASS: "+count+" regression scenarios");
     }
     private static Map<String,com.bleachmod.server.world.HistoryWorld.Destination> historyManifest(String json){try{var f=java.nio.file.Files.createTempFile("maps",".json");try{java.nio.file.Files.writeString(f,json);return com.bleachmod.server.world.HistoryWorld.parse(f);}finally{java.nio.file.Files.deleteIfExists(f);}}catch(java.io.IOException e){throw new IllegalArgumentException(e);}}

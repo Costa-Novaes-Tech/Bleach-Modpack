@@ -11,13 +11,15 @@ import net.minecraftforge.network.NetworkEvent;
 
 import java.util.function.Supplier;
 
-public record ConfirmCharacterC2S(String race) {
+/** Creates the character: race and appearance are confirmed together, in one packet. */
+public record ConfirmCharacterC2S(String race, net.minecraft.nbt.CompoundTag appearance) {
     public static void encode(ConfirmCharacterC2S msg, FriendlyByteBuf buf) {
         buf.writeUtf(msg.race);
+        buf.writeNbt(msg.appearance);
     }
 
     public static ConfirmCharacterC2S decode(FriendlyByteBuf buf) {
-        return new ConfirmCharacterC2S(buf.readUtf());
+        return new ConfirmCharacterC2S(buf.readUtf(32), buf.readNbt());
     }
 
     public static void handle(ConfirmCharacterC2S msg, Supplier<NetworkEvent.Context> ctx) {
@@ -34,6 +36,7 @@ public record ConfirmCharacterC2S(String race) {
                     return;
                 }
                 data.initializeShinigami();
+                com.bleachmod.common.appearance.AppearanceService.apply(player, data, msg.appearance);
                 ItemStack asauchi = new ItemStack(ModItems.ASAUCHI.get());
                 if (!player.getInventory().contains(asauchi)) {
                     if (!player.getInventory().add(asauchi)) {

@@ -1,6 +1,31 @@
 # Plano: personalização de skin do personagem
 
-> Proposta de 18/10/2026, **ainda não implementada**. Parte da análise técnica da montagem de skins do Dragon Mine Z (DMZ) e a confronta com o código atual do Bleach Mod. Nada aqui é funcionalidade disponível.
+> Proposta de 18/10/2026. Parte da análise técnica da montagem de skins do Dragon Mine Z (DMZ) e a confronta com o código atual do Bleach Mod.
+
+## Estado da implementação (19/10/2026)
+
+Primeira entrega feita (F0–F3 reduzidas), **ainda sem teste em jogo**: o ambiente de desenvolvimento usado não alcançava o Maven do Forge, então o código Minecraft não foi compilado. A lógica pura (catálogo, validação, mistura de cores) foi compilada e testada à parte, e os cenários estão em `MvpRegressionTest`.
+
+| Feito | Onde |
+|---|---|
+| Ferramenta de recorte + manifesto das 8 skins de NPC (Ichigo, Rukia, Byakuya, Orihime, Urahara, Uryū, Sado, Ulquiorra) → 30 peças 128×128 | `tools/appearance/split_skin.py`, `tools/appearance/npc_manifest.json`, `assets/bleachmod/textures/appearance/` |
+| Catálogo gerado (peças, paletas, padrões por raça) | `data/bleachmod/appearance/catalog.json` |
+| `AppearanceData` (schema 9), `AppearanceCatalog`, `AppearanceService` (validação, janela de edição) | `common/appearance/` |
+| `ConfirmCharacterC2S(race, appearance)`, `UpdateAppearanceC2S`, `OpenAppearanceEditorS2C`, protocolo 2.19 | `common/network/` |
+| `/bleachdev appearance show\|set\|reset\|edit <player>` | `server/commands/AppearanceCommands.java` |
+| `SkinCompositor` (textura 128×128 por aparência, cache LRU, limpeza no reload e ao sair do mundo) + mixin | `client/appearance/`, `mixin/client/AbstractClientPlayerMixin.java` |
+| Editor depois da raça, com prévia 3D | `client/gui/CharacterAppearanceScreen.java` |
+
+Simplificações em relação ao plano abaixo:
+
+- O catálogo vai **dentro do jar** e é lido do classpath nos dois lados, sem datapack nem pacote de sincronização. Sobrescrita por datapack fica para depois.
+- Categorias atuais: `base`, `outfit`, `hair`, `eyes`, `mouth`. Marcas, acessórios e cabelo 3D (F4) ainda não existem; o cabelo usa a camada externa da cabeça, como uma skin comum.
+- Trajes ainda não têm restrição por raça (campo `races` vazio).
+- Trajes vêm de skins de braço largo: no modelo slim a última coluna do braço fica cortada.
+- Se o jogador desligar "Chapéu" nas opções de skin do Minecraft, a parte externa do cabelo some.
+- **Licença:** as 8 skins de NPC estão marcadas `"license": "unverified"` no manifesto e no catálogo. Antes de uma versão pública, cada uma precisa de autorização do autor, licença livre ou redesenho (§13.3).
+
+Para gerar as peças de novo: `python3 tools/appearance/split_skin.py --preview pecas.png`. Ajustes por skin ficam no manifesto (`skinTolerance`, `skinSample`, `tintHair`, `mouthRow`, `skip`).
 
 ## 1. Resumo
 
@@ -322,12 +347,11 @@ Fica junto dos subcomandos existentes em `server/commands/BleachCommands.java` (
 
 | Subcomando | Efeito |
 |---|---|
-| `appearance <player> show` | Lista a aparência atual (ids e cores) |
-| `appearance <player> set <campo> <valor>` | Altera um campo (`hair`, `hairColor`, `outfit`, `eyes`, …); valor validado pelo catálogo, com sugestões por tab |
-| `appearance <player> mark add\|remove <id>` / `accessory <slot> <id\|none>` | Edita listas |
-| `appearance <player> vanilla true\|false` | Liga ou desliga "Usar minha skin do Minecraft" |
-| `appearance <player> reset` | Volta ao padrão da raça |
-| `appearance <player> edit` | Abre o editor no cliente do jogador com uma janela de edição autorizada (mesmo caminho que o NPC ou item usará) |
+| `appearance show <player>` | Lista a aparência atual (ids e cores) |
+| `appearance set <player> <campo> <valor>` | Campos `base`, `outfit`, `hair`, `eyes`, `mouth` (id ou `none`), `skin`, `hairColor`, `eyeColor` (`#RRGGBB` ou `default`), `slim` e `vanilla` (`true`/`false`); valor validado pelo catálogo, com sugestões por tab |
+| `appearance reset <player>` | Volta ao padrão da raça (desliga a skin do Minecraft) |
+| `appearance edit <player>` | Abre o editor no cliente do jogador com uma janela de edição autorizada (mesmo caminho que o NPC ou item usará) |
+| *(futuro)* `mark` / `accessory` | Quando essas categorias existirem |
 
 Valores inválidos são recusados com mensagem, nunca gravados.
 

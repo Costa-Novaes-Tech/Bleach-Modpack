@@ -86,6 +86,7 @@ Quests e evolução têm superfícies distintas: uma **árvore de story** (tela 
 - Se `!hasCreatedCharacter`, o client **força** a tela (tick + key).
 - Carousel de raças com preview → customização (cabelo/olhos/aura/classe) → confirm seta a flag no server.
 - No Bleach MVP: uma raça (Shinigami) + nome da Zanpakutō / cores já bastam; o carousel pode ser stub.
+- **Bleach (19/10/2026):** `ConfirmRaceScreen` → `CharacterAppearanceScreen` (modelo clássico/slim, traje, cabelo, olhos, boca, cores de pele/cabelo/olhos por paleta, "Usar minha skin do Minecraft", Aleatório, Padrão, Voltar, Confirmar). Prévia 3D do próprio jogador via `AppearanceClient.preview`, sem enviar nada ao servidor. Na criação, ESC é bloqueado e Confirmar envia raça + aparência juntas.
 
 ### HUD de reiatsu / estágio
 

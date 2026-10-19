@@ -2,15 +2,12 @@ package com.bleachmod.client.gui;
 
 import com.bleachmod.Reference;
 import com.bleachmod.client.BleachTextures;
-import com.bleachmod.common.network.NetworkHandler;
-import com.bleachmod.common.network.c2s.ConfirmCharacterC2S;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 
 public class ConfirmRaceScreen extends Screen {
-    private boolean pending;
     public ConfirmRaceScreen() {
         super(Component.translatable("screen.bleachmod.confirm_race"));
     }
@@ -19,9 +16,8 @@ public class ConfirmRaceScreen extends Screen {
     protected void init() {
         int cx = this.width / 2;
         addRenderableWidget(Button.builder(Component.translatable("screen.bleachmod.confirm_shinigami"), button -> {
-            NetworkHandler.sendToServer(new ConfirmCharacterC2S(Reference.RACE_SHINIGAMI));
-            pending = true;
-            button.active = false;
+            // The race is confirmed together with the look on the next screen.
+            minecraft.setScreen(new CharacterAppearanceScreen(Reference.RACE_SHINIGAMI, true));
         }).bounds(cx - 100, this.height - 48, 200, 20).build());
     }
 
@@ -47,13 +43,6 @@ public class ConfirmRaceScreen extends Screen {
         super.render(graphics, mouseX, mouseY, partialTick);
     }
 
-    @Override
-    public void tick() {
-        if (minecraft.player != null && pending)
-            com.bleachmod.common.data.PlayerCapability.get(minecraft.player).ifPresent(data -> {
-                if (data.getStatus().hasCreatedCharacter()) onClose();
-            });
-    }
     @Override
     public boolean shouldCloseOnEsc() {
         return false;

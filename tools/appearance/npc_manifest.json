@@ -1,0 +1,118 @@
+{
+  "_comment": "Source skins for tools/appearance/split_skin.py. Every skin must keep source/author/license filled before a public release.",
+  "skinColors": [
+    "#F3D2B5",
+    "#EBC09B",
+    "#D9A47C",
+    "#B97E58",
+    "#8A5A3C",
+    "#F5EDE6"
+  ],
+  "hairColors": [
+    "#F08A2C",
+    "#1C1C24",
+    "#C8322C",
+    "#F2F2F5",
+    "#E7B04A",
+    "#5B3A29",
+    "#2E4A8C",
+    "#7A2E8C"
+  ],
+  "eyeColors": [
+    "#6B3E1E",
+    "#4B6FB0",
+    "#3E8F6A",
+    "#8A2F2F",
+    "#7A5BA8",
+    "#C9A23C"
+  ],
+  "defaults": {
+    "shinigami": {
+      "base": "base:default",
+      "outfit": "outfit:rukia",
+      "hair": "hair:ichigo",
+      "eyes": "eyes:ichigo",
+      "mouth": "",
+      "skinColor": "#F3D2B5"
+    }
+  },
+  "skins": [
+    {
+      "name": "ichigo",
+      "file": "src/main/resources/assets/bleachmod/textures/entity/ichigo.png",
+      "source": {
+        "author": "unknown",
+        "license": "unverified",
+        "origin": "NPC skin bundled with the mod"
+      }
+    },
+    {
+      "name": "rukia",
+      "file": "src/main/resources/assets/bleachmod/textures/entity/rukia.png",
+      "source": {
+        "author": "unknown",
+        "license": "unverified",
+        "origin": "NPC skin bundled with the mod"
+      }
+    },
+    {
+      "name": "byakuya",
+      "file": "src/main/resources/assets/bleachmod/textures/entity/byakuya.png",
+      "tintHair": false,
+      "source": {
+        "author": "unknown",
+        "license": "unverified",
+        "origin": "NPC skin bundled with the mod"
+      }
+    },
+    {
+      "name": "orihime",
+      "file": "src/main/resources/assets/bleachmod/textures/entity/orihime.png",
+      "source": {
+        "author": "unknown",
+        "license": "unverified",
+        "origin": "NPC skin bundled with the mod"
+      },
+      "skinTolerance": 16
+    },
+    {
+      "name": "urahara",
+      "file": "src/main/resources/assets/bleachmod/textures/entity/urahara.png",
+      "tintHair": false,
+      "source": {
+        "author": "unknown",
+        "license": "unverified",
+        "origin": "NPC skin bundled with the mod"
+      }
+    },
+    {
+      "name": "uryuu",
+      "file": "src/main/resources/assets/bleachmod/textures/entity/uryuu.png",
+      "source": {
+        "author": "unknown",
+        "license": "unverified",
+        "origin": "NPC skin bundled with the mod"
+      }
+    },
+    {
+      "name": "sado_yasutora",
+      "file": "src/main/resources/assets/bleachmod/textures/entity/sado_yasutora.png",
+      "source": {
+        "author": "unknown",
+        "license": "unverified",
+        "origin": "NPC skin bundled with the mod"
+      }
+    },
+    {
+      "name": "ulquiorra",
+      "file": "src/main/resources/assets/bleachmod/textures/entity/ulquiorra.png",
+      "tintHair": false,
+      "source": {
+        "author": "unknown",
+        "license": "unverified",
+        "origin": "NPC skin bundled with the mod"
+      },
+      "skinTolerance": 8
+    }
+  ]
+}

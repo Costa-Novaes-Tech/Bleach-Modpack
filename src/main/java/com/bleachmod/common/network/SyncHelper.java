@@ -56,6 +56,7 @@ public final class SyncHelper {
             com.bleachmod.common.ZanpakutoCarry.update(player, data);
             CompoundTag tag = new CompoundTag();
             tag.put("character", data.getCharacter().saveAppearance());
+            tag.put("appearance", data.getAppearance().save());
             tag.put("guardView", data.getGuard().snapshot());
             NetworkHandler.CHANNEL.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> player), new AppearanceSyncS2C(player.getId(), tag));
         });
@@ -70,6 +71,7 @@ public final class SyncHelper {
             com.bleachmod.common.ZanpakutoCarry.update(subject, data);
             CompoundTag tag = new CompoundTag();
             tag.put("character", data.getCharacter().saveAppearance());
+            tag.put("appearance", data.getAppearance().save());
             tag.put("guardView", data.getGuard().snapshot());
             NetworkHandler.sendToPlayer(new AppearanceSyncS2C(subject.getId(), tag), observer);
         });
