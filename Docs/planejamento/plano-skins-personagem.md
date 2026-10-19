@@ -27,6 +27,8 @@ Os pontos frágeis listados na análise (seções 21.1–21.9) são corrigidos d
 
 O Hollow é a exceção futura, por causa de Resurrección e corpos não humanos. A decisão sobre geometria própria (GeckoLib ou modelo Java) fica para a fase do Hollow e só vale para essas formas (ver §11).
 
+As decisões da equipe estão em §12 e o caminho de arte sem Blockbench em §13.
+
 ## 2. O que já existe e é reaproveitado
 
 | Evidência | Uso no plano |
@@ -233,7 +235,7 @@ Infraestrutura nova necessária: plugin `org.spongepowered.mixin` no `build.grad
 
 ### 7.4 Cabelo 3D e acessórios
 
-- **Geometria:** um carregador mínimo de `.geo.json` (formato Bedrock exportado pelo Blockbench: bones, cubos, pivô, rotação e UV em caixa) converte cada penteado em `ModelPart` via `CubeListBuilder`. Os modelos são carregados no reload de resources. Não precisa de GeckoLib: só cubos estáticos.
+- **Geometria (decisão em §13.2: voxels da camada externa por padrão; `.geo.json` para acessórios):** um carregador mínimo de `.geo.json` (formato Bedrock exportado pelo Blockbench: bones, cubos, pivô, rotação e UV em caixa) converte cada penteado em `ModelPart` via `CubeListBuilder`. Os modelos são carregados no reload de resources. Não precisa de GeckoLib: só cubos estáticos.
 - **`HairLayer`** (novo `RenderLayer<AbstractClientPlayer, PlayerModel<…>>`, registrado em `ModEntityRenderers.playerLayers` ao lado dos layers atuais): aplica `getParentModel().head.translateAndRotate(pose)` e desenha cada camada da peça com `renderToBuffer(..., r, g, b, 1)` tingido pela cor resolvida. O cabelo acompanha automaticamente as animações do playerAnimator, porque segue o `head`.
 - **`AccessoryLayer`**: mesmo mecanismo para kenseikan, sinos, penas e tapa-olho. Uma peça pode prender-se a `head`, `body` ou braços.
 - **Regras de ocultação**: não desenhar com capacete equipado (com lista configurável de capacetes que mantêm o cabelo), invisibilidade, espectador ou corpo próprio em primeira pessoa. Esconder `model.hat` quando o penteado declarar `hidesHatLayer`, para evitar z-fighting.
@@ -303,35 +305,83 @@ A Hollowficação parcial (máscara) cabe neste sistema como acessório ou camad
 
 Nos dois casos, o resolvedor de aparência continua a única fonte de cores e camadas. A decisão fica para o módulo Hollow e não bloqueia este plano.
 
-## 12. Decisões pendentes (equipe)
+## 12. Decisões (19/10/2026)
 
-| Id | Pergunta | Recomendação |
+| Id | Pergunta | Decisão |
 |---|---|---|
-| D-SK1 | Resolução da skin composta: 64×64 ou 128×128? | 128×128: o rosto ganha detalhe sem mudar o modelo |
-| D-SK2 | Introduzir mixins no projeto? | Sim, 2 injeções em `AbstractClientPlayer` (§7.3) |
-| D-SK3 | Recustomização livre ou só em NPC/item? | Só por NPC barbeiro ou item, com janela autorizada pelo servidor |
-| D-SK4 | Peças de personagens livres desde o início ou desbloqueadas por quest/afiliação? | Básicas livres; marcas e acessórios icônicos (kenseikan, sinos) por progressão |
-| D-SK5 | O traje é fixo pela raça ou escolhível? | Fixo no MVP; cargo e afiliação mudam depois (haori de capitão) |
-| D-SK6 | Manter a opção "Usar minha skin do Minecraft"? | Sim, e como padrão para saves existentes |
+| D-SK1 | Resolução da skin composta | **128×128** |
+| D-SK2 | Introduzir mixins no projeto | **Sim**, 2 injeções em `AbstractClientPlayer` (§7.3) |
+| D-SK3 | Recustomização | **Somente por NPC ou item**, a definir. Para testes e suporte, haverá o comando de operador `/bleachdev appearance` (§12.1) |
+| D-SK4 | Peças icônicas livres ou desbloqueadas | **Caso a caso**: cada entrada do catálogo declara `unlock` (nulo = livre) |
+| D-SK5 | Traje fixo ou escolhível | **Escolhível**: categoria `outfit` no editor, restrita por raça no catálogo |
+| D-SK6 | Opção "Usar minha skin do Minecraft" | **Mantida**, e padrão para saves existentes |
 
-## 13. Fases de implementação
+### 12.1 Comando `/bleachdev appearance`
+
+Fica junto dos subcomandos existentes em `server/commands/BleachCommands.java` (`requires(hasPermission(2))`) e reutiliza `AppearanceValidator` e `SyncHelper.appearance()`:
+
+| Subcomando | Efeito |
+|---|---|
+| `appearance <player> show` | Lista a aparência atual (ids e cores) |
+| `appearance <player> set <campo> <valor>` | Altera um campo (`hair`, `hairColor`, `outfit`, `eyes`, …); valor validado pelo catálogo, com sugestões por tab |
+| `appearance <player> mark add\|remove <id>` / `accessory <slot> <id\|none>` | Edita listas |
+| `appearance <player> vanilla true\|false` | Liga ou desliga "Usar minha skin do Minecraft" |
+| `appearance <player> reset` | Volta ao padrão da raça |
+| `appearance <player> edit` | Abre o editor no cliente do jogador com uma janela de edição autorizada (mesmo caminho que o NPC ou item usará) |
+
+Valores inválidos são recusados com mensagem, nunca gravados.
+
+## 13. Arte sem Blockbench: aproveitar skins prontas
+
+Não é obrigatório modelar no Blockbench. Skins de Minecraft já seguem um molde fixo: cada pedaço de pele, roupa e cabelo fica sempre na mesma área do PNG. Dá para cortar essas áreas automaticamente com uma ferramenta.
+
+### 13.1 Ferramenta `tools/appearance/split_skin` (nova, só para desenvolvimento)
+
+Entrada: uma skin 64×64 (ou 128×128). Saída: as peças já no formato do catálogo.
+
+1. **Escala para 128×128** por vizinho mais próximo (o pixel-art fica idêntico, só com o dobro de pixels para retoque).
+2. **Corte por região do molde**: frente da cabeça = rosto; topo, laterais, nuca e camada externa da cabeça = cabelo; tronco, braços e pernas = traje; mãos e pescoço = pele.
+3. **Separação por cor dentro da região**: um clique (ou cor informada) marca "isto é cabelo", "isto é pele", "isto é olho". A ferramenta agrupa cores parecidas e gera uma máscara por camada.
+4. **Conversão para tons de cinza** das camadas tingíveis, preservando o sombreamento. Assim o mesmo cabelo do Renji pode ficar laranja ou branco no editor.
+5. Gera o JSON da peça (`hair:…`, `outfit:…`, `mark:…`) e um ícone.
+
+Isso transforma uma skin pronta em 3–6 peças (cabelo, rosto/olhos, boca, traje, marcas) com poucos minutos de limpeza em um editor de pixel comum (Aseprite, Piskel, GIMP, ou o editor online do próprio NameMC/Skindex).
+
+### 13.2 Cabelo 3D sem modelar: voxels da camada externa
+
+Em vez de exigir um modelo Blockbench por penteado, o `HairLayer` transforma cada pixel opaco da **camada externa da cabeça** (hat) em um pequeno cubo, como o mod *3D Skin Layers* faz. Resultado: o cabelo desenhado no PNG ganha volume real sem nenhuma modelagem.
+
+- Para penteados com espetos ou rabo de cavalo (Ichigo, Kenpachi, Renji), a peça pode ter um PNG extra opcional de **altura** (tons de cinza: preto = rente, branco = sai mais), que projeta aqueles pixels para fora.
+- O `.geo.json` do Blockbench (§7.4) continua aceito para casos que só funcionam modelados, como kenseikan e sinos. Esses poucos acessórios podem ser encomendados ou adaptados de modelos com licença livre.
+
+### 13.3 Licença das skins da internet
+
+Skins em NameMC, Planet Minecraft, Skindex e similares **pertencem a quem as desenhou**. Usar uma delas como referência pessoal ou em testes locais não traz problema. **Distribuir dentro do mod** (o repositório é público e GPL) exige uma das opções:
+
+- autorização escrita do autor (mensagem guardada em `Docs/arte/creditos-skins.md`, com link e nome);
+- skin publicada com licença que permita redistribuição (CC0, CC-BY com crédito);
+- peça redesenhada pela equipe usando a skin só como referência visual.
+
+A ferramenta deve gravar a origem de cada peça no JSON (`source`, `author`, `license`) e um teste deve falhar se algum asset do catálogo estiver sem esse campo. O conteúdo continua fan-made e "inspirado em", conforme o doc 12.
+
+## 14. Fases de implementação
 
 | Fase | Entrega | Principais arquivos | Esforço estimado |
 |---|---|---|---|
-| **F0** | Fechar D-SK1–D-SK6; template UV e primeiras 5 peças de teste | este documento, `Docs/arte/` | 1–2 dias |
-| **F1** | Dados, rede e validação sem visual: `AppearanceData`, schema 9, protocolo 2.19, catálogo por datapack + sync, `AppearanceValidator`, `ConfirmCharacterC2S` ampliado | `common/data/`, `common/appearance/` (novo), `common/network/`, `RegistryReload` | 3–4 dias |
+| **F0** | Template UV 128×128, ferramenta `split_skin` (§13.1) e primeiras 5 peças de teste | `tools/appearance/`, `Docs/arte/` | 2–3 dias |
+| **F1** | Dados, rede e validação sem visual: `AppearanceData`, schema 9, protocolo 2.19, catálogo por datapack + sync, `AppearanceValidator`, `ConfirmCharacterC2S` ampliado, `/bleachdev appearance` | `common/data/`, `common/appearance/` (novo), `common/network/`, `RegistryReload` | 3–4 dias |
 | **F2** | Renderização da textura: `AppearanceResolver`, `SkinCompositor`, mixin `getSkinTextureLocation`/`getModelName`, cache e limpeza | `client/appearance/` (novo), `mixin/client/`, `build.gradle`, `ClientForgeEvents` | 3–5 dias |
 | **F3** | Editor `CharacterAppearanceScreen` integrado após `ConfirmRaceScreen`, prévia, paleta, lang | `client/gui/` | 4–6 dias |
-| **F4** | Cabelo 3D e acessórios: carregador `.geo.json`, `HairLayer`, `AccessoryLayer`, regras de ocultação | `client/appearance/`, `ModEntityRenderers` | 3–5 dias |
+| **F4** | Cabelo 3D por voxels da camada externa + mapa de altura (§13.2), acessórios por `.geo.json`, regras de ocultação | `client/appearance/`, `ModEntityRenderers` | 3–5 dias |
 | **F5** | Conteúdo: ~45 peças do §10.2 | `assets/`, `data/` | depende da arte |
 | **F6** | Formas e expressões: `appearance` nas formas, migrar Berserk para o resolvedor, piscar/combate | `FormData`, `client/berserk/`, resolvedor | 3–4 dias |
-| **F7** | Recustomização (NPC/item/comando) e desbloqueios por quest | `common/network/c2s/UpdateAppearanceC2S`, quests | 2–3 dias |
+| **F7** | Recustomização por NPC/item e desbloqueios por quest (o comando `/bleachdev appearance` entra já em F1) | `common/network/c2s/UpdateAppearanceC2S`, quests | 2–3 dias |
 
 Ordem obrigatória: F1 → F2 → F3. F4 pode correr em paralelo com F3. F5 acompanha F2 e F4 conforme a arte chega. As estimativas são de uma pessoa familiarizada com o código e não incluem a produção de arte.
 
 Pela regra de conclusão do `Docs/README.md`, cada fase atualiza no mesmo trabalho `02-capability-system`, `06-rede-sincronizacao`, `07-persistencia-nbt`, `08-ui-hud`, `10-build-dependencias` e os manuais do jogador.
 
-## 14. Testes
+## 15. Testes
 
 ### Automatizados (`src/test` e GameTests)
 
@@ -352,7 +402,7 @@ Pela regra de conclusão do `Docs/README.md`, cada fase atualiza no mesmo trabal
 6. Reload de resources (F3+T) com a textura recomposta; sair e voltar ao mundo sem vazar texturas.
 7. Opção "Usar minha skin do Minecraft" preservando a skin original.
 
-## 15. Riscos
+## 16. Riscos
 
 | Risco | Mitigação |
 |---|---|
