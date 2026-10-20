@@ -15,7 +15,9 @@ public class PlayerProvider implements ICapabilityProvider, INBTSerializable<Com
     public static final ResourceLocation ID = Reference.id("player_data");
 
     private final PlayerData data = new PlayerData();
-    private final LazyOptional<PlayerData> optional = LazyOptional.of(() -> data);
+    // Forge invalidates caps when a player leaves a level and revives them after a dimension
+    // change; an invalidated LazyOptional never comes back, so a fresh one is handed out then.
+    private LazyOptional<PlayerData> optional = LazyOptional.of(() -> data);
 
     public PlayerData getData() {
         return data;
@@ -23,7 +25,9 @@ public class PlayerProvider implements ICapabilityProvider, INBTSerializable<Com
 
     @Override
     public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-        return cap == PlayerCapability.INSTANCE ? optional.cast() : LazyOptional.empty();
+        if (cap != PlayerCapability.INSTANCE) return LazyOptional.empty();
+        if (!optional.isPresent()) optional = LazyOptional.of(() -> data);
+        return optional.cast();
     }
 
     public void invalidate() {
