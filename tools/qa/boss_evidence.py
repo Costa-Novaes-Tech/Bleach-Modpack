@@ -12,12 +12,19 @@ def main():
     args = parser.parse_args()
     args.output.mkdir(parents=True, exist_ok=True)
     rows = [json.loads(line) for line in (args.source/'frames.jsonl').read_text(encoding='utf-8').splitlines()]
-    for prefix in ['melee-', 'charge-', 'slam-', 'walk-']:
-        frames = [r for r in rows if Path(r['file']).name.startswith(prefix)]
+    for prefix in ['entrance-', 'entrance-side-', 'melee-', 'charge-', 'slam-', 'walk-']:
+        frames = [r for r in rows if Path(r['file']).stem.startswith(prefix)
+                  and Path(r['file']).stem[len(prefix):].isdigit()]
         if not frames:
             continue
-        with Image.open(args.source/frames[0]['file']) as first:
-            palette = first.convert('RGB').resize((768, 432), Image.Resampling.LANCZOS).quantize(colors=192)
+        # The first entrance frame can contain only sky/grass. Include the revealed actor
+        # when choosing the palette so its mask, eyes and markings keep their colors.
+        samples = Image.new('RGB', (768, 432*5))
+        for index in range(5):
+            row = frames[round(index*(len(frames)-1)/4)]
+            with Image.open(args.source/row['file']) as frame:
+                samples.paste(frame.convert('RGB').resize((768, 432), Image.Resampling.LANCZOS), (0, index*432))
+        palette = samples.quantize(colors=192)
         pictures, durations = [], []
         for i, row in enumerate(frames):
             with Image.open(args.source/row['file']) as frame:

@@ -14,7 +14,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import com.bleachmod.client.model.HollowBossModel;
+import com.bleachmod.client.model.HollowBossRenderer;
 import com.bleachmod.entity.HollowBossEntity;
 
 @Mod.EventBusSubscriber(
@@ -42,22 +42,6 @@ public class ModEntityRenderers {
         ModEntities.questNpcs().values().forEach(type ->
                 event.registerEntityRenderer(type.get(), QuestNpcRenderer::new)
         );
-    }
-
-    public static class HollowBossRenderer extends software.bernie.geckolib.renderer.GeoEntityRenderer<HollowBossEntity> {
-        public HollowBossRenderer(EntityRendererProvider.Context context) {
-            super(context, new HollowBossModel());
-            shadowRadius = 1.4F;
-        }
-        @Override public void render(HollowBossEntity boss, float yaw, float partial,
-                com.mojang.blaze3d.vertex.PoseStack pose,
-                net.minecraft.client.renderer.MultiBufferSource buffers, int light) {
-            if (!net.minecraftforge.fml.loading.FMLEnvironment.production && Boolean.getBoolean("bleachmod.bossQa")) {
-                for (String side : new String[]{"right", "left"}) getGeoModel().getBone(side + "_fist_contact")
-                        .ifPresent(bone -> bone.setTrackingMatrices(true));
-            }
-            super.render(boss, yaw, partial, pose, buffers, light);
-        }
     }
 
     @SubscribeEvent

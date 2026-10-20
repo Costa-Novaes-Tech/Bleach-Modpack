@@ -1,0 +1,86 @@
+{
+  "source": "C:\\Users\\Usu\u00e1rio\\Documents\\GitHub\\Bleach-Modpack\\run\\boss-qa\\base\\boss-evidence\\Boss-QA-1792537605186",
+  "positionSource": "GeckoLib tracked bones + outer entrance translation",
+  "views": {
+    "front": {
+      "rightWrist": {
+        "samples": 7,
+        "ageWindow": [
+          78,
+          92
+        ],
+        "maxDriftBlocks": 4.568998312172127e-06,
+        "maxSupportHeightErrorBlocks": 2.136230468749792e-06
+      },
+      "leftWrist": {
+        "samples": 6,
+        "ageWindow": [
+          98,
+          110
+        ],
+        "maxDriftBlocks": 4.9209040261626945e-06,
+        "maxSupportHeightErrorBlocks": 2.136230468749792e-06
+      },
+      "rightAnkle": {
+        "samples": 12,
+        "ageWindow": [
+          112,
+          136
+        ],
+        "maxDriftBlocks": 4.5972919936839775e-06,
+        "maxSupportHeightErrorBlocks": 2.136230468749792e-06
+      },
+      "leftAnkle": {
+        "samples": 6,
+        "ageWindow": [
+          124,
+          136
+        ],
+        "maxDriftBlocks": 4.9209040261626945e-06,
+        "maxSupportHeightErrorBlocks": 2.136230468749792e-06
+      },
+      "rightFootLiftBlocks": 0.6074087524414062,
+      "leftFootLiftBlocks": 0.6247770690917969
+    },
+    "oblique": {
+      "rightWrist": {
+        "samples": 7,
+        "ageWindow": [
+          78,
+          92
+        ],
+        "maxDriftBlocks": 4.117468843262325e-06,
+        "maxSupportHeightErrorBlocks": 2.136230468749792e-06
+      },
+      "leftWrist": {
+        "samples": 6,
+        "ageWindow": [
+          98,
+          110
+        ],
+        "maxDriftBlocks": 3.932099938981686e-06,
+        "maxSupportHeightErrorBlocks": 2.136230468749792e-06
+      },
+      "rightAnkle": {
+        "samples": 12,
+        "ageWindow": [
+          112,
+          136
+        ],
+        "maxDriftBlocks": 4.29567164104519e-06,
+        "maxSupportHeightErrorBlocks": 2.136230468749792e-06
+      },
+      "leftAnkle": {
+        "samples": 6,
+        "ageWindow": [
+          124,
+          136
+        ],
+        "maxDriftBlocks": 4.7885386352621335e-06,
+        "maxSupportHeightErrorBlocks": 2.136230468749792e-06
+      },
+      "rightFootLiftBlocks": 0.6031477355957031,
+      "leftFootLiftBlocks": 0.6249754333496094
+    }
+  }
+}

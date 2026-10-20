@@ -54,36 +54,65 @@ public final class BossQaBootstrap {
             mc.options.pauseOnLostFocus = false;
             mc.options.hideGui = true;
             mc.options.renderDistance().set(6);
+            mc.getTutorial().setStep(net.minecraft.client.tutorial.TutorialSteps.NONE);
             mc.getTutorial().stop();
             mc.getToasts().clear();
             moveCamera(1.6, 3.2, 10.5, 1.6, 2.7, .5);
         }
-        if (ticks == 100) capture = "01-front-ichigo-scale";
-        if (ticks == 130) moveCamera(10.5, 3.3, 4.5, .5, 2.7, .5);
-        if (ticks == 190) capture = "02-side-hunch-arms";
-        if (ticks == 220) moveCamera(.5, 3.5, -10.5, .5, 2.7, .5);
-        if (ticks == 280) capture = "03-rear-dorsal-fin";
-        if (ticks == 300) moveCamera(4, 4.7, 7, .5, 4.4, .5);
-        if (ticks == 350) capture = "04-mask-detail";
-        if (ticks == 365) { resetActor(); moveCamera(12, 6.3, 13, .5, 2.4, 2); }
-        if (ticks == 390) startAttack(Attack.MELEE, 2.7);
-        if (ticks >= 390 && ticks <= 450 && ticks % 2 == 0) capture = "melee-" + ticks;
-        if (ticks == 475) { resetActor(); moveCamera(13, 6.5, 13, .5, 2.5, 5); }
-        if (ticks == 490) startAttack(Attack.CHARGE, 8);
-        if (ticks >= 490 && ticks <= 570 && ticks % 2 == 0) capture = "charge-" + ticks;
-        if (ticks == 605) { resetActor(); moveCamera(9, 4.2, 7.5, .5, 2.1, 2); }
-        if (ticks == 630) startAttack(Attack.SLAM, 2.8);
-        if (ticks >= 630 && ticks <= 710) capture = "slam-" + ticks;
-        if (ticks == 745) {
+        if (ticks == 45) startEntrance();
+        if (ticks >= 45 && ticks <= 215 && ticks % 2 == 0) capture = "entrance-" + ticks;
+        if (ticks == 235) {
+            mc.options.hideGui=false;
+            moveCamera(7,3.8,10.5,.5,2.7,-.5);
+        }
+        if (ticks == 245) startEntrance();
+        if (ticks >= 245 && ticks <= 415 && ticks % 2 == 0) capture = "entrance-side-" + ticks;
+        if (ticks == 430) { mc.options.hideGui=true;moveCamera(1.6,3.2,10.5,1.6,2.7,.5); }
+        if (ticks < 450) return;
+        int sceneTick = ticks - 400;
+        if (sceneTick == 100) capture = "01-front-ichigo-scale";
+        if (sceneTick == 130) moveCamera(10.5, 3.3, 4.5, .5, 2.7, .5);
+        if (sceneTick == 190) capture = "02-side-hunch-arms";
+        if (sceneTick == 220) moveCamera(.5, 3.5, -10.5, .5, 2.7, .5);
+        if (sceneTick == 280) capture = "03-rear-dorsal-fin";
+        if (sceneTick == 300) moveCamera(4, 4.7, 7, .5, 4.4, .5);
+        if (sceneTick == 350) capture = "04-mask-detail";
+        if (sceneTick == 365) { resetActor(); moveCamera(12, 6.3, 13, .5, 2.4, 2); }
+        if (sceneTick == 390) startAttack(Attack.MELEE, 2.7);
+        if (sceneTick >= 390 && sceneTick <= 450 && sceneTick % 2 == 0) capture = "melee-" + sceneTick;
+        if (sceneTick == 475) { resetActor(); moveCamera(13, 6.5, 13, .5, 2.5, 5); }
+        if (sceneTick == 490) startAttack(Attack.CHARGE, 8);
+        if (sceneTick >= 490 && sceneTick <= 570 && sceneTick % 2 == 0) capture = "charge-" + sceneTick;
+        if (sceneTick == 605) { resetActor(); moveCamera(9, 4.2, 7.5, .5, 2.1, 2); }
+        if (sceneTick == 630) startAttack(Attack.SLAM, 2.8);
+        if (sceneTick >= 630 && sceneTick <= 710) capture = "slam-" + sceneTick;
+        if (sceneTick == 745) {
             moveCamera(12, 4.8, 10, .5, 2.5, 2.5);
             startWalk();
         }
-        if (ticks >= 760 && ticks <= 850 && ticks % 3 == 0) capture = "walk-" + ticks;
-        if (ticks == 870) com.mojang.logging.LogUtils.getLogger().info("Boss QA complete: {}", evidence);
-        if (ticks == 910 && Boolean.getBoolean("bleachmod.bossQaExit")) mc.stop();
+        if (sceneTick >= 760 && sceneTick <= 850 && sceneTick % 3 == 0) capture = "walk-" + sceneTick;
+        if (sceneTick == 870) com.mojang.logging.LogUtils.getLogger().info("Boss QA complete: {}", evidence);
+        if (sceneTick == 910 && Boolean.getBoolean("bleachmod.bossQaExit")) mc.stop();
     }
 
-    /** Settle teleport interpolation before recording the following attack's anticipation. */
+    /** A fresh actor exercises the same entry path as a quest spawn, without replay hooks. */
+    private static void startEntrance() {
+        var mc=Minecraft.getInstance();var uuid=mc.player.getUUID();
+        mc.getSingleplayerServer().execute(() -> {
+            var player=mc.getSingleplayerServer().getPlayerList().getPlayer(uuid);
+            if(player==null)return;
+            var level=player.serverLevel();
+            level.getEntitiesOfClass(HollowBossEntity.class,player.getBoundingBox().inflate(60),
+                    b->b.getTags().contains("boss_qa_actor")).forEach(net.minecraft.world.entity.Entity::discard);
+            var boss=com.bleachmod.registry.ModEntities.HOLLOW_BOSS.get().create(level);
+            int y=level.getHeight(net.minecraft.world.level.levelgen.Heightmap.Types.MOTION_BLOCKING,0,0);
+            boss.setPos(.5,y,.5);boss.setYRot(0);boss.setYBodyRot(0);boss.setYHeadRot(0);
+            boss.setNoAi(true);boss.setPersistenceRequired();boss.addTag("boss_qa_actor");
+            boss.goalSelector.removeAllGoals(goal->true);boss.targetSelector.removeAllGoals(goal->true);
+            level.addFreshEntity(boss);
+        });
+    }
+
     private static void resetActor() {
         var mc = Minecraft.getInstance();
         var server = mc.getSingleplayerServer();
@@ -193,15 +222,26 @@ public final class BossQaBootstrap {
             for (var entity : mc.level.entitiesForRendering()) if (entity instanceof HollowBossEntity boss) {
                 meta.addProperty("attack", boss.getAttack().name());
                 meta.addProperty("attackTick", boss.getAttackTick());
+                meta.addProperty("entranceTick", boss.getEntranceTick());
+                meta.addProperty("entranceAge", boss.getEntranceAge(mc.getFrameTime()));
                 meta.addProperty("bossHeight", boss.getBbHeight());
                 meta.addProperty("bossY", boss.getY());
                 var renderer = mc.getEntityRenderDispatcher().getRenderer(boss);
-                if (renderer instanceof com.bleachmod.client.events.ModEntityRenderers.HollowBossRenderer geo) {
+                if (renderer instanceof com.bleachmod.client.model.HollowBossRenderer geo) {
+                    // GeckoLib's tracked world position removes the outer pre-render translation.
+                    float retreat=boss.isEntering()?com.bleachmod.common.visual.HollowBossEntrance.retreat(boss.getEntranceAge(mc.getFrameTime())):0;
+                    var entryOffset=net.minecraft.world.phys.Vec3.directionFromRotation(0,boss.getEntranceYaw()).scale(retreat);
+                    for(String side:new String[]{"left","right"}) for(String part:new String[]{"hand","foot"}) {
+                        geo.getGeoModel().getBone(side+"_"+part).ifPresent(bone->{
+                            var point=bone.getWorldPosition();String key=side+(part.equals("hand")?"Wrist":"Ankle");
+                            meta.addProperty(key+"X",point.x+entryOffset.x);meta.addProperty(key+"Y",point.y);meta.addProperty(key+"Z",point.z+entryOffset.z);
+                        });
+                    }
                     for (String side : new String[]{"left", "right"}) geo.getGeoModel().getBone(side + "_fist_contact").ifPresent(bone -> {
                         var point = bone.getWorldPosition();
-                        meta.addProperty(side + "ContactX", point.x);
+                        meta.addProperty(side + "ContactX", point.x+entryOffset.x);
                         meta.addProperty(side + "ContactY", point.y);
-                        meta.addProperty(side + "ContactZ", point.z);
+                        meta.addProperty(side + "ContactZ", point.z+entryOffset.z);
                     });
                 }
             }

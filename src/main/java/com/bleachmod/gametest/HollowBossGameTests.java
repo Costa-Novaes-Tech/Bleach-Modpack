@@ -60,6 +60,9 @@ public final class HollowBossGameTests {
     @AfterBatch(batch="boss_exact_charge_cooldown") public static void cleanupExactCooldown(ServerLevel level) { cleanup(level); }
     @AfterBatch(batch="boss_cancel_changed_target") public static void cleanupSwap(ServerLevel level) { cleanup(level); }
     @AfterBatch(batch="boss_cancel_cleared_target") public static void cleanupNull(ServerLevel level) { cleanup(level); }
+    @AfterBatch(batch="boss_entrance_clock") public static void cleanupEntrance(ServerLevel level) { cleanup(level); }
+    @AfterBatch(batch="boss_entrance_save") public static void cleanupEntranceSave(ServerLevel level) { cleanup(level); }
+    @AfterBatch(batch="boss_entrance_kill") public static void cleanupEntranceKill(ServerLevel level) { cleanup(level); }
 
     private static IronGolem target(GameTestHelper h, Vec3 position) {
         var target = EntityType.IRON_GOLEM.create(h.getLevel());
@@ -79,6 +82,9 @@ public final class HollowBossGameTests {
     }
 
     private static Fixture fixture(GameTestHelper h, double distance, boolean naturalAi) {
+        return fixture(h,distance,naturalAi,false);
+    }
+    private static Fixture fixture(GameTestHelper h, double distance, boolean naturalAi, boolean entrance) {
         var p = h.absolutePos(new BlockPos(1, 1, 1));
         int y = h.getLevel().getMaxBuildHeight() - 40;
         var area = new AABB(p.getX() - 12, y - 2, p.getZ() - 12, p.getX() + 18, y + 12, p.getZ() + 24);
@@ -96,6 +102,7 @@ public final class HollowBossGameTests {
             }
         }
         var boss = ModEntities.HOLLOW_BOSS.get().create(h.getLevel());
+        if (!entrance) boss.finishEntrance();
         boss.addTag("boss_combat_fixture");
         boss.setPersistenceRequired();
         if (!naturalAi) {
@@ -111,6 +118,64 @@ public final class HollowBossGameTests {
         var fixture = new Fixture(boss, target, area, originals);
         ACTIVE.put(h.getLevel(), fixture);
         return fixture;
+    }
+
+    @GameTest(template="empty",batch="boss_entrance_clock",timeoutTicks=210)
+    public static void entranceLocksMovementAndCombatThenReleasesNaturalAi(GameTestHelper h) {
+        var f=fixture(h,2.7,true,true);
+        Vec3 start=f.boss.position();int first=f.boss.tickCount;
+        h.onEachTick(() -> {
+            int elapsed=f.boss.tickCount-first;
+            if(elapsed<160) {
+                h.assertTrue(f.boss.isEntering() && f.boss.getAttack()==Attack.IDLE,"Entrance released combat early");
+                h.assertTrue(f.boss.position().distanceToSqr(start)<.0001,"Boss drifted away from portal anchor");
+                h.assertTrue(f.target.getHealth()==500 && !f.boss.beginAttack(Attack.MELEE,f.target),"Boss damaged target during reveal");
+            }
+        });
+        h.runAfterDelay(10,()->h.assertTrue(!f.boss.hurt(f.boss.damageSources().mobAttack(f.target),5)
+                && f.boss.getHealth()==100,"Entrance accepted damage before the body emerged"));
+        h.runAfterDelay(195,()->{
+            h.assertTrue(!f.boss.isEntering() && f.boss.getEntranceTick()==160,"Entrance did not end on its server clock");
+            h.assertTrue(f.target.getHealth()<500,"Natural combat did not resume after entrance");
+            f.clear();h.succeed();
+        });
+    }
+
+    @GameTest(template="empty",batch="boss_entrance_save",timeoutTicks=100)
+    public static void entrancePersistsForLateTrackingAndLegacySavesDoNotReplay(GameTestHelper h) {
+        var f=fixture(h,8,false,true);f.boss.setNoAi(true);
+        h.runAfterDelay(55,()->{
+            var tag=new CompoundTag();f.boss.addAdditionalSaveData(tag);
+            int age=f.boss.getEntranceTick();
+            h.assertTrue(age>0 && age<160,"NoAI preview must advance entrance clock");
+            var restored=ModEntities.HOLLOW_BOSS.get().create(h.getLevel());
+            restored.readAdditionalSaveData(tag);restored.setPos(f.boss.position().add(10,0,0));
+            restored.addTag("boss_combat_fixture");h.getLevel().addFreshEntity(restored);
+            h.assertTrue(restored.getEntranceTick()==age && restored.isEntering(),"Reload restarted or skipped active entrance");
+            var legacy=ModEntities.HOLLOW_BOSS.get().create(h.getLevel());
+            tag.remove("BossEntranceTick");tag.remove("BossEntranceYaw");tag.putUUID("UUID",f.boss.getUUID());
+            legacy.readAdditionalSaveData(tag);
+            h.assertTrue(!legacy.isEntering(),"Old saved boss replayed a new spawn cinematic");
+            tag.remove("UUID");
+            var summoned=ModEntities.HOLLOW_BOSS.get().create(h.getLevel());summoned.readAdditionalSaveData(tag);
+            h.assertTrue(summoned.isEntering() && summoned.getEntranceTick()==0,"Fresh summon NBT skipped the entrance");
+            h.runAfterDelay(10,()->{
+                h.assertTrue(restored.getEntranceTick()>age && restored.getEntranceTick()==f.boss.getEntranceTick(),
+                        "Reloaded entrance diverged from authoritative clock");
+                f.clear();h.succeed();
+            });
+        });
+    }
+
+    @GameTest(template="empty",batch="boss_entrance_kill",timeoutTicks=25)
+    public static void adminKillInterruptsEntranceWithoutLeavingAnActor(GameTestHelper h) {
+        var f=fixture(h,8,false,true);
+        h.assertTrue(f.boss.hurt(f.boss.damageSources().genericKill(),1000) && !f.boss.isEntering(),
+                "Entrance blocked administrative kill or retained a dead portal");
+        h.runAfterDelay(5,()->{
+            h.assertTrue(f.target.getHealth()==500,"Killed entrance left delayed damage");
+            f.clear();h.succeed();
+        });
     }
 
     @GameTest(template="empty", batch="boss_profile")

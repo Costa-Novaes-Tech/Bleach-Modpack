@@ -35,6 +35,7 @@ public final class BossQaWorld {
         boss.setPos(.5, y, .5);
         boss.setYRot(0); boss.setYBodyRot(0); boss.setYHeadRot(0);
         boss.setNoAi(true);
+        boss.finishEntrance();
         boss.setPersistenceRequired();
         boss.addTag("boss_qa_actor");
         // Remove autonomous decision-making only from this disposable preview actor.
@@ -68,6 +69,7 @@ public final class BossQaWorld {
             row.addProperty("entityTick", boss.tickCount);
             row.addProperty("attack", boss.getAttack().name());
             row.addProperty("attackTick", boss.getAttackTick());
+            row.addProperty("entranceTick", boss.getEntranceTick());
             row.addProperty("chargeCooldown", boss.getChargeCooldownTicks());
             row.addProperty("slamCooldown", boss.getSlamCooldownTicks());
             row.addProperty("meleeCooldown", boss.getMeleeCooldownTicks());

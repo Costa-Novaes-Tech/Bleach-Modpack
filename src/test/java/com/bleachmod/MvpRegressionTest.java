@@ -1212,6 +1212,43 @@ public final class MvpRegressionTest {
             loaded.getCharacter().bindZanpakuto("ryujin_jakka");eq(45D,loaded.getCharacter().getTechniqueMastery("shikai",2));
             var clone=new PlayerData();clone.copyFrom(loaded);clone.getCharacter().bindZanpakuto("nozarashi");eq(63D,clone.getCharacter().getTechniqueMastery("bankai",4));
         });
+        test("Boss entrance IK reaches support targets without stretching its limbs",()->{
+            var a=new org.joml.Vector3f(21,69,1);var b=new org.joml.Vector3f(24,41,-3);
+            var c=new org.joml.Vector3f(25,14,-9);
+            for(int x=-8;x<=8;x+=4)for(int y=12;y<=32;y+=5)for(int z=-30;z<=20;z+=5){
+                var target=new org.joml.Vector3f(25+x,y,z);
+                var chain=com.bleachmod.common.visual.TwoBonePose.solve(a,b,c,target,new org.joml.Vector3f(0,0,1));
+                var elbow=chain.upper().transform(new org.joml.Vector3f(b).sub(a)).add(a);
+                var tip=chain.lower().transform(new org.joml.Vector3f(c).sub(b));chain.upper().transform(tip);tip.add(elbow);
+                yes(Math.abs(elbow.distance(a)-a.distance(b))<.001);
+                yes(Math.abs(tip.distance(elbow)-b.distance(c))<.001);
+                if(target.distance(a)<a.distance(b)+b.distance(c)-.01F)yes(tip.distance(target)<.003);
+                else yes(Float.isFinite(tip.x+tip.y+tip.z));
+                var e=com.bleachmod.common.visual.TwoBonePose.eulerZYX(chain.upper());
+                var roundTrip=new org.joml.Quaternionf().rotationZYX(e.z,e.y,e.x);
+                yes(roundTrip.transform(new org.joml.Vector3f(b).sub(a)).add(a).distance(elbow)<.003);
+            }
+        });
+        test("Boss entrance alternates planted hands and airborne steps and settles before combat",()->{
+            float anchor=com.bleachmod.common.visual.HollowBossEntrance.hand(74,true).z();
+            for(float t=74;t<96;t+=.25F){
+                var p=com.bleachmod.common.visual.HollowBossEntrance.hand(t,true);
+                yes(p.planted() && p.y()==14 && p.z()==anchor);
+            }
+            yes(com.bleachmod.common.visual.HollowBossEntrance.hand(68,true).lift()>.5F);
+            yes(com.bleachmod.common.visual.HollowBossEntrance.hand(68,false).lift()==0);
+            yes(com.bleachmod.common.visual.HollowBossEntrance.foot(89,true).lift()>.5F);
+            yes(com.bleachmod.common.visual.HollowBossEntrance.foot(89,false).lift()==0);
+            eq(com.bleachmod.common.visual.HollowBossEntrance.retreat(56),com.bleachmod.common.visual.HollowBossEntrance.retreat(62));
+            eq(com.bleachmod.common.visual.HollowBossEntrance.retreat(86),com.bleachmod.common.visual.HollowBossEntrance.retreat(90));
+            for(float t=156;t<=160;t+=.25F){
+                yes(Math.abs(com.bleachmod.common.visual.HollowBossEntrance.retreat(t))<.0001F);
+                yes(com.bleachmod.common.visual.HollowBossEntrance.bodyY(t)==0);
+                yes(com.bleachmod.common.visual.HollowBossEntrance.settle(t)==0);
+                yes(com.bleachmod.common.visual.HollowBossEntrance.hand(t,true).planted());
+                yes(com.bleachmod.common.visual.HollowBossEntrance.foot(t,false).planted());
+            }
+        });
         System.out.println("PASS: "+count+" regression scenarios");
     }
     private static Map<String,com.bleachmod.server.world.HistoryWorld.Destination> historyManifest(String json){try{var f=java.nio.file.Files.createTempFile("maps",".json");try{java.nio.file.Files.writeString(f,json);return com.bleachmod.server.world.HistoryWorld.parse(f);}finally{java.nio.file.Files.deleteIfExists(f);}}catch(java.io.IOException e){throw new IllegalArgumentException(e);}}

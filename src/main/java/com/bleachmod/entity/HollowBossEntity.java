@@ -21,6 +21,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.*;
 import software.bernie.geckolib.core.animation.*;
 import java.util.*;
+import com.bleachmod.common.visual.HollowBossEntrance;
 
 /** First story boss. All attack timing/damage is authoritative on the server. */
 public class HollowBossEntity extends HollowEntity {
@@ -30,6 +31,10 @@ public class HollowBossEntity extends HollowEntity {
     public static final double SLAM_RADIUS = 5.0;
     private static final EntityDataAccessor<Integer> ATTACK = SynchedEntityData.defineId(HollowBossEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> ATTACK_TICK = SynchedEntityData.defineId(HollowBossEntity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> INTRO_TICK = SynchedEntityData.defineId(HollowBossEntity.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Float> INTRO_YAW = SynchedEntityData.defineId(HollowBossEntity.class, EntityDataSerializers.FLOAT);
+    private boolean entranceAdded;
+    private long introSyncTime;
     private static final RawAnimation IDLE = RawAnimation.begin().thenLoop("animation.boss.idle");
     private static final RawAnimation WALK = RawAnimation.begin().thenLoop("animation.boss.walk");
     private static final RawAnimation[] ACTIONS = {IDLE,
@@ -48,6 +53,58 @@ public class HollowBossEntity extends HollowEntity {
         super.defineSynchedData();
         entityData.define(ATTACK, 0);
         entityData.define(ATTACK_TICK, 0);
+        entityData.define(INTRO_TICK, 0);
+        entityData.define(INTRO_YAW, 0F);
+    }
+    public boolean isEntering() { return isAlive() && getEntranceTick() < HollowBossEntrance.DURATION; }
+    public int getEntranceTick() { return entityData.get(INTRO_TICK); }
+    public float getEntranceYaw() { return entityData.get(INTRO_YAW); }
+    public float getEntranceAge(float partial) {
+        return Math.min(HollowBossEntrance.DURATION, getEntranceTick()
+                + (level().isClientSide ? Math.min(2, Math.max(0, level().getGameTime() - introSyncTime)) : 0) + partial);
+    }
+    @Override public void onSyncedDataUpdated(EntityDataAccessor<?> key) {
+        super.onSyncedDataUpdated(key);
+        if (INTRO_TICK.equals(key)) introSyncTime = level().getGameTime();
+    }
+    @Override public void onAddedToWorld() {
+        super.onAddedToWorld();
+        if (!level().isClientSide && !entranceAdded) {
+            entranceAdded = true;
+            entityData.set(INTRO_YAW, getYRot());
+        }
+    }
+    /** Used by isolated combat fixtures that start after the entrance. Never replays a saved boss. */
+    public void finishEntrance() {
+        if (!level().isClientSide) entityData.set(INTRO_TICK, HollowBossEntrance.DURATION);
+    }
+    @Override protected boolean isImmobile() { return isEntering() || super.isImmobile(); }
+    @Override public boolean isPushable() { return !isEntering() && super.isPushable(); }
+    @Override public boolean hurt(net.minecraft.world.damagesource.DamageSource source, float amount) {
+        if (isEntering() && !source.is(net.minecraft.tags.DamageTypeTags.BYPASSES_INVULNERABILITY)) return false;
+        return super.hurt(source, amount);
+    }
+    @Override public void travel(Vec3 input) {
+        if (isEntering()) { setDeltaMovement(Vec3.ZERO); return; }
+        super.travel(input);
+    }
+    private void tickEntrance() {
+        cancelBossAttack();
+        getNavigation().stop();
+        setDeltaMovement(Vec3.ZERO);
+        setYRot(getEntranceYaw()); setYBodyRot(getEntranceYaw()); setYHeadRot(getEntranceYaw());
+        int age = getEntranceTick() + 1;
+        entityData.set(INTRO_TICK, age);
+        if (age == 1) playSound(SoundEvents.PORTAL_TRIGGER, 1.6F, .55F);
+        if (age == 30) playSound(SoundEvents.ENDERMAN_STARE, 1.1F, .6F);
+        if (age == HollowBossEntrance.RIGHT_HAND_DOWN || age == HollowBossEntrance.LEFT_HAND_DOWN)
+            playSound(SoundEvents.IRON_GOLEM_STEP,.65F,.75F);
+        if (age == HollowBossEntrance.LAND) {
+            groundParticles(position(), 60);
+            playSound(SoundEvents.IRON_GOLEM_STEP, 2F, .5F);
+        }
+        if (age == HollowBossEntrance.ROAR) playSound(SoundEvents.RAVAGER_ROAR, 1.8F, .6F);
+        if (age == 148) playSound(SoundEvents.ENDERMAN_TELEPORT, 1F, .55F);
     }
     @Override public EntityDimensions getDimensions(Pose pose) { return EntityDimensions.scalable(2.8F, 5.4F); }
     @Override protected float getStandingEyeHeight(Pose pose, EntityDimensions dimensions) { return 4.35F; }
@@ -64,7 +121,7 @@ public class HollowBossEntity extends HollowEntity {
     }
     private double meleeReach(LivingEntity target) { return getBbWidth() / 2 + target.getBbWidth() / 2 + 1.25; }
     public boolean beginAttack(Attack attack, LivingEntity target) {
-        if (level().isClientSide || !isAlive() || isNoAi() || getAttack() != Attack.IDLE
+        if (level().isClientSide || !isAlive() || isEntering() || isNoAi() || getAttack() != Attack.IDLE
                 || attack == Attack.IDLE || !validTarget(target) || !hasLineOfSight(target)) return false;
         double distance = distanceTo(target);
         if (attack == Attack.MELEE && (basicCooldown > 0 || distance > meleeReach(target))
@@ -103,6 +160,11 @@ public class HollowBossEntity extends HollowEntity {
     @Override public void die(net.minecraft.world.damagesource.DamageSource source) { cancelBossAttack(); super.die(source); }
 
     @Override public void aiStep() {
+        if (isEntering()) {
+            if (!level().isClientSide) tickEntrance();
+            super.aiStep();
+            return;
+        }
         if (!level().isClientSide) {
             if (chargeCooldown > 0) chargeCooldown--;
             if (slamCooldown > 0) slamCooldown--;
@@ -200,6 +262,12 @@ public class HollowBossEntity extends HollowEntity {
                 count > 20 ? 2.1 : .6, .12, count > 20 ? 2.1 : .6, .13);
     }
     @Override protected void registerGoals() {
+        goalSelector.addGoal(-1, new Goal() {
+            { setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK, Flag.JUMP)); }
+            @Override public boolean canUse() { return isEntering(); }
+            @Override public boolean canContinueToUse() { return isEntering(); }
+            @Override public void start() { getNavigation().stop(); }
+        });
         goalSelector.addGoal(0, new FloatGoal(this));
         goalSelector.addGoal(1, new Goal() {
             { setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK)); }
@@ -239,10 +307,19 @@ public class HollowBossEntity extends HollowEntity {
         tag.putInt("BossChargeCooldown", chargeCooldown);
         tag.putInt("BossSlamCooldown", slamCooldown);
         tag.putInt("BossMeleeCooldown", basicCooldown);
+        tag.putInt("BossEntranceTick", getEntranceTick());
+        tag.putFloat("BossEntranceYaw", getEntranceYaw());
     }
     @Override public void readAdditionalSaveData(CompoundTag tag) {
         super.readAdditionalSaveData(tag);
         cancelBossAttack();
+        // Persistent vanilla saves carry UUID. A fresh /summon NBT payload does not.
+        // Established legacy bosses must not replay an entrance when their chunk reloads.
+        entityData.set(INTRO_TICK, tag.contains("BossEntranceTick")
+                ? Mth.clamp(tag.getInt("BossEntranceTick"), 0, HollowBossEntrance.DURATION)
+                : tag.hasUUID("UUID") ? HollowBossEntrance.DURATION : 0);
+        entityData.set(INTRO_YAW, tag.getFloat("BossEntranceYaw"));
+        entranceAdded = tag.contains("BossEntranceTick") || tag.hasUUID("UUID");
         chargeCooldown = Mth.clamp(tag.getInt("BossChargeCooldown"), 0, CHARGE_COOLDOWN);
         slamCooldown = Mth.clamp(tag.getInt("BossSlamCooldown"), 0, SLAM_COOLDOWN);
         basicCooldown = Mth.clamp(tag.getInt("BossMeleeCooldown"), 0, MELEE_COOLDOWN);
