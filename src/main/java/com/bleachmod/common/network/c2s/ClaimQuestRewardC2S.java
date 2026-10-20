@@ -20,7 +20,7 @@ public record ClaimQuestRewardC2S(String questId, int rewardIndex) {
     public static void handle(ClaimQuestRewardC2S msg, Supplier<NetworkEvent.Context> ctx) {
         ctx.get().enqueueWork(() -> {
             ServerPlayer player = ctx.get().getSender();
-            if (player != null && player.isAlive() && com.bleachmod.common.data.PlayerCapability.get(player).map(data -> data.getStatus().hasCreatedCharacter() && data.getStatus().allowAction(player.level().getGameTime())).orElse(false)) {
+            if (player != null && player.isAlive() && com.bleachmod.common.data.PlayerCapability.get(player).map(data -> data.getStatus().hasCreatedCharacter() && data.getStatus().allowUiAction(player.level().getGameTime())).orElse(false)) {
                 QuestService.claimReward(player, msg.questId, msg.rewardIndex);
             }
         });

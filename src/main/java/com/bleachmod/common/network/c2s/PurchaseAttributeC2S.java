@@ -13,7 +13,7 @@ public record PurchaseAttributeC2S(String id) {
             var player=context.get().getSender();
             if(player==null||!player.isAlive())return;
             PlayerCapability.get(player).ifPresent(data->{
-                if (!data.getStatus().allowAction(player.level().getGameTime())) return;
+                if (!data.getStatus().allowUiAction(player.level().getGameTime())) return;
                 if(data.getStatus().hasCreatedCharacter()&&data.getAttributes().purchase(msg.id,data.getResources()))
                     ProgressionService.sync(player,data);
                 else player.displayClientMessage(Component.translatable("message.bleachmod.skill.cannot_purchase"),false);

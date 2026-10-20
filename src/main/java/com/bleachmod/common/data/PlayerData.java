@@ -88,6 +88,14 @@ public class PlayerData {
         status.clearTransientState();
     }
 
+    /** Leaving a level ends combat and drops what was bound to it, but cooldowns travel with the player. */
+    public void resetLevelBoundState() {
+        guard.release();
+        resources.setActionCharge(0);
+        status.clearTransformationState();
+        status.clearCombat();
+    }
+
     public CompoundTag save() {
         CompoundTag tag = new CompoundTag();
         tag.putInt("schemaVersion", 9);

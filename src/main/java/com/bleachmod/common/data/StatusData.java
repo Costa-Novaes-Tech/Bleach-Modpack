@@ -53,6 +53,7 @@ public class StatusData {
     public void refreshCombat(int ticks) { combatTicks = Math.max(0, Math.min(COMBAT_IDLE_TICKS, ticks)); }
     public void clearCombat() { combatTicks = 0; hudCombatTicks = 0; }
     private long lastActionTick = Long.MIN_VALUE;
+    private long lastUiActionTick = Long.MIN_VALUE;
     private boolean cooldownsDisabled;
     private int[] hudCooldowns = new int[4];
     private boolean hudCooldownsDisabled;
@@ -102,6 +103,13 @@ public class StatusData {
     public boolean allowAction(long tick) {
         if (lastActionTick != Long.MIN_VALUE && tick >= lastActionTick && tick - lastActionTick < 4) return false;
         lastActionTick = tick;
+        return true;
+    }
+
+    /** Menu requests (forms, quests, attributes, skills) have their own window so combat never swallows them. */
+    public boolean allowUiAction(long tick) {
+        if (lastUiActionTick != Long.MIN_VALUE && tick >= lastUiActionTick && tick - lastUiActionTick < 4) return false;
+        lastUiActionTick = tick;
         return true;
     }
 
@@ -246,6 +254,7 @@ public class StatusData {
     /** Clears technique test state without changing form, reiatsu, ignition or progression. */
     public void clearTechniqueTestState() {
         lastActionTick = Long.MIN_VALUE;
+        lastUiActionTick = Long.MIN_VALUE;
         techniqueSlot1CooldownTicks = 0;
         techniqueSlot2CooldownTicks = 0;
         techniqueSlot3CooldownTicks = 0;
