@@ -288,6 +288,7 @@
   "item.bleachmod.travel_human_world": "Travel: Human World",
   "item.bleachmod.travel_soul_society": "Travel: Soul Society",
   "item.bleachmod.travel_hueco_mundo": "Travel: Hueco Mundo",
+  "message.bleachmod.history.install_failed": "History Mode: the maps were not installed (%s). The server retries on the next start and discards whatever was generated in the map dimensions; do not build in this world until then.",
   "message.bleachmod.travel.history_only": "This destination only exists in History Mode worlds.",
   "message.bleachmod.travel.invalid_state": "Dismount and get out of bed before travelling.",
   "screen.bleachmod.appearance": "Character appearance",

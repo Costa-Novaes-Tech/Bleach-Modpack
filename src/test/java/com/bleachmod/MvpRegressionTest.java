@@ -1130,6 +1130,33 @@ public final class MvpRegressionTest {
             var preview=new com.bleachmod.common.network.s2c.HigashiExecutionS2C(1,2,new net.minecraft.world.phys.Vec3(0,70,0),new net.minecraft.world.phys.Vec3(0,70,3),.6F,1.8F,false);
             yes(preview.valid()&&!preview.confirmed());var b=new net.minecraft.network.FriendlyByteBuf(io.netty.buffer.Unpooled.buffer());try{com.bleachmod.common.network.s2c.HigashiExecutionS2C.encode(preview,b);eq(preview,com.bleachmod.common.network.s2c.HigashiExecutionS2C.decode(b));}finally{b.release();}
         });
+        test("History Mode install is all-or-nothing and resumes after an interrupted copy",()->{
+            java.nio.file.Path dir=null;
+            try{
+                dir=java.nio.file.Files.createTempDirectory("history");
+                var src=dir.resolve("maps");var manifest=src.resolve("maps.json");java.nio.file.Files.createDirectories(src);java.nio.file.Files.writeString(manifest,"{}");
+                for(String id:List.of("a","b")){var region=src.resolve(id).resolve("region");java.nio.file.Files.createDirectories(region);java.nio.file.Files.write(region.resolve("r.0.0.mca"),new byte[4096]);}
+                java.nio.file.Files.createDirectories(src.resolve("a/entities"));java.nio.file.Files.write(src.resolve("a/entities/e.0.0.mca"),new byte[100]);
+                var world=dir.resolve("world");var installed=world.resolve("bleachmod/maps_installed.json");var marker=world.resolve("bleachmod/maps_installing");
+                var targets=new java.util.LinkedHashMap<String,java.nio.file.Path>();targets.put("a",world);targets.put("b",world.resolve("dimensions/bleachmod/b"));
+                var incomplete=new java.util.LinkedHashMap<>(targets);incomplete.put("c",world.resolve("dimensions/bleachmod/c"));java.nio.file.Files.createDirectories(src.resolve("c"));
+                boolean refused=false;
+                try{com.bleachmod.server.world.HistoryMapInstaller.installMaps(src,manifest,incomplete,installed);}catch(java.io.IOException expected){refused=true;}
+                yes(refused);yes(!java.nio.file.Files.exists(world));
+                java.nio.file.Files.createDirectories(marker.getParent());java.nio.file.Files.writeString(marker,"");
+                java.nio.file.Files.createDirectories(world.resolve("region"));java.nio.file.Files.write(world.resolve("region/r.9.9.mca"),new byte[10]);
+                java.nio.file.Files.createDirectories(world.resolve("region.staging"));
+                com.bleachmod.server.world.HistoryMapInstaller.installMaps(src,manifest,targets,installed);
+                yes(java.nio.file.Files.exists(installed));yes(!java.nio.file.Files.exists(marker));
+                yes(!java.nio.file.Files.exists(world.resolve("region/r.9.9.mca")));yes(!java.nio.file.Files.exists(world.resolve("region.staging")));
+                yes(java.nio.file.Files.size(world.resolve("region/r.0.0.mca"))==4096);yes(java.nio.file.Files.exists(world.resolve("entities/e.0.0.mca")));
+                yes(java.nio.file.Files.exists(targets.get("b").resolve("region/r.0.0.mca")));
+                java.nio.file.Files.delete(installed);refused=false;
+                try{com.bleachmod.server.world.HistoryMapInstaller.installMaps(src,manifest,targets,installed);}catch(java.io.IOException expected){refused=true;}
+                yes(refused);yes(java.nio.file.Files.exists(world.resolve("region/r.0.0.mca")));
+            }catch(java.io.IOException e){throw new java.io.UncheckedIOException(e);}
+            finally{if(dir!=null)try(var files=java.nio.file.Files.walk(dir)){for(var f:files.sorted(java.util.Comparator.reverseOrder()).toList())java.nio.file.Files.deleteIfExists(f);}catch(java.io.IOException ignored){}}
+        });
         test("History Mode map manifest keeps every map and rejects malformed entries",()->{
             var maps=historyManifest("{\"maps\":{\"human_world\":{\"dimension\":\"minecraft:overworld\",\"spawn\":{\"x\":19.5,\"y\":65,\"z\":-116.5}},"
                     +"\"hueco_mundo\":{\"dimension\":\"bleachmod:hueco_mundo\",\"spawn\":{\"x\":2528.9,\"y\":41,\"z\":2540.9,\"yaw\":90}}}}");
