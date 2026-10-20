@@ -61,7 +61,7 @@ public final class BenihimeRenderer {
                 }
                 var local=new BenihimeFrameS2C(m.owner(),m.kind(),origin.subtract(camera),end.subtract(camera),forward,m.radius(),progress,m.variant());
                 float growth=m.kind()==QUEEN && entity instanceof net.minecraft.client.player.AbstractClientPlayer player?com.bleachmod.client.model.ZanpakutoReleaseAnimation.manifestationGrowth(player,event.getPartialTick()):1;
-                var geometry=m.kind()==QUEEN?com.bleachmod.common.visual.BenihimeEntranceGeometry.buildIdle(local.origin(),local.forward(),mc.level.getGameTime()+event.getPartialTick()-POSES.get(m.owner()).idleStart,m.variant()):BenihimeGeometry.build(local);
+                var geometry=m.kind()==QUEEN?com.bleachmod.common.visual.BenihimeEntranceGeometry.buildIdle(local.origin(),local.forward(),mc.level.getGameTime()+event.getPartialTick()-POSES.get(m.owner()).idleStart,m.variant(),com.bleachmod.client.cinematic.BenihimeTerrain.sample(origin,forward)):BenihimeGeometry.build(local);
                 for(var q:geometry)for(var v:List.of(q.a(),q.b(),q.c(),q.d())){
                     int c=q.color();double y=local.origin().y+(v.y-local.origin().y)*growth;vertices.vertex(matrix,(float)v.x,(float)y,(float)v.z).color(c>>>24,(c>>>16)&255,(c>>>8)&255,(int)((c&255)*growth)).endVertex();emitted=true;
                 }

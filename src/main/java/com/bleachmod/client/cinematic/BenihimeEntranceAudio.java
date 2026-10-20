@@ -13,7 +13,7 @@ import java.util.*;
 /** Local soundtrack; positional Japanese speech and effects for observers. No gameplay logic. */
 final class BenihimeEntranceAudio {
     private static final class State {
-        double lastAge;boolean musicAttempted;final List<SoundInstance> playing=new ArrayList<>();
+        double lastAge;boolean musicAttempted,combined;final List<SoundInstance> playing=new ArrayList<>();
         final EnumSet<BenihimeAudioTimeline.Cue> fired=EnumSet.noneOf(BenihimeAudioTimeline.Cue.class);
         State(double age){lastAge=age-1;}
     }
@@ -31,13 +31,15 @@ final class BenihimeEntranceAudio {
             state.musicAttempted=true;
             if(age<=10&&ClientVisualConfig.BENIHIME_MUSIC.get()){
                 mc.getMusicManager().stopPlaying();
-                var music=SimpleSoundInstance.forMusic(com.bleachmod.init.ModSounds.BENIHIME_ENTRANCE.get());
+                // User ordered track contains its own dialogue: never play the clean stems twice.
+                state.combined=ClientVisualConfig.BENIHIME_VOICE.get()&&mc.options.getSoundSourceVolume(SoundSource.VOICE)>0&&mc.options.getSoundSourceVolume(SoundSource.MUSIC)>0;
+                var music=SimpleSoundInstance.forMusic(state.combined?com.bleachmod.init.ModSounds.BENIHIME_INVOCATION_MIX.get():com.bleachmod.init.ModSounds.BENIHIME_ENTRANCE.get());
                 state.playing.add(music);mc.getSoundManager().play(music);
             }
         }
         for(var cue:BenihimeAudioTimeline.Cue.values()){
             if(!BenihimeAudioTimeline.due(state.lastAge,age,cue)||!state.fired.add(cue))continue;
-            if(cue.voice&&!ClientVisualConfig.BENIHIME_VOICE.get())continue;
+            if(cue.voice&&(!ClientVisualConfig.BENIHIME_VOICE.get()||(local&&state.combined)))continue;
             Vec3 source=cue.voice?position:stage;
             var sound=new SimpleSoundInstance(Reference.id(cue.event),cue.voice?SoundSource.VOICE:SoundSource.PLAYERS,
                     cue.volume*(cue.voice&&!local?1.8F:1F),cue.pitch,RandomSource.create(),false,0,

@@ -1,0 +1,52 @@
+[
+  {
+    "run": "1792501538866-lethal",
+    "decodeExitCode": 0,
+    "stderr": "[null @ 000001cbea2471c0] Application provided invalid, non monotonically increasing dts to muxer in stream 0: 2 >= 2\n[null @ 000001cbea2471c0] Application provided invalid, non monotonically increasing dts to muxer in stream 0: 10 >= 10\n[null @ 000001cbea2471c0] Application provided invalid, non monotonically increasing dts to muxer in stream 0: 16 >= 16\n",
+    "bytes": 2850075,
+    "vfrPassthroughCheck": {
+      "command": [
+        "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\build\\benihime-qa-71\\python-tools\\imageio_ffmpeg\\binaries\\ffmpeg-win-x86_64-v7.1.exe",
+        "-v",
+        "error",
+        "-i",
+        "Docs\\poderes\\qa\\benihime\\cycle71\\1792501538866-lethal\\minecraft-sampled-evidence.mp4",
+        "-fps_mode",
+        "passthrough",
+        "-enc_time_base",
+        "1:1000",
+        "-f",
+        "null",
+        "-"
+      ],
+      "exitCode": 0,
+      "stderr": "",
+      "reason": "Preserve millisecond VFR timing at output null muxer; do not force default coarse output time base."
+    }
+  },
+  {
+    "run": "1792501546296-threshold",
+    "decodeExitCode": 0,
+    "stderr": "",
+    "bytes": 3712317,
+    "vfrPassthroughCheck": {
+      "command": [
+        "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\build\\benihime-qa-71\\python-tools\\imageio_ffmpeg\\binaries\\ffmpeg-win-x86_64-v7.1.exe",
+        "-v",
+        "error",
+        "-i",
+        "Docs\\poderes\\qa\\benihime\\cycle71\\1792501546296-threshold\\minecraft-sampled-evidence.mp4",
+        "-fps_mode",
+        "passthrough",
+        "-enc_time_base",
+        "1:1000",
+        "-f",
+        "null",
+        "-"
+      ],
+      "exitCode": 0,
+      "stderr": "",
+      "reason": "Preserve millisecond VFR timing at output null muxer; do not force default coarse output time base."
+    }
+  }
+]

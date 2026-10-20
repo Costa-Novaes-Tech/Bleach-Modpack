@@ -1,0 +1,38 @@
+[
+  {
+    "run": "1792501538866-lethal",
+    "frames": 62,
+    "firstTick": 9,
+    "lastTick": 130,
+    "fpsReported": {
+      "minimum": 2,
+      "median": 26.0,
+      "maximum": 54
+    },
+    "holdReference": {
+      "fromCaptureTick": 36,
+      "toCaptureTick": 74,
+      "wallMs": 1975
+    },
+    "videoIsSampled": true,
+    "audioCaptured": false
+  },
+  {
+    "run": "1792501546296-threshold",
+    "frames": 66,
+    "firstTick": 0,
+    "lastTick": 130,
+    "fpsReported": {
+      "minimum": 53,
+      "median": 80.0,
+      "maximum": 95
+    },
+    "holdReference": {
+      "fromCaptureTick": 36,
+      "toCaptureTick": 76,
+      "wallMs": 1994
+    },
+    "videoIsSampled": true,
+    "audioCaptured": false
+  }
+]

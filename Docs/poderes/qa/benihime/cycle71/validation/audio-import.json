@@ -1,0 +1,26 @@
+[
+  {
+    "source": "Bankai_voice_clean.wav",
+    "sourceSha256": "25eda3b0caec2da82b85d8afe55664db5e99493b5478864b7b58f9021aea68f6",
+    "target": "src\\main\\resources\\assets\\bleachmod\\sounds\\benihime_voice_bankai.ogg",
+    "sha256": "f3e8b6344ac190ee493cc0917d6163a2c3e1e3780a9612eabd266a2eaf453e5a",
+    "filters": "aresample=44100,afade=t=in:d=0.01,afade=t=out:st=0.86:d=0.04",
+    "channels": 1
+  },
+  {
+    "source": "Kannonbiraki_Benihime_Aratame_voice_clean.wav",
+    "sourceSha256": "2d58dcc25995546c60eee157bdc2c0a9bdb114db03a168cd6412b6c0ed46cdd5",
+    "target": "src\\main\\resources\\assets\\bleachmod\\sounds\\benihime_voice_name.ogg",
+    "sha256": "ca293962ebd99102c9bd07c5185594656cfb67a3120d49edc6f8e0ec7f4b5c92",
+    "filters": "aresample=44100,afade=t=in:d=0.01,afade=t=out:st=4.08:d=0.043",
+    "channels": 1
+  },
+  {
+    "source": "bankai_final_ordered_30s.wav",
+    "sourceSha256": "37eef641ef61bc3be64f12ff74211757a1a1bc51268a3e1f8e668dd15b29dfa2",
+    "target": "src\\main\\resources\\assets\\bleachmod\\sounds\\benihime_invocation_mix.ogg",
+    "sha256": "5f1a17b1ce0e02d49c14b6f9765c9a4170ea5edb0a29958b8a872d0882f224cb",
+    "filters": "atrim=start=1.2:end=29.2,asetpts=PTS-STARTPTS,aresample=44100,volume=0.84,afade=t=in:d=0.10,afade=t=out:st=27.4:d=0.6",
+    "channels": 2
+  }
+]

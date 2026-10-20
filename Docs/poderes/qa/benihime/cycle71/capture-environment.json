@@ -1,0 +1,27 @@
+{
+  "ffmpeg": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\build\\benihime-qa-71\\python-tools\\imageio_ffmpeg\\binaries\\ffmpeg-win-x86_64-v7.1.exe",
+  "sha256": "2ce797a0f88d7f067180338fb227f7b1928ea727bd9a4d7a1d022f7c52af71a3",
+  "version": "7.1",
+  "videoInput": "gdigrab window title; only Minecraft returned by UI inventory",
+  "audioCapture": {
+    "status": "unavailable",
+    "reason": "No audio devices enumerated by DirectShow; WASAPI absent in this FFmpeg build. No microphone/webcam capture attempted."
+  },
+  "scope": "Client capture only; not a change to user worlds or global settings",
+  "desktopControl": {
+    "status": "failed",
+    "tool": "@oai/sky get_window/activate/get_window_state",
+    "elapsedSeconds": 522.4,
+    "outcome": "Tool call aborted by user; no UI inputs or chat commands were sent. Parent replaced manual workflow with opt-in QA automation."
+  },
+  "continuousVideo": {
+    "status": "failed",
+    "tool": "FFmpeg gdigrab title",
+    "exitCode": 1,
+    "reason": "Window title changed during singleplayer loading; no continuous video produced."
+  },
+  "fallback": {
+    "source": "Minecraft Screenshot.grab framebuffer",
+    "video": "Montage of sampled original PNGs, VFR using original wallMs; no audio or motion interpolation."
+  }
+}

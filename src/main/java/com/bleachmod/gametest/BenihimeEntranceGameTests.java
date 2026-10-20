@@ -121,8 +121,8 @@ public final class BenihimeEntranceGameTests {
                 h.assertTrue(Math.abs(arm.shoulder().distanceTo(arm.elbow()) - BenihimeEntranceGeometry.UPPER_ARM) < 1e-8
                         && Math.abs(arm.elbow().distanceTo(arm.wrist()) - BenihimeEntranceGeometry.FOREARM) < 1e-8,
                         "Arm changes length while reaching or rising at " + tick);
-                if (tick >= 490) h.assertTrue(arm.elbow().y < arm.shoulder().y - 2.5
-                        && arm.wrist().y > arm.elbow().y + 1.5,
+                if (tick >= 490) h.assertTrue(arm.elbow().y < arm.shoulder().y - BenihimeEntranceGeometry.UPPER_ARM*.7
+                        && arm.wrist().y > arm.elbow().y + BenihimeEntranceGeometry.FOREARM*.2,
                         "Settled arms are horizontal instead of relaxed beside torso at " + tick);
             }
             if (tick <= 139) for (double height : new double[]{0, 4.6, 12})
@@ -189,4 +189,21 @@ public final class BenihimeEntranceGameTests {
         }
         h.succeed();
     }
+    @GameTest(template="empty",batch="benihime_terrain_rig")
+    public static void unevenSupportsKeepArmLengthsAndDollProportions(GameTestHelper h){
+        h.assertTrue(BenihimeEntranceGeometry.UPPER_ARM+BenihimeEntranceGeometry.FOREARM<6.5,"Arms retain the old oversized span");
+        for(var ground:java.util.List.<BenihimeEntranceGeometry.Ground>of((x,z)->0,(x,z)->x<0?1:-.5,(x,z)->1.5)){
+            for(int tick=240;tick<=560;tick++){
+                var rig=BenihimeEntranceGeometry.sample(tick,ground);
+                for(var arm:java.util.List.of(rig.left(),rig.right())){
+                    h.assertTrue(Math.abs(arm.shoulder().distanceTo(arm.elbow())-BenihimeEntranceGeometry.UPPER_ARM)<1e-7&&Math.abs(arm.elbow().distanceTo(arm.wrist())-BenihimeEntranceGeometry.FOREARM)<1e-7,"Terrain stretches a limb at "+tick);
+                }
+            }
+        }
+        var flat=BenihimeEntranceGeometry.sample(340);
+        var uneven=BenihimeEntranceGeometry.sample(340,(x,z)->x<0?1:-.5);
+        h.assertTrue(uneven.left().wrist().y>flat.left().wrist().y+.8&&uneven.right().wrist().y<flat.right().wrist().y-.3,"Palms ignore independent support heights");
+        h.succeed();
+    }
+
 }

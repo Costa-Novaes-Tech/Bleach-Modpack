@@ -10,7 +10,8 @@
     "BetterCombatHandMixin"
   ],
   "client": [
-    "client.AbstractClientPlayerMixin"
+    "client.AbstractClientPlayerMixin",
+    "client.HigashiDeathParticleMixin"
   ],
   "injectors": {
     "defaultRequire": 1

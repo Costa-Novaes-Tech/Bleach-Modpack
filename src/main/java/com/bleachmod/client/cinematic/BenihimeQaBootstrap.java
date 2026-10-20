@@ -21,6 +21,7 @@ public final class BenihimeQaBootstrap {
     private static net.minecraft.client.CameraType restoredCamera;
     private static boolean nightRun;
     private BenihimeQaBootstrap(){ }
+    public static boolean automatedFinished(){return nightRun&&followCompleted;}
     @SubscribeEvent public static void tick(TickEvent.ClientTickEvent e){
         if(e.phase!=TickEvent.Phase.END||net.minecraftforge.fml.loading.FMLEnvironment.production||!Boolean.getBoolean("bleachmod.benihimeQa"))return;
         var mc=Minecraft.getInstance();
@@ -35,6 +36,10 @@ public final class BenihimeQaBootstrap {
         if(!started&&mc.level!=null&&mc.player!=null&&mc.hasSingleplayerServer()
                 &&mc.getSingleplayerServer().getWorldData().getLevelName().startsWith("Benihime-QA-68-")
                 &&com.bleachmod.common.data.PlayerCapability.get(mc.player).map(d->d.getStatus().hasCreatedCharacter()).orElse(false)){
+            if(Boolean.getBoolean("bleachmod.cinematicQaFast")){
+                started=true;actualStarted=true;nightRun=true;followCompleted=true;mc.setScreen(null);
+                mc.options.pauseOnLostFocus=false;mc.getTutorial().setStep(net.minecraft.client.tutorial.TutorialSteps.NONE);mc.getTutorial().stop();mc.getToasts().clear();return;
+            }
             if(++ready<100)return;started=true;mc.setScreen(null);mc.options.pauseOnLostFocus=false;mc.options.renderDistance().set(6);mc.getTutorial().setStep(net.minecraft.client.tutorial.TutorialSteps.NONE);mc.getTutorial().stop();mc.getToasts().clear();
             mc.player.connection.sendCommand("time set noon");
             mc.player.connection.sendCommand("weather clear");

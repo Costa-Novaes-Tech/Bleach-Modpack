@@ -1,0 +1,212 @@
+file 'screenshots/frame-0000-t0000-SETUP.png'
+option framerate 1000
+duration 0.097000
+file 'screenshots/frame-0001-t0002-SETUP.png'
+option framerate 1000
+duration 0.116000
+file 'screenshots/frame-0002-t0004-SETUP.png'
+option framerate 1000
+duration 0.108000
+file 'screenshots/frame-0003-t0006-SETUP.png'
+option framerate 1000
+duration 0.086000
+file 'screenshots/frame-0004-t0008-SETUP.png'
+option framerate 1000
+duration 0.037000
+file 'screenshots/frame-0005-t0007-SETUP.png'
+option framerate 1000
+duration 0.056000
+file 'screenshots/frame-0006-t0008-SETUP.png'
+option framerate 1000
+duration 0.078000
+file 'screenshots/frame-0007-t0010-SETUP.png'
+option framerate 1000
+duration 0.102000
+file 'screenshots/frame-0008-t0012-SETUP.png'
+option framerate 1000
+duration 0.085000
+file 'screenshots/frame-0009-t0014-SETUP.png'
+option framerate 1000
+duration 0.105000
+file 'screenshots/frame-0010-t0016-SETUP.png'
+option framerate 1000
+duration 0.090000
+file 'screenshots/frame-0011-t0018-SETUP.png'
+option framerate 1000
+duration 0.099000
+file 'screenshots/frame-0012-t0020-DRAW.png'
+option framerate 1000
+duration 0.107000
+file 'screenshots/frame-0013-t0022-DRAW.png'
+option framerate 1000
+duration 0.090000
+file 'screenshots/frame-0014-t0024-DRAW.png'
+option framerate 1000
+duration 0.089000
+file 'screenshots/frame-0015-t0026-DRAW.png'
+option framerate 1000
+duration 0.055000
+file 'screenshots/frame-0016-t0028-DRAW.png'
+option framerate 1000
+duration 0.093000
+file 'screenshots/frame-0017-t0030-CUT.png'
+option framerate 1000
+duration 0.118000
+file 'screenshots/frame-0018-t0032-CUT.png'
+option framerate 1000
+duration 0.086000
+file 'screenshots/frame-0019-t0034-CUT.png'
+option framerate 1000
+duration 0.106000
+file 'screenshots/frame-0020-t0036-HOLD.png'
+option framerate 1000
+duration 0.094000
+file 'screenshots/frame-0021-t0038-HOLD.png'
+option framerate 1000
+duration 0.108000
+file 'screenshots/frame-0022-t0040-HOLD.png'
+option framerate 1000
+duration 0.101000
+file 'screenshots/frame-0023-t0042-HOLD.png'
+option framerate 1000
+duration 0.096000
+file 'screenshots/frame-0024-t0044-HOLD.png'
+option framerate 1000
+duration 0.096000
+file 'screenshots/frame-0025-t0046-HOLD.png'
+option framerate 1000
+duration 0.106000
+file 'screenshots/frame-0026-t0048-HOLD.png'
+option framerate 1000
+duration 0.025000
+file 'screenshots/frame-0027-t0047-HOLD.png'
+option framerate 1000
+duration 0.048000
+file 'screenshots/frame-0028-t0048-HOLD.png'
+option framerate 1000
+duration 0.075000
+file 'screenshots/frame-0029-t0050-HOLD.png'
+option framerate 1000
+duration 0.104000
+file 'screenshots/frame-0030-t0052-HOLD.png'
+option framerate 1000
+duration 0.100000
+file 'screenshots/frame-0031-t0054-HOLD.png'
+option framerate 1000
+duration 0.092000
+file 'screenshots/frame-0032-t0056-HOLD.png'
+option framerate 1000
+duration 0.096000
+file 'screenshots/frame-0033-t0058-HOLD.png'
+option framerate 1000
+duration 0.105000
+file 'screenshots/frame-0034-t0060-HOLD.png'
+option framerate 1000
+duration 0.103000
+file 'screenshots/frame-0035-t0062-HOLD.png'
+option framerate 1000
+duration 0.087000
+file 'screenshots/frame-0036-t0064-HOLD.png'
+option framerate 1000
+duration 0.100000
+file 'screenshots/frame-0037-t0066-HOLD.png'
+option framerate 1000
+duration 0.103000
+file 'screenshots/frame-0038-t0068-HOLD.png'
+option framerate 1000
+duration 0.101000
+file 'screenshots/frame-0039-t0070-HOLD.png'
+option framerate 1000
+duration 0.096000
+file 'screenshots/frame-0040-t0072-HOLD.png'
+option framerate 1000
+duration 0.104000
+file 'screenshots/frame-0041-t0074-HOLD.png'
+option framerate 1000
+duration 0.099000
+file 'screenshots/frame-0042-t0076-IGNITE.png'
+option framerate 1000
+duration 0.098000
+file 'screenshots/frame-0043-t0078-IGNITE.png'
+option framerate 1000
+duration 0.099000
+file 'screenshots/frame-0044-t0080-IGNITE.png'
+option framerate 1000
+duration 0.103000
+file 'screenshots/frame-0045-t0082-IGNITE.png'
+option framerate 1000
+duration 0.096000
+file 'screenshots/frame-0046-t0084-IGNITE.png'
+option framerate 1000
+duration 0.099000
+file 'screenshots/frame-0047-t0086-IGNITE.png'
+option framerate 1000
+duration 0.100000
+file 'screenshots/frame-0048-t0088-IGNITE.png'
+option framerate 1000
+duration 0.104000
+file 'screenshots/frame-0049-t0090-IGNITE.png'
+option framerate 1000
+duration 0.097000
+file 'screenshots/frame-0050-t0092-ASH.png'
+option framerate 1000
+duration 0.100000
+file 'screenshots/frame-0051-t0094-ASH.png'
+option framerate 1000
+duration 0.105000
+file 'screenshots/frame-0052-t0096-ASH.png'
+option framerate 1000
+duration 0.100000
+file 'screenshots/frame-0053-t0098-ASH.png'
+option framerate 1000
+duration 0.096000
+file 'screenshots/frame-0054-t0100-ASH.png'
+option framerate 1000
+duration 0.101000
+file 'screenshots/frame-0055-t0102-ASH.png'
+option framerate 1000
+duration 0.110000
+file 'screenshots/frame-0056-t0104-ASH.png'
+option framerate 1000
+duration 0.101000
+file 'screenshots/frame-0057-t0106-ASH.png'
+option framerate 1000
+duration 0.104000
+file 'screenshots/frame-0058-t0108-RETURN.png'
+option framerate 1000
+duration 0.097000
+file 'screenshots/frame-0059-t0110-RETURN.png'
+option framerate 1000
+duration 0.104000
+file 'screenshots/frame-0060-t0112-RETURN.png'
+option framerate 1000
+duration 0.092000
+file 'screenshots/frame-0061-t0114-RETURN.png'
+option framerate 1000
+duration 0.098000
+file 'screenshots/frame-0062-t0116-RETURN.png'
+option framerate 1000
+duration 0.113000
+file 'screenshots/frame-0063-t0118-RETURN.png'
+option framerate 1000
+duration 0.108000
+file 'screenshots/frame-0064-t0120-RETURN.png'
+option framerate 1000
+duration 0.093000
+file 'screenshots/frame-0065-t0122-RETURN.png'
+option framerate 1000
+duration 0.095000
+file 'screenshots/frame-0066-t0124-RETURN.png'
+option framerate 1000
+duration 0.104000
+file 'screenshots/frame-0067-t0126-RETURN.png'
+option framerate 1000
+duration 0.052000
+file 'screenshots/frame-0068-t0128-RETURN.png'
+option framerate 1000
+duration 0.098000
+file 'screenshots/frame-0069-t0130-RETURN.png'
+option framerate 1000
+duration 0.099000
+file 'screenshots/frame-0069-t0130-RETURN.png'
+option framerate 1000

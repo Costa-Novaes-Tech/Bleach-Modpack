@@ -60,5 +60,13 @@
         "stream": false
       }
     ]
+  },
+  "benihime.invocation_mix": {
+    "sounds": [
+      {
+        "name": "bleachmod:benihime_invocation_mix",
+        "stream": true
+      }
+    ]
   }
 }

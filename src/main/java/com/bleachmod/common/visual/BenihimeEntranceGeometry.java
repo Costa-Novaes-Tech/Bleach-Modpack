@@ -14,7 +14,7 @@ public final class BenihimeEntranceGeometry {
     private static final Vec3 UP = new Vec3(0, 1, 0);
     private static final int SKIN = 0xE8D3C1FF, HAIR = 0x18161FFF;
     private static final int RED = 0x91192BFF, LINING = 0x5B1022FF, GOLD = 0xC08A80FF;
-    public static final double UPPER_ARM = 3.9, FOREARM = 4.05;
+    public static final double UPPER_ARM = 3.15, FOREARM = 3.30;
     private BenihimeEntranceGeometry() { }
 
     /** Local-space rig anchors are also available to the deterministic QA laboratory. */
@@ -42,7 +42,10 @@ public final class BenihimeEntranceGeometry {
             if (ticks <= times[i]) return points[i - 1].lerp(points[i], progress(ticks, times[i - 1], times[i]));
         return points[points.length - 1];
     }
-    public static Rig sample(double ticks) {
+    @FunctionalInterface public interface Ground { double height(double x, double z); }
+    public static final Ground FLAT = (x,z) -> 0;
+    public static Rig sample(double ticks) { return sample(ticks,FLAT); }
+    public static Rig sample(double ticks, Ground ground) {
         ticks = BenihimeEntranceTimeline.clamp(ticks);
         double seconds = ticks / 20;
         // Shift root only as each opposite arm takes weight. Floor targets below stay world-locked.
@@ -54,9 +57,9 @@ public final class BenihimeEntranceGeometry {
         double breathe = Math.sin(seconds * 1.1) * .018;
         Vec3 shift = v(weightShift, breathe, offset);
         Vec3 waist = v(0, 2.25 + .12 * progress(ticks, 376, 406), 11.1).add(shift);
-        Vec3 chest = v(0, 4.9, 9.8).lerp(v(0, 7.45, 11), rise).add(shift);
-        Vec3 neck = v(0, 5.75, 8.6).lerp(v(0, 8.62, 11), progress(ticks, 382, 448)).add(shift);
-        Vec3 head = v(0, 6.55, 8.2).lerp(v(0, 9.47, 10.9), progress(ticks, 388, 450)).add(shift);
+        Vec3 chest = v(0, 4.5, 9.2).lerp(v(0, 7.45, 11), rise).add(shift);
+        Vec3 neck = v(0, 5.35, 8.4).lerp(v(0, 8.62, 11), progress(ticks, 382, 448)).add(shift);
+        Vec3 head = v(0, 6.15, 8.1).lerp(v(0, 9.47, 10.9), progress(ticks, 388, 450)).add(shift);
         Vec3 leftWrist;
         if (ticks < 240) {
             Vec3 approach = key(ticks, new double[]{0, 141, 158}, v(0, 4.65, 15.4), v(0, 4.65, 15.4), v(.14, 4.65, 13.05));
@@ -64,14 +67,14 @@ public final class BenihimeEntranceGeometry {
         } else {
             leftWrist = key(ticks, new double[]{240, 260, 280, 308, 344, 360},
                     hemAnchor(240).add(.55, .05, .95), v(-3.3, 2.1, 10.2),
-                    v(-4.05, .38, 8.9), v(-4.05, .38, 7), v(-4.05, .38, 7), v(-4.05, .38, 5.25));
+                    v(-3.1, .38, 9.5), v(-3.1, .38, 7.5), v(-3.1, .38, 7.5), v(-3.1, .38, 6.6));
             // Clear floor on the moving half of the stride; fixed endpoints remain planted.
             if (ticks > 280 && ticks < 308) leftWrist = leftWrist.add(0, .42 * Math.sin(Math.PI * progress(ticks, 280, 308)), 0);
             if (ticks > 344 && ticks < 360) leftWrist = leftWrist.add(0, .22 * Math.sin(Math.PI * progress(ticks, 344, 360)), 0);
         }
         Vec3 rightWrist = key(ticks, new double[]{0, 226, 248, 266, 280, 314, 334},
                 v(.2, 3.4, 18), v(.2, 3.4, 18), v(1.5, 3.9, 13.2), v(3.9, 1.1, 9.4),
-                v(4.05, .38, 8.2), v(4.05, .38, 8.2), v(4.05, .38, 5.25));
+                v(3.1, .38, 8.6), v(3.1, .38, 8.6), v(3.1, .38, 6.6));
         if (ticks > 314 && ticks < 334) rightWrist = rightWrist.add(0, .45 * Math.sin(Math.PI * progress(ticks, 314, 334)), 0);
         // Stagger releases from the floor; avoid the mirrored, rigid arm lift of the old study.
         leftWrist = leftWrist.lerp(v(-2.85, 6.0, 6.3), progress(ticks, 391, 444));
@@ -79,10 +82,28 @@ public final class BenihimeEntranceGeometry {
         double idle = progress(ticks, 454, 490);
         leftWrist = leftWrist.add(.06 * Math.sin(seconds * .7) * idle, .05 * Math.sin(seconds) * idle, 0);
         rightWrist = rightWrist.add(.06 * Math.sin(seconds * .7 + 1) * idle, .05 * Math.sin(seconds + .8) * idle, 0);
-        Vec3 leftShoulder = chest.add(-1.93, .2, 0), rightShoulder = chest.add(1.93, .2, 0);
+        // Resolve bounded local ground before the arm IK: pelvis and torso share the load.
+        double stage = safeGround(ground,0,11.1);
+        double lw = progress(ticks,260,280)*(1-progress(ticks,391,444));
+        double rw = progress(ticks,266,280)*(1-progress(ticks,404,454));
+        double lg = safeGround(ground,leftWrist.x,leftWrist.z), rg = safeGround(ground,rightWrist.x,rightWrist.z);
+        leftWrist=leftWrist.add(0,stage*(1-lw)+lg*lw,0);
+        rightWrist=rightWrist.add(0,stage*(1-rw)+rg*rw,0);
+        double torsoLift=stage+(lg-stage)*lw*.35+(rg-stage)*rw*.35;
+        Vec3 lift=v(0,torsoLift,0);waist=waist.add(lift);chest=chest.add(lift);neck=neck.add(lift);head=head.add(lift);
+        Vec3 leftShoulder = chest.add(-1.78, .2, 0), rightShoulder = chest.add(1.78, .2, 0);
+        leftWrist=reachable(leftShoulder,leftWrist);rightWrist=reachable(rightShoulder,rightWrist);
         return new Rig(waist, chest, neck, head,
                 new Arm(leftShoulder, elbow(leftShoulder, leftWrist, -1, rise), leftWrist),
                 new Arm(rightShoulder, elbow(rightShoulder, rightWrist, 1, rise), rightWrist), rise, grip(ticks));
+    }
+    private static double safeGround(Ground ground,double x,double z){
+        double y=ground.height(x,z);return Double.isFinite(y)?Math.max(-2,Math.min(2,y)):0;
+    }
+    private static Vec3 reachable(Vec3 shoulder,Vec3 wrist){
+        Vec3 d=wrist.subtract(shoulder);double length=d.length();
+        double limit=UPPER_ARM+FOREARM-.025;
+        return length>limit?shoulder.add(d.scale(limit/length)):wrist;
     }
     private static Vec3 elbow(Vec3 shoulder, Vec3 wrist, int side, double rise) {
         Vec3 delta = wrist.subtract(shoulder);
@@ -98,20 +119,27 @@ public final class BenihimeEntranceGeometry {
 
     /** origin is player feet; forward is flattened internally. No world/client state is read. */
     public static List<BenihimeGeometry.Quad> build(Vec3 origin, Vec3 forward, double ticks) {
+        return build(origin,forward,ticks,FLAT);
+    }
+    public static List<BenihimeGeometry.Quad> build(Vec3 origin, Vec3 forward, double ticks, Ground ground) {
         Vec3 flat = v(forward.x, 0, forward.z);
         flat = flat.lengthSqr() > .00001 ? flat.normalize() : v(0, 0, 1);
         Builder b = new Builder(origin, SenbonGeometry.left(flat), flat.scale(-1));
+        b.ground=ground;
         ticks = BenihimeEntranceTimeline.clamp(ticks);
         b.curtain(ticks);
         // Delayed materialisation behind an already assembled opaque curtain, never during rise.
-        if (ticks >= 108) b.figure(ticks, sample(ticks));
+        if (ticks >= 108) b.figure(ticks, sample(ticks,ground));
         return List.copyOf(b.faces);
     }
 
     /** Completed silhouette with restrained secondary movement; idle tick zero matches build(560). */
     public static List<BenihimeGeometry.Quad> buildIdle(Vec3 origin, Vec3 forward, double ticks, int variant) {
+        return buildIdle(origin,forward,ticks,variant,FLAT);
+    }
+    public static List<BenihimeGeometry.Quad> buildIdle(Vec3 origin, Vec3 forward, double ticks, int variant, Ground ground) {
         double elapsed = Double.isFinite(ticks) ? Math.max(0, ticks) : 0;
-        Rig pose = sample(BenihimeEntranceTimeline.DURATION);
+        Rig pose = sample(BenihimeEntranceTimeline.DURATION,ground);
         double seconds = (BenihimeEntranceTimeline.DURATION + elapsed) / 20;
         double vertical = .018 * (Math.sin(seconds * 1.1) - Math.sin(28 * 1.1));
         Vec3 shift = v(0, vertical, 0);
@@ -126,11 +154,12 @@ public final class BenihimeEntranceGeometry {
         }
         Vec3 leftShoulder = pose.left().shoulder().add(shift), rightShoulder = pose.right().shoulder().add(shift);
         Rig idle = new Rig(pose.waist().add(shift), pose.chest().add(shift), pose.neck().add(shift), pose.head().add(shift),
-                new Arm(leftShoulder, elbow(leftShoulder, leftWrist, -1, 1), leftWrist),
-                new Arm(rightShoulder, elbow(rightShoulder, rightWrist, 1, 1), rightWrist), 1, 0);
+                new Arm(leftShoulder, elbow(leftShoulder, reachable(leftShoulder,leftWrist), -1, 1), reachable(leftShoulder,leftWrist)),
+                new Arm(rightShoulder, elbow(rightShoulder, reachable(rightShoulder,rightWrist), 1, 1), reachable(rightShoulder,rightWrist)), 1, 0);
         Vec3 flat = v(forward.x, 0, forward.z);
         flat = flat.lengthSqr() > .00001 ? flat.normalize() : v(0, 0, 1);
         Builder b = new Builder(origin, SenbonGeometry.left(flat), flat.scale(-1));
+        b.ground=ground;
         b.figure(BenihimeEntranceTimeline.DURATION + elapsed, idle);
         return List.copyOf(b.faces);
     }
@@ -139,6 +168,7 @@ public final class BenihimeEntranceGeometry {
         final List<BenihimeGeometry.Quad> faces = new ArrayList<>(6000);
         final Vec3 origin, across, behind;
         boolean subject;
+        Ground ground=FLAT;
         Builder(Vec3 origin, Vec3 across, Vec3 behind) { this.origin = origin; this.across = across; this.behind = behind; }
         Vec3 world(Vec3 p) { return origin.add(across.scale(p.x)).add(0, p.y, 0).add(behind.scale(p.z)); }
         void quad(Vec3 a, Vec3 b, Vec3 c, Vec3 d, int rgba) {
@@ -218,6 +248,8 @@ public final class BenihimeEntranceGeometry {
         void figure(double t, Rig rig) {
             subject = true;
             Vec3 waist = rig.waist(), chest = rig.chest(), neck = rig.neck(), head = rig.head();
+            double hemLeft=safeGround(ground,-5,waist.z),hemRight=safeGround(ground,5,waist.z);
+            double hemFront=safeGround(ground,0,waist.z-4),hemBack=safeGround(ground,0,waist.z+4);
             for (int layer = 0; layer < 3; layer++) {
                 double radius = 4.9 - layer * .37;
                 List<Vec3> previous = null;
@@ -225,6 +257,13 @@ public final class BenihimeEntranceGeometry {
                     double h = row / 6.;
                     Vec3 center = waist.add(0, -2.14 + h * 2.26, -layer * .13);
                     List<Vec3> next = ring(center, radius * (1 - h) + 1.32 * h, (radius * (1 - h) + 1.32 * h) * .73, t / 40 - layer * .45, 28);
+                    double drape=Math.pow(1-h,3);
+                    double floor=waist.y-2.14;
+                    next=next.stream().map(q->{
+                        double across=Math.max(0,Math.min(1,(q.x+5)/10)),depth=Math.max(0,Math.min(1,(q.z-waist.z+4)/8));
+                        double surface=(hemLeft*(1-across)+hemRight*across+hemFront*(1-depth)+hemBack*depth)*.5;
+                        return q.add(0,(surface+.11-floor)*drape,0);
+                    }).toList();
                     if (previous != null) join(previous, next, layer == 0 ? LINING : layer == 1 ? RED : 0xB52839FF);
                     if (row == 0 && layer > 0) path(next, .022, 0xC8555BFF);
                     previous = next;
@@ -256,6 +295,10 @@ public final class BenihimeEntranceGeometry {
                 oval(arm.shoulder(), .49, .57, .49, SKIN, 12, 6);
                 tube(arm.shoulder(), arm.elbow(), .43, .29, SKIN, 12);
                 oval(arm.elbow(), .29, .31, .29, SKIN, 10, 5);
+                // Inset articulated doll joint and fine seam instead of a faceted stick hinge.
+                Vec3 hinge=arm.elbow().add(0,0,-.20);
+                oval(hinge,.17,.18,.10,0xC39D94FF,12,6);
+                tube(hinge.add(-.16,0,-.02),hinge.add(.16,0,-.02),.014,.014,0x855C5EFF,6);
                 tube(arm.elbow(), arm.wrist(), .29, .20, SKIN, 12);
                 hand(t, side, arm.wrist(), rig.rise());
             }
@@ -312,6 +355,7 @@ public final class BenihimeEntranceGeometry {
                 quad(points[0],points[1],points[2],points[3],SKIN);
             }
             Vec3 node = hemAnchor(t);
+            double groundY=safeGround(ground,wrist.x,wrist.z);
             for (int finger = 0; finger < 4; finger++) {
                 double x = (finger - 1.5) * .2, length = new double[]{.88,.99,.93,.76}[finger];
                 double flex = rise * .5 + .2 * progress(t, 136 + finger, 154 + finger) * (1 - progress(t, 158, 170));
@@ -320,7 +364,7 @@ public final class BenihimeEntranceGeometry {
                 Vec3 b = a.add(0, -length * .34 * Math.sin(flex * 1.7), -length * .34 * Math.cos(flex * 1.7));
                 Vec3 tip = b.add(0, -length * .25 * Math.sin(flex * 2.2), -length * .25 * Math.cos(flex * 2.2));
                 // Pads settle on the reference floor while the palm bears weight.
-                double grounded=ease((.9-wrist.y)/.45)*(1-rise);
+                double grounded=ease((.9-(wrist.y-groundY))/.45)*(1-rise);
                 a=a.lerp(v(a.x,-.29,a.z),grounded);b=b.lerp(v(b.x,-.32,b.z),grounded);tip=tip.lerp(v(tip.x,-.33,tip.z),grounded);
                 double weight = g * progress(t, 158 + finger, 172 + finger);
                 double y = 4.65 - x;
@@ -339,7 +383,7 @@ public final class BenihimeEntranceGeometry {
             Vec3 thumbRoot = handPoint(wrist,v(side*.39,-.22,-.29),roll);
             Vec3 thumbA = handPoint(wrist,v(side*.62,-.28,-.57),roll).lerp(node.add(.42,.30,.30),g);
             Vec3 thumbB = handPoint(wrist,v(side*.72,-.36-rise*.30,-.81),roll).lerp(node.add(.12,.27,.13),g);
-            if(wrist.y<.9&&rise<.1)thumbB=thumbB.add(0,.04*ease((.9-wrist.y)/.45),0);
+            if(wrist.y-groundY<.9&&rise<.1)thumbB=thumbB.add(0,.04*ease((.9-(wrist.y-groundY))/.45),0);
             tube(thumbRoot,thumbA,.11,.085,SKIN,8);tube(thumbA,thumbB,.085,.055,SKIN,8);
             // Fine wrist seams reinforce the reconstructed, stitched identity.
             for (double line : new double[]{-.07,.06})
