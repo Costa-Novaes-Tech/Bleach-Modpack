@@ -1,0 +1,277 @@
+{
+  "brute": {
+    "starts": [
+      396,
+      444,
+      492,
+      540,
+      588
+    ],
+    "intervalsTicks": [
+      48,
+      48,
+      48,
+      48
+    ],
+    "successfulHits": 5
+  },
+  "swift": {
+    "starts": [
+      641,
+      655,
+      669,
+      683,
+      697,
+      711,
+      725,
+      739,
+      753,
+      767,
+      781,
+      795,
+      809,
+      823,
+      837
+    ],
+    "intervalsTicks": [
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14,
+      14
+    ],
+    "successfulHits": 15
+  },
+  "flying": {
+    "starts": [
+      911,
+      939,
+      1067,
+      1095,
+      1224,
+      1252,
+      1379,
+      1407,
+      1435,
+      1562,
+      1590
+    ],
+    "intervalsTicks": [
+      28,
+      128,
+      28,
+      129,
+      28,
+      127,
+      28,
+      28,
+      127,
+      28
+    ],
+    "successfulHits": 11,
+    "transitions": [
+      {
+        "entityTick": 852,
+        "phase": "CIRCLE",
+        "hits": 0,
+        "passes": 0,
+        "lastBurstAttempts": 0
+      },
+      {
+        "entityTick": 886,
+        "phase": "DIVE",
+        "hits": 0,
+        "passes": 0,
+        "lastBurstAttempts": 0
+      },
+      {
+        "entityTick": 908,
+        "phase": "BURST",
+        "hits": 0,
+        "passes": 0,
+        "lastBurstAttempts": 0
+      },
+      {
+        "entityTick": 952,
+        "phase": "RETREAT",
+        "hits": 2,
+        "passes": 1,
+        "lastBurstAttempts": 2
+      },
+      {
+        "entityTick": 1012,
+        "phase": "CIRCLE",
+        "hits": 2,
+        "passes": 1,
+        "lastBurstAttempts": 2
+      },
+      {
+        "entityTick": 1048,
+        "phase": "DIVE",
+        "hits": 2,
+        "passes": 1,
+        "lastBurstAttempts": 2
+      },
+      {
+        "entityTick": 1064,
+        "phase": "BURST",
+        "hits": 2,
+        "passes": 1,
+        "lastBurstAttempts": 2
+      },
+      {
+        "entityTick": 1108,
+        "phase": "RETREAT",
+        "hits": 4,
+        "passes": 2,
+        "lastBurstAttempts": 2
+      },
+      {
+        "entityTick": 1168,
+        "phase": "CIRCLE",
+        "hits": 4,
+        "passes": 2,
+        "lastBurstAttempts": 2
+      },
+      {
+        "entityTick": 1204,
+        "phase": "DIVE",
+        "hits": 4,
+        "passes": 2,
+        "lastBurstAttempts": 2
+      },
+      {
+        "entityTick": 1222,
+        "phase": "BURST",
+        "hits": 4,
+        "passes": 2,
+        "lastBurstAttempts": 2
+      },
+      {
+        "entityTick": 1266,
+        "phase": "RETREAT",
+        "hits": 6,
+        "passes": 3,
+        "lastBurstAttempts": 2
+      },
+      {
+        "entityTick": 1326,
+        "phase": "CIRCLE",
+        "hits": 6,
+        "passes": 3,
+        "lastBurstAttempts": 2
+      },
+      {
+        "entityTick": 1360,
+        "phase": "DIVE",
+        "hits": 6,
+        "passes": 3,
+        "lastBurstAttempts": 2
+      },
+      {
+        "entityTick": 1378,
+        "phase": "BURST",
+        "hits": 6,
+        "passes": 3,
+        "lastBurstAttempts": 2
+      },
+      {
+        "entityTick": 1448,
+        "phase": "RETREAT",
+        "hits": 9,
+        "passes": 4,
+        "lastBurstAttempts": 3
+      },
+      {
+        "entityTick": 1508,
+        "phase": "CIRCLE",
+        "hits": 9,
+        "passes": 4,
+        "lastBurstAttempts": 3
+      },
+      {
+        "entityTick": 1544,
+        "phase": "DIVE",
+        "hits": 9,
+        "passes": 4,
+        "lastBurstAttempts": 3
+      },
+      {
+        "entityTick": 1560,
+        "phase": "BURST",
+        "hits": 9,
+        "passes": 4,
+        "lastBurstAttempts": 3
+      },
+      {
+        "entityTick": 1604,
+        "phase": "RETREAT",
+        "hits": 11,
+        "passes": 5,
+        "lastBurstAttempts": 2
+      }
+    ],
+    "passes": 5,
+    "retreats": [
+      {
+        "pass": 1,
+        "attempts": 2,
+        "landedHits": 2,
+        "observedTicks": 60,
+        "complete": true,
+        "hitsDuringRetreat": 0,
+        "lastDistance": 9.866065,
+        "maxHeightAboveTarget": 5.5811339504572715
+      },
+      {
+        "pass": 2,
+        "attempts": 2,
+        "landedHits": 2,
+        "observedTicks": 60,
+        "complete": true,
+        "hitsDuringRetreat": 0,
+        "lastDistance": 9.857551,
+        "maxHeightAboveTarget": 5.418736563542126
+      },
+      {
+        "pass": 3,
+        "attempts": 2,
+        "landedHits": 2,
+        "observedTicks": 60,
+        "complete": true,
+        "hitsDuringRetreat": 0,
+        "lastDistance": 9.878865,
+        "maxHeightAboveTarget": 5.434545065796712
+      },
+      {
+        "pass": 4,
+        "attempts": 3,
+        "landedHits": 3,
+        "observedTicks": 60,
+        "complete": true,
+        "hitsDuringRetreat": 0,
+        "lastDistance": 9.919728,
+        "maxHeightAboveTarget": 5.568801321946744
+      },
+      {
+        "pass": 5,
+        "attempts": 2,
+        "landedHits": 2,
+        "observedTicks": 48,
+        "complete": false,
+        "hitsDuringRetreat": 0,
+        "lastDistance": 9.691227,
+        "maxHeightAboveTarget": 5.35796384025695
+      }
+    ]
+  }
+}

@@ -6,7 +6,6 @@ import com.bleachmod.entity.HollowEntity;
 import com.bleachmod.entity.QuestNpcEntity;
 import com.bleachmod.registry.ModEntities;
 
-import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.PlayerModel;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -18,7 +17,6 @@ import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import com.bleachmod.client.model.HollowBossModel;
-import com.bleachmod.client.model.ModModelLayers;
 import com.bleachmod.entity.HollowBossEntity;
 
 @Mod.EventBusSubscriber(
@@ -35,7 +33,7 @@ public class ModEntityRenderers {
         event.registerEntityRenderer(ModEntities.ICE_DRAGON.get(), com.bleachmod.client.model.IceDragonRenderer::new);
         event.registerEntityRenderer(
                 ModEntities.HOLLOW.get(),
-                HollowRenderer::new
+                com.bleachmod.client.model.HollowRenderer::new
         );
 
         event.registerEntityRenderer(
@@ -46,35 +44,6 @@ public class ModEntityRenderers {
         ModEntities.questNpcs().values().forEach(type ->
                 event.registerEntityRenderer(type.get(), QuestNpcRenderer::new)
         );
-    }
-
-    public static class HollowRenderer
-            extends MobRenderer<
-            HollowEntity,
-            HumanoidModel<HollowEntity>
-            > {
-
-        private static final ResourceLocation TEXTURE =
-                Reference.id("textures/entity/hollow.png");
-
-        public HollowRenderer(
-                EntityRendererProvider.Context context
-        ) {
-            super(
-                    context,
-                    new HumanoidModel<>(
-                            context.bakeLayer(ModelLayers.ZOMBIE)
-                    ),
-                    0.5F
-            );
-        }
-
-        @Override
-        public ResourceLocation getTextureLocation(
-                HollowEntity entity
-        ) {
-            return TEXTURE;
-        }
     }
 
     public static class HollowBossRenderer
