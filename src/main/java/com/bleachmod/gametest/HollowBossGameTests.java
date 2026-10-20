@@ -118,8 +118,9 @@ public final class HollowBossGameTests {
         var boss = ModEntities.HOLLOW_BOSS.get().create(h.getLevel());
         h.assertTrue(Math.abs(boss.getBbHeight() - 5.4) < .001 && Math.abs(boss.getBbWidth() - 2.8) < .001,
                 "Boss physical dimensions do not match its authored 3x player model");
-        h.assertTrue(!boss.usesVariants() && !boss.isFlyingVariant() && boss.getMaxHealth() == 50
-                && boss.getAttributeValue(Attributes.ATTACK_DAMAGE) == 8, "Boss identity/stats changed unexpectedly");
+        h.assertTrue(!boss.usesVariants() && !boss.isFlyingVariant()
+                && boss.getMaxHealth() == 100 && boss.getHealth() == 100
+                && boss.getAttributeValue(Attributes.ATTACK_DAMAGE) == 5, "Boss identity/stats changed unexpectedly");
         h.assertTrue(HollowBossEntity.CHARGE_COOLDOWN == 140 && HollowBossEntity.MELEE_COOLDOWN > 20,
                 "Charge must use 7s and basic strikes must be slower than vanilla's 20 ticks");
         h.succeed();
@@ -131,7 +132,7 @@ public final class HollowBossGameTests {
         h.assertTrue(f.boss.beginAttack(Attack.MELEE, f.target), "Could not begin basic strike");
         h.runAfterDelay(6, () -> h.assertTrue(f.target.getHealth() == 500, "Melee damaged before contact"));
         h.runAfterDelay(32, () -> {
-            h.assertTrue(Math.abs(f.target.getHealth() - 492) < .001, "Basic strike missing or dealt duplicate damage: " + f.target.getHealth());
+            h.assertTrue(Math.abs(f.target.getHealth() - 495) < .001, "Basic strike missing or dealt duplicate damage: " + f.target.getHealth());
             f.clear(); h.succeed();
         });
     }
@@ -325,7 +326,7 @@ public final class HollowBossGameTests {
             h.assertTrue(starts.size() >= 3, "Natural AI stopped making basic strikes after slam: " + starts);
             for (int i = 1; i < starts.size(); i++) h.assertTrue(starts.get(i) - starts.get(i - 1) >= HollowBossEntity.MELEE_COOLDOWN,
                     "Natural AI bypassed the slower basic interval: " + starts);
-            h.assertTrue(f.target.getHealth() <= healthAfterSlam[0] - 24,
+            h.assertTrue(f.target.getHealth() <= healthAfterSlam[0] - 15,
                     "Natural basic strike animations did not produce three actual hits: " + f.target.getHealth());
             f.clear(); h.succeed();
         });

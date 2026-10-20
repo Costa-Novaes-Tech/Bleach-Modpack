@@ -60,6 +60,8 @@ public final class HollowQaWorld {
             row.addProperty("gameTick", level.getGameTime());
             row.addProperty("entityTick", mob.tickCount);
             row.addProperty("variant", mob.getVariant().id);
+            row.addProperty("health", mob.getHealth());
+            row.addProperty("maxHealth", mob.getMaxHealth());
             row.addProperty("lastStart", mob.getLastMeleeStartTick());
             row.addProperty("hits", mob.getSuccessfulMeleeHits());
             row.addProperty("cooldown", mob.getMeleeCooldownTicks());

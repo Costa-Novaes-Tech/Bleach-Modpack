@@ -2,9 +2,9 @@ package com.bleachmod.entity;
 
 /** Stable ids are persisted in worlds and used by the shared Hollow renderer. */
 public enum HollowVariant {
-    BRUTE("brute", 80, .20, 12, .55, 1.5F, 3.4F, 48),
-    SWIFT("swift", 24, .38, 4, .05, .65F, 1.35F, 14),
-    FLYING("flying", 40, .27, 7, .15, .95F, 2.15F, 28);
+    BRUTE("brute", 20, .20, 12, .55, 1.5F, 3.4F, 48),
+    SWIFT("swift", 6, .38, 4, .05, .65F, 1.35F, 14),
+    FLYING("flying", 14, .27, 7, .15, .95F, 2.15F, 28);
 
     public final String id;
     public final double health, speed, damage, knockbackResistance;

@@ -406,7 +406,7 @@ public class HollowEntity extends Monster implements GeoEntity {
                 // Vida
                 .add(
                         Attributes.MAX_HEALTH,
-                        40.0D
+                        20.0D
                 )
 
                 // Velocidade

@@ -248,7 +248,7 @@ public class HollowBossEntity extends HollowEntity {
         basicCooldown = Mth.clamp(tag.getInt("BossMeleeCooldown"), 0, MELEE_COOLDOWN);
     }
     public static AttributeSupplier.Builder createAttributes() {
-        return HollowEntity.createAttributes().add(Attributes.MAX_HEALTH, 50).add(Attributes.ATTACK_DAMAGE, 8)
+        return HollowEntity.createAttributes().add(Attributes.MAX_HEALTH, 100).add(Attributes.ATTACK_DAMAGE, 5)
                 .add(Attributes.MOVEMENT_SPEED, .23).add(Attributes.KNOCKBACK_RESISTANCE, .75);
     }
 }

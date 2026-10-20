@@ -41,6 +41,13 @@ public final class HollowVariantGameTests {
     public static void variantsHaveDistinctCombatStatsAndRealHitboxes(GameTestHelper h) {
         for (var v : HollowVariant.values()) {
             var mob = hollow(h, v);
+            int expectedHealth = switch (v) {
+                case BRUTE -> 20;
+                case SWIFT -> 6;
+                case FLYING -> 14;
+            };
+            h.assertTrue(mob.getMaxHealth() == expectedHealth && mob.getHealth() == expectedHealth,
+                    "Incorrect basic Hollow health: " + v);
             h.assertTrue(mob.getMaxHealth() == v.health && mob.getAttributeValue(Attributes.ATTACK_DAMAGE) == v.damage
                     && mob.getAttributeValue(Attributes.MOVEMENT_SPEED) == v.speed, "Incorrect stats: " + v);
             h.assertTrue(Math.abs(mob.getBbHeight() - v.height) < .001 && Math.abs(mob.getBbWidth() - v.width) < .001,
@@ -53,14 +60,23 @@ public final class HollowVariantGameTests {
     public static void saveReloadPreservesVariantDamageAndFlightWithoutHealing(GameTestHelper h) {
         for (var v : HollowVariant.values()) {
             var mob = hollow(h, v);
-            mob.setHealth(11);
+            float damagedHealth = (float) v.health - 3;
+            mob.setHealth(damagedHealth);
             var tag = new CompoundTag();
             mob.addAdditionalSaveData(tag);
             var restored = ModEntities.HOLLOW.get().create(h.getLevel());
             restored.readAdditionalSaveData(tag);
-            h.assertTrue(restored.getVariant() == v && restored.getHealth() == 11, "Reload rerolled or healed " + v);
+            h.assertTrue(restored.getVariant() == v && restored.getHealth() == damagedHealth,
+                    "Reload rerolled or healed " + v);
             h.assertTrue(restored.getAttributeValue(Attributes.ATTACK_DAMAGE) == v.damage && restored.isNoGravity() == (v == HollowVariant.FLYING),
                     "Reload lost combat/movement profile " + v);
+            // Worlds saved before this balance change can contain more health than
+            // the new cap; reloading must clamp them without changing the variant.
+            tag.putFloat("Health", 80);
+            var legacy = ModEntities.HOLLOW.get().create(h.getLevel());
+            legacy.readAdditionalSaveData(tag);
+            h.assertTrue(legacy.getVariant() == v && legacy.getMaxHealth() == v.health && legacy.getHealth() == v.health,
+                    "Old health escaped the new cap: " + v);
         }
         h.succeed();
     }
@@ -90,8 +106,9 @@ public final class HollowVariantGameTests {
         var boss = ModEntities.HOLLOW_BOSS.get().create(h.getLevel());
         boss.setVariant(HollowVariant.FLYING);
         boss.finalizeSpawn(h.getLevel(), h.getLevel().getCurrentDifficultyAt(BlockPos.ZERO), MobSpawnType.SPAWN_EGG, null, null);
-        h.assertTrue(!boss.usesVariants() && !boss.isFlyingVariant() && boss.getMaxHealth() == 50
-                && boss.getAttributeValue(Attributes.ATTACK_DAMAGE) == 8 && Math.abs(boss.getBbHeight() - 5.4F) < .001, "Boss profile changed");
+        h.assertTrue(!boss.usesVariants() && !boss.isFlyingVariant()
+                && boss.getMaxHealth() == 100 && boss.getHealth() == 100
+                && boss.getAttributeValue(Attributes.ATTACK_DAMAGE) == 5 && Math.abs(boss.getBbHeight() - 5.4F) < .001, "Boss profile changed");
         h.succeed();
     }
 

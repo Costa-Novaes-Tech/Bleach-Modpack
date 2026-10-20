@@ -10,11 +10,11 @@ Modelo original feito a partir das três referências fornecidas pelo usuário: 
 
 Altura de 5,4 blocos (3 × player de 1,8); colisão de 2,8 × 5,4. Rig GeckoLib com 30 bones, 222 volumes e cinco animações: idle, caminhada apoiada nos braços, ataque básico, investida e soco duplo. Modelo, textura e animações estão reunidos no arquivo editável `tools/models/source/hollow_boss.bbmodel`; o gerador reproduz os recursos do jogo.
 
-Mantidos o tipo `bleachmod:hollow_boss`, a integração com a missão da Rukia, os 50 HP e o dano básico de 8. Velocidade de movimento reduzida para 0,23 e resistência a empurrão elevada para 0,75. Nome localizado: Hollow do Primeiro Encontro / First Encounter Hollow.
+Mantidos o tipo `bleachmod:hollow_boss` e a integração com a missão da Rukia. O balanceamento final usa 100 HP e dano básico de 5. Velocidade de movimento reduzida para 0,23 e resistência a empurrão elevada para 0,75. Nome localizado: Hollow do Primeiro Encontro / First Encounter Hollow.
 
 | Golpe | Preparação | Recarga entre inícios | Dano |
 |---|---:|---:|---:|
-| Básico | 12 ticks / 0,6 s | 36 ticks / 1,8 s | 8 |
+| Básico | 12 ticks / 0,6 s | 36 ticks / 1,8 s | 5 |
 | Investida | 16 ticks / 0,8 s | 140 ticks / 7 s | 10, uma vez por vítima |
 | Soco duplo no chão | 24 ticks / 1,2 s | 200 ticks / 10 s | 16 no centro → 4 na borda, raio de 5 blocos |
 
@@ -34,10 +34,12 @@ Ambiente: Windows, Java 17.0.20.1, Gradle 8.8, Minecraft 1.20.1, Forge 47.4.10, 
 | `check` após implementação | PASS, 127 regressões, exit 0 |
 | Suíte isolada com os primeiros 15 casos do boss | PASS, 184 obrigatórios, exit 0 |
 | Suíte final com teste do último segmento da investida | PASS, 185 obrigatórios, exit 0, 55 s |
+| Ajuste para 100 HP / dano básico 5: `build` | PASS, 127 regressões, exit 0, 26 s |
+| Ajuste para 100 HP / dano básico 5: `runGameTestServer` | PASS, 185 obrigatórios, exit 0, 50 s |
 | `python tools/models/hollow_boss.py --check` | PASS, fontes e exports idênticos, bones/UVs/recovery/altura válidos |
 | `python tools/models/hollow_variants.py --check` | PASS, três Hollows existentes intactos |
 
-Os 16 testes novos verificam dimensões/identidade, contato do ataque básico, investida real, acerto único, último segmento, parede, recarga exata aos 140 ticks, persistência, dano radial, oclusão/altura, ausência de destruição, IA natural e cancelamentos por morte/noAI/perda/troca de alvo.
+Os 16 testes novos verificam dimensões/identidade, contato do ataque básico, investida real, acerto único, último segmento, parede, recarga exata aos 140 ticks, persistência, dano radial, oclusão/altura, ausência de destruição, IA natural e cancelamentos por morte/noAI/perda/troca de alvo. A validação de identidade também confirma que uma instância nova nasce com vida máxima e vida atual em 100, além de dano básico exatamente 5.
 
 Duas rodadas anteriores no diretório compartilhado `run-gametest/base` tiveram uma falha em `shibariIsRequiredAndHiasobiConsumesItsNet` (os 15 testes do boss passaram). Corrigimos uma falha real de isolamento: os novos cenários agora restauram todos os blocos e limpam entidades também por `@AfterBatch`, inclusive após falha. A suíte passou integralmente no diretório novo `run-gametest/boss-remaster` e passou novamente com o caso adicional. A causa específica das duas falhas antigas não foi isolada entre terreno residual e ordem/posição de batches. Nenhum teste ou código de técnica da Benihime foi alterado para forçar sucesso. Logs das tentativas foram preservados.
 
@@ -66,7 +68,7 @@ Execução final: `Boss-QA-1792524068943`, em `run/boss-qa/base/boss-evidence/`.
 
 Capturas intactas e GIFs em `evidence/`; metadados em `frames.jsonl`, trace independente do servidor em `combat.jsonl`, resumo em `combat-summary.json`. Os GIFs são montados dos PNGs reais com duração obtida dos ticks registrados; não usam interpolação sintética. PNGs completos das sequências permanecem no diretório original do mundo QA.
 
-O trace registra dano básico de 8, investida de 10 e slam de 15,28 contra a vítima a 0,3 bloco do centro (500 → 484,72), coerente com a queda linear de 16 para 4. A investida percorreu 15,3 blocos na arena livre. O novo teste dedicado cobre o contato que só ocorre nesse último passo.
+O trace visual original registra dano básico de 8 porque foi capturado antes do ajuste final de balanceamento. O valor atual de 5 é verificado pelos GameTests e pelo build final deste ajuste. A investida permanece com dano 10, e o slam registrou 15,28 contra a vítima a 0,3 bloco do centro (500 → 484,72), coerente com a queda linear de 16 para 4. A investida percorreu 15,3 blocos na arena livre. O teste dedicado cobre o contato que só ocorre nesse último passo.
 
 Sensores dos dois punhos foram medidos com matrizes reais do GeckoLib, ativados somente pelo perfil de desenvolvimento. No frame `slam-655.png`, tick sincronizado 24, ambos registraram Y=-60,01585, com chão em Y=-60. Nos ticks 23–27, a diferença máxima de ambos para o plano do chão foi menor que 0,04 bloco. O ponto médio horizontal dos punhos no tick 24 ficou em X=0,5 / Z=3,0699, frente ao centro de dano X=0,5 / Z=3,0. Valores brutos preservados em `contact-measurements.json`.
 
@@ -83,6 +85,6 @@ A revisão intermediária `review2/` foi mantida para comparação; nela os sens
 
 Prévia final: [modelo e escala](evidence/04-mask-detail.png), [lateral](evidence/02-side-hunch-arms.png), [costas](evidence/03-rear-dorsal-fin.png), [soco duplo](evidence/slam.gif), [investida](evidence/charge.gif), [básico](evidence/melee.gif), [caminhada](evidence/walk.gif).
 
-JAR final: `build/libs/bleachmod-0.2.0.jar` (15313136 bytes). SHA-256: `faf11c8c92635711222690d56395cadde60d8ff765659a71694065b5d73c93b0`. Os três recursos do boss foram comparados byte a byte entre fonte e JAR reobfuscado: PASS.
+JAR final: `build/libs/bleachmod-0.2.0.jar` (15314255 bytes). SHA-256: `c244069d33aff6389de7b5549e80457651a02d30f39272f31256148c672a5c89`. Os três recursos do boss foram comparados byte a byte entre fonte e JAR reobfuscado: PASS.
 
 Estado final do workspace registrado em `git-status-after.txt` e resumo dos arquivos já versionados em `diff-stat.txt` (arquivos novos listados no status). Logs gerados na raiz foram limpos/restaurados ao estado inicial; nenhum commit foi criado.
