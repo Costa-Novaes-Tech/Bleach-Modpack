@@ -808,6 +808,19 @@ public final class MvpRegressionTest {
             var above=LayoutGeometry.place(info,320,180);
             eq(6F,above.x());yes(above.y()+above.height(info)<=180-22-6);
         });
+        test("atlas textures keep the full mipmap chain (sides divisible by 16)",()->{
+            for(String folder:List.of("item","block")){
+                var dir=java.nio.file.Path.of("src/main/resources/assets/bleachmod/textures",folder);
+                if(!java.nio.file.Files.isDirectory(dir))continue;
+                try(var files=java.nio.file.Files.walk(dir)){
+                    for(var file:files.filter(f->f.toString().endsWith(".png")).toList()){
+                        var img=javax.imageio.ImageIO.read(file.toFile());
+                        if(Integer.lowestOneBit(img.getWidth())<16||Integer.lowestOneBit(img.getHeight())<16)
+                            throw new AssertionError(file+": "+img.getWidth()+"x"+img.getHeight()+" limita o mipmap do atlas");
+                    }
+                }catch(java.io.IOException e){throw new java.io.UncheckedIOException(e);}
+            }
+        });
         test("GUI layouts parse and bar fills match their wells pixel for pixel",()->{
             var dir=java.nio.file.Path.of("src/main/resources/assets/bleachmod/gui_layouts");
             try(var files=java.nio.file.Files.list(dir)){
