@@ -42,11 +42,13 @@ public final class FormWheelScreen extends LayoutScreen {
         if (d == null) return ctx;
         CharacterData character = d.getCharacter();
         String active = character.getActiveForm();
+        boolean pending = character.hasPendingTarget();
         for (String form : FORMS) {
             boolean unlocked = TransformationsHelper.isUnlocked(d, "zanpakuto", form);
             boolean selectable = TransformationsHelper.isSelectable(d, "zanpakuto", form);
             ctx.flag(form + "_selectable", selectable);
             ctx.flag(form + "_active", form.equals(active));
+            ctx.flag(form + "_target", pending && form.equals(character.getTargetForm()));
             // The Bankai art already carries its padlock; the others get the overlay.
             ctx.flag(form + "_show_lock", !selectable && !"bankai".equals(form));
             ctx.text(form + "_tip", selectable ? "" : Component.translatable(unlocked
@@ -57,6 +59,9 @@ public final class FormWheelScreen extends LayoutScreen {
         double mastery = character.getMastery("zanpakuto", active);
         ctx.text("zanpakuto_name", Component.translatable("item.bleachmod." + identity));
         ctx.text("current_form", FormNames.of(character, active));
+        ctx.flag("form_pending", pending);
+        ctx.text("target_form", Component.translatable("screen.bleachmod.guide.target_form", FormNames.of(character, character.getTargetForm())));
+        ctx.text("target_badge", Component.translatable("screen.bleachmod.wheel_target"));
         ctx.text("progress_text", MasteryFeedback.value(mastery) + " / 100");
         ctx.value("progress", (float) (mastery / 100.0));
         for (String form : FORMS) ctx.flag("progress_" + form, form.equals(active));

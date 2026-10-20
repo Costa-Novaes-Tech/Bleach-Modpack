@@ -25,7 +25,7 @@ public record SetTrackedQuestC2S(String questId) {
                 return;
             }
             PlayerCapability.get(player).ifPresent(data -> {
-                if (!data.getStatus().hasCreatedCharacter() || !player.isAlive() || !data.getStatus().allowAction(player.level().getGameTime())) return;
+                if (!data.getStatus().hasCreatedCharacter() || !player.isAlive() || !data.getStatus().allowUiAction(player.level().getGameTime())) return;
                 String id = msg.questId == null || msg.questId.isBlank() ? null : msg.questId;
                 if (id != null && data.getPlayerQuestData().getStatus(id) != QuestStatus.ACCEPTED) {
                     return;
