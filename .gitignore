@@ -35,3 +35,6 @@ Docs/planejamento/plano-migracao-documentacao-2026-09-11.md
 
 # mapas baixados (grandes, licenca de terceiros)
 Maps/
+
+# python
+__pycache__/

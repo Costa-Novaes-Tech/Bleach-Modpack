@@ -1,0 +1,20 @@
+{
+  "source_root": "art-src/gui",
+  "fonts": [
+    {
+      "name": "title",
+      "sheets": [
+        {
+          "sheet": "hud/ui/bleach_title_1.png",
+          "grid": 4.0,
+          "rows": ["ABCDEFGHIJKLM", "NOPQRSTUVWXYZ01234", "56789ÁÀÂÃÄÉÈÊËÍÌÎÏ", "ÓÒÔÕÖÚÙÛÜÇ"]
+        },
+        {
+          "sheet": "hud/ui/bleach_title_2.png",
+          "grid": 4.0,
+          "rows": ["abcdefghijklm", "nopqrstuvwxyz", "áàâãäéèêëíìîï", "óòôõöúùûüç"]
+        }
+      ]
+    }
+  ]
+}

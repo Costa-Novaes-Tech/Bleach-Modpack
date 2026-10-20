@@ -17,6 +17,22 @@ public final class ZanpakutoHud {
         if (CharacterData.ASAUCHI.equals(identity)) return "message.bleachmod.asauchi.no_techniques";
         return TechniqueDefinitions.find(identity, form, slot).map(TechniqueDefinitions.Definition::nameKey).orElse("message.bleachmod."+identity+".sealed");
     }
+    /** "Shikai: train 0/20", "...: available" or "...: purchase bond"; null after Bankai. */
+    public static Component nextUnlock(PlayerData d) {
+        String form = d.getCharacter().getActiveForm();
+        String next = "sealed".equals(form) ? "shikai" : "shikai".equals(form) ? "bankai" : "";
+        FormData nextForm = next.isEmpty() ? null : FormRegistry.getForm(d.getCharacter().getRace(), "zanpakuto", next);
+        if (nextForm == null) return null;
+        int threshold = "shikai".equals(next) ? TechniqueProgression.SHIKAI_MASTERY : TechniqueProgression.BANKAI_MASTERY;
+        String sourceForm = "shikai".equals(next) ? "sealed" : "shikai";
+        double current = d.getCharacter().getMastery("zanpakuto", sourceForm);
+        var nextName = com.bleachmod.common.evolution.FormNames.of(d.getCharacter(), next);
+        return TransformationsHelper.isUnlocked(d, "zanpakuto", next)
+                ? Component.translatable("hud.bleachmod.mastery.form_ready", nextName)
+                : current < threshold ? Component.translatable("hud.bleachmod.mastery.form_train", nextName, MasteryFeedback.value(current), threshold)
+                : Component.translatable("hud.bleachmod.mastery.form_purchase", nextName);
+    }
+
     public static final IGuiOverlay OVERLAY = (gui, g, partialTick, w, h) -> {
         var mc = Minecraft.getInstance(); if (mc.player == null || mc.options.hideGui) return;
         PlayerCapability.get(mc.player).ifPresent(d -> {
@@ -77,19 +93,9 @@ public final class ZanpakutoHud {
                 }
                 g.drawString(mc.font, mc.font.plainSubstrByWidth(resources, width - 16), 8, 51 + i * 25, 0x85AAC2, false);
             }
-            String next = "sealed".equals(form) ? "shikai" : "shikai".equals(form) ? "bankai" : "";
-            FormData nextForm = next.isEmpty() ? null : FormRegistry.getForm(d.getCharacter().getRace(), "zanpakuto", next);
-            if (nextForm != null) {
-                int threshold = "shikai".equals(next) ? TechniqueProgression.SHIKAI_MASTERY : TechniqueProgression.BANKAI_MASTERY;
-                String sourceForm = "shikai".equals(next) ? "sealed" : "shikai";
-                double current = d.getCharacter().getMastery("zanpakuto", sourceForm);
-                var nextName = com.bleachmod.common.evolution.FormNames.of(d.getCharacter(), next);
-                String gate = TransformationsHelper.isUnlocked(d, "zanpakuto", next)
-                        ? Component.translatable("hud.bleachmod.mastery.form_ready", nextName).getString()
-                        : current < threshold ? Component.translatable("hud.bleachmod.mastery.form_train", nextName, MasteryFeedback.value(current), threshold).getString()
-                        : Component.translatable("hud.bleachmod.mastery.form_purchase", nextName).getString();
-                g.drawString(mc.font, mc.font.plainSubstrByWidth(gate, width - 16), 8, 140, 0xD5BF78, false);
-            }
+            Component gate = nextUnlock(d);
+            if (gate != null)
+                g.drawString(mc.font, mc.font.plainSubstrByWidth(gate.getString(), width - 16), 8, 140, 0xD5BF78, false);
             if (d.getStatus().areCooldownsDisabled() || d.getResources().areCostsDisabled())
                 g.drawString(mc.font, Component.translatable("hud.bleachmod.mastery.test_mode"), 8, 153, 0xF1B46B, false);
             else if (CharacterData.SENBONZAKURA.equals(identity) && form.equals("bankai"))

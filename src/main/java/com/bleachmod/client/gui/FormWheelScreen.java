@@ -1,48 +1,83 @@
 package com.bleachmod.client.gui;
+
+import com.bleachmod.client.gui.layout.LayoutContext;
+import com.bleachmod.client.gui.layout.LayoutScreen;
+import com.bleachmod.client.hud.ZanpakutoHud;
 import com.bleachmod.common.data.*;
+import com.bleachmod.common.evolution.FormNames;
 import com.bleachmod.common.evolution.TransformationsHelper;
 import com.bleachmod.common.network.NetworkHandler;
 import com.bleachmod.common.network.c2s.SelectFormC2S;
-import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.components.Button;
-import net.minecraft.client.gui.screens.Screen;
+import com.bleachmod.common.technique.MasteryFeedback;
+import com.bleachmod.common.technique.TechniqueDefinitions;
 import net.minecraft.network.chat.Component;
-import java.util.*;
 
-public final class FormWheelScreen extends Screen {
-    private final Map<String,Button> buttons=new LinkedHashMap<>();
-    public FormWheelScreen() { super(Component.translatable("screen.bleachmod.wheel")); }
-    @Override protected void init() {
-        buttons.clear();
-        var d=PlayerCapability.get(minecraft.player).orElse(null);
-        if(d==null)return;
-        List<String> names=TransformationsHelper.getUnlockedForms(d,"zanpakuto").stream().map(f->f.getName()).toList();
-        int radius=Math.min(72,Math.max(36,height/2-60));
-        for(int i=0;i<names.size();i++) {
-            String form=names.get(i); double angle=-Math.PI/2+i*2*Math.PI/names.size();
-            int x=width/2+(int)(Math.cos(angle)*radius)-48, y=height/2+(int)(Math.sin(angle)*radius)-10;
-            buttons.put(form,addRenderableWidget(Button.builder(com.bleachmod.common.evolution.FormNames.of(d.getCharacter(),form),b->{
-                NetworkHandler.sendToServer(new SelectFormC2S("zanpakuto",form)); onClose();
-            }).bounds(x,y,96,20).build()));
+import java.util.List;
+
+/**
+ * Form selection wheel plus Zanpakuto guide. Layout: gui_layouts/form_wheel.json.
+ * Clicking an available medal selects that form as the target and closes the screen
+ * (R transforms), exactly like the previous button wheel.
+ */
+public final class FormWheelScreen extends LayoutScreen {
+    static final List<String> FORMS = List.of("sealed", "shikai", "bankai");
+
+    public FormWheelScreen() {
+        super(Component.translatable("screen.bleachmod.wheel"), "form_wheel");
+    }
+
+    private PlayerData data() {
+        return minecraft == null || minecraft.player == null ? null : PlayerCapability.get(minecraft.player).orElse(null);
+    }
+
+    @Override
+    public void tick() {
+        if (minecraft.player == null) onClose();
+    }
+
+    @Override
+    protected LayoutContext context() {
+        LayoutContext ctx = new LayoutContext().text("title", title);
+        PlayerData d = data();
+        if (d == null) return ctx;
+        CharacterData character = d.getCharacter();
+        String active = character.getActiveForm();
+        for (String form : FORMS) {
+            boolean unlocked = TransformationsHelper.isUnlocked(d, "zanpakuto", form);
+            boolean selectable = TransformationsHelper.isSelectable(d, "zanpakuto", form);
+            ctx.flag(form + "_selectable", selectable);
+            ctx.flag(form + "_active", form.equals(active));
+            // The Bankai art already carries its padlock; the others get the overlay.
+            ctx.flag(form + "_show_lock", !selectable && !"bankai".equals(form));
+            ctx.text(form + "_tip", selectable ? "" : Component.translatable(unlocked
+                    ? "screen.bleachmod.wheel_chain" : "hud.bleachmod.mastery.form_locked"));
         }
-        tick();
+
+        String identity = character.getZanpakutoIdentity();
+        double mastery = character.getMastery("zanpakuto", active);
+        ctx.text("zanpakuto_name", Component.translatable("item.bleachmod." + identity));
+        ctx.text("current_form", FormNames.of(character, active));
+        ctx.text("progress_text", MasteryFeedback.value(mastery) + " / 100");
+        ctx.value("progress", (float) (mastery / 100.0));
+        for (String form : FORMS) ctx.flag("progress_" + form, form.equals(active));
+        boolean practice = CharacterData.ASAUCHI.equals(identity) || TechniqueDefinitions.find(identity, active, 1).isEmpty();
+        ctx.flag("has_practice", practice);
+        ctx.text("practice", Component.translatable("hud.bleachmod.asauchi.practice"));
+        Component next = ZanpakutoHud.nextUnlock(d);
+        ctx.flag("has_next", next != null);
+        if (next != null) ctx.text("next_unlock", next);
+        ctx.text("hint", Component.translatable("screen.bleachmod.wheel_hint"));
+        ctx.text("hint_skills", Component.translatable("screen.bleachmod.no_active_skills"));
+        return ctx;
     }
-    @Override public void tick() {
-        if(minecraft.player==null){onClose();return;}
-        PlayerCapability.get(minecraft.player).ifPresent(d->buttons.forEach((form,b)->{
-            b.active=TransformationsHelper.isSelectable(d,"zanpakuto",form);
-            b.setTooltip(b.active?null:net.minecraft.client.gui.components.Tooltip.create(Component.translatable("screen.bleachmod.wheel_chain")));
-        }));
+
+    @Override
+    protected void onAction(String action) {
+        if (!action.startsWith("select:")) return;
+        String form = action.substring("select:".length());
+        PlayerData d = data();
+        if (d == null || !TransformationsHelper.isSelectable(d, "zanpakuto", form)) return;
+        NetworkHandler.sendToServer(new SelectFormC2S("zanpakuto", form));
+        onClose();
     }
-    @Override public void render(GuiGraphics g,int mx,int my,float dt) {
-        renderBackground(g);
-        g.drawCenteredString(font,title,width/2,16,0xE8C547);
-        g.drawCenteredString(font,Component.translatable("screen.bleachmod.wheel_hint"),width/2,height-36,0xFFFFFF);
-        g.drawCenteredString(font,Component.translatable("screen.bleachmod.no_active_skills"),width/2,height-22,0xCAB7FF);
-        PlayerCapability.get(minecraft.player).ifPresent(d->{
-            g.drawCenteredString(font,com.bleachmod.common.evolution.FormNames.of(d.getCharacter(),d.getCharacter().getSelectedForm()),width/2,height/2-4,0xE8C547);
-        });
-        super.render(g,mx,my,dt);
-    }
-    @Override public boolean isPauseScreen() { return false; }
 }

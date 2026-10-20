@@ -54,6 +54,8 @@ public final class BleachClient {
         // Appearance layers come from resource packs; rebuild composed skins after F3+T or a pack change.
         event.registerReloadListener((net.minecraft.server.packs.resources.ResourceManagerReloadListener) manager ->
                 com.bleachmod.client.appearance.SkinCompositor.clear());
+        // Data-driven HUD layouts (assets/bleachmod/gui_layouts/*.json).
+        event.registerReloadListener(com.bleachmod.client.gui.layout.GuiLayouts.INSTANCE);
     }
 
     private static void onClientSetup(FMLClientSetupEvent event) {

@@ -46,16 +46,15 @@ public final class BleachCommands {
         AppearanceCommands.attach(root);
         root.then(literal("zanpakuto").then(literal("bind").then(argument("player",EntityArgument.player())
             .then(argument("identity",StringArgumentType.word())
-                .suggests((ctx,b)->SharedSuggestionProvider.suggest(java.util.List.of("asauchi","ryujin_jakka","hyorinmaru","senbonzakura","benihime","nozarashi"),b))
-                .executes(ctx->mutate(ctx,(p,d)->{
-                    if (!Reference.RACE_SHINIGAMI.equals(d.getCharacter().getRace())) throw new IllegalArgumentException("Shinigami required");
-                    d.getCharacter().bindZanpakuto(StringArgumentType.getString(ctx,"identity"));
-                    d.getStatus().clearTransformationState();
-                    com.bleachmod.common.technique.MasteryPracticeService.cancelIntent(p);
-                    com.bleachmod.common.technique.RyujinTechniqueService.cancel(p);
-                    d.getResources().setActionCharge(0);
-                    com.bleachmod.common.network.SyncHelper.appearance(p);
-                }))))));
+                .suggests((ctx,b)->SharedSuggestionProvider.suggest(IDENTITIES,b))
+                .executes(ctx->mutate(ctx,(p,d)->bind(p,d,StringArgumentType.getString(ctx,"identity"))))))));
+        // One-step Bankai for testing: binds the blade (optional), buys the skill, discovers the forms,
+        // meets the mastery requirements of the world's form JSON, hands over the blade and preselects Bankai.
+        root.then(literal("bankai").then(argument("player",EntityArgument.player())
+            .executes(ctx->mutate(ctx,(p,d)->grantBankai(p,d,null)))
+            .then(argument("identity",StringArgumentType.word())
+                .suggests((ctx,b)->SharedSuggestionProvider.suggest(IDENTITIES.subList(1,IDENTITIES.size()),b))
+                .executes(ctx->mutate(ctx,(p,d)->grantBankai(p,d,StringArgumentType.getString(ctx,"identity")))))));
         root.then(literal("points").then(literal("add").then(argument("player",EntityArgument.player())
             .then(argument("amount",IntegerArgumentType.integer(1,1000000)).executes(ctx->mutate(ctx,(p,d)->d.getResources().addTrainingPoints(IntegerArgumentType.getInteger(ctx,"amount"))))))));
         root.then(literal("skill").then(literal("set").then(argument("player",EntityArgument.player())
@@ -114,7 +113,44 @@ public final class BleachCommands {
         })));
         event.getDispatcher().register(root);
     }
+    private static final java.util.List<String> IDENTITIES=java.util.List.of("asauchi","ryujin_jakka","hyorinmaru","senbonzakura","benihime","nozarashi");
     private interface Mutation { void apply(ServerPlayer player,PlayerData data); }
+    private static void bind(ServerPlayer p,PlayerData d,String identity) {
+        if (!Reference.RACE_SHINIGAMI.equals(d.getCharacter().getRace())) throw new IllegalArgumentException("Shinigami required");
+        d.getCharacter().bindZanpakuto(identity);
+        d.getStatus().clearTransformationState();
+        com.bleachmod.common.technique.MasteryPracticeService.cancelIntent(p);
+        com.bleachmod.common.technique.RyujinTechniqueService.cancel(p);
+        d.getResources().setActionCharge(0);
+        SyncHelper.appearance(p);
+    }
+    private static void grantBankai(ServerPlayer p,PlayerData d,String identity) {
+        if (!Reference.RACE_SHINIGAMI.equals(d.getCharacter().getRace())) throw new IllegalArgumentException("Shinigami required");
+        if (identity!=null) bind(p,d,identity);
+        String current=d.getCharacter().getZanpakutoIdentity();
+        if (CharacterData.ASAUCHI.equals(current))
+            throw new IllegalArgumentException("Asauchi has no Bankai: /bleachdev bankai "+p.getScoreboardName()+" <zanpakuto>");
+        var shikai=FormRegistry.getForm(Reference.RACE_SHINIGAMI,Reference.GROUP_ZANPAKUTO,"shikai");
+        var bankai=FormRegistry.getForm(Reference.RACE_SHINIGAMI,Reference.GROUP_ZANPAKUTO,"bankai");
+        if (shikai==null||bankai==null) throw new IllegalArgumentException("Forms not loaded");
+        if (d.getSkills().getLevel("zanpakuto")<2) d.getSkills().get("zanpakuto").setLevel(2);
+        d.getCharacter().unlockForm("shikai");
+        d.getCharacter().unlockForm("bankai");
+        // Shikai mastery satisfies Bankai's requisite; Bankai mastery allows transforming straight from sealed.
+        raiseMastery(d,shikai,bankai.getUnlockOnMastery());
+        raiseMastery(d,bankai,bankai.getAllowFreeTransformOnMastery());
+        com.bleachmod.common.technique.TechniqueProgression.unlockEligible(d.getCharacter());
+        var item=net.minecraftforge.registries.ForgeRegistries.ITEMS.getValue(Reference.id(current));
+        if (item!=null&&!p.getInventory().hasAnyOf(java.util.Set.of(item))) {
+            ItemStack stack=new ItemStack(item);
+            if(!p.getInventory().add(stack)) p.drop(stack,false);
+        }
+        d.getCharacter().setSelectedForm(Reference.GROUP_ZANPAKUTO,"bankai");
+    }
+    private static void raiseMastery(PlayerData d,com.bleachmod.common.evolution.FormData form,double target) {
+        double value=Math.min(form.getMaxMastery(),Math.max(target,d.getCharacter().getMastery(Reference.GROUP_ZANPAKUTO,form.getName())));
+        d.getCharacter().setMastery(Reference.GROUP_ZANPAKUTO,form.getName(),value);
+    }
     private static void resetTechniqueEffects(ServerPlayer player,PlayerData data) {
         data.getStatus().clearTechniqueTestState();
         com.bleachmod.common.technique.RyujinTechniqueService.cancel(player);
