@@ -61,3 +61,8 @@ Evidências gráficas e limitações finais estão no [relatório visual do cicl
 ## Continuidade
 
 Revisar no jogo a nova proporção/apoios, o encaixe do áudio escolhido e a cena Higashi. Preservar Zaraki. Próximos trabalhos permanecem Investida/Rajada Ryūjin e demais técnicas Benihime, depois Ishida; Mentor/Proficiências aguardam equipe, Hyōrinmaru sem revisão ampla nesta rodada. Aizen adiado e Gin fora do planejamento.
+
+
+## Ajuste posterior — volume do nome da Bankai
+
+Pedido do usuário: aumentar somente “Kannonbiraki Benihime Aratame”. A fala limpa recebeu ganho nominal de +2,5 dB com limitador; na faixa combinada foi reforçada apenas a mesma fala limpa, alinhada ao trecho existente, sem aumento global da música. “Bankai”, demais efeitos, tempos e animações foram preservados. O importador reproduz o ajuste e oferece `--only-name` para não regenerar a primeira fala. Os dois OGGs mantêm 4,124 s e 28 s, decodificam sem amostras saturadas. Pacotes base e Photon são regenerados com os recursos atualizados; esta alteração de volume não reabre a homologação de gameplay.
