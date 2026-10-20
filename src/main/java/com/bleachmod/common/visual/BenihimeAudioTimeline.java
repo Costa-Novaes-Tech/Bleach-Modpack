@@ -8,7 +8,7 @@ public final class BenihimeAudioTimeline {
         GRIP(176,"benihime.curtain",false,.35F,1.2F),
         REVEAL(236,"benihime.reveal",false,.8F,1F),
         THREADS(450,"benihime.threads",false,.6F,1F),
-        NAME(460,"voice.benihime_name",true,1F,1F);
+        NAME(461,"voice.benihime_name",true,1F,1F);
         public final int tick;public final String event;public final boolean voice;public final float volume,pitch;
         Cue(int tick,String event,boolean voice,float volume,float pitch){this.tick=tick;this.event=event;this.voice=voice;this.volume=volume;this.pitch=pitch;}
     }

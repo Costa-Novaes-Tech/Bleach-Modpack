@@ -1108,9 +1108,16 @@ public final class MvpRegressionTest {
             }
         });
         test("Higashi authored execution recovers and mirrors without an idle lease", () -> {
-            for(float age=0;age<=48;age+=.25F){var right=com.bleachmod.common.visual.RyujinChoreography.execution(age,1);var left=com.bleachmod.common.visual.RyujinChoreography.execution(age,-1);
+            for(float age=0;age<=com.bleachmod.common.visual.HigashiCinematicPath.END+4;age+=.25F){var right=com.bleachmod.common.visual.RyujinChoreography.execution(age,1);var left=com.bleachmod.common.visual.RyujinChoreography.execution(age,-1);
                 yes(Double.isFinite(right.arm().lengthSqr()+right.body().lengthSqr()));eq(right.arm().x,left.arm().x);eq(right.arm().y,-left.arm().y);yes(right.weight()>=0&&right.weight()<=1);
-                if(age>=44)eq(0F,right.weight());
+                if(age>=com.bleachmod.common.visual.HigashiCinematicPath.END)eq(0F,right.weight());
+            }
+        });
+        test("Higashi rising follow-through points toward the victim instead of behind the caster", () -> {
+            for(float sign:new float[]{-1,1}){
+                var pose=com.bleachmod.common.visual.RyujinChoreography.execution(16,sign);
+                var blade=com.bleachmod.common.visual.RyujinChoreography.bladeDirection(pose);
+                yes(blade.z>.6&&blade.y>.4);
             }
         });
         test("Higashi preview packets remain distinct from confirmed death", () -> {

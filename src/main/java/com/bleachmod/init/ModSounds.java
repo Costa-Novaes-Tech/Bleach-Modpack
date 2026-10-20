@@ -13,6 +13,8 @@ public final class ModSounds {
     /** Zaraki shouting "Bankai" (4.16 s, mono): plays at the start of the Berserk Mode cinematic. */
     public static final RegistryObject<SoundEvent> BANKAI_ZARAKI = SOUND_EVENTS.register("voice.bankai_zaraki",
             () -> SoundEvent.createVariableRangeEvent(Reference.id("voice.bankai_zaraki")));
+    public static final RegistryObject<SoundEvent> BENIHIME_INVOCATION_MIX = SOUND_EVENTS.register("benihime.invocation_mix",
+            () -> SoundEvent.createVariableRangeEvent(Reference.id("benihime.invocation_mix")));
     public static final RegistryObject<SoundEvent> BENIHIME_ENTRANCE = SOUND_EVENTS.register("benihime.entrance",
             () -> SoundEvent.createVariableRangeEvent(Reference.id("benihime.entrance")));
 

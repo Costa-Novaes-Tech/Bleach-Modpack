@@ -92,6 +92,8 @@ minecraft {
             if (providers.gradleProperty('benihimeQa').map { it.toBoolean() }.getOrElse(false)) {
                 workingDirectory project.file(providers.gradleProperty('photonPilot').map { it.toBoolean() }.getOrElse(false) ? 'run-benihime-qa/photon' : 'run-benihime-qa/base')
                 property 'bleachmod.benihimeQa', 'true'
+                property 'bleachmod.cinematicQa', providers.gradleProperty('cinematicQa').getOrElse('false')
+                property 'bleachmod.cinematicQaFast', providers.gradleProperty('cinematicQaFast').getOrElse('false')
                 args '--width', '1280', '--height', '720'
             }
             // Comma-separated list of namespaces to load gametests from. Empty = all namespaces.
@@ -234,6 +236,10 @@ dependencies {
 // When "copyIdeResources" is enabled, this will also run before the game launches in IDE environments.
 // See https://docs.gradle.org/current/dsl/org.gradle.language.jvm.tasks.ProcessResources.html
 tasks.named('processResources', ProcessResources).configure {
+    from('Docs/poderes/licencas/71-audios-fornecidos-benihime.md') {
+        into 'META-INF/licenses'
+        rename { 'benihime-user-audio.txt' }
+    }
     from('Docs/poderes/licencas/69-voz-benihime-mei.md') {
         into 'META-INF/licenses'
         rename { 'benihime-voice.txt' }

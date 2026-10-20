@@ -1,0 +1,114 @@
+[
+  {
+    "file": "bankai_comparison_original_30s.mp3",
+    "sha256": "6bdd07c294cdcf6e80c8f839112ecf20d357dc50726e8a4a7910492aacb988a6",
+    "decodedSeconds": 30.0,
+    "peakDb": 2.619,
+    "decode": "PASS"
+  },
+  {
+    "file": "bankai_comparison_original_30s_final.wav",
+    "sha256": "f22f3475d5438c29b4345fbaadef355fcfdba05b6bbf38f344813f3973db28e8",
+    "decodedSeconds": 30.0,
+    "peakDb": 2.822,
+    "decode": "PASS"
+  },
+  {
+    "file": "bankai_final_ordered_30s.mp3",
+    "sha256": "119ed900b4728828b899021f491b8621ea90ec82dd2a5388cdd22d99807cd5e0",
+    "decodedSeconds": 30.0,
+    "peakDb": 1.167,
+    "decode": "PASS"
+  },
+  {
+    "file": "bankai_final_ordered_30s.wav",
+    "sha256": "37eef641ef61bc3be64f12ff74211757a1a1bc51268a3e1f8e668dd15b29dfa2",
+    "decodedSeconds": 30.0,
+    "peakDb": 1.439,
+    "decode": "PASS"
+  },
+  {
+    "file": "Bankai_voice_clean.mp3",
+    "sha256": "3cec5a03f6f549342cf1ead0d19a30a4dbe09c9687d9cad42523bca4a77c7430",
+    "decodedSeconds": 0.9,
+    "peakDb": -1.756,
+    "decode": "PASS"
+  },
+  {
+    "file": "Bankai_voice_clean.wav",
+    "sha256": "25eda3b0caec2da82b85d8afe55664db5e99493b5478864b7b58f9021aea68f6",
+    "decodedSeconds": 0.9,
+    "peakDb": -1.506,
+    "decode": "PASS"
+  },
+  {
+    "file": "Kannonbiraki_Benihime_Aratame_voice_clean.mp3",
+    "sha256": "bd0a20b3118c53dfe69cfc3327ebf4fefdf843f47b315b42e644a617e615b591",
+    "decodedSeconds": 4.12394,
+    "peakDb": -1.753,
+    "decode": "PASS"
+  },
+  {
+    "file": "Kannonbiraki_Benihime_Aratame_voice_clean.wav",
+    "sha256": "2d58dcc25995546c60eee157bdc2c0a9bdb114db03a168cd6412b6c0ed46cdd5",
+    "decodedSeconds": 4.12394,
+    "peakDb": -1.497,
+    "decode": "PASS"
+  },
+  {
+    "file": "src\\main\\resources\\assets\\bleachmod\\sounds\\benihime_curtain.ogg",
+    "sha256": "4de101ddf7754a0983fd0a35f478a922e80b3c3e7ebfbd2fc6edf5f4e00d3e9e",
+    "decodedSeconds": 2.8,
+    "peakDb": -15.096,
+    "clippedSamples": 0,
+    "decode": "PASS"
+  },
+  {
+    "file": "src\\main\\resources\\assets\\bleachmod\\sounds\\benihime_entrance.ogg",
+    "sha256": "d11b6a9d5cc11fbbf3be79ba51436a6dbd0dd9b55d31f8a6924e626d29dbc88c",
+    "decodedSeconds": 28.0,
+    "peakDb": -8.525,
+    "clippedSamples": 0,
+    "decode": "PASS"
+  },
+  {
+    "file": "src\\main\\resources\\assets\\bleachmod\\sounds\\benihime_invocation_mix.ogg",
+    "sha256": "5f1a17b1ce0e02d49c14b6f9765c9a4170ea5edb0a29958b8a872d0882f224cb",
+    "decodedSeconds": 28.0,
+    "peakDb": -2.901,
+    "clippedSamples": 0,
+    "decode": "PASS"
+  },
+  {
+    "file": "src\\main\\resources\\assets\\bleachmod\\sounds\\benihime_reveal.ogg",
+    "sha256": "f3f4fe4e5595f1fcba4637536caa024373a9ef124f9b579f569260ba92ab41c9",
+    "decodedSeconds": 2.4,
+    "peakDb": -15.781,
+    "clippedSamples": 0,
+    "decode": "PASS"
+  },
+  {
+    "file": "src\\main\\resources\\assets\\bleachmod\\sounds\\benihime_threads.ogg",
+    "sha256": "4b495ba66aeafdec5345e33dba6fb8df076e430872221ba0a51d5ad42667d84b",
+    "decodedSeconds": 1.8,
+    "peakDb": -17.123,
+    "clippedSamples": 0,
+    "decode": "PASS"
+  },
+  {
+    "file": "src\\main\\resources\\assets\\bleachmod\\sounds\\benihime_voice_bankai.ogg",
+    "sha256": "f3e8b6344ac190ee493cc0917d6163a2c3e1e3780a9612eabd266a2eaf453e5a",
+    "decodedSeconds": 0.8971,
+    "peakDb": -4.394,
+    "clippedSamples": 0,
+    "decode": "PASS"
+  },
+  {
+    "file": "src\\main\\resources\\assets\\bleachmod\\sounds\\benihime_voice_name.ogg",
+    "sha256": "ca293962ebd99102c9bd07c5185594656cfb67a3120d49edc6f8e0ec7f4b5c92",
+    "decodedSeconds": 4.12392,
+    "peakDb": -4.337,
+    "clippedSamples": 0,
+    "decode": "PASS"
+  }
+]

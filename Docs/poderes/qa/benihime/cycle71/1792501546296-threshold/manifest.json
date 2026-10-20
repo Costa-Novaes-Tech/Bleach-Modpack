@@ -1,0 +1,1244 @@
+{
+  "sourceDirectory": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\cinematic-qa\\1792501546296-threshold",
+  "source": "Minecraft Screenshot.grab framebuffer",
+  "originalMetadataPreserved": true,
+  "frameCount": 66,
+  "frames": [
+    {
+      "file": "screenshots/frame-0000-t0000-SETUP.png",
+      "gameTick": 0,
+      "wallMs": 1792501546324,
+      "phase": "SETUP",
+      "view": "front",
+      "scenario": "threshold",
+      "fpsObserved": 53,
+      "width": 1280,
+      "height": 720,
+      "origin": [
+        0.5,
+        -60.0,
+        2.5008
+      ],
+      "source": "Minecraft Screenshot.grab framebuffer",
+      "sha256": "b558b784a0c09e890ff9b008d984a8b5dc713b78c2e339876bdd33865e14fc2c"
+    },
+    {
+      "file": "screenshots/frame-0001-t0002-SETUP.png",
+      "gameTick": 2,
+      "wallMs": 1792501546417,
+      "phase": "SETUP",
+      "view": "front",
+      "scenario": "threshold",
+      "fpsObserved": 53,
+      "width": 1280,
+      "height": 720,
+      "origin": [
+        0.5,
+        -60.0,
+        2.5008
+      ],
+      "source": "Minecraft Screenshot.grab framebuffer",
+      "sha256": "a36d5e7258db115123b5b293913ef68fe575c8b966f543432ef9cac242a65463"
+    },
+    {
+      "file": "screenshots/frame-0002-t0004-SETUP.png",
+      "gameTick": 4,
+      "wallMs": 1792501546518,
+      "phase": "SETUP",
+      "view": "front",
+      "scenario": "threshold",
+      "fpsObserved": 53,
+      "width": 1280,
+      "height": 720,
+      "origin": [
+        0.5,
+        -60.0,
+        2.5008
+      ],
+      "source": "Minecraft Screenshot.grab framebuffer",
+      "sha256": "66c20f0fc8897d1049b345cea39ff7de7f90f1cbfe788b2d5f283e04683db352"
+    },
+    {
+      "file": "screenshots/frame-0003-t0006-SETUP.png",
+      "gameTick": 6,
+      "wallMs": 1792501546624,
+      "phase": "SETUP",
+      "view": "front",
+      "scenario": "threshold",
+      "fpsObserved": 53,
+      "width": 1280,
+      "height": 720,
+      "origin": [
+        0.5,
+        -60.0,
+        2.5008
+      ],
+      "source": "Minecraft Screenshot.grab framebuffer",
+      "sha256": "8af804570ff28238050290484de5724d92a4ab769a523eb860195aba4ff2694d"
+    },
+    {
+      "file": "screenshots/frame-0004-t0008-SETUP.png",
+      "gameTick": 8,
+      "wallMs": 1792501546718,
+      "phase": "SETUP",
+      "view": "front",
+      "scenario": "threshold",
+      "fpsObserved": 53,
+      "width": 1280,
+      "height": 720,
+      "origin": [
+        0.5,
+        -60.0,
+        2.5008
+      ],
+      "source": "Minecraft Screenshot.grab framebuffer",
+      "sha256": "eb9be995d731edcee537b26d82ef6b2596483c052de7ca90ca2fbfa92136c649"
+    },
+    {
+      "file": "screenshots/frame-0005-t0010-SETUP.png",
+      "gameTick": 10,
+      "wallMs": 1792501546841,
+      "phase": "SETUP",
+      "view": "front",
+      "scenario": "threshold",
+      "fpsObserved": 53,
+      "width": 1280,
+      "height": 720,
+      "origin": [
+        0.5,
+        -60.0,
+        2.5008
+      ],
+      "source": "Minecraft Screenshot.grab framebuffer",
+      "sha256": "b0848af44b8416752aa9d761653e54f2056512af7ade5afb3e9759642e299d50"
+    },
+    {
+      "file": "screenshots/frame-0006-t0012-SETUP.png",
+      "gameTick": 12,
+      "wallMs": 1792501546928,
+      "phase": "SETUP",
+      "view": "front",
+      "scenario": "threshold",
+      "fpsObserved": 53,
+      "width": 1280,
+      "height": 720,
+      "origin": [
+        0.5,
+        -60.0,
+        2.5008
+      ],
+      "source": "Minecraft Screenshot.grab framebuffer",
+      "sha256": "81a9653476d134b3be21173d847161bf3b83b6992f3c131ea4fe07c45910c95d"
+    },
+    {
+      "file": "screenshots/frame-0007-t0014-SETUP.png",
+      "gameTick": 14,
+      "wallMs": 1792501547012,
+      "phase": "SETUP",
+      "view": "front",
+      "scenario": "threshold",
+      "fpsObserved": 53,
+      "width": 1280,
+      "height": 720,
+      "origin": [
+        0.5,
+        -60.0,
+        2.5008
+      ],
+      "source": "Minecraft Screenshot.grab framebuffer",
+      "sha256": "0d12b490f0f78bea4d884019e39353589fa601a0572a4a230e1ae59f3004421c"
+    },
+    {
+      "file": "screenshots/frame-0008-t0016-SETUP.png",
+      "gameTick": 16,
+      "wallMs": 1792501547125,
+      "phase": "SETUP",
+      "view": "front",
+      "scenario": "threshold",
+      "fpsObserved": 61,
+      "width": 1280,
+      "height": 720,
+      "origin": [
+        0.5,
+        -60.0,
+        2.5008
+      ],
+      "source": "Minecraft Screenshot.grab framebuffer",
+      "sha256": "848a6d12da48e6d85bd8a15700170447d6e302c839b2d01fa004bb4f91e729cb"
+    },
+    {
+      "file": "screenshots/frame-0009-t0018-SETUP.png",
+      "gameTick": 18,
+      "wallMs": 1792501547216,
+      "phase": "SETUP",
+      "view": "front",
+      "scenario": "threshold",
+      "fpsObserved": 61,
+      "width": 1280,
+      "height": 720,
+      "origin": [
+        0.5,
+        -60.0,
+        2.5008
+      ],
+      "source": "Minecraft Screenshot.grab framebuffer",
+      "sha256": "801f8e05fad6cc4fa3f408a4a2fba4e4cae144717659ac9e6aceb6e3c159a61c"
+    },
+    {
+      "file": "screenshots/frame-0010-t0020-DRAW.png",
+      "gameTick": 20,
+      "wallMs": 1792501547330,
+      "phase": "DRAW",
+      "view": "side",
+      "scenario": "threshold",
+      "fpsObserved": 61,
+      "width": 1280,
+      "height": 720,
+      "origin": [
+        0.5,
+        -60.0,
+        2.5008
+      ],
+      "source": "Minecraft Screenshot.grab framebuffer",
+      "sha256": "6c801cda8e2995fbb94559082679a5409a04e7b060085ad432e1ffea3fa4fbe8"
+    },
+    {
+      "file": "screenshots/frame-0011-t0022-DRAW.png",
+      "gameTick": 22,
+      "wallMs": 1792501547433,
+      "phase": "DRAW",
+      "view": "side",
+      "scenario": "threshold",
+      "fpsObserved": 61,
+      "width": 1280,
+      "height": 720,
+      "origin": [
+        0.5,
+        -60.0,
+        2.5008
+      ],
+      "source": "Minecraft Screenshot.grab framebuffer",
+      "sha256": "ded7c3139586c8b358ea7d84c5609df7ad402129d8fa0257fc32b6d3c6a58580"
+    },
+    {
+      "file": "screenshots/frame-0012-t0024-DRAW.png",
+      "gameTick": 24,
+      "wallMs": 1792501547520,
+      "phase": "DRAW",
+      "view": "side",
+      "scenario": "threshold",
+      "fpsObserved": 61,
+      "width": 1280,
+      "height": 720,
+      "origin": [
+        0.5,
+        -60.0,
+        2.5008
+      ],
+      "source": "Minecraft Screenshot.grab framebuffer",
+      "sha256": "9718e4cba6493b5fd7ba1581b0c35c14a0c36787043e9a4087cfaa9ea667f01b"
+    },
+    {
+      "file": "screenshots/frame-0013-t0026-DRAW.png",
+      "gameTick": 26,
+      "wallMs": 1792501547615,
+      "phase": "DRAW",
+      "view": "side",
+      "scenario": "threshold",
+      "fpsObserved": 61,
+      "width": 1280,
+      "height": 720,
+      "origin": [
+        0.5,
+        -60.0,
+        2.5008
+      ],
+      "source": "Minecraft Screenshot.grab framebuffer",
+      "sha256": "4456fe9218439842ada25e4a3efb4a676d90dfabb0816f9d5a9d200738520a0d"
+    },
+    {
+      "file": "screenshots/frame-0014-t0028-DRAW.png",
+      "gameTick": 28,
+      "wallMs": 1792501547713,
+      "phase": "DRAW",
+      "view": "side",
+      "scenario": "threshold",
+      "fpsObserved": 61,
+      "width": 1280,
+      "height": 720,
+      "origin": [
+        0.5,
+        -60.0,
+        3.2008
+      ],
+      "source": "Minecraft Screenshot.grab framebuffer",
+      "sha256": "44be9c18d5b2c66b9e0f4b70dc42913cba3524a710a33215d96534e61369b29a"
+    },
+    {
+      "file": "screenshots/frame-0015-t0030-CUT.png",
+      "gameTick": 30,
+      "wallMs": 1792501547811,
+      "phase": "CUT",
+      "view": "side",
+      "scenario": "threshold",
+      "fpsObserved": 61,
+      "width": 1280,
+      "height": 720,
+      "origin": [
+        0.5,
+        -60.0,
+        4.5008
+      ],
+      "source": "Minecraft Screenshot.grab framebuffer",
+      "sha256": "62ef55443ce18dee590fc87a2b7973f4f62d1e92e450709aabd87cf2c51a9804"
+    },
+    {
+      "file": "screenshots/frame-0016-t0032-CUT.png",
+      "gameTick": 32,
+      "wallMs": 1792501547915,
+      "phase": "CUT",
+      "view": "side",
+      "scenario": "threshold",
+      "fpsObserved": 61,
+      "width": 1280,
+      "height": 720,
+      "origin": [
+        0.5,
+        -60.0,
+        4.5008
+      ],
+      "source": "Minecraft Screenshot.grab framebuffer",
+      "sha256": "ffaabd2e7c166d8ff8d0d244dd2039cdcc56159d43577e2200c0f3d33b61487f"
+    },
+    {
+      "file": "screenshots/frame-0017-t0034-CUT.png",
+      "gameTick": 34,
+      "wallMs": 1792501548007,
+      "phase": "CUT",
+      "view": "side",
+      "scenario": "threshold",
+      "fpsObserved": 61,
+      "width": 1280,
+      "height": 720,
+      "origin": [
+        0.5,
+        -60.0,
+        4.5008
+      ],
+      "source": "Minecraft Screenshot.grab framebuffer",
+      "sha256": "2b479ebef8252c057f6fad6def92e61ac4e174f09f3ed7f577a2837397910f33"
+    },
+    {
+      "file": "screenshots/frame-0018-t0036-HOLD.png",
+      "gameTick": 36,
+      "wallMs": 1792501548116,
+      "phase": "HOLD",
+      "view": "side",
+      "scenario": "threshold",
+      "fpsObserved": 76,
+      "width": 1280,
+      "height": 720,
+      "origin": [
+        0.5,
+        -60.0,
+        4.5008
+      ],
+      "source": "Minecraft Screenshot.grab framebuffer",
+      "sha256": "1e4ee9b52c993d1b7f453882ac334e632fda2ffdcecafeac68db3fefafadc0e3"
+    },
+    {
+      "file": "screenshots/frame-0019-t0038-HOLD.png",
+      "gameTick": 38,
+      "wallMs": 1792501548213,
+      "phase": "HOLD",
+      "view": "side",
+      "scenario": "threshold",
+      "fpsObserved": 76,
+      "width": 1280,
+      "height": 720,
+      "origin": [
+        0.5,
+        -60.0,
+        4.5008
+      ],
+      "source": "Minecraft Screenshot.grab framebuffer",
+      "sha256": "bd33fdb17875d75c94b2cba4587f85df8c45c56ac47eb6e11aa9b827b34fe8e6"
+    },
+    {
+      "file": "screenshots/frame-0020-t0040-HOLD.png",
+      "gameTick": 40,
+      "wallMs": 1792501548309,
+      "phase": "HOLD",
+      "view": "side",
+      "scenario": "threshold",
+      "fpsObserved": 76,
+      "width": 1280,
+      "height": 720,
+      "origin": [
+        0.5,
+        -60.0,
+        4.5008
+      ],
+      "source": "Minecraft Screenshot.grab framebuffer",
+      "sha256": "78b71b979a6802c1ec1a724457246e3225aa3e1b137385d0bc6eeef41fc5e418"
+    },
+    {
+      "file": "screenshots/frame-0021-t0042-HOLD.png",
+      "gameTick": 42,
+      "wallMs": 1792501548412,
+      "phase": "HOLD",
+      "view": "side",
+      "scenario": "threshold",
+      "fpsObserved": 76,
+      "width": 1280,
+      "height": 720,
+      "origin": [
+        0.5,
+        -60.0,
+        4.5008
+      ],
+      "source": "Minecraft Screenshot.grab framebuffer",
+      "sha256": "f5fae6a3dcc480f18ce8a675b92fc4f197765d0659901ed53093531277ef8a40"
+    },
+    {
+      "file": "screenshots/frame-0022-t0044-HOLD.png",
+      "gameTick": 44,
+      "wallMs": 1792501548512,
+      "phase": "HOLD",
+      "view": "side",
+      "scenario": "threshold",
+      "fpsObserved": 76,
+      "width": 1280,
+      "height": 720,
+      "origin": [
+        0.5,
+        -60.0,
+        4.5008
+      ],
+      "source": "Minecraft Screenshot.grab framebuffer",
+      "sha256": "a24a6cec4299d2a1ee469f05888735b3f7566b0106b433a6ee1ef0bd4c921312"
+    },
+    {
+      "file": "screenshots/frame-0023-t0046-HOLD.png",
+      "gameTick": 46,
+      "wallMs": 1792501548606,
+      "phase": "HOLD",
+      "view": "side",
+      "scenario": "threshold",
+      "fpsObserved": 76,
+      "width": 1280,
+      "height": 720,
+      "origin": [
+        0.5,
+        -60.0,
+        4.5008
+      ],
+      "source": "Minecraft Screenshot.grab framebuffer",
+      "sha256": "b572568c12587f449b29a0da3e2168f9a75ce27bd6603924941ff02419bc3873"
+    },
+    {
+      "file": "screenshots/frame-0024-t0048-HOLD.png",
+      "gameTick": 48,
+      "wallMs": 1792501548710,
+      "phase": "HOLD",
+      "view": "side",
+      "scenario": "threshold",
+      "fpsObserved": 76,
+      "width": 1280,
+      "height": 720,
+      "origin": [
+        0.5,
+        -60.0,
+        4.5008
+      ],
+      "source": "Minecraft Screenshot.grab framebuffer",
+      "sha256": "fd71700e22d2a60fdba7ab0b45140a13ad59dece10e17f795a7ca7fdac78abd7"
+    },
+    {
+      "file": "screenshots/frame-0025-t0050-HOLD.png",
+      "gameTick": 50,
+      "wallMs": 1792501548809,
+      "phase": "HOLD",
+      "view": "side",
+      "scenario": "threshold",
+      "fpsObserved": 76,
+      "width": 1280,
+      "height": 720,
+      "origin": [
+        0.5,
+        -60.0,
+        4.5008
+      ],
+      "source": "Minecraft Screenshot.grab framebuffer",
+      "sha256": "055dd1d0cbd35f7114caaa5ecd7e8505ed0e327d3d437380303b397dac546fe3"
+    },
+    {
+      "file": "screenshots/frame-0026-t0052-HOLD.png",
+      "gameTick": 52,
+      "wallMs": 1792501548905,
+      "phase": "HOLD",
+      "view": "side",
+      "scenario": "threshold",
+      "fpsObserved": 76,
+      "width": 1280,
+      "height": 720,
+      "origin": [
+        0.5,
+        -60.0,
+        4.5008
+      ],
+      "source": "Minecraft Screenshot.grab framebuffer",
+      "sha256": "e277c414db6a114d75c2f0fd00aee6a53c42ce20cef868d82830a5c288823a61"
+    },
+    {
+      "file": "screenshots/frame-0027-t0054-HOLD.png",
+      "gameTick": 54,
+      "wallMs": 1792501549006,
+      "phase": "HOLD",
+      "view": "side",
+      "scenario": "threshold",
+      "fpsObserved": 76,
+      "width": 1280,
+      "height": 720,
+      "origin": [
+        0.5,
+        -60.0,
+        4.5008
+      ],
+      "source": "Minecraft Screenshot.grab framebuffer",
+      "sha256": "9db33ce99c34a6e7405deee0c668085a14892cb893275f851150ddf3c3000dae"
+    },
+    {
+      "file": "screenshots/frame-0028-t0056-HOLD.png",
+      "gameTick": 56,
+      "wallMs": 1792501549106,
+      "phase": "HOLD",
+      "view": "side",
+      "scenario": "threshold",
+      "fpsObserved": 95,
+      "width": 1280,
+      "height": 720,
+      "origin": [
+        0.5,
+        -60.0,
+        4.5008
+      ],
+      "source": "Minecraft Screenshot.grab framebuffer",
+      "sha256": "9155a343be3633689c3d8c48692ca85b20ef4a071652560dfb998bf0d38217d3"
+    },
+    {
+      "file": "screenshots/frame-0029-t0058-HOLD.png",
+      "gameTick": 58,
+      "wallMs": 1792501549211,
+      "phase": "HOLD",
+      "view": "side",
+      "scenario": "threshold",
+      "fpsObserved": 95,
+      "width": 1280,
+      "height": 720,
+      "origin": [
+        0.5,
+        -60.0,
+        4.5008
+      ],
+      "source": "Minecraft Screenshot.grab framebuffer",
+      "sha256": "c21b1cba9df015af12d7f319b26b4b5432b64557bd39984024cf3f766a13d5fa"
+    },
+    {
+      "file": "screenshots/frame-0030-t0060-HOLD.png",
+      "gameTick": 60,
+      "wallMs": 1792501549312,
+      "phase": "HOLD",
+      "view": "side",
+      "scenario": "threshold",
+      "fpsObserved": 95,
+      "width": 1280,
+      "height": 720,
+      "origin": [
+        0.5,
+        -60.0,
+        4.5008
+      ],
+      "source": "Minecraft Screenshot.grab framebuffer",
+      "sha256": "2c769f51b48e68254e687bdf0913703168deb5427912770a76ec5a57345070a9"
+    },
+    {
+      "file": "screenshots/frame-0031-t0062-HOLD.png",
+      "gameTick": 62,
+      "wallMs": 1792501549412,
+      "phase": "HOLD",
+      "view": "side",
+      "scenario": "threshold",
+      "fpsObserved": 95,
+      "width": 1280,
+      "height": 720,
+      "origin": [
+        0.5,
+        -60.0,
+        4.5008
+      ],
+      "source": "Minecraft Screenshot.grab framebuffer",
+      "sha256": "a22b80fdd058e8665b3064631ca43c07e4fc1b8aabd1db7cfceaa1220ec10925"
+    },
+    {
+      "file": "screenshots/frame-0032-t0064-HOLD.png",
+      "gameTick": 64,
+      "wallMs": 1792501549514,
+      "phase": "HOLD",
+      "view": "side",
+      "scenario": "threshold",
+      "fpsObserved": 95,
+      "width": 1280,
+      "height": 720,
+      "origin": [
+        0.5,
+        -60.0,
+        4.5008
+      ],
+      "source": "Minecraft Screenshot.grab framebuffer",
+      "sha256": "aab4b870ce597d0948b4c1a3649422cf2218aa4d8f4f4fee7d19ade6e17ca258"
+    },
+    {
+      "file": "screenshots/frame-0033-t0066-HOLD.png",
+      "gameTick": 66,
+      "wallMs": 1792501549610,
+      "phase": "HOLD",
+      "view": "side",
+      "scenario": "threshold",
+      "fpsObserved": 95,
+      "width": 1280,
+      "height": 720,
+      "origin": [
+        0.5,
+        -60.0,
+        4.5008
+      ],
+      "source": "Minecraft Screenshot.grab framebuffer",
+      "sha256": "d056edfb337587f6032f65abea61e68a8abd534b18d3d2214a85d26ee85f4df1"
+    },
+    {
+      "file": "screenshots/frame-0034-t0068-HOLD.png",
+      "gameTick": 68,
+      "wallMs": 1792501549706,
+      "phase": "HOLD",
+      "view": "side",
+      "scenario": "threshold",
+      "fpsObserved": 95,
+      "width": 1280,
+      "height": 720,
+      "origin": [
+        0.5,
+        -60.0,
+        4.5008
+      ],
+      "source": "Minecraft Screenshot.grab framebuffer",
+      "sha256": "899e8cf3baa0de5d2a45b3b42f4b0eaae91b5b4621f59917cf4b55a96d4da4c1"
+    },
+    {
+      "file": "screenshots/frame-0035-t0070-HOLD.png",
+      "gameTick": 70,
+      "wallMs": 1792501549810,
+      "phase": "HOLD",
+      "view": "side",
+      "scenario": "threshold",
+      "fpsObserved": 95,
+      "width": 1280,
+      "height": 720,
+      "origin": [
+        0.5,
+        -60.0,
+        4.5008
+      ],
+      "source": "Minecraft Screenshot.grab framebuffer",
+      "sha256": "27131cccffad098cba244ddbf68b1105c18cce211cc7a1da6775819612ed8678"
+    },
+    {
+      "file": "screenshots/frame-0036-t0072-HOLD.png",
+      "gameTick": 72,
+      "wallMs": 1792501549910,
+      "phase": "HOLD",
+      "view": "side",
+      "scenario": "threshold",
+      "fpsObserved": 95,
+      "width": 1280,
+      "height": 720,
+      "origin": [
+        0.5,
+        -60.0,
+        4.5008
+      ],
+      "source": "Minecraft Screenshot.grab framebuffer",
+      "sha256": "373053b84a203116265066b8d85065f5734a6e55ec45877ef7ba0e0ee2bf284c"
+    },
+    {
+      "file": "screenshots/frame-0037-t0074-HOLD.png",
+      "gameTick": 74,
+      "wallMs": 1792501550010,
+      "phase": "HOLD",
+      "view": "side",
+      "scenario": "threshold",
+      "fpsObserved": 95,
+      "width": 1280,
+      "height": 720,
+      "origin": [
+        0.5,
+        -60.0,
+        4.5008
+      ],
+      "source": "Minecraft Screenshot.grab framebuffer",
+      "sha256": "2f5568ccc292866ce4ed38e4bd021e9ce2502a82eff9580f45596ae58a8e46f9"
+    },
+    {
+      "file": "screenshots/frame-0038-t0076-IGNITE.png",
+      "gameTick": 76,
+      "wallMs": 1792501550110,
+      "phase": "IGNITE",
+      "view": "side",
+      "scenario": "threshold",
+      "fpsObserved": 92,
+      "width": 1280,
+      "height": 720,
+      "origin": [
+        0.5,
+        -60.0,
+        4.5008
+      ],
+      "source": "Minecraft Screenshot.grab framebuffer",
+      "sha256": "40659423968f9fbe5a63866072a1124a948e5c3b8d671f1cd2da20a2a0978f72"
+    },
+    {
+      "file": "screenshots/frame-0039-t0078-IGNITE.png",
+      "gameTick": 78,
+      "wallMs": 1792501550209,
+      "phase": "IGNITE",
+      "view": "side",
+      "scenario": "threshold",
+      "fpsObserved": 92,
+      "width": 1280,
+      "height": 720,
+      "origin": [
+        0.5,
+        -60.0,
+        4.5008
+      ],
+      "source": "Minecraft Screenshot.grab framebuffer",
+      "sha256": "055bfc7b4f09534a95f74386494efa5c87f093e0402e20f9cfa6cb62fac3fc20"
+    },
+    {
+      "file": "screenshots/frame-0040-t0080-IGNITE.png",
+      "gameTick": 80,
+      "wallMs": 1792501550315,
+      "phase": "IGNITE",
+      "view": "side",
+      "scenario": "threshold",
+      "fpsObserved": 92,
+      "width": 1280,
+      "height": 720,
+      "origin": [
+        0.5,
+        -60.0,
+        4.5008
+      ],
+      "source": "Minecraft Screenshot.grab framebuffer",
+      "sha256": "a32fb431c5074b787edee0e9a42477a8a4beec6668a47b677badda43a473624d"
+    },
+    {
+      "file": "screenshots/frame-0041-t0082-IGNITE.png",
+      "gameTick": 82,
+      "wallMs": 1792501550411,
+      "phase": "IGNITE",
+      "view": "side",
+      "scenario": "threshold",
+      "fpsObserved": 92,
+      "width": 1280,
+      "height": 720,
+      "origin": [
+        0.5,
+        -60.0,
+        4.5008
+      ],
+      "source": "Minecraft Screenshot.grab framebuffer",
+      "sha256": "c52c13e48fc5b4474dfa59c4113ea42f7f8451c8b2c0172848e6d02f7835ef70"
+    },
+    {
+      "file": "screenshots/frame-0042-t0084-IGNITE.png",
+      "gameTick": 84,
+      "wallMs": 1792501550510,
+      "phase": "IGNITE",
+      "view": "side",
+      "scenario": "threshold",
+      "fpsObserved": 92,
+      "width": 1280,
+      "height": 720,
+      "origin": [
+        0.5,
+        -60.0,
+        4.5008
+      ],
+      "source": "Minecraft Screenshot.grab framebuffer",
+      "sha256": "a08986e4aa25c8a2c0951e7dd11770fed2aba878f7ed4a2741f9770e48cf8b8d"
+    },
+    {
+      "file": "screenshots/frame-0043-t0086-IGNITE.png",
+      "gameTick": 86,
+      "wallMs": 1792501550611,
+      "phase": "IGNITE",
+      "view": "side",
+      "scenario": "threshold",
+      "fpsObserved": 92,
+      "width": 1280,
+      "height": 720,
+      "origin": [
+        0.5,
+        -60.0,
+        4.5008
+      ],
+      "source": "Minecraft Screenshot.grab framebuffer",
+      "sha256": "c77391d001becda608467794644ceec064bd7059eb8118fdb62b14eeebf7a5d2"
+    },
+    {
+      "file": "screenshots/frame-0044-t0088-IGNITE.png",
+      "gameTick": 88,
+      "wallMs": 1792501550709,
+      "phase": "IGNITE",
+      "view": "side",
+      "scenario": "threshold",
+      "fpsObserved": 92,
+      "width": 1280,
+      "height": 720,
+      "origin": [
+        0.5,
+        -60.0,
+        4.5008
+      ],
+      "source": "Minecraft Screenshot.grab framebuffer",
+      "sha256": "6fe6c81c8161bbac6ce764fc730f65b5cc99e10368ab1ba07ba7b2569bf184e8"
+    },
+    {
+      "file": "screenshots/frame-0045-t0090-IGNITE.png",
+      "gameTick": 90,
+      "wallMs": 1792501550813,
+      "phase": "IGNITE",
+      "view": "side",
+      "scenario": "threshold",
+      "fpsObserved": 92,
+      "width": 1280,
+      "height": 720,
+      "origin": [
+        0.5,
+        -60.0,
+        4.5008
+      ],
+      "source": "Minecraft Screenshot.grab framebuffer",
+      "sha256": "8689e5e6e9b30e8fff0008e1c3a49b1921b750fb79c59aff03b063b66a8f8015"
+    },
+    {
+      "file": "screenshots/frame-0046-t0092-ASH.png",
+      "gameTick": 92,
+      "wallMs": 1792501550909,
+      "phase": "ASH",
+      "view": "side",
+      "scenario": "threshold",
+      "fpsObserved": 92,
+      "width": 1280,
+      "height": 720,
+      "origin": [
+        0.5,
+        -60.0,
+        4.5008
+      ],
+      "source": "Minecraft Screenshot.grab framebuffer",
+      "sha256": "51a057b29f56276c4d866a2b15f553dbe696d3cbde71d9ed6291cf2673b55f41"
+    },
+    {
+      "file": "screenshots/frame-0047-t0094-ASH.png",
+      "gameTick": 94,
+      "wallMs": 1792501551011,
+      "phase": "ASH",
+      "view": "side",
+      "scenario": "threshold",
+      "fpsObserved": 92,
+      "width": 1280,
+      "height": 720,
+      "origin": [
+        0.5,
+        -60.0,
+        4.5008
+      ],
+      "source": "Minecraft Screenshot.grab framebuffer",
+      "sha256": "e813624f84451244eadc1b722008ed9abf5695646d016d844e24a658de185f0b"
+    },
+    {
+      "file": "screenshots/frame-0048-t0096-ASH.png",
+      "gameTick": 96,
+      "wallMs": 1792501551113,
+      "phase": "ASH",
+      "view": "side",
+      "scenario": "threshold",
+      "fpsObserved": 89,
+      "width": 1280,
+      "height": 720,
+      "origin": [
+        0.5,
+        -60.0,
+        4.5008
+      ],
+      "source": "Minecraft Screenshot.grab framebuffer",
+      "sha256": "3f37b563314fcb5b7d38493a596128aaca47a93cac0e8282b8ebe13a62ca731f"
+    },
+    {
+      "file": "screenshots/frame-0049-t0098-ASH.png",
+      "gameTick": 98,
+      "wallMs": 1792501551209,
+      "phase": "ASH",
+      "view": "side",
+      "scenario": "threshold",
+      "fpsObserved": 89,
+      "width": 1280,
+      "height": 720,
+      "origin": [
+        0.5,
+        -60.0,
+        4.5008
+      ],
+      "source": "Minecraft Screenshot.grab framebuffer",
+      "sha256": "1e8dab483d93577cd6b45fb6cbbcf6522f3363e009c396b6aff4c05decb2376c"
+    },
+    {
+      "file": "screenshots/frame-0050-t0100-ASH.png",
+      "gameTick": 100,
+      "wallMs": 1792501551310,
+      "phase": "ASH",
+      "view": "side",
+      "scenario": "threshold",
+      "fpsObserved": 89,
+      "width": 1280,
+      "height": 720,
+      "origin": [
+        0.5,
+        -60.0,
+        4.5008
+      ],
+      "source": "Minecraft Screenshot.grab framebuffer",
+      "sha256": "417aa29b53ca6f82d657cd64193b396bc97843afaade521b1fbe9ffb88f1e5cc"
+    },
+    {
+      "file": "screenshots/frame-0051-t0102-ASH.png",
+      "gameTick": 102,
+      "wallMs": 1792501551412,
+      "phase": "ASH",
+      "view": "side",
+      "scenario": "threshold",
+      "fpsObserved": 89,
+      "width": 1280,
+      "height": 720,
+      "origin": [
+        0.5,
+        -60.0,
+        4.5008
+      ],
+      "source": "Minecraft Screenshot.grab framebuffer",
+      "sha256": "dbec5fc1960ce0c1ccdc6e4ccd37980c1814b57affab49b185217f0624857bbd"
+    },
+    {
+      "file": "screenshots/frame-0052-t0104-ASH.png",
+      "gameTick": 104,
+      "wallMs": 1792501551510,
+      "phase": "ASH",
+      "view": "side",
+      "scenario": "threshold",
+      "fpsObserved": 89,
+      "width": 1280,
+      "height": 720,
+      "origin": [
+        0.5,
+        -60.0,
+        4.5008
+      ],
+      "source": "Minecraft Screenshot.grab framebuffer",
+      "sha256": "39fb95a753e6d10618f4508c410011c7c73d6c55f82bf060e89d4ad28faf3e40"
+    },
+    {
+      "file": "screenshots/frame-0053-t0106-ASH.png",
+      "gameTick": 106,
+      "wallMs": 1792501551609,
+      "phase": "ASH",
+      "view": "side",
+      "scenario": "threshold",
+      "fpsObserved": 89,
+      "width": 1280,
+      "height": 720,
+      "origin": [
+        0.5,
+        -60.0,
+        4.5008
+      ],
+      "source": "Minecraft Screenshot.grab framebuffer",
+      "sha256": "e5c80a38a7cabebaa628268a2e1c57abf7e6c81979fe2a60f348944cf8fa81ca"
+    },
+    {
+      "file": "screenshots/frame-0054-t0108-RETURN.png",
+      "gameTick": 108,
+      "wallMs": 1792501551728,
+      "phase": "RETURN",
+      "view": "front",
+      "scenario": "threshold",
+      "fpsObserved": 89,
+      "width": 1280,
+      "height": 720,
+      "origin": [
+        0.5,
+        -60.0,
+        4.5008
+      ],
+      "source": "Minecraft Screenshot.grab framebuffer",
+      "sha256": "a6a3257a883d586b1a86d1dff9b638ff7aaf349d2ec17290238ce7810556a406"
+    },
+    {
+      "file": "screenshots/frame-0055-t0110-RETURN.png",
+      "gameTick": 110,
+      "wallMs": 1792501551814,
+      "phase": "RETURN",
+      "view": "front",
+      "scenario": "threshold",
+      "fpsObserved": 89,
+      "width": 1280,
+      "height": 720,
+      "origin": [
+        0.5,
+        -60.0,
+        4.5008
+      ],
+      "source": "Minecraft Screenshot.grab framebuffer",
+      "sha256": "d0771c7eeca0ae3c4c5875deed63a7dd94bf109a77e6504b99d63f1013cc2efc"
+    },
+    {
+      "file": "screenshots/frame-0056-t0112-RETURN.png",
+      "gameTick": 112,
+      "wallMs": 1792501551918,
+      "phase": "RETURN",
+      "view": "front",
+      "scenario": "threshold",
+      "fpsObserved": 89,
+      "width": 1280,
+      "height": 720,
+      "origin": [
+        0.5,
+        -60.0,
+        4.5008
+      ],
+      "source": "Minecraft Screenshot.grab framebuffer",
+      "sha256": "5e3717a38d70699ac2347fcb9ef95be55a3c3cb69b0d8ffae08af6ca31e116a4"
+    },
+    {
+      "file": "screenshots/frame-0057-t0114-RETURN.png",
+      "gameTick": 114,
+      "wallMs": 1792501552025,
+      "phase": "RETURN",
+      "view": "front",
+      "scenario": "threshold",
+      "fpsObserved": 89,
+      "width": 1280,
+      "height": 720,
+      "origin": [
+        0.5,
+        -60.0,
+        4.5008
+      ],
+      "source": "Minecraft Screenshot.grab framebuffer",
+      "sha256": "a2b91ebab210a96b0f5b1dbc5317072174ad67aa85bbff2ec681c3300bddc057"
+    },
+    {
+      "file": "screenshots/frame-0058-t0116-RETURN.png",
+      "gameTick": 116,
+      "wallMs": 1792501552119,
+      "phase": "RETURN",
+      "view": "front",
+      "scenario": "threshold",
+      "fpsObserved": 80,
+      "width": 1280,
+      "height": 720,
+      "origin": [
+        0.5,
+        -60.0,
+        4.5008
+      ],
+      "source": "Minecraft Screenshot.grab framebuffer",
+      "sha256": "d99eb618f14d15825aa7cfcbdbffe1b32a0f0a3c601d54f3c602c8116cd7eb8a"
+    },
+    {
+      "file": "screenshots/frame-0059-t0118-RETURN.png",
+      "gameTick": 118,
+      "wallMs": 1792501552219,
+      "phase": "RETURN",
+      "view": "front",
+      "scenario": "threshold",
+      "fpsObserved": 80,
+      "width": 1280,
+      "height": 720,
+      "origin": [
+        0.5,
+        -60.0,
+        4.5008
+      ],
+      "source": "Minecraft Screenshot.grab framebuffer",
+      "sha256": "eba875225ba7af939002b5730debf3c08143330144ee76abacdbef744c11a148"
+    },
+    {
+      "file": "screenshots/frame-0060-t0120-RETURN.png",
+      "gameTick": 120,
+      "wallMs": 1792501552308,
+      "phase": "RETURN",
+      "view": "front",
+      "scenario": "threshold",
+      "fpsObserved": 80,
+      "width": 1280,
+      "height": 720,
+      "origin": [
+        0.5,
+        -60.0,
+        4.5008
+      ],
+      "source": "Minecraft Screenshot.grab framebuffer",
+      "sha256": "803015e15be5bfcb9b70c36c4cddcd7726ea2d0c84c69baaa472707fe9ffd171"
+    },
+    {
+      "file": "screenshots/frame-0061-t0122-RETURN.png",
+      "gameTick": 122,
+      "wallMs": 1792501552412,
+      "phase": "RETURN",
+      "view": "front",
+      "scenario": "threshold",
+      "fpsObserved": 80,
+      "width": 1280,
+      "height": 720,
+      "origin": [
+        0.5,
+        -60.0,
+        4.5008
+      ],
+      "source": "Minecraft Screenshot.grab framebuffer",
+      "sha256": "f604c21d54f039b09f333a342396a2c6c5d4ff040c28e3fe5f5db00b935794d3"
+    },
+    {
+      "file": "screenshots/frame-0062-t0124-RETURN.png",
+      "gameTick": 124,
+      "wallMs": 1792501552521,
+      "phase": "RETURN",
+      "view": "front",
+      "scenario": "threshold",
+      "fpsObserved": 80,
+      "width": 1280,
+      "height": 720,
+      "origin": [
+        0.5,
+        -60.0,
+        4.5008
+      ],
+      "source": "Minecraft Screenshot.grab framebuffer",
+      "sha256": "1ee6bb23b97433dedb3be310de8a82c040a7897a66df07aa029e124fab4d67ef"
+    },
+    {
+      "file": "screenshots/frame-0063-t0126-RETURN.png",
+      "gameTick": 126,
+      "wallMs": 1792501552621,
+      "phase": "RETURN",
+      "view": "front",
+      "scenario": "threshold",
+      "fpsObserved": 80,
+      "width": 1280,
+      "height": 720,
+      "origin": [
+        0.5,
+        -60.0,
+        4.5008
+      ],
+      "source": "Minecraft Screenshot.grab framebuffer",
+      "sha256": "3bed83b3bad94f55caf774d7979f6204571aa4cf53c5bba0b6c44c17f2b6128c"
+    },
+    {
+      "file": "screenshots/frame-0064-t0128-RETURN.png",
+      "gameTick": 128,
+      "wallMs": 1792501552709,
+      "phase": "RETURN",
+      "view": "front",
+      "scenario": "threshold",
+      "fpsObserved": 80,
+      "width": 1280,
+      "height": 720,
+      "origin": [
+        0.5,
+        -60.0,
+        4.5008
+      ],
+      "source": "Minecraft Screenshot.grab framebuffer",
+      "sha256": "b473319a56c445460c0918476633364a28cbbc4cd96c562ddc35ab52a0a77ef2"
+    },
+    {
+      "file": "screenshots/frame-0065-t0130-RETURN.png",
+      "gameTick": 130,
+      "wallMs": 1792501552816,
+      "phase": "RETURN",
+      "view": "front",
+      "scenario": "threshold",
+      "fpsObserved": 80,
+      "width": 1280,
+      "height": 720,
+      "origin": [
+        0.5,
+        -60.0,
+        4.5008
+      ],
+      "source": "Minecraft Screenshot.grab framebuffer",
+      "sha256": "b024b473e40aed6c404780821edd634424f092d28f6789fb21165f11ad468599"
+    }
+  ],
+  "selectedTicks": [
+    28,
+    32,
+    36,
+    60,
+    74,
+    80,
+    98,
+    112
+  ],
+  "sampledVideo": {
+    "status": "created",
+    "exitCode": 0,
+    "command": [
+      "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\build\\benihime-qa-71\\python-tools\\imageio_ffmpeg\\binaries\\ffmpeg-win-x86_64-v7.1.exe",
+      "-hide_banner",
+      "-nostdin",
+      "-n",
+      "-f",
+      "concat",
+      "-safe",
+      "0",
+      "-i",
+      "frames-concat.txt",
+      "-an",
+      "-c:v",
+      "libx264",
+      "-preset",
+      "ultrafast",
+      "-crf",
+      "22",
+      "-pix_fmt",
+      "yuv420p",
+      "-fps_mode",
+      "vfr",
+      "-enc_time_base",
+      "1:1000",
+      "-video_track_timescale",
+      "1000",
+      "-movflags",
+      "+faststart",
+      "minecraft-sampled-evidence.mp4"
+    ],
+    "timing": "VFR using original wallMs, no interpolation",
+    "audio": false,
+    "limitation": "Sampled framebuffer screenshots do not prove every rendered frame or full smoothness."
+  },
+  "notes": "Camera enum preserved exactly as emitted, including FIRST_PERSON/THIRD_PERSON_BACK. No source PNG or JSON rewritten."
+}

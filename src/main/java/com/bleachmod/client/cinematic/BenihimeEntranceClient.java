@@ -115,7 +115,8 @@ public final class BenihimeEntranceClient {
             var s=entry.getValue();if(mc.player.distanceToSqr(s.anchor)>96*96)continue;
             var origin=s.anchor.subtract(e.getCamera().getPosition());var forward=s.forward;boolean idle=following(s);
             if(idle){double now=benchTicks+e.getPartialTick();if(benchFollow==null){benchFollow=new com.bleachmod.common.visual.BenihimeFollowMotion.Pose(s.anchor,(float)Math.toDegrees(Math.atan2(-s.forward.x,s.forward.z)));followTime=now;}benchFollow=com.bleachmod.common.visual.BenihimeFollowMotion.advance(benchFollow,mc.player.getPosition(e.getPartialTick()),mc.player.getYRot(),now-followTime);followTime=now;origin=benchFollow.anchor().subtract(e.getCamera().getPosition());forward=benchFollow.forward();}
-            var geometry=idle?BenihimeEntranceGeometry.buildIdle(origin,forward,age(s,e.getPartialTick())-560,0):BenihimeEntranceGeometry.build(origin,forward,Math.min(560,age(s,e.getPartialTick())));
+            var ground=BenihimeTerrain.sample(origin.add(e.getCamera().getPosition()),forward);
+            var geometry=idle?BenihimeEntranceGeometry.buildIdle(origin,forward,age(s,e.getPartialTick())-560,0,ground):BenihimeEntranceGeometry.build(origin,forward,Math.min(560,age(s,e.getPartialTick())),ground);
             for(var q:geometry)for(var v:List.of(q.a(),q.b(),q.c(),q.d())){
                 int c=q.color();vertices.vertex(matrix,(float)v.x,(float)v.y,(float)v.z).color(c>>>24,(c>>>16)&255,(c>>>8)&255,c&255).endVertex();
             }
@@ -185,7 +186,7 @@ public final class BenihimeEntranceClient {
         if(local().bench)g.drawString(Minecraft.getInstance().font,"BENIHIME QA / CLIENTE FORGE REAL / tick "+(int)age(local(),e.getPartialTick())+" / "+angle,8,5,0xffffff,false);
         double t=age(local(),e.getPartialTick());
         if(t>28&&t<65)g.drawCenteredString(Minecraft.getInstance().font,"Bankai",g.guiWidth()/2,g.guiHeight()-h-22,0xeee2df);
-        if(t>460&&t<520)g.drawCenteredString(Minecraft.getInstance().font,"Kannonbiraki Benihime Aratame",g.guiWidth()/2,g.guiHeight()-h-22,0xeee2df);
+        if(t>461&&t<545)g.drawCenteredString(Minecraft.getInstance().font,"Kannonbiraki Benihime Aratame",g.guiWidth()/2,g.guiHeight()-h-22,0xeee2df);
     }
     private static final class Body implements IAnimation{
         final AbstractClientPlayer player;Body(AbstractClientPlayer p){player=p;}

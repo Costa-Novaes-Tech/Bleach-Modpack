@@ -20,12 +20,13 @@ public final class BenihimeAudioGameTests {
             h.assertTrue(cue.tick>previous&&cue.tick<560,"Audio cue order escapes entrance timeline");previous=cue.tick;
             h.assertTrue(net.minecraftforge.registries.ForgeRegistries.SOUND_EVENTS.containsKey(Reference.id(cue.event)),"Unregistered sound event "+cue.event);
         }
-        for(String asset:new String[]{"benihime_entrance","benihime_voice_bankai","benihime_voice_name","benihime_curtain","benihime_reveal","benihime_threads"}){
+        for(String asset:new String[]{"benihime_entrance","benihime_invocation_mix","benihime_voice_bankai","benihime_voice_name","benihime_curtain","benihime_reveal","benihime_threads"}){
             try(var input=BenihimeAudioGameTests.class.getResourceAsStream("/assets/bleachmod/sounds/"+asset+".ogg")){
                 h.assertTrue(input!=null&&new String(input.readNBytes(4),java.nio.charset.StandardCharsets.US_ASCII).equals("OggS"),"Missing/invalid OGG "+asset);
             }catch(java.io.IOException failure){throw new IllegalStateException(failure);}
         }
         h.assertTrue(BenihimeAudioGameTests.class.getResource("/META-INF/licenses/benihime-voice.txt")!=null,"Voice attribution missing from packaged resources");
+        h.assertTrue(BenihimeAudioGameTests.class.getResource("/META-INF/licenses/benihime-user-audio.txt")!=null,"User audio provenance missing");
         h.succeed();
     }
 }

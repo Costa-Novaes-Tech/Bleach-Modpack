@@ -1,5 +1,7 @@
 # Ciclo 61 — roadmap revisto e próximas entregas
 
+> **Atualização de 20/10/2026 — [ciclo 70 — roadmap e revisão da entrada Benihime](70-roadmap-revisao-benihime-audio-2026-10-20.md):** seleção de vozes/efeitos a cargo do usuário; áudio atual provisório. Revisão da animação e das pendências da entrada antes de Higashi, Investida/Rajada e demais técnicas Benihime. Somente planejamento/documentação nesta rodada. Consulte o ciclo 70 para o estado atual; resultados e propostas abaixo conservam o contexto histórico da entrega.
+
 > **Ciclo 63 — 19/10:** [integração da main e engenharia reversa Zaraki](63-integracao-main-zaraki-aparencia-historia-2026-10-19.md). Código Zaraki, História e aparência já estão na main `611f8a6`; a feature incorpora esse estado e concilia conflitos com os kits/animações atuais. Próximos passos: validar o conjunto em cliente e iterar a apresentação Higashi/Photon. Ishida continua próximo kit, Mentor/Proficiências aguardam equipe.
 
 > **Atualização ciclo 62:** [câmera Higashi e piloto Photon/LDLib](62-higashi-camera-dirigida-piloto-photon-2026-10-18.md). Bancada antecipada por pedido explícito enquanto se analisa o vídeo do ciclo 60; sete JARs apenas no pacote experimental, base com cinco. A biblioteca já foi compilada/carregada no perfil de teste; cliente/editor e erros recuperados de dist no dedicado permanecem por validar. Integração Zaraki ainda não realizada, demais prioridades preservadas.

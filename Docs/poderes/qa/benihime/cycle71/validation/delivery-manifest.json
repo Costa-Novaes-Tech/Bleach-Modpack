@@ -1,0 +1,235 @@
+{
+  "date": "2026-10-20",
+  "branch": "Feature-Poderes-bankais",
+  "head": "e967748d42e3e76a78d74889b70e7aadcb49bcfc",
+  "networkProtocol": "2.28",
+  "schema": 9,
+  "baseline": {
+    "regressions": 126,
+    "gameTests": 148
+  },
+  "finalBase": {
+    "regressions": 127,
+    "gameTests": 151,
+    "exit": 0,
+    "elapsed": "1m41s"
+  },
+  "finalPhoton": {
+    "regressions": 127,
+    "gameTests": 151,
+    "exit": 0,
+    "elapsed": "1m32s"
+  },
+  "jarSha256": "0ccc8095d77229bc4653de6014a35eac5fe6ebc2bc38484e1823fb82e9b32705",
+  "packages": [
+    {
+      "directory": "build/combat-test-pack/mods",
+      "jars": [
+        {
+          "name": "better-combat-1.9.0+1.20.1-forge.jar",
+          "bytes": 1054339,
+          "sha256": "49c69dccf2c641246b4e3deca81ebac21f0ee119e81fc713b838b8e33569eea1"
+        },
+        {
+          "name": "bleachmod-0.2.0.jar",
+          "bytes": 15186769,
+          "sha256": "0ccc8095d77229bc4653de6014a35eac5fe6ebc2bc38484e1823fb82e9b32705"
+        },
+        {
+          "name": "cloth-config-11.1.136+forge.jar",
+          "bytes": 1181413,
+          "sha256": "1e895e85cf5b1e1905ef3178ec155c8badfe22a1577b92c09143a5aa1f4ce0f2"
+        },
+        {
+          "name": "geckolib-aC5KMoNg.jar",
+          "bytes": 1038209,
+          "sha256": "4518779a31b6c2abb92c98b5ad17ef3d60177df68626bfc86c44de2764913c2b"
+        },
+        {
+          "name": "playeranimator-1.0.2-rc1+1.20-forge.jar",
+          "bytes": 181437,
+          "sha256": "90d9965cb9efdbda29fdc5610be3914cf7008bf5c392ff34f7ab25f96a852691"
+        }
+      ]
+    },
+    {
+      "directory": "build/photon-test-pack/mods",
+      "jars": [
+        {
+          "name": "better-combat-1.9.0+1.20.1-forge.jar",
+          "bytes": 1054339,
+          "sha256": "49c69dccf2c641246b4e3deca81ebac21f0ee119e81fc713b838b8e33569eea1"
+        },
+        {
+          "name": "bleachmod-0.2.0.jar",
+          "bytes": 15186769,
+          "sha256": "0ccc8095d77229bc4653de6014a35eac5fe6ebc2bc38484e1823fb82e9b32705"
+        },
+        {
+          "name": "cloth-config-11.1.136+forge.jar",
+          "bytes": 1181413,
+          "sha256": "1e895e85cf5b1e1905ef3178ec155c8badfe22a1577b92c09143a5aa1f4ce0f2"
+        },
+        {
+          "name": "geckolib-aC5KMoNg.jar",
+          "bytes": 1038209,
+          "sha256": "4518779a31b6c2abb92c98b5ad17ef3d60177df68626bfc86c44de2764913c2b"
+        },
+        {
+          "name": "ldlib-ONxYJpRz.jar",
+          "bytes": 3088005,
+          "sha256": "b6cc3420f05bbfa9f5dec6782307cf556722697561cbc3faa494bd15b1d79fb5"
+        },
+        {
+          "name": "photon-editor-a7chTVuf.jar",
+          "bytes": 5078005,
+          "sha256": "3bd09a759744e9e3b3e7315eaafa9dcd27945ef13331148e8b8169950560e5fb"
+        },
+        {
+          "name": "playeranimator-1.0.2-rc1+1.20-forge.jar",
+          "bytes": 181437,
+          "sha256": "90d9965cb9efdbda29fdc5610be3914cf7008bf5c392ff34f7ab25f96a852691"
+        }
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "path": "build.gradle",
+      "sha256": "e16e430189d321cfb5c787497d4ee657a60a3eb350663c7246ac082afb9a3daf"
+    },
+    {
+      "path": "src/main/java/com/bleachmod/Reference.java",
+      "sha256": "f2313714b2c81061707c8933529c89ff0761d3363fc27f8059829e2d0f6e4304"
+    },
+    {
+      "path": "src/main/java/com/bleachmod/client/cinematic/BenihimeEntranceAudio.java",
+      "sha256": "7c6aa5873c732df1327bafc323ab8319a870fff96cb00e249bf8476961e90e2c"
+    },
+    {
+      "path": "src/main/java/com/bleachmod/client/cinematic/BenihimeEntranceClient.java",
+      "sha256": "6819bd4d481956c5fea0ccc3502becfb3cd4faceb4b94c02300ae2e3dbd7cadb"
+    },
+    {
+      "path": "src/main/java/com/bleachmod/client/cinematic/BenihimeQaBootstrap.java",
+      "sha256": "6c3c0eb7e86f991492014b9abfb9d3a25f63948e9b7dd28219fe98aea1b61948"
+    },
+    {
+      "path": "src/main/java/com/bleachmod/client/model/HigashiExecutionVisuals.java",
+      "sha256": "da42fd87ead218842ae4228610f580d21dd374228ad13eb8559b3d8037c46240"
+    },
+    {
+      "path": "src/main/java/com/bleachmod/client/model/RyujinActionVisuals.java",
+      "sha256": "3f2052d61ea0d0931713cb781443404a16dcf6d5708cca6d171131afd1b0d68a"
+    },
+    {
+      "path": "src/main/java/com/bleachmod/client/particle/BenihimeRenderer.java",
+      "sha256": "e4c06b82df664f2a408c227824664a013cdd0296fd3f004214f163b9d020da85"
+    },
+    {
+      "path": "src/main/java/com/bleachmod/common/technique/ElementalTechniqueService.java",
+      "sha256": "86abaad217546bb1dfa6baf09fc82df6694649ec523cabb5d48068f2c02182ce"
+    },
+    {
+      "path": "src/main/java/com/bleachmod/common/technique/HigashiExecutionService.java",
+      "sha256": "39bf85fc706552d6af1fc896f0d323b7aa9429d3d3ef55cd8330f3b0548aeaf7"
+    },
+    {
+      "path": "src/main/java/com/bleachmod/common/visual/BenihimeAudioTimeline.java",
+      "sha256": "0eda39d36cc0f6d94e8fdb86359566027926ddbf8a5f4382a1b02d03e727fa51"
+    },
+    {
+      "path": "src/main/java/com/bleachmod/common/visual/BenihimeEntranceGeometry.java",
+      "sha256": "81f54c5cf3236cb7504834ba325f0ee4a0edc6c879bc426a9bac9a8d5c38966a"
+    },
+    {
+      "path": "src/main/java/com/bleachmod/common/visual/HigashiCinematicPath.java",
+      "sha256": "b10cc787e30106747586a52a0798eed1aeb9adf30d16a0d682d4863424d9540a"
+    },
+    {
+      "path": "src/main/java/com/bleachmod/common/visual/RyujinChoreography.java",
+      "sha256": "51da61eb0e3f753f214ea4610bea07e28653aaac8a682004a8fe47dffd3cb4d7"
+    },
+    {
+      "path": "src/main/java/com/bleachmod/gametest/BenihimeAudioGameTests.java",
+      "sha256": "2e78c11a60019834c3b5da1e786e5104e4d5b4648737d8b17efd27e8049b0590"
+    },
+    {
+      "path": "src/main/java/com/bleachmod/gametest/BenihimeEntranceGameTests.java",
+      "sha256": "5e0a24042c10a17ec11f482f35b14d0e1a2998e508f6ba3d315860d6d06ba6ca"
+    },
+    {
+      "path": "src/main/java/com/bleachmod/gametest/HigashiExecutionGameTests.java",
+      "sha256": "924870bfac67e43bf2b4441140b6bff44987fcafe751f27af82b6c3ca6551efb"
+    },
+    {
+      "path": "src/main/java/com/bleachmod/init/ModSounds.java",
+      "sha256": "dbac3cd7b03bdc7e843573acc68dd552c50d28484a19b2bb683fc3570fa70788"
+    },
+    {
+      "path": "src/main/resources/assets/bleachmod/sounds.json",
+      "sha256": "47e16935d3f1ba84e5a9c9fea0dec91f82d3631d0972db7ecf20df55e982dd84"
+    },
+    {
+      "path": "src/main/resources/assets/bleachmod/sounds/benihime_voice_bankai.ogg",
+      "sha256": "f3e8b6344ac190ee493cc0917d6163a2c3e1e3780a9612eabd266a2eaf453e5a"
+    },
+    {
+      "path": "src/main/resources/assets/bleachmod/sounds/benihime_voice_name.ogg",
+      "sha256": "ca293962ebd99102c9bd07c5185594656cfb67a3120d49edc6f8e0ec7f4b5c92"
+    },
+    {
+      "path": "src/main/resources/bleachmod.mixins.json",
+      "sha256": "6d01d3fec27c28fcbf71d8e83f871b59f7873d15c4a7803dfeadf2475b667458"
+    },
+    {
+      "path": "src/test/java/com/bleachmod/MvpRegressionTest.java",
+      "sha256": "474728dfbfa6032b6d52698d021df4d495d5cd556b0958bc053b34b963a7bdc1"
+    },
+    {
+      "path": "tools/models/benihime_entrance.py",
+      "sha256": "f861ac185779ec9b37bbf461de81559560ce9fb59c1c0b311653fdbc94937cd0"
+    },
+    {
+      "path": "tools/models/source/benihime_entrance.bbmodel",
+      "sha256": "b5ec5ea9aec80f680d4f66bfe327ec79c9a955b36f4420229ab88020c928b098"
+    },
+    {
+      "path": "src/main/java/com/bleachmod/client/cinematic/BenihimeTerrain.java",
+      "sha256": "97f114ce53a82c9003e16a4a0c51fde314c83192ec28d3d8e2c41817d15ff3fa"
+    },
+    {
+      "path": "src/main/java/com/bleachmod/client/cinematic/CinematicQaCommands.java",
+      "sha256": "3a8979f002398a173b5245066b493b9d89e74b0e012dc9dfd0de504589258836"
+    },
+    {
+      "path": "src/main/java/com/bleachmod/client/cinematic/CinematicQaSequence.java",
+      "sha256": "0bde251b2cbf291042c8a83b6c17405bdf2af1bddfe54eb08253afdf66baf60b"
+    },
+    {
+      "path": "src/main/java/com/bleachmod/mixin/client/HigashiDeathParticleMixin.java",
+      "sha256": "1f0f7d1f7eb64b2cef002ed20b7c7d6886dfc11767290f368e1ea9bb21fc58c4"
+    },
+    {
+      "path": "src/main/resources/assets/bleachmod/sounds/benihime_invocation_mix.ogg",
+      "sha256": "5f1a17b1ce0e02d49c14b6f9765c9a4170ea5edb0a29958b8a872d0882f224cb"
+    },
+    {
+      "path": "tools/audio/import_benihime_user_audio.py",
+      "sha256": "49f788dda6fd5adf908aec064ad1e9f3fec758790a839ace330af1113c034caf"
+    }
+  ],
+  "tool": {
+    "package": "imageio-ffmpeg==0.6.0",
+    "version": "FFmpeg7.1",
+    "sha256": "2ce797a0f88d7f067180338fb227f7b1928ea727bd9a4d7a1d022f7c52af71a3",
+    "scope": "build only"
+  },
+  "limits": [
+    "Visual QA base only; Photon graphics/editor pending",
+    "No audio loopback/human listening certification",
+    "Two real clients/dedicated multiplayer pending",
+    "Sampled silent videos, not continuous capture"
+  ],
+  "rootLogs": "Generated logs preserved in build/benihime-qa-71/generated-root-logs; tracked root logs restored to clean initial HEAD bytes"
+}

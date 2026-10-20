@@ -1,0 +1,80 @@
+Input #0, concat, from 'frames-concat.txt':
+  Duration: N/A, start: 0.000000, bitrate: N/A
+  Stream #0:0: Video: png, rgba(pc, gbr/unknown/unknown), 1280x720, 1k fps, 1k tbr, 1k tbn
+Stream mapping:
+  Stream #0:0 -> #0:0 (png (native) -> h264 (libx264))
+[libx264 @ 000001928580bf80] using cpu capabilities: MMX2 SSE2Fast SSSE3 SSE4.2 AVX FMA3 BMI2 AVX2
+[libx264 @ 000001928580bf80] profile High, level 6.0, 4:2:0, 8-bit
+[libx264 @ 000001928580bf80] 264 - core 164 r3192 c24e06c - H.264/MPEG-4 AVC codec - Copyleft 2003-2024 - http://www.videolan.org/x264.html - options: cabac=1 ref=3 deblock=1:0:0 analyse=0x3:0x113 me=hex subme=7 psy=1 psy_rd=1.00:0.00 mixed_ref=1 me_range=16 chroma_me=1 trellis=1 8x8dct=1 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=-2 threads=18 lookahead_threads=3 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=3 b_pyramid=2 b_adapt=1 b_bias=0 direct=1 weightb=1 open_gop=0 weightp=2 keyint=250 keyint_min=25 scenecut=40 intra_refresh=0 rc_lookahead=40 rc=crf mbtree=1 crf=23.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 ip_ratio=1.40 aq=1:1.00
+Output #0, mp4, to 'minecraft-sampled-evidence.mp4':
+  Metadata:
+    encoder         : Lavf61.7.100
+  Stream #0:0: Video: h264 (avc1 / 0x31637661), yuv420p(tv, progressive), 1280x720, q=2-31, 1k fps, 1k tbn
+      Metadata:
+        encoder         : Lavc61.19.100 libx264
+      Side data:
+        cpb: bitrate max/min/avg: 0/0/0 buffer size: 0 vbv_delay: N/A
+frame=    0 fps=0.0 q=0.0 size=       0KiB time=N/A bitrate=N/A speed=N/A    
+frame=    0 fps=0.0 q=0.0 size=       0KiB time=N/A bitrate=N/A speed=N/A    
+frame=    0 fps=0.0 q=0.0 size=       0KiB time=N/A bitrate=N/A speed=N/A    
+frame=    0 fps=0.0 q=0.0 size=       0KiB time=N/A bitrate=N/A speed=N/A    
+frame=    0 fps=0.0 q=0.0 size=       0KiB time=N/A bitrate=N/A speed=N/A    
+frame=    2 fps=0.6 q=25.0 size=       0KiB time=-00:00:00.07 bitrate=N/A speed=N/A    
+frame=   11 fps=2.7 q=25.0 size=       0KiB time=00:00:00.77 bitrate=   0.5kbits/s speed=0.189x    
+frame=   20 fps=4.3 q=26.0 size=       0KiB time=00:00:01.67 bitrate=   0.2kbits/s speed=0.361x    
+frame=   30 fps=5.8 q=25.0 size=       0KiB time=00:00:02.68 bitrate=   0.1kbits/s speed=0.521x    
+frame=   38 fps=6.7 q=25.0 size=       0KiB time=00:00:03.49 bitrate=   0.1kbits/s speed=0.617x    
+frame=   49 fps=7.9 q=25.0 size=       0KiB time=00:00:04.58 bitrate=   0.1kbits/s speed=0.741x    
+frame=   59 fps=8.8 q=25.0 size=       0KiB time=00:00:05.58 bitrate=   0.1kbits/s speed=0.834x    
+frame=   67 fps=9.3 q=25.0 size=       0KiB time=00:00:06.37 bitrate=   0.1kbits/s speed=0.883x    
+frame=   76 fps=9.8 q=25.0 size=       0KiB time=00:00:07.28 bitrate=   0.1kbits/s speed=0.943x    
+frame=   84 fps= 10 q=25.0 size=       0KiB time=00:00:08.08 bitrate=   0.0kbits/s speed=0.981x    
+frame=   89 fps= 10 q=25.0 size=       0KiB time=00:00:08.58 bitrate=   0.0kbits/s speed=0.979x    
+frame=   94 fps= 10 q=25.0 size=       0KiB time=00:00:09.07 bitrate=   0.0kbits/s speed=0.977x    
+frame=   99 fps= 10 q=25.0 size=       0KiB time=00:00:09.65 bitrate=   0.0kbits/s speed=0.983x    
+frame=  104 fps= 10 q=25.0 size=       0KiB time=00:00:10.06 bitrate=   0.0kbits/s speed=0.973x    
+frame=  108 fps=9.8 q=25.0 size=       0KiB time=00:00:10.46 bitrate=   0.0kbits/s speed=0.948x    
+frame=  111 fps=9.6 q=25.0 size=       0KiB time=00:00:10.76 bitrate=   0.0kbits/s speed=0.932x    
+frame=  115 fps=9.5 q=25.0 size=       0KiB time=00:00:11.17 bitrate=   0.0kbits/s speed=0.926x    
+frame=  120 fps=9.5 q=25.0 size=       0KiB time=00:00:11.66 bitrate=   0.0kbits/s speed=0.927x    
+frame=  124 fps=9.5 q=25.0 size=       0KiB time=00:00:12.05 bitrate=   0.0kbits/s speed=0.92x    
+frame=  130 fps=9.5 q=25.0 size=     256KiB time=00:00:12.65 bitrate= 165.7kbits/s speed=0.929x    
+frame=  138 fps=9.8 q=25.0 size=     256KiB time=00:00:13.47 bitrate= 155.7kbits/s speed=0.953x    
+frame=  146 fps= 10 q=25.0 size=     256KiB time=00:00:14.26 bitrate= 147.0kbits/s speed=0.974x    
+frame=  157 fps= 10 q=25.0 size=     256KiB time=00:00:15.36 bitrate= 136.5kbits/s speed=1.01x    
+frame=  166 fps= 11 q=26.0 size=     256KiB time=00:00:16.28 bitrate= 128.8kbits/s speed=1.04x    
+frame=  177 fps= 11 q=25.0 size=     256KiB time=00:00:17.39 bitrate= 120.6kbits/s speed=1.07x    
+frame=  182 fps= 11 q=25.0 size=     256KiB time=00:00:17.86 bitrate= 117.4kbits/s speed=1.07x    
+frame=  185 fps= 11 q=25.0 size=     512KiB time=00:00:18.16 bitrate= 231.0kbits/s speed=1.05x    
+frame=  190 fps= 11 q=25.0 size=     512KiB time=00:00:18.67 bitrate= 224.7kbits/s speed=1.05x    
+frame=  193 fps= 11 q=26.0 size=     512KiB time=00:00:18.97 bitrate= 221.0kbits/s speed=1.04x    
+frame=  198 fps= 10 q=26.0 size=     512KiB time=00:00:19.46 bitrate= 215.5kbits/s speed=1.03x    
+frame=  201 fps= 10 q=25.0 size=     768KiB time=00:00:19.76 bitrate= 318.4kbits/s speed=1.02x    
+frame=  204 fps= 10 q=25.0 size=     768KiB time=00:00:20.07 bitrate= 313.5kbits/s speed=1.01x    
+frame=  207 fps= 10 q=25.0 size=     768KiB time=00:00:20.35 bitrate= 309.0kbits/s speed=0.994x    
+frame=  211 fps= 10 q=25.0 size=     768KiB time=00:00:20.76 bitrate= 303.0kbits/s speed=0.988x    
+frame=  230 fps= 11 q=25.0 size=    1024KiB time=00:00:22.76 bitrate= 368.6kbits/s speed=1.06x    
+frame=  253 fps= 11 q=25.0 size=    1280KiB time=00:00:24.96 bitrate= 420.1kbits/s speed=1.13x    
+frame=  279 fps= 12 q=-1.0 size=    1280KiB time=00:00:27.56 bitrate= 380.4kbits/s speed=1.22x    
+frame=  284 fps= 12 q=-1.0 size=    1536KiB time=00:00:30.25 bitrate= 415.9kbits/s speed=1.31x    
+[mp4 @ 0000019285804300] Starting second pass: moving the moov atom to the beginning of the file
+[out#0/mp4 @ 0000019285800c00] video:1876KiB audio:0KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: 0.340736%
+frame=  287 fps= 12 q=-1.0 Lsize=    1883KiB time=00:00:33.28 bitrate= 463.3kbits/s speed=1.43x    
+[libx264 @ 000001928580bf80] frame I:2     Avg QP:14.90  size:117326
+[libx264 @ 000001928580bf80] frame P:80    Avg QP:17.19  size: 14125
+[libx264 @ 000001928580bf80] frame B:205   Avg QP:25.62  size:  2711
+[libx264 @ 000001928580bf80] consecutive B-frames:  3.8%  1.4%  4.2% 90.6%
+[libx264 @ 000001928580bf80] mb I  I16..4: 16.3% 48.2% 35.5%
+[libx264 @ 000001928580bf80] mb P  I16..4:  3.0%  2.9%  2.7%  P16..4:  8.3%  5.1%  3.8%  0.0%  0.0%    skip:74.2%
+[libx264 @ 000001928580bf80] mb B  I16..4:  0.3%  0.1%  0.1%  B16..8: 10.2%  3.2%  1.4%  direct: 1.0%  skip:83.8%  L0:46.3% L1:49.0% BI: 4.8%
+[libx264 @ 000001928580bf80] 8x8 transform intra:35.2% inter:33.5%
+[libx264 @ 000001928580bf80] coded y,uvDC,uvAC intra: 33.8% 36.2% 31.1% inter: 3.7% 2.1% 0.7%
+[libx264 @ 000001928580bf80] i16 v,h,dc,p: 77% 18%  1%  4%
+[libx264 @ 000001928580bf80] i8 v,h,dc,ddl,ddr,vr,hd,vl,hu: 31% 32% 25%  1%  1%  1%  3%  1%  4%
+[libx264 @ 000001928580bf80] i4 v,h,dc,ddl,ddr,vr,hd,vl,hu: 33% 27% 15%  3%  3%  3%  6%  3%  6%
+[libx264 @ 000001928580bf80] i8c dc,h,v,p: 65% 19% 13%  3%
+[libx264 @ 000001928580bf80] Weighted P-Frames: Y:1.2% UV:1.2%
+[libx264 @ 000001928580bf80] ref P L0: 64.5%  4.2% 19.6% 11.7%  0.0%
+[libx264 @ 000001928580bf80] ref B L0: 75.0% 18.8%  6.2%
+[libx264 @ 000001928580bf80] ref B L1: 89.1% 10.9%
+[libx264 @ 000001928580bf80] kb/s:445.63

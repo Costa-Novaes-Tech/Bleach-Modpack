@@ -38,7 +38,7 @@ public final class RyujinChoreography {
             case "jokaku"->curve(age,sign,neutral(0),k(5,-2.1,.2,-.25,-.05,-.15,-.1,-.65,.05,.2),k(13,-.85,-.1,-.15,.12,.12,.18,.25,-.05,-.25),k(17,-.7,-.15,-.1,.08,.15,.12,.2,-.1,-.2),neutral(20));
             case "flame_dash"->curve(age,sign,neutral(0),k(2,-1.45,.15,-.15,.3,-.1,-.65,-.2,.15,.05),k(8,-1.6,.1,-.1,.35,-.08,.65,-.15,.1,0),k(12,-1.45,.1,-.1,.28,-.06,-.65,-.1,.1,0),neutral(16));
             // Coiled at the outside hip; short whole-body rotation, not Rajada's overhead swing.
-            case "higashi"->curve(age,sign,neutral(0),k(6,-.45,1.05,-.5,-.03,-.55,-.2,-.1,-.7,.65),k(10,-.7,.9,-.45,-.02,-.5,-.25,-.15,-.65,.6),k(12,-1.2,-.6,.1,.15,.4,.35,.25,.5,-.7),k(16,-.55,-.85,.15,.1,.55,.25,.15,.65,-.4),neutral(22));
+            case "higashi"->curve(age,sign,neutral(0),k(6,.25,.65,-.95,.07,-.40,.15,-.6,0,-.3),k(10,.30,.70,-1.0,.08,-.45,.18,-.65,0,-.35),k(16,-.9,-.15,.25,-.06,.50,-.18,.15,0,.2),neutral(22));
             case "minami"->curve(age,sign,neutral(0),k(7,-2.15,.2,-.3,-.05,-.1,-.18,-.65,0,.2),k(16,-.3,.15,-.15,.3,-.1,.4,.7,0,-.25),k(18,-.3,.15,-.15,.28,-.1,.35,.65,0,-.2),neutral(22));
             case "steam_cut"->curve(age,sign,neutral(0),k(9,-2.8,.2,-.2,-.08,-.2,-.2,-1.05,0,.1),k(16,-2.75,.25,-.25,-.1,-.25,-.25,-1.1,0,.15),k(18,-.5,-.2,.1,.22,.3,.4,.8,0,-.3),k(24,.05,-.4,.2,.15,.35,.25,.3,0,-.25),neutral(32));
             default->interpolate(neutral(0),neutral(0),0,sign,0);
@@ -46,11 +46,12 @@ public final class RyujinChoreography {
     }
     /** Execution shot: draw at the hip, strike on tick 12, hold the follow-through then recover. */
     public static Pose execution(float age,float sign){
-        return curve(age,sign,neutral(0),k(6,-.8,-1.05,-.25,.1,-.65,.18,-.6,0,-.3),
-                k(10,-.9,-1.2,-.3,.12,-.8,.22,-.65,0,-.35),
-                k(13,-1.35,1.1,.25,-.05,.65,-.18,.15,0,.2),
-                k(18,-1.1,.95,.18,.02,.5,-.1,.1,0,.15),
-                k(30,-.6,.6,.08,0,.2,-.03,0,0,0),neutral(44));
+        return curve(age,sign,neutral(0),
+                k(6,.25,.65,-.95,.07,-.40,.15,-.6,0,-.3),
+                k(10,.30,.70,-1.0,.08,-.45,.18,-.65,0,-.35),
+                k(16,-.9,-.15,.25,-.06,.50,-.18,.15,0,.2),
+                k(HigashiCinematicPath.IGNITE,-.9,-.15,.25,-.06,.50,-.18,.15,0,.2),
+                k(HigashiCinematicPath.END-8,-1.25,-.30,.35,0,.2,-.03,0,0,0),neutral(HigashiCinematicPath.END));
     }
     /** No idle layer: outward pose exists only inside the 60-tick release and fades out by tick 60. */
     public static Pose release(float age,float sign){

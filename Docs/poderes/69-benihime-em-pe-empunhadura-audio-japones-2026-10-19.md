@@ -1,5 +1,7 @@
 # Ciclo 69 — Benihime em pé, empunhadura e áudio japonês
 
+> **Atualização de 20/10/2026 — [ciclo 70 — roadmap e revisão da entrada Benihime](70-roadmap-revisao-benihime-audio-2026-10-20.md):** seleção de vozes/efeitos a cargo do usuário; áudio atual provisório. Revisão da animação e das pendências da entrada antes de Higashi, Investida/Rajada e demais técnicas Benihime. Somente planejamento/documentação nesta rodada. Consulte o ciclo 70 para o estado atual; resultados e propostas abaixo conservam o contexto histórico da entrega.
+
 Data: 19/10/2026. Branch `Feature-Poderes-bankais`; HEAD de referência `ca9a06747819496bf36a1ad9e56be7dc6e16120a`. Sem commit/push/merge/reset/checkout. Alterações anteriores preservadas; Zaraki não modificada.
 
 ## Pedido e contrato

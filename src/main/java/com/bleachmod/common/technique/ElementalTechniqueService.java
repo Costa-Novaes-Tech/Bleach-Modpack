@@ -95,7 +95,7 @@ public final class ElementalTechniqueService {
             default->{duration=16;gesture=16;radius=6;}
         }
         var accepted=add(p,d,kind,slot,duration,gesture,origin,radius);
-        if(kind.equals("higashi")){var candidate=executionTarget(accepted,cutVictims(accepted,.35));if(candidate!=null)HigashiExecutionService.preview(p,candidate);}
+        if(kind.equals("higashi")){var candidate=cutVictims(accepted,.35).stream().min(Comparator.comparingDouble(p::distanceToSqr)).orElse(null);if(candidate!=null)HigashiExecutionService.preview(p,candidate);}
         p.serverLevel().playSound(null,p.blockPosition(),ice?net.minecraft.sounds.SoundEvents.GLASS_BREAK:net.minecraft.sounds.SoundEvents.BLAZE_SHOOT,p.getSoundSource(),.65F,bankai?.7F:1.1F);
         SyncHelper.resources(p);
     }
@@ -116,12 +116,12 @@ public final class ElementalTechniqueService {
         boolean dealt=MasteryPracticeService.hurt(c.owner,t,c.owner.damageSources().playerAttack(c.owner),damage,c.slot);
         if(dealt && c.kind.equals("higashi")){
             var pos=t.getBoundingBox().getCenter();var level=c.owner.serverLevel();
-            level.sendParticles(ParticleTypes.FLAME,pos.x,pos.y,pos.z,16,.22,.3,.22,.045);
+            // Incineration flames are delayed by the confirmed-death cinematic.
             level.sendParticles(ParticleTypes.ELECTRIC_SPARK,pos.x,pos.y,pos.z,12,.17,.24,.17,.07);
             level.sendParticles(ParticleTypes.SMOKE,pos.x,pos.y,pos.z,4,.18,.25,.18,.02);
             level.playSound(null,t.blockPosition(),net.minecraft.sounds.SoundEvents.FIRECHARGE_USE,c.owner.getSoundSource(),.65F,1.35F);
         }
-        if(dealt && c.identity.equals(CharacterData.RYUJIN) && !c.form.equals("sealed"))t.setSecondsOnFire(c.form.equals("bankai")?4:3);return dealt;
+        if(dealt && t.isAlive() && c.identity.equals(CharacterData.RYUJIN) && !c.form.equals("sealed"))t.setSecondsOnFire(c.form.equals("bankai")?4:3);return dealt;
     }
     private static void chill(Cast c,LivingEntity t,int ticks){
         if(c.controlled.size()>=64 || CONTROL_RECOVERY.size()>=1024 || c.controlled.contains(t.getUUID()) || CONTROL_RECOVERY.getOrDefault(t.getUUID(),0L)>c.owner.level().getGameTime())return;
@@ -132,11 +132,33 @@ public final class ElementalTechniqueService {
     private static void effect(Cast c){int age=c.age();var p=c.owner;
         switch(c.kind){
             case "front_cut","wide_cut","sealed_cut","sealed_sweep","higashi"->{
+                if(c.kind.equals("higashi")&&age>=8&&age<=11){
+                    // Short planted approach, bounded by collision and the original cast frame.
+                    double nearest=cutVictims(c,.35).stream().mapToDouble(p::distanceTo).min().orElse(0);
+                    Vec3 step=c.forward.scale(Math.min(.7,Math.max(0,nearest-1.0)));
+                    if(step.lengthSqr()>.0001&&p.position().distanceToSqr(c.origin.add(c.forward.scale(2.8)))>.0001
+                            &&p.position().distanceToSqr(c.origin)<2.8*2.8-.0001
+                            &&p.level().hasChunkAt(BlockPos.containing(p.position().add(step)))
+                            &&p.level().noCollision(p,p.getBoundingBox().expandTowards(step))){
+                        p.move(MoverType.SELF,step);p.setDeltaMovement(0,p.getDeltaMovement().y,0);p.hurtMarked=true;
+                        p.connection.teleport(p.getX(),p.getY(),p.getZ(),p.getYRot(),p.getXRot());
+                    }
+                }
                 if(age!=(c.kind.equals("higashi")?12:6))break;
                 double angle=c.kind.endsWith("sweep") || c.kind.equals("wide_cut")?.8:.35;
                 var victims=cutVictims(c,angle);
                 LivingEntity execution=c.kind.equals("higashi")?executionTarget(c,victims):null;
-                for(var t:victims){if(t==execution){c.hits.add(t.getUUID());HigashiExecutionService.execute(p,t);}else hit(c,t,c.kind.equals("higashi")?16:3,true);}
+                boolean cinematicKill=false;
+                for(var t:victims){
+                    if(t==execution){c.hits.add(t.getUUID());cinematicKill=HigashiExecutionService.execute(p,t);}
+                    else {
+                        var position=t.position();float width=t.getBbWidth(),height=t.getBbHeight();
+                        boolean dealt=hit(c,t,c.kind.equals("higashi")?16:3,true);
+                        if(c.kind.equals("higashi")&&dealt&&!t.isAlive()&&!cinematicKill){
+                            HigashiExecutionService.confirmedDeath(p,t,position,width,height);cinematicKill=true;
+                        }
+                    }
+                }
             }
             case "flame_barrage"->{if(age<6 || age>14)break;double step=age-6;
                 Vec3 a=c.origin.add(c.forward.scale(Math.max(0,step-1))),b=c.origin.add(c.forward.scale(step));

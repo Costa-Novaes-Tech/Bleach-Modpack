@@ -93,10 +93,10 @@ def build():
             box(f"hair_strand_{side}_{lock}", (x - .12, 2.1 + lock * .17, 10.0 + lock * .15),
                 (x + .12, 10.3, 10.32 + lock * .15), 1, strand)
     for side in [-1, 1]:
-        shoulder_x = side * 1.93
+        shoulder_x = side * 1.78
         shoulder = group(f"shoulder_{side}", (shoulder_x, 7.65, 11), chest)
         # Straight authoring pose makes all joints editable; runtime uses fixed-length IK.
-        elbow_y, wrist_y = 3.75, -.30
+        elbow_y, wrist_y = 7.65 - 3.15, 7.65 - 3.15 - 3.30
         box(f"upper_arm_{side}", (shoulder_x - .40, elbow_y, 10.65), (shoulder_x + .40, 7.65, 11.35), 0, shoulder)
         elbow = group(f"elbow_{side}", (shoulder_x, elbow_y, 11), shoulder)
         box(f"forearm_{side}", (shoulder_x - .27, wrist_y, 10.75), (shoulder_x + .27, elbow_y, 11.25), 0, elbow)

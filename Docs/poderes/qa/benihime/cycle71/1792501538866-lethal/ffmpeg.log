@@ -1,0 +1,30 @@
+Input #0, concat, from 'frames-concat.txt':
+  Duration: N/A, start: 0.000000, bitrate: N/A
+  Stream #0:0: Video: png, rgba(pc, gbr/unknown/unknown), 1280x720, 1k fps, 1k tbr, 1k tbn
+Stream mapping:
+  Stream #0:0 -> #0:0 (png (native) -> h264 (libx264))
+[libx264 @ 0000017e20fa1180] using cpu capabilities: MMX2 SSE2Fast SSSE3 SSE4.2 AVX FMA3 BMI2 AVX2
+[libx264 @ 0000017e20fa1180] profile Constrained Baseline, level 6.0, 4:2:0, 8-bit
+[libx264 @ 0000017e20fa1180] 264 - core 164 r3192 c24e06c - H.264/MPEG-4 AVC codec - Copyleft 2003-2024 - http://www.videolan.org/x264.html - options: cabac=0 ref=1 deblock=0:0:0 analyse=0:0 me=dia subme=0 psy=1 psy_rd=1.00:0.00 mixed_ref=0 me_range=16 chroma_me=1 trellis=0 8x8dct=0 cqm=0 deadzone=21,11 fast_pskip=1 chroma_qp_offset=0 threads=18 lookahead_threads=3 sliced_threads=0 nr=0 decimate=1 interlaced=0 bluray_compat=0 constrained_intra=0 bframes=0 weightp=0 keyint=250 keyint_min=25 scenecut=0 intra_refresh=0 rc=crf mbtree=0 crf=22.0 qcomp=0.60 qpmin=0 qpmax=69 qpstep=4 ip_ratio=1.40 aq=0
+Output #0, mp4, to 'minecraft-sampled-evidence.mp4':
+  Metadata:
+    encoder         : Lavf61.7.100
+  Stream #0:0: Video: h264 (avc1 / 0x31637661), yuv420p(tv, progressive), 1280x720, q=2-31, 1k fps, 1k tbn
+      Metadata:
+        encoder         : Lavc61.19.100 libx264
+      Side data:
+        cpb: bitrate max/min/avg: 0/0/0 buffer size: 0 vbv_delay: N/A
+frame=    0 fps=0.0 q=0.0 size=       0KiB time=N/A bitrate=N/A speed=N/A    
+frame=    2 fps=1.9 q=18.0 size=       0KiB time=00:00:00.16 bitrate=   2.4kbits/s speed=0.155x    
+frame=   24 fps= 15 q=20.0 size=     512KiB time=00:00:02.38 bitrate=1756.6kbits/s speed=1.53x    
+[mp4 @ 0000017e20f90340] Starting second pass: moving the moov atom to the beginning of the file
+[out#0/mp4 @ 0000017e20f90240] video:2782KiB audio:0KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: 0.056697%
+frame=   63 fps= 35 q=-1.0 Lsize=    2783KiB time=00:00:06.36 bitrate=3580.5kbits/s speed=3.59x    
+[libx264 @ 0000017e20fa1180] frame I:1     Avg QP:19.00  size: 94023
+[libx264 @ 0000017e20fa1180] frame P:62    Avg QP:18.10  size: 44417
+[libx264 @ 0000017e20fa1180] mb I  I16..4: 100.0%  0.0%  0.0%
+[libx264 @ 0000017e20fa1180] mb P  I16..4: 12.9%  0.0%  0.0%  P16..4: 34.7%  0.0%  0.0%  0.0%  0.0%    skip:52.4%
+[libx264 @ 0000017e20fa1180] coded y,uvDC,uvAC intra: 53.2% 56.2% 41.4% inter: 21.2% 18.3% 8.8%
+[libx264 @ 0000017e20fa1180] i16 v,h,dc,p: 33% 41% 13% 13%
+[libx264 @ 0000017e20fa1180] i8c dc,h,v,p: 35% 41% 19%  6%
+[libx264 @ 0000017e20fa1180] kb/s:3524.58

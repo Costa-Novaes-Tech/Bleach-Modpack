@@ -36,4 +36,29 @@ public final class HigashiExecutionGameTests {
     @GameTest(template="empty",batch="execution_cancel_preview",timeoutTicks=40)
     public static void canceledCastAfterPreviewCannotKill(GameTestHelper h){var p=player(h);var t=target(h,p,0,70);TechniqueService.executeSlot(p,d(p),2);h.runAfterDelay(6,()->RyujinTechniqueService.cancel(p));
         h.runAfterDelay(15,()->{try{h.assertTrue(t.isAlive()&&t.getHealth()==70,"Preview escaped normal cast cancellation");}finally{RyujinTechniqueService.cancel(p);t.discard();}h.succeed();});}
+    @GameTest(template="empty",batch="execution_lethal",timeoutTicks=40)
+    public static void normalLethalDamageAboveSevenPercentConfirmsDeathWithoutExecutionBypass(GameTestHelper h){
+        var p=player(h);var t=target(h,p,0,10);
+        t.getAttribute(net.minecraft.world.entity.ai.attributes.Attributes.MAX_HEALTH).setBaseValue(20);
+        t.setItemSlot(EquipmentSlot.HEAD,ItemStack.EMPTY);t.setHealth(10);
+        h.assertTrue(!HigashiExecutionService.eligible(p,t),"Lethal case accidentally uses threshold bypass");
+        var origin=p.position();TechniqueService.executeSlot(p,d(p),2);
+        h.runAfterDelay(15,()->{try{
+            h.assertTrue(p.position().distanceTo(origin)>=1.8&&p.position().distanceTo(origin)<=2.801,"Higashi approach is missing or exceeds its safe bound");
+            h.assertTrue(!t.isAlive(),"Normal lethal damage did not kill above threshold");
+            h.assertTrue(t.getLastDamageSource()!=null&&!t.getLastDamageSource().is(HigashiExecutionService.damageKey()),"Normal lethality gained defense bypass");
+            h.assertTrue(d(p).getResources().getCurrentReiatsu()==75,"Normal lethal scene charged twice");
+        }finally{RyujinTechniqueService.cancel(p);t.discard();}h.succeed();});
+    }
+    @GameTest(template="empty",batch="execution_timing")
+    public static void cinematicHoldsForTwoSecondsAfterBladePassesAndReturnsAfterAsh(GameTestHelper h){
+        var path=com.bleachmod.common.visual.HigashiCinematicPath.class;
+        h.assertTrue(com.bleachmod.common.visual.HigashiCinematicPath.IGNITE-com.bleachmod.common.visual.HigashiCinematicPath.SLASH_END==40,"Dramatic hold is not two game seconds");
+        var a=com.bleachmod.common.visual.RyujinChoreography.execution(16,1);
+        var b=com.bleachmod.common.visual.RyujinChoreography.execution(55,1);
+        h.assertTrue(a.arm().distanceTo(b.arm())<1e-8&&a.weight()==1&&b.weight()==1,"Follow-through moves before ignition");
+        h.assertTrue(com.bleachmod.common.visual.HigashiCinematicPath.END>com.bleachmod.common.visual.HigashiCinematicPath.IGNITE+20,"Camera returns before incineration completes");
+        h.succeed();
+    }
+
 }

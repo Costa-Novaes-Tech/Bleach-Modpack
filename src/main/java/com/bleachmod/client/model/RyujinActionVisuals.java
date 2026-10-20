@@ -92,9 +92,15 @@ public final class RyujinActionVisuals {
                 for(int i=0;i<12;i++){double y=(6+i%3*.45)*grow,r=6*Math.sqrt(Math.max(0,1-y*y/49)),a=i*Math.PI/6;e.fire(origin.add(Math.cos(a)*r,y,Math.sin(a)*r),i);}
                 if(age%4==0)for(int i=0;i<8;i++){double a=i*Math.PI/4;e.smoke(origin.add(Math.cos(a)*5.2,4.7*grow,Math.sin(a)*5.2));}
             }
-            case "higashi"->{if(age<11 || age>15)return;
-                double a=Math.toRadians(50-(age-11)*25);
-                for(int i=0;i<60;i++){double r=.7+(i%15)*.16;var dir=f.yRot((float)(a-(i/15)*.055));var q=p.position().add(dir.scale(r)).add(0,1.1+(i%3)*.08,0);e.fire(q,i);if(i%6==0)e.particle(ParticleTypes.ELECTRIC_SPARK,q,dir.scale(.06));}
+            case "higashi"->{if(age<10 || age>16)return;
+                double t=(age-10)/6.0;
+                for(int i=0;i<24;i++){
+                    double trail=Math.max(0,t-(i/8)*.035),reach=.6+(i%8)*.15;
+                    var q=p.position().add(f.scale(reach)).add(right.scale(-1.05+2.1*trail)).add(0,.30+2.25*trail,0);
+                    // Thin incandescent diagonal, not an early ignition of the victim.
+                    if(i%6==0)e.particle(ParticleTypes.ELECTRIC_SPARK,q,new Vec3(0,.015,0));
+                    else e.fire(q,i);
+                }
             }
             case "minami"->{if(age<10 || age>46)return;
                 for(int j=0;j<6;j++){var entity=j<v.soldiers().size()?e.mc.level.getEntity(v.soldiers().get(j)):null;

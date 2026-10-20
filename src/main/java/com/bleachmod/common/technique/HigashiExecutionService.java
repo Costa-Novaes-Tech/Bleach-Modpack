@@ -19,9 +19,14 @@ public final class HigashiExecutionService {
     public static boolean belowThreshold(float health,float max){return Float.isFinite(health)&&Float.isFinite(max)&&health>0&&max>0&&health<=max*THRESHOLD+1e-6;}
     public static boolean eligible(ServerPlayer owner,LivingEntity target){return TechniqueTargets.allowed(owner,target)&&!target.isInvulnerable()&&!(target instanceof ServerPlayer p&&p.getAbilities().invulnerable)&&belowThreshold(target.getHealth(),target.getMaxHealth());}
     public static void preview(ServerPlayer owner,LivingEntity target){
-        if(eligible(owner,target))broadcast(owner,new HigashiExecutionS2C(owner.getId(),target.getId(),owner.position(),target.position(),Math.min(16,target.getBbWidth()),Math.min(16,target.getBbHeight()),false));
+        if(TechniqueTargets.allowed(owner,target)&&!target.isInvulnerable())broadcast(owner,new HigashiExecutionS2C(owner.getId(),target.getId(),owner.position(),target.position(),Math.min(16,target.getBbWidth()),Math.min(16,target.getBbHeight()),false));
     }
     private static void broadcast(ServerPlayer owner,HigashiExecutionS2C packet){for(var observer:owner.serverLevel().players())if(observer==owner||observer.position().distanceToSqr(packet.victim())<80*80)NetworkHandler.sendToPlayer(packet,observer);}
+    /** Called only after authoritative damage; surviving totems/cancelled damage never incinerate. */
+    public static void confirmedDeath(ServerPlayer owner,LivingEntity target,net.minecraft.world.phys.Vec3 position,float width,float height){
+        if(target.isAlive())return;
+        broadcast(owner,new HigashiExecutionS2C(owner.getId(),target.getId(),owner.position(),position,Math.min(16,width),Math.min(16,height)));
+    }
     public static boolean execute(ServerPlayer owner,LivingEntity target){
         if(!eligible(owner,target))return false;
         var position=target.position();float width=target.getBbWidth(),height=target.getBbHeight();
@@ -29,9 +34,7 @@ public final class HigashiExecutionService {
         var source=new DamageSource(owner.level().registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(DamageKey.VALUE),null,owner);
         boolean accepted=MasteryPracticeService.hurt(owner,target,source,Float.MAX_VALUE,2);
         if(accepted&&!target.isAlive()){
-            owner.serverLevel().playSound(null,target.blockPosition(),net.minecraft.sounds.SoundEvents.BLAZE_DEATH,owner.getSoundSource(),.8F,.65F);
-            var packet=new HigashiExecutionS2C(owner.getId(),target.getId(),owner.position(),position,Math.min(16,width),Math.min(16,height));
-            broadcast(owner,packet);
+            confirmedDeath(owner,target,position,width,height);
         }
         return accepted&&!target.isAlive();
     }
