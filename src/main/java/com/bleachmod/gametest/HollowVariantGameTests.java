@@ -91,7 +91,7 @@ public final class HollowVariantGameTests {
         boss.setVariant(HollowVariant.FLYING);
         boss.finalizeSpawn(h.getLevel(), h.getLevel().getCurrentDifficultyAt(BlockPos.ZERO), MobSpawnType.SPAWN_EGG, null, null);
         h.assertTrue(!boss.usesVariants() && !boss.isFlyingVariant() && boss.getMaxHealth() == 50
-                && boss.getAttributeValue(Attributes.ATTACK_DAMAGE) == 8 && boss.getBbHeight() == 2, "Boss profile changed");
+                && boss.getAttributeValue(Attributes.ATTACK_DAMAGE) == 8 && Math.abs(boss.getBbHeight() - 5.4F) < .001, "Boss profile changed");
         h.succeed();
     }
 

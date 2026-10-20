@@ -1,8 +1,6 @@
 package com.bleachmod.client.events;
 
 import com.bleachmod.Reference;
-import com.bleachmod.client.model.ModModelLayers;
-import com.bleachmod.entity.HollowEntity;
 import com.bleachmod.entity.QuestNpcEntity;
 import com.bleachmod.registry.ModEntities;
 
@@ -46,34 +44,19 @@ public class ModEntityRenderers {
         );
     }
 
-    public static class HollowBossRenderer
-            extends MobRenderer<
-            HollowBossEntity,
-            HollowBossModel
-            > {
-
-        private static final ResourceLocation TEXTURE =
-                Reference.id("textures/entity/hollow_boss.png");
-
-        public HollowBossRenderer(
-                EntityRendererProvider.Context context
-        ) {
-            super(
-                    context,
-                    new HollowBossModel(
-                            context.bakeLayer(
-                                    ModModelLayers.HOLLOW_BOSS
-                            )
-                    ),
-                    0.7F
-            );
+    public static class HollowBossRenderer extends software.bernie.geckolib.renderer.GeoEntityRenderer<HollowBossEntity> {
+        public HollowBossRenderer(EntityRendererProvider.Context context) {
+            super(context, new HollowBossModel());
+            shadowRadius = 1.4F;
         }
-
-        @Override
-        public ResourceLocation getTextureLocation(
-                HollowBossEntity entity
-        ) {
-            return TEXTURE;
+        @Override public void render(HollowBossEntity boss, float yaw, float partial,
+                com.mojang.blaze3d.vertex.PoseStack pose,
+                net.minecraft.client.renderer.MultiBufferSource buffers, int light) {
+            if (!net.minecraftforge.fml.loading.FMLEnvironment.production && Boolean.getBoolean("bleachmod.bossQa")) {
+                for (String side : new String[]{"right", "left"}) getGeoModel().getBone(side + "_fist_contact")
+                        .ifPresent(bone -> bone.setTrackingMatrices(true));
+            }
+            super.render(boss, yaw, partial, pose, buffers, light);
         }
     }
 
@@ -83,10 +66,6 @@ public class ModEntityRenderers {
     ) {
         event.registerLayerDefinition(com.bleachmod.client.model.IceArmorLayer.LAYER, com.bleachmod.client.model.IceArmorLayer::createLayer);
         event.registerLayerDefinition(com.bleachmod.client.model.ZanpakutoSheathLayer.LAYER, com.bleachmod.client.model.ZanpakutoSheathLayer::createLayer);
-        event.registerLayerDefinition(
-                ModModelLayers.HOLLOW_BOSS,
-                HollowBossModel::createBodyLayer
-        );
     }
 
     @SubscribeEvent public static void playerLayers(EntityRenderersEvent.AddLayers event) {
