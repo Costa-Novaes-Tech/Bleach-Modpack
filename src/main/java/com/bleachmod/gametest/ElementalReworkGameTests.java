@@ -23,7 +23,37 @@ public final class ElementalReworkGameTests {
         d.getSkills().get("zanpakuto").setLevel(2);d.getCharacter().unlockForm("shikai");d.getCharacter().unlockForm("bankai");d.getCharacter().setMastery("zanpakuto","shikai",100);d.getCharacter().setMastery("zanpakuto","bankai",100);d.getCharacter().setActiveForm("zanpakuto",form);
         p.setItemSlot(EquipmentSlot.MAINHAND,new ItemStack(identity.equals("hyorinmaru")?ModItems.HYORINMARU.get():ModItems.RYUJIN_JAKKA.get()));return p;}
     private static Zombie target(GameTestHelper h,FakePlayer p,double x,double z){var t=EntityType.ZOMBIE.create(h.getLevel());t.setNoAi(true);t.setNoGravity(true);t.setItemSlot(EquipmentSlot.HEAD,new ItemStack(Items.IRON_HELMET));t.setPos(p.position().add(x,0,z));t.getAttribute(net.minecraft.world.entity.ai.attributes.Attributes.MAX_HEALTH).setBaseValue(80);t.setHealth(80);h.getLevel().getChunkAt(t.blockPosition());h.getLevel().addFreshEntity(t);return t;}
+    private static float expectedHit(FakePlayer p,LivingEntity t,float raw){
+        float scaled=com.bleachmod.common.CombatBalance.outgoingDamage(raw,d(p).getAttributes().level(AttributeData.ZANJUTSU),com.bleachmod.common.CombatBalance.formDamageBonus(d(p).getCharacter().getActiveForm()));
+        return net.minecraft.world.damagesource.CombatRules.getDamageAfterAbsorb(scaled,t.getArmorValue(),(float)t.getAttributeValue(net.minecraft.world.entity.ai.attributes.Attributes.ARMOR_TOUGHNESS));
+    }
     private static void clean(FakePlayer p,LivingEntity... targets){RyujinTechniqueService.cancel(p);for(var t:targets)t.discard();}
+    @GameTest(template="empty",batch="ice_eruption_new",timeoutTicks=90)
+    public static void eruptionArrivesAsWaveAndRupturesOnlyHitGroundedTargets(GameTestHelper h){
+        var p=player(h,"hyorinmaru","bankai");var t=target(h,p,0,24);var side=target(h,p,22,24);var rear=target(h,p,0,-5);
+        var floor=new ArrayList<BlockPos>();for(int z=0;z<=25;z++){var b=p.blockPosition().offset(0,-1,z);floor.add(b);h.getLevel().setBlock(b,net.minecraft.world.level.block.Blocks.STONE.defaultBlockState(),3);}
+        TechniqueService.executeSlot(p,d(p),3);
+        h.runAfterDelay(15,()->h.assertTrue(t.getHealth()==80,"Eruption hit before wave arrived"));
+        h.runAfterDelay(65,()->{try{
+            h.assertTrue(Math.abs(t.getHealth()-(80-expectedHit(p,t,8)-expectedHit(p,t,16)))<2.1,"Expected one arrival hit and one rupture after zombie armor; health="+t.getHealth());
+            h.assertTrue(side.getHealth()==80 && rear.getHealth()==80,"Eruption escaped its frontal fan");
+            h.assertTrue(d(p).getResources().getCurrentReiatsu()==65,"Eruption charged more than once");
+        }finally{clean(p,t,side,rear);for(var b:floor)h.getLevel().setBlock(b,net.minecraft.world.level.block.Blocks.AIR.defaultBlockState(),3);}h.succeed();});
+    }
+    @GameTest(template="empty",batch="ryusenka_rupture",timeoutTicks=80)
+    public static void ryusenkaSeparatesContactFromDelayedCocoonRupture(GameTestHelper h){
+        var p=player(h,"hyorinmaru","bankai");var t=target(h,p,0,4);TechniqueService.executeSlot(p,d(p),1);
+        h.runAfterDelay(25,()->h.assertTrue(Math.abs(t.getHealth()-(80-expectedHit(p,t,8)))<2.1,"Ryusenka contact before pause, after armor; health="+t.getHealth()));
+        h.runAfterDelay(55,()->{try{h.assertTrue(Math.abs(t.getHealth()-(80-expectedHit(p,t,8)-expectedHit(p,t,6)))<2.1,"Ryusenka delayed rupture after armor; health="+t.getHealth());}finally{clean(p,t);}h.succeed();});
+    }
+    @GameTest(template="empty",batch="fragility_new")
+    public static void fragilityConsumesOneCasterStrikeAndIgnoresEnvironmentalDamage(GameTestHelper h){
+        var p=player(h,"hyorinmaru","bankai");var t=target(h,p,0,4);GlacialFragilityService.mark(p,t);
+        var environment=new net.minecraftforge.event.entity.living.LivingHurtEvent(t,t.damageSources().freeze(),10);GlacialFragilityService.hurt(environment);
+        var first=new net.minecraftforge.event.entity.living.LivingHurtEvent(t,p.damageSources().playerAttack(p),10);GlacialFragilityService.hurt(first);
+        var second=new net.minecraftforge.event.entity.living.LivingHurtEvent(t,p.damageSources().playerAttack(p),10);GlacialFragilityService.hurt(second);
+        h.assertTrue(environment.getAmount()==10 && first.getAmount()==11.5F && second.getAmount()==10,"Fragility was consumed by DOT or more than once");clean(p,t);h.succeed();
+    }
     @GameTest(template="empty",batch="new_profiles")
     public static void bothElementalProfilesUseDistinctAnimationsWithoutDamageInflation(GameTestHelper h){
         var fire=net.bettercombat.logic.WeaponRegistry.getAttributes(new ItemStack(ModItems.RYUJIN_JAKKA.get()));var ice=net.bettercombat.logic.WeaponRegistry.getAttributes(new ItemStack(ModItems.HYORINMARU.get()));
@@ -32,10 +62,10 @@ public final class ElementalReworkGameTests {
         for(var profile:List.of(fire,ice))for(var a:profile.attacks())h.assertTrue(a.damageMultiplier()==1,"Combo added an extra damage multiplier");h.succeed();
     }
     @GameTest(template="empty",batch="new_sealed")
-    public static void retiredSealedElementalButtonsDoNotSpendOrStartCooldown(GameTestHelper h){var p=player(h,"ryujin_jakka","sealed");
+    public static void sealedFireStaysDisabledWhileIceArmorUsesItsNewPaidSlot(GameTestHelper h){var p=player(h,"ryujin_jakka","sealed");
         TechniqueService.executeSlot(p,d(p),3);TechniqueService.executeSlot(p,d(p),4);h.assertTrue(d(p).getResources().getCurrentReiatsu()==100 && !ElementalTechniqueService.busy(p),"Sealed fire still casts elemental area/summons");
-        d(p).getCharacter().bindZanpakuto("hyorinmaru");p.setItemSlot(EquipmentSlot.MAINHAND,new ItemStack(ModItems.HYORINMARU.get()));TechniqueService.executeSlot(p,d(p),3);
-        h.assertTrue(!IceArmorService.active(p) && d(p).getResources().getCurrentReiatsu()==100,"Retired ice armor remains active");clean(p);h.succeed();}
+        d(p).getCharacter().bindZanpakuto("hyorinmaru");d(p).getCharacter().preserveLegacyTechniques();p.setItemSlot(EquipmentSlot.MAINHAND,new ItemStack(ModItems.HYORINMARU.get()));TechniqueService.executeSlot(p,d(p),3);
+        h.assertTrue(IceArmorService.active(p) && d(p).getResources().getCurrentReiatsu()==88 && d(p).getStatus().getTechniqueSlot3CooldownTicks()==240,"Sealed armor did not use its approved cost and cooldown");clean(p);h.succeed();}
     @GameTest(template="empty",batch="new_sealed_cut",timeoutTicks=40)
     public static void sealedCutHasPreparationAndHitsAtFiveBlocks(GameTestHelper h){var p=player(h,"hyorinmaru","sealed");var t=target(h,p,0,5);TechniqueService.executeSlot(p,d(p),1);
         h.assertTrue(t.getHealth()==80,"Cut applied damage before its gesture");h.runAfterDelay(10,()->{try{h.assertTrue(t.getHealth()<80 && d(p).getResources().getCurrentReiatsu()==92,"Prepared physical cut failed");}finally{clean(p,t);}h.succeed();});}
@@ -73,10 +103,10 @@ public final class ElementalReworkGameTests {
     public static void crescentChainContainsOnlySelectedForwardEnemy(GameTestHelper h){var p=player(h,"hyorinmaru","shikai");var near=target(h,p,0,7);var side=target(h,p,5,7);TechniqueService.executeSlot(p,d(p),2);
         h.runAfterDelay(22,()->{try{h.assertTrue(near.getHealth()<80 && near.getTicksFrozen()>0 && side.getHealth()==80 && side.getTicksFrozen()==0,"Chain targeted the wrong enemies");h.assertTrue(d(p).getResources().getCurrentReiatsu()==80,"Chain cost mismatch");}finally{clean(p,near,side);}h.succeed();});}
     @GameTest(template="empty",batch="new_ryusenka",timeoutTicks=50)
-    public static void ryusenkaAdvancesWithItsStab(GameTestHelper h){var p=player(h,"hyorinmaru","bankai");var t=target(h,p,0,4);double start=p.getZ();TechniqueService.executeSlot(p,d(p),2);
+    public static void ryusenkaAdvancesWithItsStab(GameTestHelper h){var p=player(h,"hyorinmaru","bankai");var t=target(h,p,0,4);double start=p.getZ();TechniqueService.executeSlot(p,d(p),1);
         h.runAfterDelay(17,()->{try{h.assertTrue(p.getZ()-start>=5 && t.getHealth()<80 && t.getTicksFrozen()>0,"Ryusenka did not advance and freeze on contact");}finally{clean(p,t);}h.succeed();});}
     @GameTest(template="empty",batch="new_sennen",timeoutTicks=90)
-    public static void sennenReplacesBarrierWithAreaContainment(GameTestHelper h){var p=player(h,"hyorinmaru","bankai");var inside=target(h,p,0,8);var outside=target(h,p,0,15);TechniqueService.executeSlot(p,d(p),3);p.setYRot(180);
+    public static void sennenReplacesBarrierWithAreaContainment(GameTestHelper h){var p=player(h,"hyorinmaru","shikai");var inside=target(h,p,0,16);var outside=target(h,p,0,29);TechniqueService.executeSlot(p,d(p),3);p.setYRot(180);
         h.runAfterDelay(55,()->{try{h.assertTrue(inside.getHealth()<80 && inside.getTicksFrozen()>0 && outside.getHealth()==80,"Pillars did not close around the fixed target area");}finally{clean(p,inside,outside);}h.succeed();});}
     @GameTest(template="empty",batch="new_bloom",timeoutTicks=130)
     public static void floralReactivationUsesOriginalFieldAndOneCooldown(GameTestHelper h){var p=player(h,"hyorinmaru","bankai");var a=target(h,p,0,3);var b=target(h,p,0,28);var outside=target(h,p,0,33);h.onEachTick(()->HyorinmaruTechniqueService.tick(p,d(p)));

@@ -40,7 +40,7 @@ public final class ZanpakutoReleaseAnimation {
         String identity=tag.getString("identity"),form=tag.getString("form");
         int duration=tag.getInt("duration"),elapsed=tag.getInt("elapsed");
         if(!List.of("ryujin_jakka","hyorinmaru","senbonzakura","benihime","asauchi").contains(identity) || !List.of("shikai","bankai").contains(form)
-                || duration!=(form.equals("bankai")?60:24) || elapsed<0 || elapsed>=duration){VIEWS.remove(id);return;}
+                || duration!=(form.equals("bankai")?(identity.equals("hyorinmaru")?com.bleachmod.common.technique.HyorinmaruCinematicService.DURATION:60):24) || elapsed<0 || elapsed>=duration){VIEWS.remove(id);return;}
         VIEWS.put(id,new View(identity,form.equals("bankai"),duration,level.getGameTime()-elapsed));
     }
     private static View view(AbstractClientPlayer p) {
@@ -51,7 +51,7 @@ public final class ZanpakutoReleaseAnimation {
     }
     public static float manifestationGrowth(AbstractClientPlayer p,float partial){var v=view(p);return v==null?1:Mth.clamp((progress(p,v,partial)-.66F)/.3F,0,1);}
     public static boolean active(AbstractClientPlayer p){return view(p)!=null;}
-    public static float iceGrowth(AbstractClientPlayer p,float partial){var v=view(p);return v==null?1:Mth.clamp((progress(p,v,partial)-.66F)/.3F,0,1);}
+    public static float iceGrowth(AbstractClientPlayer p,float partial){var v=view(p);return v==null?1:Mth.clamp((progress(p,v,partial)*v.duration-120)/46F,0,1);}
     private static float progress(AbstractClientPlayer p,View v,float partial){return Mth.clamp((p.level().getGameTime()-v.start+partial)/v.duration,0,1);}
     private static float weight(float t){return Math.min(1,t*8)*Math.min(1,(1-t)*6);}
     private static Vec3f mix(Vec3f a,float x,float y,float z,float w){return new Vec3f(Mth.lerp(w,a.getX(),x),Mth.lerp(w,a.getY(),y),Mth.lerp(w,a.getZ(),z));}
@@ -68,15 +68,15 @@ public final class ZanpakutoReleaseAnimation {
             if(v.bankai && v.identity.equals("ryujin_jakka"))return RyujinActionVisuals.transform(player,com.bleachmod.common.visual.RyujinChoreography.release(t*v.duration,sign),part,type,value);
             boolean sword=part.equals(sign>0?"rightArm":"leftArm"),seal=part.equals(sign>0?"leftArm":"rightArm");
             if(v.bankai && v.identity.equals("hyorinmaru")){
-                boolean thrust = t >= 0.55F;
-                float thrustW = thrust ? (t - 0.55F) / 0.45F : 0;
+                boolean thrust = t >= 0.72F;
+                float thrustW = thrust ? (t - 0.72F) / 0.28F : 0;
                 if(type==TransformType.ROTATION){
                     if(sword){
-                        float rotX = Mth.lerp(thrustW, -1.25F, -2.35F);
+                        float rotX = Mth.lerp(thrustW, -.55F, -.85F);
                         return mix(value, rotX, -0.15F*sign, 0.12F*sign, w);
                     }
                     if(seal && player.getOffhandItem().isEmpty()){
-                        float rotX = Mth.lerp(thrustW, -1.1F, -0.6F);
+                        float rotX = Mth.lerp(thrustW, -.7F, -.55F);
                         return mix(value, rotX, 0.28F*sign, -0.15F*sign, w);
                     }
                     if(part.equals("body"))return mix(value, thrust ? -0.12F : 0.08F, -0.06F*sign, 0, w);

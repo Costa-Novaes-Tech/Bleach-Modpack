@@ -66,14 +66,15 @@ public final class IceRefinementGameTests {
         h.assertTrue(packets.stream().anyMatch(p -> p.getEvent()==net.minecraft.network.protocol.game.ClientboundGameEventPacket.THUNDER_LEVEL_CHANGE && p.getParam()==0),"Client still has stale thunder intensity");
     }
     @GameTest(template="empty",batch="dragon_range",timeoutTicks=55)
-    public static void bankaiDragonIsLargerReachesTwentyFourBlocksAndExpires(GameTestHelper h) {
+    public static void legacyProjectileRemainsCompatibleWithTwentyFourBlockRange(GameTestHelper h) {
         var p=player(h); var d=data(p);
         d.getSkills().get("zanpakuto").setLevel(2); d.getCharacter().unlockForm("shikai"); d.getCharacter().unlockForm("bankai");
         d.getCharacter().setMastery("zanpakuto","shikai",100); d.getCharacter().setActiveForm("zanpakuto","bankai");
         var inside=mob(h,p,22); var outside=mob(h,p,26);
         var dragon=new com.bleachmod.entity.IceDragonEntity[1];
         h.runAfterDelay(5,()->{
-            TechniqueService.executeSlot(p,d,1);
+            var legacy=com.bleachmod.registry.ModEntities.ICE_DRAGON.get().create(h.getLevel());
+            legacy.configure(p,new net.minecraft.world.phys.Vec3(0,0,1),true);h.getLevel().addFreshEntity(legacy);
             h.assertTrue(inside.getHealth()==20 && outside.getHealth()==20,"Dragon must travel before applying damage");
             dragon[0]=h.getLevel().getEntitiesOfClass(com.bleachmod.entity.IceDragonEntity.class,p.getBoundingBox().inflate(5)).get(0);
             h.assertTrue(dragon[0].getPhantomSize()==12 && !dragon[0].isPickable(),"Dragon is not enlarged or became interactive");

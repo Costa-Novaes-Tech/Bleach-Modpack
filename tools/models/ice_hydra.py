@@ -92,350 +92,7 @@ def generate_hydra_texture_bytes() -> bytes:
     return png
 
 
-def build_geo_json() -> dict:
-    """Build GeckoLib 4.0 compatible geometry for the Three-Headed Ice Hydra."""
-    bones = [
-        {"name": "root", "pivot": [0, 0, 0], "cubes": []},
-        {
-            "name": "base_spine",
-            "parent": "root",
-            "pivot": [0, 10, 8],
-            "cubes": [
-                {
-                    "origin": [-7, 4, 2],
-                    "size": [14, 12, 16],
-                    "uv": {"north": {"uv": [0, 32, 14, 44]}, "south": {"uv": [14, 32, 28, 44]},
-                           "east": {"uv": [28, 32, 44, 44]}, "west": {"uv": [44, 32, 60, 44]},
-                           "up": {"uv": [0, 44, 14, 60]}, "down": {"uv": [14, 44, 28, 60]}}
-                }
-            ]
-        },
-        # Central Neck and Head
-        {
-            "name": "neck_center_1",
-            "parent": "base_spine",
-            "pivot": [0, 14, 4],
-            "rotation": [-10, 0, 0],
-            "cubes": [
-                {"origin": [-4, 14, 0], "size": [8, 10, 8],
-                 "uv": {"north": {"uv": [0, 64, 8, 74]}, "south": {"uv": [8, 64, 16, 74]},
-                        "east": {"uv": [16, 64, 24, 74]}, "west": {"uv": [24, 64, 32, 74]},
-                        "up": {"uv": [0, 74, 8, 82]}, "down": {"uv": [8, 74, 16, 82]}}}
-            ]
-        },
-        {
-            "name": "neck_center_2",
-            "parent": "neck_center_1",
-            "pivot": [0, 24, 0],
-            "rotation": [-15, 0, 0],
-            "cubes": [
-                {"origin": [-3.5, 24, -4], "size": [7, 10, 7],
-                 "uv": {"north": {"uv": [32, 64, 39, 74]}, "south": {"uv": [39, 64, 46, 74]},
-                        "east": {"uv": [46, 64, 53, 74]}, "west": {"uv": [53, 64, 60, 74]},
-                        "up": {"uv": [32, 74, 39, 81]}, "down": {"uv": [39, 74, 46, 81]}}}
-            ]
-        },
-        {
-            "name": "head_center",
-            "parent": "neck_center_2",
-            "pivot": [0, 34, -4],
-            "cubes": [
-                # Skull
-                {"origin": [-6, 32, -16], "size": [12, 8, 14],
-                 "uv": {"north": {"uv": [64, 0, 76, 8]}, "south": {"uv": [76, 0, 88, 8]},
-                        "east": {"uv": [88, 0, 102, 8]}, "west": {"uv": [102, 0, 116, 8]},
-                        "up": {"uv": [64, 8, 76, 22]}, "down": {"uv": [76, 8, 88, 22]}}},
-                # Eyes (Emissive Red UV 0..8, 0..8)
-                {"origin": [-6.2, 35, -12], "size": [0.4, 2.5, 4],
-                 "uv": {"west": {"uv": [0, 0, 4, 2.5]}}},
-                {"origin": [5.8, 35, -12], "size": [0.4, 2.5, 4],
-                 "uv": {"east": {"uv": [0, 0, 4, 2.5]}}},
-                # Upper Horns
-                {"origin": [-4, 40, -10], "size": [2.5, 6, 8],
-                 "uv": {"north": {"uv": [16, 0, 18.5, 6]}, "south": {"uv": [18.5, 0, 21, 6]},
-                        "east": {"uv": [21, 0, 29, 6]}, "west": {"uv": [21, 0, 29, 6]},
-                        "up": {"uv": [16, 6, 18.5, 14]}, "down": {"uv": [18.5, 6, 21, 14]}}},
-                {"origin": [1.5, 40, -10], "size": [2.5, 6, 8],
-                 "uv": {"north": {"uv": [16, 0, 18.5, 6]}, "south": {"uv": [18.5, 0, 21, 6]},
-                        "east": {"uv": [21, 0, 29, 6]}, "west": {"uv": [21, 0, 29, 6]},
-                        "up": {"uv": [16, 6, 18.5, 14]}, "down": {"uv": [18.5, 6, 21, 14]}}}
-            ]
-        },
-        {
-            "name": "jaw_center",
-            "parent": "head_center",
-            "pivot": [0, 32, -6],
-            "cubes": [
-                {"origin": [-5, 28, -15], "size": [10, 4, 11],
-                 "uv": {"north": {"uv": [64, 24, 74, 28]}, "south": {"uv": [74, 24, 84, 28]},
-                        "east": {"uv": [84, 24, 95, 28]}, "west": {"uv": [95, 24, 106, 28]},
-                        "up": {"uv": [64, 28, 74, 39]}, "down": {"uv": [74, 28, 84, 39]}}}
-            ]
-        },
-        # Left Neck and Head
-        {
-            "name": "neck_left_1",
-            "parent": "base_spine",
-            "pivot": [6, 12, 6],
-            "rotation": [-5, 25, 12],
-            "cubes": [
-                {"origin": [3, 12, 3], "size": [6, 9, 6],
-                 "uv": {"north": {"uv": [0, 84, 6, 93]}, "south": {"uv": [6, 84, 12, 93]},
-                        "east": {"uv": [12, 84, 18, 93]}, "west": {"uv": [18, 84, 24, 93]},
-                        "up": {"uv": [0, 93, 6, 99]}, "down": {"uv": [6, 93, 12, 99]}}}
-            ]
-        },
-        {
-            "name": "neck_left_2",
-            "parent": "neck_left_1",
-            "pivot": [10, 20, 4],
-            "rotation": [-8, 15, 8],
-            "cubes": [
-                {"origin": [8, 20, 1], "size": [5.5, 9, 5.5],
-                 "uv": {"north": {"uv": [24, 84, 29.5, 93]}, "south": {"uv": [29.5, 84, 35, 93]},
-                        "east": {"uv": [35, 84, 40.5, 93]}, "west": {"uv": [40.5, 84, 46, 93]},
-                        "up": {"uv": [24, 93, 29.5, 98.5]}, "down": {"uv": [29.5, 93, 35, 98.5]}}}
-            ]
-        },
-        {
-            "name": "head_left",
-            "parent": "neck_left_2",
-            "pivot": [14, 28, 0],
-            "rotation": [0, -10, 0],
-            "cubes": [
-                {"origin": [9, 26, -11], "size": [10, 7, 12],
-                 "uv": {"north": {"uv": [64, 40, 74, 47]}, "south": {"uv": [74, 40, 84, 47]},
-                        "east": {"uv": [84, 40, 96, 47]}, "west": {"uv": [96, 40, 108, 47]},
-                        "up": {"uv": [64, 47, 74, 59]}, "down": {"uv": [74, 47, 84, 59]}}},
-                # Left Head Eyes
-                {"origin": [8.8, 29, -8], "size": [0.4, 2, 3], "uv": {"west": {"uv": [0, 0, 3, 2]}}},
-                {"origin": [18.8, 29, -8], "size": [0.4, 2, 3], "uv": {"east": {"uv": [0, 0, 3, 2]}}}
-            ]
-        },
-        {
-            "name": "jaw_left",
-            "parent": "head_left",
-            "pivot": [14, 26, -2],
-            "cubes": [
-                {"origin": [10, 22, -10], "size": [8, 4, 9],
-                 "uv": {"north": {"uv": [64, 60, 72, 64]}, "south": {"uv": [72, 60, 80, 64]},
-                        "east": {"uv": [80, 60, 89, 64]}, "west": {"uv": [89, 60, 98, 64]},
-                        "up": {"uv": [64, 64, 72, 73]}, "down": {"uv": [72, 64, 80, 73]}}}
-            ]
-        },
-        # Right Neck and Head
-        {
-            "name": "neck_right_1",
-            "parent": "base_spine",
-            "pivot": [-6, 12, 6],
-            "rotation": [-5, -25, -12],
-            "cubes": [
-                {"origin": [-9, 12, 3], "size": [6, 9, 6],
-                 "uv": {"north": {"uv": [0, 84, 6, 93]}, "south": {"uv": [6, 84, 12, 93]},
-                        "east": {"uv": [12, 84, 18, 93]}, "west": {"uv": [18, 84, 24, 93]},
-                        "up": {"uv": [0, 93, 6, 99]}, "down": {"uv": [6, 93, 12, 99]}}}
-            ]
-        },
-        {
-            "name": "neck_right_2",
-            "parent": "neck_right_1",
-            "pivot": [-10, 20, 4],
-            "rotation": [-8, -15, -8],
-            "cubes": [
-                {"origin": [-13.5, 20, 1], "size": [5.5, 9, 5.5],
-                 "uv": {"north": {"uv": [24, 84, 29.5, 93]}, "south": {"uv": [29.5, 84, 35, 93]},
-                        "east": {"uv": [35, 84, 40.5, 93]}, "west": {"uv": [40.5, 84, 46, 93]},
-                        "up": {"uv": [24, 93, 29.5, 98.5]}, "down": {"uv": [29.5, 93, 35, 98.5]}}}
-            ]
-        },
-        {
-            "name": "head_right",
-            "parent": "neck_right_2",
-            "pivot": [-14, 28, 0],
-            "rotation": [0, 10, 0],
-            "cubes": [
-                {"origin": [-19, 26, -11], "size": [10, 7, 12],
-                 "uv": {"north": {"uv": [64, 40, 74, 47]}, "south": {"uv": [74, 40, 84, 47]},
-                        "east": {"uv": [84, 40, 96, 47]}, "west": {"uv": [96, 40, 108, 47]},
-                        "up": {"uv": [64, 47, 74, 59]}, "down": {"uv": [74, 47, 84, 59]}}},
-                # Right Head Eyes
-                {"origin": [-19.2, 29, -8], "size": [0.4, 2, 3], "uv": {"west": {"uv": [0, 0, 3, 2]}}},
-                {"origin": [-9.2, 29, -8], "size": [0.4, 2, 3], "uv": {"east": {"uv": [0, 0, 3, 2]}}}
-            ]
-        },
-        {
-            "name": "jaw_right",
-            "parent": "head_right",
-            "pivot": [-14, 26, -2],
-            "cubes": [
-                {"origin": [-18, 22, -10], "size": [8, 4, 9],
-                 "uv": {"north": {"uv": [64, 60, 72, 64]}, "south": {"uv": [72, 60, 80, 64]},
-                        "east": {"uv": [80, 60, 89, 64]}, "west": {"uv": [89, 60, 98, 64]},
-                        "up": {"uv": [64, 64, 72, 73]}, "down": {"uv": [72, 64, 80, 73]}}}
-            ]
-        },
-        # Colossal Glacial Wings
-        {
-            "name": "wing_left",
-            "parent": "base_spine",
-            "pivot": [7, 14, 10],
-            "rotation": [12, 28, 15],
-            "cubes": [
-                {"origin": [7, 10, 8], "size": [28, 22, 2],
-                 "uv": {"north": {"uv": [32, 0, 60, 22]}, "south": {"uv": [32, 0, 60, 22]},
-                        "east": {"uv": [32, 0, 34, 22]}, "west": {"uv": [32, 0, 34, 22]},
-                        "up": {"uv": [32, 0, 60, 2]}, "down": {"uv": [32, 0, 60, 2]}}}
-            ]
-        },
-        {
-            "name": "wing_right",
-            "parent": "base_spine",
-            "pivot": [-7, 14, 10],
-            "rotation": [12, -28, -15],
-            "cubes": [
-                {"origin": [-35, 10, 8], "size": [28, 22, 2],
-                 "uv": {"north": {"uv": [32, 0, 60, 22]}, "south": {"uv": [32, 0, 60, 22]},
-                        "east": {"uv": [32, 0, 34, 22]}, "west": {"uv": [32, 0, 34, 22]},
-                        "up": {"uv": [32, 0, 60, 2]}, "down": {"uv": [32, 0, 60, 2]}}}
-            ]
-        }
-    ]
-
-    return {
-        "format_version": "1.12.0",
-        "minecraft:geometry": [
-            {
-                "description": {
-                    "identifier": "geometry.bleachmod.ice_hydra",
-                    "texture_width": 128,
-                    "texture_height": 128,
-                    "visible_bounds_width": 48,
-                    "visible_bounds_height": 28,
-                    "visible_bounds_offset": [0, 8, 0]
-                },
-                "bones": bones
-            }
-        ]
-    }
-
-
-def build_anim_json() -> dict:
-    """Build GeckoLib animations for the Ice Hydra."""
-    flight_anim = {
-        "loop": True,
-        "animation_length": 3.0,
-        "bones": {
-            "neck_center_1": {
-                "rotation": {
-                    "0.0": [-10, 0, 0],
-                    "1.5": [-16, 0, 0],
-                    "3.0": [-10, 0, 0]
-                }
-            },
-            "neck_left_1": {
-                "rotation": {
-                    "0.0": [-5, 25, 12],
-                    "1.5": [-2, 32, 16],
-                    "3.0": [-5, 25, 12]
-                }
-            },
-            "neck_right_1": {
-                "rotation": {
-                    "0.0": [-5, -25, -12],
-                    "1.5": [-2, -32, -16],
-                    "3.0": [-5, -25, -12]
-                }
-            },
-            "wing_left": {
-                "rotation": {
-                    "0.0": [12, 28, 15],
-                    "0.75": [8, 42, 28],
-                    "1.5": [15, 18, 5],
-                    "2.25": [8, 42, 28],
-                    "3.0": [12, 28, 15]
-                }
-            },
-            "wing_right": {
-                "rotation": {
-                    "0.0": [12, -28, -15],
-                    "0.75": [8, -42, -28],
-                    "1.5": [15, -18, -5],
-                    "2.25": [8, -42, -28],
-                    "3.0": [12, -28, -15]
-                }
-            },
-            "jaw_center": {
-                "rotation": {
-                    "0.0": [5, 0, 0],
-                    "1.5": [18, 0, 0],
-                    "3.0": [5, 0, 0]
-                }
-            }
-        }
-    }
-    return {
-        "format_version": "1.8.0",
-        "animations": {
-            "animation.ice_hydra.flight": flight_anim,
-            "animation.ice_dragon.flight": flight_anim,
-            "animation.ice_hydra.roar": {
-                "loop": False,
-                "animation_length": 2.5,
-                "bones": {
-                    "neck_center_1": {
-                        "rotation": {
-                            "0.0": [-10, 0, 0],
-                            "0.5": [-25, 0, 0],
-                            "1.0": [5, 0, 0],
-                            "2.0": [0, 0, 0],
-                            "2.5": [-10, 0, 0]
-                        }
-                    },
-                    "jaw_center": {
-                        "rotation": {
-                            "0.0": [0, 0, 0],
-                            "0.5": [10, 0, 0],
-                            "1.0": [42, 0, 0],
-                            "2.0": [35, 0, 0],
-                            "2.5": [0, 0, 0]
-                        }
-                    },
-                    "jaw_left": {
-                        "rotation": {
-                            "0.0": [0, 0, 0],
-                            "0.6": [38, 0, 0],
-                            "2.0": [30, 0, 0],
-                            "2.5": [0, 0, 0]
-                        }
-                    },
-                    "jaw_right": {
-                        "rotation": {
-                            "0.0": [0, 0, 0],
-                            "0.6": [38, 0, 0],
-                            "2.0": [30, 0, 0],
-                            "2.5": [0, 0, 0]
-                        }
-                    },
-                    "wing_left": {
-                        "rotation": {
-                            "0.0": [12, 28, 15],
-                            "0.8": [-5, 55, 35],
-                            "2.0": [-5, 55, 35],
-                            "2.5": [12, 28, 15]
-                        }
-                    },
-                    "wing_right": {
-                        "rotation": {
-                            "0.0": [12, -28, -15],
-                            "0.8": [-5, -55, -35],
-                            "2.0": [-5, -55, -35],
-                            "2.5": [12, -28, -15]
-                        }
-                    }
-                }
-            }
-        }
-    }
+from hydra_organic import build_geo_json, build_anim_json
 
 
 def build_bbmodel(geo: dict, anim: dict, texture_png: bytes) -> dict:
@@ -444,7 +101,7 @@ def build_bbmodel(geo: dict, anim: dict, texture_png: bytes) -> dict:
     tex_uuid = identity("texture_main")
     
     out_elements = []
-    out_outliner = []
+    groups = {}
 
     for bone in geo["minecraft:geometry"][0]["bones"]:
         b_name = bone["name"]
@@ -458,7 +115,10 @@ def build_bbmodel(geo: dict, anim: dict, texture_png: bytes) -> dict:
             to = [frm[0] + size[0], frm[1] + size[1], frm[2] + size[2]]
             faces = {}
             for f in ["north", "south", "east", "west", "up", "down"]:
-                faces[f] = {"uv": cube.get("uv", {}).get(f, {}).get("uv", [0, 0, 16, 16]), "texture": 0}
+                face=cube.get('uv', {}).get(f)
+                if face:
+                    u,v=face['uv'];w,h=face['uv_size'];faces[f]={'uv':[u,v,u+w,v+h],'texture':0}
+                else:faces[f]={'uv':[0,0,0,0],'texture':None}
             out_elements.append({
                 "name": c_name,
                 "type": "cube",
@@ -472,7 +132,7 @@ def build_bbmodel(geo: dict, anim: dict, texture_png: bytes) -> dict:
             })
             b_children.append(c_uuid)
         
-        out_outliner.append({
+        groups[b_name]={
             "name": b_name,
             "origin": bone["pivot"],
             "rotation": bone.get("rotation", [0, 0, 0]),
@@ -481,7 +141,23 @@ def build_bbmodel(geo: dict, anim: dict, texture_png: bytes) -> dict:
             "isOpen": True,
             "visibility": True,
             "children": b_children
-        })
+        }
+
+    out_outliner=[]
+    for bone in geo['minecraft:geometry'][0]['bones']:
+        group=groups[bone['name']]
+        if bone.get('parent'):groups[bone['parent']]['children'].append(group)
+        else:out_outliner.append(group)
+    animations=[]
+    for name,clip in anim['animations'].items():
+        animators={}
+        for bone,channels in clip['bones'].items():
+            keys=[]
+            for channel,frames in channels.items():
+                for time,vec in frames.items():
+                    keys.append({'channel':channel,'time':float(time),'interpolation':'linear','uuid':identity(name+bone+channel+time),'data_points':[dict(zip(('x','y','z'),map(str,vec)))]})
+            animators[identity('bone_'+bone)]={'name':bone,'type':'bone','keyframes':keys}
+        animations.append({'uuid':identity(name),'name':name,'loop':'loop' if clip['loop'] else 'once','length':clip['animation_length'],'snapping':20,'animators':animators})
 
     return {
         "meta": {
@@ -494,6 +170,7 @@ def build_bbmodel(geo: dict, anim: dict, texture_png: bytes) -> dict:
         "resolution": {"width": 128, "height": 128},
         "elements": out_elements,
         "outliner": out_outliner,
+        "animations": animations,
         "textures": [
             {
                 "path": str(TEXTURE_PNG),
@@ -512,6 +189,14 @@ def main():
     parser = argparse.ArgumentParser(description="Generate Three-Headed Ice Hydra assets")
     parser.add_argument("--check", action="store_true", help="Verify outputs match")
     args = parser.parse_args()
+
+    if args.check:
+        tex=generate_hydra_texture_bytes();geo=build_geo_json();anim=build_anim_json()
+        outputs={TEXTURE_PNG:tex,GEO_JSON:json.dumps(geo,indent=2).encode('utf-8'),ANIM_JSON:json.dumps(anim,indent=2).encode('utf-8'),SOURCE_BBMODEL:json.dumps(build_bbmodel(geo,anim,tex),indent=2).encode('utf-8')}
+        stale=[str(p.relative_to(ROOT)) for p,data in outputs.items() if not p.exists() or (p.read_bytes() if p.suffix=='.png' else p.read_text(encoding='utf-8').encode('utf-8'))!=data]
+        if stale:raise SystemExit('Stale generated assets: '+', '.join(stale))
+        print('Hydra source, hierarchy, animations, texture and runtime assets match.')
+        return
 
     print("[1/4] Generating Ice Hydra texture PNG...")
     tex_bytes = generate_hydra_texture_bytes()

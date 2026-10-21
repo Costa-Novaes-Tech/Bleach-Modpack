@@ -43,19 +43,21 @@ public final class BenihimeCombatQaSequence {
                 &&mc.getSingleplayerServer().getWorldData().getLevelName().startsWith("Benihime-QA-68-");
     }
     @SubscribeEvent public static void tick(TickEvent.ClientTickEvent e){
+        if(Boolean.getBoolean("bleachmod.hyorinmaruQa")&&!HyorinmaruQaSequence.automatedFinished())return;
         if(e.phase!=TickEvent.Phase.END||!enabled()||!(Boolean.getBoolean("bleachmod.cinematicQa")?CinematicQaSequence.automatedFinished():BenihimeQaBootstrap.automatedFinished()))return;
         var mc=Minecraft.getInstance();if(mc.screen!=null||mc.isPaused())return;
         var current=trial;if(current!=null){long age=mc.level.getGameTime()-current.start();mc.options.keyAttack.setDown(current.index()<4&&age>=30&&age<95);mc.options.keyUp.setDown(current.index()==17&&age>=180&&age<200);}
         wait++;if(stage==0&&wait<40)return;
         if(stage==0){LogUtils.getLogger().info("Benihime QA 81 loaded attacks: {}",net.bettercombat.client.animation.AnimationRegistry.animations.keySet().stream().filter(n->n.contains("benihime")).toList());previousCamera=mc.options.getCameraType();previousHud=mc.options.hideGui;}
-        if(stage<CASES.length&&(stage==0||wait>=(trial!=null&&trial.index()==17?660:140))){
+        if(stage<(Boolean.getBoolean("bleachmod.benihimeMeleeQa")?4:CASES.length)&&(stage==0||wait>=(trial!=null&&trial.index()==17?660:140))){
             var name=CASES[stage];var id=mc.player.getUUID();int index=stage++;wait=0;lastFrame=-1;
             mc.options.setCameraType(index==3?CameraType.FIRST_PERSON:CameraType.THIRD_PERSON_BACK);mc.options.hideGui=index!=3;
             evidence=mc.gameDirectory.toPath().resolve("benihime-combat-qa/"+System.currentTimeMillis()+"-"+name);
             mc.getSingleplayerServer().execute(()->prepare(mc.getSingleplayerServer().getPlayerList().getPlayer(id),index));
-        }else if(stage==CASES.length&&wait>=(trial!=null&&trial.index()==17?660:140)){
+        }else if(stage==(Boolean.getBoolean("bleachmod.benihimeMeleeQa")?4:CASES.length)&&wait>=(trial!=null&&trial.index()==17?660:140)){
             stage++;trial=null;mc.options.keyAttack.setDown(false);mc.options.keyUp.setDown(false);mc.options.setCameraType(previousCamera);mc.options.hideGui=previousHud;
-            LogUtils.getLogger().info("Benihime combat QA 81 complete; normal camera/HUD restored");
+            LogUtils.getLogger().info("Benihime combat QA 84 complete; normal camera/HUD restored");
+            if(Boolean.getBoolean("bleachmod.qaAutoExit"))mc.stop();
         }
     }
     private static void prepare(ServerPlayer p,int index){

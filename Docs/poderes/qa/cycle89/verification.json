@@ -1,0 +1,150 @@
+{
+  "branch": "Feature-Poderes-bankais",
+  "base_commit": "c206585",
+  "network": "2.33",
+  "schema": 9,
+  "technique_revision": 4,
+  "tests": {
+    "baseline": [
+      137,
+      168
+    ],
+    "base": [
+      139,
+      173
+    ],
+    "photon": [
+      139,
+      173
+    ]
+  },
+  "profiles": {
+    "base": {
+      "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\hyorinmaru-qa\\cycle89-1792624412379",
+      "scenarios": {
+        "01_bankai_transformation": {
+          "frames": 53,
+          "fps_min": 44,
+          "fps_median": 81,
+          "fps_max": 105
+        },
+        "02_bankai_wings_lotus": {
+          "frames": 11,
+          "fps_min": 98,
+          "fps_median": 108,
+          "fps_max": 110
+        },
+        "03_slot1_ryusenka": {
+          "frames": 28,
+          "fps_min": 104,
+          "fps_median": 108.0,
+          "fps_max": 116
+        },
+        "04_slot2_hydra_assault": {
+          "frames": 28,
+          "fps_min": 106,
+          "fps_median": 113.0,
+          "fps_max": 116
+        },
+        "05_slot3_ice_eruption": {
+          "frames": 28,
+          "fps_min": 110,
+          "fps_median": 114.0,
+          "fps_max": 117
+        },
+        "06_slot4_blizzard_zone": {
+          "frames": 28,
+          "fps_min": 90,
+          "fps_median": 96.0,
+          "fps_max": 118
+        },
+        "07_shikai_slot3_sennen": {
+          "frames": 28,
+          "fps_min": 92,
+          "fps_median": 115.0,
+          "fps_max": 117
+        },
+        "08_sealed_armor": {
+          "frames": 15,
+          "fps_min": 116,
+          "fps_median": 117,
+          "fps_max": 118
+        }
+      },
+      "capture": "Actual Forge framebuffer, sampled every four game ticks; clips have no audio or interpolation."
+    },
+    "photon": {
+      "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\photon\\hyorinmaru-qa\\cycle89-1792624525914",
+      "scenarios": {
+        "01_bankai_transformation": {
+          "frames": 54,
+          "fps_min": 25,
+          "fps_median": 75.5,
+          "fps_max": 99
+        },
+        "02_bankai_wings_lotus": {
+          "frames": 11,
+          "fps_min": 108,
+          "fps_median": 112,
+          "fps_max": 114
+        },
+        "03_slot1_ryusenka": {
+          "frames": 28,
+          "fps_min": 108,
+          "fps_median": 110.0,
+          "fps_max": 114
+        },
+        "04_slot2_hydra_assault": {
+          "frames": 28,
+          "fps_min": 96,
+          "fps_median": 101.0,
+          "fps_max": 117
+        },
+        "05_slot3_ice_eruption": {
+          "frames": 28,
+          "fps_min": 113,
+          "fps_median": 114.0,
+          "fps_max": 118
+        },
+        "06_slot4_blizzard_zone": {
+          "frames": 28,
+          "fps_min": 84,
+          "fps_median": 93.0,
+          "fps_max": 117
+        },
+        "07_shikai_slot3_sennen": {
+          "frames": 28,
+          "fps_min": 84,
+          "fps_median": 112.5,
+          "fps_max": 117
+        },
+        "08_sealed_armor": {
+          "frames": 15,
+          "fps_min": 115,
+          "fps_median": 116,
+          "fps_max": 117
+        }
+      },
+      "capture": "Actual Forge framebuffer, sampled every four game ticks; clips have no audio or interpolation."
+    }
+  },
+  "pending": [
+    "two real clients/dedicated observer",
+    "human artistic acceptance",
+    "night/irregular/narrow terrain visual matrix",
+    "audio listening and final climate/C polish"
+  ],
+  "jar_sha256": "71906bf3c42b5b359269a55a62c8e32135aea41a51a5ef51132e827fb5df27c9",
+  "jar_integrity_error": null,
+  "asset_mismatches": [],
+  "packs": {
+    "combat-test-pack": {
+      "jars": 5,
+      "matches_mod": true
+    },
+    "photon-test-pack": {
+      "jars": 7,
+      "matches_mod": true
+    }
+  }
+}

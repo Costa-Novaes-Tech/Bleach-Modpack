@@ -49,10 +49,12 @@ public final class HyorinmaruQaSequence {
     private static final String[] CASES = {
             "01_bankai_transformation",
             "02_bankai_wings_lotus",
-            "03_slot1_ice_dragons",
-            "04_slot2_ryusenka",
-            "05_slot3_sennen_barrier",
-            "06_slot4_blizzard_zone"
+            "03_slot1_ryusenka",
+            "04_slot2_hydra_assault",
+            "05_slot3_ice_eruption",
+            "06_slot4_blizzard_zone",
+            "07_shikai_slot3_sennen",
+            "08_sealed_armor"
     };
 
     private record Trial(String name, UUID owner, Vec3 origin, long start, int maxTicks, List<UUID> targets) { }
@@ -62,11 +64,30 @@ public final class HyorinmaruQaSequence {
     private static int wait = 0;
     private static int lastFrame = -1;
     private static Path evidence;
+    private static final long RUN_ID=System.currentTimeMillis();
     private static CameraType previousCamera;
     private static boolean previousHud;
     private static boolean manualTriggered = false;
+    private static java.lang.reflect.Method cameraPosition;
 
     private HyorinmaruQaSequence() { }
+
+    /** Wide laboratory view only; never changes the camera of a normal game session. */
+    @SubscribeEvent(priority=net.minecraftforge.eventbus.api.EventPriority.LOWEST)
+    public static void wideAttackView(net.minecraftforge.client.event.ViewportEvent.ComputeCameraAngles e) {
+        var t=trial;
+        if(t==null || !enabled() || !(t.name().contains("slot2") || t.name().contains("slot3")))return;
+        var mc=Minecraft.getInstance();if(mc.level==null)return;
+        Vec3 eye=t.origin().add(26,18,40),focus=t.origin().add(0,5,10);
+        try {
+            if(cameraPosition==null)cameraPosition=net.minecraftforge.fml.util.ObfuscationReflectionHelper.findMethod(net.minecraft.client.Camera.class,"m_90581_",Vec3.class);
+            cameraPosition.invoke(e.getCamera(),eye);
+            var d=focus.subtract(eye);
+            e.setYaw((float)Math.toDegrees(Math.atan2(-d.x,d.z)));
+            e.setPitch((float)-Math.toDegrees(Math.atan2(d.y,d.horizontalDistance())));e.setRoll(0);
+        }catch(ReflectiveOperationException failure){LogUtils.getLogger().warn("QA wide view unavailable",failure);}
+    }
+    public static boolean automatedFinished() { return stage > CASES.length; }
 
     private static boolean enabled() {
         var mc = Minecraft.getInstance();
@@ -113,7 +134,7 @@ public final class HyorinmaruQaSequence {
         }
 
         if (stage < CASES.length) {
-            int neededWait = (stage == 0) ? 40 : 100;
+            int neededWait = (stage == 0) ? 40 : trial != null ? trial.maxTicks()+20 : 100;
             if (wait >= neededWait) {
                 var name = CASES[stage];
                 var id = mc.player.getUUID();
@@ -124,7 +145,7 @@ public final class HyorinmaruQaSequence {
                 mc.options.setCameraType(index == 1 ? CameraType.THIRD_PERSON_FRONT : CameraType.THIRD_PERSON_BACK);
                 mc.options.hideGui = true;
 
-                evidence = mc.gameDirectory.toPath().resolve("hyorinmaru-qa/" + name);
+                evidence = mc.gameDirectory.toPath().resolve("hyorinmaru-qa/cycle89-" + RUN_ID + "/" + name);
                 try {
                     Files.createDirectories(evidence);
                 } catch (IOException ignored) { }
@@ -137,12 +158,12 @@ public final class HyorinmaruQaSequence {
             mc.options.setCameraType(previousCamera != null ? previousCamera : CameraType.FIRST_PERSON);
             mc.options.hideGui = previousHud;
             LogUtils.getLogger().info("=================================================================");
-            LogUtils.getLogger().info("Hyorinmaru QA sequence COMPLETE: All 6 scenarios executed & captured!");
+            LogUtils.getLogger().info("Hyorinmaru QA sequence COMPLETE: All 8 scenarios executed & captured!");
             LogUtils.getLogger().info("=================================================================");
             if (mc.player != null) {
                 mc.player.displayClientMessage(net.minecraft.network.chat.Component.literal("§a[Hyorinmaru QA] Sequência finalizada com sucesso! Screenshots salvas em hyorinmaru-qa/"), false);
             }
-            if (Boolean.getBoolean("bleachmod.qaAutoExit")) {
+            if (Boolean.getBoolean("bleachmod.qaAutoExit") && !Boolean.getBoolean("bleachmod.benihimeCombatQa")) {
                 LogUtils.getLogger().info("Hyorinmaru QA auto-exit requested; closing client cleanly...");
                 mc.stop();
             }
@@ -187,7 +208,7 @@ public final class HyorinmaruQaSequence {
                 d.getCharacter().setActiveForm("zanpakuto", "shikai");
                 d.getCharacter().setSelectedForm("zanpakuto", "shikai");
                 ReleaseAnimationService.begin(p, d, "zanpakuto", "bankai", 0f);
-                maxTicks = 75;
+                maxTicks = HyorinmaruCinematicService.DURATION + 12;
                 LogUtils.getLogger().info("Hyorinmaru QA: Started Bankai Transformation");
             }
             case 1 -> {
@@ -197,14 +218,16 @@ public final class HyorinmaruQaSequence {
                 maxTicks = 40;
                 LogUtils.getLogger().info("Hyorinmaru QA: Bankai Wings & Lotus Showcase");
             }
-            case 2, 3, 4, 5 -> {
-                // Technique slots 1, 2, 3, 4
+            case 7 -> {d.getCharacter().setActiveForm("zanpakuto","sealed");d.getCharacter().setSelectedForm("zanpakuto","sealed");maxTicks=140;}
+            case 2, 3, 4, 5, 6 -> {
+                // Approved Bankai slots and enlarged Shikai Sennen
                 d.getCharacter().setActiveForm("zanpakuto", "bankai");
                 d.getCharacter().setSelectedForm("zanpakuto", "bankai");
 
+                if(index==6){d.getCharacter().setActiveForm("zanpakuto","shikai");d.getCharacter().setSelectedForm("zanpakuto","shikai");}
                 Husk target = EntityType.HUSK.create(p.serverLevel());
                 if (target != null) {
-                    target.setPos(origin.add(0, 0, index == 2 ? 10 : index == 3 ? 8 : 6));
+                    target.setPos(origin.add(0, 0, index == 2 ? 10 : index == 3 ? 30 : index==4?24:index==6?16:6));
                     target.setNoAi(true);
                     target.setPersistenceRequired();
                     target.getAttribute(Attributes.MAX_HEALTH).setBaseValue(500);
@@ -213,7 +236,7 @@ public final class HyorinmaruQaSequence {
                     p.serverLevel().addFreshEntity(target);
                     targets.add(target.getUUID());
                 }
-                maxTicks = 50;
+                maxTicks = 110;
             }
         }
 
@@ -240,15 +263,16 @@ public final class HyorinmaruQaSequence {
         if (age == 10) {
             PlayerData d = PlayerCapability.get(p).orElse(null);
             if (d != null) {
-                if (t.name().contains("slot1")) {
+                if(t.name().contains("sealed_armor")){TechniqueService.executeSlot(p,d,3);}
+                else if (t.name().contains("slot1")) {
                     TechniqueService.executeSlot(p, d, 1);
-                    LogUtils.getLogger().info("Hyorinmaru QA executed Slot 1 (Ice Dragon/Hydra)");
+                    LogUtils.getLogger().info("Hyorinmaru QA executed Slot 1 (Ryusenka)");
                 } else if (t.name().contains("slot2")) {
                     TechniqueService.executeSlot(p, d, 2);
-                    LogUtils.getLogger().info("Hyorinmaru QA executed Slot 2 (Ryusenka)");
+                    LogUtils.getLogger().info("Hyorinmaru QA executed Slot 2 (Hydra Assault)");
                 } else if (t.name().contains("slot3")) {
                     TechniqueService.executeSlot(p, d, 3);
-                    LogUtils.getLogger().info("Hyorinmaru QA executed Slot 3 (Sennen Barrier)");
+                    LogUtils.getLogger().info("Hyorinmaru QA executed Slot 3 (Eruption / Shikai Sennen)");
                 } else if (t.name().contains("slot4")) {
                     TechniqueService.executeSlot(p, d, 4);
                     LogUtils.getLogger().info("Hyorinmaru QA executed Slot 4 (Blizzard Zone)");
@@ -256,6 +280,7 @@ public final class HyorinmaruQaSequence {
             }
         }
 
+        if(age==30 || age==65 || age==100)for(var id:t.targets()){var target=p.serverLevel().getEntity(id);if(target instanceof net.minecraft.world.entity.LivingEntity living)LogUtils.getLogger().info("Hyorinmaru QA target {} tick={} health={} frozen={}",t.name(),age,living.getHealth(),living.getTicksFrozen());}
         // Cleanup targets at end of trial
         if (age >= t.maxTicks()) {
             for (var tid : t.targets()) {

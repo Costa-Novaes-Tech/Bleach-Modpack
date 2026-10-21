@@ -1,0 +1,82 @@
+[
+  {
+    "class": "com\\bleachmod\\Reference.class",
+    "sameMethodDisassembly": true
+  },
+  {
+    "class": "com\\bleachmod\\entity\\IceDragonEntity.class",
+    "sameMethodDisassembly": true
+  },
+  {
+    "class": "com\\bleachmod\\common\\technique\\HyorinmaruCinematicService$Scene.class",
+    "sameMethodDisassembly": true
+  },
+  {
+    "class": "com\\bleachmod\\common\\technique\\HyorinmaruCinematicService.class",
+    "sameMethodDisassembly": true
+  },
+  {
+    "class": "com\\bleachmod\\common\\technique\\HyorinmaruTechniqueService$Field.class",
+    "sameMethodDisassembly": true
+  },
+  {
+    "class": "com\\bleachmod\\common\\technique\\HyorinmaruTechniqueService.class",
+    "sameMethodDisassembly": true
+  },
+  {
+    "class": "com\\bleachmod\\common\\technique\\ReleaseAnimationService$Release.class",
+    "sameMethodDisassembly": true
+  },
+  {
+    "class": "com\\bleachmod\\common\\technique\\ReleaseAnimationService.class",
+    "sameMethodDisassembly": true
+  },
+  {
+    "class": "com\\bleachmod\\client\\cinematic\\BenihimeCombatQaSequence$Trial.class",
+    "sameMethodDisassembly": true
+  },
+  {
+    "class": "com\\bleachmod\\client\\cinematic\\BenihimeCombatQaSequence.class",
+    "sameMethodDisassembly": true
+  },
+  {
+    "class": "com\\bleachmod\\client\\cinematic\\HyorinmaruCinematicClient$Scene.class",
+    "sameMethodDisassembly": true
+  },
+  {
+    "class": "com\\bleachmod\\client\\cinematic\\HyorinmaruCinematicClient$Shot.class",
+    "sameMethodDisassembly": true
+  },
+  {
+    "class": "com\\bleachmod\\client\\cinematic\\HyorinmaruCinematicClient.class",
+    "sameMethodDisassembly": true
+  },
+  {
+    "class": "com\\bleachmod\\client\\cinematic\\HyorinmaruQaSequence$Trial.class",
+    "sameMethodDisassembly": true
+  },
+  {
+    "class": "com\\bleachmod\\client\\cinematic\\HyorinmaruQaSequence.class",
+    "sameMethodDisassembly": true
+  },
+  {
+    "class": "com\\bleachmod\\client\\model\\IceDragonRenderer$Model.class",
+    "sameMethodDisassembly": true
+  },
+  {
+    "class": "com\\bleachmod\\client\\model\\IceDragonRenderer.class",
+    "sameMethodDisassembly": true
+  },
+  {
+    "class": "com\\bleachmod\\client\\model\\ZanpakutoReleaseAnimation$Animation.class",
+    "sameMethodDisassembly": true
+  },
+  {
+    "class": "com\\bleachmod\\client\\model\\ZanpakutoReleaseAnimation$View.class",
+    "sameMethodDisassembly": true
+  },
+  {
+    "class": "com\\bleachmod\\client\\model\\ZanpakutoReleaseAnimation.class",
+    "sameMethodDisassembly": true
+  }
+]

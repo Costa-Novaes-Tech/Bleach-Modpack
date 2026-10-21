@@ -154,7 +154,7 @@ public class CharacterData {
 
     public CompoundTag save() {
         CompoundTag tag = new CompoundTag();
-        tag.putInt("techniqueRevision",3);
+        tag.putInt("techniqueRevision",4);
         tag.putString("race", race);
         tag.putString("zanpakutoIdentity", zanpakutoIdentity);
         tag.putString("selectedFormGroup", selectedFormGroup);
@@ -195,6 +195,13 @@ public class CharacterData {
                     if(unlockedTechniques.contains(old))unlockedTechniques.add(replacement);
                     if(techniqueMasteries.containsKey(old))techniqueMasteries.merge(replacement,techniqueMasteries.get(old),Math::max);
                 }
+            }
+        }
+        if(tag.getInt("techniqueRevision")<4){
+            for(String[] pair:java.util.List.of(new String[]{"bankai|ice_dragon","bankai|hydra_assault"},new String[]{"bankai|sennen","bankai|ice_eruption"},new String[]{"shikai|duel_control","shikai|sennen"})){
+                String old=HYORINMARU+"|"+pair[0],next=HYORINMARU+"|"+pair[1];
+                if(unlockedTechniques.contains(old))unlockedTechniques.add(next);
+                if(techniqueMasteries.containsKey(old))techniqueMasteries.merge(next,techniqueMasteries.get(old),Math::max);
             }
         }
         if (tag.contains("unlockedForms")) { unlockedForms.clear(); unlockedForms.addAll(tag.getCompound("unlockedForms").getAllKeys()); }

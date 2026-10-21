@@ -16,6 +16,25 @@ import java.util.*;
 public final class MvpRegressionTest {
     private static int count;
     public static void main(String[] args) {
+        test("Hydra curves remain finite, connected and bounded throughout formation and attack",()->{
+            for(boolean assault:List.of(false,true))for(int head=0;head<3;head++)for(int age=0;age<=156;age++){
+                var last=com.bleachmod.common.visual.HydraMotion.point(assault,head,age,0,32);
+                for(int i=1;i<=120;i++){
+                    var next=com.bleachmod.common.visual.HydraMotion.point(assault,head,age,i/120.0,32);
+                    yes(Double.isFinite(next.lengthSqr()));yes(next.z<=40.01);yes(next.distanceTo(last)<1.2);last=next;
+                }
+            }
+        });
+        test("Hyorinmaru slot migration retains stable Ryusenka mastery and replaced-technique investment",()->{
+            var old=new CharacterData().save();old.putInt("techniqueRevision",3);old.putString("zanpakutoIdentity","hyorinmaru");
+            var mastery=old.getCompound("techniqueMasteries");var unlocks=old.getCompound("unlockedTechniques");
+            mastery.putDouble("hyorinmaru|bankai|ryusenka",73);unlocks.putBoolean("hyorinmaru|bankai|ryusenka",true);
+            mastery.putDouble("hyorinmaru|bankai|ice_dragon",41);unlocks.putBoolean("hyorinmaru|bankai|ice_dragon",true);
+            mastery.putDouble("hyorinmaru|bankai|sennen",82);unlocks.putBoolean("hyorinmaru|bankai|sennen",true);
+            var copy=new CharacterData();copy.load(old);eq(73D,copy.getTechniqueMastery("bankai",1));eq(41D,copy.getTechniqueMastery("bankai",2));eq(82D,copy.getTechniqueMastery("bankai",3));
+            yes(copy.isTechniqueDiscovered("bankai",1));yes(!copy.isTechniqueDiscovered("shikai",3));
+            var second=new CharacterData();second.load(copy.save());eq(copy.save(),second.save());
+        });
         test("Guard posture breaks without spending stamina and requires release", () -> {
             var d = new PlayerData(); d.initializeShinigami(); var g = d.getGuard();
             yes(g.request(0)); yes(!g.absorb(50)); eq(50F, g.posture());
@@ -208,8 +227,8 @@ public final class MvpRegressionTest {
             }
             for (String form : List.of("sealed", "shikai", "bankai")) {
                 for (int slot = 1; slot <= 4; slot++) yes(com.bleachmod.common.technique.TechniqueDefinitions.find("asauchi", form, slot).isEmpty());
-                float[] costs = form.equals("sealed") ? new float[]{8,8,0,18} : form.equals("shikai") ? new float[]{15,20,18,30} : new float[]{20,25,30,35};
-                int[] cooldowns = form.equals("sealed") ? new int[]{100,160,0,300} : new int[]{100,160,240,300};
+                float[] costs = form.equals("sealed") ? new float[]{8,8,12,18} : form.equals("shikai") ? new float[]{15,20,30,30} : new float[]{25,30,35,35};
+                int[] cooldowns = form.equals("sealed") ? new int[]{100,160,240,300} : form.equals("bankai") ? new int[]{160,240,320,300} : new int[]{100,160,280,300};
                 for (int slot = 1; slot <= 4; slot++) {
                     var def = com.bleachmod.common.technique.TechniqueDefinitions.require("hyorinmaru", form, slot);
                     eq(costs[slot - 1], def.cost()); eq(cooldowns[slot - 1], def.cooldownTicks());
@@ -395,15 +414,17 @@ public final class MvpRegressionTest {
         });
         test("Ice armor bakes independent body plates, wings and tail", () -> {
             var root = com.bleachmod.client.model.IceArmorLayer.createLayer().bakeRoot();
-            for (String part : List.of("body", "arm", "leg", "wing", "tail")) yes(!root.getChild(part).isEmpty());
+            for (String part : List.of("body", "arm", "leg", "wing")) yes(!root.getChild(part).isEmpty());
+            var joint=root.getChild("tail");for(int i=0;i<7;i++){joint=joint.getChild("joint_"+i);yes(!joint.isEmpty());}
+            yes(root.getChild("wing").getChild("tip").hasChild("feather_6"));
             CharacterData d = new CharacterData(); d.setIceArmorVisual(true);
             yes(d.saveAppearance().getBoolean("iceArmorVisual")); yes(!d.save().contains("iceArmorVisual"));
             CharacterData loaded = new CharacterData(); loaded.load(d.save()); yes(!loaded.isIceArmorVisual());
             loaded.load(d.saveAppearance()); yes(loaded.isIceArmorVisual());
         });
         test("Guide distinguishes sealed armor and duel from released fields", () -> {
-            eq("ability.bleachmod.hyorinmaru.unavailable", com.bleachmod.client.hud.ZanpakutoHud.abilityKey("hyorinmaru", "sealed", 3));
-            eq("ability.bleachmod.hyorinmaru.sennen", com.bleachmod.client.hud.ZanpakutoHud.abilityKey("hyorinmaru", "bankai", 3));
+            eq("ability.bleachmod.hyorinmaru.frost_armor", com.bleachmod.client.hud.ZanpakutoHud.abilityKey("hyorinmaru", "sealed", 3));
+            eq("ability.bleachmod.hyorinmaru.ice_eruption", com.bleachmod.client.hud.ZanpakutoHud.abilityKey("hyorinmaru", "bankai", 3));
             eq("ability.bleachmod.ryujin.minami", com.bleachmod.client.hud.ZanpakutoHud.abilityKey("ryujin_jakka", "bankai", 3));
             try {
                 var lang = JsonParser.parseString(java.nio.file.Files.readString(java.nio.file.Path.of("src/main/resources/assets/bleachmod/lang/pt_br.json"))).getAsJsonObject();

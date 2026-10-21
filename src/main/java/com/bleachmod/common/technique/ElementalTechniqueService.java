@@ -29,6 +29,11 @@ public final class ElementalTechniqueService {
         final ServerPlayer owner;final String identity,form,kind;final Vec3 origin,forward;final long start;
         final int slot,duration,gesture;final double radius;final Set<UUID> hits=new HashSet<>(),controlled=new HashSet<>();
         boolean stopped;
+        com.bleachmod.entity.IceDragonEntity hydra;
+        final java.util.Map<UUID,LivingEntity> cocoons=new HashMap<>();
+        final Set<UUID> ruptured=new HashSet<>();
+        final List<Vec3> crystals=new ArrayList<>();
+        void cleanup(){soldiers.forEach(Entity::discard);if(hydra!=null)hydra.discard();}
         final List<AbstractSkeleton> soldiers=new ArrayList<>();
         final net.minecraft.resources.ResourceKey<net.minecraft.world.level.Level> dimension;
         final Map<UUID,Long> nextHit=new HashMap<>();
@@ -44,17 +49,28 @@ public final class ElementalTechniqueService {
     public static boolean busy(ServerPlayer p){return CASTS.getOrDefault(p.getUUID(),List.of()).stream().anyMatch(c->c.owner==p && c.age()<c.gesture);}
     private static Cast add(ServerPlayer p,PlayerData d,String kind,int slot,int duration,int gesture,Vec3 origin,double radius){
         var list=CASTS.computeIfAbsent(p.getUUID(),id->new ArrayList<>());
-        list.removeIf(c->{if(c.kind.equals(kind)){c.soldiers.forEach(Entity::discard);return true;}return false;});
-        if(list.size()>=4){list.remove(0).soldiers.forEach(Entity::discard);}
-        var c=new Cast(p,d,kind,slot,duration,gesture,origin,radius);list.add(c);SyncHelper.appearance(p);return c;
+        list.removeIf(c->{if(c.kind.equals(kind)){c.cleanup();return true;}return false;});
+        if(list.size()>=4){list.remove(0).cleanup();}
+        var c=new Cast(p,d,kind,slot,duration,gesture,origin,radius);
+        if(kind.equals("ice_eruption"))for(int row=1;row<=8;row++)for(int spread=-2;spread<=2;spread++){
+            double reach=row*4,side=spread*reach*.24;
+            Vec3 at=origin.add(c.forward.scale(reach)).add(c.forward.z*side,0,-c.forward.x*side);
+            if(!p.level().hasChunkAt(BlockPos.containing(at)))continue;
+            var wall=p.level().clip(new ClipContext(origin.add(0,1,0),at.add(0,1,0),ClipContext.Block.COLLIDER,ClipContext.Fluid.NONE,p));if(wall.getType()!=HitResult.Type.MISS)continue;
+            var ground=p.level().clip(new ClipContext(at.add(0,2,0),at.add(0,-3,0),ClipContext.Block.COLLIDER,ClipContext.Fluid.NONE,p));
+            if(ground.getType()!=HitResult.Type.MISS)c.crystals.add(ground.getLocation());
+        }
+        list.add(c);SyncHelper.appearance(p);return c;
     }
     public static CompoundTag snapshot(ServerPlayer p){var out=new CompoundTag();var list=new ListTag();
         for(var c:CASTS.getOrDefault(p.getUUID(),List.of())){var t=new CompoundTag();t.putString("kind",c.kind);t.putInt("age",c.age());t.putInt("duration",c.duration);t.putInt("gesture",c.gesture);t.putFloat("yaw",p.getYRot());
             t.putDouble("x",c.origin.x);t.putDouble("y",c.origin.y);t.putDouble("z",c.origin.z);t.putDouble("dx",c.forward.x);t.putDouble("dz",c.forward.z);t.putDouble("radius",c.radius);t.putBoolean("ice",c.identity.equals(CharacterData.HYORINMARU));
+            t.putIntArray("targets",c.cocoons.values().stream().filter(tgt->tgt.isAlive() && !c.ruptured.contains(tgt.getUUID())).limit(16).mapToInt(Entity::getId).toArray());
+            var crystals=new ListTag();for(var point:c.crystals){var q=new CompoundTag();q.putDouble("x",point.x);q.putDouble("y",point.y);q.putDouble("z",point.z);crystals.add(q);}t.put("crystals",crystals);
             if(c.kind.equals("minami"))t.putIntArray("soldiers",c.soldiers.stream().filter(Entity::isAlive).limit(6).mapToInt(Entity::getId).toArray());list.add(t);}
         out.put("casts",list);return out;
     }
-    public static void cancel(ServerPlayer p){var list=CASTS.remove(p.getUUID());if(list!=null){list.forEach(c->c.soldiers.forEach(Entity::discard));SyncHelper.appearance(p);}}
+    public static void cancel(ServerPlayer p){var list=CASTS.remove(p.getUUID());if(list!=null){list.forEach(c->c.cleanup());SyncHelper.appearance(p);}}
     private static int cooldown(PlayerData d,int slot){var s=d.getStatus();return switch(slot){case 1->s.getTechniqueSlot1CooldownTicks();case 2->s.getTechniqueSlot2CooldownTicks();case 3->s.getTechniqueSlot3CooldownTicks();default->s.getTechniqueSlot4CooldownTicks();};}
     private static void cooldown(PlayerData d,int slot,int value){var s=d.getStatus();switch(slot){case 1->s.setTechniqueSlot1CooldownTicks(value);case 2->s.setTechniqueSlot2CooldownTicks(value);case 3->s.setTechniqueSlot3CooldownTicks(value);default->s.setTechniqueSlot4CooldownTicks(value);}}
     public static void execute(ServerPlayer p,PlayerData d,int slot){
@@ -72,7 +88,7 @@ public final class ElementalTechniqueService {
         if(cooldown(d,slot)>0){p.displayClientMessage(net.minecraft.network.chat.Component.translatable("message.bleachmod.technique.cooldown",(cooldown(d,slot)+19)/20),true);return;}
         if(!d.getResources().canAffordReiatsu(def.cost())){p.displayClientMessage(net.minecraft.network.chat.Component.translatable("message.bleachmod.technique.no_reiatsu",(int)def.cost()),true);return;}
         // Existing approved executors retain ownership of cost, dash, terrain and ice fields.
-        if(ice && !form.equals("sealed") && (slot==1 || slot==4)){
+        if(ice && !form.equals("sealed") && ((slot==1 && !bankai) || slot==4)){
             HyorinmaruTechniqueService.executeSlot(p,d,slot);
             add(p,d,def.id(),slot,slot==4?(bankai?120:80):14,12,p.position(),slot==4?(bankai?30:10):15);return;
         }
@@ -81,6 +97,7 @@ public final class ElementalTechniqueService {
         cooldown(d,slot,def.cooldownTicks());
         String kind=def.id();Vec3 origin=p.position();int duration=20,gesture=16;double radius=6;
         switch(kind){
+            case "frost_armor"->{IceArmorService.begin(p,d);duration=120;gesture=14;radius=0;}
             case "flame_barrage"->{duration=22;gesture=16;radius=8;}
             case "flame_fan"->{duration=24;gesture=22;radius=14;}
             case "flame_tornado"->{RyujinTechniqueService.executePaidTornado(p,d);duration=18;gesture=18;radius=9;}
@@ -89,8 +106,10 @@ public final class ElementalTechniqueService {
             case "minami"->{duration=180;gesture=22;radius=16;}
             case "steam_cut"->{duration=32;gesture=32;radius=100;}
             case "crescent_chain"->{duration=60;gesture=18;radius=12;}
-            case "ryusenka"->{duration=20;gesture=20;radius=6;}
-            case "sennen"->{origin=surfaceAim(p,12);duration=100;gesture=24;radius=5;}
+            case "ryusenka"->{duration=64;gesture=22;radius=14;}
+            case "hydra_assault"->{duration=156;gesture=18;radius=32;}
+            case "ice_eruption"->{duration=90;gesture=24;radius=32;}
+            case "sennen"->{origin=surfaceAim(p,24);duration=100;gesture=24;radius=10;}
             case "duel_control"->{duration=14;gesture=14;radius=5;}
             default->{duration=16;gesture=16;radius=6;}
         }
@@ -105,9 +124,9 @@ public final class ElementalTechniqueService {
         var ground=p.level().clip(new ClipContext(point.add(0,3,0),point.add(0,-8,0),ClipContext.Block.COLLIDER,ClipContext.Fluid.NONE,p));
         return ground.getType()==HitResult.Type.MISS?new Vec3(point.x,p.getY(),point.z):ground.getLocation().add(0,.05,0);
     }
-    private static List<LivingEntity> targets(Cast c,Vec3 center,double radius){return c.owner.serverLevel().getEntitiesOfClass(LivingEntity.class,new AABB(center,center).inflate(radius,4,radius),t->TechniqueTargets.allowed(c.owner,t));}
+    private static List<LivingEntity> targets(Cast c,Vec3 center,double radius){return c.owner.serverLevel().getEntitiesOfClass(LivingEntity.class,new AABB(center,center).inflate(radius,c.kind.equals("sennen")?12:c.kind.equals("ice_eruption")?14:4,radius),t->TechniqueTargets.allowed(c.owner,t));}
     private static boolean visible(Cast c,LivingEntity t,Vec3 origin){return c.owner.level().clip(new ClipContext(origin.add(0,1,0),t.getBoundingBox().getCenter(),ClipContext.Block.COLLIDER,ClipContext.Fluid.NONE,c.owner)).getType()==HitResult.Type.MISS;}
-    private static List<LivingEntity> cutVictims(Cast c,double angle){return targets(c,c.origin,c.radius).stream().filter(t->{Vec3 delta=t.position().subtract(c.origin);double along=delta.dot(c.forward),side=Math.abs(delta.x*c.forward.z-delta.z*c.forward.x);return Math.abs(delta.y)<=3&&along>=0&&along<=c.radius&&side<=.7+along*angle&&visible(c,t,c.origin);}).toList();}
+    private static List<LivingEntity> cutVictims(Cast c,double angle){return targets(c,c.origin,c.radius).stream().filter(t->{Vec3 delta=t.position().subtract(c.origin);double along=delta.dot(c.forward),side=Math.abs(delta.x*c.forward.z-delta.z*c.forward.x);return Math.abs(delta.y)<=(c.kind.equals("ice_eruption")?14:3)&&along>=0&&along<=c.radius&&side<=.7+along*angle&&visible(c,t,c.origin);}).toList();}
     private static LivingEntity executionTarget(Cast c,List<LivingEntity> victims){return victims.stream().filter(t->HigashiExecutionService.eligible(c.owner,t)).min(Comparator.comparingDouble(t->1-c.owner.getLookAngle().dot(t.getBoundingBox().getCenter().subtract(c.owner.getEyePosition()).normalize()))).orElse(null);}
     private static boolean hit(Cast c,LivingEntity t,float damage,boolean once){
         if(c.hits.size()>=64 && !c.hits.contains(t.getUUID()) || once && c.hits.contains(t.getUUID()))return false;
@@ -174,13 +193,32 @@ public final class ElementalTechniqueService {
                 if(age==8)targets(c,c.origin,12).stream().filter(t->t.position().subtract(c.origin).normalize().dot(c.forward)>.92 && visible(c,t,c.origin)).min(Comparator.comparingDouble(p::distanceToSqr)).ifPresent(t->{c.hits.add(t.getUUID());chill(c,t,50);MasteryPracticeService.hurt(p,t,p.damageSources().playerAttack(p),3,c.slot);});
                 if(age>8 && age<42 && age%4==0)for(var t:targets(c,p.position(),12))if(c.hits.contains(t.getUUID()) && p.hasLineOfSight(t)){var delta=p.position().subtract(t.position());if(delta.length()>2){var v=delta.normalize().scale(.16);t.push(v.x,.03,v.z);t.hurtMarked=true;}chain(p,t);}
             }
-            case "ryusenka"->{if(age<6 || age>11)break;Vec3 move=c.forward;
-                if(!p.level().hasChunkAt(BlockPos.containing(p.position().add(move))) || !p.level().noCollision(p,p.getBoundingBox().expandTowards(move)))break;
-                p.move(MoverType.SELF,move);p.setDeltaMovement(0,p.getDeltaMovement().y,0);p.hurtMarked=true;
-                for(var t:targets(c,p.position(),1.8))if(p.hasLineOfSight(t) && hit(c,t,14,true)){chill(c,t,40);iceCross(p,t.position());}
+            case "ryusenka"->{
+                if(age>=6 && age<=19){
+                    Vec3 move=c.forward;
+                    if(p.position().subtract(c.origin).dot(c.forward)<14 && p.level().hasChunkAt(BlockPos.containing(p.position().add(move))) && p.level().noCollision(p,p.getBoundingBox().expandTowards(move))){
+                        p.move(MoverType.SELF,move);p.setDeltaMovement(0,p.getDeltaMovement().y,0);p.hurtMarked=true;
+                        p.connection.teleport(p.getX(),p.getY(),p.getZ(),p.getYRot(),p.getXRot());
+                        for(var t:targets(c,p.position().subtract(move.scale(.5)),2.2))if(p.hasLineOfSight(t) && hit(c,t,8,true)){chill(c,t,50);c.cocoons.put(t.getUUID(),t);c.nextHit.put(t.getUUID(),p.level().getGameTime()+40);iceCross(p,t.position());}
+                    }
+                }
+                if(age==20)SyncHelper.appearance(p);
+                if(age>=46)for(var t:c.cocoons.values())if(t.isAlive() && p.level().getGameTime()>=c.nextHit.getOrDefault(t.getUUID(),Long.MAX_VALUE) && c.ruptured.add(t.getUUID())){hit(c,t,6,false);iceCross(p,t.position());SyncHelper.appearance(p);}
+            }
+            case "hydra_assault"->{
+                if(age==1){c.hydra=com.bleachmod.registry.ModEntities.ICE_DRAGON.get().create(p.serverLevel());if(c.hydra!=null){c.hydra.configureAssault(p,c.origin,(float)Math.toDegrees(Math.atan2(-c.forward.x,c.forward.z)),32);p.serverLevel().addFreshEntity(c.hydra);}}
+                if(age>48 && age%4==0)for(int i=0;i<3;i++){Vec3 at=c.origin.add(c.forward.scale(32)).add(c.forward.z*(i-1)*5,.2,-c.forward.x*(i-1)*5);p.serverLevel().sendParticles(ParticleTypes.SNOWFLAKE,at.x,at.y,at.z,10,3,.3,3,.01);}
+            }
+            case "ice_eruption"->{
+                if(age>=12 && age<=42)for(var t:cutVictims(c,.577)){
+                    double along=t.position().subtract(c.origin).dot(c.forward);
+                    if(along>(age-12)*32/30.0 || !groundConnected(c,t))continue;
+                    if(hit(c,t,8,true)){chill(c,t,60);iceCross(p,t.position());}
+                }
+                if(age==56)for(var t:cutVictims(c,.577))if(c.hits.contains(t.getUUID()) && c.ruptured.add(t.getUUID()) && groundConnected(c,t)){hit(c,t,16,false);iceCross(p,t.position());}
             }
             case "sennen"->{if(age<40 || age>85 || age%10!=0)break;
-                for(var t:targets(c,c.origin,5))if(TechniqueGeometry.intersectsCylinder(c.origin,5,1,4,t.getBoundingBox()) && visible(c,t,c.origin)){
+                for(var t:targets(c,c.origin,c.radius))if(TechniqueGeometry.intersectsCylinder(c.origin,c.radius,1,12,t.getBoundingBox()) && visible(c,t,c.origin)){
                     chill(c,t,60);var v=c.origin.subtract(t.position());if(v.horizontalDistance()>1){v=v.normalize().scale(.18);t.push(v.x,.03,v.z);t.hurtMarked=true;}
                     if(age==50 || age==80)hit(c,t,6,false);
                 }
@@ -192,6 +230,16 @@ public final class ElementalTechniqueService {
             case "steam_cut"->{if(age==18)TechniqueService.applyConcentratedSteamCut(p);}
             case "minami"->army(c);
         }
+    }
+    private static boolean groundConnected(Cast c,LivingEntity target){
+        Vec3 end=new Vec3(target.getX(),c.origin.y,target.getZ());double distance=end.distanceTo(c.origin);if(distance>36)return false;
+        for(int i=0;i<=Math.ceil(distance/2);i++){
+            Vec3 at=c.origin.lerp(end,i/Math.max(1,Math.ceil(distance/2)));
+            if(!c.owner.level().hasChunkAt(BlockPos.containing(at)))return false;
+            var hit=c.owner.level().clip(new ClipContext(at.add(0,2,0),at.add(0,-3,0),ClipContext.Block.COLLIDER,ClipContext.Fluid.NONE,c.owner));
+            if(hit.getType()==HitResult.Type.MISS)return false;
+        }
+        return true;
     }
     private static void army(Cast c){var p=c.owner;int age=c.age();
         if(age==16)for(int i=0;i<6;i++){var mob=EntityType.WITHER_SKELETON.create(p.serverLevel());if(mob==null)continue;
@@ -216,15 +264,16 @@ public final class ElementalTechniqueService {
     private static void iceCross(ServerPlayer p,Vec3 at){for(int i=-4;i<=4;i++){p.serverLevel().sendParticles(ParticleTypes.SNOWFLAKE,at.x+i*.25,at.y+1,at.z,3,.1,.1,.1,.02);p.serverLevel().sendParticles(ParticleTypes.END_ROD,at.x,at.y+1+i*.3,at.z,1,0,0,0,0);}}
     public static void tick(ServerPlayer p){var list=CASTS.get(p.getUUID());if(list==null)return;var d=PlayerCapability.get(p).orElse(null);boolean changed=false;
         for(var c:new ArrayList<>(list)){
-            if(c.stopped || d==null || !p.isAlive() || p.isSpectator() || !TechniqueProgression.equipped(p,d) || !c.identity.equals(d.getCharacter().getZanpakutoIdentity()) || !c.form.equals(d.getCharacter().getActiveForm()) || !c.dimension.equals(p.level().dimension()) || c.age()>=c.duration){c.soldiers.forEach(Entity::discard);list.remove(c);changed=true;continue;}
+            if(c.stopped || d==null || p.isRemoved() || !p.isAlive() || p.isSpectator() || !TechniqueProgression.equipped(p,d) || !c.identity.equals(d.getCharacter().getZanpakutoIdentity()) || !c.form.equals(d.getCharacter().getActiveForm()) || !c.dimension.equals(p.level().dimension()) || c.age()>=c.duration){c.cleanup();list.remove(c);changed=true;continue;}
             if(c.age()<c.gesture)p.setSprinting(false);effect(c);
         }
         CONTROL_RECOVERY.values().removeIf(t->t<=p.level().getGameTime());
         if(list.isEmpty())CASTS.remove(p.getUUID());if(changed)SyncHelper.appearance(p);
     }
     @SubscribeEvent public static void tick(TickEvent.ServerTickEvent e){if(e.phase==TickEvent.Phase.END)for(var list:new ArrayList<>(CASTS.values()))if(!list.isEmpty())tick(list.get(0).owner);}
+    @SubscribeEvent public static void logout(net.minecraftforge.event.entity.player.PlayerEvent.PlayerLoggedOutEvent e){if(e.getEntity() instanceof ServerPlayer p)cancel(p);}
     @SubscribeEvent public static void drops(LivingDropsEvent e){if(e.getEntity().getPersistentData().getBoolean(ASH))e.getDrops().clear();}
     @SubscribeEvent public static void xp(LivingExperienceDropEvent e){if(e.getEntity().getPersistentData().getBoolean(ASH))e.setDroppedExperience(0);}
     @SubscribeEvent public static void orphan(EntityJoinLevelEvent e){if(!e.getLevel().isClientSide() && e.getEntity().getPersistentData().getBoolean(ASH) && CASTS.values().stream().flatMap(List::stream).noneMatch(c->c.soldiers.contains(e.getEntity())))e.setCanceled(true);}
-    @SubscribeEvent public static void stop(net.minecraftforge.event.server.ServerStoppingEvent e){CASTS.values().forEach(l->l.forEach(c->c.soldiers.forEach(Entity::discard)));CASTS.clear();CONTROL_RECOVERY.clear();}
+    @SubscribeEvent public static void stop(net.minecraftforge.event.server.ServerStoppingEvent e){CASTS.values().forEach(l->l.forEach(c->c.cleanup()));CASTS.clear();CONTROL_RECOVERY.clear();}
 }
