@@ -40,6 +40,7 @@ public final class ReleaseAnimationService {
         RyujinTechniqueService.cancel(p);
         ACTIVE.put(p.getUUID(),new Release(p,d,group,form,cost));
         if(d.getCharacter().getZanpakutoIdentity().equals("benihime")&&form.equals("bankai"))BenihimeEntranceService.begin(p);
+        if(d.getCharacter().getZanpakutoIdentity().equals("hyorinmaru")&&form.equals("bankai"))HyorinmaruCinematicService.begin(p);
         d.getStatus().setIgnitionActive(false);d.getGuard().interrupt();
         SyncHelper.appearance(p);
     }
@@ -48,7 +49,11 @@ public final class ReleaseAnimationService {
         tag.putString("identity",r.identity);tag.putString("form",r.form);tag.putInt("duration",r.duration);
         tag.putInt("elapsed",(int)Math.max(0,Math.min(r.duration,p.level().getGameTime()-r.start)));return tag;
     }
-    public static void cancel(ServerPlayer p) { if(ACTIVE.remove(p.getUUID())!=null)SyncHelper.appearance(p); }
+    public static void cancel(ServerPlayer p) {
+        if(ACTIVE.remove(p.getUUID())!=null) {
+            SyncHelper.appearance(p);
+        }
+    }
     public static void tick(ServerPlayer p) {
         var r=ACTIVE.get(p.getUUID());if(r==null)return;
         var d=PlayerCapability.get(p).orElse(null);

@@ -4,7 +4,9 @@ import com.bleachmod.Reference;
 import com.bleachmod.common.data.CharacterData;
 import com.bleachmod.common.data.PlayerCapability;
 import com.bleachmod.common.network.SyncHelper;
+import com.bleachmod.entity.IceDragonEntity;
 import com.bleachmod.init.ModSounds;
+import com.bleachmod.registry.ModEntities;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
@@ -25,15 +27,16 @@ import java.util.UUID;
 
 /**
  * Server-authoritative lifecycle controller for Daiguren Hyorinmaru's Bankai Transformation Cinematic.
- * Total presentation duration: 140 ticks (7.0 seconds).
+ * Total presentation duration: 70 ticks (3.5 seconds).
  */
 @Mod.EventBusSubscriber(modid = Reference.MOD_ID)
 public final class HyorinmaruCinematicService {
-    public static final int DURATION = 140;
+    public static final int DURATION = 70;
 
     private record Scene(long start, Vec3 anchor, float yaw, net.minecraft.resources.ResourceKey<net.minecraft.world.level.Level> dimension) { }
 
     private static final Map<UUID, Scene> SCENES = new HashMap<>();
+    private static final Map<UUID, UUID> MANIFESTATIONS = new HashMap<>();
 
     private HyorinmaruCinematicService() { }
 
@@ -66,6 +69,11 @@ public final class HyorinmaruCinematicService {
     }
 
     public static void cancel(ServerPlayer player) {
+        UUID hydraId = MANIFESTATIONS.remove(player.getUUID());
+        if (hydraId != null && player.level() instanceof ServerLevel sl) {
+            var entity = sl.getEntity(hydraId);
+            if (entity != null) entity.discard();
+        }
         if (SCENES.remove(player.getUUID()) != null) {
             SyncHelper.appearance(player);
         }
@@ -88,6 +96,10 @@ public final class HyorinmaruCinematicService {
                 && age < DURATION
                 && p.position().distanceToSqr(s.anchor) < 256.0;
 
+        if (age >= 50 && data != null && (data.getGuard().shownActive() || data.getStatus().isDodging())) {
+            valid = false;
+        }
+
         if (!valid) {
             cancel(p);
             return;
@@ -96,36 +108,46 @@ public final class HyorinmaruCinematicService {
         ServerLevel level = p.serverLevel();
         Vec3 pos = s.anchor;
 
-        // Stage 1 (Ticks 0-25): Subzero Frost Vortex Gathering & "Bankai" Voice
-        if (age == 15) {
+        // Stage 1 (Ticks 0-20): Subzero Frost Vortex & "Bankai" Voice
+        if (age == 12) {
             level.playSound(null, pos.x, pos.y, pos.z, ModSounds.HYORINMARU_VOICE_BANKAI.get(), SoundSource.PLAYERS, 1.2F, 1.0F);
         }
         if (age < 25) {
-            if (age % 4 == 0) {
-                level.sendParticles(ParticleTypes.SNOWFLAKE, pos.x, pos.y + 0.1, pos.z, 18, 1.2, 0.2, 1.2, 0.02);
+            if (age % 3 == 0) {
+                level.sendParticles(ParticleTypes.SNOWFLAKE, pos.x, pos.y + 0.1, pos.z, 20, 1.2, 0.2, 1.2, 0.02);
             }
         }
-        // Stage 2 (Ticks 25-50): Ring of Ice Eruption on Ground
+        // Stage 2 (Tick 25): Ring of Ice Eruption and Hydra Emergence
         else if (age == 25) {
             level.playSound(null, pos.x, pos.y, pos.z, SoundEvents.GLASS_BREAK, SoundSource.PLAYERS, 1.0F, 0.8F);
-            level.sendParticles(ParticleTypes.ITEM_SNOWBALL, pos.x, pos.y + 0.3, pos.z, 50, 2.5, 0.5, 2.5, 0.1);
+            level.sendParticles(ParticleTypes.ITEM_SNOWBALL, pos.x, pos.y + 0.3, pos.z, 60, 2.5, 0.5, 2.5, 0.1);
+
+            // Spawn the stationary 3-headed Hydra entity behind the player
+            IceDragonEntity hydra = ModEntities.ICE_DRAGON.get().create(level);
+            if (hydra != null) {
+                hydra.configureStationary(p, pos, s.yaw, DURATION - 20);
+                if (level.addFreshEntity(hydra)) {
+                    MANIFESTATIONS.put(p.getUUID(), hydra.getUUID());
+                }
+            }
         }
-        // Stage 3 (Ticks 50-95): Rising Ice Hydra, Frost Gale & "...Daiguren Hyorinmaru!" Voice
-        else if (age == 50) {
+        // Stage 3 (Tick 40): Rising Hydra, Name Callout
+        else if (age == 40) {
             level.playSound(null, pos.x, pos.y, pos.z, ModSounds.HYORINMARU_VOICE_NAME.get(), SoundSource.PLAYERS, 1.3F, 1.0F);
-            level.playSound(null, pos.x, pos.y, pos.z, SoundEvents.ENDER_DRAGON_GROWL, SoundSource.PLAYERS, 0.5F, 1.4F);
+            level.playSound(null, pos.x, pos.y, pos.z, SoundEvents.ENDER_DRAGON_GROWL, SoundSource.PLAYERS, 0.6F, 1.3F);
+            level.sendParticles(ParticleTypes.SNOWFLAKE, pos.x, pos.y + 1.2, pos.z, 40, 2.0, 0.8, 2.0, 0.05);
         }
-        // Stage 5 (Ticks 120): Triple Hydra Roar & Shockwave
-        else if (age == 120) {
+        // Stage 4 (Tick 55): Hydra Roar & Frost Shockwave
+        else if (age == 55) {
             level.playSound(null, pos.x, pos.y, pos.z, ModSounds.HYORINMARU_ROAR.get(), SoundSource.PLAYERS, 1.4F, 0.9F);
             level.playSound(null, pos.x, pos.y, pos.z, SoundEvents.GLASS_BREAK, SoundSource.PLAYERS, 1.2F, 0.5F);
-            level.sendParticles(ParticleTypes.SNOWFLAKE, pos.x, pos.y + 1.5, pos.z, 140, 4.0, 1.0, 4.0, 0.25);
+            level.sendParticles(ParticleTypes.SNOWFLAKE, pos.x, pos.y + 1.5, pos.z, 120, 3.5, 1.0, 3.5, 0.2);
         }
     }
 
     @SubscribeEvent
     public static void logout(PlayerEvent.PlayerLoggedOutEvent event) {
-        SCENES.remove(event.getEntity().getUUID());
+        if (event.getEntity() instanceof ServerPlayer p) cancel(p);
     }
 
     @SubscribeEvent
@@ -138,5 +160,6 @@ public final class HyorinmaruCinematicService {
     @SubscribeEvent
     public static void stop(ServerStoppingEvent event) {
         SCENES.clear();
+        MANIFESTATIONS.clear();
     }
 }
