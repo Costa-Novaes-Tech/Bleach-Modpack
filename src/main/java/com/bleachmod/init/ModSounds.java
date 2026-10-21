@@ -29,6 +29,14 @@ public final class ModSounds {
     public static final RegistryObject<SoundEvent> BENIHIME_THREADS = SOUND_EVENTS.register("benihime.threads",
             () -> SoundEvent.createVariableRangeEvent(Reference.id("benihime.threads")));
 
+    // Daiguren Hyorinmaru Bankai transformation audio and triple hydra roar
+    public static final RegistryObject<SoundEvent> HYORINMARU_VOICE_BANKAI = SOUND_EVENTS.register("voice.hyorinmaru_bankai",
+            () -> SoundEvent.createVariableRangeEvent(Reference.id("voice.hyorinmaru_bankai")));
+    public static final RegistryObject<SoundEvent> HYORINMARU_VOICE_NAME = SOUND_EVENTS.register("voice.hyorinmaru_name",
+            () -> SoundEvent.createVariableRangeEvent(Reference.id("voice.hyorinmaru_name")));
+    public static final RegistryObject<SoundEvent> HYORINMARU_ROAR = SOUND_EVENTS.register("hyorinmaru.roar",
+            () -> SoundEvent.createVariableRangeEvent(Reference.id("hyorinmaru.roar")));
+
     private ModSounds() {
     }
 }

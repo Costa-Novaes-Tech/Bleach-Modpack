@@ -104,4 +104,17 @@ public final class HyorinmaruGameTests {
             scoreboard.removePlayerTeam(team); ally.discard(); enemy.discard(); RyujinTechniqueService.cancel(p);
         } h.succeed(); });
     }
+
+    @GameTest(template = "empty")
+    public static void hyorinmaruCinematicStartsSnapshotsAndCancels(GameTestHelper h) {
+        var p = player(h);
+        HyorinmaruCinematicService.begin(p);
+        var snapshot = HyorinmaruCinematicService.snapshot(p);
+        h.assertTrue(HyorinmaruCinematicService.active(p), "Cinematic not active after begin");
+        h.assertTrue(snapshot.getInt("duration") == HyorinmaruCinematicService.DURATION, "Wrong cinematic duration");
+        HyorinmaruCinematicService.cancel(p);
+        h.assertTrue(!HyorinmaruCinematicService.active(p), "Cinematic still active after cancel");
+        h.assertTrue(HyorinmaruCinematicService.snapshot(p).isEmpty(), "Snapshot not empty after cancel");
+        h.succeed();
+    }
 }
