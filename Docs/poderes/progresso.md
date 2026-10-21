@@ -423,3 +423,8 @@ Homologação final recebida do usuário para bainha, proporção e inclinação
 ## Passagem para nova conversa — 15/10/2026
 
 Criado [00-CONTINUIDADE-CODEX.md](00-CONTINUIDADE-CODEX.md) com regras, funcionalidades homologadas, mapa técnico, comandos de verificação, limites conhecidos e próximo trabalho ainda proposto. Nenhuma funcionalidade nova ou teste de código executado nesta atualização. Alterações documentais limitadas a Docs/poderes.
+
+
+## Ciclo 82 — passagem para autoria de poderes e criaturas (21/10/2026)
+
+Criado [documento operacional da nova frente](82-nova-frente-design-poderes-criaturas-blockbench-2026-10-21.md), com contexto até o ciclo 81, runtime 2.31/schema9/revisão3, roadmap, ferramentas registradas versus verificadas, instruções para nova branch, pipeline Blockbench/GeckoLib/PlayerAnimator/Better Combat, preservação de Zaraki/Hollows da equipe e critérios de QA. Somente documentação; nenhuma branch criada, ferramenta instalada ou funcionalidade implementada. Evidências históricas não foram reexecutadas.

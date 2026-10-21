@@ -1,3 +1,5 @@
+> **Passagem para nova frente — 21/10/2026:** [Criação/design de poderes e criaturas com Blockbench](82-nova-frente-design-poderes-criaturas-blockbench-2026-10-21.md). Documento atualizado pelo código e ciclos até 81: orienta criar `codex/design-poderes-criaturas` a partir da base revisada, inventariar ferramentas e seguir autoria/export/QA real. A branch ainda não foi criada por esta atualização; sem código, instalações ou testes novos. Registros anteriores abaixo são históricos.
+
 # Continuidade do projeto — leia primeiro
 
 Atualizado em 21/10/2026. Resumo de passagem para nova conversa; consulte o código/Git antes de alterar. Este arquivo evita precisar importar o histórico completo do chat. Não substitui instruções atuais do usuário.
