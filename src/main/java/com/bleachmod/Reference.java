@@ -4,7 +4,7 @@ import net.minecraft.resources.ResourceLocation;
 
 public final class Reference {
     public static final String MOD_ID = "bleachmod";
-    public static final String NETWORK_PROTOCOL = "2.28"; // User invocation mix and revised Benihime/Higashi presentation require matching clients.
+    public static final String NETWORK_PROTOCOL = "2.29"; // Synchronized Benihime stage orientation and revised presentation require matching clients.
 
     public static final String RACE_SHINIGAMI = "shinigami";
     public static final String GROUP_ZANPAKUTO = "zanpakuto";

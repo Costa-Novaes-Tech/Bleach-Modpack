@@ -1,3 +1,7 @@
+> **Ciclo 74 — apresentação Benihime, 20/10/2026:** [piso, penumbra/holofote, câmera e áudio](74-benihime-palco-penumbra-camera-audio-2026-10-20.md). Rede **2.29**, schema **9**; usar a mesma build em clientes/servidor. Piso temporário visual, sem colisão ou alterações nos blocos. Nome da Bankai com trilha reduzida e fala reforçada; aceite artístico/escuta continua pendente. Os avisos anteriores são históricos.
+
+> **Estado vigente — ciclo 72, 20/10/2026:** [revisão geral do roadmap e game design](72-revisao-geral-roadmap-gamedesign-2026-10-20.md). Consolida entregas, aceites, pendências e divergências de documentação; os registros abaixo são históricos. Nome completo da Bankai ainda encoberto pela música; correção adiada nesta rodada. Sem código ou novos testes.
+
 > **Ciclo 40 — 15/10/2026:** playtest recebido; escudo refinado, esquiva/guarda habilitadas no criativo sem voo e esquiva ampliada para 3,5 blocos nominais. Build, 80 regressões e 73 GameTests aprovados. [Contrato e nova conferência](40-refinamento-escudo-criativo-esquiva-ishida-2026-10-15.md). Ishida adicionado à fila; Byakuya continua próximo.
 
 > **Ciclo 39 — 15/10/2026:** bloqueio/Postura/Guard Break juntos, escudo visível; segurar X configurável. Protocolo 2.11, schema 8. Build, 80 regressões e 71 GameTests obrigatórios aprovados; playtest pendente. [Contrato e roteiro](39-bloqueio-postura-guard-break-2026-10-15.md). Próximo kit: Byakuya; Mentor/Proficiências adiados para confirmação com a equipe.

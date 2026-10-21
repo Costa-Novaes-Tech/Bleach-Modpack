@@ -49,6 +49,21 @@ public final class BenihimeEntranceGameTests {
     private static void clean(FakePlayer p) {
         ReleaseAnimationService.cancel(p); BenihimeEntranceService.cancel(p);
     }
+    @GameTest(template="empty",batch="benihime_stage_placement")
+    public static void obstructedStageIsSynchronizedWithoutTurningOrMovingPlayer(GameTestHelper h){
+        var p=player(h);var anchor=p.position();var old=new java.util.HashMap<BlockPos,net.minecraft.world.level.block.state.BlockState>();
+        try{
+            for(int x=-6;x<=6;x++)for(int y=0;y<13;y++){
+                var pos=BlockPos.containing(anchor.add(x,y,-7));old.put(pos,h.getLevel().getBlockState(pos));
+                h.getLevel().setBlockAndUpdate(pos,net.minecraft.world.level.block.Blocks.STONE.defaultBlockState());
+            }
+            BenihimeEntranceService.begin(p);var snapshot=BenihimeEntranceService.snapshot(p);
+            h.assertTrue(snapshot.contains("stageYaw")&&Math.abs(snapshot.getFloat("stageYaw"))>=25,"Blocked stage axis was not replaced or synchronized");
+            h.assertTrue(p.position().equals(anchor)&&p.getYRot()==0&&snapshot.getFloat("yaw")==0,"Visual placement moved or rotated the player");
+            h.assertTrue(data(p).getResources().getCurrentReiatsu()==100,"Visual placement consumed gameplay resources");
+        }finally{old.forEach((pos,state)->h.getLevel().setBlockAndUpdate(pos,state));clean(p);}
+        h.succeed();
+    }
     @GameTest(template="empty", batch="benihime_entrance_commit", timeoutTicks=90)
     public static void presentationOutlivesReleaseWithoutChangingCommitOrChargingTwice(GameTestHelper h) {
         var p = player(h); var d = data(p);

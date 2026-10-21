@@ -94,6 +94,7 @@ minecraft {
                 property 'bleachmod.benihimeQa', 'true'
                 property 'bleachmod.cinematicQa', providers.gradleProperty('cinematicQa').getOrElse('false')
                 property 'bleachmod.cinematicQaFast', providers.gradleProperty('cinematicQaFast').getOrElse('false')
+                property 'bleachmod.benihimeStageQa', providers.gradleProperty('benihimeStageQa').getOrElse('false')
                 args '--width', '1280', '--height', '720'
             }
             // Comma-separated list of namespaces to load gametests from. Empty = all namespaces.

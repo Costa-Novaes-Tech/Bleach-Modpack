@@ -1,3 +1,7 @@
+> **Ciclo 74 — apresentação Benihime, 20/10/2026:** [piso, penumbra/holofote, câmera e áudio](74-benihime-palco-penumbra-camera-audio-2026-10-20.md). Rede **2.29**, schema **9**; usar a mesma build em clientes/servidor. Piso temporário visual, sem colisão ou alterações nos blocos. Nome da Bankai com trilha reduzida e fala reforçada; aceite artístico/escuta continua pendente. Os avisos anteriores são históricos.
+
+> **Estado vigente — ciclo 72, 20/10/2026:** [revisão geral do roadmap e game design](72-revisao-geral-roadmap-gamedesign-2026-10-20.md). Consolida entregas, aceites, pendências e divergências de documentação; os registros abaixo são históricos. Nome completo da Bankai ainda encoberto pela música; correção adiada nesta rodada. Sem código ou novos testes.
+
 > **Nova conversa — entrada recomendada, 15/10/2026:** leia primeiro [Continuidade do projeto](00-CONTINUIDADE-CODEX.md). O resumo reúne estado homologado, branch/restrições, protocolo/schema, mapa técnico, validações e proposta seguinte. Não é necessário importar todo o histórico nem reler todos os relatórios. Os registros abaixo permanecem como histórico.
 
 > **Estado vigente — ciclo 36, 13/10/2026:** proporção/inclinação finais da bainha homologadas pelo usuário; documentação consolidada de combate, stamina, armas indestrutíveis e saque/guarda. [Contratos atuais, arquivos, histórico e próxima proposta](36-consolidacao-homologacao-proximos-passos-2026-10-13.md). Próxima recomendação: esquiva curta com stamina, ainda sem implementação. Registros anteriores abaixo são históricos.

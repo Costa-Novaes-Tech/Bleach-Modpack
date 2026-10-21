@@ -44,8 +44,11 @@ public final class CinematicQaSequence {
         }else if(stage==4&&++wait>=160){
             start("threshold");stage=5;wait=0;
         }else if(stage==5&&++wait>=160){
-            scenario=null;stage=6;
-            com.mojang.logging.LogUtils.getLogger().info("Cinematic QA 71 automatic sequence complete; client remains available for manual testing");
+            start("survive");stage=6;wait=0;
+        }else if(stage==6&&++wait>=160){
+            scenario=null;stage=7;
+            com.mojang.logging.LogUtils.getLogger().info("Cinematic QA 75 automatic sequence complete; client remains available for manual testing");
+            mc.player.displayClientMessage(net.minecraft.network.chat.Component.literal("Testes: /cinematicqa benihime | /cinematicqa higashi lethal | threshold | survive"),false);
         }
     }
     private static void start(String name){

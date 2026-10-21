@@ -1,0 +1,29 @@
+{
+  "method": "Clean-voice projection and residual signal; this is not a subjective listening or intelligibility score.",
+  "before": {
+    "duration": 28.0,
+    "peakDbfs": -1.9201027025606943,
+    "outsideFullScale": 0,
+    "nameGain": 1.2695785644105653,
+    "projectedVoiceToResidualDb": 3.257496118394722,
+    "peakMeasurement": "native stereo channels, not energy-normalized mono downmix"
+  },
+  "after": {
+    "duration": 28.0,
+    "peakDbfs": -2.901110978508161,
+    "outsideFullScale": 0,
+    "nameGain": 1.4973609429882535,
+    "projectedVoiceToResidualDb": 19.08022560346162,
+    "peakMeasurement": "native stereo channels, not energy-normalized mono downmix"
+  },
+  "recording": {
+    "duration": 14.0,
+    "peakDbfs": -3.8788027791314277,
+    "outsideFullScale": 0,
+    "nameGain": 0.7555149638036798,
+    "projectedVoiceToResidualDb": 3.2878655845656097,
+    "namePositionSeconds": 236.2482993197279,
+    "peakMeasurement": "mono downmix for correlation, not a native channel clipping measurement"
+  },
+  "improvementDb": 15.822729485066898
+}

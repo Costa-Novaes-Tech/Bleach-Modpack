@@ -1,0 +1,38 @@
+{
+  "bench": {
+    "sourceRun": "1792540185012",
+    "capturedFrames": 287,
+    "exportedFrames": 24,
+    "gallery": "bench/index.html"
+  },
+  "day": {
+    "sourceRun": "1792540219964",
+    "capturedFrames": 282,
+    "exportedFrames": 282,
+    "gallery": "day/index.html"
+  },
+  "night": {
+    "sourceRun": "1792540252069",
+    "capturedFrames": 282,
+    "exportedFrames": 19,
+    "gallery": "night/index.html"
+  },
+  "wall": {
+    "sourceRun": "1792540286926",
+    "capturedFrames": 281,
+    "exportedFrames": 18,
+    "gallery": "wall/index.html"
+  },
+  "vegetation": {
+    "sourceRun": "1792540317668",
+    "capturedFrames": 281,
+    "exportedFrames": 18,
+    "gallery": "vegetation/index.html"
+  },
+  "cancel": {
+    "sourceRun": "1792540348365",
+    "capturedFrames": 98,
+    "exportedFrames": 8,
+    "gallery": "cancel/index.html"
+  }
+}
