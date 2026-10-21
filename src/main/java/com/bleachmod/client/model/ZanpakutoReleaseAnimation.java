@@ -67,7 +67,25 @@ public final class ZanpakutoReleaseAnimation {
             if(List.of("senbonzakura","benihime","asauchi").contains(v.identity))return RyujinActionVisuals.transform(player,com.bleachmod.common.visual.SignatureChoreography.release(v.identity,t*v.duration,v.duration,sign),part,type,value);
             if(v.bankai && v.identity.equals("ryujin_jakka"))return RyujinActionVisuals.transform(player,com.bleachmod.common.visual.RyujinChoreography.release(t*v.duration,sign),part,type,value);
             boolean sword=part.equals(sign>0?"rightArm":"leftArm"),seal=part.equals(sign>0?"leftArm":"rightArm");
-            boolean fire=v.identity.equals("ryujin_jakka");
+            if(v.bankai && v.identity.equals("hyorinmaru")){
+                boolean thrust = t >= 0.55F;
+                float thrustW = thrust ? (t - 0.55F) / 0.45F : 0;
+                if(type==TransformType.ROTATION){
+                    if(sword){
+                        float rotX = Mth.lerp(thrustW, -1.25F, -2.35F);
+                        return mix(value, rotX, -0.15F*sign, 0.12F*sign, w);
+                    }
+                    if(seal && player.getOffhandItem().isEmpty()){
+                        float rotX = Mth.lerp(thrustW, -1.1F, -0.6F);
+                        return mix(value, rotX, 0.28F*sign, -0.15F*sign, w);
+                    }
+                    if(part.equals("body"))return mix(value, thrust ? -0.12F : 0.08F, -0.06F*sign, 0, w);
+                    if(part.equals("rightItem") || part.equals("leftItem"))return mix(value,0,0,0,w);
+                }
+                if((type==TransformType.POSITION && (part.equals("rightItem") || part.equals("leftItem")))
+                        || type==TransformType.BEND && (sword||seal))return mix(value,0,0,0,w);
+                return value;
+            }
             if(type==TransformType.ROTATION){
                 if(sword){
                     return mix(value,-1.35F,-.25F*sign,-.2F*sign,w);
@@ -97,36 +115,5 @@ public final class ZanpakutoReleaseAnimation {
         pose.translate(-sign*.2*w,-.05*w,-.1*w);
         pose.mulPose(Axis.ZP.rotationDegrees(sign*(v.bankai && v.identity.equals("ryujin_jakka")?75:20)*w));
         pose.mulPose(Axis.XP.rotationDegrees(-15*w));
-    }
-    @SubscribeEvent public static void tick(TickEvent.ClientTickEvent e){
-        if(e.phase!=TickEvent.Phase.END)return;
-        var mc=Minecraft.getInstance();if(mc.level==null){clear();return;}
-        VIEWS.entrySet().removeIf(entry->mc.level.getGameTime()-entry.getValue().start>=entry.getValue().duration);
-        for(var entry:VIEWS.entrySet()){
-            if(!(mc.level.getEntity(entry.getKey()) instanceof AbstractClientPlayer p) || view(p)==null || mc.player==null || mc.player.distanceToSqr(p)>64*64)continue;
-            var v=entry.getValue();float t=progress(p,v,0);
-            if(List.of("senbonzakura","benihime","asauchi").contains(v.identity)){SignatureActionVisuals.releaseParticles(p,v.identity,t,v.bankai);if(p==mc.player && mc instanceof net.bettercombat.api.MinecraftClient_BetterCombat bc)bc.cancelUpswing();continue;}
-            if(v.bankai && v.identity.equals("ryujin_jakka")){RyujinActionVisuals.releaseParticles(p,t*v.duration);if(p==mc.player && mc instanceof net.bettercombat.api.MinecraftClient_BetterCombat bc)bc.cancelUpswing();continue;}
-            boolean fire=v.identity.equals("ryujin_jakka");
-            var forward=Vec3.directionFromRotation(0,p.getYRot());var side=new Vec3(-forward.z,0,forward.x);
-            float sign=p.getMainArm()==HumanoidArm.RIGHT?1:-1;
-            Vec3 blade=p.position().add(forward.scale(.7)).add(side.scale(sign*.3)).add(0,1,0);
-            int samples=mc.options.particles().get()==net.minecraft.client.ParticleStatus.MINIMAL?3:12;
-            for(int i=0;i<samples;i++){
-                double a=i*Math.PI*2/samples+t*6;
-                if(fire && v.bankai && t<.67){
-                    double r=3.8*(1-t/.67)+.25;
-                    Vec3 point=p.position().add(Math.cos(a)*r,.4+(i%4)*.45,Math.sin(a)*r);
-                    Vec3 velocity=blade.subtract(point).scale(.22);
-                    mc.level.addParticle(ParticleTypes.FLAME,point.x,point.y,point.z,velocity.x,velocity.y,velocity.z);
-                }else{
-                    double r=fire?.2:(.8+Math.max(0,t-.66)*6);
-                    Vec3 point=fire?blade.add(side.scale(Math.sin(a)*.7)):p.position().add(Math.cos(a)*r,.4+(i%4)*.4,Math.sin(a)*r);
-                    mc.level.addParticle(fire?(v.bankai?ParticleTypes.SMOKE:ParticleTypes.FLAME):ParticleTypes.SNOWFLAKE,
-                            point.x,point.y,point.z,fire?0:Math.cos(a)*.06,.025,fire?0:Math.sin(a)*.06);
-                }
-            }
-            if(p==mc.player && mc instanceof net.bettercombat.api.MinecraftClient_BetterCombat bc)bc.cancelUpswing();
-        }
     }
 }

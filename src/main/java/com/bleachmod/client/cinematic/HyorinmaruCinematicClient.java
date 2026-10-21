@@ -24,10 +24,11 @@ import java.util.Map;
 
 /**
  * Client-side camera director and presentation renderer for Daiguren Hyorinmaru's Bankai Transformation.
+ * Total presentation duration: 70 ticks (3.5 seconds).
  */
 @Mod.EventBusSubscriber(modid = Reference.MOD_ID, value = Dist.CLIENT)
 public final class HyorinmaruCinematicClient {
-    public static final int DURATION = 140;
+    public static final int DURATION = 70;
 
     private record Scene(long start, Vec3 anchor, Vec3 forward, float yaw) { }
     private record Shot(Vec3 eye, Vec3 focus, float fov) { }
@@ -40,9 +41,7 @@ public final class HyorinmaruCinematicClient {
 
     private HyorinmaruCinematicClient() { }
 
-    public static void init() {
-        // Reserved for initialization hooks if needed
-    }
+    public static void init() { }
 
     public static boolean active(int id) {
         return world == Minecraft.getInstance().level && SCENES.containsKey(id);
@@ -56,6 +55,11 @@ public final class HyorinmaruCinematicClient {
             world = mc.level;
         }
 
+        if (tag == null || !tag.contains("duration") || tag.getInt("duration") != DURATION) {
+            finish(id);
+            return;
+        }
+
         int elapsed = tag.getInt("elapsed");
         if (elapsed < 0 || elapsed >= DURATION) {
             finish(id);
@@ -64,13 +68,18 @@ public final class HyorinmaruCinematicClient {
 
         Vec3 anchor = new Vec3(tag.getDouble("x"), tag.getDouble("y"), tag.getDouble("z"));
         float yaw = tag.getFloat("yaw");
-        if (!Double.isFinite(anchor.lengthSqr()) || !Float.isFinite(yaw)) return;
+        if (!Double.isFinite(anchor.lengthSqr()) || !Float.isFinite(yaw) || anchor.lengthSqr() < 0.001) {
+            finish(id);
+            return;
+        }
 
         boolean fresh = !SCENES.containsKey(id);
         SCENES.put(id, new Scene(mc.level.getGameTime() - elapsed, anchor, Vec3.directionFromRotation(0, yaw), yaw));
 
         if (fresh && mc.player != null && mc.player.getId() == id) {
-            previousCameraType = mc.options.getCameraType();
+            if (previousCameraType == null) {
+                previousCameraType = mc.options.getCameraType();
+            }
             cameraActive = true;
         }
     }
@@ -95,6 +104,7 @@ public final class HyorinmaruCinematicClient {
             if (previousCameraType != null && mc.options != null) {
                 mc.options.setCameraType(previousCameraType);
             }
+            previousCameraType = null;
         }
     }
 
@@ -116,48 +126,47 @@ public final class HyorinmaruCinematicClient {
         Vec3 left = new Vec3(-forward.z, 0, forward.x);
         Vec3 base = s.anchor.add(0, 1.2, 0);
 
-        // Phase 1 (Ticks 0-30): Low close-up on the Shinigami, slight FOV punch
-        if (time < 30.0) {
-            double p = time / 30.0;
-            Vec3 eye = base.add(forward.scale(2.2 - p * 0.4)).add(0, 0.2 + p * 0.4, 0);
-            Vec3 focus = base.add(0, 0.4, 0);
-            float fov = (float) Mth.lerp(p, baseFov, baseFov * 0.88f);
+        // Phase 1 (Ticks 0-25): Front elevation on caster with frost vortex gathering
+        if (time < 25.0) {
+            double p = time / 25.0;
+            Vec3 eye = base.add(forward.scale(2.6 - p * 0.3)).add(0, 0.2 + p * 0.2, 0);
+            Vec3 focus = base.add(0, 0.3, 0);
+            float fov = (float) Mth.lerp(p, baseFov, baseFov * 0.92f);
             return new Shot(eye, focus, fov);
         }
-        // Phase 2 (Ticks 30-75): Orbit upward and pull back showing the rising Ice Hydra
-        else if (time < 75.0) {
-            double p = (time - 30.0) / 45.0;
-            double angle = p * Math.PI * 0.45;
-            double dist = Mth.lerp(p, 2.5, 7.5);
-            double height = Mth.lerp(p, 0.6, 3.2);
+        // Phase 2 (Ticks 25-50): Orbital rotation pulling back showing the rising 3-headed Hydra
+        else if (time < 50.0) {
+            double p = (time - 25.0) / 25.0;
+            double angle = p * Math.PI * 0.35;
+            double dist = Mth.lerp(p, 2.5, 5.0);
+            double height = Mth.lerp(p, 0.4, 1.8);
 
             Vec3 offset = forward.scale(Math.cos(angle) * dist)
                     .add(left.scale(Math.sin(angle) * dist))
                     .add(0, height, 0);
             Vec3 eye = base.add(offset);
-            Vec3 focus = base.add(0, 1.8, 0);
-            float fov = (float) Mth.lerp(p, baseFov * 0.88f, baseFov * 1.05f);
+            Vec3 focus = base.add(0, 1.4, 0);
+            float fov = (float) Mth.lerp(p, baseFov * 0.92f, baseFov * 1.02f);
             return new Shot(eye, focus, fov);
         }
-        // Phase 3 (Ticks 75-120): Majestic panoramic angle of the 3 Hydra heads and wings
-        else if (time < 120.0) {
-            double p = (time - 75.0) / 45.0;
-            double angle = Math.PI * 0.45 + p * 0.2;
-            Vec3 eye = base.add(forward.scale(Math.cos(angle) * 7.5))
-                    .add(left.scale(Math.sin(angle) * 7.5))
-                    .add(0, 3.2 - p * 0.6, 0);
-            Vec3 focus = base.add(0, 2.0, 0);
-            return new Shot(eye, focus, baseFov * 1.02f);
+        // Phase 3 (Ticks 50-65): Majestic wide angle of the Hydra spread and roar
+        else if (time < 65.0) {
+            double p = (time - 50.0) / 15.0;
+            double angle = Math.PI * 0.35 + p * 0.1;
+            Vec3 eye = base.add(forward.scale(Math.cos(angle) * 5.0))
+                    .add(left.scale(Math.sin(angle) * 5.0))
+                    .add(0, 1.8 - p * 0.3, 0);
+            Vec3 focus = base.add(0, 1.5, 0);
+            return new Shot(eye, focus, baseFov * 1.0f);
         }
-        // Phase 4 (Ticks 120-140): Smooth transition back to player view
+        // Phase 4 (Ticks 65-70): Seamless return to player perspective
         else {
-            double p = (time - 120.0) / 20.0;
+            double p = (time - 65.0) / 5.0;
             Vec3 normalEye = mc.player != null ? mc.player.getEyePosition() : base;
-            Vec3 startEye = base.add(forward.scale(5.0)).add(0, 2.0, 0);
+            Vec3 startEye = base.add(forward.scale(3.5)).add(0, 1.2, 0);
             Vec3 eye = startEye.lerp(normalEye, p);
-            Vec3 focus = normalEye.add(forward.scale(10.0));
-            float fov = (float) Mth.lerp(p, baseFov * 1.02f, baseFov);
-            return new Shot(eye, focus, fov);
+            Vec3 focus = normalEye.add(forward.scale(6.0));
+            return new Shot(eye, focus, baseFov);
         }
     }
 
@@ -165,11 +174,14 @@ public final class HyorinmaruCinematicClient {
     public static void onCameraAngles(ViewportEvent.ComputeCameraAngles event) {
         if (!cameraActive || world == null) return;
         var s = local();
-        if (s == null) return;
+        if (s == null) {
+            restoreCamera();
+            return;
+        }
 
         var mc = Minecraft.getInstance();
         double age = age(s, (float) event.getPartialTick());
-        if (age >= DURATION) {
+        if (age >= DURATION || age < 0) {
             restoreCamera();
             return;
         }
@@ -183,13 +195,17 @@ public final class HyorinmaruCinematicClient {
             eye = hit.getLocation().add(safeOrigin.subtract(eye).normalize().scale(0.2));
         }
 
+        if (eye.distanceToSqr(sh.focus) < 0.25) {
+            restoreCamera();
+            return;
+        }
+
         try {
             if (cameraPositionMethod == null) {
                 cameraPositionMethod = net.minecraftforge.fml.util.ObfuscationReflectionHelper.findMethod(Camera.class, "m_90581_", Vec3.class);
             }
             cameraPositionMethod.invoke(event.getCamera(), eye);
         } catch (ReflectiveOperationException | RuntimeException ignored) {
-            cameraActive = false;
             restoreCamera();
             return;
         }
@@ -206,7 +222,7 @@ public final class HyorinmaruCinematicClient {
         var s = local();
         if (s == null) return;
         double age = age(s, (float) event.getPartialTick());
-        if (age < DURATION && event.usedConfiguredFov()) {
+        if (age < DURATION && age >= 0 && event.usedConfiguredFov()) {
             event.setFOV(computeShot(s, age).fov);
         }
     }
@@ -225,20 +241,20 @@ public final class HyorinmaruCinematicClient {
         if (s == null) return;
 
         double age = age(s, event.getPartialTick());
-        if (age >= DURATION) return;
+        if (age >= DURATION || age < 0) return;
 
         GuiGraphics g = event.getGuiGraphics();
-        int barHeight = (int) (g.guiHeight() * 0.08);
+        int barHeight = (int) (g.guiHeight() * 0.065);
 
-        // Letterbox cinematográfico
-        g.fill(0, 0, g.guiWidth(), barHeight, 0xFF000000);
-        g.fill(0, g.guiHeight() - barHeight, g.guiWidth(), g.guiHeight(), 0xFF000000);
+        // Letterbox cinematográfico suave
+        g.fill(0, 0, g.guiWidth(), barHeight, 0xEE000000);
+        g.fill(0, g.guiHeight() - barHeight, g.guiWidth(), g.guiHeight(), 0xEE000000);
 
         var font = Minecraft.getInstance().font;
-        if (age > 15 && age < 50) {
-            g.drawCenteredString(font, "Bankai", g.guiWidth() / 2, g.guiHeight() - barHeight - 24, 0xCEF0FF);
-        } else if (age >= 50 && age < 125) {
-            g.drawCenteredString(font, "Daiguren Hyōrinmaru", g.guiWidth() / 2, g.guiHeight() - barHeight - 24, 0x8BE0FF);
+        if (age >= 10 && age < 35) {
+            g.drawCenteredString(font, "Bankai", g.guiWidth() / 2, g.guiHeight() - barHeight - 20, 0xCEF0FF);
+        } else if (age >= 35 && age < 65) {
+            g.drawCenteredString(font, "Daiguren Hyōrinmaru", g.guiWidth() / 2, g.guiHeight() - barHeight - 20, 0x8BE0FF);
         }
     }
 
@@ -255,6 +271,20 @@ public final class HyorinmaruCinematicClient {
             world = mc.level;
             return;
         }
+
+        // Se o jogador pressionar qualquer tecla de movimento, ataque, pulo ou uso, restaura a câmera imediatamente!
+        if (cameraActive && mc.player != null && (mc.player.hurtTime > 0
+                || mc.options.keyUp.isDown()
+                || mc.options.keyDown.isDown()
+                || mc.options.keyLeft.isDown()
+                || mc.options.keyRight.isDown()
+                || mc.options.keyAttack.isDown()
+                || mc.options.keyUse.isDown()
+                || mc.options.keyJump.isDown()
+                || CinematicDirector.localActive())) {
+            restoreCamera();
+        }
+
         SCENES.entrySet().removeIf(e -> {
             boolean done = (world.getGameTime() - e.getValue().start) >= DURATION;
             if (done && mc.player != null && mc.player.getId() == e.getKey()) {

@@ -135,7 +135,11 @@ public final class HyorinmaruTechniqueService {
         IceTechniqueVisuals.duel(p, target.position());
     }
     public static void tick(ServerPlayer p, PlayerData d) {
-        IceArmorService.tick(p); if (Reference.FORM_BANKAI.equals(d.getCharacter().getActiveForm()) && p.tickCount % 2 == 0) IceTechniqueVisuals.blizzardAura(p);
+        IceArmorService.tick(p);
+        BlizzardWeatherData.tickCaster(p, d);
+        if (Reference.FORM_BANKAI.equals(d.getCharacter().getActiveForm()) && p.tickCount % 2 == 0) {
+            IceTechniqueVisuals.blizzardAura(p);
+        }
         var dragon = DRAGONS.get(p.getUUID()); if (dragon != null) { dragon.removeIf(net.minecraft.world.entity.Entity::isRemoved); if(dragon.isEmpty())DRAGONS.remove(p.getUUID()); }
         Field f = FIELDS.get(p.getUUID());
         if (f == null) return;

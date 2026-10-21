@@ -19,6 +19,7 @@ public final class IceDragonEntity extends Phantom implements software.bernie.ge
     private net.minecraft.server.level.ServerPlayer caster;
     private Vec3 origin = Vec3.ZERO, direction = Vec3.ZERO;
     private int life;
+    private boolean stationary = false;
     public static final double SHIKAI_RANGE=15, SHIKAI_HIT_RADIUS=.7, BANKAI_HIT_RADIUS=2.3;
     public static final float BANKAI_VISUAL_SCALE=5.25F;
     public static final int BANKAI_SIZE = 12, BANKAI_LIFETIME = 30;
@@ -31,18 +32,46 @@ public final class IceDragonEntity extends Phantom implements software.bernie.ge
         configure(p,aim,bankai,new java.util.HashSet<>());
     }
     public void configure(net.minecraft.server.level.ServerPlayer p, Vec3 aim, boolean bankai, java.util.Set<UUID> hits) {
+        this.stationary = false;
         this.hits=hits;this.bankai=bankai;this.form=bankai?"bankai":"shikai";
         owner = p.getUUID(); caster = p; origin = p.position().add(aim.scale(1.5)).add(0, bankai?3.2:1.2, 0); direction = aim;
         life = bankai ? BANKAI_LIFETIME+2 : 23; speed = bankai ? BANKAI_SPEED : 0.7;
         float yaw=(float)Math.toDegrees(Math.atan2(-aim.x,aim.z));
         setPhantomSize(bankai ? BANKAI_SIZE : 2); setPos(p.position().add(0,bankai?3.2:1.2,0)); setYRot(yaw); setYBodyRot(yaw);
     }
+    public void configureStationary(net.minecraft.server.level.ServerPlayer p, Vec3 anchor, float yaw, int durationTicks) {
+        this.stationary = true;
+        this.bankai = true;
+        this.form = "bankai";
+        this.owner = p.getUUID();
+        this.caster = p;
+        Vec3 back = Vec3.directionFromRotation(0, yaw).scale(-1.8);
+        this.origin = anchor.add(back).add(0, 0.4, 0);
+        this.direction = Vec3.directionFromRotation(0, yaw);
+        this.life = durationTicks;
+        setPhantomSize(BANKAI_SIZE);
+        setPos(this.origin);
+        setYRot(yaw);
+        setYBodyRot(yaw);
+    }
     @Override public void tick() {
         super.tick();
         if (level().isClientSide) return;
         var p = caster;
-        if (p == null || p.level() != level() || !p.isAlive() || tickCount >= life
-                || !PlayerCapability.get(p).map(d -> HyorinmaruTechniqueService.equipped(p, d) && form.equals(d.getCharacter().getActiveForm())).orElse(false)) {
+        if (p == null || p.level() != level() || !p.isAlive() || tickCount >= life) {
+            discard(); return;
+        }
+        if (stationary) {
+            double rise = Math.min(2.0, tickCount * 0.08);
+            Vec3 pos = origin.add(0, rise, 0);
+            setPos(pos);
+            setDeltaMovement(Vec3.ZERO);
+            if (tickCount % 4 == 0) {
+                IceTechniqueVisuals.dragon(p, pos);
+            }
+            return;
+        }
+        if (!PlayerCapability.get(p).map(d -> HyorinmaruTechniqueService.equipped(p, d) && form.equals(d.getCharacter().getActiveForm())).orElse(false)) {
             discard(); return;
         }
         double range=bankai?24:SHIKAI_RANGE;

@@ -14,6 +14,7 @@ import net.minecraft.commands.*;
 import net.minecraft.commands.arguments.EntityArgument;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.RegisterCommandsEvent;
@@ -118,9 +119,15 @@ public final class BleachCommands {
     private static void bind(ServerPlayer p,PlayerData d,String identity) {
         if (!Reference.RACE_SHINIGAMI.equals(d.getCharacter().getRace())) throw new IllegalArgumentException("Shinigami required");
         d.getCharacter().bindZanpakuto(identity);
+        d.getCharacter().preserveLegacyTechniques();
         d.getStatus().clearTransformationState();
         com.bleachmod.common.technique.MasteryPracticeService.cancelIntent(p);
         com.bleachmod.common.technique.RyujinTechniqueService.cancel(p);
+        com.bleachmod.common.technique.HyorinmaruTechniqueService.cancel(p);
+        var item = net.minecraftforge.registries.ForgeRegistries.ITEMS.getValue(Reference.id(identity));
+        if (item != null) {
+            p.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(item));
+        }
         d.getResources().setActionCharge(0);
         SyncHelper.appearance(p);
     }
@@ -139,11 +146,11 @@ public final class BleachCommands {
         // Shikai mastery satisfies Bankai's requisite; Bankai mastery allows transforming straight from sealed.
         raiseMastery(d,shikai,bankai.getUnlockOnMastery());
         raiseMastery(d,bankai,bankai.getAllowFreeTransformOnMastery());
+        d.getCharacter().preserveLegacyTechniques();
         com.bleachmod.common.technique.TechniqueProgression.unlockEligible(d.getCharacter());
         var item=net.minecraftforge.registries.ForgeRegistries.ITEMS.getValue(Reference.id(current));
-        if (item!=null&&!p.getInventory().hasAnyOf(java.util.Set.of(item))) {
-            ItemStack stack=new ItemStack(item);
-            if(!p.getInventory().add(stack)) p.drop(stack,false);
+        if (item!=null) {
+            p.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(item));
         }
         d.getCharacter().setSelectedForm(Reference.GROUP_ZANPAKUTO,"bankai");
     }
@@ -154,6 +161,7 @@ public final class BleachCommands {
     private static void resetTechniqueEffects(ServerPlayer player,PlayerData data) {
         data.getStatus().clearTechniqueTestState();
         com.bleachmod.common.technique.RyujinTechniqueService.cancel(player);
+        com.bleachmod.common.technique.HyorinmaruTechniqueService.cancel(player);
         player.setDeltaMovement(Vec3.ZERO);
         player.hurtMarked = true;
     }
