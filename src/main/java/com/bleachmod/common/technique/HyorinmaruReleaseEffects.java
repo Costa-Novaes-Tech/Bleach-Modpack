@@ -20,11 +20,14 @@ public final class HyorinmaruReleaseEffects {
             boolean bankai=Reference.FORM_BANKAI.equals(event.getNewForm());
             IceManifestation.release(p, bankai);
             p.serverLevel().playSound(null,p.blockPosition(),SoundEvents.GLASS_BREAK,p.getSoundSource(),1,bankai?0.6F:1);
-            if(bankai) p.serverLevel().playSound(null,p.blockPosition(),SoundEvents.ENDER_DRAGON_GROWL,p.getSoundSource(),0.3F,1.3F);
+            if(bankai) {
+                p.serverLevel().playSound(null,p.blockPosition(),SoundEvents.ENDER_DRAGON_GROWL,p.getSoundSource(),0.3F,1.3F);
+                HyorinmaruCinematicService.begin(p);
+            }
         });
     }
     @SubscribeEvent public static void aura(TickEvent.PlayerTickEvent event) {
-        if(event.player instanceof ServerPlayer p && ReleaseAnimationService.busy(p))return;
+        if(event.player instanceof ServerPlayer p && (ReleaseAnimationService.busy(p) || HyorinmaruCinematicService.active(p))) return;
         if(event.phase!=TickEvent.Phase.END || !(event.player instanceof ServerPlayer p) || p.tickCount%8!=0 || !p.isAlive() || p.isSpectator()) return;
         PlayerCapability.get(p).ifPresent(d->{
             if(!d.getStatus().hasCreatedCharacter() || !CharacterData.HYORINMARU.equals(d.getCharacter().getZanpakutoIdentity())) return;

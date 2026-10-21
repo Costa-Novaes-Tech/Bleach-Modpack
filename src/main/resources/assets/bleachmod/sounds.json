@@ -68,5 +68,32 @@
         "stream": true
       }
     ]
+  },
+  "voice.hyorinmaru_bankai": {
+    "subtitle": "subtitles.bleachmod.voice.hyorinmaru_bankai",
+    "sounds": [
+      {
+        "name": "bleachmod:hyorinmaru_voice_bankai",
+        "stream": true
+      }
+    ]
+  },
+  "voice.hyorinmaru_name": {
+    "subtitle": "subtitles.bleachmod.voice.hyorinmaru_name",
+    "sounds": [
+      {
+        "name": "bleachmod:hyorinmaru_voice_name",
+        "stream": true
+      }
+    ]
+  },
+  "hyorinmaru.roar": {
+    "subtitle": "subtitles.bleachmod.hyorinmaru.roar",
+    "sounds": [
+      {
+        "name": "bleachmod:hyorinmaru_roar",
+        "stream": false
+      }
+    ]
   }
 }

@@ -14,9 +14,23 @@ public final class IceDragonRenderer extends GeoEntityRenderer<IceDragonEntity> 
         super.render(dragon,yaw,partial,pose,buffers,light);pose.popPose();
     }
     private static final class Model extends GeoModel<IceDragonEntity>{
-        @Override public ResourceLocation getModelResource(IceDragonEntity d){return Reference.id("geo/ice_dragon.geo.json");}
-        @Override public ResourceLocation getTextureResource(IceDragonEntity d){return new ResourceLocation("minecraft","textures/block/packed_ice.png");}
-        @Override public ResourceLocation getAnimationResource(IceDragonEntity d){return Reference.id("animations/ice_dragon.animation.json");}
-        @Override public net.minecraft.client.renderer.RenderType getRenderType(IceDragonEntity d,ResourceLocation texture){return net.minecraft.client.renderer.RenderType.entityTranslucent(texture);}
+        private static final ResourceLocation HYDRA_GEO = Reference.id("geo/ice_hydra.geo.json");
+        private static final ResourceLocation HYDRA_TEX = Reference.id("textures/entity/ice_hydra.png");
+        private static final ResourceLocation HYDRA_ANIM = Reference.id("animations/ice_hydra.animation.json");
+        private static final ResourceLocation DRAGON_GEO = Reference.id("geo/ice_dragon.geo.json");
+        private static final ResourceLocation DRAGON_ANIM = Reference.id("animations/ice_dragon.animation.json");
+
+        @Override public ResourceLocation getModelResource(IceDragonEntity d){
+            return d.getPhantomSize() == IceDragonEntity.BANKAI_SIZE ? HYDRA_GEO : DRAGON_GEO;
+        }
+        @Override public ResourceLocation getTextureResource(IceDragonEntity d){
+            return HYDRA_TEX;
+        }
+        @Override public ResourceLocation getAnimationResource(IceDragonEntity d){
+            return d.getPhantomSize() == IceDragonEntity.BANKAI_SIZE ? HYDRA_ANIM : DRAGON_ANIM;
+        }
+        @Override public net.minecraft.client.renderer.RenderType getRenderType(IceDragonEntity d,ResourceLocation texture){
+            return net.minecraft.client.renderer.RenderType.entityTranslucent(texture);
+        }
     }
 }
