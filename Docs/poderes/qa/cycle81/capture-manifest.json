@@ -1,0 +1,164 @@
+[
+  {
+    "case": "sealed-melee",
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\benihime-combat-qa\\1792584159923-sealed-melee",
+    "frames": 88,
+    "firstTick": 28,
+    "lastTick": 115,
+    "minFpsObserved": 97,
+    "maxFpsObserved": 110
+  },
+  {
+    "case": "shikai-melee",
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\benihime-combat-qa\\1792584166917-shikai-melee",
+    "frames": 88,
+    "firstTick": 28,
+    "lastTick": 115,
+    "minFpsObserved": 104,
+    "maxFpsObserved": 119
+  },
+  {
+    "case": "bankai-melee",
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\benihime-combat-qa\\1792584173917-bankai-melee",
+    "frames": 88,
+    "firstTick": 28,
+    "lastTick": 115,
+    "minFpsObserved": 93,
+    "maxFpsObserved": 117
+  },
+  {
+    "case": "shikai-first-person",
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\benihime-combat-qa\\1792584180922-shikai-first-person",
+    "frames": 88,
+    "firstTick": 28,
+    "lastTick": 115,
+    "minFpsObserved": 100,
+    "maxFpsObserved": 116
+  },
+  {
+    "case": "nake",
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\benihime-combat-qa\\1792584187917-nake",
+    "frames": 88,
+    "firstTick": 28,
+    "lastTick": 115,
+    "minFpsObserved": 106,
+    "maxFpsObserved": 118
+  },
+  {
+    "case": "shield",
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\benihime-combat-qa\\1792584194916-shield",
+    "frames": 88,
+    "firstTick": 28,
+    "lastTick": 115,
+    "minFpsObserved": 109,
+    "maxFpsObserved": 118
+  },
+  {
+    "case": "shibari",
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\benihime-combat-qa\\1792584201922-shibari",
+    "frames": 88,
+    "firstTick": 28,
+    "lastTick": 115,
+    "minFpsObserved": 106,
+    "maxFpsObserved": 118
+  },
+  {
+    "case": "hiasobi",
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\benihime-combat-qa\\1792584208920-hiasobi",
+    "frames": 88,
+    "firstTick": 28,
+    "lastTick": 115,
+    "minFpsObserved": 108,
+    "maxFpsObserved": 119
+  },
+  {
+    "case": "dissection",
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\benihime-combat-qa\\1792584215919-dissection",
+    "frames": 88,
+    "firstTick": 28,
+    "lastTick": 115,
+    "minFpsObserved": 100,
+    "maxFpsObserved": 118
+  },
+  {
+    "case": "reconstruction",
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\benihime-combat-qa\\1792584222919-reconstruction",
+    "frames": 88,
+    "firstTick": 28,
+    "lastTick": 115,
+    "minFpsObserved": 100,
+    "maxFpsObserved": 119
+  },
+  {
+    "case": "path",
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\benihime-combat-qa\\1792584229922-path",
+    "frames": 88,
+    "firstTick": 28,
+    "lastTick": 115,
+    "minFpsObserved": 99,
+    "maxFpsObserved": 118
+  },
+  {
+    "case": "final-stitch",
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\benihime-combat-qa\\1792584236917-final-stitch",
+    "frames": 88,
+    "firstTick": 28,
+    "lastTick": 115,
+    "minFpsObserved": 86,
+    "maxFpsObserved": 119
+  },
+  {
+    "case": "hiasobi-standalone",
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\benihime-combat-qa\\1792584243917-hiasobi-standalone",
+    "frames": 88,
+    "firstTick": 28,
+    "lastTick": 115,
+    "minFpsObserved": 104,
+    "maxFpsObserved": 118
+  },
+  {
+    "case": "sealed-draw",
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\benihime-combat-qa\\1792584250919-sealed-draw",
+    "frames": 88,
+    "firstTick": 28,
+    "lastTick": 115,
+    "minFpsObserved": 106,
+    "maxFpsObserved": 119
+  },
+  {
+    "case": "sealed-byakurai",
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\benihime-combat-qa\\1792584257922-sealed-byakurai",
+    "frames": 88,
+    "firstTick": 28,
+    "lastTick": 115,
+    "minFpsObserved": 104,
+    "maxFpsObserved": 119
+  },
+  {
+    "case": "sealed-rods",
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\benihime-combat-qa\\1792584264915-sealed-rods",
+    "frames": 88,
+    "firstTick": 28,
+    "lastTick": 115,
+    "minFpsObserved": 102,
+    "maxFpsObserved": 119
+  },
+  {
+    "case": "sealed-gigai",
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\benihime-combat-qa\\1792584271922-sealed-gigai",
+    "frames": 88,
+    "firstTick": 28,
+    "lastTick": 115,
+    "minFpsObserved": 91,
+    "maxFpsObserved": 117
+  },
+  {
+    "case": "entrance-walk",
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\benihime-combat-qa\\1792584278919-entrance-walk",
+    "frames": 149,
+    "firstTick": 28,
+    "lastTick": 620,
+    "minFpsObserved": 109,
+    "maxFpsObserved": 117
+  }
+]

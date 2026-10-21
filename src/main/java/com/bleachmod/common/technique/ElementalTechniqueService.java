@@ -95,7 +95,6 @@ public final class ElementalTechniqueService {
             default->{duration=16;gesture=16;radius=6;}
         }
         var accepted=add(p,d,kind,slot,duration,gesture,origin,radius);
-        if(kind.equals("higashi")){var candidate=cutVictims(accepted,.35).stream().min(Comparator.comparingDouble(p::distanceToSqr)).orElse(null);if(candidate!=null)HigashiExecutionService.preview(p,candidate);}
         p.serverLevel().playSound(null,p.blockPosition(),ice?net.minecraft.sounds.SoundEvents.GLASS_BREAK:net.minecraft.sounds.SoundEvents.BLAZE_SHOOT,p.getSoundSource(),.65F,bankai?.7F:1.1F);
         SyncHelper.resources(p);
     }

@@ -87,16 +87,27 @@ A sequência abaixo foi reafirmada pelo usuário como **lista obrigatória de tr
 
 ### Controle obrigatório de fechamento
 
-**Testes em andamento — [ciclo 75](75-testes-benihime-higashi-proxima-etapa-2026-10-20.md):** laboratório aberto para revisão manual dos itens 1/2; Higashi testada com duas mortes confirmadas e um sobrevivente. Isso não dá baixa no aceite artístico/escuta. Próxima implementação continua Investida/Rajada, sem omitir as etapas seguintes.
+**Retorno de21/10 — [ciclo81](81-benihime-selada-bettercombat-entrada-dash-ryujin-2026-10-21.md):** vídeo reabriu item1 por cancelamento ao andar e item3 pela corrida no dash. Revelação agora continua ao sair da câmera; dash com giro/horizontalidade retomados e subida verificada. Item4 inclui integração Better Combat com três animações próprias, quatro técnicas seladas, Hiasobi ampliada e suprema raio12/base40 com destruição limitada/protegida de terreno. Implementado para testes; não marcar homologado pelo agente. Nake/escudo com carga/parry continuam propostas separadas, sem aplicação automática.
+
+**Retorno de21/10 — [ciclo80](80-benihime-fios-costura-final-reformulacao-2026-10-21.md):** item4 agora inclui reformulação autorizada: Hiasobi independente de fios sem armadilha + combo de rede; Dissecação em dois contatos; Caminho emB com três cargas; supremaC Costura Final e gestos próprios da manifestação. Base e Photon135 regressões/158 GameTests por perfil; cliente base13cenários/1144quadros. Homologação visual do usuário pendente. A proposta selada79 não foi aplicada automaticamente; demais itens permanecem obrigatórios.
+
+
+**Retorno de21/10 — ciclos [78](78-higashi-preparacao-quadril-corte-ascendente-2026-10-21.md)/[79](79-proposta-reformulacao-benihime-selada-shikai-bankai-2026-10-21.md):** manejo Higashi reaberto por posicionamento/corte ascendente; correção de quadril/curva/rastro entregue para revalidação, sem voltar à prévia indiscriminada. Item4 ampliado a pedido do usuário: inventariar/reformular o kit Benihime e propor quatro ações para a forma selada, além de Shikai/Bankai. Proposta ainda sem implementação de novos poderes; entrada/manifestação mantidas. Demais itens da lista continuam obrigatórios.
+
+**Retorno posterior — [ciclo 77](77-auditoria-video-higashi-combate-benihime-2026-10-20.md):** usuário considera Benihime boa; parecer visual favorável à entrada nas duas invocações noturnas. Preservar a cena/modelo/áudio; limites de escuta/multiplayer continuam registrados. Higashi reaberta por gatilho de prévia indiscriminada: correção exige confirmação de morte, sem cena longa no sobrevivente/sem alvo. Item 4 entregue para testes: três cortes básicos próprios Benihime e oito gestos sem alterar regras de dano/BC; doze cenários gráficos e suítes base/Photon aprovados tecnicamente. Aceite dos novos ataques ainda pendente.
+
+**Atualização de execução — [ciclo 76](76-ryujin-investida-rajada-refinamento-2026-10-20.md):** o usuário declarou “a higashi está bom até o momento” e autorizou avançar antes da nova bateria. Higashi preservada; item 3 (Investida/Rajada) implementado e conferido no cliente base; 129 regressões/155 GameTests em base e Photon. Ainda sem aceite artístico do usuário. Item 1 continua com revisão final de áudio/visual pendente. A próxima etapa após o item 3 permanece combate da espada e técnicas Benihime.
+
+**Histórico de testes — [ciclo 75](75-testes-benihime-higashi-proxima-etapa-2026-10-20.md):** laboratório aberto para revisão manual dos itens 1/2; Higashi testada com duas mortes confirmadas e um sobrevivente. Isso não dá baixa no aceite artístico/escuta. Próxima implementação continua Investida/Rajada, sem omitir as etapas seguintes.
 
 **Entrega posterior do item 1 — [ciclo 74: palco, penumbra, câmera e áudio](74-benihime-palco-penumbra-camera-audio-2026-10-20.md):** usuário retomou e autorizou a correção de mixagem antes adiada. Piso visual temporário, área de luz preservada no jogador, orientação de palco menos obstruída e retorno orbital implementados; mix com trilha reduzida antes do nome e fala reforçada. Resultados/limites no relatório 74. Esta entrega não dá baixa automática no aceite artístico do item.
 
 **Evidência posterior do item 1 — [vídeo do usuário, ciclo 73](73-analise-video-usuario-entrada-benihime-2026-10-20.md):** quatro invocações analisadas por quadros. Revelação/elevação legíveis no espaço aberto; close excessivo da cabeça no retorno da câmera e oclusão por paredão/árvore observados. Acompanhamento considerado bom pelo usuário em teste fora da gravação. Interrupções não testadas; áudio sem nova avaliação auditiva. Item permanece aberto, sem código nesta análise.
 
-- [ ] 1. Entrada/transformação Benihime, incluindo o áudio ainda pendente.
-- [ ] 2. Cena Higashi entregue: revisão e aceite final.
-- [ ] 3. Investida e Rajada Ryūjin: movimento, animações e efeitos.
-- [ ] 4. Combate da espada Benihime e apresentação das demais técnicas.
+- [ ] 1. Entrada Benihime: caminhada reaberta/corrigida no ciclo81 e conferida no cliente; revalidação do usuário, escuta e multiplayer pendentes.
+- [ ] 2. Higashi: reaberta no ciclo 77 por cena indevida em alvo sobrevivente; correção entregue e verificada (quatro cenários, 132 regressões/155 GameTests base e Photon); revalidação do usuário pendente.
+- [ ] 3. Investida e Rajada Ryūjin: melhorias76 e giro do dash81 entregues; conferir aceite do usuário.
+- [ ] 4. Benihime81: esgrima Better Combat, kit selado, Hiasobi e suprema destrutiva implementados para teste; validação artística e balanceamento pendentes.
 - [ ] 5. Contrato e implementação do kit Uryū Ishida.
 - [ ] 6. Mentor e Proficiências, após confirmação da equipe.
 - [ ] 7. Hyōrinmaru: dragões, animações e transformação com apoio do Blockbench.

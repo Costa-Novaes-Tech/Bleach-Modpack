@@ -172,6 +172,14 @@ public final class MvpRegressionTest {
                 } catch (java.io.IOException e) { throw new AssertionError(e); }
             }
         });
+        test("Benihime Better Combat animations parse as finite original fencing motions",()->{
+            for(String name:List.of("benihime_diagonal","benihime_return","benihime_thrust")){
+                try(var reader=java.nio.file.Files.newBufferedReader(java.nio.file.Path.of("src/main/resources/assets/bleachmod/attack_animations/"+name+".json"))){
+                    var animations=dev.kosmx.playerAnim.core.data.gson.AnimationSerializing.deserializeAnimation(reader);
+                    eq(1,animations.size());var animation=animations.get(0);yes(animation.getPart("rightArm").isEnabled());yes(animation.getPart("body").isEnabled());yes(!animation.isInfinite());eq(12,animation.endTick);
+                }catch(java.io.IOException e){throw new AssertionError(e);}
+            }
+        });
         test("Bankai voice line is a declared mono Ogg Vorbis that fits the ducked voice window", () -> {
             try {
                 var assets = java.nio.file.Path.of("src/main/resources/assets/bleachmod");
@@ -191,7 +199,7 @@ public final class MvpRegressionTest {
             } catch (java.io.IOException e) { throw new AssertionError(e); }
         });
         test("Shared technique definitions preserve all homologated costs and cooldowns", () -> {
-            var definitions = com.bleachmod.common.technique.TechniqueDefinitions.all(); eq(56, definitions.size());
+            var definitions = com.bleachmod.common.technique.TechniqueDefinitions.all(); eq(60, definitions.size());
             Set<String> unique = new HashSet<>();
             for (var def : definitions) {
                 yes(unique.add(def.identity() + "|" + def.form() + "|" + def.slot()));
@@ -969,11 +977,29 @@ public final class MvpRegressionTest {
         });
         test("Benihime has eight owned techniques and no elemental sealed slots",()->{
             yes(com.bleachmod.common.data.CharacterData.knownIdentity("benihime"));
-            eq(8L,com.bleachmod.common.technique.TechniqueDefinitions.all().stream().filter(d->d.identity().equals("benihime")).count());
-            yes(com.bleachmod.common.technique.TechniqueDefinitions.find("benihime","sealed",1).isEmpty());
+            eq(12L,com.bleachmod.common.technique.TechniqueDefinitions.all().stream().filter(d->d.identity().equals("benihime")).count());
+            eq("cane_draw",com.bleachmod.common.technique.TechniqueDefinitions.require("benihime","sealed",1).id());
             var d=player();d.getCharacter().bindZanpakuto("benihime");d.getCharacter().setMastery("zanpakuto","shikai",62);
             var copy=new PlayerData();copy.load(d.save());eq("benihime",copy.getCharacter().getZanpakutoIdentity());eq(62D,copy.getCharacter().getMastery("zanpakuto","shikai"));
             copy.getCharacter().bindZanpakuto("senbonzakura");eq(0D,copy.getCharacter().getMastery("zanpakuto","shikai"));
+        });
+        test("Benihime revision three moves path progress and preserves all archived numeric mastery",()->{
+            var legacy=new CharacterData().save();legacy.putInt("techniqueRevision",2);legacy.putString("zanpakutoIdentity","benihime");
+            var masteries=new net.minecraft.nbt.CompoundTag();masteries.putDouble("benihime|bankai|4",43);masteries.putDouble("benihime|bankai|3",17);masteries.putDouble("benihime|shikai|3",66);legacy.put("techniqueMasteries",masteries);
+            var unlocks=new net.minecraft.nbt.CompoundTag();unlocks.putBoolean("benihime|bankai|4",true);legacy.put("unlockedTechniques",unlocks);
+            var c=new CharacterData();c.load(legacy);eq(43D,c.getTechniqueMastery("bankai",3));eq(17D,c.getTechniqueMastery("bankai",4));eq(66D,c.getTechniqueMastery("shikai",3));yes(c.isTechniqueDiscovered("bankai",3));
+            var copy=new CharacterData();copy.load(c.save());eq(43D,copy.getTechniqueMastery("bankai",3));eq(17D,copy.getTechniqueMastery("bankai",4));
+            eq("path",com.bleachmod.common.technique.TechniqueDefinitions.require("benihime","bankai",3).id());eq("final_stitch",com.bleachmod.common.technique.TechniqueDefinitions.require("benihime","bankai",4).id());
+        });
+        test("Benihime combat rig returns to idle and every spell has a distinct body motion",()->{
+            var zero=net.minecraft.world.phys.Vec3.ZERO;var f=new net.minecraft.world.phys.Vec3(0,0,1);
+            var idle=com.bleachmod.common.visual.BenihimeEntranceGeometry.buildIdle(zero,f,30,0);
+            for(int action=1;action<=4;action++){
+                eq(idle,com.bleachmod.common.visual.BenihimeEntranceGeometry.buildCombat(zero,f,30,action,0,com.bleachmod.common.visual.BenihimeEntranceGeometry.FLAT));
+                var mesh=com.bleachmod.common.visual.BenihimeEntranceGeometry.buildCombat(zero,f,30,action,.5,com.bleachmod.common.visual.BenihimeEntranceGeometry.FLAT);
+                yes(!idle.equals(mesh));for(var q:mesh)for(var v:List.of(q.a(),q.b(),q.c(),q.d()))yes(Double.isFinite(v.x)&&Double.isFinite(v.y)&&Double.isFinite(v.z));
+            }
+            for(int kind:new int[]{10,11}){var mesh=com.bleachmod.common.visual.BenihimeGeometry.build(new com.bleachmod.common.network.s2c.BenihimeFrameS2C(1,kind,zero,f.scale(10),f,8,.5F,0));yes(!mesh.isEmpty()&&mesh.size()<700);}
         });
         test("Benihime visual packet roundtrips and rejects invalid data",()->{
             var zero=net.minecraft.world.phys.Vec3.ZERO;var f=new net.minecraft.world.phys.Vec3(0,0,1);
@@ -993,8 +1019,8 @@ public final class MvpRegressionTest {
         });
         test("Benihime path charges survive form effect cancellation",()->{
             var status=new StatusData();status.useBenihimePath();status.clearTransformationState();eq(2,status.getBenihimePathCharges());
-            status.useBenihimePath();eq(1,status.getBenihimePathCharges());status.useBenihimePath();status.setTechniqueSlot4CooldownTicks(260);status.clearTransformationState();eq(0,status.getBenihimePathCharges());
-            status.setTechniqueSlot4CooldownTicks(0);eq(3,status.getBenihimePathCharges());
+            status.useBenihimePath();eq(1,status.getBenihimePathCharges());status.useBenihimePath();status.setTechniqueSlot3CooldownTicks(260);status.clearTransformationState();eq(0,status.getBenihimePathCharges());
+            status.setTechniqueSlot3CooldownTicks(0);eq(3,status.getBenihimePathCharges());
         });
         test("Benihime idle hands animate and manifestation stays behind owner",()->{
             var o=net.minecraft.world.phys.Vec3.ZERO;var f=new net.minecraft.world.phys.Vec3(0,0,1);
@@ -1041,6 +1067,74 @@ public final class MvpRegressionTest {
             }
             eq(10,n);
         });
+        test("Spinning dash keeps a unit pose on horizontal upward and downward travel",()->{
+            for(var direction:List.of(new net.minecraft.world.phys.Vec3(0,0,1),new net.minecraft.world.phys.Vec3(.4,.2,.7),new net.minecraft.world.phys.Vec3(0,1,0),new net.minecraft.world.phys.Vec3(0,-1,0))){
+                var q=com.bleachmod.common.visual.RyujinFlamePresentation.dashTilt(direction);
+                var up=q.transform(new org.joml.Vector3f(0,1,0));var target=direction.normalize();
+                yes(Math.abs(up.length()-1)<.00001);yes(Math.abs(up.x-target.x)+Math.abs(up.y-target.y)+Math.abs(up.z-target.z)<.0001);
+            }
+            yes(Float.isFinite(com.bleachmod.common.visual.RyujinFlamePresentation.dashTilt(net.minecraft.world.phys.Vec3.ZERO).w()));
+        });
+        test("Fire wake follows measured turns and rejects stationary motion and teleport bridges", () -> {
+            var origin=new net.minecraft.world.phys.Vec3(0,0,0);
+            var turn=new net.minecraft.world.phys.Vec3(.9,.3,.4);
+            var samples=com.bleachmod.common.visual.RyujinFlamePresentation.trail(origin,turn);
+            yes(!samples.isEmpty() && samples.size()<=12);
+            eq(turn,samples.get(samples.size()-1));
+            var previous=origin;
+            for(var point:samples){yes(point.distanceTo(previous)<=.18);previous=point;}
+            yes(com.bleachmod.common.visual.RyujinFlamePresentation.trail(turn,turn).isEmpty());
+            yes(com.bleachmod.common.visual.RyujinFlamePresentation.trail(origin,new net.minecraft.world.phys.Vec3(50,0,0)).isEmpty());
+            yes(com.bleachmod.common.visual.RyujinFlamePresentation.trail(null,origin).isEmpty());
+        });
+        test("Rajada crest stays narrow and recovers while dash preserves the server gesture lease", () -> {
+            for(int age=6;age<=14;age++)for(int i=0;i<65;i++){
+                var q=com.bleachmod.common.visual.RyujinFlamePresentation.crest(i,age);
+                yes(Math.abs(q.x)<=.93 && q.y>=.12 && q.y<1.8 && q.z<=0 && q.z>=-.21);
+            }
+            var a=com.bleachmod.common.visual.RyujinChoreography.attack("flame_dash",5,1);
+            var b=com.bleachmod.common.visual.RyujinChoreography.attack("flame_dash",8,1);
+            yes(a.leg().lengthSqr()==0 && b.leg().lengthSqr()==0);
+            yes(a.arm().x< -2.8 && b.arm().x< -2.8);
+            eq(0F,com.bleachmod.common.visual.RyujinChoreography.attack("flame_dash",16,1).weight());
+            eq(0F,com.bleachmod.common.visual.RyujinChoreography.attack("flame_barrage",16,1).weight());
+        });
+        test("Only confirmed valid Higashi deaths authorize the execution presentation", () -> {
+            var a=new net.minecraft.world.phys.Vec3(0,64,0);var b=a.add(0,0,3);
+            var preview=new com.bleachmod.common.network.s2c.HigashiExecutionS2C(1,2,a,b,1,2,false);
+            yes(preview.valid()&&!preview.startsExecution());
+            yes(new com.bleachmod.common.network.s2c.HigashiExecutionS2C(1,2,a,b,1,2,true).startsExecution());
+            yes(!new com.bleachmod.common.network.s2c.HigashiExecutionS2C(1,1,a,b,1,2,true).startsExecution());
+        });
+        test("Benihime basic cuts are distinct mirrored six-tick gestures and recover cleanly", () -> {
+            var zero=net.minecraft.world.phys.Vec3.ZERO;
+            for(int combo=0;combo<3;combo++){
+                var previous=com.bleachmod.common.visual.BenihimeChoreography.melee(combo,0,6,1);
+                for(float t=.125F;t<6;t+=.125F){
+                    var p=com.bleachmod.common.visual.BenihimeChoreography.melee(combo,t,6,1);
+                    var l=com.bleachmod.common.visual.BenihimeChoreography.melee(combo,t,6,-1);
+                    yes(p.arm().distanceTo(previous.arm())<.6&&Double.isFinite(p.handRotation().lengthSqr()));
+                    yes(Math.abs(p.arm().y+l.arm().y)<1e-9&&Math.abs(p.handPosition().x+l.handPosition().x)<1e-9);
+                    yes(p.support().length()<1.2&&p.weight()>=0&&p.weight()<=1);previous=p;
+                }
+                eq(0F,com.bleachmod.common.visual.BenihimeChoreography.melee(combo,6,6,1).weight());
+            }
+            var a=com.bleachmod.common.visual.BenihimeChoreography.melee(0,3,6,1);
+            var b=com.bleachmod.common.visual.BenihimeChoreography.melee(1,3,6,1);
+            yes(a.arm().distanceTo(b.arm())>.7);
+        });
+        test("All eight Benihime technique curves preserve their existing cosmetic leases", () -> {
+            for(var kind:com.bleachmod.common.visual.BenihimeChoreography.TECHNIQUES){
+                int length=com.bleachmod.common.visual.SignatureChoreography.duration(kind);yes(length>0);
+                for(float t=.25F;t<length;t+=.25F){
+                    var p=com.bleachmod.common.visual.BenihimeChoreography.technique(kind,t,length,1);
+                    yes(Double.isFinite(p.arm().lengthSqr()+p.support().lengthSqr()+p.body().lengthSqr()));
+                    yes(p.weight()>=0&&p.weight()<=1);
+                }
+                eq(0F,com.bleachmod.common.visual.BenihimeChoreography.technique(kind,length,length,1).weight());
+                eq(0F,com.bleachmod.common.visual.BenihimeChoreography.technique(kind,Float.NaN,length,1).weight());
+            }
+        });
         test("Higashi coils the torso at the hip instead of sharing Rajada's overhead preparation", () -> {
             var hip=com.bleachmod.common.visual.RyujinChoreography.attack("higashi",10,1);
             var overhead=com.bleachmod.common.visual.RyujinChoreography.attack("flame_barrage",4,1);
@@ -1060,7 +1154,7 @@ public final class MvpRegressionTest {
                 }
                 eq(0F,com.bleachmod.common.visual.SignatureChoreography.sample(entry.getKey(),end,end,1).weight());
             }
-            eq(18,com.bleachmod.common.visual.SignatureChoreography.LENGTHS.size());
+            eq(22,com.bleachmod.common.visual.SignatureChoreography.LENGTHS.size());
         });
         test("Remaining releases recover to neutral and reject invalid time", () -> {
             for(String identity:List.of("senbonzakura","benihime","asauchi"))for(int length:new int[]{24,60}){
@@ -1111,6 +1205,23 @@ public final class MvpRegressionTest {
             for(float age=0;age<=com.bleachmod.common.visual.HigashiCinematicPath.END+4;age+=.25F){var right=com.bleachmod.common.visual.RyujinChoreography.execution(age,1);var left=com.bleachmod.common.visual.RyujinChoreography.execution(age,-1);
                 yes(Double.isFinite(right.arm().lengthSqr()+right.body().lengthSqr()));eq(right.arm().x,left.arm().x);eq(right.arm().y,-left.arm().y);yes(right.weight()>=0&&right.weight()<=1);
                 if(age>=com.bleachmod.common.visual.HigashiCinematicPath.END)eq(0F,right.weight());
+            }
+        });
+        test("Higashi draws on the sword hip and lifts the blade from low outside to high inside", () -> {
+            for(float sign:new float[]{1,-1}){
+                var hip=com.bleachmod.common.visual.RyujinChoreography.execution(10,sign);
+                var end=com.bleachmod.common.visual.RyujinChoreography.execution(16,sign);
+                var hand=com.bleachmod.common.visual.RyujinChoreography.bladeHand(hip,sign);
+                yes(hand.x*sign>.35&&hand.y>.65&&hand.y<.9&&hand.z<0);
+                var low=hand.add(com.bleachmod.common.visual.RyujinChoreography.bladeDirection(hip).scale(1.4));
+                var high=com.bleachmod.common.visual.RyujinChoreography.bladeHand(end,sign).add(com.bleachmod.common.visual.RyujinChoreography.bladeDirection(end).scale(1.4));
+                yes(low.y<.5&&high.y>1.9&&high.y-low.y>1.4);
+                yes((low.x-high.x)*sign>.5&&low.z>.9&&high.z>1);
+                for(float age=1;age<=16;age+=.25F){
+                    var normal=com.bleachmod.common.visual.RyujinChoreography.attack("higashi",age,sign);
+                    var execution=com.bleachmod.common.visual.RyujinChoreography.execution(age,sign);
+                    yes(normal.arm().distanceTo(execution.arm())<1e-9);
+                }
             }
         });
         test("Higashi rising follow-through points toward the victim instead of behind the caster", () -> {

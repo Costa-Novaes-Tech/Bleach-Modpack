@@ -18,9 +18,47 @@ public final class BenihimeGeometry {
             case SLASH->{Vec3 axis=end.subtract(o);if(axis.lengthSqr()>.001)f=axis.normalize();left=side(f);
                 ribbon(out,o,end,left.scale(.12),RED);ribbon(out,o,end,UP.scale(.06),WHITE);
                 for(int i=0;i<12;i++){double a=-1.2+2.4*i/12,b=-1.2+2.4*(i+1)/12;Vec3 va=end.add(left.scale(Math.sin(a)*r)).add(0,Math.cos(a)*r,0),vb=end.add(left.scale(Math.sin(b)*r)).add(0,Math.cos(b)*r,0);ribbon(out,va,vb,left.scale(.045),RED);}}
+            case KIDO->{
+                Vec3 axis=end.subtract(o),across=side(axis);
+                ribbon(out,o,end,across.scale(.05+.08*Math.sin(p*Math.PI)),0xFFF6BFFF);
+                ribbon(out,o,end,UP.scale(.025),WHITE);
+                ring(out,o,across,axis.normalize().cross(across),.25+p*.2,RED,16);
+            }
+            case RODS->{
+                Vec3 c=end.add(0,1,0);
+                for(int i=0;i<6;i++){double angle=i*Math.PI/3;Vec3 tip=c.add(Math.cos(angle)*.55,0,Math.sin(angle)*.55);
+                    Vec3 edge=c.add(Math.cos(angle)*2.1,0,Math.sin(angle)*2.1);limb(out,edge,tip,.12,0xF8D979FF);}
+                ring(out,c,new Vec3(1,0,0),new Vec3(0,0,1),.65,0xFFF0B0FF,24);
+            }
+            case DECOY->{for(int i=0;i<12;i++){double a=i*Math.PI/6;Vec3 at=o.add(Math.cos(a)*p, .2+i*.12,Math.sin(a)*p);ribbon(out,at,at.add(0,.4,0),left.scale(.06),0xC2CADBB0);}}
+            case THREAD_LASH->{
+                Vec3 axis=end.subtract(o),across=side(axis);double reach=Math.sin(Math.PI*Math.min(1,p))*.7+.3;
+                for(int thread=0;thread<9;thread++){
+                    Vec3 previous=o;
+                    for(int i=1;i<=16;i++){
+                        double t=i/16.0,spread=(thread-4)*.8*Math.sin(Math.PI*t);
+                        Vec3 next=o.lerp(end,t).add(across.scale(spread*reach)).add(0,Math.sin(t*Math.PI*2-p*10+thread*.4)*.55,0);
+                        stitch(out,previous,next,UP,.14,1);previous=next;
+                    }
+                }
+            }
+            case SURGERY->{
+                for(int band=0;band<3;band++)ring(out,end.add(0,.15+band*.25,0),new Vec3(1,0,0),new Vec3(0,0,1),r*(.5+band*.25),band%2==0?RED:WHITE,64);
+                double close=Math.max(0,(p-.72)/.28),height=p<.2?.06:Math.sin(Math.PI*Math.min(1,(p-.2)/.8))*2;
+                ring(out,end.add(0,.1,0),new Vec3(1,0,0),new Vec3(0,0,1),r,RED,64);
+                for(int i=0;i<24;i++){
+                    double angle=i*Math.PI/12;
+                    Vec3 edge=end.add(Math.cos(angle)*r,.15,Math.sin(angle)*r);
+                    Vec3 knot=end.add(Math.cos(angle)*(1-close)*r*.45,height+.4,Math.sin(angle)*(1-close)*r*.45);
+                    stitch(out,edge,knot,UP,.16,5);
+                    if(p>.2)stitch(out,knot,knot.add(0,2+Math.sin(p*18+i)*.4,0),left,.12,3);
+                }
+                if(p>.8)ring(out,end.add(0,.7+close*3,0),left,UP,Math.max(.1,r*(1-close)),WHITE,32);
+            }
             case SHIELD->{Vec3 c=o.add(f.scale(1.4)).add(0,1.2,0);for(int i=0;i<6;i++){double a=i*Math.PI/3,b=(i+1)*Math.PI/3;Vec3 va=c.add(left.scale(Math.cos(a)*r)).add(UP.scale(Math.sin(a)*r)),vb=c.add(left.scale(Math.cos(b)*r)).add(UP.scale(Math.sin(b)*r));
                     out.add(new Quad(c,va,vb,vb,0xB91B3D2A));ribbon(out,va,vb,va.subtract(c).normalize().scale(.035),RED);if(p<.5)stitch(out,c,va,UP,.12,5);}}
             case NET->{
+                for(int knot=0;knot<16;knot++){double angle=knot*Math.PI/8;Vec3 node=o.add(Math.cos(angle)*r,.10,Math.sin(angle)*r);cube(out,node.add(-.06,-.04,-.06),node.add(.06,.04,.06),WHITE);}
                 ring(out,o.add(0,.08,0),new Vec3(1,0,0),new Vec3(0,0,1),r,RED,48);
                 for(int i=-6;i<=6;i++){double x=i*r/6;double z=Math.sqrt(Math.max(0,r*r-x*x));stitch(out,o.add(x,.08,-z),o.add(x,.08,z),new Vec3(1,0,0),.1,5);stitch(out,o.add(-z,.08,x),o.add(z,.08,x),new Vec3(0,0,1),.1,5);}
                 for(int i=0;i<8;i++){double a=i*Math.PI/4;Vec3 base=o.add(Math.cos(a)*r,.08,Math.sin(a)*r);ribbon(out,base,o.add(0,Math.min(3,r*.4),0),side(base.subtract(o)).scale(.025),RED);}}

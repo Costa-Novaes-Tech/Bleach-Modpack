@@ -1,0 +1,290 @@
+[
+  {
+    "file": "higashi/lethal/frame-0007-t0036-HOLD.png",
+    "sha256": "af4be3d20d532f1ed28390aa5f743c9650a35f3b4f11a61fe12ab2b03abba9da",
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\cinematic-qa\\1792547703949-lethal\\screenshots\\frame-0007-t0036-HOLD.png",
+    "tick": 36
+  },
+  {
+    "file": "higashi/lethal/frame-0027-t0080-IGNITE.png",
+    "sha256": "7e1fddbbc211c9aa838ca8a68a2797e376e559dc5283b97c72654266ea2656d0",
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\cinematic-qa\\1792547703949-lethal\\screenshots\\frame-0027-t0080-IGNITE.png",
+    "tick": 80
+  },
+  {
+    "file": "higashi/lethal/frame-0047-t0120-RETURN.png",
+    "sha256": "c69b23342b917559adc038e8a7be8d700e273e7f10bdd82655ca58cf87708617",
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\cinematic-qa\\1792547703949-lethal\\screenshots\\frame-0047-t0120-RETURN.png",
+    "tick": 120
+  },
+  {
+    "file": "higashi/threshold/frame-0019-t0038-HOLD.png",
+    "sha256": "45172d70b3079fa65619a39d56db02bebc22ed3e1e1e8dc507f87021c0879243",
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\cinematic-qa\\1792547711485-threshold\\screenshots\\frame-0019-t0038-HOLD.png",
+    "tick": 38
+  },
+  {
+    "file": "higashi/threshold/frame-0040-t0080-IGNITE.png",
+    "sha256": "86e48d1a553f45befd69d50e70caab8d4da01813f99f0815b5b91ba6716de03d",
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\cinematic-qa\\1792547711485-threshold\\screenshots\\frame-0040-t0080-IGNITE.png",
+    "tick": 80
+  },
+  {
+    "file": "higashi/threshold/frame-0060-t0120-RETURN.png",
+    "sha256": "294e5f307e722b0367e8409da4fbd9535e9b8601b67df9e3ae202e23f4079f65",
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\cinematic-qa\\1792547711485-threshold\\screenshots\\frame-0060-t0120-RETURN.png",
+    "tick": 120
+  },
+  {
+    "file": "higashi/survive/frame-0019-t0038-HOLD.png",
+    "sha256": "4ecc11238e0be59e6e748a2cce01a21596a711d55b2ad1c04674e78e2ac9ba6b",
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\cinematic-qa\\1792547719476-survive\\screenshots\\frame-0019-t0038-HOLD.png",
+    "tick": 38
+  },
+  {
+    "file": "higashi/survive/frame-0040-t0080-IGNITE.png",
+    "sha256": "0b432ca74efdb181c4b650e12921cb83037d42f69fb8581a50013910e8742984",
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\cinematic-qa\\1792547719476-survive\\screenshots\\frame-0040-t0080-IGNITE.png",
+    "tick": 80
+  },
+  {
+    "file": "higashi/survive/frame-0060-t0120-RETURN.png",
+    "sha256": "060bf52f8a2daa768a684099f5f59fc70ee69464eb5583ec7c112f8389a18669",
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\cinematic-qa\\1792547719476-survive\\screenshots\\frame-0060-t0120-RETURN.png",
+    "tick": 120
+  },
+  {
+    "file": "higashi/miss/frame-0019-t0038-HOLD.png",
+    "sha256": "355ee2183ae2b54f023b660cd0b7cfd1e7058b48d2707e9c8aac2325b83e8f7e",
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\cinematic-qa\\1792547727476-miss\\screenshots\\frame-0019-t0038-HOLD.png",
+    "tick": 38
+  },
+  {
+    "file": "higashi/miss/frame-0040-t0080-IGNITE.png",
+    "sha256": "37dd098710157fb78e88d94c5ead0457b0e26457392c71dbb004e733bcd16329",
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\cinematic-qa\\1792547727476-miss\\screenshots\\frame-0040-t0080-IGNITE.png",
+    "tick": 80
+  },
+  {
+    "file": "higashi/miss/frame-0060-t0120-RETURN.png",
+    "sha256": "0cd56ff2b2ba9f78fb2db05bfd1179262cccfe67fef20d6d64212dca6ae82350",
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\cinematic-qa\\1792547727476-miss\\screenshots\\frame-0060-t0120-RETURN.png",
+    "tick": 120
+  },
+  {
+    "file": "benihime-combat/sealed-melee/frame-t031.png",
+    "sha256": "a04efe73712d72dc3503abdfd1b5f9c044e09a3df6aae6f0232cc65f196ac4dc",
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\benihime-combat-qa\\1792547737471-sealed-melee\\screenshots\\frame-t031.png",
+    "tick": 31
+  },
+  {
+    "file": "benihime-combat/sealed-melee/frame-t046.png",
+    "sha256": "4634a92e18e6be3cfa829848d7006d47717a44a7695a9e5feba3cb4a2457d250",
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\benihime-combat-qa\\1792547737471-sealed-melee\\screenshots\\frame-t046.png",
+    "tick": 46
+  },
+  {
+    "file": "benihime-combat/sealed-melee/frame-t061.png",
+    "sha256": "ad17394c115fcb048f9da70b4541f33fa4471b72cf64839a5bb82bb468cff73e",
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\benihime-combat-qa\\1792547737471-sealed-melee\\screenshots\\frame-t061.png",
+    "tick": 61
+  },
+  {
+    "file": "benihime-combat/shikai-melee/frame-t031.png",
+    "sha256": "f0f831df49eb24202c81200376e09151680d84aa8b9b9ff4288009cbeb9e10de",
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\benihime-combat-qa\\1792547742471-shikai-melee\\screenshots\\frame-t031.png",
+    "tick": 31
+  },
+  {
+    "file": "benihime-combat/shikai-melee/frame-t046.png",
+    "sha256": "a44916bd5138dd20d3f4ce35d021161d94f1aba667b4a367d6872851ccdee992",
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\benihime-combat-qa\\1792547742471-shikai-melee\\screenshots\\frame-t046.png",
+    "tick": 46
+  },
+  {
+    "file": "benihime-combat/shikai-melee/frame-t061.png",
+    "sha256": "a385a3badc97c2c87aff1cc4cb9c543fe1e2e4df7199473bb70c1df90d82ef1f",
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\benihime-combat-qa\\1792547742471-shikai-melee\\screenshots\\frame-t061.png",
+    "tick": 61
+  },
+  {
+    "file": "benihime-combat/bankai-melee/frame-t031.png",
+    "sha256": "65d63c272b30a010a36bb0a506e5a055b5353859539ad446f02b7a443e0aac81",
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\benihime-combat-qa\\1792547747467-bankai-melee\\screenshots\\frame-t031.png",
+    "tick": 31
+  },
+  {
+    "file": "benihime-combat/bankai-melee/frame-t046.png",
+    "sha256": "5cb26eb5916c21a5b355df879341c0ec735b30df0fe8da173d6a035555ee2e90",
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\benihime-combat-qa\\1792547747467-bankai-melee\\screenshots\\frame-t046.png",
+    "tick": 46
+  },
+  {
+    "file": "benihime-combat/bankai-melee/frame-t061.png",
+    "sha256": "c821c3273ff3ac84dd36a3c025d97661e0d99e8623c390fb87e20bf127d92401",
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\benihime-combat-qa\\1792547747467-bankai-melee\\screenshots\\frame-t061.png",
+    "tick": 61
+  },
+  {
+    "file": "benihime-combat/shikai-first-person/frame-t031.png",
+    "sha256": "c870a86ad2e42dd7c0b31741b8cabd493647c89710ac042a961909c884c8cbc6",
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\benihime-combat-qa\\1792547752468-shikai-first-person\\screenshots\\frame-t031.png",
+    "tick": 31
+  },
+  {
+    "file": "benihime-combat/shikai-first-person/frame-t046.png",
+    "sha256": "b83e048ecd425d5fa69768c76fc7ffe42f2ca9ee6a909482a5ee3983656c3a4e",
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\benihime-combat-qa\\1792547752468-shikai-first-person\\screenshots\\frame-t046.png",
+    "tick": 46
+  },
+  {
+    "file": "benihime-combat/shikai-first-person/frame-t061.png",
+    "sha256": "a174897d469d728a0708255d87e822844b4bcad02cb93808ab28b4f65ec2368c",
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\benihime-combat-qa\\1792547752468-shikai-first-person\\screenshots\\frame-t061.png",
+    "tick": 61
+  },
+  {
+    "file": "benihime-combat/nake/frame-t042.png",
+    "sha256": "e9234426a0eb106c329fadbc0b2e2573306f923e0fe95595ef5d3eb78578428c",
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\benihime-combat-qa\\1792547757468-nake\\screenshots\\frame-t042.png",
+    "tick": 42
+  },
+  {
+    "file": "benihime-combat/nake/frame-t046.png",
+    "sha256": "43736ba7c8333bf3724081752101c4e25fb8d1fcb7d9483b0ea520f4f49f0e13",
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\benihime-combat-qa\\1792547757468-nake\\screenshots\\frame-t046.png",
+    "tick": 46
+  },
+  {
+    "file": "benihime-combat/nake/frame-t052.png",
+    "sha256": "cb23f3f18ff5ad8f819c84d70ee58fb431c9dfa462710f2fea1cb5e785d0ae5d",
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\benihime-combat-qa\\1792547757468-nake\\screenshots\\frame-t052.png",
+    "tick": 52
+  },
+  {
+    "file": "benihime-combat/shield/frame-t042.png",
+    "sha256": "b4904b81b544bb3455473b8163b9664498410b3c3c677f0f35e8f4244d8111eb",
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\benihime-combat-qa\\1792547762466-shield\\screenshots\\frame-t042.png",
+    "tick": 42
+  },
+  {
+    "file": "benihime-combat/shield/frame-t046.png",
+    "sha256": "2ab15feff7b44e4345cd45ce181b4598f5036902b70abe66038cc8dc433720a4",
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\benihime-combat-qa\\1792547762466-shield\\screenshots\\frame-t046.png",
+    "tick": 46
+  },
+  {
+    "file": "benihime-combat/shield/frame-t052.png",
+    "sha256": "3b76fcaa3488ccf9017b710b2a348da06af7b05f9428ab519d224190315b0757",
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\benihime-combat-qa\\1792547762466-shield\\screenshots\\frame-t052.png",
+    "tick": 52
+  },
+  {
+    "file": "benihime-combat/shibari/frame-t042.png",
+    "sha256": "3be11fd9105bad8d3a4e5807e5219516ec9113fb786f746820750ff2dd66f89c",
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\benihime-combat-qa\\1792547767467-shibari\\screenshots\\frame-t042.png",
+    "tick": 42
+  },
+  {
+    "file": "benihime-combat/shibari/frame-t046.png",
+    "sha256": "87210687c6d5b806804051c1ec4d65a8b36ec96b6ae22d8950c73b0b4204af92",
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\benihime-combat-qa\\1792547767467-shibari\\screenshots\\frame-t046.png",
+    "tick": 46
+  },
+  {
+    "file": "benihime-combat/shibari/frame-t052.png",
+    "sha256": "c81e96cd79d5a6412499fe96c18ef7593419329417340c5f7ca3e552915e51ac",
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\benihime-combat-qa\\1792547767467-shibari\\screenshots\\frame-t052.png",
+    "tick": 52
+  },
+  {
+    "file": "benihime-combat/hiasobi/frame-t042.png",
+    "sha256": "fc22570ddab54b1917d628d5dd9426dc8cd4100e90402540859ac3f986b64fd5",
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\benihime-combat-qa\\1792547772474-hiasobi\\screenshots\\frame-t042.png",
+    "tick": 42
+  },
+  {
+    "file": "benihime-combat/hiasobi/frame-t046.png",
+    "sha256": "5be4e10448af5bcd5cbe2eb5216bfc4953261ca4006a759e2df9f918200cd706",
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\benihime-combat-qa\\1792547772474-hiasobi\\screenshots\\frame-t046.png",
+    "tick": 46
+  },
+  {
+    "file": "benihime-combat/hiasobi/frame-t052.png",
+    "sha256": "f1e824c2b27cd9323a924fa9f8eaa2b855c3ad576c642dea50f8a6add3b063f6",
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\benihime-combat-qa\\1792547772474-hiasobi\\screenshots\\frame-t052.png",
+    "tick": 52
+  },
+  {
+    "file": "benihime-combat/dissection/frame-t042.png",
+    "sha256": "742bd090b99f9f2b89f80a5e8ae65abe6e0a159eaa4288f36c3d021cbc5c0be1",
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\benihime-combat-qa\\1792547777465-dissection\\screenshots\\frame-t042.png",
+    "tick": 42
+  },
+  {
+    "file": "benihime-combat/dissection/frame-t046.png",
+    "sha256": "532e893ac963777fdb18b865dae0a3a4517f0c49374d17d255aea04935fed8dd",
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\benihime-combat-qa\\1792547777465-dissection\\screenshots\\frame-t046.png",
+    "tick": 46
+  },
+  {
+    "file": "benihime-combat/dissection/frame-t052.png",
+    "sha256": "3bad4d6e6ca7ff37fb362ce14a49129d79a246ef2a730960c5c373c0b93d5478",
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\benihime-combat-qa\\1792547777465-dissection\\screenshots\\frame-t052.png",
+    "tick": 52
+  },
+  {
+    "file": "benihime-combat/reconstruction/frame-t042.png",
+    "sha256": "02989b21eb025bf2a3784b757dfd0e9ee1170bbd4a88e5dd10156386ff4cc083",
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\benihime-combat-qa\\1792547782470-reconstruction\\screenshots\\frame-t042.png",
+    "tick": 42
+  },
+  {
+    "file": "benihime-combat/reconstruction/frame-t046.png",
+    "sha256": "aeb92870d3cb2f70f209304bc3de2ccb8f4bb52d80c6d0450f5c136747c06d1f",
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\benihime-combat-qa\\1792547782470-reconstruction\\screenshots\\frame-t046.png",
+    "tick": 46
+  },
+  {
+    "file": "benihime-combat/reconstruction/frame-t052.png",
+    "sha256": "2c574773e7647567b50673567712d8932afe23b880962f94587a41cca6a9d86d",
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\benihime-combat-qa\\1792547782470-reconstruction\\screenshots\\frame-t052.png",
+    "tick": 52
+  },
+  {
+    "file": "benihime-combat/restructure/frame-t042.png",
+    "sha256": "f7e5d0d661afb20adcfeda9b35efb769c21c765730437695e5ead7e58b7f318f",
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\benihime-combat-qa\\1792547787475-restructure\\screenshots\\frame-t042.png",
+    "tick": 42
+  },
+  {
+    "file": "benihime-combat/restructure/frame-t046.png",
+    "sha256": "cbf6e07106df90cef971304615345459f158565e174c0000c201875c0adfcc3e",
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\benihime-combat-qa\\1792547787475-restructure\\screenshots\\frame-t046.png",
+    "tick": 46
+  },
+  {
+    "file": "benihime-combat/restructure/frame-t052.png",
+    "sha256": "d6f2db43217aa9304cb16dd18411ca07b78425f5a643f17eed73af3cf2de7aa7",
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\benihime-combat-qa\\1792547787475-restructure\\screenshots\\frame-t052.png",
+    "tick": 52
+  },
+  {
+    "file": "benihime-combat/path/frame-t042.png",
+    "sha256": "00d0dd4869e2a96af12121b27a6ab28194c12dee6111bac340ef65ad315e78ad",
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\benihime-combat-qa\\1792547792471-path\\screenshots\\frame-t042.png",
+    "tick": 42
+  },
+  {
+    "file": "benihime-combat/path/frame-t046.png",
+    "sha256": "0af6ea47197338517169717d39b670ccb185b4fd2e660da4196f18ce28c67a93",
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\benihime-combat-qa\\1792547792471-path\\screenshots\\frame-t046.png",
+    "tick": 46
+  },
+  {
+    "file": "benihime-combat/path/frame-t052.png",
+    "sha256": "ecc5ccd02109672d295d78ae95ebb6e22ba07818d1bca73160ca71dbe62e2aab",
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\benihime-combat-qa\\1792547792471-path\\screenshots\\frame-t052.png",
+    "tick": 52
+  }
+]

@@ -26,7 +26,7 @@ public final class BetterCombatCompat {
     }
     private BetterCombatCompat(){ }
     public static boolean managed(ItemStack stack){return BuiltInRegistries.ITEM.getKey(stack.getItem()).getNamespace().equals(Reference.MOD_ID);}
-    public static boolean pilot(ItemStack stack){return stack.is(ModItems.ASAUCHI.get()) || stack.is(ModItems.RYUJIN_JAKKA.get()) || stack.is(ModItems.HYORINMARU.get());}
+    public static boolean pilot(ItemStack stack){return stack.is(ModItems.ASAUCHI.get()) || stack.is(ModItems.RYUJIN_JAKKA.get()) || stack.is(ModItems.HYORINMARU.get()) || stack.is(ModItems.BENIHIME.get());}
     public static boolean excluded(ItemStack stack){return managed(stack) && !pilot(stack);}
     public static boolean stateAllows(PlayerData d){return !d.getGuard().active() && !d.getGuard().broken()
             && !d.getStatus().isDodging() && !d.getStatus().isActionCharging() && d.getStatus().getFlameDashTicks()==0;}

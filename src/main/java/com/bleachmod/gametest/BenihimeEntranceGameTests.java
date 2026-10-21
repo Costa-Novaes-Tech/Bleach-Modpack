@@ -88,6 +88,15 @@ public final class BenihimeEntranceGameTests {
             h.succeed();
         });
     }
+    @GameTest(template="empty",batch="benihime_walk_keeps_reveal",timeoutTicks=90)
+    public static void walkingAfterCommitDoesNotSkipTheRemainingEntrance(GameTestHelper h){
+        var p=player(h);var d=data(p);var anchor=p.position();ReleaseAnimationService.begin(p,d,"zanpakuto","bankai",7);
+        h.onEachTick(()->{ReleaseAnimationService.tick(p);tickScene(p);});
+        h.runAfterDelay(70,()->{try{p.setPos(anchor.add(5,0,0));tickScene(p);var scene=BenihimeEntranceService.snapshot(p);
+            h.assertTrue(scene.getInt("duration")==560&&scene.getInt("elapsed")>=70,"Walking skipped the reveal");
+            h.assertTrue(scene.getDouble("x")==anchor.x&&d.getResources().getCurrentReiatsu()==93,"Walking moved the stage or charged twice");
+        }finally{clean(p);}h.succeed();});
+    }
     @GameTest(template="empty", batch="benihime_entrance_cleanup")
     public static void cancellationEquipmentMovementAndDimensionRemovePresentation(GameTestHelper h) {
         for (int scenario = 0; scenario < 5; scenario++) {
@@ -98,7 +107,7 @@ public final class BenihimeEntranceGameTests {
                 switch (scenario) {
                     case 0 -> ReleaseAnimationService.cancel(p);
                     case 1 -> { p.setItemSlot(EquipmentSlot.MAINHAND, ItemStack.EMPTY); ReleaseAnimationService.tick(p); }
-                    case 2 -> p.setPos(p.position().add(2, 0, 0));
+                    case 2 -> p.setPos(p.position().add(600, 0, 0));
                     case 3 -> p.setServerLevel(p.getServer().getLevel(Level.NETHER));
                     case 4 -> { p.setHealth(0); ReleaseAnimationService.tick(p); }
                 }

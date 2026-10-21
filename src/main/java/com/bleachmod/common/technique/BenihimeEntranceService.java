@@ -53,7 +53,7 @@ public final class BenihimeEntranceService {
         boolean valid=d!=null&&d.getCharacter().getZanpakutoIdentity().equals("benihime")&&TechniqueProgression.equipped(p,d)
                 &&(ReleaseAnimationService.busy(p)||(age>=40&&d.getCharacter().getActiveForm().equals("bankai")));
         if(age>=60&&d!=null&&(!SignatureAnimationService.snapshot(p).isEmpty()||d.getGuard().shownActive()||d.getStatus().isDodging()))valid=false;
-        if(!valid||!p.isAlive()||p.isSpectator()||s.dimension!=p.level().dimension()||age>=DURATION||p.position().distanceToSqr(s.anchor)>2.25){cancel(p);return;}
+        if(!valid||!p.isAlive()||p.isSpectator()||s.dimension!=p.level().dimension()||age>=DURATION||p.position().distanceToSqr(s.anchor)>512*512){cancel(p);return;}
         if(age==280||age==308||age==340)sound(p,s,7,0,net.minecraft.sounds.SoundEvents.WOOL_HIT,.65F,.65F);
     }
     private static void sound(ServerPlayer p,Scene s,double back,double height,net.minecraft.sounds.SoundEvent event,float volume,float pitch){

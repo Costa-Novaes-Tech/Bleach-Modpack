@@ -566,11 +566,11 @@ public final class TechniqueService {
 
     private static void spawnDashBurst(ServerLevel level, ServerPlayer player) {
         level.sendParticles(ParticleTypes.FLAME, player.getX(), player.getY() + 0.8D,
-                player.getZ(), 42, 0.65D, 0.55D, 0.65D, 0.12D);
+                player.getZ(), 24, 0.45D, 0.35D, 0.45D, 0.07D);
         level.sendParticles(ParticleTypes.SMALL_FLAME, player.getX(), player.getY() + 0.8D,
-                player.getZ(), 16, 0.45D, 0.45D, 0.45D, 0.08D);
+                player.getZ(), 12, 0.30D, 0.30D, 0.30D, 0.04D);
         level.sendParticles(ParticleTypes.LAVA, player.getX(), player.getY() + 0.8D,
-                player.getZ(), 10, 0.5D, 0.35D, 0.5D, 0.04D);
+                player.getZ(), 4, 0.35D, 0.20D, 0.35D, 0.02D);
         level.playSound(null, player.blockPosition(), SoundEvents.BLAZE_SHOOT,
                 player.getSoundSource(), 0.95F, 1.15F);
     }
@@ -580,11 +580,11 @@ public final class TechniqueService {
         double x = player.getX() + back.x;
         double y = player.getY() + 0.8D;
         double z = player.getZ() + back.z;
-        level.sendParticles(ParticleTypes.FLAME, x, y, z, 18,
-                0.45D, 0.45D, 0.45D, 0.09D);
+        level.sendParticles(ParticleTypes.FLAME, x, y, z, 8,
+                0.24D, 0.28D, 0.24D, 0.04D);
         level.sendParticles(ParticleTypes.SMALL_FLAME, x, y, z, 5,
                 0.28D, 0.28D, 0.28D, 0.06D);
-        level.sendParticles(ParticleTypes.LAVA, x, y, z, 2,
+        level.sendParticles(ParticleTypes.ASH, x, y, z, 2,
                 0.2D, 0.2D, 0.2D, 0.02D);
     }
 

@@ -25,12 +25,15 @@ import java.util.*;
 /** Native flame particles, not filled slash meshes. Render work never applies damage/motion. */
 @Mod.EventBusSubscriber(modid=Reference.MOD_ID,value=Dist.CLIENT)
 public final class RyujinActionVisuals {
+    private static final Set<PoseStack> SPINS=Collections.newSetFromMap(new IdentityHashMap<>());
     private static final Map<PoseStack,Double> EMERGENCE=new IdentityHashMap<>();
+    private record Trail(long cast, Vec3 position) { }
+    private static final Map<Integer,Trail> TRAILS=new HashMap<>();
     private static long budgetTick=Long.MIN_VALUE;
     private static int budget;
     private static final Map<Integer,Long> RELEASE_TICKS=new HashMap<>();
     private RyujinActionVisuals(){ }
-    public static void clear(){EMERGENCE.clear();RELEASE_TICKS.clear();budgetTick=Long.MIN_VALUE;budget=0;}
+    public static void clear(){SPINS.clear();EMERGENCE.clear();RELEASE_TICKS.clear();TRAILS.clear();budgetTick=Long.MIN_VALUE;budget=0;}
     private static void budget(){var mc=Minecraft.getInstance();if(mc.level!=null && budgetTick!=mc.level.getGameTime()){budgetTick=mc.level.getGameTime();budget=640;}}
     private static Vec3f mix(Vec3f from,Vec3 to,float w){return new Vec3f(Mth.lerp(w,from.getX(),(float)to.x),Mth.lerp(w,from.getY(),(float)to.y),Mth.lerp(w,from.getZ(),(float)to.z));}
     static Vec3f transform(AbstractClientPlayer p,RyujinChoreography.Pose pose,String part,TransformType type,Vec3f value){
@@ -81,7 +84,10 @@ public final class RyujinActionVisuals {
         if(!v.kind().startsWith("sealed_") && age<v.gesture() && pose.weight()>.1)blade(e,p,Vec3.directionFromRotation(0,p.getYRot()),pose,age,v.kind().equals("higashi"));
         switch(v.kind()){
             case "flame_barrage"->{if(age<6 || age>14)return;var head=origin.add(f.scale(age-6));
-                for(int i=0;i<75;i++){double x=(i%9-4)*.23,y=(i/9)*.24;var q=head.add(right.scale(x)).add(0,.15+y,0);e.particle(i%4==0?ParticleTypes.FLAME:ParticleTypes.SMALL_FLAME,q,f.scale(.07).add(0,.04,0));}
+                for(int i=0;i<65;i++){var local=com.bleachmod.common.visual.RyujinFlamePresentation.crest(i,age);
+                    var q=head.add(right.scale(local.x)).add(0,local.y,0).add(f.scale(local.z));
+                    e.particle(i%4==0?ParticleTypes.FLAME:ParticleTypes.SMALL_FLAME,q,f.scale(.04).add(0,.025+(i%4)*.012,0));}
+                if(age%2==0)for(int i=0;i<6;i++)e.particle(ParticleTypes.ASH,head.add(right.scale((i-2.5)*.28)).add(0,.3,0),new Vec3(0,.018,0));
                 e.smoke(head.add(right.scale(1.1)).add(0,.4,0));e.smoke(head.add(right.scale(-1.1)).add(0,.4,0));
             }
             case "flame_fan"->{if(age<6 || age>20)return;double a=Math.toRadians(-70+(age-6)*10);
@@ -93,13 +99,16 @@ public final class RyujinActionVisuals {
                 if(age%4==0)for(int i=0;i<8;i++){double a=i*Math.PI/4;e.smoke(origin.add(Math.cos(a)*5.2,4.7*grow,Math.sin(a)*5.2));}
             }
             case "higashi"->{if(age<10 || age>16)return;
-                double t=(age-10)/6.0;
-                for(int i=0;i<24;i++){
-                    double trail=Math.max(0,t-(i/8)*.035),reach=.6+(i%8)*.15;
-                    var q=p.position().add(f.scale(reach)).add(right.scale(-1.05+2.1*trail)).add(0,.30+2.25*trail,0);
-                    // Thin incandescent diagonal, not an early ignition of the victim.
-                    if(i%6==0)e.particle(ParticleTypes.ELECTRIC_SPARK,q,new Vec3(0,.015,0));
-                    else e.fire(q,i);
+                float sign=p.getMainArm()==HumanoidArm.RIGHT?1:-1;
+                // Sample the authored blade, not a second diagonal disconnected from the wrist.
+                for(int trail=0;trail<3;trail++){
+                    var stroke=RyujinChoreography.attack("higashi",age-trail*.25F,sign);
+                    Vec3 hand=world(p.position(),f,RyujinChoreography.bladeHand(stroke,sign));
+                    Vec3 direction=world(Vec3.ZERO,f,RyujinChoreography.bladeDirection(stroke));
+                    for(int i=0;i<10;i++){
+                        Vec3 q=hand.add(direction.scale(.15+i*.12));
+                        if(i%8==0)e.particle(ParticleTypes.ELECTRIC_SPARK,q,new Vec3(0,.012,0));else e.fire(q,i);
+                    }
                 }
             }
             case "minami"->{if(age<10 || age>46)return;
@@ -110,7 +119,14 @@ public final class RyujinActionVisuals {
                 }
             }
             case "flame_dash"->{if(age>=16)return;
-                for(int i=0;i<12;i++){var q=p.position().subtract(f.scale(.4+i*.06)).add(right.scale((i%3-1)*.18)).add(0,.2+(i%4)*.15,0);e.fire(q,i);}
+                var previous=TRAILS.put(p.getId(),new Trail(v.start(),p.position()));
+                if(previous==null || previous.cast()!=v.start())return;
+                var samples=com.bleachmod.common.visual.RyujinFlamePresentation.trail(previous.position(),p.position());
+                Vec3 delta=p.position().subtract(previous.position()),side=new Vec3(-delta.z,0,delta.x).normalize();
+                for(int i=0;i<samples.size();i++)for(int j=0;j<3;j++){
+                    var q=samples.get(i).add(side.scale((j-1)*.22)).add(0,.18+(i%3)*.12,0);e.fire(q,i+j);
+                    if(j==1 && i%3==0)e.particle(ParticleTypes.ASH,q.add(0,.25,0),new Vec3(0,.025,0));
+                }
             }
             // The authoritative executor supplies the long-range Vapor and the persistent Tornado.
         }
@@ -118,12 +134,26 @@ public final class RyujinActionVisuals {
     @SubscribeEvent public static void tick(TickEvent.ClientTickEvent event){
         if(event.phase!=TickEvent.Phase.END)return;var mc=Minecraft.getInstance();if(mc.level==null || mc.player==null){clear();return;}
         if(mc.isPaused())return;if(ElementalActionVisuals.world!=mc.level){ElementalActionVisuals.clear();return;}budget();
+        TRAILS.keySet().removeIf(id->!(mc.level.getEntity(id) instanceof AbstractClientPlayer p)||!equipped(p)
+                ||mc.player.distanceToSqr(p)>64*64||ElementalActionVisuals.VIEWS.getOrDefault(id,List.of()).stream()
+                .noneMatch(v->v.kind().equals("flame_dash")&&ElementalActionVisuals.age(v,0)>=0&&ElementalActionVisuals.age(v,0)<16));
         var owners=new ArrayList<>(ElementalActionVisuals.VIEWS.entrySet());owners.sort(Comparator.comparingInt(a->a.getKey()==mc.player.getId()?0:1));
         for(var owner:owners){if(!(mc.level.getEntity(owner.getKey()) instanceof AbstractClientPlayer p) || !equipped(p) || mc.player.distanceToSqr(p)>64*64)continue;
             for(var v:owner.getValue()){int age=(int)ElementalActionVisuals.age(v,0);if(v.ice() || age<0 || age>=v.duration())continue;
                 particles(p,v,age,new Emitter(mc.player.distanceToSqr(p)>32*32));}
         }
     }
+    @SubscribeEvent(priority=EventPriority.LOW) public static void dashSpin(RenderLivingEvent.Pre<?,?> event){
+        if(!(event.getEntity() instanceof AbstractClientPlayer p)||!equipped(p))return;
+        var view=ElementalActionVisuals.VIEWS.getOrDefault(p.getId(),List.of()).stream().filter(v->v.kind().equals("flame_dash")&&ElementalActionVisuals.age(v,0)<16).findFirst().orElse(null);
+        if(view==null)return;double age=ElementalActionVisuals.age(view,event.getPartialTick());Vec3 f=p.getDeltaMovement().lengthSqr()>.01?p.getDeltaMovement().normalize():view.forward();
+        var stack=event.getPoseStack();stack.pushPose();SPINS.add(stack);
+        stack.translate(0,.9,0);
+        stack.mulPose(new org.joml.Quaternionf().rotationAxis((float)(age*Math.PI/3),(float)f.x,(float)f.y,(float)f.z));
+        stack.mulPose(com.bleachmod.common.visual.RyujinFlamePresentation.dashTilt(f));
+        stack.translate(0,-.9,0);
+    }
+    @SubscribeEvent(priority=EventPriority.LOWEST) public static void dashSpinEnd(RenderLivingEvent.Post<?,?> event){if(SPINS.remove(event.getPoseStack()))event.getPoseStack().popPose();}
     @SubscribeEvent(priority=EventPriority.LOWEST) public static void emergence(RenderLivingEvent.Pre<?,?> event){
         if(!(event.getEntity() instanceof WitherSkeleton) || ElementalActionVisuals.world!=Minecraft.getInstance().level)return;
         for(var list:ElementalActionVisuals.VIEWS.values())for(var v:list){if(v.ice() || !v.kind().equals("minami"))continue;int i=v.soldiers().indexOf(event.getEntity().getId());if(i<0)continue;

@@ -1,0 +1,58 @@
+[
+  {
+    "case": "shibari",
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\benihime-combat-qa\\1792581373337-shibari",
+    "frames": 88,
+    "minFpsObserved": 107,
+    "maxFpsObserved": 118,
+    "framebuffer": true
+  },
+  {
+    "case": "hiasobi",
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\benihime-combat-qa\\1792581380335-hiasobi",
+    "frames": 88,
+    "minFpsObserved": 108,
+    "maxFpsObserved": 119,
+    "framebuffer": true
+  },
+  {
+    "case": "hiasobi-standalone",
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\benihime-combat-qa\\1792581415337-hiasobi-standalone",
+    "frames": 88,
+    "minFpsObserved": 106,
+    "maxFpsObserved": 118,
+    "framebuffer": true
+  },
+  {
+    "case": "dissection",
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\benihime-combat-qa\\1792581387334-dissection",
+    "frames": 88,
+    "minFpsObserved": 100,
+    "maxFpsObserved": 119,
+    "framebuffer": true
+  },
+  {
+    "case": "reconstruction",
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\benihime-combat-qa\\1792581394334-reconstruction",
+    "frames": 88,
+    "minFpsObserved": 97,
+    "maxFpsObserved": 118,
+    "framebuffer": true
+  },
+  {
+    "case": "path",
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\benihime-combat-qa\\1792581401333-path",
+    "frames": 88,
+    "minFpsObserved": 93,
+    "maxFpsObserved": 118,
+    "framebuffer": true
+  },
+  {
+    "case": "final-stitch",
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\benihime-combat-qa\\1792581408336-final-stitch",
+    "frames": 88,
+    "minFpsObserved": 75,
+    "maxFpsObserved": 112,
+    "framebuffer": true
+  }
+]

@@ -1,0 +1,34 @@
+[
+  {
+    "case": "lethal",
+    "metadataRows": 103,
+    "uniqueFrames": 103,
+    "executionFrames": 68,
+    "encodeErrors": "",
+    "decodeErrors": ""
+  },
+  {
+    "case": "threshold",
+    "metadataRows": 130,
+    "uniqueFrames": 130,
+    "executionFrames": 74,
+    "encodeErrors": "",
+    "decodeErrors": ""
+  },
+  {
+    "case": "survive",
+    "metadataRows": 130,
+    "uniqueFrames": 130,
+    "executionFrames": 0,
+    "encodeErrors": "",
+    "decodeErrors": ""
+  },
+  {
+    "case": "miss",
+    "metadataRows": 129,
+    "uniqueFrames": 129,
+    "executionFrames": 0,
+    "encodeErrors": "",
+    "decodeErrors": ""
+  }
+]

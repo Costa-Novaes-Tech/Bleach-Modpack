@@ -53,7 +53,8 @@ public final class CinematicQaCommands {
                 .then(literal("higashi")
                         .then(literal("lethal").executes(c->request("lethal")))
                         .then(literal("threshold").executes(c->request("threshold")))
-                        .then(literal("survive").executes(c->request("survive"))))
+                        .then(literal("survive").executes(c->request("survive")))
+                        .then(literal("miss").executes(c->request("miss"))))
                 .then(literal("benihime").executes(c->request("benihime")))
                 .then(literal("terrain").executes(c->request("terrain"))));
     }
@@ -99,11 +100,11 @@ public final class CinematicQaCommands {
         p.setItemSlot(EquipmentSlot.OFFHAND,ItemStack.EMPTY);
         p.teleportTo(p.serverLevel(),p.getX(),p.getY(),p.getZ(),0,0);
         var target=EntityType.HUSK.create(p.serverLevel());if(target==null)return;
-        Vec3 at=p.position().add(0,0,3);
+        Vec3 at=p.position().add(scenario.equals("miss")?6:0,0,3);
         target.setPos(at);target.setYRot(180);target.setNoAi(true);target.setNoGravity(true);target.setPersistenceRequired();
         target.getAttribute(Attributes.ARMOR).setBaseValue(0);
-        target.getAttribute(Attributes.MAX_HEALTH).setBaseValue(scenario.equals("survive")?1000:scenario.equals("threshold")?100:20);
-        target.setHealth(scenario.equals("survive")?1000:scenario.equals("threshold")?7:10);
+        target.getAttribute(Attributes.MAX_HEALTH).setBaseValue((scenario.equals("survive")||scenario.equals("miss"))?1000:scenario.equals("threshold")?100:20);
+        target.setHealth((scenario.equals("survive")||scenario.equals("miss"))?1000:scenario.equals("threshold")?7:10);
         target.getPersistentData().putUUID(TARGET,p.getUUID());
         if(!p.level().noCollision(target,target.getBoundingBox())||!p.serverLevel().addFreshEntity(target))return;
         SyncHelper.full(p);SyncHelper.appearance(p);
@@ -125,7 +126,7 @@ public final class CinematicQaCommands {
             }
             if(now>=task.cleanAt()) {
                 var target=p.serverLevel().getEntity(task.victim());
-                boolean alive=target!=null&&target.isAlive(),expected=task.scenario().equals("survive");
+                boolean alive=target!=null&&target.isAlive(),expected=task.scenario().equals("survive")||task.scenario().equals("miss");
                 LogUtils.getLogger().info("Cinematic QA finished {} victimPresent={} victimAlive={} expectedAlive={} passed={}",task.scenario(),target!=null,alive,expected,alive==expected);
                 if(target!=null&&target.getPersistentData().hasUUID(TARGET)&&target.getPersistentData().getUUID(TARGET).equals(p.getUUID()))target.discard();
                 PENDING.remove(task.owner());

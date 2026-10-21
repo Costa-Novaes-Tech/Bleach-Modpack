@@ -1,0 +1,11 @@
+{
+  "source": "C:\\Users\\joaop\\Downloads\\Grava\u00e7\u00e3o\\Grava\u00e7\u00e3o de Tela 2026-10-20 223705.mp4",
+  "sha256": "ec3273239b8500611eb2ae495a20a0b4a3cf09ba9d0477f3d3b914787ca1111f",
+  "durationSeconds": 417.47,
+  "size": [
+    1920,
+    1020
+  ],
+  "fps": 30,
+  "sampling": "Exact seek requested at named seconds; analysis by frames, no subjective audio listening"
+}

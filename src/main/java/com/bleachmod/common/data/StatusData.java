@@ -9,7 +9,7 @@ import java.util.UUID;
 
 public class StatusData {
     private int benihimePathUses;
-    public int getBenihimePathCharges(){if(benihimePathUses>=3 && techniqueSlot4CooldownTicks==0)benihimePathUses=0;return 3-benihimePathUses;}
+    public int getBenihimePathCharges(){if(benihimePathUses>=3 && techniqueSlot3CooldownTicks==0)benihimePathUses=0;return 3-benihimePathUses;}
     public void useBenihimePath(){if(!cooldownsDisabled)benihimePathUses=Math.min(3,benihimePathUses+1);}
     private CompoundTag benihimeHud=new CompoundTag();
     public CompoundTag getBenihimeHud(){return benihimeHud.copy();}

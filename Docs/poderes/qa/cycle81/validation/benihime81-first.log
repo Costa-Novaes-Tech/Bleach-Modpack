@@ -1,0 +1,110 @@
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.8/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+
+> Configure project :
+MixinGradle did not locate the diffplug APT plugin, skipping eclipse task configuration
+Java: 17.0.20.1, JVM: 17.0.20.1+1 (Eclipse Adoptium), Arch: amd64
+
+> Task :downloadMcpConfig
+> Task :extractSrg UP-TO-DATE
+> Task :createMcpToSrg UP-TO-DATE
+
+> Task :compileJava
+Note: SpongePowered MIXIN Annotation Processor Version=0.8.5 (MixinGradle Version=0.7.38)
+Note: Supported obfuscation types: ObfuscationServiceMCP supports [notch] ObfuscationServiceFG3 supports [searge]
+Note: Loading searge mappings from C:\Users\joaop\Downloads\Projeto_Programacao_BleachMod\Bleach-Modpack\build\createMcpToSrg\output.tsrg
+Note: Writing refmap to C:\Users\joaop\Downloads\Projeto_Programacao_BleachMod\Bleach-Modpack\build\tmp\compileJava\compileJava-refmap.json
+Note: Writing refmap to C:\Users\joaop\Downloads\Projeto_Programacao_BleachMod\Bleach-Modpack\build\tmp\compileJava\compileJava-refmap.json
+Note: Writing searge composite mappings to C:\Users\joaop\Downloads\Projeto_Programacao_BleachMod\Bleach-Modpack\build\tmp\compileJava\compileJava-mappings.tsrg
+Note: Writing refmap to C:\Users\joaop\Downloads\Projeto_Programacao_BleachMod\Bleach-Modpack\build\tmp\compileJava\compileJava-refmap.json
+Note: Writing refmap to C:\Users\joaop\Downloads\Projeto_Programacao_BleachMod\Bleach-Modpack\build\tmp\compileJava\compileJava-refmap.json
+Note: Writing searge composite mappings to C:\Users\joaop\Downloads\Projeto_Programacao_BleachMod\Bleach-Modpack\build\tmp\compileJava\compileJava-mappings.tsrg
+C:\Users\joaop\Downloads\Projeto_Programacao_BleachMod\Bleach-Modpack\src\main\java\com\bleachmod\client\appearance\SkinCompositor.java:100: warning: [removal] ResourceLocation(String) in ResourceLocation has been deprecated and marked for removal
+            var resource = Minecraft.getInstance().getResourceManager().getResource(new ResourceLocation(texture));
+                                                                                    ^
+C:\Users\joaop\Downloads\Projeto_Programacao_BleachMod\Bleach-Modpack\src\main\java\com\bleachmod\client\berserk\BerserkSkinLayer.java:24: warning: [removal] ResourceLocation(String,String) in ResourceLocation has been deprecated and marked for removal
+    private static final ResourceLocation WHITE = new ResourceLocation("minecraft", "textures/misc/white.png");
+                                                  ^
+C:\Users\joaop\Downloads\Projeto_Programacao_BleachMod\Bleach-Modpack\src\main\java\com\bleachmod\client\BleachClient.java:21: warning: [removal] get() in ModLoadingContext has been deprecated and marked for removal
+        net.minecraftforge.fml.ModLoadingContext.get().registerConfig(net.minecraftforge.fml.config.ModConfig.Type.CLIENT,ClientVisualConfig.SPEC,"bleachmod-client.toml");
+                                                ^
+C:\Users\joaop\Downloads\Projeto_Programacao_BleachMod\Bleach-Modpack\src\main\java\com\bleachmod\client\model\IceArmorLayer.java:19: warning: [removal] ResourceLocation(String,String) in ResourceLocation has been deprecated and marked for removal
+    private static final ResourceLocation TEXTURE = new ResourceLocation("minecraft", "textures/block/packed_ice.png");
+                                                    ^
+C:\Users\joaop\Downloads\Projeto_Programacao_BleachMod\Bleach-Modpack\src\main\java\com\bleachmod\client\model\IceDragonRenderer.java:18: warning: [removal] ResourceLocation(String,String) in ResourceLocation has been deprecated and marked for removal
+        @Override public ResourceLocation getTextureResource(IceDragonEntity d){return new ResourceLocation("minecraft","textures/block/packed_ice.png");}
+                                                                                       ^
+C:\Users\joaop\Downloads\Projeto_Programacao_BleachMod\Bleach-Modpack\src\main\java\com\bleachmod\client\model\ZanpakutoSheathLayer.java:20: warning: [removal] ResourceLocation(String,String) in ResourceLocation has been deprecated and marked for removal
+    private static final ResourceLocation MATERIAL = new ResourceLocation("minecraft", "textures/block/white_concrete.png");
+                                                     ^
+C:\Users\joaop\Downloads\Projeto_Programacao_BleachMod\Bleach-Modpack\src\main\java\com\bleachmod\common\util\ResourceIds.java:13: warning: [removal] ResourceLocation(String) in ResourceLocation has been deprecated and marked for removal
+        return new ResourceLocation(id);
+               ^
+C:\Users\joaop\Downloads\Projeto_Programacao_BleachMod\Bleach-Modpack\src\main\java\com\bleachmod\Reference.java:29: warning: [removal] ResourceLocation(String,String) in ResourceLocation has been deprecated and marked for removal
+        return new ResourceLocation(MOD_ID, path);
+               ^
+C:\Users\joaop\Downloads\Projeto_Programacao_BleachMod\Bleach-Modpack\src\main\java\com\bleachmod\server\world\HistoryWorld.java:74: warning: [removal] ResourceLocation(String) in ResourceLocation has been deprecated and marked for removal
+                ResourceLocation dimension = new ResourceLocation(map.get("dimension").getAsString());
+                                             ^
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+9 warnings
+
+> Task :processResources
+> Task :classes
+
+> Task :compileTestJava
+Note: C:\Users\joaop\Downloads\Projeto_Programacao_BleachMod\Bleach-Modpack\src\test\java\com\bleachmod\MvpRegressionTest.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+
+> Task :processTestResources NO-SOURCE
+> Task :testClasses
+
+> Task :regressionTest
+2026-10-21 08:52:35,478 main WARN Advanced terminal features are not available in this environment
+PASS Guard posture breaks without spending stamina and requires release
+PASS Guard lease expires and recovery requires lowering the guard
+PASS Guard snapshot is sanitized and persistence never restores held input
+PASS Guard cone, pressure limits and schema 7 migration preserve previous progress
+PASS Dodge directions rotate with yaw and diagonals have equal length
+PASS Dodge requires full stamina, keeps reiatsu and pauses regeneration
+PASS Dodge interval survives form changes but lifecycle clears transient movement
+PASS Resistance stamina curve has diminishing returns without free refills
+PASS Draw timing initializes quietly and handles hands, removal and identity switches
+PASS Basic sword effort spends only stamina and delays recovery without blocking attacks
+PASS Stamina drains, rests and resumes without changing reiatsu
+PASS Stamina persists including rest and sanitizes malformed values
+PASS Combat state expires, refreshes and stays absent from persistent saves
+PASS Nozarashi kit: twelve slots, eyepatch drain only, Berserk Mode display name
+PASS Nozarashi player animations parse with PlayerAnimator and match the server timeline
+PASS Bankai voice line is a declared mono Ogg Vorbis that fits the ducked voice window
+Exception in thread "main" java.lang.AssertionError: Shared technique definitions preserve all homologated costs and cooldowns
+	at com.bleachmod.MvpRegressionTest.test(MvpRegressionTest.java:1325)
+	at com.bleachmod.MvpRegressionTest.main(MvpRegressionTest.java:193)
+Caused by: java.lang.AssertionError: Expected 56 but got 60
+	at com.bleachmod.MvpRegressionTest.eq(MvpRegressionTest.java:1327)
+	at com.bleachmod.MvpRegressionTest.lambda$main$20(MvpRegressionTest.java:194)
+	... 2 more
+
+> Task :regressionTest FAILED
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':regressionTest'.
+> Process 'command 'C:\Program Files\Eclipse Adoptium\jdk-17.0.20.101-hotspot\bin\java.exe'' finished with non-zero exit value 1
+
+* Try:
+> Run with --stacktrace option to get the stack trace.
+> Run with --info or --debug option to get more log output.
+> Run with --scan to get full insights.
+> Get more help at https://help.gradle.org.
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.8/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD FAILED in 31s
+7 actionable tasks: 5 executed, 2 up-to-date

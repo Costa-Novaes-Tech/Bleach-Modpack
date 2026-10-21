@@ -53,12 +53,12 @@ public final class BenihimeStageQaSequence {
                 server.execute(()->{var p=server.getPlayerList().getPlayer(uuid);if(p!=null)p.teleportTo(p.serverLevel(),p.getX()+3,p.getY(),p.getZ(),p.getYRot(),0);});
             }
             if(scenario==5&&elapsed==240){
-                BenihimeEntranceClient.captureFollowing("CANCEL-return");
-                com.mojang.logging.LogUtils.getLogger().info("Benihime stage QA cancellation: sceneActive={}, camera={}",BenihimeEntranceClient.localEntranceActive(),mc.options.getCameraType());
+                BenihimeEntranceClient.captureFollowing("MOVE-retained");
+                com.mojang.logging.LogUtils.getLogger().info("Benihime stage QA movement preservation: sceneActive={}, camera={}",BenihimeEntranceClient.localEntranceActive(),mc.options.getCameraType());
             }
             if(seen&&!BenihimeEntranceClient.localEntranceActive()&&elapsed>240){
                 BenihimeEntranceClient.captureFollowing("STAGE-"+scenario+"-return");
-                boolean passed=(scenario==5?endedAt>=210&&endedAt<=240:endedAt>=540)
+                boolean passed=(endedAt>=540)
                         &&mc.options.getCameraType()==net.minecraft.client.CameraType.FIRST_PERSON;
                 com.mojang.logging.LogUtils.getLogger().info("Benihime stage QA scenario {}: passed={}, endedAt={}, camera={}",scenario,passed,endedAt,mc.options.getCameraType());
                 scenario++;wait=0;

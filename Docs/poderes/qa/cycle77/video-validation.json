@@ -1,0 +1,82 @@
+[
+  {
+    "case": "lethal",
+    "encodeErrors": "",
+    "decodeErrors": ""
+  },
+  {
+    "case": "threshold",
+    "encodeErrors": "",
+    "decodeErrors": ""
+  },
+  {
+    "case": "survive",
+    "encodeErrors": "",
+    "decodeErrors": ""
+  },
+  {
+    "case": "miss",
+    "encodeErrors": "",
+    "decodeErrors": ""
+  },
+  {
+    "case": "sealed-melee",
+    "encodeErrors": "",
+    "decodeErrors": ""
+  },
+  {
+    "case": "shikai-melee",
+    "encodeErrors": "",
+    "decodeErrors": ""
+  },
+  {
+    "case": "bankai-melee",
+    "encodeErrors": "",
+    "decodeErrors": ""
+  },
+  {
+    "case": "shikai-first-person",
+    "encodeErrors": "",
+    "decodeErrors": ""
+  },
+  {
+    "case": "nake",
+    "encodeErrors": "",
+    "decodeErrors": ""
+  },
+  {
+    "case": "shield",
+    "encodeErrors": "",
+    "decodeErrors": ""
+  },
+  {
+    "case": "shibari",
+    "encodeErrors": "",
+    "decodeErrors": ""
+  },
+  {
+    "case": "hiasobi",
+    "encodeErrors": "",
+    "decodeErrors": ""
+  },
+  {
+    "case": "dissection",
+    "encodeErrors": "",
+    "decodeErrors": ""
+  },
+  {
+    "case": "reconstruction",
+    "encodeErrors": "",
+    "decodeErrors": ""
+  },
+  {
+    "case": "restructure",
+    "encodeErrors": "",
+    "decodeErrors": ""
+  },
+  {
+    "case": "path",
+    "encodeErrors": "",
+    "decodeErrors": ""
+  }
+]

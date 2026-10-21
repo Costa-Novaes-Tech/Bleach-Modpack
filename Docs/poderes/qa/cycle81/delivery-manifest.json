@@ -1,0 +1,96 @@
+{
+  "branch": "Feature-Poderes-bankais",
+  "head": "b398fdc9b806d055a11d915069a4c08e7eb100fc",
+  "protocol": "2.31",
+  "schema": 9,
+  "techniqueRevision": 3,
+  "profiles": {
+    "combat": [
+      {
+        "name": "better-combat-1.9.0+1.20.1-forge.jar",
+        "size": 1054339,
+        "sha256": "49c69dccf2c641246b4e3deca81ebac21f0ee119e81fc713b838b8e33569eea1",
+        "zipCrc": "passed"
+      },
+      {
+        "name": "bleachmod-0.2.0.jar",
+        "size": 15233912,
+        "sha256": "92d55cf7a0021369bfcc527334ab2dfe6f37d875d3a90c727983cc638f837ec3",
+        "zipCrc": "passed"
+      },
+      {
+        "name": "cloth-config-11.1.136+forge.jar",
+        "size": 1181413,
+        "sha256": "1e895e85cf5b1e1905ef3178ec155c8badfe22a1577b92c09143a5aa1f4ce0f2",
+        "zipCrc": "passed"
+      },
+      {
+        "name": "geckolib-aC5KMoNg.jar",
+        "size": 1038209,
+        "sha256": "4518779a31b6c2abb92c98b5ad17ef3d60177df68626bfc86c44de2764913c2b",
+        "zipCrc": "passed"
+      },
+      {
+        "name": "playeranimator-1.0.2-rc1+1.20-forge.jar",
+        "size": 181437,
+        "sha256": "90d9965cb9efdbda29fdc5610be3914cf7008bf5c392ff34f7ab25f96a852691",
+        "zipCrc": "passed"
+      }
+    ],
+    "photon": [
+      {
+        "name": "better-combat-1.9.0+1.20.1-forge.jar",
+        "size": 1054339,
+        "sha256": "49c69dccf2c641246b4e3deca81ebac21f0ee119e81fc713b838b8e33569eea1",
+        "zipCrc": "passed"
+      },
+      {
+        "name": "bleachmod-0.2.0.jar",
+        "size": 15233912,
+        "sha256": "92d55cf7a0021369bfcc527334ab2dfe6f37d875d3a90c727983cc638f837ec3",
+        "zipCrc": "passed"
+      },
+      {
+        "name": "cloth-config-11.1.136+forge.jar",
+        "size": 1181413,
+        "sha256": "1e895e85cf5b1e1905ef3178ec155c8badfe22a1577b92c09143a5aa1f4ce0f2",
+        "zipCrc": "passed"
+      },
+      {
+        "name": "geckolib-aC5KMoNg.jar",
+        "size": 1038209,
+        "sha256": "4518779a31b6c2abb92c98b5ad17ef3d60177df68626bfc86c44de2764913c2b",
+        "zipCrc": "passed"
+      },
+      {
+        "name": "ldlib-ONxYJpRz.jar",
+        "size": 3088005,
+        "sha256": "b6cc3420f05bbfa9f5dec6782307cf556722697561cbc3faa494bd15b1d79fb5",
+        "zipCrc": "passed"
+      },
+      {
+        "name": "photon-editor-a7chTVuf.jar",
+        "size": 5078005,
+        "sha256": "3bd09a759744e9e3b3e7315eaafa9dcd27945ef13331148e8b8169950560e5fb",
+        "zipCrc": "passed"
+      },
+      {
+        "name": "playeranimator-1.0.2-rc1+1.20-forge.jar",
+        "size": 181437,
+        "sha256": "90d9965cb9efdbda29fdc5610be3914cf7008bf5c392ff34f7ab25f96a852691",
+        "zipCrc": "passed"
+      }
+    ]
+  },
+  "modJarIdentical": true,
+  "baseValidation": {
+    "regressions": 137,
+    "gameTests": 164,
+    "exitCode": 0
+  },
+  "photonValidation": {
+    "regressions": 137,
+    "gameTests": 164,
+    "exitCode": 0
+  }
+}

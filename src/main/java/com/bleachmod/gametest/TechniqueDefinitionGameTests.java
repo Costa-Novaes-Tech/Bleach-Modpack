@@ -18,8 +18,8 @@ public final class TechniqueDefinitionGameTests {
     @GameTest(template = "empty", batch = "definitions")
     public static void everyKitCastUsesItsDefinitionAndKeepsTestOverrides(GameTestHelper h) {
         for (var definition : TechniqueDefinitions.all()) {
-            // Net detonation and supported corridor require fixtures covered by BenihimeGameTests.
-            if(definition.identity().equals("benihime") && definition.slot()==4)continue;
+            // Supported three-charge corridor has its own terrain and cooldown-batch fixtures.
+            if(definition.identity().equals("benihime") && java.util.List.of("path","gigai","six_rods").contains(definition.id()))continue;
             var p = new FakePlayer(h.getLevel(), new GameProfile(UUID.randomUUID(), "DefinitionTest"));
             var pos = h.absolutePos(new BlockPos(1, 1, 1)); p.setPos(pos.getX() + .5, h.getLevel().getMaxBuildHeight() - 20, pos.getZ() + .5);
             h.getLevel().getChunkAt(p.blockPosition());

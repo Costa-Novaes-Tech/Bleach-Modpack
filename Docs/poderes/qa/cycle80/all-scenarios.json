@@ -1,0 +1,119 @@
+[
+  {
+    "case": "sealed-melee",
+    "frames": 88,
+    "firstTick": 28,
+    "lastTick": 115,
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\benihime-combat-qa\\1792581331338-sealed-melee",
+    "minFpsObserved": 76,
+    "maxFpsObserved": 112
+  },
+  {
+    "case": "shikai-melee",
+    "frames": 88,
+    "firstTick": 28,
+    "lastTick": 115,
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\benihime-combat-qa\\1792581338337-shikai-melee",
+    "minFpsObserved": 104,
+    "maxFpsObserved": 113
+  },
+  {
+    "case": "bankai-melee",
+    "frames": 88,
+    "firstTick": 28,
+    "lastTick": 115,
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\benihime-combat-qa\\1792581345333-bankai-melee",
+    "minFpsObserved": 100,
+    "maxFpsObserved": 116
+  },
+  {
+    "case": "shikai-first-person",
+    "frames": 88,
+    "firstTick": 28,
+    "lastTick": 115,
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\benihime-combat-qa\\1792581352338-shikai-first-person",
+    "minFpsObserved": 98,
+    "maxFpsObserved": 117
+  },
+  {
+    "case": "nake",
+    "frames": 88,
+    "firstTick": 28,
+    "lastTick": 115,
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\benihime-combat-qa\\1792581359334-nake",
+    "minFpsObserved": 108,
+    "maxFpsObserved": 118
+  },
+  {
+    "case": "shield",
+    "frames": 88,
+    "firstTick": 28,
+    "lastTick": 115,
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\benihime-combat-qa\\1792581366334-shield",
+    "minFpsObserved": 109,
+    "maxFpsObserved": 118
+  },
+  {
+    "case": "shibari",
+    "frames": 88,
+    "firstTick": 28,
+    "lastTick": 115,
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\benihime-combat-qa\\1792581373337-shibari",
+    "minFpsObserved": 107,
+    "maxFpsObserved": 118
+  },
+  {
+    "case": "hiasobi",
+    "frames": 88,
+    "firstTick": 28,
+    "lastTick": 115,
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\benihime-combat-qa\\1792581380335-hiasobi",
+    "minFpsObserved": 108,
+    "maxFpsObserved": 119
+  },
+  {
+    "case": "dissection",
+    "frames": 88,
+    "firstTick": 28,
+    "lastTick": 115,
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\benihime-combat-qa\\1792581387334-dissection",
+    "minFpsObserved": 100,
+    "maxFpsObserved": 119
+  },
+  {
+    "case": "reconstruction",
+    "frames": 88,
+    "firstTick": 28,
+    "lastTick": 115,
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\benihime-combat-qa\\1792581394334-reconstruction",
+    "minFpsObserved": 97,
+    "maxFpsObserved": 118
+  },
+  {
+    "case": "path",
+    "frames": 88,
+    "firstTick": 28,
+    "lastTick": 115,
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\benihime-combat-qa\\1792581401333-path",
+    "minFpsObserved": 93,
+    "maxFpsObserved": 118
+  },
+  {
+    "case": "final-stitch",
+    "frames": 88,
+    "firstTick": 28,
+    "lastTick": 115,
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\benihime-combat-qa\\1792581408336-final-stitch",
+    "minFpsObserved": 75,
+    "maxFpsObserved": 112
+  },
+  {
+    "case": "hiasobi-standalone",
+    "frames": 88,
+    "firstTick": 28,
+    "lastTick": 115,
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\benihime-combat-qa\\1792581415337-hiasobi-standalone",
+    "minFpsObserved": 106,
+    "maxFpsObserved": 118
+  }
+]

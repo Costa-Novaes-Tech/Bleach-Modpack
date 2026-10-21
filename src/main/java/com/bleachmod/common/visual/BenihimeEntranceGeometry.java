@@ -138,7 +138,15 @@ public final class BenihimeEntranceGeometry {
         return buildIdle(origin,forward,ticks,variant,FLAT);
     }
     public static List<BenihimeGeometry.Quad> buildIdle(Vec3 origin, Vec3 forward, double ticks, int variant, Ground ground) {
+        return buildCombat(origin,forward,ticks,variant,0,ground);
+    }
+    public static List<BenihimeGeometry.Quad> buildCombat(Vec3 origin,Vec3 forward,double ticks,int action,double phase,Ground ground){
+        return buildCombat(origin,forward,ticks,action,phase,ground,origin);
+    }
+    public static List<BenihimeGeometry.Quad> buildCombat(Vec3 origin,Vec3 forward,double ticks,int action,double phase,Ground ground,Vec3 target){
         double elapsed = Double.isFinite(ticks) ? Math.max(0, ticks) : 0;
+        double p=Double.isFinite(phase)?Math.max(0,Math.min(1,phase)):0;
+        double envelope=Math.pow(Math.sin(Math.PI*p),2);
         Rig pose = sample(BenihimeEntranceTimeline.DURATION,ground);
         double seconds = (BenihimeEntranceTimeline.DURATION + elapsed) / 20;
         double vertical = .018 * (Math.sin(seconds * 1.1) - Math.sin(28 * 1.1));
@@ -147,10 +155,15 @@ public final class BenihimeEntranceGeometry {
                 .05 * (Math.sin(seconds) - Math.sin(28)), 0);
         Vec3 rightWrist = pose.right().wrist().add(.06 * (Math.sin(seconds * .7 + 1) - Math.sin(28 * .7 + 1)),
                 .05 * (Math.sin(seconds + .8) - Math.sin(28 + .8)), 0);
-        if (variant > 0) {
-            double gesture = .22 * Math.sin(elapsed / 25);
-            leftWrist = leftWrist.add(-gesture, gesture * .5, -gesture);
-            rightWrist = rightWrist.add(gesture, gesture * .5, -gesture);
+        if(action>0){
+            double sweep=Math.sin(p*Math.PI*2),lift=envelope;
+            switch(action){
+                case 1->{leftWrist=leftWrist.add(2.2*sweep,1.0*lift,-1.1*lift);rightWrist=rightWrist.add(-2.2*sweep,.7*lift,-1.3*lift);}
+                case 2->{leftWrist=leftWrist.add(1.5*lift,-1.2*lift,-1.0*lift);rightWrist=rightWrist.add(-1.5*lift,-1.2*lift,-1.0*lift);}
+                case 3->{leftWrist=leftWrist.add(-1.1*lift,.8*lift,-1.4*lift);rightWrist=rightWrist.add(1.1*lift,.8*lift,-1.4*lift);}
+                case 4->{double gather=progress(p, .15,.55)*(1-progress(p,.85,1));leftWrist=leftWrist.add(2.3*gather,2.8*lift,-1.5*gather);rightWrist=rightWrist.add(-2.3*gather,2.8*lift,-1.5*gather);}
+            }
+            shift=shift.add(0,-.22*lift,-.45*lift);
         }
         Vec3 leftShoulder = pose.left().shoulder().add(shift), rightShoulder = pose.right().shoulder().add(shift);
         Rig idle = new Rig(pose.waist().add(shift), pose.chest().add(shift), pose.neck().add(shift), pose.head().add(shift),
@@ -159,15 +172,25 @@ public final class BenihimeEntranceGeometry {
         Vec3 flat = v(forward.x, 0, forward.z);
         flat = flat.lengthSqr() > .00001 ? flat.normalize() : v(0, 0, 1);
         Builder b = new Builder(origin, SenbonGeometry.left(flat), flat.scale(-1));
-        b.ground=ground;
+        b.ground=ground;b.combatAction=action;b.combatPhase=p;
         b.figure(BenihimeEntranceTimeline.DURATION + elapsed, idle);
+        if(action>0 && envelope>.001){
+            Vec3 across=SenbonGeometry.left(flat),behind=flat.scale(-1);
+            for(Arm arm:List.of(idle.left(),idle.right())){
+                Vec3 wrist=origin.add(across.scale(arm.wrist().x)).add(0,arm.wrist().y,0).add(behind.scale(arm.wrist().z));
+                for(int i=0;i<3;i++){
+                    Vec3 start=wrist.add(across.scale((i-1)*.18)),end=target.add(across.scale((i-1)*.4)).add(0,.8+i*.15,0),width=across.scale(.012);
+                    b.faces.add(new BenihimeGeometry.Quad(start.subtract(width),start.add(width),end.add(width),end.subtract(width),0xF05870FF));
+                }
+            }
+        }
         return List.copyOf(b.faces);
     }
 
     private static final class Builder {
         final List<BenihimeGeometry.Quad> faces = new ArrayList<>(6000);
         final Vec3 origin, across, behind;
-        boolean subject;
+        boolean subject;int combatAction;double combatPhase;
         Ground ground=FLAT;
         Builder(Vec3 origin, Vec3 across, Vec3 behind) { this.origin = origin; this.across = across; this.behind = behind; }
         Vec3 world(Vec3 p) { return origin.add(across.scale(p.x)).add(0, p.y, 0).add(behind.scale(p.z)); }
@@ -347,6 +370,8 @@ public final class BenihimeEntranceGeometry {
         void hand(double t, int side, Vec3 wrist, double rise) {
             double roll = side == -1 ? -Math.PI / 2 * progress(t, 138, 162) * (1 - progress(t, 240, 280)) : .12 * progress(t, 226, 248) * (1 - progress(t, 248, 280));
             double g = side == -1 ? grip(t) : 0;
+            double curtainGrip=g;
+            if(combatAction>0){double motion=Math.pow(Math.sin(Math.PI*combatPhase),2);roll+=side*motion*(combatAction==4?.55:.25);g=Math.max(g,motion*(combatAction==2?.35:.75));}
             Vec3 palm = handPoint(wrist, v(0, -.2, -.42), roll);
             // Palm ellipsoid follows the roll through a local surface transform.
             for (int j = 0; j < 5; j++) for (int i = 0; i < 12; i++) {
@@ -358,7 +383,7 @@ public final class BenihimeEntranceGeometry {
             double groundY=safeGround(ground,wrist.x,wrist.z);
             for (int finger = 0; finger < 4; finger++) {
                 double x = (finger - 1.5) * .2, length = new double[]{.88,.99,.93,.76}[finger];
-                double flex = rise * .5 + .2 * progress(t, 136 + finger, 154 + finger) * (1 - progress(t, 158, 170));
+                double flex = g*.65 + rise * .5 + .2 * progress(t, 136 + finger, 154 + finger) * (1 - progress(t, 158, 170));
                 Vec3 root = v(x, -.21, -.75);
                 Vec3 a = root.add(0, -length * .4 * Math.sin(flex), -length * .4 * Math.cos(flex));
                 Vec3 b = a.add(0, -length * .34 * Math.sin(flex * 1.7), -length * .34 * Math.cos(flex * 1.7));
@@ -366,7 +391,7 @@ public final class BenihimeEntranceGeometry {
                 // Pads settle on the reference floor while the palm bears weight.
                 double grounded=ease((.9-(wrist.y-groundY))/.45)*(1-rise);
                 a=a.lerp(v(a.x,-.29,a.z),grounded);b=b.lerp(v(b.x,-.32,b.z),grounded);tip=tip.lerp(v(tip.x,-.33,tip.z),grounded);
-                double weight = g * progress(t, 158 + finger, 172 + finger);
+                double weight = curtainGrip * progress(t, 158 + finger, 172 + finger);
                 double y = 4.65 - x;
                 Vec3[] natural = {root,a,b,tip}, target = {node.add(.335,y-node.y,.18),node.add(.22,y-node.y,-.14),node.add(-.10,y-node.y,-.28),node.add(.02,y-node.y,.02)};
                 Vec3[] fingerPoints = new Vec3[4];
@@ -381,8 +406,8 @@ public final class BenihimeEntranceGeometry {
                 }
             }
             Vec3 thumbRoot = handPoint(wrist,v(side*.39,-.22,-.29),roll);
-            Vec3 thumbA = handPoint(wrist,v(side*.62,-.28,-.57),roll).lerp(node.add(.42,.30,.30),g);
-            Vec3 thumbB = handPoint(wrist,v(side*.72,-.36-rise*.30,-.81),roll).lerp(node.add(.12,.27,.13),g);
+            Vec3 thumbA = handPoint(wrist,v(side*.62,-.28,-.57),roll).lerp(node.add(.42,.30,.30),curtainGrip);
+            Vec3 thumbB = handPoint(wrist,v(side*.72,-.36-rise*.30,-.81),roll).lerp(node.add(.12,.27,.13),curtainGrip);
             if(wrist.y-groundY<.9&&rise<.1)thumbB=thumbB.add(0,.04*ease((.9-(wrist.y-groundY))/.45),0);
             tube(thumbRoot,thumbA,.11,.085,SKIN,8);tube(thumbA,thumbB,.085,.055,SKIN,8);
             // Fine wrist seams reinforce the reconstructed, stitched identity.

@@ -87,7 +87,7 @@ public final class BenihimeEntranceClient {
     @SubscribeEvent public static void tick(TickEvent.ClientTickEvent e){
         if(e.phase!=TickEvent.Phase.END)return;var mc=Minecraft.getInstance();
         if(world!=mc.level){clear();world=mc.level;}if(mc.level==null||mc.player==null)return;
-        for(var id:List.copyOf(SCENES.keySet())){var p=mc.level.getEntity(id);var s=SCENES.get(id);if(p==null||!p.isAlive()||(!s.bench&&(age(s,0)>=560||p.position().distanceToSqr(s.anchor)>2.25)))finish(id);}
+        for(var id:List.copyOf(SCENES.keySet())){var p=mc.level.getEntity(id);var s=SCENES.get(id);if(p==null||!p.isAlive()||(!s.bench&&(age(s,0)>=560||p.position().distanceToSqr(s.anchor)>512*512)))finish(id);}
         var s=local();
         BenihimeEntranceAudio.retain(SCENES.keySet());
         for(var entry:SCENES.entrySet())if(!entry.getValue().bench){

@@ -9,7 +9,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.*;
 import net.minecraft.world.entity.LivingEntity;
 
-/** Server preview never promises a kill; only a confirmed death can start incineration. */
+/** Only authoritative, confirmed death can authorize an execution presentation. */
 public final class HigashiExecutionService {
     public static final double THRESHOLD=.07;
     public static final int VISUAL_TICKS=32;
@@ -18,9 +18,6 @@ public final class HigashiExecutionService {
     public static ResourceKey<DamageType> damageKey(){return DamageKey.VALUE;}
     public static boolean belowThreshold(float health,float max){return Float.isFinite(health)&&Float.isFinite(max)&&health>0&&max>0&&health<=max*THRESHOLD+1e-6;}
     public static boolean eligible(ServerPlayer owner,LivingEntity target){return TechniqueTargets.allowed(owner,target)&&!target.isInvulnerable()&&!(target instanceof ServerPlayer p&&p.getAbilities().invulnerable)&&belowThreshold(target.getHealth(),target.getMaxHealth());}
-    public static void preview(ServerPlayer owner,LivingEntity target){
-        if(TechniqueTargets.allowed(owner,target)&&!target.isInvulnerable())broadcast(owner,new HigashiExecutionS2C(owner.getId(),target.getId(),owner.position(),target.position(),Math.min(16,target.getBbWidth()),Math.min(16,target.getBbHeight()),false));
-    }
     private static void broadcast(ServerPlayer owner,HigashiExecutionS2C packet){for(var observer:owner.serverLevel().players())if(observer==owner||observer.position().distanceToSqr(packet.victim())<80*80)NetworkHandler.sendToPlayer(packet,observer);}
     /** Called only after authoritative damage; surviving totems/cancelled damage never incinerate. */
     public static void confirmedDeath(ServerPlayer owner,LivingEntity target,net.minecraft.world.phys.Vec3 position,float width,float height){

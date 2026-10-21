@@ -1,0 +1,44 @@
+## Feature-Poderes-bankais...origin/Feature-Poderes-bankais
+ M Docs/poderes/00-CONTINUIDADE-CODEX.md
+ M Docs/poderes/72-revisao-geral-roadmap-gamedesign-2026-10-20.md
+ M build.gradle
+ M src/main/java/com/bleachmod/Reference.java
+ M src/main/java/com/bleachmod/client/cinematic/CinematicQaCommands.java
+ M src/main/java/com/bleachmod/client/cinematic/CinematicQaSequence.java
+ M src/main/java/com/bleachmod/client/hud/ZanpakutoHud.java
+ M src/main/java/com/bleachmod/client/model/HigashiExecutionVisuals.java
+ M src/main/java/com/bleachmod/client/model/RyujinActionVisuals.java
+ M src/main/java/com/bleachmod/client/model/SignatureActionVisuals.java
+ M src/main/java/com/bleachmod/client/particle/BenihimeRenderer.java
+ M src/main/java/com/bleachmod/common/data/CharacterData.java
+ M src/main/java/com/bleachmod/common/data/StatusData.java
+ M src/main/java/com/bleachmod/common/network/s2c/BenihimeFrameS2C.java
+ M src/main/java/com/bleachmod/common/network/s2c/HigashiExecutionS2C.java
+ M src/main/java/com/bleachmod/common/technique/BenihimePolicy.java
+ M src/main/java/com/bleachmod/common/technique/BenihimeTechniqueService.java
+ M src/main/java/com/bleachmod/common/technique/ElementalTechniqueService.java
+ M src/main/java/com/bleachmod/common/technique/HigashiExecutionService.java
+ M src/main/java/com/bleachmod/common/technique/TechniqueDefinitions.java
+ M src/main/java/com/bleachmod/common/technique/TechniqueService.java
+ M src/main/java/com/bleachmod/common/visual/BenihimeEntranceGeometry.java
+ M src/main/java/com/bleachmod/common/visual/BenihimeGeometry.java
+ M src/main/java/com/bleachmod/common/visual/RyujinChoreography.java
+ M src/main/java/com/bleachmod/common/visual/SignatureChoreography.java
+ M src/main/java/com/bleachmod/gametest/BenihimeGameTests.java
+ M src/main/java/com/bleachmod/gametest/TechniqueDefinitionGameTests.java
+ M src/main/resources/assets/bleachmod/lang/en_us.json
+ M src/main/resources/assets/bleachmod/lang/pt_br.json
+ M src/test/java/com/bleachmod/MvpRegressionTest.java
+?? Docs/poderes/76-ryujin-investida-rajada-refinamento-2026-10-20.md
+?? Docs/poderes/77-auditoria-video-higashi-combate-benihime-2026-10-20.md
+?? Docs/poderes/78-higashi-preparacao-quadril-corte-ascendente-2026-10-21.md
+?? Docs/poderes/79-proposta-reformulacao-benihime-selada-shikai-bankai-2026-10-21.md
+?? Docs/poderes/80-benihime-fios-costura-final-reformulacao-2026-10-21.md
+?? Docs/poderes/qa/cycle77/
+?? Docs/poderes/qa/cycle78/
+?? Docs/poderes/qa/cycle80/
+?? Docs/poderes/qa/ryujin/
+?? src/main/java/com/bleachmod/client/cinematic/BenihimeCombatQaSequence.java
+?? src/main/java/com/bleachmod/client/cinematic/RyujinQaSequence.java
+?? src/main/java/com/bleachmod/common/visual/BenihimeChoreography.java
+?? src/main/java/com/bleachmod/common/visual/RyujinFlamePresentation.java

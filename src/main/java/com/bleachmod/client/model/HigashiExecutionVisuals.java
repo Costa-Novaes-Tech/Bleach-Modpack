@@ -29,7 +29,7 @@ import java.util.*;
 public final class HigashiExecutionVisuals {
     private record Burn(HigashiExecutionS2C packet,long start,net.minecraft.world.entity.LivingEntity silhouette){ }
     private static boolean renderingSilhouette;
-    private record Pose(HigashiExecutionS2C packet,long start,boolean confirmed){ }
+    private record Pose(HigashiExecutionS2C packet,long start){ }
     private static final Map<Integer,Burn> BURNS=new LinkedHashMap<>();
     private static final Map<Integer,Pose> POSES=new LinkedHashMap<>();
     private static net.minecraft.client.multiplayer.ClientLevel world;
@@ -41,12 +41,13 @@ public final class HigashiExecutionVisuals {
     public static void init(){PlayerAnimationFactory.ANIMATION_DATA_FACTORY.registerFactory(Reference.id("higashi_execution"),3600,Animation::new);}
     private static long now(){return world==null?0:world.getGameTime();}
     private static float age(Pose pose,float partial){return now()-pose.start+partial;}
-    public static void accept(HigashiExecutionS2C m){var mc=Minecraft.getInstance();if(mc.level==null||!m.valid())return;
+    public static void accept(HigashiExecutionS2C m){var mc=Minecraft.getInstance();if(mc.level==null||!m.startsExecution())return;
         if(world!=mc.level){reset();world=mc.level;}
         long now=now();var previous=POSES.get(m.owner());
-        boolean continuing=m.confirmed()&&previous!=null&&previous.packet.target()==m.target()&&age(previous,0)<24;
-        if(continuing)m=new HigashiExecutionS2C(m.owner(),m.target(),previous.packet.attacker(),m.victim(),m.width(),m.height(),true);
-        var pose=new Pose(m,continuing?previous.start:now-(m.confirmed()?HigashiCinematicPath.IMPACT:0),m.confirmed());
+        if(previous!=null&&previous.packet.target()==m.target()&&age(previous,0)<HigashiCinematicPath.END)return;
+        // Ordinary Higashi already performed the draw/approach. Join at the confirmed impact,
+        // never replay a lethal-looking scene speculatively against a survivor.
+        var pose=new Pose(m,now-HigashiCinematicPath.IMPACT);
         if(POSES.size()>=24&&!POSES.containsKey(m.owner()))POSES.remove(POSES.keySet().iterator().next());POSES.put(m.owner(),pose);
         if(m.confirmed()){
             if(BURNS.size()>=8)BURNS.remove(BURNS.keySet().iterator().next());BURNS.put(m.target(),new Burn(m,now,mc.level.getEntity(m.target()) instanceof net.minecraft.world.entity.LivingEntity living?living:null));
@@ -65,14 +66,13 @@ public final class HigashiExecutionVisuals {
     private static void dismiss(){var mc=Minecraft.getInstance();if(mc.player!=null)POSES.remove(mc.player.getId());dismissedUntil=now()+HigashiCinematicPath.END;restore();}
     public static void yieldToRelease(){if(cinematic!=null)dismiss();}
     private static void reset(){restore();BURNS.clear();POSES.clear();world=null;emitted=Long.MIN_VALUE;dismissedUntil=Long.MIN_VALUE;}
+    public static boolean localExecutionActive(){return cameraActive();}
     private static boolean cameraActive(){var mc=Minecraft.getInstance();return cinematic!=null&&world==mc.level&&mc.player!=null&&mc.getCameraEntity()==mc.player&&mc.options.getCameraType()==CameraType.THIRD_PERSON_BACK;}
     private static Pose pose(AbstractClientPlayer p){var value=POSES.get(p.getId());
         if(value==null||world!=p.level()||!p.isAlive()||p.isSpectator()||ZanpakutoReleaseAnimation.active(p)||ZanpakutoGuardPose.engaged(p,0))return null;
         if(!p.getMainHandItem().is(com.bleachmod.init.ModItems.RYUJIN_JAKKA.get())||!com.bleachmod.common.data.PlayerCapability.get(p).map(d->d.getCharacter().getZanpakutoIdentity().equals("ryujin_jakka")&&d.getCharacter().getActiveForm().equals("bankai")).orElse(false))return null;
-        boolean preparing=false;
-        for(var v:ElementalActionVisuals.VIEWS.getOrDefault(p.getId(),List.of())){if(v.kind().equals("higashi"))preparing=true;else if(ElementalActionVisuals.age(v,0)<v.gesture())return null;}
-        if(!value.confirmed&&!preparing)return null;
-        return age(value,0)<(value.confirmed?HigashiCinematicPath.END:HigashiCinematicPath.PREVIEW_TIMEOUT)?value:null;
+        for(var v:ElementalActionVisuals.VIEWS.getOrDefault(p.getId(),List.of())){if(!v.kind().equals("higashi")&&ElementalActionVisuals.age(v,0)<v.gesture())return null;}
+        return age(value,0)<HigashiCinematicPath.END?value:null;
     }
     private static final class Animation implements IAnimation {
         private final AbstractClientPlayer p;Animation(AbstractClientPlayer player){p=player;}
@@ -99,8 +99,8 @@ public final class HigashiExecutionVisuals {
     @SubscribeEvent public static void bars(RenderGuiEvent.Post e){if(!cameraActive())return;float t=age(cinematic,e.getPartialTick());int size=(int)(e.getGuiGraphics().guiHeight()*.075*Math.max(0,Math.min(1,Math.min(t/3,(HigashiCinematicPath.END-t)/5))));var g=e.getGuiGraphics();g.fill(0,0,g.guiWidth(),size,0xff000000);g.fill(0,g.guiHeight()-size,g.guiWidth(),g.guiHeight(),0xff000000);}
     @SubscribeEvent public static void tick(TickEvent.ClientTickEvent e){if(e.phase!=TickEvent.Phase.END)return;var mc=Minecraft.getInstance();
         if(mc.level==null||world!=mc.level){reset();world=mc.level;return;}
-        long now=now();BURNS.values().removeIf(b->now-b.start>=HigashiCinematicPath.END-HigashiCinematicPath.IMPACT);POSES.values().removeIf(p->age(p,0)>=(p.confirmed?HigashiCinematicPath.END:HigashiCinematicPath.PREVIEW_TIMEOUT));
-        if(cinematic!=null&&age(cinematic,0)>=(cinematic.confirmed?HigashiCinematicPath.END:HigashiCinematicPath.PREVIEW_TIMEOUT))restore();
+        long now=now();BURNS.values().removeIf(b->now-b.start>=HigashiCinematicPath.END-HigashiCinematicPath.IMPACT);POSES.values().removeIf(p->age(p,0)>=HigashiCinematicPath.END);
+        if(cinematic!=null&&age(cinematic,0)>=HigashiCinematicPath.END)restore();
         if(cinematic!=null&&(mc.player==null||!mc.player.isAlive()||mc.player.hurtTime>0||mc.screen!=null||mc.options.keyAttack.isDown()||mc.options.keyUse.isDown()||mc.options.keyUp.isDown()||mc.options.keyDown.isDown()||mc.options.keyLeft.isDown()||mc.options.keyRight.isDown()||mc.options.keyJump.isDown()||mc.getCameraEntity()!=mc.player||mc.options.getCameraType()!=CameraType.THIRD_PERSON_BACK||!ClientVisualConfig.EXECUTION_CAMERA.get()||mc.player.distanceToSqr(cinematic.packet.attacker())>9||pose(mc.player)==null))dismiss();
         if(mc.isPaused()||emitted==now)return;emitted=now;int budget=256,scale=mc.options.particles().get()==ParticleStatus.MINIMAL?4:1;
         for(var b:BURNS.values()){var m=b.packet;if(mc.player==null||mc.player.distanceToSqr(m.victim())>80*80)continue;int age=(int)(now-b.start)-(HigashiCinematicPath.IGNITE-HigashiCinematicPath.IMPACT);

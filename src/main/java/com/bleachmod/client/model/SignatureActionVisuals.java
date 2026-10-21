@@ -49,7 +49,14 @@ public final class SignatureActionVisuals {
         final var chosen=v;return chosen!=null&&chosen.identity.equals(identity(p))&&p.level().getGameTime()-chosen.start<chosen.duration&&PlayerCapability.get(p).map(d->d.getCharacter().getZanpakutoIdentity().equals(chosen.identity)&&d.getCharacter().getActiveForm().equals(chosen.form)).orElse(false)?chosen:null;
     }
     public static boolean active(AbstractClientPlayer p){return view(p)!=null;}
-    private static RyujinChoreography.Pose pose(AbstractClientPlayer p,View v,float partial){return SignatureChoreography.sample(v.kind,(float)(p.level().getGameTime()-v.start)+partial,v.duration,p.getMainArm()==HumanoidArm.RIGHT?1:-1);}
+    private static RyujinChoreography.Pose pose(AbstractClientPlayer p,View v,float partial){
+        float age=(float)(p.level().getGameTime()-v.start)+partial,sign=p.getMainArm()==HumanoidArm.RIGHT?1:-1;
+        if(v.identity.equals("benihime")){
+            if(v.kind.startsWith("melee_"))return com.bleachmod.common.visual.BenihimeChoreography.melee(v.kind.charAt(6)-'0',age,v.duration,sign);
+            return com.bleachmod.common.visual.BenihimeChoreography.technique(v.kind,age,v.duration,sign);
+        }
+        return SignatureChoreography.sample(v.kind,age,v.duration,sign);
+    }
     private static final class Animation implements IAnimation {
         final AbstractClientPlayer p;Animation(AbstractClientPlayer p){this.p=p;}
         @Override public boolean isActive(){return view(p)!=null&&!ZanpakutoReleaseAnimation.active(p);}
@@ -66,8 +73,21 @@ public final class SignatureActionVisuals {
             String id=identity(p);if(!supported(id)||mc.player.distanceToSqr(p)>64*64)continue;
             if(LAST_SWING.size()>=24&&!LAST_SWING.containsKey(p.getId()))continue;var previous=LAST_SWING.put(p.getId(),p.swinging?p.swingTime:-1);
             // Vanilla swing replication supplies remote observers too; no BC hitbox/attributes are changed.
-            if(p.swinging&&p.swingTime<=1&&(previous==null||previous<0||p.swingTime<previous)&&available(p)&&!VIEWS.containsKey(p.getId())&&MELEE.size()<24&&COMBOS.size()<24){int combo=COMBOS.merge(p.getId(),1,Integer::sum);String kind=id.equals("senbonzakura")?(combo%2==0?"petal_cut":"petal_stream"):(combo%3==0?"nake":"dissection");String form=PlayerCapability.get(p).map(d->d.getCharacter().getActiveForm()).orElse("sealed");MELEE.put(p.getId(),new View(id,form,kind,6,lastTick));}
+            if(!id.equals("benihime")&&p.swinging&&p.swingTime<=1&&(previous==null||previous<0||p.swingTime<previous)&&available(p)&&!VIEWS.containsKey(p.getId())&&MELEE.size()<24&&COMBOS.size()<24){int combo=COMBOS.merge(p.getId(),1,Integer::sum);String kind=id.equals("senbonzakura")?(combo%2==0?"petal_cut":"petal_stream"):"melee_"+Math.floorMod(combo-1,3);String form=PlayerCapability.get(p).map(d->d.getCharacter().getActiveForm()).orElse("sealed");MELEE.put(p.getId(),new View(id,form,kind,6,lastTick));}
             var v=view(p);if(v==null||ZanpakutoReleaseAnimation.active(p)||budget<=0)continue;
+            if(v.kind.startsWith("melee_")){
+                // A small blade-bound red trace; no technique ring or hitbox on a basic attack.
+                var gesture=pose(p,v,0);var forward=Vec3.directionFromRotation(0,p.getYRot());
+                var right=new Vec3(-forward.z,0,forward.x);float sign=p.getMainArm()==HumanoidArm.RIGHT?1:-1;
+                var local=com.bleachmod.common.visual.RyujinChoreography.bladeHand(gesture,sign);
+                var direction=com.bleachmod.common.visual.RyujinChoreography.bladeDirection(gesture);
+                var hand=p.position().add(right.scale(local.x)).add(0,local.y,0).add(forward.scale(local.z));
+                var blade=right.scale(direction.x).add(0,direction.y,0).add(forward.scale(direction.z));
+                for(int i=0;i<6/scale&&budget>0;i++){
+                    var at=hand.add(blade.scale(.25+i*.16));mc.level.addParticle(RED,at.x,at.y,at.z,0,.008,0);budget--;
+                }
+                continue;
+            }
             boolean petal=id.equals("senbonzakura");int age=(int)(lastTick-v.start);var f=Vec3.directionFromRotation(0,p.getYRot());var side=new Vec3(-f.z,0,f.x);
             for(int i=0;i<12/scale && budget>0;i++){
                 double a=i*Math.PI*2/(12/scale)+age*.18;Vec3 at;
