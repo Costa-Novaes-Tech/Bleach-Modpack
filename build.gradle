@@ -96,6 +96,8 @@ minecraft {
                 property 'bleachmod.higashiPoseQa', providers.gradleProperty('higashiPoseQa').getOrElse('false')
                 property 'bleachmod.benihimeCombatQa', providers.gradleProperty('benihimeCombatQa').getOrElse('false')
                 property 'bleachmod.ryujinQa', providers.gradleProperty('ryujinQa').getOrElse('false')
+                property 'bleachmod.hyorinmaruQa', providers.gradleProperty('hyorinmaruQa').getOrElse('false')
+                property 'bleachmod.qaAutoExit', providers.gradleProperty('qaAutoExit').getOrElse('false')
                 property 'bleachmod.cinematicQaFast', providers.gradleProperty('cinematicQaFast').getOrElse('false')
                 property 'bleachmod.benihimeStageQa', providers.gradleProperty('benihimeStageQa').getOrElse('false')
                 args '--width', '1280', '--height', '720'
