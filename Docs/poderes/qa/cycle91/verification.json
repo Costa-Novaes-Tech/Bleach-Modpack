@@ -1,0 +1,192 @@
+{
+  "branch": "Feature-Poderes-bankais",
+  "base_commit": "c26a4e3",
+  "network": "2.34",
+  "tests": {
+    "baseline": [
+      139,
+      173
+    ],
+    "base": [
+      140,
+      176
+    ],
+    "photon": [
+      140,
+      176
+    ]
+  },
+  "profiles": {
+    "base": {
+      "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\hyorinmaru-qa\\cycle91-1792670842548",
+      "scenarios": {
+        "01_bankai_transformation": {
+          "frames": 53,
+          "last_server_tick": 212,
+          "fps_min": 9,
+          "fps_median": 59,
+          "fps_max": 84
+        },
+        "02_bankai_wings_lotus": {
+          "frames": 11,
+          "last_server_tick": 40,
+          "fps_min": 84,
+          "fps_median": 87,
+          "fps_max": 108
+        },
+        "03_slot1_ryusenka": {
+          "frames": 28,
+          "last_server_tick": 108,
+          "fps_min": 81,
+          "fps_median": 89.0,
+          "fps_max": 108
+        },
+        "04_slot2_hydra_assault": {
+          "frames": 28,
+          "last_server_tick": 108,
+          "fps_min": 76,
+          "fps_median": 78.0,
+          "fps_max": 93
+        },
+        "05_slot3_ice_eruption": {
+          "frames": 28,
+          "last_server_tick": 108,
+          "fps_min": 90,
+          "fps_median": 98.0,
+          "fps_max": 105
+        },
+        "06_slot4_blizzard_zone": {
+          "frames": 27,
+          "last_server_tick": 108,
+          "fps_min": 41,
+          "fps_median": 54,
+          "fps_max": 101
+        },
+        "07_shikai_slot3_sennen": {
+          "frames": 27,
+          "last_server_tick": 108,
+          "fps_min": 52,
+          "fps_median": 104,
+          "fps_max": 106
+        },
+        "08_sealed_armor": {
+          "frames": 36,
+          "last_server_tick": 140,
+          "fps_min": 85,
+          "fps_median": 106.0,
+          "fps_max": 109
+        },
+        "09_slot2_hydra_wall": {
+          "frames": 28,
+          "last_server_tick": 108,
+          "fps_min": 96,
+          "fps_median": 106.0,
+          "fps_max": 111
+        },
+        "10_slot2_hydra_uneven": {
+          "frames": 28,
+          "last_server_tick": 108,
+          "fps_min": 92,
+          "fps_median": 94.0,
+          "fps_max": 111
+        }
+      },
+      "capture": "Real Forge framebuffer sampled every four server ticks; animated GIFs have no audio or interpolation."
+    },
+    "photon": {
+      "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\photon\\hyorinmaru-qa\\cycle91-1792669968805",
+      "scenarios": {
+        "01_bankai_transformation": {
+          "frames": 51,
+          "last_server_tick": 212,
+          "fps_min": 23,
+          "fps_median": 53,
+          "fps_max": 83
+        },
+        "02_bankai_wings_lotus": {
+          "frames": 11,
+          "last_server_tick": 40,
+          "fps_min": 82,
+          "fps_median": 83,
+          "fps_max": 102
+        },
+        "03_slot1_ryusenka": {
+          "frames": 28,
+          "last_server_tick": 108,
+          "fps_min": 77,
+          "fps_median": 93.0,
+          "fps_max": 102
+        },
+        "04_slot2_hydra_assault": {
+          "frames": 28,
+          "last_server_tick": 108,
+          "fps_min": 89,
+          "fps_median": 91.0,
+          "fps_max": 107
+        },
+        "05_slot3_ice_eruption": {
+          "frames": 28,
+          "last_server_tick": 108,
+          "fps_min": 103,
+          "fps_median": 106.0,
+          "fps_max": 112
+        },
+        "06_slot4_blizzard_zone": {
+          "frames": 27,
+          "last_server_tick": 108,
+          "fps_min": 57,
+          "fps_median": 83,
+          "fps_max": 112
+        },
+        "07_shikai_slot3_sennen": {
+          "frames": 28,
+          "last_server_tick": 108,
+          "fps_min": 53,
+          "fps_median": 93.0,
+          "fps_max": 111
+        },
+        "08_sealed_armor": {
+          "frames": 36,
+          "last_server_tick": 140,
+          "fps_min": 97,
+          "fps_median": 113.0,
+          "fps_max": 115
+        },
+        "09_slot2_hydra_wall": {
+          "frames": 27,
+          "last_server_tick": 108,
+          "fps_min": 97,
+          "fps_median": 110,
+          "fps_max": 115
+        },
+        "10_slot2_hydra_uneven": {
+          "frames": 28,
+          "last_server_tick": 108,
+          "fps_min": 89,
+          "fps_median": 96.0,
+          "fps_max": 110
+        }
+      },
+      "capture": "Real Forge framebuffer sampled every four server ticks; animated GIFs have no audio or interpolation."
+    }
+  },
+  "pending": [
+    "human artistic approval",
+    "dedicated server plus two real clients",
+    "latency/late-join observer",
+    "audio listening"
+  ],
+  "jar_sha256": "0f3ff0fbbcdf42c9d731b80e35b298972daf2346eeb9c9886b53d31f510ad2e4",
+  "jar_integrity_error": null,
+  "asset_mismatches": [],
+  "packs": {
+    "combat-test-pack": {
+      "jars": 5,
+      "matches_mod": true
+    },
+    "photon-test-pack": {
+      "jars": 7,
+      "matches_mod": true
+    }
+  }
+}

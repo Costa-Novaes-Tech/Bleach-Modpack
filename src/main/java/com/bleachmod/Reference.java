@@ -4,7 +4,7 @@ import net.minecraft.resources.ResourceLocation;
 
 public final class Reference {
     public static final String MOD_ID = "bleachmod";
-    public static final String NETWORK_PROTOCOL = "2.31"; // New Benihime thread/ultimate frames require matching server and client.
+    public static final String NETWORK_PROTOCOL = "2.35"; // Hyorinmaru release duration and manifestation discriminator require matching clients.
 
     public static final String RACE_SHINIGAMI = "shinigami";
     public static final String GROUP_ZANPAKUTO = "zanpakuto";

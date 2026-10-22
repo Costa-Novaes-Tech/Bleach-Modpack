@@ -1,0 +1,220 @@
+{
+  "branch": "Feature-Poderes-bankais",
+  "base_commit": "c26a4e3",
+  "network": "2.35",
+  "tests": {
+    "baseline": [
+      140,
+      176
+    ],
+    "base": [
+      141,
+      176
+    ],
+    "photon": [
+      141,
+      176
+    ]
+  },
+  "profiles": {
+    "base": {
+      "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\hyorinmaru-qa\\cycle92-1792673497134",
+      "scenarios": {
+        "01_bankai_transformation": {
+          "frames": 104,
+          "last_server_tick": 412,
+          "fps_min": 24,
+          "fps_median": 103.0,
+          "fps_max": 114
+        },
+        "02_bankai_wings_lotus": {
+          "frames": 11,
+          "last_server_tick": 40,
+          "fps_min": 111,
+          "fps_median": 114,
+          "fps_max": 114
+        },
+        "03_slot1_ryusenka": {
+          "frames": 28,
+          "last_server_tick": 108,
+          "fps_min": 95,
+          "fps_median": 102.0,
+          "fps_max": 118
+        },
+        "04_slot2_hydra_assault": {
+          "frames": 28,
+          "last_server_tick": 108,
+          "fps_min": 110,
+          "fps_median": 115.0,
+          "fps_max": 118
+        },
+        "05_slot3_ice_eruption": {
+          "frames": 28,
+          "last_server_tick": 108,
+          "fps_min": 110,
+          "fps_median": 118.0,
+          "fps_max": 119
+        },
+        "06_slot4_blizzard_zone": {
+          "frames": 28,
+          "last_server_tick": 108,
+          "fps_min": 104,
+          "fps_median": 113.0,
+          "fps_max": 118
+        },
+        "07_shikai_slot3_sennen": {
+          "frames": 28,
+          "last_server_tick": 108,
+          "fps_min": 101,
+          "fps_median": 117.5,
+          "fps_max": 119
+        },
+        "08_sealed_armor": {
+          "frames": 36,
+          "last_server_tick": 140,
+          "fps_min": 116,
+          "fps_median": 118.0,
+          "fps_max": 119
+        },
+        "09_slot2_hydra_wall": {
+          "frames": 28,
+          "last_server_tick": 108,
+          "fps_min": 117,
+          "fps_median": 118.0,
+          "fps_max": 119
+        },
+        "10_slot2_hydra_uneven": {
+          "frames": 28,
+          "last_server_tick": 108,
+          "fps_min": 116,
+          "fps_median": 117.5,
+          "fps_max": 118
+        }
+      },
+      "capture": "Real Forge framebuffer sampled every four server ticks; animated GIFs have no audio or interpolation."
+    },
+    "photon": {
+      "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\photon\\hyorinmaru-qa\\cycle92-1792673715903",
+      "scenarios": {
+        "01_bankai_transformation": {
+          "frames": 104,
+          "last_server_tick": 412,
+          "fps_min": 27,
+          "fps_median": 104.0,
+          "fps_max": 118
+        },
+        "02_bankai_wings_lotus": {
+          "frames": 11,
+          "last_server_tick": 40,
+          "fps_min": 114,
+          "fps_median": 117,
+          "fps_max": 118
+        },
+        "03_slot1_ryusenka": {
+          "frames": 27,
+          "last_server_tick": 108,
+          "fps_min": 101,
+          "fps_median": 109,
+          "fps_max": 118
+        },
+        "04_slot2_hydra_assault": {
+          "frames": 28,
+          "last_server_tick": 108,
+          "fps_min": 113,
+          "fps_median": 116.0,
+          "fps_max": 118
+        },
+        "05_slot3_ice_eruption": {
+          "frames": 28,
+          "last_server_tick": 108,
+          "fps_min": 113,
+          "fps_median": 118.0,
+          "fps_max": 119
+        },
+        "06_slot4_blizzard_zone": {
+          "frames": 28,
+          "last_server_tick": 108,
+          "fps_min": 100,
+          "fps_median": 106.0,
+          "fps_max": 118
+        },
+        "07_shikai_slot3_sennen": {
+          "frames": 28,
+          "last_server_tick": 108,
+          "fps_min": 94,
+          "fps_median": 113.0,
+          "fps_max": 118
+        },
+        "08_sealed_armor": {
+          "frames": 36,
+          "last_server_tick": 140,
+          "fps_min": 116,
+          "fps_median": 118.0,
+          "fps_max": 119
+        },
+        "09_slot2_hydra_wall": {
+          "frames": 27,
+          "last_server_tick": 108,
+          "fps_min": 116,
+          "fps_median": 117,
+          "fps_max": 119
+        },
+        "10_slot2_hydra_uneven": {
+          "frames": 28,
+          "last_server_tick": 108,
+          "fps_min": 114,
+          "fps_median": 117.0,
+          "fps_max": 119
+        }
+      },
+      "capture": "Real Forge framebuffer sampled every four server ticks; animated GIFs have no audio or interpolation."
+    }
+  },
+  "pending": [
+    "human artistic approval",
+    "dedicated server plus two real clients",
+    "latency/late-join observer",
+    "audio listening"
+  ],
+  "jar_sha256": "fcb78aa113a86036c5a6f100cda57e2556929e13198f48ce460d595ba7b7a9d1",
+  "jar_integrity_error": null,
+  "asset_mismatches": [],
+  "packs": {
+    "combat-test-pack": {
+      "jars": 5,
+      "matches_mod": true
+    },
+    "photon-test-pack": {
+      "jars": 7,
+      "matches_mod": true
+    }
+  },
+  "audio_levels": {
+    "music_original_gain_db": -9.12,
+    "additional_voice_window_duck_db": -14.89,
+    "voices": {
+      "hyorinmaru_voice_bankai": {
+        "start_seconds": 1.2,
+        "duration_seconds": 1.05,
+        "voice_rms_dbfs": -12.3,
+        "bed_rms_dbfs": -54.48,
+        "voice_over_bed_db": 42.18
+      },
+      "hyorinmaru_voice_name": {
+        "start_seconds": 16.5,
+        "duration_seconds": 2.5,
+        "voice_rms_dbfs": -13.89,
+        "bed_rms_dbfs": -46.29,
+        "voice_over_bed_db": 32.4
+      }
+    },
+    "roar_preserved_sha256": "f3f4fe4e5595f1fcba4637536caa024373a9ef124f9b579f569260ba92ab41c9",
+    "tool": {
+      "name": "imageio-ffmpeg",
+      "version": "0.6.0",
+      "scope": "build/audio-tools; cached PyPI wheel; no system changes",
+      "exe_sha256": "2ce797a0f88d7f067180338fb227f7b1928ea727bd9a4d7a1d022f7c52af71a3"
+    }
+  },
+  "initial_render_issue": "Support-block light sampled inside an opaque block; corrected to block.above and recaptured in both clients."
+}

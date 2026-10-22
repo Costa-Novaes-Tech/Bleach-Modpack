@@ -1,5 +1,13 @@
 # Ciclo 72 — revisão geral do projeto, game design e roadmap
 
+> **Atualização92 — 22/10/2026:** [92: áudio Hyōrinmaru, transformação20s e gelo temporário](92-audio-hyorinmaru-transformacao-gelo-temporario-2026-10-22.md). Nova mixagem com fala separada, transformação20s, baforada36blocos e piso de gelo visual temporário; clima global independente. Rede2.35. Não muda a ordem obrigatória abaixo; aceites artísticos/auditivos e multiplayer continuam pendentes. Resultados no relatório92.
+
+**Implementação22/10 — ciclo91:** [hidra mais robusta, N com explosões sem retorno e weather desacoplado](91-hidra-robusta-explosoes-clima-local-2026-10-22.md). Câmera aproxima a revelação; modelo/geometria e resíduos locais atualizados; custo/recarga/passivas preservados. Base+Photon140 regressões/176 GameTests. A implementação do90 não encerra a homologação artística nem as pendências de mãos/combate, outras técnicas e multiplayer do89. Demais frentes desta lista continuam obrigatórias.
+
+**Planejamento21/10 — ciclo90:** [refino da hidra e remoção do vínculo climático](90-planejamento-refino-hidra-impactos-sem-weather-2026-10-21.md). Acrescentar pescoços mais robustos/proporcionais; Bankai sem acionar weather global; ataqueN com três saídas por trás e impactos explosivos que espalham gelo/dano em área, sem retorno. Substitui a coreografia de recolhimento88–89. Apenas documentos; não implementado. Mantidas as demais pendências do89 e a lista obrigatória deste roadmap.
+
+**Atualização21/10 — ciclo89:** [primeira implementação do novo kit/hidra Hyōrinmaru](89-implementacao-hyorinmaru-hidra-kit-2026-10-21.md). Novos slots88, transformação10s, baforada, asas/cauda, Sennen Shikai e Revestimento selado já implementados;139 regressões/173 GameTests nos perfis base/Photon. Ainda requer homologação visual e testes multiplayer em dois clientes. Não encerrar a fila obrigatória por esta entrega; clima/C, refinamento artístico, Benihime/Ryūjin e demais itens preservam suas pendências.
+
 Revisão de 20/10/2026. Pedido do usuário: revisar a documentação e explicar o estágio do mod e o que falta, sem alterar agora os sons. Git inicial limpo em `Feature-Poderes-bankais`, HEAD `7621758` (`Feature: Adição de audio de Benihime`). Esta rodada altera somente documentação em `Docs/poderes`; não executa jogo, build, testes, instalação, commit, push ou merge.
 
 ## 1. Diagnóstico atual
@@ -86,6 +94,14 @@ A sequência abaixo foi reafirmada pelo usuário como **lista obrigatória de tr
 7. **Hyōrinmaru — revisão com Blockbench.** Incluir autoria de modelos, rig e animações dos dragões de gelo, além da transformação e animações do personagem. Planejar mandíbula/cabeça, corpo e movimento dos dragões com fontes editáveis; preservar os três dragões da Bankai e os alcances/regras aprovados salvo novo pedido. Blockbench serve à autoria; avaliar GeckoLib para animar os dragões no jogo e manter as animações do jogador na integração compatível com PlayerAnimator, sem substituir globalmente seu renderizador. Validar modelo, percurso, legibilidade, contato e desempenho no Minecraft real. O estado atual foi considerado bom: esta melhoria planejada permanece na etapa posterior, sem reabrir o kit imediatamente.
 
 ### Controle obrigatório de fechamento
+
+**Revisão de21/10 — [ciclo88](88-revisao-kit-hyorinmaru-hidra-erupcao-storyboards-2026-10-21.md):** usuário reorganiza o repertório do item7: Ryūsenka em Bankai H; nova hidra ofensiva em N; Erupção Glacial em B; Sennen ampliada transferida para Shikai B. C Bankai permanece Hyōten. Dois vídeos analisados e três storyboards criados, sem implementar mudanças. Atualizar migração/maestrias junto dos slots quando houver código; os demais itens obrigatórios permanecem.
+
+**Plano de21/10 — [ciclo87](87-plano-implementacao-hyorinmaru-transformacao-kit-2026-10-21.md):** detalhada a implementação futura do item7 e do repertório de quatro ações por forma, a partir da direção visual86 aceita. Ordem: contratos → pescoço/rig → transformação/aparência → baforada/estados → Bankai H/N/B/C → Shikai/selada → acabamento, perfis e observador. Documento distingue código atual e mudanças propostas; nada implementado nesta rodada e nenhum outro item eliminado.
+
+**Discussão de21/10 — [ciclo86](86-prototipo-hyorinmaru-hidra-baforada-transformacao-2026-10-21.md):** item7 recebe nova proposta visual: três pescoços orgânicos se formam, baforada cobre o jogador e atinge inimigos à frente, neve revela asas/cauda novas. Apenas storyboard e estudo de contrato; duração/dano/fragilidade não implementados nem homologados. Usuário testa84; demais itens da lista obrigatória continuam preservados.
+
+**Retorno de21/10 — [ciclo84](84-revisao-combate-benihime-hyorinmaru-2026-10-21.md):** usuário reabriu combate Benihime e pediu auditoria das tentativas Hyōrinmaru integradas na branch. Itens4 e7 em refinamento e validação; demais pendências e fila preservadas. Transformação140ticks, hidra cenográfica separada dos três projéteis e autoria Blockbench corrigidas; esgrima Benihime revisada no Better Combat. Não constitui aceite artístico automático.
 
 **Retorno de21/10 — [ciclo81](81-benihime-selada-bettercombat-entrada-dash-ryujin-2026-10-21.md):** vídeo reabriu item1 por cancelamento ao andar e item3 pela corrida no dash. Revelação agora continua ao sair da câmera; dash com giro/horizontalidade retomados e subida verificada. Item4 inclui integração Better Combat com três animações próprias, quatro técnicas seladas, Hiasobi ampliada e suprema raio12/base40 com destruição limitada/protegida de terreno. Implementado para testes; não marcar homologado pelo agente. Nake/escudo com carga/parry continuam propostas separadas, sem aplicação automática.
 

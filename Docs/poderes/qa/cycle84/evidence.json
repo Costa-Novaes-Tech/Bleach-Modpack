@@ -1,0 +1,292 @@
+[
+  {
+    "case": "01_bankai_transformation",
+    "rawSource": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\hyorinmaru-qa\\cycle84-1792606215154\\01_bankai_transformation",
+    "rawFrames": 39,
+    "records": 39,
+    "selectedCopies": [
+      "frame-t000.png",
+      "frame-t016.png",
+      "frame-t032.png",
+      "frame-t048.png",
+      "frame-t064.png",
+      "frame-t080.png",
+      "frame-t096.png",
+      "frame-t104.png",
+      "frame-t112.png",
+      "frame-t128.png",
+      "frame-t140.png",
+      "frame-t152.png"
+    ],
+    "source": "Minecraft Forge framebuffer",
+    "sha256": {
+      "frame-t000.png": "f778df7c4a98b66b5b77e23ae5d2922a2e6a662f983eb2622637189950c6ac72",
+      "frame-t016.png": "7962cd7f80ff117b672fdb5ec2a5cbb7337182a37dd5eb799d5c236d8bf4922f",
+      "frame-t032.png": "30919a2d21ae0f8ac303c0a30fc83ff2141e357a2a4cfad50b6995f246a74429",
+      "frame-t048.png": "9f6bb0ea944bb23972dd9f5668a58263a89d9b5980f26b502f55b8f86ff4e91a",
+      "frame-t064.png": "9e95988cd4b032e32a0910d9e839a12d94400f2566f791f57ab229db06118a5e",
+      "frame-t080.png": "d87258ce4bb6eb73c2166065069ae83f99fd7d73f8b5b3bc833f862eac9d9592",
+      "frame-t096.png": "3b70fd28f6e7fa54a25075da0ab0701261511a9b0348fe0b7a85825cf8d16f46",
+      "frame-t104.png": "71f8246ffdbb8bac194bab6a812951f7bb301bedf6dcf8ed77a2c70fbe902fc7",
+      "frame-t112.png": "175387a0e3b95b5ff753503d617087509d5418a59a2fa1704c1e9d7aacbd0567",
+      "frame-t128.png": "53170c4aced84ed259831bb190c0444ba2997f20dc7723b1fa8884da30d522c9",
+      "frame-t140.png": "1dfba772813287dc2cccdcc54787e844032d8f2cfcaedaa512aec32dfccadf1b",
+      "frame-t152.png": "4825bca42933286e5798084515bf61db3565fdc2e42f1a426f5ea623a807fad3"
+    }
+  },
+  {
+    "case": "02_bankai_wings_lotus",
+    "rawSource": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\hyorinmaru-qa\\cycle84-1792606215154\\02_bankai_wings_lotus",
+    "rawFrames": 11,
+    "records": 11,
+    "selectedCopies": [
+      "frame-t000.png",
+      "frame-t004.png",
+      "frame-t008.png",
+      "frame-t012.png",
+      "frame-t016.png",
+      "frame-t020.png",
+      "frame-t024.png",
+      "frame-t028.png",
+      "frame-t032.png"
+    ],
+    "source": "Minecraft Forge framebuffer",
+    "sha256": {
+      "frame-t000.png": "1b583e7da8a200b4113197cc03c89399327a593d064005a1c265d0d408b68b1d",
+      "frame-t004.png": "8decc80d62665e3e4782398eb58ba19e8607737c92b7f8eb4351b8301b4bc903",
+      "frame-t008.png": "d932c43f7a8b4545ea2ef1a6870bf70a23808472c3eb298c0410e24619a0d7fd",
+      "frame-t012.png": "035ea9834ff83efeddcbd34a7c04ed5c5034bef53c371945568a3519c264842d",
+      "frame-t016.png": "c2004b2c0d2988e5ebb14cdf0cfd9a4fc88ff112c4b0dad02cc75697cf2d10d9",
+      "frame-t020.png": "314cd9377c64872ebef0c404a34642311784eda6f56ad06da338d1d0dd2cfd61",
+      "frame-t024.png": "7b4687df8d3a88cce046781b310a3d74529d1e1f79b3845601406abda2cee4cd",
+      "frame-t028.png": "f2ff9e839f240f3604bbc31454286693169d052907580b8ea8fd6ef5c2110d9c",
+      "frame-t032.png": "77669c401ebb76ead8f219276cd02b27070f6a199ef4491e5df99deea04e49b2"
+    }
+  },
+  {
+    "case": "03_slot1_ice_dragons",
+    "rawSource": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\hyorinmaru-qa\\cycle84-1792606215154\\03_slot1_ice_dragons",
+    "rawFrames": 13,
+    "records": 13,
+    "selectedCopies": [
+      "frame-t000.png",
+      "frame-t004.png",
+      "frame-t008.png",
+      "frame-t012.png",
+      "frame-t016.png",
+      "frame-t020.png",
+      "frame-t024.png",
+      "frame-t028.png",
+      "frame-t032.png"
+    ],
+    "source": "Minecraft Forge framebuffer",
+    "sha256": {
+      "frame-t000.png": "0ac813bf69db1f4bda46e632da3b8781b6e36e03eef7494396299e3cd10f8145",
+      "frame-t004.png": "c90cb69b71a4e2ded46eed915eb177ab84fa21aa116c201a6e9301b34050bf89",
+      "frame-t008.png": "0c6f4d929375244fd1a46067c9fdacb7ff1a218ae68ac796356744760fc25f6b",
+      "frame-t012.png": "3276441ece13c9d475227d41d09669da12e492d0a6159e2c10e812860e347caf",
+      "frame-t016.png": "72bebd6d96583c7bb117970d5efa205f040ccbd117b468e4d1147e1f2cc64f6f",
+      "frame-t020.png": "93110d8489985f7652c38b9844121fae9ba629dfa1f8a8d07ea4745c97f2fb97",
+      "frame-t024.png": "3102e6d9558f5614324a179a70ca454eac38d7f78268249c3bccea5deffbc11c",
+      "frame-t028.png": "d753d30cad9e35209936a0d79554c1f79e67cae519176768cfec566e25f5e1ec",
+      "frame-t032.png": "2679aae71e0ff329d6e523b5642033ea713208f2df93353c90644c6a3bb81269"
+    }
+  },
+  {
+    "case": "04_slot2_ryusenka",
+    "rawSource": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\hyorinmaru-qa\\cycle84-1792606215154\\04_slot2_ryusenka",
+    "rawFrames": 13,
+    "records": 13,
+    "selectedCopies": [
+      "frame-t000.png",
+      "frame-t004.png",
+      "frame-t008.png",
+      "frame-t012.png",
+      "frame-t016.png",
+      "frame-t020.png",
+      "frame-t024.png",
+      "frame-t028.png",
+      "frame-t032.png"
+    ],
+    "source": "Minecraft Forge framebuffer",
+    "sha256": {
+      "frame-t000.png": "360d9d3e1f279b6e7bb5a3edf54fcca726d67b67c0891d0473f0ce7fdd2a32cc",
+      "frame-t004.png": "6e986e27c416be137dc7c43fe39bec776dcf018c71debce93d2281f8bd29bb1d",
+      "frame-t008.png": "2ab898c54d94c35c99a57a7e7ad57fc18f38662d2169cca35491780b4990a1f2",
+      "frame-t012.png": "be9ca4fc5dbd456f60e05be1a200c174b0c0e66f0945c2997edd0c15e8cfbe2e",
+      "frame-t016.png": "ab1c1631d2909fef64fad7609264138f6961686b0ba6140ded9a58eab49c9941",
+      "frame-t020.png": "58d31f1d5cba8309063e156b07735da37036c756c22bc9eabb56d22eccba4312",
+      "frame-t024.png": "9fca30177c3bc4132305cda4bf7dde301cb06b3c1f749536746cfa88f4db6d94",
+      "frame-t028.png": "0e173bffee2b8b29d54dae6eb5b44e292ce5aa9a9f6c822756c65e74cd85112b",
+      "frame-t032.png": "d13042eddf284cfc7b0d6690eae7ae1c693ad30c503adc2a8cf4d7fc771d391d"
+    }
+  },
+  {
+    "case": "05_slot3_sennen_barrier",
+    "rawSource": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\hyorinmaru-qa\\cycle84-1792606215154\\05_slot3_sennen_barrier",
+    "rawFrames": 13,
+    "records": 13,
+    "selectedCopies": [
+      "frame-t000.png",
+      "frame-t004.png",
+      "frame-t008.png",
+      "frame-t012.png",
+      "frame-t016.png",
+      "frame-t020.png",
+      "frame-t024.png",
+      "frame-t028.png",
+      "frame-t032.png"
+    ],
+    "source": "Minecraft Forge framebuffer",
+    "sha256": {
+      "frame-t000.png": "86ffadbaa34ee6c9842eb5a5ff364e887f77890fe2a6eb67ccd6dade3704837f",
+      "frame-t004.png": "ee732f11ed232f99b7cf162000d0711a343e4be0e12556aaef1f1a022d8b12fa",
+      "frame-t008.png": "89f8532e211a164afcdf5626df01da1f3a4916df70373f7e351a6760db185975",
+      "frame-t012.png": "ae7e637894e493b31b80dfb87d75470bafa736c535d6a22932f81fd38dfd7f24",
+      "frame-t016.png": "90778b1c769fa523edc58c4a99c33d9b8433a24eb95af71c511a52f9128881b7",
+      "frame-t020.png": "f8e8297a8286fadca9d456f818d8303086e07d90973c132445d3b6b66ec51eec",
+      "frame-t024.png": "c49ff3b3712b7e402bc8389fd7bb04e95adc9231309ef4fd2da950159f0151c8",
+      "frame-t028.png": "aa90fc8d0a380f51fddd06a6afd265e6aff428be862f4a260f23c078c9c8961a",
+      "frame-t032.png": "7c64476e9fb2033a9d284bd22aeb499d99e9618f162a3a4f745ded681305d94d"
+    }
+  },
+  {
+    "case": "06_slot4_blizzard_zone",
+    "rawSource": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\hyorinmaru-qa\\cycle84-1792606215154\\06_slot4_blizzard_zone",
+    "rawFrames": 13,
+    "records": 13,
+    "selectedCopies": [
+      "frame-t000.png",
+      "frame-t004.png",
+      "frame-t008.png",
+      "frame-t012.png",
+      "frame-t016.png",
+      "frame-t020.png",
+      "frame-t024.png",
+      "frame-t028.png",
+      "frame-t032.png"
+    ],
+    "source": "Minecraft Forge framebuffer",
+    "sha256": {
+      "frame-t000.png": "073a21dc54dcee405df63f5873d512453c899f9f498aff2b3b50c774a35f4c4d",
+      "frame-t004.png": "db52e8c37c92f70ef8da97d7d533d778fe5aa6bf6d9c6e32309215668ed958fc",
+      "frame-t008.png": "558abb419e769e4fa4a95fe20801bc47140eeb09dac6735faa244317c8de4f5b",
+      "frame-t012.png": "7c1586a5f1b6a83eb0844d6dbbdf68b4a5c8d781461b51e11a98a626060d8277",
+      "frame-t016.png": "fe113defce502ecc81e385d5f6d76c5a6e771e2a24a86adffe703e9e0ae9051d",
+      "frame-t020.png": "b20f19706613fbd20c4b53b9536f57e5afd4b5204887f5ca81079f43075d9f41",
+      "frame-t024.png": "e5eb25b51a5981cae98ef2b41c68c24462d8eb262a6582bd9d45125d451e23e0",
+      "frame-t028.png": "fd318f03d7c8d03b64bd6338e5b4a634393bb2b7519938355c3bd8f0efe71e70",
+      "frame-t032.png": "483ab9407be58d72be72211284f09a001229a385bb8fe8bc9de67f5d7596ad4d"
+    }
+  },
+  {
+    "case": "sealed-melee",
+    "rawSource": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\benihime-combat-qa\\1792606268077-sealed-melee",
+    "rawFrames": 88,
+    "records": 88,
+    "selectedCopies": [
+      "frame-t028.png",
+      "frame-t039.png",
+      "frame-t050.png",
+      "frame-t061.png",
+      "frame-t072.png",
+      "frame-t083.png",
+      "frame-t094.png",
+      "frame-t105.png"
+    ],
+    "source": "Minecraft Forge framebuffer",
+    "sha256": {
+      "frame-t028.png": "e6d8e0ba2dd578356830ca235500862e4f923c0a97b60f8a401bea406d4c6017",
+      "frame-t039.png": "b72805c090648b10076653000cc547683938c444051cd6e2a78eec68ac1a282b",
+      "frame-t050.png": "06107153e960d5baacd6dc65331fd9ab9948b73d2587991080b18255c1ab4392",
+      "frame-t061.png": "516b7dace6eeda796ea340e45345ed95ee179d42d50fd3206349cfe21b4b9711",
+      "frame-t072.png": "e5fc8c8eada76327f5d88d7d38a5b57bf901fac0920c99d01d55abb3a0b38b26",
+      "frame-t083.png": "edb81701184d4e2511e18fac9b67ae7f8642c4b5987f12ea08cefe8371a3378a",
+      "frame-t094.png": "9e1eae64ab3d2054d44d3a6c0ae9934c66d0c799b4a69fdae6459c504c2d3e71",
+      "frame-t105.png": "d8b89dc0dae1da777061c599e715c71775e51376eb90c311684c200e69f08748"
+    }
+  },
+  {
+    "case": "shikai-melee",
+    "rawSource": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\benihime-combat-qa\\1792606275019-shikai-melee",
+    "rawFrames": 87,
+    "records": 87,
+    "selectedCopies": [
+      "frame-t028.png",
+      "frame-t038.png",
+      "frame-t048.png",
+      "frame-t058.png",
+      "frame-t068.png",
+      "frame-t078.png",
+      "frame-t088.png",
+      "frame-t099.png",
+      "frame-t109.png"
+    ],
+    "source": "Minecraft Forge framebuffer",
+    "sha256": {
+      "frame-t028.png": "118bc868de19ab014bf212c871b0fb02b7cee6b256991816b258459d37548698",
+      "frame-t038.png": "af23084e4811b0bdd3d3d869f819cdd82d8de8982c6a56bb1eef3dcde1ae9259",
+      "frame-t048.png": "37b4fe30160c1e36056bd318be32215b57c71d1d1858df8f495fb32b92f8c52a",
+      "frame-t058.png": "0bfa7ca0b5315f0a4affeeca5478fd8c00c47b48fa88fd0ab97361148ac088b6",
+      "frame-t068.png": "2e7fa27241b75660b9c9a69bdf39bf092f438a37e17a1c256cb0df4bea61bc19",
+      "frame-t078.png": "c52701d29d7cd2e8f4bf0f40e22ef7cc1c1de986ad003c13f4f9f308577ecde6",
+      "frame-t088.png": "00e31b719c51fafd34c4ea1b000ed93d0a2ae44a4de78df15f4b525f49e870d0",
+      "frame-t099.png": "6f231f7ebecbf7f00198ee940e9cfd115f97771db1f7a518495031e0f315242d",
+      "frame-t109.png": "7e9d37166b392da46451dbb378b846b6cea6b4997cc130056d49b52640475859"
+    }
+  },
+  {
+    "case": "bankai-melee",
+    "rawSource": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\benihime-combat-qa\\1792606282020-bankai-melee",
+    "rawFrames": 88,
+    "records": 88,
+    "selectedCopies": [
+      "frame-t028.png",
+      "frame-t039.png",
+      "frame-t050.png",
+      "frame-t061.png",
+      "frame-t072.png",
+      "frame-t083.png",
+      "frame-t094.png",
+      "frame-t105.png"
+    ],
+    "source": "Minecraft Forge framebuffer",
+    "sha256": {
+      "frame-t028.png": "1901ad9c18b103bc0867579c53cd4ba83e159ab42c9c433955b0b9e12a4f1f48",
+      "frame-t039.png": "eb553e94b11250942c5a42d207625829803cac74fcb2aea724991dec35c045d6",
+      "frame-t050.png": "6662d967204d5506520404e86997c0a5365cef745c2dd69a8642cd63a2dcf204",
+      "frame-t061.png": "afb89147cc3aee1f10818054f70ccb512d564d2142c6621962dbbba1846c232b",
+      "frame-t072.png": "e39a9ee82e27bd7d7ba409d44b7da70d1ea49fafee8f75ae39e6f650a2b1ad38",
+      "frame-t083.png": "b0b383cd46f323dce631d8858a3d65ace20a9c33e75276924b7f2b37d533169d",
+      "frame-t094.png": "ff8ab6c334d6caa031bc23b14694e84eac23456fe0446ccfe6455b2fc0830caa",
+      "frame-t105.png": "009a78fdb72a2d67cfd260154d24aab768986b043a8b6f3b5f7fe28c7f46989a"
+    }
+  },
+  {
+    "case": "shikai-first-person",
+    "rawSource": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\benihime-combat-qa\\1792606289018-shikai-first-person",
+    "rawFrames": 88,
+    "records": 88,
+    "selectedCopies": [
+      "frame-t028.png",
+      "frame-t039.png",
+      "frame-t050.png",
+      "frame-t061.png",
+      "frame-t072.png",
+      "frame-t083.png",
+      "frame-t094.png",
+      "frame-t105.png"
+    ],
+    "source": "Minecraft Forge framebuffer",
+    "sha256": {
+      "frame-t028.png": "fd7b8cf80d245cc3d8b0efbcfde695db1b08119c6eb0e8efc1313a9e8773ff62",
+      "frame-t039.png": "a34e429b72174e56347b80bf2d57fc1b0fe376956fcbb50416b50de05b2425ba",
+      "frame-t050.png": "d998b5f56bf1718cf5dbd46f62194428de646659c88901437f9cee278a9bfcf8",
+      "frame-t061.png": "d9623f793b240dc90c79575a0d2cfa3c31ae9717a4bedd27e9af5b1a05a11a50",
+      "frame-t072.png": "669d75e6a164ac9760abf95289041e49c7f1037b7dc10d5b97492c0ada46f0d9",
+      "frame-t083.png": "ab13b3ff877238dcf014d274a7b4577f59e0865b55a5218141692802e52290cc",
+      "frame-t094.png": "9fa015082a7e2402a75f5f390a37a784f41c7d7321079734f7204497f30a0f8e",
+      "frame-t105.png": "bf334ce53fd6c7891b5eeec9233e771c855dba781e53dff99338c6cc3f9d374b"
+    }
+  }
+]

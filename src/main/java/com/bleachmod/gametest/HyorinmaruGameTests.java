@@ -96,7 +96,7 @@ public final class HyorinmaruGameTests {
             HyorinmaruTechniqueService.tick(p, data(p));
             h.assertTrue(!HyorinmaruTechniqueService.isActive(p), "Expired zone remains active");
             if (com.bleachmod.common.technique.BlizzardWeatherData.eligible(p.serverLevel(), p.blockPosition())) {
-                h.assertTrue(com.bleachmod.common.technique.BlizzardWeatherData.get(p.serverLevel()).isManaged(), "Zone expiration cancelled ongoing Bankai weather");
+                h.assertTrue(com.bleachmod.common.technique.BlizzardWeatherData.get(p.serverLevel()).isManaged()==false, "Bankai unexpectedly acquired a weather lease");
             }
         } finally {
             // Leave Bankai first: onEachTick may still run the caster after cleanup and must release, not renew, the weather lease.

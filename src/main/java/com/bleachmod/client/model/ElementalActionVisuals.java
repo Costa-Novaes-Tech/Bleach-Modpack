@@ -25,7 +25,7 @@ import java.util.*;
 /** Server-driven gestures; fire uses native particles, ice keeps its existing constructs. */
 @Mod.EventBusSubscriber(modid=Reference.MOD_ID,value=Dist.CLIENT)
 public final class ElementalActionVisuals {
-    record View(String kind,Vec3 origin,Vec3 forward,double radius,int duration,int gesture,long start,boolean ice,List<Integer> soldiers){ }
+    record View(String kind,Vec3 origin,Vec3 forward,double radius,int duration,int gesture,long start,boolean ice,List<Integer> soldiers,List<Integer> targets,List<Vec3> crystals){ }
     static final Map<Integer,List<View>> VIEWS=new LinkedHashMap<>();
     static net.minecraft.client.multiplayer.ClientLevel world;
     private ElementalActionVisuals(){ }
@@ -35,10 +35,12 @@ public final class ElementalActionVisuals {
         var result=new ArrayList<View>();var entries=tag.getList("casts",Tag.TAG_COMPOUND);
         for(int i=0;i<Math.min(4,entries.size());i++){var t=entries.getCompound(i);String kind=t.getString("kind");int duration=t.getInt("duration"),gesture=t.getInt("gesture"),age=t.getInt("age");
             var origin=new Vec3(t.getDouble("x"),t.getDouble("y"),t.getDouble("z"));var forward=new Vec3(t.getDouble("dx"),0,t.getDouble("dz"));double radius=t.getDouble("radius");
-            if(!List.of("front_cut","wide_cut","sealed_cut","sealed_sweep","higashi","flame_barrage","flame_fan","flame_tornado","jokaku","minami","steam_cut","crescent_chain","ryusenka","sennen","duel_control","bloom","glacial_zone","ice_dragon","flame_dash").contains(kind)
+            if(!List.of("front_cut","wide_cut","sealed_cut","sealed_sweep","higashi","flame_barrage","flame_fan","flame_tornado","jokaku","minami","steam_cut","crescent_chain","ryusenka","sennen","duel_control","bloom","glacial_zone","ice_dragon","flame_dash","hydra_assault","ice_eruption","frost_armor").contains(kind)
                     || duration<1 || duration>200 || age<0 || age>=duration || gesture<0 || gesture>duration || !Double.isFinite(radius) || radius<0 || radius>100
                     || !Double.isFinite(origin.x+origin.y+origin.z) || !Double.isFinite(forward.x+forward.z) || Math.abs(origin.x)>3e7 || Math.abs(origin.z)>3e7 || Math.abs(origin.y)>4096 || forward.lengthSqr()<.9 || forward.lengthSqr()>1.1)continue;
-            result.add(new View(kind,origin,forward.normalize(),radius,duration,gesture,level.getGameTime()-age,t.getBoolean("ice"),Arrays.stream(t.getIntArray("soldiers")).limit(6).filter(id->id>0).distinct().boxed().toList()));
+            var crystals=new ArrayList<Vec3>();var points=t.getList("crystals",Tag.TAG_COMPOUND);
+            for(int j=0;j<Math.min(40,points.size());j++){var q=points.getCompound(j);var at=new Vec3(q.getDouble("x"),q.getDouble("y"),q.getDouble("z"));if(Double.isFinite(at.lengthSqr()) && at.distanceToSqr(origin)<40*40)crystals.add(at);}
+            result.add(new View(kind,origin,forward.normalize(),radius,duration,gesture,level.getGameTime()-age,t.getBoolean("ice"),Arrays.stream(t.getIntArray("soldiers")).limit(6).filter(id->id>0).distinct().boxed().toList(),Arrays.stream(t.getIntArray("targets")).limit(16).filter(id->id>0).distinct().boxed().toList(),crystals));
         }
         if(result.isEmpty())VIEWS.remove(owner);else{if(VIEWS.size()>=24 && !VIEWS.containsKey(owner))VIEWS.remove(VIEWS.keySet().iterator().next());VIEWS.put(owner,result);}
     }
@@ -60,7 +62,7 @@ public final class ElementalActionVisuals {
                 if(sword){
                     if(v.kind.equals("flame_fan") || v.kind.endsWith("sweep") || v.kind.equals("wide_cut"))return mix(value,-1.2F,(.9F-1.8F*t)*sign,-.15F*sign,w);
                     if(v.kind.equals("flame_barrage") || v.kind.equals("higashi") || v.kind.equals("steam_cut"))return mix(value,-2.6F+2.3F*t,-.25F*sign,-.2F*sign,w);
-                    if(List.of("minami","sennen","jokaku","bloom","glacial_zone").contains(v.kind))return mix(value,-1.7F+1.4F*t,-.2F*sign,.15F*sign,w);
+                    if(List.of("minami","sennen","jokaku","bloom","glacial_zone","ice_eruption","hydra_assault").contains(v.kind))return mix(value,-1.7F+1.4F*t,-.2F*sign,.15F*sign,w);
                     return mix(value,-1.55F+.5F*t,-.2F*sign,-.15F*sign,w);
                 }
                 if(support && p.getOffhandItem().isEmpty())return mix(value,-1.1F,.25F*sign,.2F*sign,w);
@@ -88,13 +90,29 @@ public final class ElementalActionVisuals {
         quad(b,m,new Vec3(x+w,y,z-w),new Vec3(x+w,y,z+w),new Vec3(x+w,y+height,z+w),new Vec3(x+w,y+height,z-w),color);
         quad(b,m,new Vec3(x-w,y+height,z-w),new Vec3(x+w,y+height,z-w),new Vec3(x+w,y+height,z+w),new Vec3(x-w,y+height,z+w),color);
     }
+    private static void spike(VertexConsumer b,org.joml.Matrix4f m,Vec3 base,Vec3 direction,double width,double height,double alpha){
+        if(height<.01 || alpha<.01)return;
+        Vec3 tip=base.add(direction.scale(height*.15)).add(0,height,0);
+        Vec3[] ring={base.add(-width,0,-width),base.add(width,0,-width),base.add(width,0,width),base.add(-width,0,width)};
+        int[] colors={0x5EBFE9,0xBDEFFF,0x83D2F3,0xDDF9FF};
+        for(int i=0;i<4;i++)quad(b,m,ring[i],ring[(i+1)%4],tip,tip,((int)(220*alpha)<<24)|colors[i]);
+    }
     @SubscribeEvent public static void render(RenderLevelStageEvent e){if(e.getStage()!=RenderLevelStageEvent.Stage.AFTER_PARTICLES)return;var mc=Minecraft.getInstance();if(mc.level==null || mc.player==null){clear();return;}
         if(world!=mc.level){clear();return;}VIEWS.values().forEach(list->list.removeIf(v->age(v,0)>=v.duration));VIEWS.values().removeIf(List::isEmpty);
         if(VIEWS.isEmpty())return;var buffers=mc.renderBuffers().bufferSource();var b=buffers.getBuffer(Types.MAGIC);var matrix=e.getPoseStack().last().pose();var camera=e.getCamera().getPosition();
         for(var list:VIEWS.values())for(var v:list){if(!v.ice || mc.player.distanceToSqr(v.origin)>72*72)continue;float age=age(v,e.getPartialTick());var origin=v.origin.subtract(camera);
             if(v.kind.equals("sennen")){
-                double grow=Mth.clamp(age/35,0,1),r=5-2*Mth.clamp((age-35)/25,0,1);
-                for(int i=0;i<12;i++){double a=i*Math.PI/6;var p=origin.add(Math.cos(a)*r,0,Math.sin(a)*r);column(b,matrix,p,.8,grow*(5+(i%3)*.7),0x997BDFFF);column(b,matrix,p.add(0,.1,0),.18,grow*6,0xBBDDFFFF);}
+                double grow=Mth.clamp(age/35,0,1),r=v.radius-(v.radius*.25)*Mth.clamp((age-35)/25,0,1);
+                for(int i=0;i<18;i++){double a=i*Math.PI/9;var p=origin.add(Math.cos(a)*r,0,Math.sin(a)*r);spike(b,matrix,p,new Vec3(-Math.cos(a),0,-Math.sin(a)),1.2,grow*(12+(i%3)),1);}
+            }else if(v.kind.equals("ice_eruption")){
+                int index=0;for(var point:v.crystals){double distance=point.subtract(v.origin).dot(v.forward);double grow=Mth.clamp((age-12-distance*30/32)/8,0,1),fade=1-Mth.clamp((age-65)/25,0,1);
+                    spike(b,matrix,point.subtract(camera),v.forward,1.1+distance*.035,(8+(index++%4)*2)*grow,fade);}
+            }else if(v.kind.equals("ryusenka") && age>=18 && age<64){
+                for(int id:v.targets){var target=mc.level.getEntity(id);if(target==null)continue;var center=target.position().subtract(camera);
+                    double dissolve=1;
+                    spike(b,matrix,center,new Vec3(0,0,1),1.0,3.5,dissolve);
+                    for(int i=0;i<4;i++){double a=i*Math.PI/2;spike(b,matrix,center.add(Math.cos(a)*.9,0,Math.sin(a)*.9),new Vec3(-Math.cos(a),0,-Math.sin(a)),.35,2,dissolve);}
+                }
             }else if(v.kind.equals("bloom")){
                 for(int i=0;i<12;i++){double a=i*Math.PI/6;var center=origin.add(Math.cos(a)*v.radius*.65,.3,Math.sin(a)*v.radius*.65);double size=Mth.clamp(age/20,0,1)*2;
                     for(int petal=0;petal<6;petal++){double q=petal*Math.PI/3;var tip=center.add(Math.cos(q)*size,size*.6,Math.sin(q)*size);var side=new Vec3(-Math.sin(q)*.3,0,Math.cos(q)*.3);quad(b,matrix,center,tip.add(side),tip.add(0,size*.5,0),tip.subtract(side),0xAABCEEFF);}}

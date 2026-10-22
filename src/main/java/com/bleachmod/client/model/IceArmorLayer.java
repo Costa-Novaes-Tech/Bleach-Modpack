@@ -47,20 +47,26 @@ public final class IceArmorLayer extends RenderLayer<AbstractClientPlayer, Playe
         root.addOrReplaceChild("leg", CubeListBuilder.create().texOffs(0, 84)
                 .addBox(-2.4F, 5, -2.7F, 4.8F, 6, 1.2F), PartPose.ZERO);
 
-        // Majestically curved, pointed crystal wings of Daiguren
-        root.addOrReplaceChild("wing", CubeListBuilder.create().texOffs(32, 0)
-                .addBox(2, -8, 3.5F, 22, 3, 1.2F)
-                .addBox(5, -6, 3.5F, 18, 16, 1.0F)
-                .addBox(21, -10, 3, 4, 24, 1.8F)
-                .addBox(14, 8, 3, 3, 8, 1.4F)
-                .addBox(8, 7, 3, 3, 7, 1.4F), PartPose.ZERO);
-
-        // Segmented ice tail
-        root.addOrReplaceChild("tail", CubeListBuilder.create().texOffs(64, 40)
-                .addBox(-1.8F, 9, 3, 3.6F, 6, 4.5F)
-                .addBox(-1.2F, 14, 6.5F, 2.4F, 6, 4.5F)
-                .addBox(-0.8F, 19, 10, 1.6F, 6, 3.5F)
-                .addBox(-0.4F, 24, 13, 0.8F, 4, 2.5F), PartPose.ZERO);
+        // Articulated wing with separate crystal feathers, rather than a solid rectangular sheet.
+        var wing=root.addOrReplaceChild("wing",CubeListBuilder.create().texOffs(64,0)
+                .addBox(0,-1,0,12,2,2),PartPose.offset(2,0,3));
+        var tip=wing.addOrReplaceChild("tip",CubeListBuilder.create().texOffs(64,0)
+                .addBox(0,-1,0,14,2,2),PartPose.offsetAndRotation(11,0,0,0,0,-.3F));
+        for(int i=0;i<7;i++){
+            float length=20-i*1.8F;
+            tip.addOrReplaceChild("feather_"+i,CubeListBuilder.create().texOffs(64,32)
+                    .addBox(-1,0,-.6F,2,length,1.2F)
+                    .texOffs(16,0).addBox(-.5F,length,-.4F,1,3, .8F),
+                    PartPose.offsetAndRotation(i*1.9F,0,0,0,0,-.35F-i*.12F));
+        }
+        var tail=root.addOrReplaceChild("tail",CubeListBuilder.create(),PartPose.offset(0,10,3));
+        var joint=tail;
+        for(int i=0;i<7;i++){
+            float size=3.6F-i*.4F;
+            joint=joint.addOrReplaceChild("joint_"+i,CubeListBuilder.create().texOffs(64,32)
+                    .addBox(-size/2,0,0,size,size,5)
+                    .texOffs(16,0).addBox(-.35F,-2,1,.7F,3,2),PartPose.offset(0,i==0?0:.2F,i==0?0:4));
+        }
 
         // 4-petal floating crystal ice flower
         root.addOrReplaceChild("flower", CubeListBuilder.create().texOffs(16, 0)
@@ -84,6 +90,9 @@ public final class IceArmorLayer extends RenderLayer<AbstractClientPlayer, Playe
             int stage = "bankai".equals(form) ? 3 : "shikai".equals(form) ? 2 : d.getCharacter().isIceArmorVisual() ? 1 : 0;
             if (stage == 0) return;
 
+            float growth=stage==3?ZanpakutoReleaseAnimation.iceGrowth(player,partialTick):1;
+            if(growth<.01F)return;
+            pose.pushPose();pose.scale(growth,growth,growth);
             draw(pose, buffers, light, getParentModel().body, root.getChild("body"), 1);
             draw(pose, buffers, light, getParentModel().leftArm, root.getChild("arm"), 1);
 
@@ -94,15 +103,17 @@ public final class IceArmorLayer extends RenderLayer<AbstractClientPlayer, Playe
             }
 
             if (stage == 3) {
-                // Tail
+                var joint=root.getChild("tail");
+                for(int i=0;i<7;i++){joint=joint.getChild("joint_"+i);joint.yRot=(float)Math.sin(age*.07-i*.55)*(.10F+i*.015F);joint.xRot=-.08F+(float)Math.cos(age*.06-i*.4)*.025F;}
                 draw(pose, buffers, light, getParentModel().body, root.getChild("tail"), 1);
 
                 // Wings with dynamic growth and subtle sway
                 ModelPart wing = root.getChild("wing");
-                float growth = net.minecraft.util.Mth.lerp(ZanpakutoReleaseAnimation.iceGrowth(player, partialTick), -1.4F, -0.15F);
-                wing.zRot = growth + (float) Math.sin(age * 0.08) * 0.06F;
+                float unfold = net.minecraft.util.Mth.lerp(ZanpakutoReleaseAnimation.iceGrowth(player, partialTick), -1.4F, -0.15F);
+                wing.zRot = unfold + (float) Math.sin(age * 0.08) * 0.06F;
                 wing.yRot = (float) Math.cos(age * 0.08) * 0.04F;
 
+                wing.getChild("tip").zRot=-.3F+(float)Math.sin(age*.08-.6)*.08F;
                 draw(pose, buffers, light, getParentModel().body, wing, 1);
                 draw(pose, buffers, light, getParentModel().body, wing, -1);
 
@@ -118,6 +129,7 @@ public final class IceArmorLayer extends RenderLayer<AbstractClientPlayer, Playe
                 // Right Flower
                 drawFloating(pose, buffers, light, getParentModel().body, flower, 7.5F, -7.0F, 5.5F, rot1 + 1.2F, 0.85F);
             }
+            pose.popPose();
         });
     }
 

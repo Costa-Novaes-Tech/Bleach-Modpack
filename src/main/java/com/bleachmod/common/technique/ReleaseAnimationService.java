@@ -22,11 +22,11 @@ public final class ReleaseAnimationService {
         final ServerPlayer owner; final String identity, oldForm, group, form;
         final Item weapon; final long start; final int duration, commit; final float cost;
         final net.minecraft.resources.ResourceKey<net.minecraft.world.level.Level> dimension;
-        boolean committed;
+        boolean committed, committing;
         Release(ServerPlayer p, PlayerData d, String group, String form, float cost) {
             owner=p;identity=d.getCharacter().getZanpakutoIdentity();oldForm=d.getCharacter().getActiveForm();
             this.group=group;this.form=form;this.cost=cost;weapon=p.getMainHandItem().getItem();
-            start=p.level().getGameTime();dimension=p.level().dimension();duration=form.equals("bankai")?60:24;commit=duration*2/3;
+            start=p.level().getGameTime();dimension=p.level().dimension();duration=form.equals("bankai")?(identity.equals(CharacterData.HYORINMARU)?HyorinmaruCinematicService.DURATION:60):24;commit=identity.equals(CharacterData.HYORINMARU)&&form.equals("bankai")?com.bleachmod.common.visual.HyorinmaruTimeline.COMMIT:duration*2/3;
         }
     }
     private ReleaseAnimationService() { }
@@ -35,6 +35,8 @@ public final class ReleaseAnimationService {
                 && List.of(CharacterData.RYUJIN,CharacterData.HYORINMARU,CharacterData.SENBONZAKURA,CharacterData.BENIHIME,CharacterData.ASAUCHI).contains(d.getCharacter().getZanpakutoIdentity());
     }
     public static boolean busy(ServerPlayer p) { return ACTIVE.containsKey(p.getUUID()) || NozarashiReleaseEffects.inCinematic(p); }
+    /** Form listeners clear old techniques while the release still owns its presentation. */
+    public static boolean committing(ServerPlayer p) { var r=ACTIVE.get(p.getUUID());return r!=null && r.committing; }
     public static void begin(ServerPlayer p, PlayerData d, String group, String form, float cost) {
         if(busy(p) || !TechniqueProgression.equipped(p,d) || d.getStatus().isDodging() || d.getStatus().getFlameDashTicks()>0) return;
         RyujinTechniqueService.cancel(p);
@@ -50,7 +52,9 @@ public final class ReleaseAnimationService {
         tag.putInt("elapsed",(int)Math.max(0,Math.min(r.duration,p.level().getGameTime()-r.start)));return tag;
     }
     public static void cancel(ServerPlayer p) {
-        if(ACTIVE.remove(p.getUUID())!=null) {
+        var removed=ACTIVE.remove(p.getUUID());
+        if(removed!=null) {
+            if(removed.identity.equals(CharacterData.HYORINMARU))HyorinmaruCinematicService.cancel(p);
             SyncHelper.appearance(p);
         }
     }
@@ -63,7 +67,11 @@ public final class ReleaseAnimationService {
         long age=p.level().getGameTime()-r.start;
         p.setSprinting(false);
         if(age>=r.commit && !r.committed) {
-            if(!FormModeHandler.completeAnimatedRelease(p,d,r.group,r.form,r.cost)) {cancel(p);return;}
+            boolean completed;
+            r.committing=true;
+            try { completed=FormModeHandler.completeAnimatedRelease(p,d,r.group,r.form,r.cost); }
+            finally { r.committing=false; }
+            if(!completed) {cancel(p);return;}
             r.committed=true;SyncHelper.appearance(p);
         }
         if(age>=r.duration)cancel(p);

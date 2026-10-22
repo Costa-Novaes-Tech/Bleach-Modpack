@@ -1,0 +1,52 @@
+{
+  "branch": "Feature-Poderes-bankais",
+  "head": "c206585c722b30a8b933112bfa584c074c8db8a3",
+  "initialStatus": "clean",
+  "agentCommitted": false,
+  "beforeFinalStatus": [
+    " M Docs/poderes/00-CONTINUIDADE-CODEX.md",
+    " M Docs/poderes/72-revisao-geral-roadmap-gamedesign-2026-10-20.md",
+    " M build.gradle",
+    " M src/main/java/com/bleachmod/Reference.java",
+    " M src/main/java/com/bleachmod/client/cinematic/BenihimeCombatQaSequence.java",
+    " M src/main/java/com/bleachmod/client/cinematic/HyorinmaruCinematicClient.java",
+    " M src/main/java/com/bleachmod/client/cinematic/HyorinmaruQaSequence.java",
+    " M src/main/java/com/bleachmod/client/model/IceDragonRenderer.java",
+    " M src/main/java/com/bleachmod/client/model/ZanpakutoReleaseAnimation.java",
+    " M src/main/java/com/bleachmod/common/technique/HyorinmaruCinematicService.java",
+    " M src/main/java/com/bleachmod/common/technique/HyorinmaruTechniqueService.java",
+    " M src/main/java/com/bleachmod/common/technique/ReleaseAnimationService.java",
+    " M src/main/java/com/bleachmod/entity/IceDragonEntity.java",
+    " M src/main/java/com/bleachmod/gametest/ReleaseAndDragonGameTests.java",
+    " M src/main/resources/assets/bleachmod/animations/ice_hydra.animation.json",
+    " M src/main/resources/assets/bleachmod/attack_animations/benihime_diagonal.json",
+    " M src/main/resources/assets/bleachmod/attack_animations/benihime_return.json",
+    " M src/main/resources/assets/bleachmod/attack_animations/benihime_thrust.json",
+    " M src/main/resources/assets/bleachmod/geo/ice_hydra.geo.json",
+    " M src/main/resources/assets/bleachmod/player_animation/benihime_diagonal.json",
+    " M src/main/resources/assets/bleachmod/player_animation/benihime_return.json",
+    " M src/main/resources/assets/bleachmod/player_animation/benihime_thrust.json",
+    " M tools/models/ice_hydra.py",
+    " M tools/models/source/ice_hydra.bbmodel",
+    "?? Docs/poderes/84-revisao-combate-benihime-hyorinmaru-2026-10-21.md",
+    "?? Docs/poderes/qa/cycle84/",
+    "?? tools/models/benihime_combat.py"
+  ],
+  "base": {
+    "regressions": 137,
+    "gameTests": 168,
+    "exitCode": 0
+  },
+  "photon": {
+    "regressions": 137,
+    "gameTests": 168,
+    "exitCode": 0
+  },
+  "graphicalBase": {
+    "scenarios": 10,
+    "frames": 453
+  },
+  "visualApproval": "pending user",
+  "photonGraphics": "not tested",
+  "twoClients": "not tested"
+}

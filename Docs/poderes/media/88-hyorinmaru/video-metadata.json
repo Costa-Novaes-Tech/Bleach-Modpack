@@ -1,0 +1,53 @@
+{
+  "decoder": "imageio-ffmpeg 0.6.0 / bundled FFmpeg",
+  "videos": [
+    {
+      "source": "C:\\Users\\joaop\\Downloads\\Gravação\\Gravação de Tela 2026-10-21 190055.mp4",
+      "durationSeconds": 14.63,
+      "sha256": "bdd9abcf2e68954582219bc3a5467ae72a92ae8a7893253e4a094fe6656386c1",
+      "sampleTimesSeconds": [
+        0.2743125,
+        1.1886875000000001,
+        2.1030625,
+        3.0174375,
+        3.9318125,
+        4.8461875,
+        5.7605625,
+        6.6749375,
+        7.589312500000001,
+        8.503687500000002,
+        9.418062500000001,
+        10.332437500000001,
+        11.2468125,
+        12.1611875,
+        13.075562500000002,
+        13.989937500000002
+      ],
+      "probe": "Input #0, mov,mp4,m4a,3gp,3g2,mj2, from 'C:\\Users\\joaop\\Downloads\\Gravação\\Gravação de Tela 2026-10-21 190055.mp4':\r\n  Metadata:\r\n    major_brand     : mp42\r\n    minor_version   : 0\r\n    compatible_brands: mp41isom\r\n    creation_time   : 2026-10-21T22:00:18.000000Z\r\n  Duration: 00:00:14.63, start: 0.000000, bitrate: 3752 kb/s\r\n  Stream #0:0[0x1](und): Video: h264 (Main) (avc1 / 0x31637661), yuv420p(progressive), 974x864 [SAR 1:1 DAR 487:432], 3556 kb/s, 30 fps, 30 tbr, 30k tbn (default)\r\n      Metadata:\r\n        creation_time   : 2026-10-21T22:00:18.000000Z\r\n        handler_name    : VideoHandler\r\n        vendor_id       : [0][0][0][0]\r\n        encoder         : AVC Coding\r\n  Stream #0:1[0x2](und): Audio: aac (LC) (mp4a / 0x6134706D), 48000 Hz, stereo, fltp, 192 kb/s (default)\r\n      Metadata:\r\n        creation_time   : 2026-10-21T22:00:18.000000Z\r\n        handler_name    : SoundHandler\r\n        vendor_id       : [0][0][0][0]\r\nAt least one output file must be specified\r\n"
+    },
+    {
+      "source": "C:\\Users\\joaop\\Downloads\\Gravação\\Gravação de Tela 2026-10-21 190644.mp4",
+      "durationSeconds": 24.0,
+      "sha256": "cab94bcd870c49c40a005ec8b0f06b0d613808c8df20a853f2d3a1a43f4fdc26",
+      "sampleTimesSeconds": [
+        0.44999999999999996,
+        1.9500000000000002,
+        3.4499999999999997,
+        4.949999999999999,
+        6.449999999999999,
+        7.949999999999999,
+        9.45,
+        10.95,
+        12.450000000000001,
+        13.950000000000001,
+        15.450000000000001,
+        16.950000000000003,
+        18.450000000000003,
+        19.950000000000003,
+        21.450000000000003,
+        22.950000000000003
+      ],
+      "probe": "Input #0, mov,mp4,m4a,3gp,3g2,mj2, from 'C:\\Users\\joaop\\Downloads\\Gravação\\Gravação de Tela 2026-10-21 190644.mp4':\r\n  Metadata:\r\n    major_brand     : mp42\r\n    minor_version   : 0\r\n    compatible_brands: mp41isom\r\n    creation_time   : 2026-10-21T22:06:07.000000Z\r\n  Duration: 00:00:24.00, start: 0.000000, bitrate: 9017 kb/s\r\n  Stream #0:0[0x1](und): Video: h264 (Main) (avc1 / 0x31637661), yuv420p(progressive), 1918x1078 [SAR 1:1 DAR 137:77], 8822 kb/s, 30 fps, 30 tbr, 30k tbn (default)\r\n      Metadata:\r\n        creation_time   : 2026-10-21T22:06:07.000000Z\r\n        handler_name    : VideoHandler\r\n        vendor_id       : [0][0][0][0]\r\n        encoder         : AVC Coding\r\n  Stream #0:1[0x2](und): Audio: aac (LC) (mp4a / 0x6134706D), 48000 Hz, stereo, fltp, 192 kb/s (default)\r\n      Metadata:\r\n        creation_time   : 2026-10-21T22:06:07.000000Z\r\n        handler_name    : SoundHandler\r\n        vendor_id       : [0][0][0][0]\r\nAt least one output file must be specified\r\n"
+    }
+  ]
+}

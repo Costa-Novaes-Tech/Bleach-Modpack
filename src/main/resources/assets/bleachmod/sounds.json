@@ -74,7 +74,8 @@
     "sounds": [
       {
         "name": "bleachmod:hyorinmaru_voice_bankai",
-        "stream": true
+        "stream": true,
+        "attenuation_distance": 64
       }
     ]
   },
@@ -83,7 +84,8 @@
     "sounds": [
       {
         "name": "bleachmod:hyorinmaru_voice_name",
-        "stream": true
+        "stream": true,
+        "attenuation_distance": 64
       }
     ]
   },
@@ -92,8 +94,10 @@
     "sounds": [
       {
         "name": "bleachmod:hyorinmaru_roar",
-        "stream": false
+        "stream": false,
+        "attenuation_distance": 64
       }
     ]
-  }
+  },
+  "hyorinmaru.theme": {"sounds": [{"name": "bleachmod:hyorinmaru_theme", "stream": true}]}
 }

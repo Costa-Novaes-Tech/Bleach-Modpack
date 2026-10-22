@@ -1,0 +1,28 @@
+{
+  "front_right": {
+    "start_end_mean_difference": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "start_open_mean_difference": [
+      12.39499095840868,
+      17.272796865581675,
+      20.686033755274263
+    ],
+    "origin": "Blockbench MCP preview_animation; three sampled times, not continuous video"
+  },
+  "left": {
+    "start_end_mean_difference": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "start_open_mean_difference": [
+      11.766931886678723,
+      17.57058468957203,
+      21.24236889692586
+    ],
+    "origin": "Blockbench MCP preview_animation; three sampled times, not continuous video"
+  }
+}

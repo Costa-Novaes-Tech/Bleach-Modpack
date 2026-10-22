@@ -1,0 +1,26 @@
+[
+  {
+    "source": "Daiguren_Bankai_voice_clean.wav",
+    "sourceSha256": "0703c3834add12358156e06e1668fb02b4aa9d2c9527f08e1fb4dde7772cea87",
+    "output": "src\\main\\resources\\assets\\bleachmod\\sounds\\hyorinmaru_voice_bankai.ogg",
+    "sha256": "e5e23f884fc03c3a57d7fcf36d9a9d46ef7174dc7e3a9b4cc856f9409b45bf19",
+    "channels": 1,
+    "filters": "aresample=44100,volume=1.344,afade=t=in:d=0.005,afade=t=out:st=1.02:d=0.03"
+  },
+  {
+    "source": "Daiguren_Hyorinmaru_voice_clean.wav",
+    "sourceSha256": "aeddb880c5295e32d3043588929f5aa5e4db9fc7b0d0e54de2a3e4910f5fc4f6",
+    "output": "src\\main\\resources\\assets\\bleachmod\\sounds\\hyorinmaru_voice_name.ogg",
+    "sha256": "cf55a5b8b2938d4ce64e8540b67e2c764b870357c2a3413cbea165de77d05641",
+    "channels": 1,
+    "filters": "aresample=44100,volume=1.093,afade=t=in:d=0.005,afade=t=out:st=2.47:d=0.03"
+  },
+  {
+    "source": "daiguren_hyorinmaru_ice_theme_adapted_20s.wav",
+    "sourceSha256": "2a2070a5c4de34cf55b35290fb34b2f9d95859ecdef31c7e5e688a0b04e13e69",
+    "output": "src\\main\\resources\\assets\\bleachmod\\sounds\\hyorinmaru_theme.ogg",
+    "sha256": "d8c93ec660815458408cc7e4c8ee6c06ca827703031c27877836b38fbe217e3d",
+    "channels": 2,
+    "filters": "aresample=44100,volume=0.35,volume='if(lt(t,0.9),1,if(lt(t,1.15),1-0.82*(t-0.9)/0.25,if(lt(t,2.35),0.18,if(lt(t,2.8),0.18+0.82*(t-2.35)/0.45,if(lt(t,15.6),1,if(lt(t,16.3),1-0.82*(t-15.6)/0.7,0.18))))))':eval=frame,afade=t=in:d=0.3,afade=t=out:st=19:d=1"
+  }
+]

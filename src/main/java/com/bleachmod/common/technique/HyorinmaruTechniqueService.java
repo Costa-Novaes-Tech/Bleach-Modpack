@@ -26,7 +26,7 @@ public final class HyorinmaruTechniqueService {
         ElementalTechniqueService.cancel(player);
         FIELDS.remove(player.getUUID()); GlacialSnowData.get(player.serverLevel()).release(player.serverLevel(), player.getUUID());
         IceArmorService.cancel(player); IceControlService.cancel(player); BlizzardWeatherData.cancel(player);
-        HyorinmaruCinematicService.cancel(player);
+        if (!ReleaseAnimationService.committing(player)) HyorinmaruCinematicService.cancel(player);
         var dragon = DRAGONS.remove(player.getUUID()); if (dragon != null) dragon.forEach(net.minecraft.world.entity.Entity::discard);
     }
     public static void clear() { FIELDS.clear(); DRAGONS.values().forEach(list -> list.forEach(net.minecraft.world.entity.Entity::discard)); DRAGONS.clear(); IceArmorService.clear(); IceControlService.clear(); }
@@ -136,8 +136,10 @@ public final class HyorinmaruTechniqueService {
     }
     public static void tick(ServerPlayer p, PlayerData d) {
         IceArmorService.tick(p);
-        BlizzardWeatherData.tickCaster(p, d);
-        if (Reference.FORM_BANKAI.equals(d.getCharacter().getActiveForm()) && p.tickCount % 2 == 0) {
+        // Bankai atmosphere is local; never acquire a dimension-wide weather lease.
+        if (CharacterData.HYORINMARU.equals(d.getCharacter().getZanpakutoIdentity()) && equipped(p,d)
+                && p.isAlive() && !p.isSpectator() && Reference.FORM_BANKAI.equals(d.getCharacter().getActiveForm())
+                && !ReleaseAnimationService.busy(p) && p.tickCount % 8 == 0) {
             IceTechniqueVisuals.blizzardAura(p);
         }
         var dragon = DRAGONS.get(p.getUUID()); if (dragon != null) { dragon.removeIf(net.minecraft.world.entity.Entity::isRemoved); if(dragon.isEmpty())DRAGONS.remove(p.getUUID()); }

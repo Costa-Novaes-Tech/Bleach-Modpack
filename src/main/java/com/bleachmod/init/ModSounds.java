@@ -31,11 +31,14 @@ public final class ModSounds {
 
     // Daiguren Hyorinmaru Bankai transformation audio and triple hydra roar
     public static final RegistryObject<SoundEvent> HYORINMARU_VOICE_BANKAI = SOUND_EVENTS.register("voice.hyorinmaru_bankai",
-            () -> SoundEvent.createVariableRangeEvent(Reference.id("voice.hyorinmaru_bankai")));
+            () -> SoundEvent.createFixedRangeEvent(Reference.id("voice.hyorinmaru_bankai"),64));
     public static final RegistryObject<SoundEvent> HYORINMARU_VOICE_NAME = SOUND_EVENTS.register("voice.hyorinmaru_name",
-            () -> SoundEvent.createVariableRangeEvent(Reference.id("voice.hyorinmaru_name")));
+            () -> SoundEvent.createFixedRangeEvent(Reference.id("voice.hyorinmaru_name"),64));
     public static final RegistryObject<SoundEvent> HYORINMARU_ROAR = SOUND_EVENTS.register("hyorinmaru.roar",
-            () -> SoundEvent.createVariableRangeEvent(Reference.id("hyorinmaru.roar")));
+            () -> SoundEvent.createFixedRangeEvent(Reference.id("hyorinmaru.roar"),64));
+
+    public static final RegistryObject<SoundEvent> HYORINMARU_THEME = SOUND_EVENTS.register("hyorinmaru.theme",
+            () -> SoundEvent.createVariableRangeEvent(Reference.id("hyorinmaru.theme")));
 
     private ModSounds() {
     }

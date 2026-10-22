@@ -17,6 +17,76 @@ import java.util.*;
 
 @GameTestHolder("bleachmod") @PrefixGameTestTemplate(false)
 public final class ReleaseAndDragonGameTests {
+    @GameTest(template="empty",batch="hydra_assets")
+    public static void hydraUsesMappedFacesAndArticulatedEntrance(GameTestHelper h) {
+        try(var reader=new java.io.InputStreamReader(Objects.requireNonNull(ReleaseAndDragonGameTests.class.getResourceAsStream("/assets/bleachmod/geo/ice_hydra.geo.json")),java.nio.charset.StandardCharsets.UTF_8);
+            var animation=new java.io.InputStreamReader(Objects.requireNonNull(ReleaseAndDragonGameTests.class.getResourceAsStream("/assets/bleachmod/animations/ice_hydra.animation.json")),java.nio.charset.StandardCharsets.UTF_8)) {
+            var json=com.google.gson.JsonParser.parseReader(reader).getAsJsonObject();
+            var bones=json.getAsJsonArray("minecraft:geometry").get(0).getAsJsonObject().getAsJsonArray("bones");
+            for(var element:bones){var bone=element.getAsJsonObject();
+                if(bone.get("name").getAsString().startsWith("jaw_"))h.assertTrue(bone.getAsJsonArray("cubes").size()>=7,"Hydra jaw lost teeth");
+                for(var cube:bone.getAsJsonArray("cubes"))for(var face:cube.getAsJsonObject().getAsJsonObject("uv").entrySet()){
+                    var uv=face.getValue().getAsJsonObject();h.assertTrue(uv.getAsJsonArray("uv").size()==2 && uv.getAsJsonArray("uv_size").size()==2,"Invalid Gecko per-face UV");
+                }
+            }
+            var gson=software.bernie.geckolib.util.JsonUtil.GEO_GSON;
+            gson.fromJson(json,software.bernie.geckolib.loading.json.raw.Model.class);
+            var clips=gson.fromJson(com.google.gson.JsonParser.parseReader(animation).getAsJsonObject().getAsJsonObject("animations"),software.bernie.geckolib.loading.object.BakedAnimations.class);
+            h.assertTrue(clips.getAnimation("animation.ice_hydra.emerge")!=null,"Missing entrance animation");
+        }catch(java.io.IOException e){throw new IllegalStateException(e);}h.succeed();
+    }
+
+    @GameTest(template="empty",batch="hyorin_release_timeline",timeoutTicks=450)
+    public static void hyorinmaruReleaseOwnsEntireCinematicAndCleansManifestation(GameTestHelper h){
+        var p=player(h,"hyorinmaru");var d=data(p);d.getCharacter().setSelectedForm("zanpakuto","bankai");
+        ReleaseAnimationService.begin(p,d,"zanpakuto","bankai",0);
+        h.assertTrue(ReleaseAnimationService.snapshot(p).getInt("duration")==HyorinmaruCinematicService.DURATION,"Release and camera timelines differ");
+        h.onEachTick(()->{ReleaseAnimationService.tick(p);HyorinmaruCinematicService.tick(new net.minecraftforge.event.TickEvent.PlayerTickEvent(net.minecraftforge.event.TickEvent.Phase.END,p));});
+        h.runAfterDelay(100,()->{
+            h.assertTrue(ReleaseAnimationService.busy(p) && d.getCharacter().getActiveForm().equals("sealed"),"Release ended or committed before reveal");
+            h.assertTrue(h.getLevel().getEntitiesOfClass(IceDragonEntity.class,p.getBoundingBox().inflate(16),IceDragonEntity::isManifestation).size()==1,"Expected one cinematic hydra");
+        });
+        h.runAfterDelay(290,()->h.assertTrue(HyorinmaruCinematicService.active(p)
+                && h.getLevel().getEntitiesOfClass(IceDragonEntity.class,p.getBoundingBox().inflate(16),IceDragonEntity::isManifestation).size()==1,
+                "Form-change cleanup interrupted the cinematic at the Bankai commit"));
+        h.runAfterDelay(405,()->{try{
+            h.assertTrue(d.getCharacter().getActiveForm().equals("bankai") && !ReleaseAnimationService.busy(p) && !HyorinmaruCinematicService.active(p),"Transformation did not finish");
+            h.assertTrue(h.getLevel().getEntitiesOfClass(IceDragonEntity.class,p.getBoundingBox().inflate(16),IceDragonEntity::isManifestation).isEmpty(),"Cinematic hydra leaked");
+        }finally{ReleaseAnimationService.cancel(p);HyorinmaruCinematicService.cancel(p);}h.succeed();});
+    }
+
+    @GameTest(template="empty",batch="hyorin_breath",timeoutTicks=360)
+    public static void transformationBreathHonorsFixedConeWallsAndSingleHit(GameTestHelper h){
+        var p=player(h,"hyorinmaru");var d=data(p);var front=target(h,p,0,12);var back=target(h,p,0,-6);var blocked=target(h,p,6,12);var far=target(h,p,0,32);var outside=target(h,p,0,40);
+        var blocks=new ArrayList<net.minecraft.core.BlockPos>();for(int x=2;x<=5;x++)for(int y=0;y<5;y++){var at=p.blockPosition().offset(x,y,6);blocks.add(at);h.getLevel().setBlock(at,net.minecraft.world.level.block.Blocks.STONE.defaultBlockState(),3);}
+        ReleaseAnimationService.begin(p,d,"zanpakuto","bankai",0);
+        h.onEachTick(()->{ReleaseAnimationService.tick(p);HyorinmaruCinematicService.tick(new net.minecraftforge.event.TickEvent.PlayerTickEvent(net.minecraftforge.event.TickEvent.Phase.END,p));});
+        h.runAfterDelay(200,()->h.assertTrue(front.getHealth()==80,"Baforada acertou antes da preparação"));
+        h.runAfterDelay(300,()->{try{
+            h.assertTrue(front.getHealth()<=69 && front.getHealth()>=66 && back.getHealth()==80 && blocked.getHealth()==80,"Baforada repetiu dano ou atravessou o cone/parede");
+            h.assertTrue(far.getHealth()<=69 && far.getHealth()>=66 && outside.getHealth()==80,"Extended breath missed32 blocks, repeated damage or exceeded36");
+            h.assertTrue(p.getHealth()==p.getMaxHealth(),"Invocador recebeu sua própria baforada");
+        }finally{ReleaseAnimationService.cancel(p);HyorinmaruCinematicService.cancel(p);IceControlService.cancel(p);for(var t:List.of(front,back,blocked,far,outside))t.discard();for(var b:blocks)h.getLevel().setBlock(b,net.minecraft.world.level.block.Blocks.AIR.defaultBlockState(),3);}h.succeed();});
+    }
+    @GameTest(template="empty",batch="hyorin_move",timeoutTicks=360)
+    public static void movingAwayKeepsPresentationButSuppressesTransformationDamage(GameTestHelper h){
+        var p=player(h,"hyorinmaru");var d=data(p);var target=target(h,p,0,12);ReleaseAnimationService.begin(p,d,"zanpakuto","bankai",0);
+        h.onEachTick(()->{ReleaseAnimationService.tick(p);HyorinmaruCinematicService.tick(new net.minecraftforge.event.TickEvent.PlayerTickEvent(net.minecraftforge.event.TickEvent.Phase.END,p));});
+        h.runAfterDelay(180,()->p.setPos(p.position().add(4,0,0)));
+        h.runAfterDelay(300,()->{try{
+            h.assertTrue(target.getHealth()==80 && HyorinmaruCinematicService.active(p) && ReleaseAnimationService.busy(p),"Movement concluded the scene or preserved its offensive burst");
+        }finally{ReleaseAnimationService.cancel(p);HyorinmaruCinematicService.cancel(p);target.discard();}h.succeed();});
+    }
+    @GameTest(template="empty",batch="hyorin_release_interrupt",timeoutTicks=55)
+    public static void unequippingCancelsHyorinmaruCameraAndHydra(GameTestHelper h){
+        var p=player(h,"hyorinmaru");var d=data(p);ReleaseAnimationService.begin(p,d,"zanpakuto","bankai",0);
+        h.onEachTick(()->{ReleaseAnimationService.tick(p);HyorinmaruCinematicService.tick(new net.minecraftforge.event.TickEvent.PlayerTickEvent(net.minecraftforge.event.TickEvent.Phase.END,p));});
+        h.runAfterDelay(35,()->{
+            p.setItemSlot(EquipmentSlot.MAINHAND,ItemStack.EMPTY);ReleaseAnimationService.tick(p);
+            h.assertTrue(!ReleaseAnimationService.busy(p) && !HyorinmaruCinematicService.active(p),"Unequipping left cinematic running");
+            h.assertTrue(h.getLevel().getEntitiesOfClass(IceDragonEntity.class,p.getBoundingBox().inflate(16),IceDragonEntity::isManifestation).isEmpty(),"Unequipping left hydra behind");h.succeed();
+        });
+    }
     @GameTest(template="empty",batch="dragon_assets")
     public static void geckoModelAndMolangAnimationLoadWithRealAdapters(GameTestHelper h) {
         try(var model=new java.io.InputStreamReader(Objects.requireNonNull(ReleaseAndDragonGameTests.class.getResourceAsStream("/assets/bleachmod/geo/ice_dragon.geo.json")),java.nio.charset.StandardCharsets.UTF_8);
@@ -67,18 +137,46 @@ public final class ReleaseAndDragonGameTests {
         com.bleachmod.server.events.FormModeHandler.attemptTransform(p,d);h.assertTrue(ReleaseAnimationService.busy(p),"Release not started");
         p.setItemSlot(EquipmentSlot.MAINHAND,ItemStack.EMPTY);ReleaseAnimationService.tick(p);
         h.assertTrue(!ReleaseAnimationService.busy(p) && d.getCharacter().getActiveForm().equals("sealed") && d.getResources().getCurrentReiatsu()==100,"Cancelled release charged or transformed");h.succeed();}
-    @GameTest(template="empty",batch="triple_dragon",timeoutTicks=55)
-    public static void threeDragonsHitSeparateBranchesWithoutTripleHittingOverlap(GameTestHelper h){
+    @GameTest(template="empty",batch="hydra_assault",timeoutTicks=80)
+    public static void summonedHydraHitsFarTargetsAndCleansOnUnequip(GameTestHelper h){
         var p=player(h,"hyorinmaru");var d=data(p);d.getCharacter().setActiveForm("zanpakuto","bankai");
-        var center=target(h,p,0,8);var left=target(h,p,-3.4,7.3);var right=target(h,p,3.4,7.3);var overlap=target(h,p,0,1);
-        TechniqueService.executeSlot(p,d,1);
-        var dragons=h.getLevel().getEntitiesOfClass(IceDragonEntity.class,p.getBoundingBox().inflate(2));
-        h.assertTrue(dragons.size()==3 && center.getHealth()==80,"Expected three traveling dragons");
-        h.runAfterDelay(4,()->{h.assertTrue(overlap.getHealth()<80,"Near victim missed");float hp=overlap.getHealth();overlap.invulnerableTime=0;
-            h.runAfterDelay(8,()->h.assertTrue(overlap.getHealth()==hp,"Overlapping branches applied extra damage"));});
-        h.runAfterDelay(20,()->{try{h.assertTrue(center.getHealth()<80 && left.getHealth()<80 && right.getHealth()<80,"A dragon branch failed to hit");
-            p.setItemSlot(EquipmentSlot.MAINHAND,ItemStack.EMPTY);for(var dragon:dragons)dragon.tick();h.assertTrue(dragons.stream().allMatch(Entity::isRemoved),"Unequipping did not cancel dragons");
-        }finally{HyorinmaruTechniqueService.cancel(p);for(var t:List.of(center,left,right,overlap))t.discard();}h.succeed();});
+        var center=target(h,p,0,30);var left=target(h,p,5,30);var right=target(h,p,-5,30);var outside=target(h,p,0,40);
+        TechniqueService.executeSlot(p,d,2);
+        h.runAfterDelay(5,()->h.assertTrue(h.getLevel().getEntitiesOfClass(IceDragonEntity.class,p.getBoundingBox().inflate(12),IceDragonEntity::isAssault).size()==1,"Expected one connected three-headed hydra"));
+        h.runAfterDelay(22,()->h.assertTrue(center.getHealth()==80 && left.getHealth()==80 && right.getHealth()==80,"Hydra inflicted contact damage before explosion"));
+        final float[] finalHealth={0};
+        h.runAfterDelay(49,()->finalHealth[0]=center.getHealth());
+        h.runAfterDelay(52,()->{try{
+            h.assertTrue(center.getHealth()==finalHealth[0],"An impact exploded again after its resolution");
+            h.assertTrue(center.getHealth()<80 && left.getHealth()<80 && right.getHealth()<80 && outside.getHealth()==80,"Hydra sweep missed its branches or exceeded reach");
+            h.assertTrue(center.getHealth()>=52 && left.getHealth()>=52 && right.getHealth()>=52,"Hydra exceeded the 18-base overlap budget after Bankai scaling");
+            p.setItemSlot(EquipmentSlot.MAINHAND,ItemStack.EMPTY);ElementalTechniqueService.tick(p);
+            h.assertTrue(h.getLevel().getEntitiesOfClass(IceDragonEntity.class,p.getBoundingBox().inflate(12),IceDragonEntity::isAssault).isEmpty(),"Hydra survived unequip");
+        }finally{HyorinmaruTechniqueService.cancel(p);for(var t:List.of(center,left,right,outside))t.discard();}h.succeed();});
+    }
+    @GameTest(template="empty",batch="hydra_explosion_wall",timeoutTicks=80)
+    public static void hydraExplosionHitsNearbyAreaButCannotPassWall(GameTestHelper h){
+        var p=player(h,"hyorinmaru");var d=data(p);d.getCharacter().setActiveForm("zanpakuto","bankai");
+        var near=target(h,p,0,4);var blocked=target(h,p,0,9);var side=target(h,p,7,5);
+        var blocks=new ArrayList<net.minecraft.core.BlockPos>();for(int x=-12;x<=12;x++)for(int y=0;y<5;y++){var pos=p.blockPosition().offset(x,y,8);blocks.add(pos);h.getLevel().setBlock(pos,net.minecraft.world.level.block.Blocks.STONE.defaultBlockState(),3);}
+        TechniqueService.executeSlot(p,d,2);
+        h.runAfterDelay(50,()->{try{
+            h.assertTrue(near.getHealth()<80 && side.getHealth()<80,"Impact did not spread damage around the wall contact");
+            h.assertTrue(blocked.getHealth()==80,"Explosion damaged through wall");
+            var hydras=h.getLevel().getEntitiesOfClass(IceDragonEntity.class,p.getBoundingBox().inflate(12),IceDragonEntity::isAssault);
+            h.assertTrue(hydras.size()==1 && hydras.get(0).impactMask()==7,"Missing synchronized impact state");
+            h.assertTrue(hydras.get(0).impactPosition(0).z<p.getZ()+8,"Head target passed through wall");
+        }finally{HyorinmaruTechniqueService.cancel(p);for(var t:List.of(near,blocked,side))t.discard();for(var b:blocks)h.getLevel().setBlock(b,net.minecraft.world.level.block.Blocks.AIR.defaultBlockState(),3);}h.succeed();});
+    }
+    @GameTest(template="empty",batch="hydra_aim",timeoutTicks=80)
+    public static void hydraExplodesAtAimedEnemyInsteadOfAlwaysAtMaximumRange(GameTestHelper h){
+        var p=player(h,"hyorinmaru");var d=data(p);d.getCharacter().setActiveForm("zanpakuto","bankai");var t=target(h,p,0,10);
+        TechniqueService.executeSlot(p,d,2);
+        h.runAfterDelay(8,()->{
+            var hydra=h.getLevel().getEntitiesOfClass(IceDragonEntity.class,p.getBoundingBox().inflate(12),IceDragonEntity::isAssault).get(0);
+            h.assertTrue(Math.abs(hydra.impactPosition(0).z-p.getZ()-10)<.2,"Aimed enemy did not determine the impact area");
+        });
+        h.runAfterDelay(50,()->{try{h.assertTrue(t.getHealth()<80,"Explosion missed nearby aimed enemy");}finally{HyorinmaruTechniqueService.cancel(p);t.discard();}h.succeed();});
     }
     @GameTest(template="empty",batch="dragon_wall",timeoutTicks=45)
     public static void iceDragonStopsAtSolidWall(GameTestHelper h){var p=player(h,"hyorinmaru");var d=data(p);d.getCharacter().setActiveForm("zanpakuto","shikai");var t=target(h,p,0,8);
