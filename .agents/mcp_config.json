@@ -1,0 +1,24 @@
+{
+  "mcpServers": {
+    "bleach-blockbench": {
+      "command": "C:/Program Files/nodejs/node.exe",
+      "args": [
+        "C:/Users/joaop/.gemini/config/mcp/blockbench-bleach/dist/index.js"
+      ],
+      "env": {
+        "BLOCKBENCH_MCP_HOST": "127.0.0.1",
+        "BLOCKBENCH_MCP_PORT": "8787",
+        "BLEACH_DESIGN_ROOT": "C:/Users/joaop/Downloads/Projeto_Programacao_BleachMod/Bleach-Modpack-design"
+      }
+    },
+    "bleach-design-runtime": {
+      "command": "C:/Program Files/nodejs/node.exe",
+      "args": [
+        "C:/Users/joaop/.gemini/config/mcp/blockbench-bleach/runtime.mjs"
+      ],
+      "env": {
+        "BLEACH_DESIGN_ROOT": "C:/Users/joaop/Downloads/Projeto_Programacao_BleachMod/Bleach-Modpack-design"
+      }
+    }
+  }
+}
