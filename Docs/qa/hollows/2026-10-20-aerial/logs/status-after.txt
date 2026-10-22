@@ -1,0 +1,23 @@
+ M build.gradle
+ M src/main/java/com/bleachmod/client/events/ModEntityRenderers.java
+ M src/main/java/com/bleachmod/entity/HollowEntity.java
+?? Docs/qa/
+?? src/main/java/com/bleachmod/client/cinematic/HollowQaBootstrap.java
+?? src/main/java/com/bleachmod/client/model/HollowRenderer.java
+?? src/main/java/com/bleachmod/entity/HollowFlightCombatGoal.java
+?? src/main/java/com/bleachmod/entity/HollowVariant.java
+?? src/main/java/com/bleachmod/gametest/HollowCombatGameTests.java
+?? src/main/java/com/bleachmod/gametest/HollowVariantGameTests.java
+?? src/main/java/com/bleachmod/server/commands/HollowQaWorld.java
+?? src/main/resources/assets/bleachmod/animations/hollow.animation.json
+?? src/main/resources/assets/bleachmod/geo/hollow_brute.geo.json
+?? src/main/resources/assets/bleachmod/geo/hollow_flying.geo.json
+?? src/main/resources/assets/bleachmod/geo/hollow_swift.geo.json
+?? src/main/resources/assets/bleachmod/textures/entity/hollow_brute.png
+?? src/main/resources/assets/bleachmod/textures/entity/hollow_flying.png
+?? src/main/resources/assets/bleachmod/textures/entity/hollow_swift.png
+?? tools/models/hollow_variants.py
+?? tools/models/source/hollow_brute.bbmodel
+?? tools/models/source/hollow_flying.bbmodel
+?? tools/models/source/hollow_swift.bbmodel
+?? tools/qa/hollow_evidence.py

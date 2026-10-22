@@ -1,0 +1,6 @@
+brute: 25 bones, 123 cubes; assets verified
+swift: 16 bones, 68 cubes; assets verified
+flying: 25 bones, 162 cubes; assets verified
+Motion: 12 clips, loop seams, recovery poses, rig references and continuous tail joints verified
+brute: geometry, PNG, Blockbench source and all animation clips unchanged
+swift: geometry, PNG, Blockbench source and all animation clips unchanged

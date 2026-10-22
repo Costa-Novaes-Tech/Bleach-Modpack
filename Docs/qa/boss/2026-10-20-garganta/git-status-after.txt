@@ -1,0 +1,12 @@
+ M src/main/java/com/bleachmod/client/cinematic/BossQaBootstrap.java
+ M src/main/java/com/bleachmod/client/events/ModEntityRenderers.java
+ M src/main/java/com/bleachmod/client/model/HollowBossModel.java
+ M src/main/java/com/bleachmod/entity/HollowBossEntity.java
+ M src/main/java/com/bleachmod/gametest/HollowBossGameTests.java
+ M src/main/java/com/bleachmod/server/commands/BossQaWorld.java
+ M tools/qa/boss_evidence.py
+?? Docs/qa/boss/2026-10-20-garganta/
+?? src/main/java/com/bleachmod/client/cinematic/HollowBossEntranceEffects.java
+?? src/main/java/com/bleachmod/client/model/HollowBossRenderer.java
+?? src/main/java/com/bleachmod/client/model/PortalClippedBuffer.java
+?? src/main/java/com/bleachmod/common/visual/HollowBossEntrance.java

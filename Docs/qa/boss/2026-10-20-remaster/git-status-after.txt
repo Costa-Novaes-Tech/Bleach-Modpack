@@ -1,0 +1,18 @@
+ M build.gradle
+ M src/main/java/com/bleachmod/client/events/ModEntityRenderers.java
+ M src/main/java/com/bleachmod/client/model/HollowBossModel.java
+ M src/main/java/com/bleachmod/entity/HollowBossEntity.java
+ M src/main/java/com/bleachmod/gametest/HollowVariantGameTests.java
+ M src/main/java/com/bleachmod/registry/ModEntities.java
+ M src/main/resources/assets/bleachmod/lang/en_us.json
+ M src/main/resources/assets/bleachmod/lang/pt_br.json
+ M src/main/resources/assets/bleachmod/textures/entity/hollow_boss.png
+?? Docs/qa/boss/
+?? src/main/java/com/bleachmod/client/cinematic/BossQaBootstrap.java
+?? src/main/java/com/bleachmod/gametest/HollowBossGameTests.java
+?? src/main/java/com/bleachmod/server/commands/BossQaWorld.java
+?? src/main/resources/assets/bleachmod/animations/hollow_boss.animation.json
+?? src/main/resources/assets/bleachmod/geo/hollow_boss.geo.json
+?? tools/models/hollow_boss.py
+?? tools/models/source/hollow_boss.bbmodel
+?? tools/qa/boss_evidence.py
