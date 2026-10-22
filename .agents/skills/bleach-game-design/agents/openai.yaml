@@ -1,0 +1,4 @@
+interface:
+  display_name: "Bleach Game Design"
+  short_description: "Documentação de Bleach para Minecraft Forge"
+  default_prompt: "Use $bleach-game-design para continuar o módulo atual com fontes datadas e decisões aprovadas."

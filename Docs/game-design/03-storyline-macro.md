@@ -1,5 +1,7 @@
 # Storyline macro
 
+> **Revisão transversal — 22/10/2026:** STR-01–STR-07 preservados. M04 refinou as origens e M06/M07 os poderes; as perspectivas raciais ilustrativas abaixo não criam requisitos adicionais. Os códigos M00–M10 desta cronologia identificam eras, não os módulos M01–M16 do mapa. Catch-up, disponibilidade do elenco e avanço de era continuam pendentes em seus responsáveis. [Revisão transversal de M01–M07](00-revisao-modulos-01-a-07-2026-10-22.md).
+
 ## Estado do módulo
 
 | Campo | Valor |
@@ -267,6 +269,8 @@ Esses conflitos mudam de território, antagonista imediato, escala e objetivo. C
 - após a guerra, enfrenta as consequências da derrota do império e do futuro das comunidades Quincy.
 
 ### Fullbringer
+
+> **Origem vigente:** M04/F2/F12 e M06-10 permitem começar pelos fundamentos e aprender Bringer Light antes do poder principal, sem objeto pessoal obrigatório. O vetor específico aparece na aquisição do Fullbring canônico e pode ser corporal. A menção ilustrativa a objeto de afinidade abaixo não é requisito universal do prólogo.
 
 - começa como humano espiritualmente afetado, com objeto de afinidade e ameaças próximas;
 - observa os danos colaterais das disputas espirituais no Mundo Humano;
@@ -735,6 +739,8 @@ Critérios futuros, dependentes de campanhas jogáveis:
 ## Impacto técnico conhecido
 
 ### Base atual aproveitável
+
+> **Diagnóstico histórico:** este trecho descreve a investigação original, não o estado do código revalidado em 22/10/2026. Há avanços posteriores registrados na [auditoria de 20/10](00-auditoria-estado-2026-10-20.md); também ela tem data/escopo próprios. Esta revisão é de contratos documentais, sem nova auditoria do runtime ou execução de Minecraft.
 
 - o registro de quests suporta sagas ordenadas e sidequests;
 - requisitos já observam quest anterior, saga, skill e raça;

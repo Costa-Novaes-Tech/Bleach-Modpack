@@ -1,5 +1,9 @@
 # Visão e pilares
 
+> **Direção vigente REV-SP-02 — 22/10/2026:** Spiritual Points compram **skills e transformações**, conforme esclarecimento explícito do usuário, usando Dragon Mine Z como referência para a compra. **Mastery é desenvolvida pela prática e não é comprada.** Requisitos/contexto disponibilizam a aquisição; SP paga a compra/desbloqueio; usar a capacidade depois segue os custos próprios de Energia/Stamina. [Contrato comum em M05/11.2](05-atributos-e-recursos.md#112-rev-sp-02--compra-de-skills-e-transformacoes-com-spiritual-points). Preços e exceções concretas permanecem nas fichas; a compra não pode ser removida genericamente por interpretação de M05/M06.
+
+> **Revisão documental — 22/10/2026:** D01–D06 preservados. A função dos pontos nos trechos P2/D04 e no pacote original foi refinada por M05, REV-M02-02/04/05: atributos como destino direto principal; aprendizado próprio de técnicas, sem compra de Mastery ou taxa universal para liberar formas. M06/M07 detalham os requisitos. Os textos originais abaixo permanecem como histórico dessa formulação. [Revisão transversal de M01–M07](00-revisao-modulos-01-a-07-2026-10-22.md).
+
 ## Estado do módulo
 
 | Campo | Valor |
@@ -182,6 +186,8 @@ O personagem do jogador possui identidade, raça, build, relações e motivaçõ
 
 ### P2 — Poder é conquistado por significado e domínio
 
+> **Leitura corrigida após a revisão de 22/10/2026:** aplicar REV-SP-01/M05-11.1. A compra por Spiritual Points continua na base do jogo e pode integrar a aquisição de técnica/habilidade disponível. Aprendizado e compra não são excludentes; Mastery e Proficiência continuam distintas de saldo gasto. Os diagramas antigos precisam de conciliação por conteúdo, não de exclusão geral das compras.
+
 Marcos importantes exigem uma combinação apropriada de acontecimento, preparo, mentor, vínculo, prova, investimento em pontos e uso. Os pontos fazem parte da progressão e podem comprar ou melhorar o componente mecânico liberado, mas não substituem reconhecimento narrativo e domínio.
 
 **Teste do pilar:** se a forma mais eficiente de obter uma transformação for matar inimigos genéricos até comprar um nível, o pilar foi violado.
@@ -310,6 +316,8 @@ No horizonte completo, o jogador poderá viver diferentes origens espirituais, v
 
 ### D04 — Como os grandes poderes são conquistados?
 
+> **Leitura corrigida após a revisão de 22/10/2026:** aplicar REV-SP-01/M05-11.1. A compra por Spiritual Points continua na base do jogo e pode integrar a aquisição de técnica/habilidade disponível. Aprendizado e compra não são excludentes; Mastery e Proficiência continuam distintas de saldo gasto. Os diagramas antigos precisam de conciliação por conteúdo, não de exclusão geral das compras.
+
 | Alternativa | Benefício | Custo ou risco |
 |---|---|---|
 | **A. Autorização narrativa + aprendizado + prova + pontos + domínio** | Une significado narrativo, progressão de RPG e especialização mecânica. | Exige sistemas conectados, economia saudável e conteúdo próprio para cada grande marco. |
@@ -384,6 +392,8 @@ Critérios da futura fatia jogável, ainda não testados:
 ## Impacto técnico conhecido
 
 ### Base atual aproveitável
+
+> **Diagnóstico histórico:** este trecho descreve a investigação original, não o estado do código revalidado em 22/10/2026. Há avanços posteriores registrados na [auditoria de 20/10](00-auditoria-estado-2026-10-20.md); também ela tem data/escopo próprios. Esta revisão é de contratos documentais, sem nova auditoria do runtime ou execução de Minecraft.
 
 O protótipo atual já contém fundações úteis para experiências futuras: raça Shinigami, Asauchi, reiatsu, atributos, habilidades, estágios, persistência, HUD e quests carregadas por dados. Essas implementações são ativos técnicos; este documento não altera seu estado de teste ou aceitação.
 

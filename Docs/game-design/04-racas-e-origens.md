@@ -1,28 +1,157 @@
 # Raças e origens
 
+> **Direção vigente REV-SP-02 — 22/10/2026:** Spiritual Points compram **skills e transformações**, conforme esclarecimento explícito do usuário, usando Dragon Mine Z como referência para a compra. **Mastery é desenvolvida pela prática e não é comprada.** Requisitos/contexto disponibilizam a aquisição; SP paga a compra/desbloqueio; usar a capacidade depois segue os custos próprios de Energia/Stamina. [Contrato comum em M05/11.2](05-atributos-e-recursos.md#112-rev-sp-02--compra-de-skills-e-transformacoes-com-spiritual-points). Preços e exceções concretas permanecem nas fichas; a compra não pode ser removida genericamente por interpretação de M05/M06.
+
 ## Estado do módulo
 
 | Campo | Valor |
 |---|---|
-| Estado | `IDEALIZADO` |
+| Estado | `ESPECIFICADO CONCEITUALMENTE` no escopo desta etapa; requisitos executáveis e conteúdo continuam delegados |
 | Responsável pela decisão | Equipe do Bleach Mod |
-| Última revisão | 11/09/2026 |
+| Última revisão | 22/10/2026 — criação/continuidade consolidadas após RAC-26, REV-RAC27-01 e RAC-28A/B; fronteiras e pendências registradas |
 | Decisões herdadas | D01–D06, complemento de poderes canônicos, PRG-01–PRG-08 e STR-01–STR-07 |
-| Decisões deste módulo | RAC-01–RAC-12 `DECIDIDAS` |
-| Próximo passo | Iniciar o terceiro bloco: diferenças, vantagens, limitações e convivência racial |
+| Decisões deste módulo | RAC-01–RAC-26, RAC-28A/B e REV-RAC27-01: um personagem por conta em cada mundo/servidor nesta etapa; múltiplos personagens adiados; RAC-29B guarda princípio futuro de posição própria |
+| Próximo uso | M08 — NPCs, mentores e facções; aplicar os contratos às fichas de ensino, serviço de reset e continuidade |
 
 Este documento trata da natureza espiritual e do começo jogável do personagem no **mod completo**. Ele ainda não autoriza implementação e não transforma possibilidades futuras em funcionalidades já prometidas.
 
-O módulo será decidido em partes:
+O módulo foi organizado em partes:
 
 1. **Identidade e transições:** significado de raça, origem, estado atual, aspectos adquiridos, híbridos e morte.
 2. **Origens por caminho:** abertura Shinigami, Hollow, Quincy e Fullbringer.
 3. **Regras de convivência:** diferenças raciais, vantagens, limitações, hostilidade e cooperação.
 4. **Criação e continuidade:** confirmação da escolha, troca de personagem, reinício e migração de saves.
 
-Os dois primeiros blocos estão concluídos. O módulo continua `IDEALIZADO` porque diferenças raciais, convivência, criação e continuidade ainda não foram discutidas.
+**Histórico de maturidade:** a conclusão original declarou `ESPECIFICADO`; a revisão de 22/10/2026 identificou que criação/continuidade ainda não tinha sido fechada. A discussão posterior registrou RAC-26, REV-RAC27-01 e RAC-28A/B e permitiu o fechamento **conceitual** abaixo. O antigo rótulo não representa ficha executável ou aceite técnico. Custos, técnicas, transformações, quests, dados e balanceamento continuam nos responsáveis.
 
-### Registro parcial das decisões
+## Leitura vigente e resultado da revisão — 22/10/2026
+
+Este quadro orienta a leitura do registro acumulado abaixo. Os trechos antigos foram preservados; uma nota de revisão não é uma nova aprovação de produto. [Relatório completo](00-revisao-modulos-01-a-07-2026-10-22.md). [Cópia integral anterior a esta revisão](historico/2026-10-22-m04-antes-revisao-transversal.md).
+
+| Tema | Contrato vigente e referência |
+|---|---|
+| Identidade e convivência | Origem, natureza, estado corporal, afiliação, cargo, principal e manifestação distintos; quatro origens, cooperação multirracial, morte comum sem troca racial. RAC-01–RAC-25 preservados |
+| Pontos, fundamentos e técnicas | REV-SP-02/M05-11.2: SP compra skills e transformações, além dos atributos. Contexto/requisitos abrem aquisição; domínio/Mastery cresce pela prática, sem compra. Débito de aquisição e recursos de uso são diferentes |
+| Início Fullbringer | F2/F12 refinam RAC-10 e exemplos anteriores: fundamentos sem objeto pessoal obrigatório; vetor do poder canônico só na aquisição, conforme F4. M06-10 detalha fundamentos/Bringer Light; não é preciso adquirir o Fullbring primeiro |
+| Evolução Hollow e Arrancar | H8/H9 e M07-04/05: Arrancarizar em Gillian, Adjuchas ou Vasto Lorde; a passagem encerra a evolução Hollow normal. Vasto Lorde é conquista exigente determinística, não pergunta ainda aberta ou transformação temporária |
+| Identidade Hollow | REV-H6-01/M06-08G permitem preparar a identidade antes de Arrancarizar em rota compatível; nenhuma linhagem universal para toda origem. Perfis corporais funcionais de M06, sem vantagem por cosmético |
+| Corpo e trajetória Arrancar | M07-05D/E/F: base humanoide jogável nas três origens, domínio compatível preservado e trajetórias/preparo diferentes, sem bônus fixo ou teto menor só pela origem. Isso é adaptação do mod; medidas/viabilidade concretas pendentes |
+| Troca Fullbring | M07-09C: processo contextual fora de combate; um principal disponível, histórico específico preservado e indisponível, sem copiar Mastery. Retorno exige reacesso. Não estender automaticamente a Zanpakutō, linhagem, Schrift ou raça |
+| Criação e continuidade | RAC-26: confirmar antes do prólogo. REV-RAC27-01: um personagem por conta/mundo ou servidor nesta etapa; experimentar outra origem por reset NPC RAC-28A/B, preservando itens comuns/XP vanilla e mundo. Múltiplos personagens adiados; posição própria RAC-29B fica para essa expansão. Integrações e migração em M08/M10/M11/M14/M15/M16 |
+
+**Conclusão vigente:** identidades raciais e criação/continuidade do escopo atual estão consolidadas conceitualmente. M04 não é especificação executável de todas as fichas; o fechamento abaixo distingue as decisões tomadas das entregas necessárias à implementação.
+
+## Quarto bloco — Criação e continuidade — abertura em 22/10/2026
+
+**Estado: CONSOLIDADO CONCEITUALMENTE em 22/10/2026. RAC-26 e RAC-28A/B decididos; REV-RAC27-01: um personagem por conta/mundo ou servidor nesta etapa, com reset por NPC. Múltiplos personagens e troca adiados; RAC-29B guarda posição própria para essa expansão.** Fronteiras e condições de reabertura no fechamento abaixo; nenhuma pergunta de troca bloqueia a etapa atual. São adaptações de produto para Minecraft, sem atribuir seleção de personagens ou reset ao cânone de Bleach.
+
+### Base já decidida
+
+- RAC-02: escolha informada da origem e prólogo próprio, com fantasia, condição inicial e permanência compreensíveis.
+- RAC-04/RAC-06: origem permanece; transições narrativas compatíveis e morte de gameplay têm regras próprias. Reiniciar/criar personagem é uma operação separada.
+- M03/STR-06: cronologia do mundo e progresso pessoal são distintos. Um personagem novo não reinicia a era do servidor.
+- REV-SP-02/M05-11.2: skills e transformações são compradas com SP; Mastery é desenvolvida pela prática. Não revisar esse contrato nesta rodada.
+- M07-09C: trocar o Fullbring principal no mesmo personagem é um processo específico; não equivale a criar outra identidade nem autoriza troca livre de raça.
+
+### RAC-26 — Em que momento a escolha inicial é confirmada?
+
+**DECIDIDO em 22/10/2026. Resposta:** “Confirmar antes do prólogo (recomendado)”. Permitir rever a seleção até uma confirmação explícita, antes de começar o prólogo racial. Confirmar cria a identidade com aquela origem; o prólogo apresenta e ensina a escolha já feita. Não há uma segunda seleção de raça como recompensa ao terminar a introdução.
+
+O resumo anterior à confirmação deve explicar a fantasia, o começo e a permanência da origem. Não precisa expor o catálogo inteiro de poderes ou exigir a escolha imediata de Zanpakutō, linhagem, Schrift ou Fullbring canônico. Voltar entre alternativas antes de confirmar não gera compras, recompensas ou progresso jogável.
+
+| Alternativa | Efeito para o jogador | Avaliação |
+|---|---|---|
+| A — Confirmar antes do prólogo | Escolhe com informação e começa a viver a origem confirmada | Recomendada: separa seleção e jornada, evitando refazer uma introdução por seleção acidental |
+| B — Confirmar somente depois de experimentar o prólogo | Pode testar uma abertura antes de assumir a origem | Exige definir o que acontece com itens, recompensas, ações no mundo e progresso ao voltar; experiência prévia não está especificada |
+
+M04 define o compromisso da escolha; M14 define apresentação e comandos; M13 detalha a introdução; M16 define gravação e retomada. Sair ou falhar na confirmação não pode ser confundido com ter completado uma origem. A retomada precisa preservar a origem já confirmada e o andamento da introdução, sem tratar desconexão como nova seleção ou conceder novamente recompensas concluídas. Gravação e recuperação executáveis ficam em M16.
+
+### RAC-27 — Política de personagem e prioridade de entrega
+
+#### REV-RAC27-01 — Um personagem nesta etapa; múltiplos personagens depois
+
+**DECIDIDO por revisão explícita do usuário em 22/10/2026.** Resposta integral à pergunta de troca: “Não sei se a ideia de ter vários personagens é a melhor agora, acredito que o cara apenas resetar e começar de novo por enquanto com a evolução de ter isso depois, mas isso é possivel em mods de minecraf?”.
+
+**Direção vigente:** um personagem por conta em cada mundo/servidor nesta etapa. Para recomeçar e escolher outra origem no mesmo mundo, usar o reset por NPC de RAC-28A/B. O reset substitui a progressão Bleach anterior; não conserva outra jornada selecionável ou cria um slot oculto para recuperá-la. Mantém inventário comum, XP vanilla, mundo e construções conforme o alcance aprovado.
+
+**Evolução futura:** vários personagens por conta no mesmo mundo/servidor permanecem no horizonte, com jornadas separadas e um ativo por vez, sem compromisso de entrega imediata. Quantidade, interface, inventários por identidade, vínculos, economia, migração e segurança da troca serão especificados quando essa expansão entrar no escopo. Não exigir agora tela de seleção ou serviço NPC de troca.
+
+**Histórico:** RAC-27 havia aprovado personagens separados com complemento de reset por NPC; REV-RAC27-01 altera sua prioridade/abrangência de entrega, preservando RAC-26 e RAC-28A/B. [Registro anterior do bloco](historico/2026-10-22-m04-antes-adiamento-multiplos-personagens.md). Não interpretar a aprovação anterior como obrigação de implementar múltiplos personagens já.
+
+**Impacto técnico conferido em 22/10/2026:** `PlayerData` possui um `CharacterData` e conjuntos de recursos, skills, atributos e quests pessoais; `PlayerProvider` mantém um `PlayerData` e serializa para NBT; `CapabilityEvents` o anexa à entidade do jogador. Essa estrutura consultada corresponde a um conjunto de progressão por jogador, não demonstra um gerenciador pronto de perfis independentes. Conferência dirigida desses arquivos e de `ConfirmCharacterC2S`; não auditoria completa do runtime ou compatibilidade de mods.
+
+**Viabilidade futura, como análise técnica:** Forge 1.20.1 permite dados próprios persistentes anexados ao jogador, com sincronização administrada pelo mod. Isso fornece meios para construir perfis, mas não entrega múltiplos personagens automaticamente. Separar inventário/XP/posição, quests, itens vinculados, pets e permissões exige uma camada de identidade e integração, especialmente com sistemas que identificam o jogador pela conta. Fonte primária consultada em 22/10/2026: [Forge 1.20.1 — Capabilities](https://docs.minecraftforge.net/en/1.20.1/datastorage/capabilities/), seções Attaching Capabilities, Synchronizing Data with Clients e Persisting across Player Deaths. Viabilidade é inferência de arquitetura apoiada nesses mecanismos e no código local; sem implementação/prova de troca nesta rodada.
+
+### RAC-28 — Reset de personagem por NPC
+
+#### RAC-28A — Existência do serviço
+
+**DECIDIDO em 22/10/2026**, pelo complemento da resposta de RAC-27: “a opção recomendada mas com a possibilidade de resetar em algum npc”. Haverá a possibilidade de solicitar reset por um NPC. Conforme REV-RAC27-01, nesta etapa ele permite recomeçar o personagem único; múltiplos personagens ficam para expansão futura. NPC, preço e frequência continuam pendentes; o alcance das perdas foi aprovado posteriormente em RAC-28B. A fala não é uma solicitação para apagar qualquer personagem/save real nesta sessão.
+
+**Integrações:** M04 define o que reinicia; M08 define o prestador e sua disponibilidade; M11 trata itens/custo do serviço; M14 apresenta a confirmação; M15 trata regras de servidor e recompensas repetidas; M16 executa e persiste a operação com recuperação em caso de falha. O NPC solicita a operação ao sistema responsável, conforme o mapa modular.
+
+#### RAC-28B — Alcance do reset
+
+**DECIDIDO em 22/10/2026. Resposta:** “Reset Bleach; preservar itens comuns e XP (recomendado)”. [Proposta anterior preservada](historico/2026-10-22-proposta-m04-rac28b-reset.md). Reiniciar a **progressão de Bleach do personagem escolhido**, voltando às condições de um personagem novo e permitindo selecionar novamente a origem conforme RAC-26. Isso inclui atributos do mod, saldo e compras de SP, aprendizados, Proficiências, Masteries, poderes, evolução, campanha e reputação pessoais. Não há reembolso dos SP gastos ou transferência desse progresso para outra identidade. Os demais personagens, o mundo, suas construções e a era compartilhada permanecem.
+
+Preservar inventário comum e experiência vanilla desse personagem, conforme a alternativa A aprovada. Manter um item físico não preserva poder vinculado, técnica, requisito ou compra apagados pelo reset. Equipamentos espirituais, itens de quest e outros itens vinculados precisam de destino próprio em M11/M12; não prometer destruição de todos, nova vinculação automática, recall, duplicação ou conservação de acesso especial. Armazenamento externo e propriedade continuam com suas regras; o reset não oferece restauração global de baús ou construções.
+
+| Alternativa | Consequência | Avaliação |
+|---|---|---|
+| A — Reiniciar progressão Bleach, preservar inventário comum e XP vanilla | Permite recomeçar a jornada espiritual mantendo os recursos da experiência Minecraft; itens especiais dependem da ficha | Recomendada para preservar a exploração e construção acumuladas |
+| B — Reiniciar também inventário e XP vanilla do personagem | Recomeço pessoal mais amplo, incluindo perdas materiais; baús externos, mundo e outros personagens não são apagados | Exige comunicar o alcance com precisão; não elimina por si só uso de armazenamento externo |
+
+**Condições do pacote aprovado:** o reset é do personagem escolhido, exige confirmação explícita e ocorre fora de combate/encontro; preserva os demais personagens, mundo e construções. **Integridade a especificar em M16:** validar a identidade afetada e a ausência de execução comprometida; apresentar as perdas antes de confirmar; concluir integralmente ou preservar o estado anterior em caso de falha, sem recompensas parciais. A mudança de origem por reset recomeça a jornada pessoal, sem transformar uma identidade avançada em outra mantendo suas conquistas. Identificador, histórico técnico, itens vinculados, consequências persistentes, quotas de recompensas e retomada numa era avançada precisam de contratos explícitos antes da implementação. Não considerar reset um reembolso de SP ou um mecanismo automático de recuperação de Bankai/Letzt Stil.
+
+**Pendências:** NPC/preço/frequência, destino de itens vinculados, protocolo de confirmação/falha e retomada da campanha na era atual. O reset volta às condições iniciais da origem escolhida; não entrega pontos ou atributos literalmente zerados quando o começo da origem tiver valores próprios. Nesta etapa, resetar explicitamente o personagem único substitui sua progressão Bleach; não há outra jornada preservada para recuperar por troca de slot. A futura criação de personagens independentes exigirá seu próprio contrato.
+
+### RAC-29 — Múltiplos personagens: direções da expansão futura
+
+**Fora do escopo desta etapa por REV-RAC27-01.** Não impede avançar a documentação atual. As propostas anteriores de troca foram preservadas no [histórico](historico/2026-10-22-m04-antes-adiamento-multiplos-personagens.md).
+
+#### RAC-29A — Acesso e condições da troca: ADIADO
+
+O usuário revisou o escopo ao responder à escolha entre tela e NPC; não escolheu um acesso de troca para implementação atual. Interface, prestador, condições seguras de troca, encerramento de manifestações e estados da identidade inativa serão fechados quando múltiplos personagens entrarem no escopo. Contratos de custos, relógio do mundo e consequências de M06/M07 continuam como requisitos de integração; não declarar aprovada uma nova rotina de troca apenas por já haver regras de logout.
+
+#### RAC-29B — Local próprio: direção aprovada para a expansão futura
+
+**Resposta em 22/10/2026:** “Cada personagem volta ao próprio local (recomendado)”. Guardar essa escolha para a função futura: cada personagem retoma a própria posição/dimensão, sem assumir o local de quem saiu. Não habilita múltiplos personagens agora nem define o local após reset, respawn ou transição de prólogo.
+
+Validação de dimensão, acesso, espaço corporal e recuperação de destino inválido continuam dependências de M10/M15/M16 antes da entrega futura. Recusa da troca e recuperação segura foram propostas na rodada anterior; detalhes executáveis não estão resolvidos. Nenhum teleporte corretivo ou remoção de blocos foi aprovado por esta resposta.
+
+### Pendências para fechar o bloco após RAC-26/RAC-27
+
+| Assunto | Decisão/entrega necessária | Responsável |
+|---|---|---|
+| Múltiplos personagens e troca | Adiados por REV-RAC27-01; RAC-29B guarda posição própria para a expansão. Sem pergunta ou implementação de troca nesta etapa | Futuro escopo M04/M06/M07/M10/M11/M14/M15/M16 |
+| Inventário, propriedade e economia | Itens vinculados, recipientes, equipamentos, armazenamento, pets/construções, comércio e recompensas repetíveis; evitar cópia e ganho indevido sem presumir proibição de uso compartilhado | M11/M12/M15/M16 |
+| Personagem novo numa era avançada | Abertura racial e acesso aos acontecimentos necessários, sem retroceder a cronologia global | M03/M10/M12/M13/M15 |
+| Reinício, exclusão e retorno | Reset por NPC e alcance aprovados em RAC-28A/B. Exclusão de personagem, preço/limite e detalhes de retorno ainda não definidos. Não confundir criar outro, trocar e resetar | M04/M08/M11/M14/M15/M16 |
+| Save existente e migração | Mapear progresso legado sem escolher outra origem ou apagar dados por inferência; definir plano de compatibilidade, recuperação e evidência antes de qualquer migração | M16, consultando M04/M05/M06/M07 |
+
+**Critérios candidatos desta etapa, não testes executados:** seleção ainda não confirmada não produz conquistas; personagem confirmado retoma sua origem; reset exige confirmação fora de combate/encontro, reinicia somente a progressão Bleach e preserva itens comuns/XP vanilla, mundo e construções; não reembolsa SP nem restaura o poder apagado por manter seu item. Migração não altera dados silenciosamente. Casos de alternância entre perfis ficam na expansão futura.
+
+**Próximo:** M08, mantendo as entregas abaixo como condições da implementação de cada recurso. A expansão de múltiplos personagens não impede a etapa atual. Sem implementação, alteração de saves ou testes do jogo nesta rodada.
+
+### Fechamento da revisão de M04 — 22/10/2026
+
+**Resultado:** `ESPECIFICADO CONCEITUALMENTE` para a etapa com personagem único e reset NPC. Não resta escolha geral identificada de política de personagem impedindo M08. A revisão encerra a lacuna conceitual REV-03; não declara especificação executável, revisão exaustiva de todo cânone ou implementação/aceite.
+
+| Fronteira | Contrato decidido / entrega necessária |
+|---|---|
+| Identidade e escolha | M04: origem confirmada antes do prólogo, permanente na jornada; mudanças compatíveis seguem seus processos. Reset reinicia a jornada Bleach, com nova seleção |
+| Continuidade da sessão | M06/M07: retornar preserva conquistas e respeita o encerramento de estados temporários e tempos aprovados. Retomar não reexecuta compra ou recompensa concluída |
+| Escopo desta etapa | REV-RAC27-01: um personagem por conta no mundo/servidor. Múltiplos personagens/troca futuros; exclusão livre de slots não integra o serviço de reset aprovado |
+| Serviço de reset | M08 define prestador/acesso; M11 custo e itens vinculados; M14 comunicação/confirmação; M15 limites de repetição e recompensas; M16 integridade, gravação e falha. M04 já fixa perdas/preservações, sem preço escolhido |
+| Corpo e lugar após reset | M07/M10/M11/M16 precisam definir ordem da troca corporal, condição de mãos/itens, acesso e retorno válido à introdução da origem na era atual. A posição própria de RAC-29B não resolve reset; não foi aprovado teleporte, apagamento de blocos ou travessia gratuita |
+| Save existente | M16 mapeia os dados legados com os sistemas: o que pode ser mantido, o que mudou de significado e o que requer decisão. Não executar conversão ou reset por inferência de texto; plano e recuperação precedem qualquer migração. O mapeamento concreto não foi aprovado por este fechamento |
+| Mundo compartilhado | Era, construções e progresso de terceiros não reiniciam por seleção/reset pessoal. M03/M10/M12/M13/M15 resolvem acesso à campanha numa era já avançada |
+
+**Antes de entregar reset em gameplay:** resolver itens vinculados e recompensas de introdução/repetição, recuperar falha da operação, fornecer destino corporal válido e garantir acesso viável ao prestador. As dependências não são dispensadas por este fechamento.
+
+**Reabrir M04 se:** a integração exigir mudar perdas/preservações, número de personagens desta etapa, permanência da origem ou proteção do mundo; ou se nenhuma solução dos módulos responsáveis cumprir esses contratos. Não inventar migração, número ou regra de acesso apenas para remover uma pendência.
+
+### Registro parcial das decisões — síntese alinhada às revisões
 
 | Decisão | Estado | Direção atual |
 |---|---|---|
@@ -35,7 +164,7 @@ Os dois primeiros blocos estão concluídos. O módulo continua `IDEALIZADO` por
 | RAC-07 | `DECIDIDO` | Todos surgem no Mundo Humano; a introdução racial encaminha o Shinigami à Academia, onde começa o treino com shinai. |
 | RAC-08 | `DECIDIDO` | A rota Hollow apresenta brevemente o passado como Plus e começa o combate como Hollow recém-formado, com vantagem corporal inicial em vez de arma. |
 | RAC-09 | `DECIDIDO` | Humano de herança Quincy fragmentada ou oculta, inicialmente independente do Wandenreich. |
-| RAC-10 | `DECIDIDO` | Humano independente com objeto e Fullbring de personagem canônico; não haverá criação de poderes originais. |
+| RAC-10 | `DECIDIDO`, refinado por F2/F4/F12 | Humano independente começa pelos fundamentos; depois conquista Fullbring canônico e seu vetor apropriado, sem objeto pessoal obrigatório no prólogo. |
 | RAC-11 | `DECIDIDO` | Prólogos diferentes convergem funcionalmente para a mesma era e campanha compartilhada. |
 | RAC-12 | `DECIDIDO` | Guia apropriado ao caminho; uma alma-guia vinculada ao jogador poderá abrir diálogos ao ser usada como item. |
 
@@ -207,6 +336,8 @@ RAC-01–RAC-06 estão decididas com as seguintes regras:
 **Decisão aprovada:** alternativa A. A tela descreve fantasia, condição inicial e permanência, não todos os poderes futuros. O prólogo entrega o significado da escolha e o primeiro despertar.
 
 ### RAC-03 — Em que ponto de desenvolvimento cada personagem começa?
+
+> **Exemplo de origem refinado:** aplicar F2/F4/F12 e a síntese vigente no início do módulo. Objeto/poder principal não são requisitos universais do prólogo Fullbringer; o texto original seguinte é histórico.
 
 | Alternativa | Benefício | Custo ou risco |
 |---|---|---|
@@ -400,6 +531,8 @@ O mod não reproduzirá as biografias desses personagens. Os exemplos servem par
 
 ### Estrutura compartilhada sem prólogo compartilhado
 
+> **Exemplo de origem refinado:** aplicar F2/F4/F12 e a síntese vigente no início do módulo. Objeto/poder principal não são requisitos universais do prólogo Fullbringer; o texto original seguinte é histórico.
+
 As quatro origens podem usar o mesmo contrato narrativo sem repetir a mesma história:
 
 ```text
@@ -423,6 +556,8 @@ O contrato existe para quests, salvamento e interface entenderem quando o prólo
 Essa tabela descreve fantasias. Objetivos, diálogos, NPCs, mobs e duração ficam para os módulos correspondentes.
 
 ### Contrato dos perfis iniciais
+
+> **Exemplo de origem refinado:** aplicar F2/F4/F12 e a síntese vigente no início do módulo. Objeto/poder principal não são requisitos universais do prólogo Fullbringer; o texto original seguinte é histórico.
 
 Cada raça terá um **perfil inicial próprio**, composto por capacidades de base, ferramenta ou manifestação disponível e limitações. Isso está decidido em nível conceitual; não significa que este documento definirá valores de atributos.
 
@@ -520,6 +655,8 @@ Echt e Gemischt não devem funcionar como seleção inicial de “linhagem super
 
 ### RAC-10 — Qual é a origem Fullbringer principal?
 
+> **Exemplo de origem refinado:** aplicar F2/F4/F12 e a síntese vigente no início do módulo. Objeto/poder principal não são requisitos universais do prólogo Fullbringer; o texto original seguinte é histórico.
+
 | Alternativa | Benefício | Custo ou risco |
 |---|---|---|
 | **A. Humano independente com objeto significativo e manifestação pequena ou instável** | Coloca vínculo pessoal no centro e permite descobrir Xcution posteriormente. | Exige selecionar um foco coerente sem gerar poderes infinitos proceduralmente. |
@@ -569,6 +706,8 @@ O desbloqueio comum pode exigir apenas estados equivalentes:
 - personagem apto a entrar em encontros e parties da era atual.
 
 ### RAC-12 — Quem ensina os fundamentos de cada origem?
+
+> **Exemplo de origem refinado:** aplicar F2/F4/F12 e a síntese vigente no início do módulo. Objeto/poder principal não são requisitos universais do prólogo Fullbringer; o texto original seguinte é histórico.
 
 | Alternativa | Benefício | Custo ou risco |
 |---|---|---|
@@ -715,6 +854,8 @@ O módulo poderá avançar para `DECIDIDO` quando:
 - o modelo continuar compreensível para quem nunca assistiu *Bleach*.
 
 ## Impacto técnico conhecido
+
+> **Diagnóstico histórico:** este trecho descreve a investigação original, não o estado do código revalidado em 22/10/2026. Há avanços posteriores registrados na [auditoria de 20/10](00-auditoria-estado-2026-10-20.md); também ela tem data/escopo próprios. Esta revisão é de contratos documentais, sem nova auditoria do runtime ou execução de Minecraft.
 
 O protótipo atual possui:
 
@@ -935,6 +1076,8 @@ O tema permanece registrado para possível revisão futura, caso seja encontrada
 
 ### RAC-20 — Aquisição de poderes canônicos
 
+> **Fronteira de leitura — 22/10/2026:** a questline associada ao personagem se refere ao poder canônico principal. Fundamentos e técnicas gerais têm formação, descoberta, prática e fontes apropriadas conforme M06; não exigem uma campanha canônica por técnica. A duplicação do poder é adaptação aprovada, sem transferência de biografia.
+
 A política anterior de poderes canônicos permanece vigente e recebe uma regra adicional de aquisição.
 
 O jogador não cria livremente uma Zanpakutō, Resurrección, Schrift, Fullbring ou outro poder equivalente.
@@ -1035,6 +1178,8 @@ A Asauchi não precisa transformar-se automaticamente nela. Ao conquistar a Zanp
 Essa regra permite representar corretamente diferenças visuais entre Zanpakutō e fortalece a fantasia de conquistar as armas e poderes reconhecíveis dos personagens da obra.
 
 ### Zanpakutō não concede automaticamente suas liberações
+
+> **Detalhamento já aprovado em M07-02/03:** vínculo com o espírito e provas próprias governam Shikai/Bankai, sem taxa universal de Spiritual Points. A arma canônica adquirida e o aprendizado de cada liberação continuam conquistas distintas; não usar a lista histórica de requisitos abaixo como cobrança obrigatória.
 
 Conquistar a Zanpakutō canônica não concede automaticamente todos os estágios associados a ela.
 
@@ -1220,6 +1365,8 @@ O problema ocorre somente quando uma transformação ou poder importante pode se
 
 ### H4 — Não existe uma Academia Hollow equivalente
 
+> **Terminologia vigente — 22/10/2026:** “Training Points” no registro abaixo corresponde a Spiritual Points/Pontos de Treinamento de M05, principalmente para atributos. Não é outra moeda racial nem compra universal de técnicas.
+
 **Estado: `DECIDIDO`**
 
 O caminho Hollow não receberá uma instituição criada apenas para reproduzir a estrutura da Academia Shinigami.
@@ -1311,6 +1458,8 @@ As quests concretas pertencem aos módulos de campanhas e sistema de quests.
 
 **Estado: `DECIDIDO`**
 
+**REV-H6-01 — aprovada em 20/10/2026:** a identidade da linhagem e sua questline podem começar antes da Arrancarização, acompanhando a passagem para Adjuchas na rota natural. Executar capacidades Arrancar e liberar Resurrección continuam exigindo o estado compatível. A aquisição da identidade não fica exclusivamente presa à evolução para Adjuchas: quem segue Arrancar em Gillian precisa de acesso compatível ao poder principal, sem voltar à linha evolutiva encerrada por H9. Isso não aprova toda linhagem para toda origem. Ver [M06-08G](06-habilidades-e-combate.md#27-m06-08g--decidido--linhagens-formas-e-primeira-trajetória).
+
 A política de RAC-20 permanece válida para Hollows:
 
 o jogador conquista poderes canônicos reais através de questlines associadas aos personagens correspondentes.
@@ -1319,9 +1468,9 @@ Entretanto, o personagem precisa possuir uma condição racial compatível para 
 
 Um Hollow recém-formado não pode obter imediatamente uma Resurrección apenas por completar conteúdo relacionado a um Arrancar.
 
-Questlines de poderes Arrancar ficam disponíveis quando o personagem alcança um estado compatível.
+O acesso à preparação/identidade da linhagem pode anteceder a Arrancarização. Cada etapa da questline e cada capacidade verifica sua própria compatibilidade; iniciar a relação com Grimmjow não concede imediatamente Resurrección ou todo seu repertório.
 
-Exemplo conceitual:
+Exemplo conceitual anterior — preservado como uma rota possível, sem obrigar que toda relação com Grimmjow comece somente depois da Arrancarização:
 
 ```text
 Hollow
@@ -1338,6 +1487,8 @@ O poder conquistado continua sendo o poder canônico real.
 **Pantera é Pantera**, e não uma habilidade apenas inspirada em Grimmjow.
 
 A questline, os requisitos e o momento exato de acesso serão definidos em módulos posteriores.
+
+Na rota natural agora aprovada, a identidade de Pantera pode começar a se expressar em Adjuchas e acompanhar o desenvolvimento posterior. M07 define evolução e liberação; M06 define quais capacidades funcionam em cada corpo/estado. Nenhuma forma ou técnica específica é concedida apenas por esta revisão de acesso.
 
 ---
 
@@ -1420,6 +1571,8 @@ Após essas decisões, a direção qualitativa do Hollow pode ser resumida como:
 ---
 
 ## Pendência específica do caminho Hollow
+
+> **RESOLVIDA posteriormente por H9, preservado abaixo, e detalhada em M07-04F/G:** Vasto Lorde é conquista avançada exigente e determinística, com marcos registrados e prova final, sem regressão racial por falha comum ou pausa. A pergunta original seguinte não está pendente.
 
 Ainda não foi decidido se alcançar **Vasto Lorde** deverá representar:
 
@@ -1725,6 +1878,8 @@ O poder canônico e a construção do personagem definem sua especialização.
 
 ### Q11 — Poderes canônicos utilizam uma progressão simples baseada em narrativa, Spiritual Points, mastery e marcos
 
+> **Leitura corrigida após a revisão de 22/10/2026:** aplicar REV-SP-01/M05-11.1. A compra por Spiritual Points continua na base do jogo e pode integrar a aquisição de técnica/habilidade disponível. Aprendizado e compra não são excludentes; Mastery e Proficiência continuam distintas de saldo gasto. Os diagramas antigos precisam de conciliação por conteúdo, não de exclusão geral das compras.
+
 **Estado: `DECIDIDO`**
 
 A progressão ligada a personagens canônicos não será transformada em uma longa sequência de quests obrigatórias para cada técnica.
@@ -1780,6 +1935,8 @@ Spiritual Points poderão continuar sendo exigidos nesses momentos, mas não ser
 ---
 
 ## Aplicação do Q11 aos caminhos raciais
+
+> **Leitura corrigida após a revisão de 22/10/2026:** aplicar REV-SP-01/M05-11.1. A compra por Spiritual Points continua na base do jogo e pode integrar a aquisição de técnica/habilidade disponível. Aprendizado e compra não são excludentes; Mastery e Proficiência continuam distintas de saldo gasto. Os diagramas antigos precisam de conciliação por conteúdo, não de exclusão geral das compras.
 
 Apesar de ter sido definido durante a discussão Quincy, o princípio de Q11 poderá ser aplicado posteriormente às demais raças.
 
@@ -1840,6 +1997,8 @@ Servem apenas para registrar a estrutura geral.
 
 ## Identidade prática do caminho Quincy
 
+> **Leitura vigente da tabela:** a linha “Progressão de técnicas — principalmente Spiritual Points + mastery” é formulação anterior, revisada por M05 REV-M02-02/04 e M06-09. Técnicas exigem aprendizado; armamento espiritual, mobilidade e Gintō têm Proficiência própria, com Masteries pertinentes. O tiro comum não ganha Mastery separada por omissão. Vollständig e Letzt Stil têm caminhos distintos em M07-07/08.
+
 | Aspecto | Quincy |
 |---|---|
 | **Começo** | humano com herança Quincy oculta ou fragmentada |
@@ -1851,7 +2010,7 @@ Servem apenas para registrar a estrutura geral.
 | **Grind** | treino, combate, controle, uso de técnicas e mastery |
 | **Fundamentos raciais** | aprendidos antes de poderes individuais |
 | **Poder canônico** | autorizado por quest ou acontecimento ligado ao personagem |
-| **Progressão de técnicas** | principalmente Spiritual Points + mastery |
+| **Progressão de técnicas** | aprendizado apropriado, Proficiência dos campos e Masteries pertinentes; pontos principalmente nos atributos — M05/M06 |
 | **Grandes poderes** | exigem também marcos apropriados |
 | **Wandenreich** | afiliação e progressão social, não nova raça |
 | **Territórios** | conteúdo relevante em diferentes dimensões e regiões |
@@ -2027,6 +2186,8 @@ Ele poderá ser:
 
 ### F5 — A progressão utiliza o modelo simples de aquisição + Spiritual Points + Mastery + marcos
 
+> **Leitura corrigida após a revisão de 22/10/2026:** aplicar REV-SP-01/M05-11.1. A compra por Spiritual Points continua na base do jogo e pode integrar a aquisição de técnica/habilidade disponível. Aprendizado e compra não são excludentes; Mastery e Proficiência continuam distintas de saldo gasto. Os diagramas antigos precisam de conciliação por conteúdo, não de exclusão geral das compras.
+
 **Estado: `DECIDIDO`**
 
 O Fullbringer seguirá o mesmo princípio simplificado aprovado durante o caminho Quincy.
@@ -2053,6 +2214,8 @@ Depois disso, a maior parte do crescimento retorna aos sistemas gerais do mod.
 ---
 
 ### F6 — O desenvolvimento completo do Fullbring depende fortemente de Mastery
+
+> **Leitura corrigida após a revisão de 22/10/2026:** aplicar REV-SP-01/M05-11.1. A compra por Spiritual Points continua na base do jogo e pode integrar a aquisição de técnica/habilidade disponível. Aprendizado e compra não são excludentes; Mastery e Proficiência continuam distintas de saldo gasto. Os diagramas antigos precisam de conciliação por conteúdo, não de exclusão geral das compras.
 
 **Estado: `DECIDIDO`**
 
@@ -2357,6 +2520,8 @@ A intenção é preservar:
 
 ### Troca de Fullbring
 
+> **Política agora decidida — M07-09C, 22/10/2026:** troca contextual fora de combate, um principal por vez, preservando aprendizados/completude/Masteries de cada poder no histórico indisponível. Voltar exige reacesso; não há cópia de Mastery ou apagamento do domínio antigo. A lista de possibilidades abaixo era exploratória; perda/redução de domínio não foi escolhida. Processo concreto e despesas continuam com fichas próprias.
+
 Trocar o Fullbring principal não deverá funcionar como uma simples troca de loadout.
 
 Entretanto, também não é necessário transformar a primeira escolha em uma decisão absolutamente irreversível.
@@ -2408,6 +2573,8 @@ Os exemplos representam alternativas, e não poderes simultâneos.
 ---
 
 ## Estrutura prática do caminho Fullbringer
+
+> **Leitura corrigida após a revisão de 22/10/2026:** aplicar REV-SP-01/M05-11.1. A compra por Spiritual Points continua na base do jogo e pode integrar a aquisição de técnica/habilidade disponível. Aprendizado e compra não são excludentes; Mastery e Proficiência continuam distintas de saldo gasto. Os diagramas antigos precisam de conciliação por conteúdo, não de exclusão geral das compras.
 
 A progressão racial pode ser resumida conceitualmente como:
 
@@ -2463,7 +2630,7 @@ Essa estrutura representa a lógica geral e não define custos, técnicas ou que
 | **Fundamentos raciais** | independentes do Fullbring escolhido |
 | **Poder específico** | Fullbring real de personagem canônico |
 | **Vetor** | respeita o poder original; pode ser objeto, equipamento, corpo ou outro elemento |
-| **Progressão** | Spiritual Points + grind + Mastery |
+| **Progressão** | pontos/prática nos atributos, Proficiência dos fundamentos e Masteries pertinentes; marcos do poder — M05/M06/M07 |
 | **Grande marco** | desenvolvimento/completude do Fullbring |
 | **Organização** | Xcution opcional e contextual |
 | **Ligação Hollow** | parte da natureza do poder, não corrupção automática |
@@ -2472,7 +2639,7 @@ Essa estrutura representa a lógica geral e não define custos, técnicas ou que
 | **Party** | nenhuma função fixa obrigatória |
 | **Especialização** | determinada principalmente pelo Fullbring e pela build |
 | **Poder principal** | um Fullbring canônico por vez |
-| **Troca de poder** | possível futuramente através de processo especial |
+| **Troca de poder** | processo contextual fora de combate, histórico específico preservado e indisponível; reacesso próprio — M07-09C |
 | **Sensação** | descobrir, escolher e dominar progressivamente um poder extremamente particular |
 
 ---
@@ -2501,6 +2668,8 @@ permanece reservado aos módulos correspondentes.
 O caminho Fullbringer está suficientemente definido neste módulo para permitir a comparação final entre as quatro raças.
 
 ### AINDA ABERTO NESTE BLOCO
+
+> **Registro intermediário histórico:** a comparação racial foi concluída pelos blocos posteriores; o rótulo `IDEALIZADO` abaixo não governa o módulo atual. A pendência de criação/continuidade permanece real e motivou a correção do estado geral no início deste documento, sem reabrir as decisões raciais.
 
 - refinamentos necessários após comparar os quatro caminhos;
 - implicações adicionais de convivência que só se tornem visíveis após essa comparação.
@@ -2629,6 +2798,8 @@ Isso preserva:
 ---
 
 ### Troca de poder canônico principal
+
+> **Escopo preservado — 22/10/2026:** a possibilidade geral de processo especial permanece. Só a troca Fullbringer recebeu política de retenção de domínio em M07-09C; não transportar essa decisão para outras raças automaticamente. Menções abaixo a perda de Mastery, pontos ou outras consequências são alternativas ainda não aprovadas para as demais trocas.
 
 A escolha de um poder principal não precisa ser absolutamente irreversível.
 
@@ -2765,6 +2936,8 @@ O personagem não alterna livremente entre Adjuchas e Vasto Lorde depois da evol
 
 ## Vasto Lorde não é uma progressão automática
 
+> **Detalhamento vigente — M07-04F, 21/10/2026:** “Mastery racial elevada” no esquema original é expressão genérica de preparo, não uma Mastery global nova. M06-08 organiza três Proficiências e Masteries de capacidades; M07 exige domínio demonstrado do repertório pertinente, sem maximizar todos os campos ou exigir uma técnica inacessível antes da conquista.
+
 Chegar ao estágio Adjuchas não garante automaticamente evolução para Vasto Lorde.
 
 O estágio deverá representar uma conquista avançada e exigente.
@@ -2863,6 +3036,8 @@ A conquista é avançada, mas não representa invencibilidade.
 
 # Estrutura transversal consolidada
 
+> **Leitura corrigida após a revisão de 22/10/2026:** aplicar REV-SP-01/M05-11.1. A compra por Spiritual Points continua na base do jogo e pode integrar a aquisição de técnica/habilidade disponível. Aprendizado e compra não são excludentes; Mastery e Proficiência continuam distintas de saldo gasto. Os diagramas antigos precisam de conciliação por conteúdo, não de exclusão geral das compras.
+
 Após RAC-22 até RAC-25, a estrutura geral das quatro raças pode ser representada como:
 
 ```text
@@ -2905,6 +3080,8 @@ formação
 
 ## Hollow
 
+**Esquema histórico ilustrativo:** ver H8/H9 e a árvore vigente abaixo; Adjuchas não é requisito para toda Arrancarização.
+
 ```text
 sobrevivência
 → capacidades raciais
@@ -2915,6 +3092,18 @@ sobrevivência
 → poder canônico
 → Resurrección
 ```
+
+**Árvore vigente — H8/H9 e M07-05:**
+
+```text
+Hollow → Gillian
+           ├─ Arrancarização → repertório/poder compatível → Resurrección conquistada
+           └─ Adjuchas
+                ├─ Arrancarização → repertório/poder compatível → Resurrección conquistada
+                └─ Vasto Lorde → Arrancarização → repertório/poder compatível → Resurrección conquistada
+```
+
+A identidade canônica pode começar antes da passagem em rota compatível (REV-H6-01). Arrancarizar encerra a evolução Hollow normal; aprender técnicas e conquistar Resurrección continuam processos próprios. Não existe bônus fixo/teto menor só pela origem (M07-05F).
 
 ---
 
@@ -2950,6 +3139,8 @@ Não representam custos, números ou duração final.
 ---
 
 # Conclusão do Módulo 04
+
+> **Conclusão histórica, qualificada pela revisão de 22/10/2026:** o fechamento abaixo consolidou identidade racial e delegou detalhes de outros módulos. Não demonstrou o fechamento do quarto bloco anunciado de criação/continuidade. O estado geral vigente é `EM ESPECIFICAÇÃO`, conforme cabeçalho e relatório; as aprovações raciais continuam válidas. “ESPECIFICADO” abaixo é o registro anterior, não comprovação de prontidão executável.
 
 As quatro raças iniciais possuem agora:
 
@@ -2996,6 +3187,8 @@ Alterações futuras ainda poderão ocorrer caso testes, integração ou desenvo
 ## Próximos passos
 
 Com o Módulo 04 especificado, o desenvolvimento conceitual segue para:
+
+> **Encaminhamento histórico:** M05/M06/M07 já têm conclusões conceituais. Por pedido do usuário em 22/10/2026, concluir a revisão transversal e o bloco de criação/continuidade de M04 antes de iniciar M08. Detalhes de números, fichas, campanhas e integração continuam nos responsáveis.
 
 ### Módulo 05 — Atributos e Recursos
 

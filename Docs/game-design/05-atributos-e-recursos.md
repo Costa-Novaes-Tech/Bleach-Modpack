@@ -1,8 +1,12 @@
 # 05 — ATRIBUTOS E RECURSOS
 
+> **Direção vigente REV-SP-02 — 22/10/2026:** Spiritual Points compram **skills e transformações**, conforme esclarecimento explícito do usuário, usando Dragon Mine Z como referência para a compra. **Mastery é desenvolvida pela prática e não é comprada.** Requisitos/contexto disponibilizam a aquisição; SP paga a compra/desbloqueio; usar a capacidade depois segue os custos próprios de Energia/Stamina. [Contrato comum em M05/11.2](05-atributos-e-recursos.md#112-rev-sp-02--compra-de-skills-e-transformacoes-com-spiritual-points). Preços e exceções concretas permanecem nas fichas; a compra não pode ser removida genericamente por interpretação de M05/M06.
+
 **Status:** `ESPECIFICADO CONCEITUALMENTE`  
 **Módulo anterior:** `04-racas-e-origens.md`  
 **Próximo módulo:** `06-habilidades-e-combate.md`
+
+> **Revisão documental — 22/10/2026:** M05 mantém seu fechamento conceitual; M06/M07 já detalharam combate, Reiatsu e formas. As notas locais indicam os refinamentos, sem escolher novas fórmulas. Continuidade principal nesta rodada: revisão M01–M07, especialmente criação/continuidade de M04, antes de M08. [Revisão transversal de M01–M07](00-revisao-modulos-01-a-07-2026-10-22.md).
 
 ---
 
@@ -399,6 +403,63 @@ Spiritual Points fornecem a maior contribuição ao crescimento dos atributos.
 
 O jogador escolhe onde investir.
 
+## 11.1. REV-SP-01 — Spiritual Points permanecem na base de compras
+
+> **Esclarecimento posterior:** REV-SP-02, seção 11.2, explicita que **skills e transformações são compradas com SP**. O cuidado anterior de não presumir uma taxa universal não pode ser usado para excluir transformações da base de compras. Mastery permanece não comprável.
+
+**Estado:** correção explícita de direção pelo usuário em 22/10/2026, posterior à revisão transversal. **Fala registrada:** “Mas ainda sim vamos utilizar de pontos sim para comprar as coisas, spiritual points, isso está na base do jogo”.
+
+**Direção vigente:** Spiritual Points continuam sendo moeda estrutural para compras e investimento na progressão. O desenvolvimento de atributos permanece parte dessa função; não se deve restringir genericamente a moeda aos atributos nem classificar a compra de técnicas/habilidades, por si só, como uma regra errada a remover. Conteúdos compráveis continuam precisando de disponibilidade e requisitos próprios.
+
+Esta correção substitui a interpretação da revisão transversal REV-01 que tratava a compra de técnicas como superada de forma geral. Qualifica M05/REV-M02-04 e as notas derivadas em M01/M02/M04/M06: separar aprendizado e domínio não exige eliminar o componente de compra. O registro anterior permanece histórico.
+
+| Camada | Papel preservado / limite |
+|---|---|
+| Disponibilidade e acesso | Origem, fundamentos, fonte, mentor/contexto ou conquista podem abrir o conteúdo; não basta saldo para ignorar uma incompatibilidade ou prova prevista |
+| Compra / investimento | Spiritual Points pagam o componente comprável do atributo, técnica, habilidade ou melhoria cuja ficha assim definir. Não presumir que apenas atributos admitem compra |
+| Proficiência e Mastery | Prática e domínio continuam próprios; a correção não autorizou comprar Mastery ou restaurar um segundo Level paralelo. A compra de uma técnica não a entrega dominada |
+| Grandes marcos | Requisitos específicos de M07 continuam. Não foi decidido por esta fala que toda evolução, forma ou marco ganha automaticamente uma taxa universal de SP |
+| Uso em combate | Compra/desbloqueio é diferente de executar a capacidade. Stamina, Energia Espiritual, manutenção, preparo e recuperação já aprovados não se tornam cobranças de SP por uso |
+| Catálogo e economia | Quais componentes são compráveis, preços, fontes, reembolso e pontos de compra ficam explícitos nas fichas e módulos responsáveis. Nenhuma tabela ou fórmula foi escolhida nesta correção |
+
+**Exemplo de conciliação, não regra universal para toda técnica:** uma fonte/contexto disponibiliza uma técnica comprável; o jogador cumpre seus requisitos, investe Spiritual Points e passa a desenvolvê-la pela prática. Outras aquisições próprias já aprovadas não recebem taxa retroativa automaticamente.
+
+**Recomendação de direção:** manter pontos, aprendizado e prática com funções claras. A discussão seguinte deve conciliar os conteúdos de M05/M06/M07 com essa base, agrupando regras de compra e suas exceções; não retirar a economia de pontos nem criar uma quest/mentor obrigatório por técnica.
+
+## 11.2. REV-SP-02 — Compra de skills e transformações com Spiritual Points
+
+**Estado: DECIDIDO por esclarecimento explícito do usuário em 22/10/2026.** Complementa REV-SP-01 e qualifica as revisões anteriores sobre compras de técnicas e grandes marcos. **Fala registrada:** “não é para a compra de mastery não, é para comprar skills, transformações do mesmo jeito que o dragon mine z por exemplo”.
+
+**Regra comum:** Spiritual Points são utilizados para comprar **skills e transformações**, além do investimento nos atributos já previsto. A compra de skills/formas é parte estrutural do modelo de progressão; não deve ser reduzida a uma possibilidade excepcional de alguma ficha. **Mastery permanece separada: cresce pelo uso, prática e treinamento apropriados, sem compra por SP.**
+
+```text
+requisitos de acesso/contexto cumpridos
+            ↓
+skill ou transformação disponível para aquisição
+            ↓
+compra/desbloqueio com Spiritual Points
+            ↓
+uso conforme requisitos, Energia/Stamina e fases da capacidade
+            ↓
+domínio desenvolvido pela prática → Mastery
+```
+
+| Assunto | Contrato vigente |
+|---|---|
+| Skills | Compra de aquisição/desbloqueio com SP, observando disponibilidade e requisitos da capacidade. Conhecer uma fonte ou alcançar preparo não torna automaticamente toda aquisição gratuita |
+| Transformações | Compra de aquisição/desbloqueio com SP. Vínculo, prova, condição racial e outros requisitos aprovados podem abrir essa compra; não são genericamente substituídos por saldo de pontos |
+| Mastery | Não comprável. Compra entrega acesso à capacidade, não o domínio máximo. Mastery anterior pertinente pode continuar como requisito de um estágio posterior |
+| Repetição da compra | Comprar/desbloquear é separado de cada ativação. Encerrar uma forma, morrer ou desconectar não apaga a compra nem cobra novamente só para recuperar um desbloqueio persistente. Requisitos de uso/condições especiais continuam próprios |
+| Ativação e manutenção | Stamina/Energia e momentos de cobrança de M06/M07 permanecem custos de execução, separados de SP. “Sem custo ao evoluir”, “sem manutenção básica” ou “Energia ao concluir” não significam, por si só, ausência de compra de aquisição |
+| Conteúdo especial | Recompensa direta, capacidade inicial/inata, evolução permanente e qualquer exceção precisam de cobertura explícita na conciliação das fichas. Não criar agora taxa por cada golpe, salto ou ação fundamental, nem tornar exceção em eliminação geral da compra de skills/transformações |
+| Economia e apresentação | Catálogo, preços, momento/local de compra e eventuais melhorias compráveis precisam de especificação em M05/M06/M07/M08/M14/M15. Não foi definida aqui uma fórmula ou cópia integral de níveis/menus do outro mod |
+
+**Aplicação aos contratos existentes:** M01/D04, M02/PRG-06 e M04/Q11/F5 voltam a ser lidos preservando seu componente de compra. M05/REV-M02-04/05 e trechos de M06/M07 que descartavam genericamente pontos na aquisição ficam qualificados por REV-SP-02. Ausência de segundo rank obrigatório/compra de Mastery não proíbe comprar o desbloqueio da skill ou forma. Repertório como apresentação não precisa ser removido para existir uma compra.
+
+**Conciliação ainda necessária:** fichas de skills e formas devem declarar requisitos → disponibilidade de compra → débito único/registro da aquisição → requisitos/custos de uso → domínio. Os perfis operacionais já aprovados permanecem; a camada econômica de aquisição precisa ser conciliada antes de declarar a ficha executável. Não se consideram preços ou exceções resolvidos por esta nota. Reacesso/troca Fullbring e consequências especiais continuam com seus contratos; não presumir recompra, refund ou respec sem regra própria.
+
+**Referência local consultada:** [Sistema de Habilidades herdado do Dragon Mine Z](../arquitetura/05-sistema-habilidades.md), seções “Skills vs Techniques”, “Fluxo de funcionamento” e “Ciclo de vida”; [Sistema de Evolução](../arquitetura/04-sistema-evolucao.md), “Requisitos de transição” e “Unlock de longo prazo”. A documentação da engenharia reversa do original descreve TP comprando skills/form-skills e Mastery como registro separado. É referência histórica local (original 2.1.3), não verificação da versão mais recente do Dragon Mine Z. Não importar números, Mastery passiva/AFK, recompensas que maximizam domínio ou regras de Dragon Ball apenas por usar o mesmo princípio de compra.
+
 ---
 
 # 12. Crescimento por prática
@@ -584,6 +645,8 @@ Morrer normalmente não altera raça, origem ou natureza espiritual narrativa do
 ---
 
 # 18. Stamina
+
+> **Detalhamento posterior — M06-06B/C:** guarda básica usa Postura separada. Bloquear um golpe não cobra automaticamente Postura e Stamina simultaneamente; custo de Stamina em uma defesa/técnica exigente precisa de regra própria. A lista de usos possíveis abaixo não duplica a cobrança da guarda.
 
 **Estado:** `DECIDIDO`
 
@@ -1078,6 +1141,8 @@ Controle, portanto, possui importância também fora de dano e consumo de recurs
 
 # 35. Opressão espiritual
 
+> **Recorte básico vigente — M06-11L–Q, aprovado em 20/10/2026:** Liberação deliberada com manutenção, área limitada e opressão de movimento comum apenas sobre adversários elegíveis muito inferiores. Natural não aplica essa opressão; não há dano, paralisia, perda de comandos, penalidade automática à velocidade das técnicas de mobilidade, nem novo consumo de Stamina/stagger presumido. Os efeitos mais amplos listados abaixo são possibilidades anteriores, não concessões da capacidade básica. Exceção futura exige fonte/ficha e decisão no próprio escopo.
+
 **Estado:** `DECIDIDO`
 
 Diferenças muito grandes de poder espiritual podem produzir efeitos reais.
@@ -1191,6 +1256,8 @@ A skill não cria poder que o personagem não possui.
 
 # 39. Refinamentos futuros de percepção
 
+> **Consolidação posterior:** M06-11F/G/H já inclui leitura breve, informação aproximada e reconhecimento de assinatura familiar na mesma Mastery de Percepção, também usada por Pesquisa. Não criar outra técnica/medidor para cada nome abaixo automaticamente. Rastreamento contínuo, pressão focalizada e outros refinamentos não cobertos continuam no conteúdo futuro.
+
 **Estado:** `BACKLOG M06`
 
 Possíveis técnicas futuras:
@@ -1206,6 +1273,8 @@ O catálogo definitivo pertence ao M06.
 ---
 
 # 40. Mentores e ensino espiritual
+
+> **Aplicação Fullbringer vigente:** reação de um objeto é fonte possível, não exigência para todo começo. M04/F12 e M06-10 permitem fundamentos e Bringer Light antes do poder/objeto canônico. A fonte deve conhecer o tema; ter NPC não substitui prática nem obriga um professor para cada técnica.
 
 **Estado:** `DECIDIDO COMO CONTRATO`
 
@@ -1674,6 +1743,8 @@ Mastery é conquistada através de:
 
 ## REV-M02-04 — Spiritual Points como moeda de técnicas
 
+> **Qualificação posterior — REV-SP-01, 22/10/2026:** a moeda de compras permanece estrutural e não está genericamente limitada a atributos. A formulação abaixo é anterior à correção direta do usuário; não deve eliminar compras de técnicas/habilidades compatíveis. Aplicar a seção 11.1. Mastery continua não comprável e não há taxa automática para todo conteúdo.
+
 **Modelo anterior:**  
 Pontos poderiam comprar ou melhorar disciplinas e técnicas.
 
@@ -1693,6 +1764,8 @@ Caso algum conteúdo futuro exija custo especial, ele deverá ser justificado ex
 ---
 
 ## REV-M02-05 — Pontos como requisito obrigatório de grande poder
+
+> **Qualificação vigente — REV-SP-02/M05-11.2:** o usuário explicitou compra de skills e transformações. Os requisitos próprios abaixo abrem/condicionam a aquisição, sem eliminar seu componente de compra. A compra/desbloqueio usa SP; ativação/manutenção usa os recursos definidos na ficha. A formulação antiga abaixo não exclui compras de formas.
 
 **Modelo anterior:**  
 Grandes marcos poderiam presumir um componente de investimento em Points.
