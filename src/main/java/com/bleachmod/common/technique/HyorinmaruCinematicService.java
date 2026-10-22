@@ -27,11 +27,11 @@ import java.util.UUID;
 
 /**
  * Server-authoritative lifecycle controller for Daiguren Hyorinmaru's Bankai Transformation Cinematic.
- * Total presentation duration: 200 ticks (10 seconds).
+ * Total presentation duration: 400 ticks (20 seconds).
  */
 @Mod.EventBusSubscriber(modid = Reference.MOD_ID)
 public final class HyorinmaruCinematicService {
-    public static final int DURATION = 200;
+    public static final int DURATION = com.bleachmod.common.visual.HyorinmaruTimeline.DURATION;
 
     private static final class Scene {
         final long start; final Vec3 anchor; final float yaw;
@@ -94,7 +94,8 @@ public final class HyorinmaruCinematicService {
         var s = SCENES.get(p.getUUID());
         if (s == null) return;
 
-        long age = p.level().getGameTime() - s.start;
+        long elapsed = p.level().getGameTime() - s.start;
+        double age = com.bleachmod.common.visual.HyorinmaruTimeline.motionAge(elapsed);
         var data = PlayerCapability.get(p).orElse(null);
 
         boolean valid = data != null
@@ -104,7 +105,7 @@ public final class HyorinmaruCinematicService {
                 && p.isAlive()
                 && !p.isSpectator()
                 && s.dimension.equals(p.level().dimension())
-                && age >= 0 && age < DURATION
+                && elapsed >= 0 && elapsed < DURATION
                 && p.position().distanceToSqr(s.anchor) < 256.0;
 
         if (age >= 175 && data != null && (data.getGuard().shownActive() || data.getStatus().isDodging())) {
@@ -117,41 +118,37 @@ public final class HyorinmaruCinematicService {
         }
 
         if(p.position().distanceToSqr(s.anchor)>9)s.suppressBreath=true;
-        if(age>=108 && age<=144 && age%3==0) breath(p,s,(int)age);
+        if(age>=108 && age<=144 && elapsed%6==0) breath(p,s,(int)age);
         ServerLevel level = p.serverLevel();
         Vec3 pos = s.anchor;
 
-        // Stage 1 (Ticks 0-25): Subzero Frost Vortex & "Bankai" Voice
-        if (age == 12) {
-            level.playSound(null, pos.x, pos.y, pos.z, ModSounds.HYORINMARU_VOICE_BANKAI.get(), SoundSource.PLAYERS, 1.2F, 1.0F);
-        }
+        // Dialogue/music follow the synchronized snapshot on clients; world effects remain server-owned.
         if (age < 44) {
-            if (age % 3 == 0) {
+            if (elapsed % 6 == 0) {
                 level.sendParticles(ParticleTypes.SNOWFLAKE, pos.x, pos.y + 0.1, pos.z, 20, 1.2, 0.2, 1.2, 0.02);
             }
         }
-        // Stage 2 (Tick 25): Ring of Ice Eruption and Hydra Emergence
-        else if (age == 44) {
+        // Tick88 (4.4s): Ice eruption and slower hydra emergence.
+        else if (elapsed == 88) {
             level.playSound(null, pos.x, pos.y, pos.z, SoundEvents.GLASS_BREAK, SoundSource.PLAYERS, 1.0F, 0.8F);
             level.sendParticles(ParticleTypes.ITEM_SNOWBALL, pos.x, pos.y + 0.3, pos.z, 60, 2.5, 0.5, 2.5, 0.1);
 
             // Spawn the stationary 3-headed Hydra entity behind the player
             IceDragonEntity hydra = ModEntities.ICE_DRAGON.get().create(level);
             if (hydra != null) {
-                hydra.configureStationary(p, pos, s.yaw, DURATION - 44);
+                hydra.configureStationary(p, pos, s.yaw, DURATION - 88);
                 if (level.addFreshEntity(hydra)) {
                     MANIFESTATIONS.put(p.getUUID(), hydra.getUUID());
                 }
             }
         }
-        // Stage 3 (Tick 70): Rising Hydra, Name Callout
-        else if (age == 165) {
-            level.playSound(null, pos.x, pos.y, pos.z, ModSounds.HYORINMARU_VOICE_NAME.get(), SoundSource.PLAYERS, 1.3F, 1.0F);
-            level.playSound(null, pos.x, pos.y, pos.z, SoundEvents.ENDER_DRAGON_GROWL, SoundSource.PLAYERS, 0.6F, 1.3F);
+        // Tick330 (16.5s): Full name, after the breath clears.
+        else if (elapsed == 330) {
+            level.playSound(null, pos.x, pos.y, pos.z, SoundEvents.ENDER_DRAGON_GROWL, SoundSource.PLAYERS, 0.12F, 1.3F);
             level.sendParticles(ParticleTypes.SNOWFLAKE, pos.x, pos.y + 1.2, pos.z, 40, 2.0, 0.8, 2.0, 0.05);
         }
-        // Stage 4 (Tick 100): Hydra Roar & Frost Shockwave
-        else if (age == 108) {
+        // Tick216 (10.8s): Preserved hydra roar and extended frost shockwave.
+        else if (elapsed == 216) {
             level.playSound(null, pos.x, pos.y, pos.z, ModSounds.HYORINMARU_ROAR.get(), SoundSource.PLAYERS, 1.4F, 0.9F);
             level.playSound(null, pos.x, pos.y, pos.z, SoundEvents.GLASS_BREAK, SoundSource.PLAYERS, 1.2F, 0.5F);
             level.sendParticles(ParticleTypes.SNOWFLAKE, pos.x, pos.y + 1.5, pos.z, 120, 3.5, 1.0, 3.5, 0.2);
@@ -160,7 +157,7 @@ public final class HyorinmaruCinematicService {
 
     private static void breath(ServerPlayer p,Scene s,int age) {
         Vec3 forward=Vec3.directionFromRotation(0,s.yaw),side=new Vec3(forward.z,0,-forward.x);
-        double reach=24*Math.min(1,(age-105)/24.0);
+        double reach=com.bleachmod.common.visual.HyorinmaruTimeline.BREATH_REACH*Math.min(1,(age-105)/24.0);
         var level=p.serverLevel();
         for(int head=0;head<3;head++){
             Vec3 local=com.bleachmod.common.visual.HydraMotion.point(false,head,age-44,1,32);
@@ -181,7 +178,7 @@ public final class HyorinmaruCinematicService {
             }
         }
         if(s.suppressBreath || age<120)return;
-        for(var t:level.getEntitiesOfClass(net.minecraft.world.entity.LivingEntity.class,new net.minecraft.world.phys.AABB(s.anchor,s.anchor.add(forward.scale(24))).inflate(24,4,24),t->TechniqueTargets.allowed(p,t))){
+        for(var t:level.getEntitiesOfClass(net.minecraft.world.entity.LivingEntity.class,new net.minecraft.world.phys.AABB(s.anchor,s.anchor.add(forward.scale(com.bleachmod.common.visual.HyorinmaruTimeline.BREATH_REACH))).inflate(com.bleachmod.common.visual.HyorinmaruTimeline.BREATH_REACH,4,com.bleachmod.common.visual.HyorinmaruTimeline.BREATH_REACH),t->TechniqueTargets.allowed(p,t))){
             Vec3 d=t.getBoundingBox().getCenter().subtract(s.anchor);double along=d.dot(forward),lateral=Math.abs(d.dot(side));
             if(along<0 || along>reach || lateral>1+along || Math.abs(d.y)>4 || s.hits.size()>=64 || s.hits.contains(t.getUUID()))continue;
             var wall=level.clip(new net.minecraft.world.level.ClipContext(s.anchor.add(0,1.2,0),t.getBoundingBox().getCenter(),net.minecraft.world.level.ClipContext.Block.COLLIDER,net.minecraft.world.level.ClipContext.Fluid.NONE,p));

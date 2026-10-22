@@ -24,7 +24,7 @@ import java.util.Map;
 
 /**
  * Client-side camera director and presentation renderer for Daiguren Hyorinmaru's Bankai Transformation.
- * Total presentation duration: 200 ticks (10 seconds).
+ * Total presentation duration: 400 ticks (20 seconds).
  */
 @Mod.EventBusSubscriber(modid = Reference.MOD_ID, value = Dist.CLIENT)
 public final class HyorinmaruCinematicClient {
@@ -74,6 +74,7 @@ public final class HyorinmaruCinematicClient {
         }
 
         boolean fresh = !SCENES.containsKey(id);
+        if(fresh)com.bleachmod.client.model.HyorinmaruFrozenGround.forget(anchor);
         SCENES.put(id, new Scene(mc.level.getGameTime() - elapsed, anchor, Vec3.directionFromRotation(0, yaw), yaw));
 
         if (fresh && mc.player != null && mc.player.getId() == id) {
@@ -86,7 +87,9 @@ public final class HyorinmaruCinematicClient {
     }
 
     private static void finish(int id) {
-        SCENES.remove(id);
+        var removed=SCENES.remove(id);
+        if(removed!=null)com.bleachmod.client.model.HyorinmaruFrozenGround.forget(removed.anchor);
+        HyorinmaruEntranceAudio.stop(id);
         var mc = Minecraft.getInstance();
         if (mc.player != null && mc.player.getId() == id) {
             restoreCamera();
@@ -95,6 +98,8 @@ public final class HyorinmaruCinematicClient {
 
     private static void clear() {
         SCENES.clear();
+        HyorinmaruEntranceAudio.clear();
+        com.bleachmod.client.model.HyorinmaruFrozenGround.clear();
         restoreCamera();
     }
 
@@ -132,15 +137,20 @@ public final class HyorinmaruCinematicClient {
         Vec3 face=s.anchor.add(0,1.45,0);
         Vec3 wide=s.anchor.add(s.forward.scale(24)).add(side.scale(7)).add(0,8,0);
         Vec3 whole=s.anchor.subtract(s.forward.scale(3)).add(0,6.5,0);
-        Vec3 finale=s.anchor.add(s.forward.scale(23)).add(side.scale(-5)).add(0,7,0);
+        Vec3 revealWide=s.anchor.add(s.forward.scale(23)).add(side.scale(-5)).add(0,7,0);
+        Vec3 finale=s.anchor.add(s.forward.scale(6)).add(side.scale(-2)).add(0,2.8,0);
         if(time<25)return new Shot(close,face,fov*.94F);
         if(time<88){
             double t=smooth((time-25)/63);
             return new Shot(close.lerp(wide,t),face.lerp(whole,t),(float)Mth.lerp(t,fov*.94F,fov));
         }
+        if(time<156){
+            double t=smooth((time-88)/68);
+            return new Shot(wide.lerp(revealWide,t),whole,fov);
+        }
         if(time<184){
-            double t=smooth((time-88)/96);
-            return new Shot(wide.lerp(finale,t),whole,fov);
+            double t=smooth((time-156)/28);
+            return new Shot(revealWide.lerp(finale,t),whole.lerp(face,t),fov);
         }
         // Return from the actual preceding shot, respecting the previous F5 mode.
         double t=smooth((time-184)/16);
@@ -149,7 +159,7 @@ public final class HyorinmaruCinematicClient {
         Vec3 end=eye,focus=eye.add(look.scale(6));
         if(previousCameraType==CameraType.THIRD_PERSON_BACK)end=eye.subtract(look.scale(4));
         if(previousCameraType==CameraType.THIRD_PERSON_FRONT){end=eye.add(look.scale(4));focus=eye;}
-        return new Shot(finale.lerp(end,t),whole.lerp(focus,t),fov);
+        return new Shot(finale.lerp(end,t),face.lerp(focus,t),fov);
     }
 
     @SubscribeEvent(priority = EventPriority.LOW)
@@ -168,7 +178,7 @@ public final class HyorinmaruCinematicClient {
             return;
         }
 
-        Shot sh = computeShot(s, age);
+        Shot sh = computeShot(s, com.bleachmod.common.visual.HyorinmaruTimeline.motionAge(age));
         Vec3 eye = sh.eye;
         Vec3 safeOrigin = mc.player != null ? mc.player.getEyePosition() : s.anchor.add(0, 1.6, 0);
 
@@ -202,7 +212,8 @@ public final class HyorinmaruCinematicClient {
         if(e.getStage()!=net.minecraftforge.client.event.RenderLevelStageEvent.Stage.AFTER_PARTICLES || world!=Minecraft.getInstance().level)return;
         int count=0;for(var scene:SCENES.values()){
             if(++count>6)break;
-            com.bleachmod.client.model.HyorinmaruBreathVisual.render(e.getPoseStack(),e.getCamera().getPosition(),scene.anchor,scene.forward,age(scene,e.getPartialTick()));
+            com.bleachmod.client.model.HyorinmaruBreathVisual.render(e.getPoseStack(),e.getCamera().getPosition(),scene.anchor,scene.forward,com.bleachmod.common.visual.HyorinmaruTimeline.motionAge(age(scene,e.getPartialTick())));
+            com.bleachmod.client.model.HyorinmaruFrozenGround.render(e.getPoseStack(),e.getCamera().getPosition(),scene.anchor,scene.forward,age(scene,e.getPartialTick()));
         }
     }
 
@@ -213,7 +224,7 @@ public final class HyorinmaruCinematicClient {
         if (s == null) return;
         double age = age(s, (float) event.getPartialTick());
         if (age < DURATION && age >= 0 && event.usedConfiguredFov()) {
-            event.setFOV(computeShot(s, age).fov);
+            event.setFOV(computeShot(s, com.bleachmod.common.visual.HyorinmaruTimeline.motionAge(age)).fov);
         }
     }
 
@@ -241,9 +252,9 @@ public final class HyorinmaruCinematicClient {
         g.fill(0, g.guiHeight() - barHeight, g.guiWidth(), g.guiHeight(), 0xEE000000);
 
         var font = Minecraft.getInstance().font;
-        if (age >= 10 && age < 65) {
+        if (age >= 20 && age < 100) {
             g.drawCenteredString(font, "Bankai", g.guiWidth() / 2, g.guiHeight() - barHeight - 20, 0xCEF0FF);
-        } else if (age >= 165 && age < 195) {
+        } else if (age >= 330 && age < 390) {
             g.drawCenteredString(font, "Daiguren Hyōrinmaru", g.guiWidth() / 2, g.guiHeight() - barHeight - 20, 0x8BE0FF);
         }
     }
@@ -275,11 +286,13 @@ public final class HyorinmaruCinematicClient {
             restoreCamera();
         }
 
+        for(var entry:SCENES.entrySet())HyorinmaruEntranceAudio.update(entry.getKey(),age(entry.getValue(),0),entry.getValue().anchor,mc.player!=null && mc.player.getId()==entry.getKey());
         SCENES.entrySet().removeIf(e -> {
             boolean done = (world.getGameTime() - e.getValue().start) >= DURATION;
             if (done && mc.player != null && mc.player.getId() == e.getKey()) {
                 restoreCamera();
             }
+            if(done){HyorinmaruEntranceAudio.stop(e.getKey());com.bleachmod.client.model.HyorinmaruFrozenGround.forget(e.getValue().anchor);}
             return done;
         });
     }

@@ -28,6 +28,20 @@ public final class ElementalReworkGameTests {
         return net.minecraft.world.damagesource.CombatRules.getDamageAfterAbsorb(scaled,t.getArmorValue(),(float)t.getAttributeValue(net.minecraft.world.entity.ai.attributes.Attributes.ARMOR_TOUGHNESS));
     }
     private static void clean(FakePlayer p,LivingEntity... targets){RyujinTechniqueService.cancel(p);for(var t:targets)t.discard();}
+    @GameTest(template="empty",batch="bankai_no_weather")
+    public static void bankaiAndGlacialZoneDoNotChangeClearOrNaturalStormWeather(GameTestHelper h){
+        var p=player(h,"hyorinmaru","bankai");var level=h.getLevel();var w=level.getServer().getWorldData().overworldData();
+        var prior=new int[]{w.getClearWeatherTime(),w.getRainTime(),w.getThunderTime()};boolean rain=w.isRaining(),thunder=w.isThundering();float r=level.getRainLevel(1),t=level.getThunderLevel(1);
+        try{
+            for(boolean storm:List.of(false,true)){
+                level.setWeatherParameters(storm?0:400,800,storm,storm);level.setRainLevel(storm?1:0);level.setThunderLevel(storm?.7F:0);
+                for(int i=0;i<50;i++)HyorinmaruTechniqueService.tick(p,d(p));
+                d(p).getStatus().clearCooldowns();TechniqueService.executeSlot(p,d(p),4);HyorinmaruTechniqueService.cancel(p);
+                h.assertTrue(w.isRaining()==storm && w.isThundering()==storm && w.getClearWeatherTime()==(storm?0:400) && w.getRainTime()==800,"Bankai changed weather flags/timers");
+                h.assertTrue(level.getRainLevel(1)==(storm?1:0),"Bankai changed precipitation intensity");
+            }
+        }finally{clean(p);w.setClearWeatherTime(prior[0]);w.setRainTime(prior[1]);w.setThunderTime(prior[2]);w.setRaining(rain);w.setThundering(thunder);level.setRainLevel(r);level.setThunderLevel(r>0?t/r:0);}h.succeed();
+    }
     @GameTest(template="empty",batch="ice_eruption_new",timeoutTicks=90)
     public static void eruptionArrivesAsWaveAndRupturesOnlyHitGroundedTargets(GameTestHelper h){
         var p=player(h,"hyorinmaru","bankai");var t=target(h,p,0,24);var side=target(h,p,22,24);var rear=target(h,p,0,-5);

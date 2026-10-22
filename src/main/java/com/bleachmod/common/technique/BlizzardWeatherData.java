@@ -14,7 +14,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import java.util.*;
 
-/** Recoverable dimension-wide weather lease, with biome-aware local snow visuals. No block placement. */
+/** Legacy weather lease recovery. Current Hyorinmaru gameplay never acquires this lease. */
 @Mod.EventBusSubscriber(modid = Reference.MOD_ID)
 public final class BlizzardWeatherData extends SavedData {
     private static final String FILE = "bleachmod_blizzard_weather";
@@ -82,22 +82,6 @@ public final class BlizzardWeatherData extends SavedData {
         if (managed && !stillOurs(level)) { managed = false; setDirty(); } // Respect a subsequent /weather command.
         if (owners.isEmpty()) restore(level); // Also recovers the previous climate after save/restart, before owners rejoin.
         else if (managed && controlledUntil - level.getGameTime() < 60000) start(level);
-    }
-    public static void tickCaster(ServerPlayer p, PlayerData d) {
-        boolean active = p.isAlive() && !p.isSpectator() && d.getStatus().hasCreatedCharacter()
-                && CharacterData.HYORINMARU.equals(d.getCharacter().getZanpakutoIdentity())
-                && Reference.FORM_BANKAI.equals(d.getCharacter().getActiveForm()) && eligible(p.serverLevel(), p.blockPosition());
-        if (!Level.OVERWORLD.equals(p.level().dimension())) return;
-        if (!active) { get(p.serverLevel()).release(p.serverLevel(), p.getUUID()); return; }
-        get(p.serverLevel()).acquire(p.serverLevel(), p.getUUID());
-        if (!get(p.serverLevel()).isManaged() || p.tickCount % 4 != 0) return;
-        for (int i = 0; i < 12; i++) {
-            double x = p.getX() + (p.getRandom().nextDouble() - 0.5) * 24;
-            double z = p.getZ() + (p.getRandom().nextDouble() - 0.5) * 24;
-            BlockPos pos = BlockPos.containing(x, p.getY() + 4, z);
-            if (!p.serverLevel().hasChunkAt(pos) || !eligible(p.serverLevel(), pos) || !p.level().canSeeSky(pos)) continue;
-            p.serverLevel().sendParticles(ParticleTypes.SNOWFLAKE, x, pos.getY(), z, 6, 0.8, 2, 0.8, 0.07);
-        }
     }
     public static void cancel(ServerPlayer p) {
         ServerLevel level = p.getServer().getLevel(Level.OVERWORLD);

@@ -54,12 +54,16 @@ public final class HyorinmaruQaSequence {
             "05_slot3_ice_eruption",
             "06_slot4_blizzard_zone",
             "07_shikai_slot3_sennen",
-            "08_sealed_armor"
+            "08_sealed_armor",
+            "09_slot2_hydra_wall",
+            "10_slot2_hydra_uneven"
     };
 
     private record Trial(String name, UUID owner, Vec3 origin, long start, int maxTicks, List<UUID> targets) { }
 
     private static volatile Trial trial;
+    private static volatile boolean serverFinished;
+    private static volatile int serverAge;
     private static int stage = 0;
     private static int wait = 0;
     private static int lastFrame = -1;
@@ -135,30 +139,31 @@ public final class HyorinmaruQaSequence {
 
         if (stage < CASES.length) {
             int neededWait = (stage == 0) ? 40 : trial != null ? trial.maxTicks()+20 : 100;
-            if (wait >= neededWait) {
+            if ((stage==0 && wait>=neededWait) || (stage>0 && serverFinished && wait>=40)) {
                 var name = CASES[stage];
                 var id = mc.player.getUUID();
                 int index = stage++;
                 wait = 0;
+                serverFinished=false;serverAge=0;trial=null;
                 lastFrame = -1;
 
                 mc.options.setCameraType(index == 1 ? CameraType.THIRD_PERSON_FRONT : CameraType.THIRD_PERSON_BACK);
                 mc.options.hideGui = true;
 
-                evidence = mc.gameDirectory.toPath().resolve("hyorinmaru-qa/cycle89-" + RUN_ID + "/" + name);
+                evidence = mc.gameDirectory.toPath().resolve("hyorinmaru-qa/cycle92-" + RUN_ID + "/" + name);
                 try {
                     Files.createDirectories(evidence);
                 } catch (IOException ignored) { }
 
                 mc.getSingleplayerServer().execute(() -> prepareServer(mc.getSingleplayerServer().getPlayerList().getPlayer(id), index, name));
             }
-        } else if (stage == CASES.length && wait >= 60) {
+        } else if (stage == CASES.length && serverFinished && wait >= 40) {
             stage++;
             trial = null;
             mc.options.setCameraType(previousCamera != null ? previousCamera : CameraType.FIRST_PERSON);
             mc.options.hideGui = previousHud;
             LogUtils.getLogger().info("=================================================================");
-            LogUtils.getLogger().info("Hyorinmaru QA sequence COMPLETE: All 8 scenarios executed & captured!");
+            LogUtils.getLogger().info("Hyorinmaru QA sequence COMPLETE: All 10 scenarios executed & captured!");
             LogUtils.getLogger().info("=================================================================");
             if (mc.player != null) {
                 mc.player.displayClientMessage(net.minecraft.network.chat.Component.literal("§a[Hyorinmaru QA] Sequência finalizada com sucesso! Screenshots salvas em hyorinmaru-qa/"), false);
@@ -219,15 +224,18 @@ public final class HyorinmaruQaSequence {
                 LogUtils.getLogger().info("Hyorinmaru QA: Bankai Wings & Lotus Showcase");
             }
             case 7 -> {d.getCharacter().setActiveForm("zanpakuto","sealed");d.getCharacter().setSelectedForm("zanpakuto","sealed");maxTicks=140;}
-            case 2, 3, 4, 5, 6 -> {
+            case 2, 3, 4, 5, 6, 8, 9 -> {
                 // Approved Bankai slots and enlarged Shikai Sennen
                 d.getCharacter().setActiveForm("zanpakuto", "bankai");
                 d.getCharacter().setSelectedForm("zanpakuto", "bankai");
 
                 if(index==6){d.getCharacter().setActiveForm("zanpakuto","shikai");d.getCharacter().setSelectedForm("zanpakuto","shikai");}
+                if(index==8)for(int bx=-14;bx<=14;bx++)for(int by=0;by<6;by++)p.serverLevel().setBlock(net.minecraft.core.BlockPos.containing(origin).offset(bx,by,10),net.minecraft.world.level.block.Blocks.STONE.defaultBlockState(),3);
+                if(index==9)for(int bx=-14;bx<=14;bx++)for(int bz=24;bz<=38;bz++)for(int by=0;by<Math.floorMod(bx+bz,3);by++)p.serverLevel().setBlock(net.minecraft.core.BlockPos.containing(origin).offset(bx,by,bz),net.minecraft.world.level.block.Blocks.STONE.defaultBlockState(),3);
                 Husk target = EntityType.HUSK.create(p.serverLevel());
                 if (target != null) {
-                    target.setPos(origin.add(0, 0, index == 2 ? 10 : index == 3 ? 30 : index==4?24:index==6?16:6));
+                    target.setPos(origin.add(0, 0, index == 2 ? 10 : index == 3 ? 30 : index==4?24:index==6?16:index==9?30:6));
+                    if(index==9)target.setPos(target.getX(),p.serverLevel().getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,target.blockPosition().getX(),target.blockPosition().getZ()),target.getZ());
                     target.setNoAi(true);
                     target.setPersistenceRequired();
                     target.getAttribute(Attributes.MAX_HEALTH).setBaseValue(500);
@@ -244,6 +252,7 @@ public final class HyorinmaruQaSequence {
         SyncHelper.appearance(p);
         p.serverLevel().setDayTime(6000);
 
+        serverFinished=false;serverAge=0;
         trial = new Trial(name, p.getUUID(), origin, p.level().getGameTime(), maxTicks, List.copyOf(targets));
         LogUtils.getLogger().info("Hyorinmaru QA prepared {} at {} targets={}", name, origin, targets.size());
     }
@@ -258,6 +267,7 @@ public final class HyorinmaruQaSequence {
         if (p == null) return;
 
         long age = p.level().getGameTime() - t.start();
+        serverAge=(int)age;
 
         // Cast technique for slots 1-4 at tick 10
         if (age == 10) {
@@ -283,6 +293,7 @@ public final class HyorinmaruQaSequence {
         if(age==30 || age==65 || age==100)for(var id:t.targets()){var target=p.serverLevel().getEntity(id);if(target instanceof net.minecraft.world.entity.LivingEntity living)LogUtils.getLogger().info("Hyorinmaru QA target {} tick={} health={} frozen={}",t.name(),age,living.getHealth(),living.getTicksFrozen());}
         // Cleanup targets at end of trial
         if (age >= t.maxTicks()) {
+            serverFinished=true;
             for (var tid : t.targets()) {
                 var ent = p.serverLevel().getEntity(tid);
                 if (ent != null) ent.discard();
@@ -297,7 +308,7 @@ public final class HyorinmaruQaSequence {
         var mc = Minecraft.getInstance();
         if (mc.player == null || mc.level == null || mc.screen != null) return;
 
-        int age = (int) (mc.level.getGameTime() - t.start());
+        int age = serverAge;
         if (age < 0 || age > t.maxTicks()) return;
 
         // Capture every 4 ticks (or key ticks 0, 15, 25, 40, 70)

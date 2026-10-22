@@ -51,7 +51,7 @@ public final class ZanpakutoReleaseAnimation {
     }
     public static float manifestationGrowth(AbstractClientPlayer p,float partial){var v=view(p);return v==null?1:Mth.clamp((progress(p,v,partial)-.66F)/.3F,0,1);}
     public static boolean active(AbstractClientPlayer p){return view(p)!=null;}
-    public static float iceGrowth(AbstractClientPlayer p,float partial){var v=view(p);return v==null?1:Mth.clamp((progress(p,v,partial)*v.duration-120)/46F,0,1);}
+    public static float iceGrowth(AbstractClientPlayer p,float partial){var v=view(p);return v==null?1:Mth.clamp((progress(p,v,partial)*v.duration-com.bleachmod.common.visual.HyorinmaruTimeline.COMMIT)/92F,0,1);}
     private static float progress(AbstractClientPlayer p,View v,float partial){return Mth.clamp((p.level().getGameTime()-v.start+partial)/v.duration,0,1);}
     private static float weight(float t){return Math.min(1,t*8)*Math.min(1,(1-t)*6);}
     private static Vec3f mix(Vec3f a,float x,float y,float z,float w){return new Vec3f(Mth.lerp(w,a.getX(),x),Mth.lerp(w,a.getY(),y),Mth.lerp(w,a.getZ(),z));}

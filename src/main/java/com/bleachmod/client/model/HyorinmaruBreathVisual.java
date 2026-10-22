@@ -24,7 +24,7 @@ public final class HyorinmaruBreathVisual {
             ribbon(out,matrix,camera,mouth,merge,side,age+head*2,.9,weight);
         }
         for(int lane=-3;lane<=3;lane++){
-            double reach=24*Mth.clamp((age-105)/24,0,1);
+            double reach=com.bleachmod.common.visual.HyorinmaruTimeline.BREATH_REACH*Mth.clamp((age-105)/24,0,1);
             Vec3 end=anchor.add(forward.scale(reach)).add(side.scale(lane*reach*.27)).add(0,1,0);
             var wall=mc.level.clip(new net.minecraft.world.level.ClipContext(merge,end,net.minecraft.world.level.ClipContext.Block.COLLIDER,net.minecraft.world.level.ClipContext.Fluid.NONE,mc.player));
             if(wall.getType()!=net.minecraft.world.phys.HitResult.Type.MISS)end=wall.getLocation();

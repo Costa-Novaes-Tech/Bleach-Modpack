@@ -1,0 +1,27 @@
+{
+  "music_original_gain_db": -9.12,
+  "additional_voice_window_duck_db": -14.89,
+  "voices": {
+    "hyorinmaru_voice_bankai": {
+      "start_seconds": 1.2,
+      "duration_seconds": 1.05,
+      "voice_rms_dbfs": -12.3,
+      "bed_rms_dbfs": -54.48,
+      "voice_over_bed_db": 42.18
+    },
+    "hyorinmaru_voice_name": {
+      "start_seconds": 16.5,
+      "duration_seconds": 2.5,
+      "voice_rms_dbfs": -13.89,
+      "bed_rms_dbfs": -46.29,
+      "voice_over_bed_db": 32.4
+    }
+  },
+  "roar_preserved_sha256": "f3f4fe4e5595f1fcba4637536caa024373a9ef124f9b579f569260ba92ab41c9",
+  "tool": {
+    "name": "imageio-ffmpeg",
+    "version": "0.6.0",
+    "scope": "build/audio-tools; cached PyPI wheel; no system changes",
+    "exe_sha256": "2ce797a0f88d7f067180338fb227f7b1928ea727bd9a4d7a1d022f7c52af71a3"
+  }
+}

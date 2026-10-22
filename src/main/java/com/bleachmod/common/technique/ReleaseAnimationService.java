@@ -26,7 +26,7 @@ public final class ReleaseAnimationService {
         Release(ServerPlayer p, PlayerData d, String group, String form, float cost) {
             owner=p;identity=d.getCharacter().getZanpakutoIdentity();oldForm=d.getCharacter().getActiveForm();
             this.group=group;this.form=form;this.cost=cost;weapon=p.getMainHandItem().getItem();
-            start=p.level().getGameTime();dimension=p.level().dimension();duration=form.equals("bankai")?(identity.equals(CharacterData.HYORINMARU)?HyorinmaruCinematicService.DURATION:60):24;commit=identity.equals(CharacterData.HYORINMARU)&&form.equals("bankai")?120:duration*2/3;
+            start=p.level().getGameTime();dimension=p.level().dimension();duration=form.equals("bankai")?(identity.equals(CharacterData.HYORINMARU)?HyorinmaruCinematicService.DURATION:60):24;commit=identity.equals(CharacterData.HYORINMARU)&&form.equals("bankai")?com.bleachmod.common.visual.HyorinmaruTimeline.COMMIT:duration*2/3;
         }
     }
     private ReleaseAnimationService() { }

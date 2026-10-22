@@ -207,7 +207,7 @@ public final class ElementalTechniqueService {
             }
             case "hydra_assault"->{
                 if(age==1){c.hydra=com.bleachmod.registry.ModEntities.ICE_DRAGON.get().create(p.serverLevel());if(c.hydra!=null){c.hydra.configureAssault(p,c.origin,(float)Math.toDegrees(Math.atan2(-c.forward.x,c.forward.z)),32);p.serverLevel().addFreshEntity(c.hydra);}}
-                if(age>48 && age%4==0)for(int i=0;i<3;i++){Vec3 at=c.origin.add(c.forward.scale(32)).add(c.forward.z*(i-1)*5,.2,-c.forward.x*(i-1)*5);p.serverLevel().sendParticles(ParticleTypes.SNOWFLAKE,at.x,at.y,at.z,10,3,.3,3,.01);}
+
             }
             case "ice_eruption"->{
                 if(age>=12 && age<=42)for(var t:cutVictims(c,.577)){

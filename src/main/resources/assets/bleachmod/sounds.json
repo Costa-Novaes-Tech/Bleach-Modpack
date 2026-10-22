@@ -98,5 +98,6 @@
         "attenuation_distance": 64
       }
     ]
-  }
+  },
+  "hyorinmaru.theme": {"sounds": [{"name": "bleachmod:hyorinmaru_theme", "stream": true}]}
 }

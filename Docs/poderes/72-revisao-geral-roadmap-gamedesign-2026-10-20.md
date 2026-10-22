@@ -1,5 +1,11 @@
 # Ciclo 72 — revisão geral do projeto, game design e roadmap
 
+> **Atualização92 — 22/10/2026:** [92: áudio Hyōrinmaru, transformação20s e gelo temporário](92-audio-hyorinmaru-transformacao-gelo-temporario-2026-10-22.md). Nova mixagem com fala separada, transformação20s, baforada36blocos e piso de gelo visual temporário; clima global independente. Rede2.35. Não muda a ordem obrigatória abaixo; aceites artísticos/auditivos e multiplayer continuam pendentes. Resultados no relatório92.
+
+**Implementação22/10 — ciclo91:** [hidra mais robusta, N com explosões sem retorno e weather desacoplado](91-hidra-robusta-explosoes-clima-local-2026-10-22.md). Câmera aproxima a revelação; modelo/geometria e resíduos locais atualizados; custo/recarga/passivas preservados. Base+Photon140 regressões/176 GameTests. A implementação do90 não encerra a homologação artística nem as pendências de mãos/combate, outras técnicas e multiplayer do89. Demais frentes desta lista continuam obrigatórias.
+
+**Planejamento21/10 — ciclo90:** [refino da hidra e remoção do vínculo climático](90-planejamento-refino-hidra-impactos-sem-weather-2026-10-21.md). Acrescentar pescoços mais robustos/proporcionais; Bankai sem acionar weather global; ataqueN com três saídas por trás e impactos explosivos que espalham gelo/dano em área, sem retorno. Substitui a coreografia de recolhimento88–89. Apenas documentos; não implementado. Mantidas as demais pendências do89 e a lista obrigatória deste roadmap.
+
 **Atualização21/10 — ciclo89:** [primeira implementação do novo kit/hidra Hyōrinmaru](89-implementacao-hyorinmaru-hidra-kit-2026-10-21.md). Novos slots88, transformação10s, baforada, asas/cauda, Sennen Shikai e Revestimento selado já implementados;139 regressões/173 GameTests nos perfis base/Photon. Ainda requer homologação visual e testes multiplayer em dois clientes. Não encerrar a fila obrigatória por esta entrega; clima/C, refinamento artístico, Benihime/Ryūjin e demais itens preservam suas pendências.
 
 Revisão de 20/10/2026. Pedido do usuário: revisar a documentação e explicar o estágio do mod e o que falta, sem alterar agora os sons. Git inicial limpo em `Feature-Poderes-bankais`, HEAD `7621758` (`Feature: Adição de audio de Benihime`). Esta rodada altera somente documentação em `Docs/poderes`; não executa jogo, build, testes, instalação, commit, push ou merge.

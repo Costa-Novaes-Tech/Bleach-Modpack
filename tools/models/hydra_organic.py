@@ -19,18 +19,19 @@ def box(origin, size, uv=(64, 32)):
 def build_geo_json():
     bones=[{'name':'root','pivot':[0,0,0],'cubes':[]}]
     for side,name in enumerate(NAMES):
-        x=(0,22,-22)[side]
+        x=(0,42,-42)[side]
         bones.append({'name':'root_'+name,'parent':'root','pivot':[0,0,0], 'cubes':[
-            box([x-12,0,-8],[24,5,20]),box([x-7,3,-4],[14,10,12],(16,0))]})
+            box([x-24,0,-16],[48,7,36]),box([x-14,3,-9],[28,12,22],(16,0))]})
         for i in range(LINKS):
-            r=17-i*.45
+            r=25.5-i*.75
             cubes=[box([-r,0,-r*.7],[r*2,16,r*1.4]),
                    box([-r*.7,0,-r],[r*1.4,16,r*2]),
-                   box([-2,5,r-1],[4,9,6],(16,0))]
+                   box([-3,4,r-2],[6,11,8],(16,0)),
+                   box([-r*.75,0,-r*.75],[r*1.5,3,r*1.5],(64,16))]
             bones.append({'name':f'neck_{name}_{i+1}','parent':'root_'+name,'pivot':[0,0,0],
                           'cubes':cubes})
         # Skull, long muzzle, brows and crown, with a separate movable jaw.
-        cubes=[box([-17,0,-18],[34,21,30],(64,0)),box([-12,-8,-54],[24,14,39],(64,16)),
+        cubes=[box([-16,-2,-14],[32,12,26],(64,32)),box([-17,0,-18],[34,21,30],(64,0)),box([-12,-8,-54],[24,14,39],(64,16)),
                box([-9,-3,-64],[18,8,14],(64,16))]
         for sign in (-1,1):
             cubes.extend([box([sign*16-2,9,-24],[4,5,15],(4,4)),

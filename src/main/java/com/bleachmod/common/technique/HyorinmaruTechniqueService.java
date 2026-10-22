@@ -136,7 +136,7 @@ public final class HyorinmaruTechniqueService {
     }
     public static void tick(ServerPlayer p, PlayerData d) {
         IceArmorService.tick(p);
-        BlizzardWeatherData.tickCaster(p, d);
+        // Bankai atmosphere is local; never acquire a dimension-wide weather lease.
         if (CharacterData.HYORINMARU.equals(d.getCharacter().getZanpakutoIdentity()) && equipped(p,d)
                 && p.isAlive() && !p.isSpectator() && Reference.FORM_BANKAI.equals(d.getCharacter().getActiveForm())
                 && !ReleaseAnimationService.busy(p) && p.tickCount % 8 == 0) {

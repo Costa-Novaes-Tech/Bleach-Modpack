@@ -1,3 +1,9 @@
+> **Implementação mais recente — ciclo91, 22/10/2026:** [hidra robusta, impactos explosivos sem retorno e clima local](91-hidra-robusta-explosoes-clima-local-2026-10-22.md). Rede2.34, schema9/revisão4. Base e Photon140 regressões/176 GameTests; critérios de homologação e evidências no relatório. Mantidas as pendências do roadmap.
+
+> **Implementação atual — ciclo92:** [92: áudio Hyōrinmaru, transformação20s e gelo temporário](92-audio-hyorinmaru-transformacao-gelo-temporario-2026-10-22.md). Falas fornecidas pelo usuário, música reduzida, rugido mantido; cena20s, baforada36blocos e gelo visual temporário. Sem weather global. Rede2.35; resultados e pendências no relatório. Registros seguintes são antecedentes.
+
+> **Próximos ajustes — ciclo90, somente planejamento:** [proporções da hidra, remoção de weather e três impactos explosivos sem retorno](90-planejamento-refino-hidra-impactos-sem-weather-2026-10-21.md). A versão implementada continua89; raio/dano das explosões ainda a fechar.
+
 > **Implementação atual — ciclo89:** [hidra articulada, transformação e novo kit Hyōrinmaru](89-implementacao-hyorinmaru-hidra-kit-2026-10-21.md). Bankai H Ryūsenka / N Hidra / B Erupção / C preservado; Shikai B Sennen e selada B Revestimento. Rede2.33, schema9/revisão4. Base+Photon139 regressões/173 GameTests; homologação artística e multiplayer com dois clientes pendentes. Os avisos seguintes são registros anteriores.
 
 > **Plano antecedente — ciclo88:** [novos slots, vídeos e três storyboards](88-revisao-kit-hyorinmaru-hidra-erupcao-storyboards-2026-10-21.md). Bankai H Ryūsenka / N Assalto da Hidra / B Erupção Glacial / C Hyōten; Shikai B Sennen ampliada. Supera o mapa do87, ainda sem alterações no código testável84.

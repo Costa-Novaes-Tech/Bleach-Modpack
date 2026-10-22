@@ -37,6 +37,9 @@ public final class ModSounds {
     public static final RegistryObject<SoundEvent> HYORINMARU_ROAR = SOUND_EVENTS.register("hyorinmaru.roar",
             () -> SoundEvent.createFixedRangeEvent(Reference.id("hyorinmaru.roar"),64));
 
+    public static final RegistryObject<SoundEvent> HYORINMARU_THEME = SOUND_EVENTS.register("hyorinmaru.theme",
+            () -> SoundEvent.createVariableRangeEvent(Reference.id("hyorinmaru.theme")));
+
     private ModSounds() {
     }
 }

@@ -16,6 +16,31 @@ import java.util.*;
 public final class MvpRegressionTest {
     private static int count;
     public static void main(String[] args) {
+        test("Hyorinmaru dialogue cues never replay for late trackers and OGG stems have correct channels",()->{
+            yes(com.bleachmod.common.visual.HyorinmaruTimeline.cueDue(23,24,24));
+            yes(!com.bleachmod.common.visual.HyorinmaruTimeline.cueDue(24,25,24));
+            yes(!com.bleachmod.common.visual.HyorinmaruTimeline.cueDue(100,101,24));
+            eq(200D,com.bleachmod.common.visual.HyorinmaruTimeline.motionAge(400));
+            try {
+                for(String stem:List.of("hyorinmaru_voice_bankai","hyorinmaru_voice_name","hyorinmaru_theme")){
+                    var bytes=java.nio.file.Files.readAllBytes(java.nio.file.Path.of("src/main/resources/assets/bleachmod/sounds/"+stem+".ogg"));
+                    eq("OggS",new String(bytes,0,4,java.nio.charset.StandardCharsets.US_ASCII));
+                    eq("\u0001vorbis",new String(bytes,28,7,java.nio.charset.StandardCharsets.US_ASCII));
+                    eq(stem.equals("hyorinmaru_theme")?2:1,bytes[39]&255);
+                }
+            } catch(java.io.IOException failure){throw new AssertionError(failure);}
+        });
+        test("Hydra heads advance once and stay at impact while the neck disintegrates",()->{
+            var target=new net.minecraft.world.phys.Vec3(6,.6,40);
+            for(int head=0;head<3;head++){
+                double previous=-100;
+                for(int age=8+head*10;age<=com.bleachmod.common.visual.HydraMotion.impactTick(head);age++){
+                    double z=com.bleachmod.common.visual.HydraMotion.point(true,head,age,1,target).z;yes(z>=previous);previous=z;
+                }
+                for(int age=com.bleachmod.common.visual.HydraMotion.impactTick(head);age<=156;age++)yes(com.bleachmod.common.visual.HydraMotion.point(true,head,age,1,target).distanceTo(target)<.00001);
+                eq(0D,com.bleachmod.common.visual.HydraMotion.growth(true,head,com.bleachmod.common.visual.HydraMotion.impactTick(head)+12));
+            }
+        });
         test("Hydra curves remain finite, connected and bounded throughout formation and attack",()->{
             for(boolean assault:List.of(false,true))for(int head=0;head<3;head++)for(int age=0;age<=156;age++){
                 var last=com.bleachmod.common.visual.HydraMotion.point(assault,head,age,0,32);
