@@ -59,6 +59,7 @@ public final class SyncHelper {
             tag.put("releaseView", com.bleachmod.common.technique.ReleaseAnimationService.snapshot(player));
             tag.put("benihimeEntrance", com.bleachmod.common.technique.BenihimeEntranceService.snapshot(player));
             tag.put("hyorinmaruCinematic", com.bleachmod.common.technique.HyorinmaruCinematicService.snapshot(player));
+            tag.put("senbonzakuraCinematic", com.bleachmod.common.technique.SenbonzakuraCinematicService.snapshot(player));
             tag.put("signatureView", com.bleachmod.common.technique.SignatureAnimationService.snapshot(player));
             tag.put("elementalView", com.bleachmod.common.technique.ElementalTechniqueService.snapshot(player));
             tag.put("appearance", data.getAppearance().save());
@@ -79,6 +80,7 @@ public final class SyncHelper {
             tag.put("releaseView", com.bleachmod.common.technique.ReleaseAnimationService.snapshot(subject));
             tag.put("benihimeEntrance", com.bleachmod.common.technique.BenihimeEntranceService.snapshot(subject));
             tag.put("hyorinmaruCinematic", com.bleachmod.common.technique.HyorinmaruCinematicService.snapshot(subject));
+            tag.put("senbonzakuraCinematic", com.bleachmod.common.technique.SenbonzakuraCinematicService.snapshot(subject));
             tag.put("signatureView", com.bleachmod.common.technique.SignatureAnimationService.snapshot(subject));
             tag.put("elementalView", com.bleachmod.common.technique.ElementalTechniqueService.snapshot(subject));
             tag.put("appearance", data.getAppearance().save());
