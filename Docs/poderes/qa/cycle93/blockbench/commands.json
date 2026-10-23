@@ -1,0 +1,447 @@
+[
+  {
+    "request": {
+      "action": "get_status",
+      "params": {}
+    },
+    "response": {
+      "ok": true,
+      "result": {
+        "blockbench_version": "5.2.2",
+        "has_project": true,
+        "project": {
+          "name": "hydra_head_control_test",
+          "format": "free",
+          "format_name": "Generic Model",
+          "texture_width": 128,
+          "texture_height": 128,
+          "cubes": 29,
+          "groups": 2,
+          "textures": 1,
+          "animations": 0,
+          "mode": "edit"
+        },
+        "orientation": {
+          "facing": "-z",
+          "model_right_is": "+x",
+          "model_left_is": "-x",
+          "reminder": "The model faces -z. Its own RIGHT hand/arm/leg is at +x, its LEFT at -x. On a front-view render you see it mirrored, so its right hand appears on the LEFT of the image. Use get_orientation / which_side / check_sides instead of judging by eye."
+        },
+        "pending_user_requests": 0
+      }
+    }
+  },
+  {
+    "request": {
+      "action": "set_camera_angle",
+      "params": {
+        "position": [
+          110,
+          55,
+          -130
+        ],
+        "target": [
+          0,
+          0,
+          -25
+        ]
+      }
+    },
+    "response": {
+      "ok": true,
+      "result": {
+        "camera": [
+          110.00000000000001,
+          55,
+          -130
+        ]
+      }
+    }
+  },
+  {
+    "request": {
+      "action": "screenshot",
+      "params": {
+        "view": "front_right",
+        "width": 960,
+        "height": 720,
+        "stamp": "BASELINE - editor real"
+      }
+    },
+    "response": {
+      "ok": true,
+      "result": {
+        "mime": "image/png",
+        "view": "front_right",
+        "looking_at": "the model's FRONT (its face)",
+        "model_right_on": "image_left",
+        "note": "model's RIGHT is on the IMAGE LEFT (mirrored \u2014 you face it)",
+        "capture": "02-screenshot-result.png"
+      }
+    }
+  },
+  {
+    "request": {
+      "action": "edit_element",
+      "params": {
+        "element": "jaw_center",
+        "origin": [
+          0,
+          -8.5,
+          -10
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ]
+      }
+    },
+    "response": {
+      "ok": true,
+      "result": {
+        "uuid": "3cc54954-6600-5166-b568-8f9709a9eebb",
+        "name": "jaw_center",
+        "type": "group",
+        "origin": [
+          0,
+          -8.5,
+          -10
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "visibility": true,
+        "parent": "026f1f45-f6e1-5d9d-9539-43fc8669aa54"
+      }
+    }
+  },
+  {
+    "request": {
+      "action": "create_animation",
+      "params": {
+        "name": "animation.hydra_lab.jaw_test",
+        "length": 1.6,
+        "loop": "loop"
+      }
+    },
+    "response": {
+      "ok": true,
+      "result": {
+        "uuid": "34c15f02-92f5-a26d-7b73-b30c266afa9d",
+        "name": "animation.hydra_lab.jaw_test",
+        "loop": "loop",
+        "length": 1.6,
+        "snapping": 24,
+        "bones": [
+          {
+            "name": "head_center",
+            "uuid": "026f1f45-f6e1-5d9d-9539-43fc8669aa54",
+            "keyframe_count": 0
+          },
+          {
+            "name": "jaw_center",
+            "uuid": "3cc54954-6600-5166-b568-8f9709a9eebb",
+            "keyframe_count": 0
+          }
+        ]
+      }
+    }
+  },
+  {
+    "request": {
+      "action": "add_keyframes",
+      "params": {
+        "animation": "animation.hydra_lab.jaw_test",
+        "length": 1.6,
+        "close_loop": true,
+        "keyframes": [
+          {
+            "bone": "jaw_center",
+            "channel": "rotation",
+            "time": 0,
+            "value": [
+              0,
+              0,
+              0
+            ],
+            "interpolation": "catmullrom"
+          },
+          {
+            "bone": "jaw_center",
+            "channel": "rotation",
+            "time": 0.4,
+            "value": [
+              -12,
+              0,
+              0
+            ],
+            "interpolation": "catmullrom"
+          },
+          {
+            "bone": "jaw_center",
+            "channel": "rotation",
+            "time": 0.8,
+            "value": [
+              -28,
+              0,
+              0
+            ],
+            "interpolation": "catmullrom"
+          },
+          {
+            "bone": "jaw_center",
+            "channel": "rotation",
+            "time": 1.2,
+            "value": [
+              -12,
+              0,
+              0
+            ],
+            "interpolation": "catmullrom"
+          },
+          {
+            "bone": "jaw_center",
+            "channel": "rotation",
+            "time": 1.6,
+            "value": [
+              0,
+              0,
+              0
+            ],
+            "interpolation": "catmullrom"
+          },
+          {
+            "bone": "head_center",
+            "channel": "rotation",
+            "time": 0,
+            "value": [
+              0,
+              0,
+              0
+            ],
+            "interpolation": "catmullrom"
+          },
+          {
+            "bone": "head_center",
+            "channel": "rotation",
+            "time": 0.8,
+            "value": [
+              -3,
+              5,
+              0
+            ],
+            "interpolation": "catmullrom"
+          },
+          {
+            "bone": "head_center",
+            "channel": "rotation",
+            "time": 1.6,
+            "value": [
+              0,
+              0,
+              0
+            ],
+            "interpolation": "catmullrom"
+          }
+        ]
+      }
+    },
+    "response": {
+      "ok": true,
+      "result": {
+        "created": 8,
+        "loop_keyframes_added": 0,
+        "keyframes": [
+          {
+            "uuid": "d4231417-52f1-27ae-7143-cde5ce339aee",
+            "bone": "jaw_center",
+            "channel": "rotation",
+            "time": 0
+          },
+          {
+            "uuid": "007a5519-64b8-472f-3e41-16e3349f32da",
+            "bone": "jaw_center",
+            "channel": "rotation",
+            "time": 0.4
+          },
+          {
+            "uuid": "8b29641d-8130-e13d-7310-e12a6eb694f5",
+            "bone": "jaw_center",
+            "channel": "rotation",
+            "time": 0.8
+          },
+          {
+            "uuid": "9c4baf44-ba76-1a2f-3931-77ec5b9f52e0",
+            "bone": "jaw_center",
+            "channel": "rotation",
+            "time": 1.2
+          },
+          {
+            "uuid": "f93ee83e-b3dc-1370-d825-b0bc28d771b2",
+            "bone": "jaw_center",
+            "channel": "rotation",
+            "time": 1.6
+          },
+          {
+            "uuid": "d06e917a-cf44-2a36-fff0-91b6b46e34c7",
+            "bone": "head_center",
+            "channel": "rotation",
+            "time": 0
+          },
+          {
+            "uuid": "8b43d677-f3ca-a6dd-0ca8-322780b69b62",
+            "bone": "head_center",
+            "channel": "rotation",
+            "time": 0.8
+          },
+          {
+            "uuid": "03342ebe-51d3-480b-3262-6975c41623b3",
+            "bone": "head_center",
+            "channel": "rotation",
+            "time": 1.6
+          }
+        ],
+        "animation": {
+          "uuid": "34c15f02-92f5-a26d-7b73-b30c266afa9d",
+          "name": "animation.hydra_lab.jaw_test",
+          "loop": "loop",
+          "length": 1.6,
+          "snapping": 24,
+          "bones": [
+            {
+              "name": "head_center",
+              "uuid": "026f1f45-f6e1-5d9d-9539-43fc8669aa54",
+              "keyframe_count": 3
+            },
+            {
+              "name": "jaw_center",
+              "uuid": "3cc54954-6600-5166-b568-8f9709a9eebb",
+              "keyframe_count": 5
+            }
+          ]
+        },
+        "reminder": "Now run analyze_animation \u2014 it measures where the limbs really travel and catches motion that goes the wrong way."
+      }
+    }
+  },
+  {
+    "request": {
+      "action": "preview_animation",
+      "params": {
+        "animation": "animation.hydra_lab.jaw_test",
+        "times": [
+          0,
+          0.4,
+          0.8,
+          1.2,
+          1.6
+        ],
+        "views": [
+          "front_right"
+        ],
+        "width": 960,
+        "height": 720
+      }
+    },
+    "response": {
+      "ok": true,
+      "result": {
+        "animation": "animation.hydra_lab.jaw_test",
+        "length": 1.6,
+        "count": 5,
+        "shots": [
+          {
+            "time": 0,
+            "view": "front_right",
+            "looking_at": "the model's FRONT (its face)",
+            "model_right_on": "image_left",
+            "note": "model's RIGHT is on the IMAGE LEFT (mirrored \u2014 you face it)",
+            "capture": "06-preview_animation-result-shots-0.png"
+          },
+          {
+            "time": 0.4,
+            "view": "front_right",
+            "looking_at": "the model's FRONT (its face)",
+            "model_right_on": "image_left",
+            "note": "model's RIGHT is on the IMAGE LEFT (mirrored \u2014 you face it)",
+            "capture": "06-preview_animation-result-shots-1.png"
+          },
+          {
+            "time": 0.8,
+            "view": "front_right",
+            "looking_at": "the model's FRONT (its face)",
+            "model_right_on": "image_left",
+            "note": "model's RIGHT is on the IMAGE LEFT (mirrored \u2014 you face it)",
+            "capture": "06-preview_animation-result-shots-2.png"
+          },
+          {
+            "time": 1.2,
+            "view": "front_right",
+            "looking_at": "the model's FRONT (its face)",
+            "model_right_on": "image_left",
+            "note": "model's RIGHT is on the IMAGE LEFT (mirrored \u2014 you face it)",
+            "capture": "06-preview_animation-result-shots-3.png"
+          },
+          {
+            "time": 1.6,
+            "view": "front_right",
+            "looking_at": "the model's FRONT (its face)",
+            "model_right_on": "image_left",
+            "note": "model's RIGHT is on the IMAGE LEFT (mirrored \u2014 you face it)",
+            "capture": "06-preview_animation-result-shots-4.png"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "request": {
+      "action": "save_project",
+      "params": {
+        "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\tools\\models\\lab\\cycle93\\hydra_head_control_test.bbmodel"
+      }
+    },
+    "response": {
+      "ok": true,
+      "result": {
+        "saved": true,
+        "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\tools\\models\\lab\\cycle93\\hydra_head_control_test.bbmodel"
+      }
+    }
+  },
+  {
+    "request": {
+      "action": "get_status",
+      "params": {}
+    },
+    "response": {
+      "ok": true,
+      "result": {
+        "blockbench_version": "5.2.2",
+        "has_project": true,
+        "project": {
+          "name": "hydra_head_control_test",
+          "format": "free",
+          "format_name": "Generic Model",
+          "texture_width": 128,
+          "texture_height": 128,
+          "cubes": 29,
+          "groups": 2,
+          "textures": 1,
+          "animations": 1,
+          "mode": "edit"
+        },
+        "orientation": {
+          "facing": "-z",
+          "model_right_is": "+x",
+          "model_left_is": "-x",
+          "reminder": "The model faces -z. Its own RIGHT hand/arm/leg is at +x, its LEFT at -x. On a front-view render you see it mirrored, so its right hand appears on the LEFT of the image. Use get_orientation / which_side / check_sides instead of judging by eye."
+        },
+        "pending_user_requests": 0
+      }
+    }
+  }
+]

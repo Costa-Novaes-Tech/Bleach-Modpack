@@ -1,4 +1,8 @@
+> **Frente94 — preparação Antigravity:** [checkout separado, skill, prompts e dois MCPs locais](94-antigravity-design-onboarding-2026-10-22.md). Branch `codex/design-poderes-criaturas` preservada em830ad64; Codex continua na Feature. Autoria Blockbench real e6poses; check/build137 regressões; runtime MCP abriu cliente real,6cenários/exit0/autoexit, primeira configuração assistida por Codex. Não representa sincronização das branches ou integração do modelo de teste ao jogo.
+
 > **Implementação mais recente — ciclo91, 22/10/2026:** [hidra robusta, impactos explosivos sem retorno e clima local](91-hidra-robusta-explosoes-clima-local-2026-10-22.md). Rede2.34, schema9/revisão4. Base e Photon140 regressões/176 GameTests; critérios de homologação e evidências no relatório. Mantidas as pendências do roadmap.
+
+> **Ciclo93 — teste limitado:** [controle real do Blockbench, mandíbula de laboratório e correção do rugido](93-blockbench-prova-controlada-rugido-hidras-2026-10-22.md). Modelo de produção preservado; execute_script desligado; integração/exportação GeckoLib e escuta humana pendentes.
 
 > **Implementação atual — ciclo92:** [92: áudio Hyōrinmaru, transformação20s e gelo temporário](92-audio-hyorinmaru-transformacao-gelo-temporario-2026-10-22.md). Falas fornecidas pelo usuário, música reduzida, rugido mantido; cena20s, baforada36blocos e gelo visual temporário. Sem weather global. Rede2.35; resultados e pendências no relatório. Registros seguintes são antecedentes.
 

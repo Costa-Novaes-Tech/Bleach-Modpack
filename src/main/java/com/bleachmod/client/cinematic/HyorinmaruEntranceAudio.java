@@ -33,15 +33,16 @@ final class HyorinmaruEntranceAudio {
             }
         }
         var s=STATES.get(id);
-        for(int cue:new int[]{HyorinmaruTimeline.BANKAI_VOICE,HyorinmaruTimeline.NAME_VOICE}){
+        for(int cue:new int[]{HyorinmaruTimeline.BANKAI_VOICE,HyorinmaruTimeline.NAME_VOICE,HyorinmaruTimeline.HYDRA_ROAR}){
             if(!HyorinmaruTimeline.cueDue(s.previous,age,cue) || !s.fired.add(cue))continue;
-            var sound=new SimpleSoundInstance(Reference.id(cue==HyorinmaruTimeline.BANKAI_VOICE?"voice.hyorinmaru_bankai":"voice.hyorinmaru_name"),
-                    SoundSource.VOICE,1F,1F,RandomSource.create(),false,0,
+            boolean roar=cue==HyorinmaruTimeline.HYDRA_ROAR;
+            var sound=new SimpleSoundInstance(Reference.id(roar?"hyorinmaru.roar":cue==HyorinmaruTimeline.BANKAI_VOICE?"voice.hyorinmaru_bankai":"voice.hyorinmaru_name"),
+                    roar?SoundSource.PLAYERS:SoundSource.VOICE,1F,roar?.9F:1F,RandomSource.create(),false,0,
                     local?SoundInstance.Attenuation.NONE:SoundInstance.Attenuation.LINEAR,
                     local?0:anchor.x,local?0:anchor.y,local?0:anchor.z,local);
             s.sounds.add(sound);mc.getSoundManager().play(sound);
             if(!net.minecraftforge.fml.loading.FMLEnvironment.production)
-                com.mojang.logging.LogUtils.getLogger().info("Hyorinmaru voice cue {} at tick {}",cue,age);
+                com.mojang.logging.LogUtils.getLogger().info("Hyorinmaru audio cue {} at tick {}",cue,age);
         }
         s.previous=age;
     }

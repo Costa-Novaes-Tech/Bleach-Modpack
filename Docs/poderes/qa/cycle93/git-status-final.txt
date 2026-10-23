@@ -1,0 +1,14 @@
+## Feature-Poderes-bankais...origin/Feature-Poderes-bankais
+ M Docs/poderes/00-CONTINUIDADE-CODEX.md
+ M Docs/poderes/72-revisao-geral-roadmap-gamedesign-2026-10-20.md
+ M Docs/poderes/README.md
+ M src/main/java/com/bleachmod/client/cinematic/HyorinmaruEntranceAudio.java
+ M src/main/java/com/bleachmod/client/cinematic/HyorinmaruQaSequence.java
+ M src/main/java/com/bleachmod/common/technique/HyorinmaruCinematicService.java
+ M src/main/java/com/bleachmod/common/visual/HyorinmaruTimeline.java
+ M src/main/resources/assets/bleachmod/sounds/hyorinmaru_roar.ogg
+?? Docs/poderes/93-blockbench-prova-controlada-rugido-hidras-2026-10-22.md
+?? Docs/poderes/qa/cycle93/
+?? tools/audio/source/hyorinmaru_roar_original.ogg
+?? tools/models/lab/
+?? tools/qa/blockbench_probe.py

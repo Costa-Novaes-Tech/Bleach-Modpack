@@ -1,0 +1,18 @@
+{
+  "original": {
+    "sha256": "f3f4fe4e5595f1fcba4637536caa024373a9ef124f9b579f569260ba92ab41c9",
+    "levels": [
+      "Duration: 00:00:02.40, start: 0.000000, bitrate: 54 kb/s",
+      "[Parsed_volumedetect_0 @ 0000021240f06400] mean_volume: -24.0 dB",
+      "[Parsed_volumedetect_0 @ 0000021240f06400] max_volume: -12.8 dB"
+    ]
+  },
+  "adjusted": {
+    "sha256": "90fb9795587335543daf3cc9a35d725736228c90ac57bca92947dcc934008d1f",
+    "levels": [
+      "Duration: 00:00:02.40, start: 0.000000, bitrate: 80 kb/s",
+      "[Parsed_volumedetect_0 @ 00000205363669c0] mean_volume: -14.0 dB",
+      "[Parsed_volumedetect_0 @ 00000205363669c0] max_volume: -2.7 dB"
+    ]
+  }
+}

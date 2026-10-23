@@ -1,0 +1,75 @@
+{
+  "ok": true,
+  "result": [
+    {
+      "id": "free",
+      "name": "Generic Model",
+      "description": "Model without restrictions. For game engines, rendering etc.",
+      "animation_mode": true,
+      "box_uv": false
+    },
+    {
+      "id": "java_block",
+      "name": "Java Block/Item",
+      "description": "Block or item model for Minecraft Java Edition.",
+      "animation_mode": false,
+      "box_uv": false
+    },
+    {
+      "id": "bedrock",
+      "name": "Bedrock Entity",
+      "description": "Minecraft Bedrock Edition model for entities and item attachables",
+      "animation_mode": true,
+      "box_uv": true
+    },
+    {
+      "id": "bedrock_block",
+      "name": "Bedrock Block",
+      "description": "Block model for Minecraft Bedrock Edition",
+      "animation_mode": false,
+      "box_uv": false
+    },
+    {
+      "id": "bedrock_old",
+      "name": "Bedrock Legacy Model",
+      "description": "Pre-1.12 Minecraft Bedrock Edition entity model",
+      "animation_mode": true,
+      "box_uv": true
+    },
+    {
+      "id": "modded_entity",
+      "name": "Modded Entity",
+      "description": "Entity model for Minecraft mods. Can be exported as .java class files.",
+      "animation_mode": true,
+      "box_uv": true
+    },
+    {
+      "id": "optifine_entity",
+      "name": "OptiFine Entity",
+      "description": "Custom entity model for the OptiFine mod",
+      "animation_mode": false,
+      "box_uv": true
+    },
+    {
+      "id": "optifine_part",
+      "name": "OptiFine Part",
+      "description": "JPM part for OptiFine entity models",
+      "animation_mode": false,
+      "box_uv": true
+    },
+    {
+      "id": "skin",
+      "name": "Minecraft Skin",
+      "description": "Edit player and entity skins",
+      "animation_mode": false,
+      "box_uv": true
+    },
+    {
+      "id": "image",
+      "name": "Image",
+      "description": "Edit images in the 2D image editor",
+      "animation_mode": false,
+      "box_uv": false
+    }
+  ]
+}

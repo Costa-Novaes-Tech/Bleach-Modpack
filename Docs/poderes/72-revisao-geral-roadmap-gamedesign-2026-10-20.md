@@ -1,5 +1,7 @@
 # Ciclo 72 — revisão geral do projeto, game design e roadmap
 
+> **Atualização93:** [ensaio real Blockbench/MCP e correção do rugido](93-blockbench-prova-controlada-rugido-hidras-2026-10-22.md). Ferramenta validada em cópia, sem substituir o modelo. Próxima prova de autoria: formato/export GeckoLib e integração do controlador. Mantida a ordem obrigatória e as pendências de aprovação artística/auditiva.
+
 > **Atualização92 — 22/10/2026:** [92: áudio Hyōrinmaru, transformação20s e gelo temporário](92-audio-hyorinmaru-transformacao-gelo-temporario-2026-10-22.md). Nova mixagem com fala separada, transformação20s, baforada36blocos e piso de gelo visual temporário; clima global independente. Rede2.35. Não muda a ordem obrigatória abaixo; aceites artísticos/auditivos e multiplayer continuam pendentes. Resultados no relatório92.
 
 **Implementação22/10 — ciclo91:** [hidra mais robusta, N com explosões sem retorno e weather desacoplado](91-hidra-robusta-explosoes-clima-local-2026-10-22.md). Câmera aproxima a revelação; modelo/geometria e resíduos locais atualizados; custo/recarga/passivas preservados. Base+Photon140 regressões/176 GameTests. A implementação do90 não encerra a homologação artística nem as pendências de mãos/combate, outras técnicas e multiplayer do89. Demais frentes desta lista continuam obrigatórias.

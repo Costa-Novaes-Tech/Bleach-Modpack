@@ -150,7 +150,7 @@ public final class HyorinmaruQaSequence {
                 mc.options.setCameraType(index == 1 ? CameraType.THIRD_PERSON_FRONT : CameraType.THIRD_PERSON_BACK);
                 mc.options.hideGui = true;
 
-                evidence = mc.gameDirectory.toPath().resolve("hyorinmaru-qa/cycle92-" + RUN_ID + "/" + name);
+                evidence = mc.gameDirectory.toPath().resolve("hyorinmaru-qa/cycle93-" + RUN_ID + "/" + name);
                 try {
                     Files.createDirectories(evidence);
                 } catch (IOException ignored) { }

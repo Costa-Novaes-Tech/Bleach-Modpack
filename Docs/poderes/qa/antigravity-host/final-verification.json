@@ -1,0 +1,40 @@
+{
+  "date": "2026-10-22",
+  "design_branch": "codex/design-poderes-criaturas",
+  "design_head": "830ad64",
+  "main_checkout_preserved": "Feature-Poderes-bankais / 14480c5 + existing cycle93",
+  "mcp_blockbench_tools": 44,
+  "mcp_upstream_tests_passed": 73,
+  "mcp_runtime_tools": 2,
+  "mcp_runtime_rejects_arbitrary_task": true,
+  "check_build": "passed / exit0 / 137 regression scenarios",
+  "client_job": {
+    "job_id": "2026-10-22T17-57-02-533Z-ClientQa",
+    "mode": "ClientQa",
+    "pid": 15044,
+    "state": "passed",
+    "started": "2026-10-22T17:57:02.577Z",
+    "log": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\qa\\antigravity\\runtime-mcp\\2026-10-22T17-57-02-533Z-ClientQa.log",
+    "exit_code": 0,
+    "signal": null,
+    "finished": "2026-10-22T18:02:32.609Z"
+  },
+  "client_scenario_pngs": {
+    "01_bankai_transformation": 19,
+    "02_bankai_wings_lotus": 11,
+    "03_slot1_ice_dragons": 12,
+    "04_slot2_ryusenka": 13,
+    "05_slot3_sennen_barrier": 13,
+    "06_slot4_blizzard_zone": 7
+  },
+  "total_qa_pngs": 919,
+  "first_accessibility_continue": "assisted by Codex native UI",
+  "new_profile_option_seeding": "implemented, not re-run after initial profile was created",
+  "blockbench_model_geometry_and_outliner": "preserved exactly",
+  "old_clip": "all data preserved except selected metadata",
+  "lab_clip": "2s / 12 keyframes / 6 sampled poses",
+  "game_tests": "not run in this setup",
+  "photon_dedicated_observer": "not tested in this setup",
+  "production_changes": "none in design checkout",
+  "scope": "infrastructure/editor/runtime acceptance; not new asset integrated or complete artistic approval"
+}

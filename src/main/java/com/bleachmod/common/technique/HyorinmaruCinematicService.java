@@ -149,7 +149,7 @@ public final class HyorinmaruCinematicService {
         }
         // Tick216 (10.8s): Preserved hydra roar and extended frost shockwave.
         else if (elapsed == 216) {
-            level.playSound(null, pos.x, pos.y, pos.z, ModSounds.HYORINMARU_ROAR.get(), SoundSource.PLAYERS, 1.4F, 0.9F);
+            // Roar follows the synchronized client cue: local caster stays audible during the wide camera shot.
             level.playSound(null, pos.x, pos.y, pos.z, SoundEvents.GLASS_BREAK, SoundSource.PLAYERS, 1.2F, 0.5F);
             level.sendParticles(ParticleTypes.SNOWFLAKE, pos.x, pos.y + 1.5, pos.z, 120, 3.5, 1.0, 3.5, 0.2);
         }
