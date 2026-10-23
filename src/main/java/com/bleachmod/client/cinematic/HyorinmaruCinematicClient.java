@@ -131,35 +131,33 @@ public final class HyorinmaruCinematicClient {
 
     private static Shot computeShot(Scene s, double time) {
         var mc=Minecraft.getInstance();
-        float fov=mc.options.fov().get().floatValue();
+        var frame=com.bleachmod.common.visual.HyorinmaruCameraPath.sample(time);
         Vec3 side=new Vec3(-s.forward.z,0,s.forward.x);
-        Vec3 close=s.anchor.add(s.forward.scale(2.8)).add(0,1.7,0);
-        Vec3 face=s.anchor.add(0,1.45,0);
-        Vec3 wide=s.anchor.add(s.forward.scale(24)).add(side.scale(7)).add(0,8,0);
-        Vec3 whole=s.anchor.subtract(s.forward.scale(3)).add(0,6.5,0);
-        Vec3 revealWide=s.anchor.add(s.forward.scale(23)).add(side.scale(-5)).add(0,7,0);
-        Vec3 finale=s.anchor.add(s.forward.scale(6)).add(side.scale(-2)).add(0,2.8,0);
-        if(time<25)return new Shot(close,face,fov*.94F);
-        if(time<88){
-            double t=smooth((time-25)/63);
-            return new Shot(close.lerp(wide,t),face.lerp(whole,t),(float)Mth.lerp(t,fov*.94F,fov));
+        Vec3 eye=s.anchor.add(side.scale(frame.eye().x)).add(0,frame.eye().y,0).add(s.forward.scale(frame.eye().z));
+        Vec3 focus=s.anchor.add(side.scale(frame.focus().x)).add(0,frame.focus().y,0).add(s.forward.scale(frame.focus().z));
+        float fov=frame.fov();
+        if(time>com.bleachmod.common.visual.HyorinmaruCameraPath.RETURN_START && mc.player!=null){
+            double t=com.bleachmod.common.visual.HyorinmaruCameraPath.ease((time-com.bleachmod.common.visual.HyorinmaruCameraPath.RETURN_START)/(DURATION/2.0-com.bleachmod.common.visual.HyorinmaruCameraPath.RETURN_START));
+            Vec3 normalEye=mc.player.getEyePosition(), look=mc.player.getViewVector(1);
+            Vec3 end=normalEye;
+            if(previousCameraType==CameraType.THIRD_PERSON_BACK)end=normalEye.subtract(look.scale(4));
+            if(previousCameraType==CameraType.THIRD_PERSON_FRONT)end=normalEye.add(look.scale(4));
+            Vec3 targetDirection=previousCameraType==CameraType.THIRD_PERSON_FRONT?look.scale(-1):look;
+            Vec3 direction=com.bleachmod.common.visual.HyorinmaruCameraPath.blendDirection(focus.subtract(eye),targetDirection,t);
+            eye=com.bleachmod.common.visual.HyorinmaruCameraPath.returnEye(eye,normalEye,end,look,t);
+            focus=eye.add(direction.scale(8));
+            fov=(float)Mth.lerp(t,fov,mc.options.fov().get());
         }
-        if(time<156){
-            double t=smooth((time-88)/68);
-            return new Shot(wide.lerp(revealWide,t),whole,fov);
-        }
-        if(time<184){
-            double t=smooth((time-156)/28);
-            return new Shot(revealWide.lerp(finale,t),whole.lerp(face,t),fov);
-        }
-        // Return from the actual preceding shot, respecting the previous F5 mode.
-        double t=smooth((time-184)/16);
-        Vec3 eye=mc.player!=null?mc.player.getEyePosition():face;
-        Vec3 look=mc.player!=null?mc.player.getViewVector(1):s.forward;
-        Vec3 end=eye,focus=eye.add(look.scale(6));
-        if(previousCameraType==CameraType.THIRD_PERSON_BACK)end=eye.subtract(look.scale(4));
-        if(previousCameraType==CameraType.THIRD_PERSON_FRONT){end=eye.add(look.scale(4));focus=eye;}
-        return new Shot(finale.lerp(end,t),face.lerp(focus,t),fov);
+        return new Shot(eye,focus,fov);
+    }
+
+    /** Do not show the inside of the caster's head on the final first-person approach. */
+    @SubscribeEvent
+    public static void hidePlayerOnReturn(net.minecraftforge.client.event.RenderPlayerEvent.Pre event) {
+        var mc=Minecraft.getInstance();var s=local();
+        if(!cameraActive || s==null || event.getEntity()!=mc.player || previousCameraType!=CameraType.FIRST_PERSON)return;
+        if(com.bleachmod.common.visual.HyorinmaruTimeline.motionAge(age(s,event.getPartialTick()))>=com.bleachmod.common.visual.HyorinmaruCameraPath.RETURN_START
+                && mc.gameRenderer.getMainCamera().getPosition().distanceToSqr(mc.player.getEyePosition())<1.8)event.setCanceled(true);
     }
 
     @SubscribeEvent(priority = EventPriority.LOW)
@@ -245,7 +243,8 @@ public final class HyorinmaruCinematicClient {
         if (age >= DURATION || age < 0) return;
 
         GuiGraphics g = event.getGuiGraphics();
-        int barHeight = (int) (g.guiHeight() * 0.065);
+        double envelope=smooth(age/12)*(1-smooth((age-(DURATION-16))/16));
+        int barHeight = (int) (g.guiHeight() * 0.065 * envelope);
 
         // Letterbox cinematográfico suave
         g.fill(0, 0, g.guiWidth(), barHeight, 0xEE000000);

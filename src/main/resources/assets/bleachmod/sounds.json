@@ -74,7 +74,8 @@
     "sounds": [
       {
         "name": "bleachmod:hyorinmaru_voice_bankai",
-        "stream": true,
+        "stream": false,
+        "preload": true,
         "attenuation_distance": 64
       }
     ]

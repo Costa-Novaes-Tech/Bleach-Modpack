@@ -20,7 +20,7 @@ def main():
     duck = "volume='if(lt(t,0.9),1,if(lt(t,1.15),1-0.82*(t-0.9)/0.25,if(lt(t,2.35),0.18,if(lt(t,2.8),0.18+0.82*(t-2.35)/0.45,if(lt(t,15.6),1,if(lt(t,16.3),1-0.82*(t-15.6)/0.7,0.18))))))':eval=frame"
     specs = [
         ('Daiguren_Bankai_voice_clean.wav', 'hyorinmaru_voice_bankai', 1,
-         'aresample=44100,volume=1.344,afade=t=in:d=0.005,afade=t=out:st=1.02:d=0.03'),
+         'aresample=44100,volume=1.344,afade=t=in:d=0.005,aecho=1:1:55|105:0.08|0.025,apad=pad_dur=0.12,alimiter=limit=0.89:level=false'),
         ('Daiguren_Hyorinmaru_voice_clean.wav', 'hyorinmaru_voice_name', 1,
          'aresample=44100,volume=1.093,afade=t=in:d=0.005,afade=t=out:st=2.47:d=0.03'),
         ('daiguren_hyorinmaru_ice_theme_adapted_20s.wav', 'hyorinmaru_theme', 2,

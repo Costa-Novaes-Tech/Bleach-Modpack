@@ -1,0 +1,8 @@
+{
+  "source": "tools\\audio\\source\\Daiguren_Bankai_voice_clean.wav",
+  "processedSource": false,
+  "sourceSHA256": "0703c3834add12358156e06e1668fb02b4aa9d2c9527f08e1fb4dde7772cea87",
+  "filters": "aresample=44100,volume=1.344,afade=t=in:d=0.005,aecho=1:1:55|105:0.08|0.025,apad=pad_dur=0.12,alimiter=limit=0.89:level=false",
+  "outputSHA256": "43be9210873a5f18335ace0ef93e67b15bce2128bce8ab87fd408f9710a9e080",
+  "limitation": null
+}

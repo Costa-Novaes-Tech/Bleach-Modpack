@@ -1,0 +1,238 @@
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/8.8/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+
+> Configure project :
+MixinGradle did not locate the diffplug APT plugin, skipping eclipse task configuration
+Java: 17.0.20.1, JVM: 17.0.20.1+1 (Eclipse Adoptium), Arch: amd64
+
+> Task :downloadMcpConfig
+> Task :extractSrg UP-TO-DATE
+> Task :createMcpToSrg UP-TO-DATE
+
+> Task :compileJava
+Note: SpongePowered MIXIN Annotation Processor Version=0.8.5 (MixinGradle Version=0.7.38)
+Note: Supported obfuscation types: ObfuscationServiceMCP supports [notch] ObfuscationServiceFG3 supports [searge]
+Note: Loading searge mappings from C:\Users\joaop\Downloads\Projeto_Programacao_BleachMod\Bleach-Modpack\build\createMcpToSrg\output.tsrg
+Note: Writing refmap to C:\Users\joaop\Downloads\Projeto_Programacao_BleachMod\Bleach-Modpack\build\tmp\compileJava\compileJava-refmap.json
+Note: Writing refmap to C:\Users\joaop\Downloads\Projeto_Programacao_BleachMod\Bleach-Modpack\build\tmp\compileJava\compileJava-refmap.json
+Note: Writing searge composite mappings to C:\Users\joaop\Downloads\Projeto_Programacao_BleachMod\Bleach-Modpack\build\tmp\compileJava\compileJava-mappings.tsrg
+Note: Writing refmap to C:\Users\joaop\Downloads\Projeto_Programacao_BleachMod\Bleach-Modpack\build\tmp\compileJava\compileJava-refmap.json
+Note: Writing refmap to C:\Users\joaop\Downloads\Projeto_Programacao_BleachMod\Bleach-Modpack\build\tmp\compileJava\compileJava-refmap.json
+Note: Writing searge composite mappings to C:\Users\joaop\Downloads\Projeto_Programacao_BleachMod\Bleach-Modpack\build\tmp\compileJava\compileJava-mappings.tsrg
+C:\Users\joaop\Downloads\Projeto_Programacao_BleachMod\Bleach-Modpack\src\main\java\com\bleachmod\client\appearance\SkinCompositor.java:100: warning: [removal] ResourceLocation(String) in ResourceLocation has been deprecated and marked for removal
+            var resource = Minecraft.getInstance().getResourceManager().getResource(new ResourceLocation(texture));
+                                                                                    ^
+C:\Users\joaop\Downloads\Projeto_Programacao_BleachMod\Bleach-Modpack\src\main\java\com\bleachmod\client\berserk\BerserkSkinLayer.java:24: warning: [removal] ResourceLocation(String,String) in ResourceLocation has been deprecated and marked for removal
+    private static final ResourceLocation WHITE = new ResourceLocation("minecraft", "textures/misc/white.png");
+                                                  ^
+C:\Users\joaop\Downloads\Projeto_Programacao_BleachMod\Bleach-Modpack\src\main\java\com\bleachmod\client\BleachClient.java:21: warning: [removal] get() in ModLoadingContext has been deprecated and marked for removal
+        net.minecraftforge.fml.ModLoadingContext.get().registerConfig(net.minecraftforge.fml.config.ModConfig.Type.CLIENT,ClientVisualConfig.SPEC,"bleachmod-client.toml");
+                                                ^
+C:\Users\joaop\Downloads\Projeto_Programacao_BleachMod\Bleach-Modpack\src\main\java\com\bleachmod\client\model\HyorinmaruBreathVisual.java:17: warning: [removal] ResourceLocation(String,String) in ResourceLocation has been deprecated and marked for removal
+        var buffers=mc.renderBuffers().bufferSource();var out=buffers.getBuffer(RenderType.entityTranslucent(new net.minecraft.resources.ResourceLocation("minecraft","textures/particle/generic_7.png")));
+                                                                                                             ^
+C:\Users\joaop\Downloads\Projeto_Programacao_BleachMod\Bleach-Modpack\src\main\java\com\bleachmod\client\model\HyorinmaruBreathVisual.java:33: warning: [removal] ResourceLocation(String,String) in ResourceLocation has been deprecated and marked for removal
+        buffers.endBatch(RenderType.entityTranslucent(new net.minecraft.resources.ResourceLocation("minecraft","textures/particle/generic_7.png")));
+                                                      ^
+C:\Users\joaop\Downloads\Projeto_Programacao_BleachMod\Bleach-Modpack\src\main\java\com\bleachmod\client\model\HyorinmaruFrozenGround.java:18: warning: [removal] ResourceLocation(String,String) in ResourceLocation has been deprecated and marked for removal
+    private static final RenderType PACKED=RenderType.entityTranslucent(new ResourceLocation("minecraft","textures/block/packed_ice.png"));
+                                                                        ^
+C:\Users\joaop\Downloads\Projeto_Programacao_BleachMod\Bleach-Modpack\src\main\java\com\bleachmod\client\model\HyorinmaruFrozenGround.java:19: warning: [removal] ResourceLocation(String,String) in ResourceLocation has been deprecated and marked for removal
+    private static final RenderType BLUE=RenderType.entityTranslucent(new ResourceLocation("minecraft","textures/block/blue_ice.png"));
+                                                                      ^
+C:\Users\joaop\Downloads\Projeto_Programacao_BleachMod\Bleach-Modpack\src\main\java\com\bleachmod\client\model\IceDragonRenderer.java:53: warning: [removal] ResourceLocation(String,String) in ResourceLocation has been deprecated and marked for removal
+        private static final ResourceLocation DRAGON_TEX = new ResourceLocation("minecraft", "textures/block/packed_ice.png");
+                                                           ^
+C:\Users\joaop\Downloads\Projeto_Programacao_BleachMod\Bleach-Modpack\src\main\java\com\bleachmod\client\model\ZanpakutoSheathLayer.java:20: warning: [removal] ResourceLocation(String,String) in ResourceLocation has been deprecated and marked for removal
+    private static final ResourceLocation MATERIAL = new ResourceLocation("minecraft", "textures/block/white_concrete.png");
+                                                     ^
+C:\Users\joaop\Downloads\Projeto_Programacao_BleachMod\Bleach-Modpack\src\main\java\com\bleachmod\common\util\ResourceIds.java:13: warning: [removal] ResourceLocation(String) in ResourceLocation has been deprecated and marked for removal
+        return new ResourceLocation(id);
+               ^
+C:\Users\joaop\Downloads\Projeto_Programacao_BleachMod\Bleach-Modpack\src\main\java\com\bleachmod\Reference.java:29: warning: [removal] ResourceLocation(String,String) in ResourceLocation has been deprecated and marked for removal
+        return new ResourceLocation(MOD_ID, path);
+               ^
+C:\Users\joaop\Downloads\Projeto_Programacao_BleachMod\Bleach-Modpack\src\main\java\com\bleachmod\server\world\HistoryWorld.java:74: warning: [removal] ResourceLocation(String) in ResourceLocation has been deprecated and marked for removal
+                ResourceLocation dimension = new ResourceLocation(map.get("dimension").getAsString());
+                                             ^
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+12 warnings
+
+> Task :processResources UP-TO-DATE
+> Task :classes
+
+> Task :compileTestJava
+Note: C:\Users\joaop\Downloads\Projeto_Programacao_BleachMod\Bleach-Modpack\src\test\java\com\bleachmod\MvpRegressionTest.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+
+> Task :processTestResources NO-SOURCE
+> Task :testClasses
+
+> Task :regressionTest
+2026-10-23 08:13:02,471 main WARN Advanced terminal features are not available in this environment
+PASS Hyorinmaru camera stays continuous and opposing return directions never collapse
+PASS Hyorinmaru dialogue cues never replay for late trackers and OGG stems have correct channels
+PASS Hydra heads advance once and stay at impact while the neck disintegrates
+PASS Hydra curves remain finite, connected and bounded throughout formation and attack
+PASS Hyorinmaru slot migration retains stable Ryusenka mastery and replaced-technique investment
+PASS Guard posture breaks without spending stamina and requires release
+PASS Guard lease expires and recovery requires lowering the guard
+PASS Guard snapshot is sanitized and persistence never restores held input
+PASS Guard cone, pressure limits and schema 7 migration preserve previous progress
+PASS Dodge directions rotate with yaw and diagonals have equal length
+PASS Dodge requires full stamina, keeps reiatsu and pauses regeneration
+PASS Dodge interval survives form changes but lifecycle clears transient movement
+PASS Resistance stamina curve has diminishing returns without free refills
+PASS Draw timing initializes quietly and handles hands, removal and identity switches
+PASS Basic sword effort spends only stamina and delays recovery without blocking attacks
+PASS Stamina drains, rests and resumes without changing reiatsu
+PASS Stamina persists including rest and sanitizes malformed values
+PASS Combat state expires, refreshes and stays absent from persistent saves
+PASS Nozarashi kit: twelve slots, eyepatch drain only, Berserk Mode display name
+PASS Nozarashi player animations parse with PlayerAnimator and match the server timeline
+PASS Benihime Better Combat animations parse as finite original fencing motions
+PASS Bankai voice line is a declared mono Ogg Vorbis that fits the ducked voice window
+PASS Shared technique definitions preserve all homologated costs and cooldowns
+PASS Mastery feedback preserves fractional thresholds and reports only new access
+PASS Elemental migration follows attacks instead of transferring mastery to replacements
+PASS Schema nine migration preserves balance and leaves transient cooldowns absent
+PASS Ice slot profiles preserve combat ranges and cover the whole glacial disk
+PASS Approved ice release geometry remains bounded and distinct from the bench
+PASS Effect palettes compose sixteen bounded profiles and reject invalid definitions
+PASS Asset bench has a finite catalogue and strict intensity budget
+PASS All asset bench geometries are finite and bounded
+PASS Fresh Asauchi keeps independent release progress and no special techniques
+PASS Technique thresholds, permanent discoveries and archived practice
+PASS Schema four keeps the existing repertoire without copying it to Asauchi
+PASS Ice armor bakes independent body plates, wings and tail
+PASS Guide distinguishes sealed armor and duel from released fields
+PASS Zanpakuto identity archives mastery and unlocks across switches and reload
+PASS Original story reward cannot unlock Hyorinmaru
+PASS Hyorinmaru models load with a single edge and distinct guard
+PASS Four-block flame front collapses over six ticks in both ranges
+PASS Ryujin models parse as explicit geometry with a shared corrected grip
+PASS HUD cooldown snapshot is isolated from persistence and authoritative state
+PASS release effects trigger only when entering or ascending released forms
+PASS free reiatsu accepts zero balance without debit and restore enforces costs
+PASS cooldown test mode covers every slot and survives form cleanup
+PASS operator overrides are never restored from NBT
+PASS oriented wall rejects behind width height and diagonal query corners
+PASS tornado phase advances clockwise in Minecraft horizontal coordinates
+PASS technique cooldowns survive transformation and count down
+PASS technique cooldowns are transient and administrative reset clears slot three
+PASS cylinder rejects enclosing box corners and targets above and below
+PASS cylinder includes contact and intersecting edge hitboxes
+PASS cleared tracking replaces old client value
+PASS exact balance purchases one attribute
+PASS insufficient balance does not change rank or points
+PASS unknown attribute cannot consume points
+PASS attributes continue beyond the old level five cap
+PASS negative/NaN debit cannot create money or energy
+PASS attribute NBT rejects negative ranks and preserves high ranks
+PASS legacy power migrates to zanjutsu
+PASS save roundtrip preserves progression
+PASS raising reserve while full also fills the new maximum
+PASS raising reserve while depleted preserves current reiatsu
+PASS legacy skills migrate discovered forms without losing mastery
+PASS combat attributes use their separate damage paths
+PASS control drain has diminishing returns and never becomes regeneration
+PASS battle power is the weighted sum of all categories
+PASS undiscovered skill purchase cannot consume points
+PASS zero mastery reward remains zero
+PASS quest reward cannot be reclaimed after NBT roundtrip
+PASS quest structural changes rejected but text edits accepted
+PASS quest version changes require migration
+PASS forms ordered consistently regardless of JSON order
+PASS negative drain rejected before install
+PASS quest-owned spawn modes roundtrip for the existing boss quests
+PASS unknown quest spawn modes are rejected
+PASS empty objectives rejected
+PASS transient reset preserves permanent progress
+PASS training cannot restart before every reward is claimed
+PASS repeatability survives JSON roundtrip
+PASS quest giver survives JSON roundtrip
+PASS invalid quest giver is rejected
+PASS selection is revalidated after descending
+PASS mastery boundary 24/25 controls bankai
+PASS invalid client snapshot leaves previous definitions intact
+PASS provider data remains serializable after optional invalidation
+PASS HUD status panel keeps native pixel size and only shrinks on narrow GUIs
+PASS HUD information sits in the lower-left corner, above the hotbar on narrow GUIs
+PASS GUI layouts parse and bar fills match their wells pixel for pixel
+PASS GUI screen layouts expand repeats and keep every element inside the canvas
+PASS GUI layout errors name the element and field
+PASS client form snapshot cannot overwrite logical server snapshot
+PASS self and forward form prerequisites are rejected
+PASS prerequisite mastery must be attainable
+PASS Senbon horizontal cut moves from anatomical right to left
+PASS Senbon final cut rises and diagonal cuts descend
+PASS floral contour remains within fixed damage radius
+PASS Senbon identity and independent mastery survive save
+PASS Senbon sealed and released repertoires share access metadata
+PASS Senbon visual packet rejects invalid frames
+PASS large floral field packet roundtrips owner and rejects excess radius
+PASS Senkei and Hakuteiken geometry is bounded and has pointed blades
+PASS petal emission is reduced and garden radius is explicit
+PASS garden intensity increases without changing other petal layers
+PASS Ikka blades converge radially from both sides
+PASS Benihime has eight owned techniques and no elemental sealed slots
+PASS Benihime revision three moves path progress and preserves all archived numeric mastery
+PASS Benihime combat rig returns to idle and every spell has a distinct body motion
+PASS Benihime visual packet roundtrips and rejects invalid data
+PASS Benihime manifestation and every effect have finite bounded geometry
+PASS Benihime path charges survive form effect cancellation
+PASS Benihime idle hands animate and manifestation stays behind owner
+PASS Benihime net mesh stays above its surface anchor
+PASS Better Combat pilot honors guard dodge and charge states
+PASS Benihime HUD leases are transient and snapshots isolated
+PASS Bankai seal points the authored katana outward in both hands and always releases the pose
+PASS All ten fire gestures have finite continuous curves and return to the base animation
+PASS Spinning dash keeps a unit pose on horizontal upward and downward travel
+PASS Fire wake follows measured turns and rejects stationary motion and teleport bridges
+PASS Rajada crest stays narrow and recovers while dash preserves the server gesture lease
+PASS Only confirmed valid Higashi deaths authorize the execution presentation
+PASS Benihime basic cuts are distinct mirrored six-tick gestures and recover cleanly
+PASS All eight Benihime technique curves preserve their existing cosmetic leases
+PASS Higashi coils the torso at the hip instead of sharing Rajada's overhead preparation
+PASS Remaining technique animations have bounded mirrored curves and cannot persist after their lease
+PASS Remaining releases recover to neutral and reject invalid time
+PASS Senbon release uses two rows of tall blades with a bounded construct budget
+PASS Higashi execution checks seven percent before damage and rejects invalid life
+PASS Floral morph preserves two thirds of ground samples and the interior coverage
+PASS Confirmed execution packet validates positions and round trips without client instructions
+PASS Higashi shots frame attacker and victim without changing the line of action
+PASS Higashi authored execution recovers and mirrors without an idle lease
+PASS Higashi draws on the sword hip and lifts the blade from low outside to high inside
+PASS Higashi rising follow-through points toward the victim instead of behind the caster
+PASS Higashi preview packets remain distinct from confirmed death
+PASS History Mode map manifest keeps every map and rejects malformed entries
+PASS Appearance catalog is valid and every layer texture is bundled
+PASS Appearance from the network is sanitized against the catalog and race
+PASS Saves before schema 9 keep the Minecraft skin and appearance survives a copy
+PASS Composed skin blends tinted layers source-over
+PASS Every roster NPC has a skin, a spawn egg model and names in both languages
+PASS Main schema 9 preserves Nozarashi and appearance while migrating elemental numeric keys
+PASS: 142 regression scenarios
+
+> Task :addMixinsToJar
+> Task :jar
+> Task :configureReobfTaskForReobfJar
+> Task :reobfJar
+> Task :addMixinsToJarJar
+> Task :jarJar SKIPPED
+> Task :test
+> Task :check
+> Task :configureReobfTaskForReobfJarJar
+> Task :reobfJarJar SKIPPED
+> Task :assemble
+> Task :build
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.8/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 1m 8s
+14 actionable tasks: 11 executed, 3 up-to-date

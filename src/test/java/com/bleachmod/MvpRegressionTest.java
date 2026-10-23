@@ -16,6 +16,25 @@ import java.util.*;
 public final class MvpRegressionTest {
     private static int count;
     public static void main(String[] args) {
+        test("Hyorinmaru camera stays continuous and opposing return directions never collapse",()->{
+            var previous=com.bleachmod.common.visual.HyorinmaruCameraPath.sample(0);
+            for(int i=1;i<=1840;i++){
+                var frame=com.bleachmod.common.visual.HyorinmaruCameraPath.sample(i/10.0);
+                yes(Double.isFinite(frame.eye().lengthSqr()));
+                yes(frame.eye().distanceTo(frame.focus())>1);
+                yes(frame.eye().distanceTo(previous.eye())<.5);
+                yes(frame.focus().distanceTo(previous.focus())<.3);
+                yes(frame.fov()>=40 && frame.fov()<=65);
+                previous=frame;
+            }
+            for(int i=0;i<=100;i++){
+                var direction=com.bleachmod.common.visual.HyorinmaruCameraPath.blendDirection(new net.minecraft.world.phys.Vec3(0,0,-1),new net.minecraft.world.phys.Vec3(0,0,1),i/100.0);
+                yes(Math.abs(direction.length()-1)<.00001);
+                var orbit=com.bleachmod.common.visual.HyorinmaruCameraPath.returnEye(new net.minecraft.world.phys.Vec3(-.8,.2,4),net.minecraft.world.phys.Vec3.ZERO,new net.minecraft.world.phys.Vec3(0,0,-4),new net.minecraft.world.phys.Vec3(0,0,1),i/100.0);
+                yes(orbit.horizontalDistance()>3.9);
+            }
+            yes(com.bleachmod.common.visual.HyorinmaruCameraPath.sample(12).eye().distanceTo(com.bleachmod.common.visual.HyorinmaruCameraPath.sample(12).focus())<3);
+        });
         test("Hyorinmaru dialogue cues never replay for late trackers and OGG stems have correct channels",()->{
             yes(com.bleachmod.common.visual.HyorinmaruTimeline.cueDue(23,24,24));
             yes(!com.bleachmod.common.visual.HyorinmaruTimeline.cueDue(24,25,24));
