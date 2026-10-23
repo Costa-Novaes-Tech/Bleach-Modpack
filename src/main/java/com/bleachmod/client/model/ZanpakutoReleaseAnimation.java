@@ -64,7 +64,10 @@ public final class ZanpakutoReleaseAnimation {
         @Override public Vec3f get3DTransform(String part,TransformType type,float partial,Vec3f value){
             var v=view(player);if(v==null)return value;
             float t=progress(player,v,partial),w=weight(t),sign=player.getMainArm()==HumanoidArm.RIGHT?1:-1;
-            if(List.of("senbonzakura","benihime","asauchi").contains(v.identity))return RyujinActionVisuals.transform(player,com.bleachmod.common.visual.SignatureChoreography.release(v.identity,t*v.duration,v.duration,sign),part,type,value);
+            if(List.of("senbonzakura","benihime","asauchi").contains(v.identity)){
+                if(v.bankai && (v.identity.equals("senbonzakura") || v.identity.equals("benihime"))) return value;
+                return RyujinActionVisuals.transform(player,com.bleachmod.common.visual.SignatureChoreography.release(v.identity,t*v.duration,v.duration,sign),part,type,value);
+            }
             if(v.bankai && v.identity.equals("ryujin_jakka"))return RyujinActionVisuals.transform(player,com.bleachmod.common.visual.RyujinChoreography.release(t*v.duration,sign),part,type,value);
             boolean sword=part.equals(sign>0?"rightArm":"leftArm"),seal=part.equals(sign>0?"leftArm":"rightArm");
             if(v.bankai && v.identity.equals("hyorinmaru")){
@@ -134,7 +137,11 @@ public final class ZanpakutoReleaseAnimation {
     @SubscribeEvent public static void hand(RenderHandEvent e){
         var p=Minecraft.getInstance().player;if(p==null || e.getHand()!=InteractionHand.MAIN_HAND)return;
         var v=view(p);if(v==null)return;
-        if(List.of("senbonzakura","benihime","asauchi").contains(v.identity)){RyujinActionVisuals.hand(e.getPoseStack(),com.bleachmod.common.visual.SignatureChoreography.release(v.identity,progress(p,v,e.getPartialTick())*v.duration,v.duration,p.getMainArm()==HumanoidArm.RIGHT?1:-1));return;}
+        if(List.of("senbonzakura","benihime","asauchi").contains(v.identity)){
+            if(v.bankai && (v.identity.equals("senbonzakura") || v.identity.equals("benihime"))) return;
+            RyujinActionVisuals.hand(e.getPoseStack(),com.bleachmod.common.visual.SignatureChoreography.release(v.identity,progress(p,v,e.getPartialTick())*v.duration,v.duration,p.getMainArm()==HumanoidArm.RIGHT?1:-1));
+            return;
+        }
         if(v.bankai && v.identity.equals("ryujin_jakka")){RyujinActionVisuals.hand(e.getPoseStack(),com.bleachmod.common.visual.RyujinChoreography.release(progress(p,v,e.getPartialTick())*v.duration,p.getMainArm()==HumanoidArm.RIGHT?1:-1));return;}
         if(v.bankai && v.identity.equals("hyorinmaru")){
             float age = progress(p, v, e.getPartialTick()) * v.duration;

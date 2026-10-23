@@ -10,7 +10,7 @@ $branch = (& git -C $designRoot branch --show-current).Trim()
 if ($LASTEXITCODE -ne 0 -or $branch -ne 'codex/design-poderes-criaturas') { throw "Wrong design branch: $branch" }
 $jdk = Get-ChildItem -Path 'C:/Program Files/Eclipse Adoptium/jdk-17*' -Directory | Where-Object { Test-Path (Join-Path $_.FullName 'bin/java.exe') } | Select-Object -First 1
 if (!$jdk) { throw 'Existing Java17 not found; do not update Java blindly.' }
-$gradleTasks = switch ($Mode) { 'Check' { @('check','build') }; 'GameTests' { @('runGameTestServer') }; 'Client' { @('runClient') }; 'ClientQa' { @('-PbenihimeQa=true','-PhyorinmaruQa=true','-PqaAutoExit=true','runClient') } }
+$gradleTasks = switch ($Mode) { 'Check' { @('check','build') }; 'GameTests' { @('runGameTestServer') }; 'Client' { @('runClient') }; 'ClientQa' { @('-PbenihimeQa=true','-PhyorinmaruQa=true','-PsenbonzakuraQa=true','-PqaAutoExit=true','runClient') } }
 Write-Host "Root=$designRoot Branch=$branch Java=$($jdk.FullName) Tasks=$gradleTasks"
 if ($DryRun) { return }
 $lock = [Threading.Mutex]::new($false, 'Local\BleachMod-Design-Gradle')
