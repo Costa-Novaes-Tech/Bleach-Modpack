@@ -1,6 +1,8 @@
 # 05 — ATRIBUTOS E RECURSOS
 
-> **Direção vigente REV-SP-02 — 22/10/2026:** Spiritual Points compram **skills e transformações**, conforme esclarecimento explícito do usuário, usando Dragon Mine Z como referência para a compra. **Mastery é desenvolvida pela prática e não é comprada.** Requisitos/contexto disponibilizam a aquisição; SP paga a compra/desbloqueio; usar a capacidade depois segue os custos próprios de Energia/Stamina. [Contrato comum em M05/11.2](05-atributos-e-recursos.md#112-rev-sp-02--compra-de-skills-e-transformacoes-com-spiritual-points). Preços e exceções concretas permanecem nas fichas; a compra não pode ser removida genericamente por interpretação de M05/M06.
+> **Retorno de Combat State — 23/10/2026:** [M06a](06a-estado-de-combate.md), M06-CS-01A/B/C/D decididos. Envolvimento real inclui ataque evitado/apoio efetivo; perigo ambiental sem origem hostil não ativa o estado por si; saída exige cessar conflito/ameaça e respeitar encontro. A janela restante persiste nas transições pelo tempo de simulação, com contexto reavaliado. M05 continua responsável pelos efeitos sobre regeneração e calibração; ficar fora de combate não elimina condições próprias de recuperação nem concede regen offline. Não foram alteradas taxas, SP/Mastery ou implementação.
+
+> **Direção vigente REV-SP-02 — 22/10/2026:** Spiritual Points compram **skills e transformações**, conforme esclarecimento explícito do usuário, usando Dragon Mine Z como referência para a compra. **Mastery é desenvolvida pela prática e não é comprada.** Requisitos/contexto disponibilizam a aquisição; SP paga a compra/desbloqueio; usar a capacidade depois segue os custos próprios de Energia/Stamina. [Contrato comum em M05/11.2](05-atributos-e-recursos.md#112-rev-sp-02--compra-de-skills-e-transformações-com-spiritual-points). Preços e exceções concretas permanecem nas fichas; a compra não pode ser removida genericamente por interpretação de M05/M06.
 
 **Status:** `ESPECIFICADO CONCEITUALMENTE`  
 **Módulo anterior:** `04-racas-e-origens.md`  
@@ -2054,8 +2056,10 @@ Energia Espiritual
 ATRIBUTOS
 Spiritual Points + prática válida
 
-TÉCNICAS
-aprendizado + Mastery
+SKILLS E TRANSFORMAÇÕES — REV-SP-02
+requisitos/contexto → compra de aquisição com Spiritual Points
+uso → Energia/Stamina conforme a ficha
+domínio → prática/Mastery, sem compra
 
         ↓
 

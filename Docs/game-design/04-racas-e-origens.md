@@ -1,6 +1,30 @@
 # Raças e origens
 
-> **Direção vigente REV-SP-02 — 22/10/2026:** Spiritual Points compram **skills e transformações**, conforme esclarecimento explícito do usuário, usando Dragon Mine Z como referência para a compra. **Mastery é desenvolvida pela prática e não é comprada.** Requisitos/contexto disponibilizam a aquisição; SP paga a compra/desbloqueio; usar a capacidade depois segue os custos próprios de Energia/Stamina. [Contrato comum em M05/11.2](05-atributos-e-recursos.md#112-rev-sp-02--compra-de-skills-e-transformacoes-com-spiritual-points). Preços e exceções concretas permanecem nas fichas; a compra não pode ser removida genericamente por interpretação de M05/M06.
+> **Retorno dirigido — 23/10/2026:** [M04a — Presença espiritual, visão e interação](04a-presenca-espiritual-e-interacao.md): RAC-30A/B/C/D decididos. Visão antes do combate exigido; requisito espiritual do ataque aplicado também contra o jogador; percepção/interação vanilla preservadas. Recomendação anterior de dano comum por padrão retirada após objeção e reformulação. RAC-31A decidido abaixo: recomeço no atendimento do NPC, com estado inicial próprio e validação antes de apagar a jornada. Retorno M06a/Combat State consolidado com CS-01A/B/C/D aprovados; atuais complementos M08/M09. Complementa COV-05; não revoga origens/criação consolidadas nem reabre gigai, Substituto ou híbridos.
+
+## Retorno dirigido — Corpo e local após reset — 23/10/2026
+
+### RAC-31A — Recomeço no atendimento do NPC — DECIDIDO
+
+**Herança:** reset do personagem único, gratuito, confirmado fora de combate/encontro, com alcance RAC-28B; NPC original próximo à área humana de recuperação na periferia de Karakura, conforme M08-03A/05B e M10-12C. RAC-26 exige confirmar origem antes do prólogo. Todas as origens iniciam no Mundo Humano, em estados próprios; spawn técnico no Overworld não significa que todas comecem humanas. O passado como Plus de Hollow e o estado narrativo inicial Shinigami mantêm seus contratos e detalhamento de prólogo em M13.
+
+**Resposta em 23/10/2026:** “No atendimento do NPC (recomendado)”.
+
+**Regra aprovada:** após informar perdas e selecionar/confirmar a nova origem, concluir o reset no atendimento do NPC, conservando posição dos pés e direção quando o estado corporal inicial previsto no novo prólogo for válido ali. O corpo avançado antigo não permanece: Gillian/Adjuchas/Vasto Lorde/Arrancar e manifestações são substituídos pelo começo da jornada escolhida, sem dar automaticamente poderes ou estágios posteriores. Não inventar um corpo humano universal nem pular acontecimentos raciais do prólogo.
+
+Validar espaço, acesso e condição do local para o estado inicial antes de concluir a operação; se não forem válidos, recusar com aviso e preservar integralmente a jornada anterior. Não remover blocos nem teleportar por omissão. O jogador pode se reposicionar e pedir novamente. A regra de integridade integral ou preservação do estado anterior já consta de RAC-28B; não é uma nova escolha de perda parcial.
+
+O novo prólogo começa/é encaminhado a partir dali, conforme a era vigente, usando suas fontes e viagens narrativas apropriadas; reset não envia diretamente à Academia ou a Hueco Mundo, não libera destinos nem retrocede a era compartilhada. Arquitetura/cena/missão exatas permanecem em M10/M13/M14/M16. Conferir corpo, equipamento e ação em conjunto; manter itens comuns não restaura vínculo/técnica apagados. Valores iniciais/ajuste de recursos ficam com M05 e dados/itens vinculados com M11/M12/M16; não escolher cura, itens duplicados ou apagamento de baús nesta decisão.
+
+**Alternativa não adotada:** após concluir, levar à área inicial humana preparada para recomeçar o prólogo. Centraliza o início, mas acrescenta deslocamento e validação de destino, embora o prestador já esteja no entorno inicial. Não realizar esse deslocamento automaticamente por ser uma operação de reset.
+
+**Pergunta:** Ao concluir o reset e confirmar a nova origem, recomendo recomeçar perto do próprio NPC, no Mundo Humano, usando o estado inicial do novo prólogo — sem conservar o corpo avançado anterior nem receber estágios antecipados. Se esse estado não couber no local, a operação é recusada antes de apagar o progresso. A alternativa leva o personagem à área inicial humana preparada. Onde recomeçamos?
+
+**Opções:** “No atendimento do NPC (recomendado)” / “Na área inicial humana”. **Resposta em 23/10/2026:** “No atendimento do NPC (recomendado)”. [Histórico do bloco](historico/2026-10-23-proposta-m04-rac31a-corpo-e-local-reset.md). Adaptação de produto, sem afirmar reset universal no cânone ou operação implementada. Aplicado ao prestador e aos percursos; não resta resposta pendente desta escolha. Segue o retorno M06/Combat State. Fichas de itens/recursos/prólogo e gravação continuam necessárias antes da implementação.
+
+**Integração do reset — 23/10/2026:** [M06a/CS-01A/B/C/D](06a-estado-de-combate.md) decidido. Validar estado automático OFF, ausência de encontro e perigo/dano atual incompatível antes de concluir; fechar Combat Mode ou abrir o atendimento não limpa a luta. O restante da janela não zera por morte/logout/transição válida; só seu relógio e contexto aprovados determinam o término. Nenhuma nova perda/preservação ou penalidade de reset introduzida.
+
+> **Direção vigente REV-SP-02 — 22/10/2026:** Spiritual Points compram **skills e transformações**, conforme esclarecimento explícito do usuário, usando Dragon Mine Z como referência para a compra. **Mastery é desenvolvida pela prática e não é comprada.** Requisitos/contexto disponibilizam a aquisição; SP paga a compra/desbloqueio; usar a capacidade depois segue os custos próprios de Energia/Stamina. [Contrato comum em M05/11.2](05-atributos-e-recursos.md#112-rev-sp-02--compra-de-skills-e-transformações-com-spiritual-points). Preços e exceções concretas permanecem nas fichas; a compra não pode ser removida genericamente por interpretação de M05/M06.
 
 ## Estado do módulo
 
@@ -8,10 +32,10 @@
 |---|---|
 | Estado | `ESPECIFICADO CONCEITUALMENTE` no escopo desta etapa; requisitos executáveis e conteúdo continuam delegados |
 | Responsável pela decisão | Equipe do Bleach Mod |
-| Última revisão | 22/10/2026 — criação/continuidade consolidadas após RAC-26, REV-RAC27-01 e RAC-28A/B; fronteiras e pendências registradas |
+| Última revisão | 23/10/2026 — retorno dirigido RAC-30A/B/C/D e RAC-31A; criação/continuidade consolidadas em 22/10 preservadas, com fichas executáveis ainda necessárias |
 | Decisões herdadas | D01–D06, complemento de poderes canônicos, PRG-01–PRG-08 e STR-01–STR-07 |
-| Decisões deste módulo | RAC-01–RAC-26, RAC-28A/B e REV-RAC27-01: um personagem por conta em cada mundo/servidor nesta etapa; múltiplos personagens adiados; RAC-29B guarda princípio futuro de posição própria |
-| Próximo uso | M08 — NPCs, mentores e facções; aplicar os contratos às fichas de ensino, serviço de reset e continuidade |
+| Decisões deste módulo | RAC-01–RAC-26, RAC-28A/B e REV-RAC27-01; RAC-30A/B/C/D sobre presença/interação/dano e RAC-31A sobre corpo/local do reset. Um personagem por conta/mundo ou servidor nesta etapa; múltiplos personagens adiados e RAC-29B preservado para expansão |
+| Próximo uso | Complementos M08/M09 e circulação M10 após o retorno M06a/Combat State; fichas executáveis e implementação continuam M10–M16 |
 
 Este documento trata da natureza espiritual e do começo jogável do personagem no **mod completo**. Ele ainda não autoriza implementação e não transforma possibilidades futuras em funcionalidades já prometidas.
 
