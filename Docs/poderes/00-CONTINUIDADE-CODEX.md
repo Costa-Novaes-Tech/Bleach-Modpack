@@ -1,5 +1,7 @@
 # Continuidade do projeto — leia primeiro
 
+**Integração 23/10 — [ciclo 100: poderes + design + main](100-integracao-branches-poderes-design-main-2026-10-23.md):** resolvidos os conflitos de continuidade e remoção de logs; preservados câmera/fala do ciclo 99, hidra/pose da frente de design e correções/Hollows da equipe. Fonte Blockbench com caminho relativo entre checkouts. Check/build: 146 regressões; 223 GameTests obrigatórios aprovados. Cliente Forge integrado: 10 cenários/exit 0; branches de trabalho destinadas à mesma integração, sem force-push. Sem commit direto na main.
+
 **Atualização 23/10 — [ciclo 99: fala Bankai e câmera Hyōrinmaru](99-hyorinmaru-fala-camera-coordenacao-2026-10-23.md):** fala refeita do WAV reenviado, sem fade fixo; preload e cauda discreta. Câmera com close, revelação, plano lateral e retorno suave ao F5. Check/build: 142 regressões; duas execuções reais de 10 cenários concluídas. Retorno orbital corrigido após inspeção gráfica. Escuta e demais perspectivas pendentes. [Prompt 98](98-prompt-antigravity-mandibulas-pose-hyorinmaru-2026-10-23.md) separa mandíbulas/PlayerAnimator na branch de design. Sem merge ou alteração de gameplay.
 
 Atualizado em 22/10/2026. Resumo de passagem para nova conversa; consulte o código/Git antes de alterar. Este arquivo evita precisar importar o histórico completo do chat. Não substitui instruções atuais do usuário.

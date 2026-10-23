@@ -1,5 +1,7 @@
 # Handoff — Game Design do Mod Bleach
 
+> **HISTÓRICO — aviso de 20/10/2026:** este handoff antecede o fechamento de M04 e os documentos M05/M06. Estados, numeração de módulos, branch e ponto de continuação abaixo são históricos. Para retomar, leia [00-handoff-atual.md](00-handoff-atual.md), o mapa modular e as revisões explícitas dos módulos. O conteúdo anterior foi preservado para rastreabilidade.
+
 > Documento de transferência para continuar o trabalho de game design em outro chat. Leia este arquivo inteiro antes de propor novas decisões.
 
 ## 1. Objetivo do handoff

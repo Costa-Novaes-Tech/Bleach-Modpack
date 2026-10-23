@@ -1,0 +1,28 @@
+{
+  "MELEE": {
+    "samples": 12,
+    "minTick": 2,
+    "maxTick": 24,
+    "minTargetHealth": 492.0,
+    "distanceTravelledZ": 0.0
+  },
+  "CHARGE": {
+    "samples": 20,
+    "minTick": 2,
+    "maxTick": 40,
+    "minTargetHealth": 490.0,
+    "distanceTravelledZ": 15.299999999999995
+  },
+  "SLAM": {
+    "samples": 20,
+    "minTick": 2,
+    "maxTick": 40,
+    "minTargetHealth": 484.72,
+    "distanceTravelledZ": 0.0
+  },
+  "source": "C:\\Users\\Usu\u00e1rio\\Documents\\GitHub\\Bleach-Modpack\\run\\boss-qa\\base\\boss-evidence\\Boss-QA-1792524068943",
+  "observedFrameFps": {
+    "min": 117,
+    "max": 119
+  }
+}

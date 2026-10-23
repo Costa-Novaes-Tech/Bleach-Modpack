@@ -38,3 +38,7 @@ Maps/
 
 # python
 __pycache__/
+
+# logs de execucao e lixo do macOS
+/logs/
+.DS_Store

@@ -77,8 +77,10 @@ public final class CapabilityEvents {
         @SubscribeEvent
         public static void changedDimension(PlayerEvent.PlayerChangedDimensionEvent event) {
             if (event.getEntity() instanceof ServerPlayer player) {
-                PlayerCapability.get(player).ifPresent(data -> data.resetTransientState());
+                PlayerCapability.get(player).ifPresent(PlayerData::resetLevelBoundState);
+                // The client built a brand-new player entity for the new level: resend everything.
                 SyncHelper.full(player);
+                SyncHelper.appearance(player);
             }
         }
         @SubscribeEvent

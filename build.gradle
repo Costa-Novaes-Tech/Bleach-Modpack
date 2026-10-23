@@ -3,7 +3,7 @@ plugins {
     id 'idea'
     id 'maven-publish'
     id 'net.minecraftforge.gradle' version '6.0.54'
-    id 'org.spongepowered.mixin' version '0.7.+'
+    id 'org.spongepowered.mixin' version '0.7.38'
 }
 
 version = mod_version
@@ -89,6 +89,18 @@ minecraft {
         }
 
         client {
+            if (providers.gradleProperty('bossQa').map { it.toBoolean() }.getOrElse(false)) {
+                workingDirectory project.file('run/boss-qa/base')
+                property 'bleachmod.bossQa', 'true'
+                property 'bleachmod.bossQaExit', providers.gradleProperty('bossQaExit').getOrElse('false')
+                args '--width', '1280', '--height', '720'
+            }
+            if (providers.gradleProperty('hollowQa').map { it.toBoolean() }.getOrElse(false)) {
+                workingDirectory project.file('run/hollow-qa/aerial')
+                property 'bleachmod.hollowQa', 'true'
+                property 'bleachmod.hollowQaExit', providers.gradleProperty('hollowQaExit').getOrElse('false')
+                args '--width', '1280', '--height', '720'
+            }
             if (providers.gradleProperty('benihimeQa').map { it.toBoolean() }.getOrElse(false)) {
                 workingDirectory project.file(providers.gradleProperty('photonPilot').map { it.toBoolean() }.getOrElse(false) ? 'run-benihime-qa/photon' : 'run-benihime-qa/base')
                 property 'bleachmod.benihimeQa', 'true'
@@ -121,7 +133,7 @@ minecraft {
         // The gametest system is also enabled by default for other run configs under the /test command.
         gameTestServer {
             // Keep optional-mod registry entries out of the baseline test save.
-            workingDirectory project.file(providers.gradleProperty('photonPilot').map { it.toBoolean() }.getOrElse(false) ? 'run-gametest/photon' : 'run-gametest/base')
+            workingDirectory project.file(providers.gradleProperty('bossQa').map { it.toBoolean() }.getOrElse(false) ? 'run-gametest/boss-remaster' : (providers.gradleProperty('photonPilot').map { it.toBoolean() }.getOrElse(false) ? 'run-gametest/photon' : 'run-gametest/base'))
             property 'forge.enabledGameTestNamespaces', mod_id
         }
 

@@ -313,7 +313,8 @@ def build_bbmodel(geo: dict, anim: dict, texture_png: bytes) -> dict:
         "animations": animations,
         "textures": [
             {
-                "path": str(TEXTURE_PNG),
+                # Relative to tools/models/source: stable across the powers/design checkouts.
+                "path": "../../../" + TEXTURE_PNG.relative_to(ROOT).as_posix(),
                 "name": "ice_hydra.png",
                 "folder": "entity",
                 "namespace": "bleachmod",

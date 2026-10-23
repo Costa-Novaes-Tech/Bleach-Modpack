@@ -1,0 +1,1861 @@
+# HANDOFF — BLEACH MINECRAFT MOD
+## Continuidade do planejamento — M06 Habilidades e Combate
+
+**Objetivo deste documento:** transferir todo o contexto relevante das discussões e decisões deste chat para outra conversa, sem perder o histórico de raciocínio nem reabrir desnecessariamente decisões já aprovadas.
+
+**Situação atual:** M06-01 a M06-07 especificados em nível estrutural. M06-07 — Shinigami foi auditado, documentado e o usuário informou ter realizado o commit. Estamos desenvolvendo **M06-08 — Hollow / Arrancar**, especificamente a evolução Hollow, linhagens canônicas e representações de formas não mostradas em Bleach.
+
+---
+
+# 1. CONTEXTO GERAL DO PROJETO
+
+Estamos planejando um **mod de Bleach para Minecraft Java**, com inspiração estrutural em Dragon Mine Z e também referências de jogos de Bleach do Roblox.
+
+A intenção **não é copiar Dragon Mine Z, Type Soul, Peroxide ou outros jogos**. Eles servem como fontes de ideias para resolver problemas de progressão, gameplay e conteúdo.
+
+## Filosofia fundamental
+
+O mod deve:
+
+- Respeitar a identidade de Bleach.
+- Adaptar o cânone quando necessário para o gameplay funcionar bem.
+- Possuir evolução perceptível de personagem e técnicas.
+- Oferecer diferentes experiências raciais.
+- Permitir especialização sem impor classes permanentemente restritivas.
+- Ter uma progressão duradoura, mas sem grind exagerado.
+- Acompanhar naturalmente a storyline e as quests.
+- Ser viável de implementar em etapas.
+- Manter espaço para expansões futuras sem exigir sistemas excessivamente complexos na V1.
+
+**Princípio transversal aprovado:**
+
+> O cânone de Bleach é o fundamento da fantasia e da identidade das capacidades. A implementação deve traduzir essa fantasia em regras coerentes, divertidas e adequadas ao Minecraft, sem obrigação de reproduzir literalmente toda mecânica mostrada na obra.
+
+Outra regra essencial:
+
+> Experiências raciais devem possuir profundidade equivalente, mas não precisam ter estruturas de progressão simétricas.
+
+Exemplo:
+
+- Shinigami: formação, disciplinas, aprendizado e técnicas.
+- Hollow: sobrevivência, predação, evolução corporal e individualização.
+- Quincy: controle, precisão, Reishi e tradição.
+- Fullbringer: vínculos, objetos, individualidade e manipulação da matéria.
+
+Não inventar quatro disciplinas Hollow apenas porque Shinigami possui quatro disciplinas.
+
+---
+
+# 2. PERSONAGEM, CÂNONE E PODERES
+
+## Personagem original
+
+O jogador interpreta um personagem original que existe paralelamente aos acontecimentos do universo de Bleach.
+
+Não é Ichigo.
+
+Personagens canônicos existem no mundo, podem ser encontrados, ensinar, participar de quests e ser enfrentados.
+
+O jogador ou grupo de jogadores pode eventualmente derrotar personagens e chefes canônicos.
+
+## Poder principal canônico
+
+Os poderes principais devem utilizar identidades canônicas reais quando disponíveis.
+
+Exemplos:
+
+- Senbonzakura;
+- Ryūjin Jakka;
+- Pantera;
+- outros poderes raciais correspondentes.
+
+O jogador não recebe obrigatoriamente uma habilidade genérica aleatória apenas porque pertence a determinada raça.
+
+**Regra decidida:** cada personagem segue um poder principal, não coleciona todos os poderes da raça.
+
+A existência do personagem canônico não impede um jogador de utilizar a identidade de seu poder. Também são permitidos jogadores diferentes com o mesmo conjunto de poder, inclusive em multiplayer.
+
+Isso é uma adaptação deliberada para o mod, não uma afirmação sobre exclusividade absoluta no cânone.
+
+## Técnicas gerais
+
+Conhecimentos legitimamente ensináveis de determinada raça podem ser aprendidos com o tempo.
+
+O jogador não fica preso a uma classe de combate por uma escolha inicial.
+
+A diferenciação decorre de:
+
+- quais habilidades aprende;
+- quais disciplinas desenvolve;
+- quais repertórios encontra;
+- qual poder principal possui;
+- o que escolhe dominar primeiro.
+
+---
+
+# 3. MÓDULOS E ORGANIZAÇÃO
+
+O projeto é documentado modularmente.
+
+Entre os documentos estruturais trabalhados ou referenciados estão:
+
+- `00-mapa-modular.md`
+- `01-visao-e-pilares.md`
+- `02-trilhas-de-progressao.md`
+- `03-storyline-macro.md`
+- `04-racas-e-origens.md`
+- `05-atributos-e-recursos.md`
+
+A documentação existente e as decisões revisadas posteriormente devem ser reconciliadas. **Decisões explicitamente atualizadas substituem propostas antigas.**
+
+## Sequência do M06
+
+- M06-01 — Arquitetura universal das habilidades.
+- M06-02 — Combate básico.
+- M06-03 — Aquisição e aprendizado.
+- M06-04 — Mastery das técnicas.
+- M06-05 — Custos, cooldowns e execução.
+- M06-06 — Defesa, esquiva e movimentação.
+- M06-07 — Shinigami.
+- **M06-08 — Hollow / Arrancar (EM ANDAMENTO).**
+- M06-09 — Quincy.
+- M06-10 — Fullbringer.
+- M06-11 — Auditoria e integração final.
+
+M07 abordará transformações, liberações e poderes superiores.
+
+M14 deverá tratar aspectos definitivos de interface e controles.
+
+---
+
+# 4. M05 — BASE UNIVERSAL JÁ DEFINIDA
+
+O M06 se apoia nas decisões do M05.
+
+## Cinco atributos universais
+
+1. **Potência:** força e capacidade ofensiva fundamental.
+2. **Vitalidade:** capacidade de sobrevivência/Vida.
+3. **Resistência:** resistência a dano e capacidade relacionada à Stamina.
+4. **Reserva:** capacidade máxima de Energia Espiritual.
+5. **Controle:** precisão, eficiência e controle energético/técnico.
+
+Os atributos podem evoluir através de pontos espirituais e prática válida, conforme o sistema já definido.
+
+Escala planejada dos atributos: **1 a 10.000**, com curvas não necessariamente lineares.
+
+Ainda não existem fórmulas finais de dano, eficiência ou progressão.
+
+## Três recursos universais
+
+- Vida.
+- Stamina.
+- Energia Espiritual.
+
+Conceitos diferenciados:
+
+- **Reiryoku:** energia espiritual disponível.
+- **Reiatsu:** manifestação/pressão espiritual.
+- **Reishi:** matéria/partículas espirituais do ambiente.
+
+**Battle Power** existe como indicador informacional de poder geral, não como substituto dos atributos.
+
+## Combate e recursos
+
+Stamina governa principalmente esforço físico e movimentação exigente.
+
+Energia Espiritual governa técnicas que utilizam poder espiritual diretamente.
+
+Nem toda ação precisa consumir recurso. Custos devem resultar da identidade e do balanceamento da capacidade.
+
+## Combat State
+
+Existe um estado interno de combate, acionado automaticamente conforme condições como causar/receber dano.
+
+Ele interfere em comportamentos como regeneração.
+
+**Combat State não é o mesmo que Combat Mode.**
+
+---
+
+# 5. M06-P — PRINCÍPIOS TRANSVERSAIS
+
+## DECIDIDO — Cânone como fundamento
+
+Preservar a fantasia reconhecível de Bleach.
+
+Adaptar a execução quando necessário para gameplay, Minecraft, multiplayer e balanceamento.
+
+## DECIDIDO — Mecânicas a serviço da experiência
+
+Custos, cooldowns, preparação, Recovery, Mastery, duração e riscos devem existir porque melhoram a experiência e a identidade da técnica.
+
+Não criar mecânicas só porque o motor suporta.
+
+## DECIDIDO — Complexidade incremental
+
+A V1 pode ser simples.
+
+Ela precisa ser:
+
+- funcional;
+- divertida;
+- legível;
+- coerente;
+- extensível.
+
+Não precisamos implementar toda profundidade prevista antes de validar o primeiro combate.
+
+## DECIDIDO — Escopo inicial das disciplinas
+
+Uma disciplina pode futuramente incluir repertórios extensos, técnicas contextuais e interações avançadas.
+
+Isso não obriga que tudo entre na primeira versão.
+
+## DECIDIDO — Progressão sem grind excessivo
+
+Proficiência, Mastery e evolução racial exigem investimento real, mas devem acompanhar história, exploração, quests, treinamento e combate.
+
+Evitar horas de repetição artificial desconectada do progresso natural.
+
+---
+
+# 6. M06-01 — ARQUITETURA UNIVERSAL
+
+**Status: DECIDIDO.**
+
+Categorias gerais:
+
+- ações fundamentais;
+- técnicas ativas;
+- técnicas contextuais;
+- passivas e capacidades;
+- técnicas do poder principal;
+- formas/estados, abordados em M07.
+
+Todas podem compartilhar uma infraestrutura técnica para:
+
+- validação;
+- requisitos;
+- execução;
+- custos;
+- cooldown;
+- Recovery;
+- atributos;
+- Mastery;
+- condições.
+
+**Compartilhar infraestrutura não significa todas terem o mesmo funcionamento.**
+
+## Combat Mode
+
+O Combat Mode é controlado pelo jogador.
+
+A ativação manual será o comportamento padrão; modo automático é uma possibilidade futura.
+
+Ele apresenta uma **Combat Hotbar própria**, distinta da hotbar vanilla.
+
+### Combat Hotbar
+
+- Nove slots de técnicas.
+- Inputs padrão de 1 a 9.
+- Remapeáveis.
+- Não movimenta itens reais do inventário.
+- Não altera o item efetivamente selecionado no inventário vanilla.
+
+### Ações fundamentais
+
+Não ocupam os nove slots.
+
+Exemplos:
+
+- ataque básico;
+- bloqueio;
+- dodge;
+- movimentação racial dedicada quando apropriado.
+
+Shunpo, Sonído ou outras capacidades de mobilidade poderão utilizar uma tecla dedicada.
+
+Transformações não serão slots comuns da Combat Hotbar; M07 decidirá sua execução.
+
+---
+
+# 7. M06-02 — COMBATE BÁSICO
+
+**Status: DECIDIDO.**
+
+O combate universal deve ser relativamente simples.
+
+A profundidade vem principalmente do repertório aprendido, não de um sistema universal excessivamente complexo semelhante a jogos de luta.
+
+## Ataques básicos e contextos
+
+O sistema reconhece situações como:
+
+- sequência de ataques;
+- ataque durante sprint;
+- ataque aéreo;
+- ataque após dodge;
+- direção + ataque.
+
+Esses contextos podem iniciar ações fundamentais ou técnicas contextuais aprendidas.
+
+As sequências fundamentais podem ter finalizadores.
+
+Não haverá uma tecla universal obrigatória de ataque pesado.
+
+## Armas e corpo a corpo
+
+O motor é compartilhado, mas os movesets e capacidades variam.
+
+Um ataque normal com espada não é automaticamente uma técnica individual de Zanjutsu.
+
+Um soco normal não é automaticamente uma técnica individual de Hakuda.
+
+A formação nas disciplinas expande esses fundamentos.
+
+## Stamina
+
+Não cobrar Stamina relevante por todo ataque trivial.
+
+Custos devem existir principalmente em ações fisicamente exigentes ou técnicas específicas.
+
+## Controle e impacto
+
+Distinguir:
+
+- dano;
+- stagger;
+- interrupção;
+- knockback;
+- launch;
+- knockdown.
+
+Esses efeitos não são equivalentes.
+
+Acertos comuns devem apresentar feedback, mas não precisam causar stagger significativo.
+
+Golpes fortes, técnicas específicas, finalizadores ou quebra de guarda podem gerar controle conforme sua identidade.
+
+Evitar stunlock.
+
+## Interrupção — DECISÃO REVISADA
+
+**Dano recebido, sozinho, não cancela automaticamente toda preparação ou técnica em execução.**
+
+A técnica continua sujeita ao dano normalmente.
+
+Interrupção forçada ocorre principalmente através de efeitos de controle relevantes.
+
+Cancelamento voluntário depende das regras da própria técnica.
+
+## Super Armor
+
+Representa resistência adicional a certos efeitos de controle durante fases declaradas.
+
+Não concede invulnerabilidade.
+
+Não impede o dano.
+
+Não restaura recursos.
+
+Não está presente automaticamente em todo carregamento.
+
+---
+
+# 8. M06-03 — AQUISIÇÃO E APRENDIZADO
+
+**Status: DECIDIDO, COM REVISÕES POSTERIORES INCORPORADAS.**
+
+Separar:
+
+**Acesso → Aprendizado → Mastery**
+
+Essas etapas não precisam ocorrer sempre da mesma maneira.
+
+## Fontes possíveis
+
+- mentores;
+- treinamento;
+- descoberta;
+- desenvolvimento por fundamentos;
+- quests;
+- condições narrativas;
+- progressão racial;
+- poder principal;
+- eventos;
+- outras fontes coerentes.
+
+## Mestre não é loja
+
+Não exigir NPC para cada técnica.
+
+Um mestre pode ensinar:
+
+- uma disciplina;
+- fundamentos;
+- um repertório;
+- uma técnica excepcional;
+- um método especial.
+
+Após aprender determinada disciplina ou repertório, muitas técnicas relacionadas podem tornar-se desenvolvíveis organicamente.
+
+## Pré-requisitos
+
+Podem depender de:
+
+- Proficiência;
+- Mastery anterior;
+- outra técnica;
+- conhecimento específico;
+- progressão narrativa;
+- equipamento;
+- condição de combate;
+- treinamento.
+
+Evitar árvores rígidas que obriguem dependências sem justificativa.
+
+## Skill Tree tradicional — SUPERADA
+
+A ideia de uma árvore para comprar técnicas foi discutida e descartada como estrutura geral.
+
+No futuro haverá preferencialmente uma **lista/repertório da disciplina**, que pode apresentar técnicas:
+
+- aprendidas;
+- disponíveis para desenvolver;
+- bloqueadas;
+- dependentes de fonte especial;
+- ainda desconhecidas.
+
+A interface definitiva pertence ao M14.
+
+---
+
+# 9. M06-04 — MASTERY
+
+**Status: DECIDIDO.**
+
+Mastery mede domínio de uma **técnica individual**.
+
+A técnica não possui um segundo Level além da Mastery.
+
+## Benefícios possíveis
+
+Dependendo da técnica, Mastery pode melhorar:
+
+- execução;
+- precisão;
+- estabilidade;
+- eficiência;
+- preparação;
+- recuperação;
+- propriedades específicas;
+- dano/eficácia de maneira pequena ou moderada.
+
+**Atributos e estados de poder continuam sendo as fontes predominantes de crescimento bruto de poder.**
+
+Mastery não transforma uma técnica em algo totalmente gratuito ou instantâneo por padrão.
+
+Não elimina obrigatoriamente todos os riscos e restrições fundamentais.
+
+## Progressão
+
+Principalmente:
+
+- uso legítimo;
+- treinamento;
+- desafios relevantes.
+
+Não recompensar eficientemente AFK, spam na parede, alvos triviais ou loops artificiais.
+
+Toda técnica que utiliza Mastery segue uma escala universal, ainda não calibrada.
+
+Não criar múltiplas sub-barras por técnica.
+
+---
+
+# 10. M06-05 — CUSTOS, RECOVERY E COOLDOWN
+
+**Status: DECIDIDO.**
+
+## Recursos
+
+- Stamina para esforço físico relevante.
+- Energia Espiritual para poder espiritual direto.
+- Ambos somente quando justificável.
+- Nenhum custo quando outras restrições forem suficientes.
+
+Não cobrar duas vezes automaticamente pela mesma ação contextual.
+
+## Custos possíveis
+
+- imediato;
+- durante canalização;
+- ativação + manutenção;
+- preparação;
+- liberação.
+
+A técnica define a forma apropriada.
+
+## Recovery
+
+**Recovery controla o ritmo entre técnicas diferentes após uma execução.**
+
+Ele impede que o jogador solte uma técnica e inicie imediatamente outra sem qualquer intervalo.
+
+Não precisa impedir movimento ou ataques básicos, a menos que a técnica determine.
+
+## Cooldown
+
+**Cooldown é individual da técnica utilizada.**
+
+Exemplo:
+
+1. Ativa Técnica A.
+2. Técnica A entra em cooldown.
+3. Recovery bloqueia temporariamente o início de outras técnicas.
+4. Recovery termina.
+5. Técnica B fica disponível, mesmo com Técnica A ainda em cooldown.
+
+Não haverá global cooldown universal.
+
+Cooldown compartilhado poderá existir apenas entre variações que realmente precisem compartilhar restrição para impedir abuso.
+
+Charges serão exceção, não obrigação.
+
+Mastery não reduz automaticamente todo cooldown.
+
+Nenhum atributo deve funcionar como redutor universal de cooldown de todas as habilidades.
+
+---
+
+# 11. M06-06 — DEFESA, ESQUIVA E MOVIMENTAÇÃO
+
+**Status: DECIDIDO.**
+
+## Bloqueio universal
+
+Todos podem bloquear dentro das condições permitidas.
+
+A eficiência varia conforme:
+
+- ataque recebido;
+- arma/meio defensivo;
+- treinamento;
+- estado;
+- capacidade específica.
+
+Bloquear não significa necessariamente anular 100% do dano.
+
+Parry avançado é uma técnica aprendida, não uma propriedade gratuita universal.
+
+## Postura — DECISÃO FINAL REVISADA
+
+Existe um medidor de **Postura** para a guarda.
+
+Sua função é **exclusivamente controlar a quebra de guarda**.
+
+- Bloquear impactos causa pressão na Postura.
+- Ao chegar a zero ocorre Guard Break.
+- Guard Break gera abertura temporária.
+- Postura se recupera após cessar a pressão defensiva, com tempos ainda pendentes.
+
+**Postura não é:**
+
+- recurso ofensivo;
+- atributo de progressão;
+- substituto de Stamina;
+- Stagger;
+- recurso universal como Vida/Energia;
+- medidor de técnica;
+- mecânica genérica de movimentação.
+
+Bloqueio normal não deve automaticamente consumir Stamina e Postura juntos.
+
+## Dodge universal
+
+- Curto.
+- Responsivo.
+- Direcional conforme input do jogador.
+- Consome Stamina.
+- Focado em reposicionamento efetivo.
+- Não exige longas janelas de invulnerabilidade.
+
+A regra é que W/A/S/D + Dodge direciona o movimento.
+
+Comportamento sem direção definida fica para protótipo.
+
+## Dodge ≠ mobilidade racial
+
+Dodge não substitui Shunpo, Sonído ou Hirenkyaku.
+
+Mobilidade racial é aprendida e pode funcionar:
+
+- em combate;
+- na exploração;
+- em perseguição;
+- em evasão;
+- em reposicionamento.
+
+## Cancelamentos
+
+Não existe direito universal de cancelar qualquer técnica com dodge, bloqueio ou movimento.
+
+Cada capacidade declara suas fases e permissões.
+
+---
+
+# 12. M06-07 — SHINIGAMI: RESULTADO DA AUDITORIA
+
+**Status: APROVADO EM NÍVEL ESTRUTURAL.**
+
+O bloco completo foi redigido em documento próprio, auditado e aprovado.
+
+O usuário informou ter realizado o commit.
+
+A documentação completa no repositório deve ser utilizada como fonte de detalhe, enquanto este handoff preserva a arquitetura e decisões essenciais.
+
+## Quatro disciplinas
+
+- **Zanjutsu:** combate de espada.
+- **Hakuda:** combate corporal.
+- **Hohō:** movimentação avançada.
+- **Kidō:** artes espirituais.
+
+Não são classes mutuamente exclusivas.
+
+O jogador pode desenvolver todas legitimamente com o tempo.
+
+---
+
+# 13. PROFICIÊNCIA — SISTEMA FINAL DAS DISCIPLINAS
+
+**Status: DECIDIDO.**
+
+Cada disciplina Shinigami tem **Proficiência geral**.
+
+Exemplo:
+
+- Zanjutsu — Proficiência X.
+- Hakuda — Proficiência Y.
+- Hohō — Proficiência Z.
+- Kidō — Proficiência W.
+
+Não confundir:
+
+| Sistema | Significado |
+|---|---|
+| Atributos | Capacidade fundamental |
+| Proficiência | Desenvolvimento geral em uma disciplina |
+| Repertório | Conhecimento disponível/obtido |
+| Técnica | Capacidade específica |
+| Mastery | Domínio individual daquela capacidade |
+
+A Proficiência não deve ser apenas multiplicador bruto de dano.
+
+Ela serve para:
+
+- representar desenvolvimento;
+- melhorar fundamentos que não justificam técnicas próprias;
+- abrir técnicas gerais;
+- habilitar desenvolvimento avançado;
+- demonstrar preparo para conhecimentos especializados.
+
+## Progressão orgânica
+
+Uso válido de técnica pode desenvolver simultaneamente:
+
+**Proficiência da disciplina + Mastery daquela técnica.**
+
+Proficiência cresce com combate, prática e treinamento relevantes.
+
+Kills não são a única nem a principal forma de validação.
+
+## Repertórios especializados
+
+Um mestre pode desbloquear um repertório de conhecimentos.
+
+O jogador posteriormente desenvolve suas técnicas sem precisar retornar ao mestre para cada uma.
+
+Repertório não recebe outra Proficiência independente por padrão.
+
+Repertório não constitui classe permanente.
+
+## Sem ranks extras
+
+Foi descartada a ideia de usar simultaneamente Rank, Proficiência e Level de técnica.
+
+Rótulos como iniciante/intermediário/avançado poderão existir visualmente como consequência da Proficiência, caso úteis, sem virar outra progressão.
+
+A escala máxima da Proficiência permanece pendente.
+
+---
+
+# 14. ZANJUTSU — DECISÕES
+
+**Status: DECIDIDO.**
+
+Zanjutsu representa **como o personagem luta com a espada**.
+
+Não representa automaticamente o poder específico da Zanpakutō.
+
+## Moveset fundamental
+
+A Proficiência pode aperfeiçoar:
+
+- sequências armadas;
+- finalizadores;
+- transições;
+- possibilidades contextuais;
+- fundamentos de espada.
+
+Não criar skill individual para cada pequena mudança de movimento.
+
+## Técnicas de Zanjutsu
+
+Técnicas com identidade mecânica própria podem ter:
+
+- aquisição;
+- requisitos;
+- custo;
+- execução;
+- Mastery.
+
+Técnicas gerais podem surgir por progressão.
+
+Técnicas especializadas podem exigir mestre, descoberta ou evento.
+
+A Proficiência alta habilita preparo, mas não entrega automaticamente conhecimento especial.
+
+## Zanjutsu vs Zanpakutō
+
+São progressões separadas.
+
+Ter Zanjutsu alto não concede automaticamente:
+
+- Shikai;
+- Bankai;
+- técnicas específicas da Zanpakutō;
+- Mastery de seu poder.
+
+---
+
+# 15. ZANPAKUTŌ — VÍNCULO TÉCNICO
+
+**Status: DECIDIDO, COM QUESTÕES DE M07 PENDENTES.**
+
+Cada personagem Shinigami possui **uma identidade de Zanpakutō principal vinculada**.
+
+O item espada possui identificador técnico do poder.
+
+O personagem também mantém esse vínculo registrado.
+
+Exemplo conceitual:
+
+```text
+Player.bound_zanpakuto = ryujin_jakka
+Item.zanpakuto_id = ryujin_jakka
+```
+
+O item e o vínculo do personagem precisam ser compatíveis para disponibilizar o poder.
+
+## Restrições
+
+- Pegar outra espada não troca o poder principal.
+- Perder a espada não deve apagar a identidade do personagem.
+- Item roubado/duplicado não transfere poder automaticamente.
+- Não é loot comum.
+- Diferentes jogadores podem compartilhar a mesma identidade canônica de poder.
+
+## Relação com a Zanpakutō
+
+A fantasia de conhecer a espada, seu nome e seus poderes deve existir.
+
+Mas não precisamos reproduzir literalmente interações da obra.
+
+Podemos utilizar meditação, mundo interior, desafios, quests e treinamento.
+
+### PENDENTE PARA M07
+
+- atribuição do poder;
+- vínculo inicial;
+- descoberta do nome;
+- obtenção da Shikai;
+- desenvolvimento da Shikai;
+- obtenção da Bankai;
+- domínio das liberações;
+- requisitos entre etapas.
+
+**Não resolver esses pontos antecipadamente no M06.**
+
+---
+
+# 16. HAKUDA — DECISÕES
+
+**Status: DECIDIDO.**
+
+Hakuda não é simplesmente Zanjutsu sem espada.
+
+É formação em combate corporal.
+
+## Proficiência e fundamentos
+
+A Proficiência expande o moveset corporal:
+
+- socos;
+- chutes;
+- sequências;
+- finalizadores;
+- entradas;
+- respostas contextuais;
+- ataques após dodge.
+
+Ações básicas não precisam de Mastery individual.
+
+Movimentos suficientemente especiais podem tornar-se técnicas próprias.
+
+## Técnicas de combo — REFERÊNCIA A STRIKE ATTACKS
+
+O usuário trouxe como inspiração os **Strike Attacks de jogos de Dragon Ball**.
+
+Foi aprovado que Hakuda pode possuir técnicas representadas por uma sequência inteira de golpes:
+
+```text
+Ativa técnica
+→ soco
+→ chute
+→ avanço
+→ impactos adicionais
+→ finalizador
+```
+
+A sequência constitui **uma única técnica**, com Mastery própria.
+
+Não precisa transformar cada soco em uma habilidade separada.
+
+Combos podem variar em:
+
+- duração;
+- risco;
+- cancelamento;
+- mobilidade;
+- Recovery;
+- controle;
+- custo.
+
+Não transformar todo Hakuda em apertar uma tecla e assistir ao personagem lutar sozinho.
+
+O moveset fundamental continua importante.
+
+## Embainhar/desembainhar
+
+**DECIDIDO EM PRINCÍPIO:**
+
+- Zanpakutō empunhada: fundamento principal de Zanjutsu.
+- Zanpakutō embainhada: fundamento principal de Hakuda.
+
+Essa transição não move o item de slot nem exige manipulação do inventário vanilla.
+
+O input definitivo fica para M14/protótipo.
+
+## Técnica individual pode ignorar a fronteira quando fizer sentido
+
+Algumas técnicas de Hakuda podem ser utilizadas mesmo com espada empunhada.
+
+Outras exigem corpo desarmado.
+
+Os requisitos são por técnica.
+
+## Recursos
+
+Ataques comuns de Hakuda não precisam consumir muita Stamina.
+
+Técnicas fisicamente exigentes, combos especiais e movimentos explosivos podem consumir.
+
+## Técnicas híbridas
+
+Exemplo conceitual: **Shunkō**, combinando Hakuda e Kidō.
+
+Capacidades híbridas relevantes podem exigir desenvolvimento em ambas as disciplinas e aquisição específica.
+
+Não adicionar uma quinta Proficiência híbrida.
+
+---
+
+# 17. HOHŌ — DECISÕES
+
+**Status: DECIDIDO.**
+
+Hohō é a disciplina de movimentação avançada dos Shinigami.
+
+Não é simplesmente outro nome para Shunpo.
+
+## Separação
+
+- **Hohō Proficiência:** experiência geral na disciplina.
+- **Shunpo Mastery:** domínio individual da técnica Shunpo.
+
+Shunpo deve ser adquirido relativamente cedo dentro de Hohō.
+
+## Shunpo
+
+Capacidade de deslocamento rápido com input dedicado.
+
+Pode funcionar dentro e fora do combate.
+
+Dodge continua existindo independentemente.
+
+## Progressão
+
+Hohō cresce com:
+
+- uso relevante de Shunpo;
+- situações reais de mobilidade;
+- combate;
+- perseguição;
+- evasão;
+- treino apropriado;
+- técnicas de movimentação.
+
+Percorrer quilômetros ou repetir Shunpo infinitamente sem contexto não deve ser método eficiente de progressão.
+
+## Mastery de Shunpo
+
+Pode melhorar moderadamente:
+
+- eficiência;
+- execução;
+- controle;
+- Recovery;
+- distância;
+- velocidade.
+
+Não precisa melhorar todas essas características na primeira versão.
+
+Mastery não concede automaticamente técnicas novas como Utsusemi.
+
+Novas aplicações suficientemente distintas permanecem técnicas próprias de Hohō.
+
+## V1 de Shunpo
+
+É aceitável começar com:
+
+```text
+input dedicado
++
+direção
++
+deslocamento rápido
++
+custo
++
+Recovery
++
+Cooldown apropriado
+```
+
+E depois enriquecer.
+
+---
+
+# 18. KIDŌ — DECISÕES
+
+**Status: DECIDIDO.**
+
+Kidō possui **uma única Proficiência geral**.
+
+Não criar por padrão barras independentes de:
+
+- Hadō;
+- Bakudō;
+- Kaidō.
+
+Essas são categorias/áreas de conhecimento dentro da disciplina.
+
+Cada feitiço suficientemente distinto possui Mastery individual.
+
+## Estrutura
+
+```text
+KIDŌ
+├── Hadō — ofensiva
+├── Bakudō — controle, defesa e utilidade
+├── Kaidō — cura
+└── Kidō especiais/não convencionais
+```
+
+Não criar uma categoria extra obrigatória chamada Support Kidō.
+
+## Aprendizado
+
+Kidō geral pode ser adquirido progressivamente através da Proficiência e formação inicial.
+
+Conhecimentos específicos ou excepcionais podem exigir fontes especiais.
+
+Kaidō precisa de formação especializada de cura, não sendo automaticamente concedido por Proficiência elevada de Kidō.
+
+## Numeração
+
+A numeração canônica é relevante para identidade, complexidade e tendência de dificuldade.
+
+Mas:
+
+```text
+Hadō #4 NÃO exige obrigatoriamente Proficiência 4.
+Hadō #90 NÃO exige obrigatoriamente Proficiência 90.
+```
+
+Em geral, números altos exigirão maior desenvolvimento, sem conversão matemática automática.
+
+Kidō de números baixos podem continuar úteis devido a custo, execução, Mastery, atributos e função.
+
+---
+
+# 19. KIDŌ — ENCANTAMENTO E EXECUÇÃO
+
+**Status: DECIDIDO E REVISADO.**
+
+A discussão começou com uma proposta de `tap = rápido` e `hold = encantamento completo`.
+
+O usuário aprovou a ideia, inclusive para uma versão madura do mod, mas posteriormente refinou:
+
+**Nem todo Kidō precisa ter as duas formas.**
+
+## Modelo por técnica
+
+Uma técnica pode possuir:
+
+- ativação instantânea;
+- preparação;
+- quick cast versus encantamento;
+- canalização;
+- execução especial.
+
+Escolher somente o que agrega valor à técnica.
+
+## Quando existe encantamento
+
+```text
+TAP
+→ cast abreviado
+→ rápido
+→ eficácia potencialmente menor
+
+HOLD
+→ personagem recita automaticamente
+→ maior preparação
+→ execução completa
+```
+
+O jogador não precisa recitar de verdade, digitar encantamento ou utilizar microfone.
+
+Os encantamentos pertencem ao personagem.
+
+Podem ser representados por efeitos, tempo, animação, texto e áudio.
+
+**Exemplo principal discutido:** Hadō #90, Kurohitsugi, associado a Aizen.
+
+## Mastery e encantamento
+
+Mastery pode melhorar a eficácia do cast abreviado.
+
+Não elimina automaticamente a vantagem da execução completa.
+
+## Dano durante preparação
+
+Receber dano não cancela automaticamente o encantamento.
+
+Efeitos de controle pertinentes podem interromper conforme regras da técnica.
+
+---
+
+# 20. HADŌ, BAKUDŌ E KAIDŌ
+
+## Hadō
+
+Vertente principalmente ofensiva.
+
+Evitar catálogo composto apenas de projéteis com dano crescente.
+
+Variar função, alcance, área, pressão, comportamento e execução.
+
+Quick cast/full incantation é especialmente relevante quando a técnica justificar.
+
+## Bakudō
+
+Não reduzir a stun.
+
+Pode incluir:
+
+- contenção;
+- barreiras;
+- defesa;
+- selamento;
+- rastreamento;
+- comunicação/utilidade;
+- suporte;
+- controle.
+
+### Ajuste final muito importante
+
+O usuário não quer que uma barreira simples tenha obrigatoriamente uma versão carregada apenas porque Kidō suporta `tap/hold`.
+
+Exemplo aprovado:
+
+```text
+Ativa Dankū
+→ barreira aparece
+→ custo
+→ cooldown
+```
+
+Não há obrigação de:
+
+```text
+tap = barreira fraca
+hold = barreira forte
+```
+
+Quando não fizer sentido para o cânone nem para gameplay.
+
+Controlar inimigos deve respeitar anti-stunlock e limitações adequadas para PvP/PvE.
+
+## Kaidō
+
+Especialização em cura dentro de Kidō.
+
+Não recebe necessariamente Proficiência separada.
+
+Modelo inicial proposto:
+
+```text
+Segura técnica
+→ canaliza
+→ consome Energia Espiritual
+→ recupera Vida do alvo
+→ solta para encerrar
+```
+
+Isso é canalização, não encantamento.
+
+Vida será o alvo primário de Kaidō.
+
+Recuperar Stamina, Energia Espiritual ou remover condições dependerá de técnicas específicas.
+
+Evitar loops de regeneração ilimitada de recursos.
+
+Cura durante combate é permitida, mas pode apresentar risco, vulnerabilidade e limitações de movimentação.
+
+## Kidō especiais
+
+Encantamentos avançados, técnicas proibidas, execução excepcional etc. permanecem **BACKLOG**.
+
+Não precisam entrar na V1.
+
+---
+
+# 21. AUDITORIA SHINIGAMI — CONCLUSÃO
+
+A arquitetura foi auditada e considerada coerente em nível estrutural.
+
+Não surgiram contradições impeditivas.
+
+As propostas antigas abaixo foram descartadas:
+
+- skill tree tradicional de compra;
+- níveis e ranks separados além da Proficiência;
+- NPC obrigatório para toda técnica;
+- Level + Mastery individual simultâneos;
+- tap/hold obrigatório para todos os Kidō;
+- copiar estruturas de progressão entre raças apenas por simetria.
+
+## V1 recomendada
+
+**Zanjutsu:** moveset armado, finalizador, bloqueio, pequena quantidade de técnicas, Proficiência e Mastery.
+
+**Hakuda:** socos/chutes, combos fundamentais, alguns combos como técnicas, Proficiência e Mastery.
+
+**Hohō:** Shunpo funcional com progressão simples.
+
+**Kidō:** pequenos conjuntos de Hadō/Bakudō, Kaidō inicial se entrar no escopo, execução apropriada por técnica.
+
+## Pendências gerais
+
+- valores numéricos;
+- curva da Proficiência;
+- progressão temporal;
+- fórmulas;
+- custos;
+- catálogo;
+- UI;
+- animações;
+- detalhes do poder principal;
+- calibração PvP/PvE;
+- implementações e testes.
+
+---
+
+# 22. M06-08 — HOLLOW / ARRANCAR
+
+**Status: EM DESENVOLVIMENTO.**
+
+Esta é a parte mais importante para a continuação imediata.
+
+## Princípio aprovado: progressão assimétrica
+
+Hollow e Arrancar não devem receber disciplinas artificiais para imitar Shinigami.
+
+A identidade inicial Hollow é:
+
+**sobrevivência → predação → evolução → capacidades naturais → individualização.**
+
+Depois da Arrancarização, a fantasia muda para maior aperfeiçoamento técnico das capacidades e domínio do poder Hollow anteriormente desenvolvido.
+
+Não foi proposta uma barra genérica de Proficiência Hollow.
+
+Técnicas individuais continuam podendo utilizar Mastery.
+
+---
+
+# 23. EVOLUÇÃO HOLLOW — ESTRUTURA
+
+O caminho natural considerado:
+
+```text
+Hollow
+↓
+Gillian
+↓
+Adjuchas
+↓
+Vasto Lorde
+```
+
+A evolução racial constitui a progressão macro do Hollow natural.
+
+O sistema pode utilizar um progresso evolutivo próprio, mas isso **não é Proficiência de disciplina**.
+
+A escala, funcionamento interno e interface permanecem pendentes.
+
+## Individualidade no Gillian
+
+A obra apresenta Gillians como resultado da fusão de múltiplos Hollows, normalmente com individualidade reduzida ou perdida.
+
+Para manter a agência do jogador, foi proposto que o personagem seja um caso excepcional cuja consciência permanece dominante ou consegue se impor.
+
+Isso permite que o Gillian seja jogável e evolua.
+
+**Status: DECIDIDO EM PRINCÍPIO.**
+
+## Individualização em Adjuchas
+
+Adjuchas apresentam características próprias e aparências distintas.
+
+O usuário ressaltou que a individualização não deve surgir somente após a Arrancarização.
+
+A identidade individual deve começar a ser perceptível **já em Adjuchas**.
+
+---
+
+# 24. PREDAÇÃO, GRIND E EVOLUÇÃO — REFINAMENTO FUNDAMENTAL
+
+Esta foi uma revisão importante trazida pelo usuário.
+
+Inicialmente cogitou-se distribuir evolução entre alimentação, storyline e combates gerais.
+
+O usuário observou corretamente que, em Bleach, **predação é uma parte central e canônica da evolução Hollow**, então não deveríamos apagá-la apenas para diminuir grind.
+
+A solução aprovada em princípio foi:
+
+> Predação deve continuar obrigatória para evolução natural Hollow. Quests, mestres e desafios complementam a predação, não a substituem.
+
+## Evitar grind de números enormes
+
+Não traduzir evolução como:
+
+```text
+Devore 500 Hollows
+→ Adjuchas
+
+Devore 2.000 Hollows
+→ Vasto Lorde
+```
+
+O valor de cada presa pode depender de sua relevância.
+
+Exemplo conceitual:
+
+```text
+Hollow trivial
+→ progresso pequeno
+
+presa apropriada ao estágio
+→ progresso normal
+
+Hollow poderoso
+→ progresso maior
+
+presa excepcional
+→ progresso significativo
+```
+
+Esses pesos são propostas, não fórmulas decididas.
+
+## Regra em princípio
+
+**M06-08C — Predação obrigatória, escala adaptada.**
+
+Manter a identidade canônica da caça e devoração, mas criar progressão contextual para não exigir centenas ou milhares de ações repetitivas sem conteúdo.
+
+**Ainda precisamos elaborar e calibrar exatamente como a predação funciona.**
+
+---
+
+# 25. MARCOS DE EVOLUÇÃO
+
+**Status: DECIDIDO EM PRINCÍPIO.**
+
+Evoluir não precisa significar apenas preencher uma barra.
+
+Uma transformação racial pode combinar:
+
+1. Predação suficiente.
+2. Condições apropriadas ao estágio.
+3. Quest/desafio/marco de evolução.
+
+A importância do marco pode variar.
+
+Uma etapa não precisa exigir necessariamente um boss grandioso.
+
+A V1 poderá utilizar uma versão simples de quests e objetivos.
+
+O importante é:
+
+**predação + experiência racial significativa + transformação.**
+
+---
+
+# 26. LINHAGENS HOLLOW — GRANDE PROPOSTA EM PRINCÍPIO
+
+O usuário sugeriu que, ao avançar de Gillian para Adjuchas, o personagem precise buscar um mestre ligado ao conjunto de poder que deseja desenvolver.
+
+Exemplo fornecido:
+
+**Grimmjow.**
+
+Fluxo conceitual:
+
+```text
+Gillian
+↓
+progresso de predação suficiente
+↓
+encontra Grimmjow
+↓
+realiza quest/desafio da linhagem
+↓
+desbloqueia essa identidade de poder
+↓
+evolui para Adjuchas
+↓
+passa a possuir características
+da linha de poder de Grimmjow
+```
+
+## Distinção entre cânone e adaptação
+
+**Não afirmar que Grimmjow ensinou canonicamente a alguém como virar Adjuchas.**
+
+A exigência de mestre é uma adaptação de gameplay.
+
+O papel dele seria orientar/desbloquear **uma identidade de evolução/poder** enquanto a predação sustenta o desenvolvimento biológico.
+
+## Nome provisório
+
+**Linhagem de Evolução Hollow**, ou simplesmente **Linhagem Hollow**.
+
+O nome ainda pode mudar.
+
+## Exclusividade
+
+A proposta segue a filosofia universal de um poder principal:
+
+```text
+1 personagem Hollow
+→ 1 linhagem principal
+```
+
+Não colecionar todas as linhagens para alternar livremente.
+
+## Continuidade
+
+A linhagem adquirida em Adjuchas deveria acompanhar o jogador:
+
+```text
+Adjuchas
+↓
+continuação evolutiva
+↓
+Vasto Lorde, se alcançado
+↓
+Arrancarização
+↓
+Resurrección correspondente
+```
+
+Exemplo:
+
+```text
+Linhagem Grimmjow
+→ características panterinas
+→ desenvolvimento posterior
+→ Resurrección: Pantera
+```
+
+A Resurrección não surge como poder desconectado da trajetória Hollow.
+
+**Status: DECIDIDO EM PRINCÍPIO, ainda sem especificação de conteúdo por linhagem.**
+
+---
+
+# 27. PROBLEMA DAS FORMAS NÃO MOSTRADAS NO CÂNONE
+
+Esse é **o ponto em que a discussão parou**.
+
+O usuário observou que muitos Espada/Arrancar têm suas Resurrecciones conhecidas, mas não possuem:
+
+- forma Adjuchas mostrada;
+- forma Vasto Lorde mostrada;
+- ou ambas.
+
+Não podemos simplesmente assumir que existe uma representação canônica conhecida para cada personagem.
+
+## Exemplo Grimmjow
+
+A forma Adjuchas panterina de Grimmjow é conhecida.
+
+Isso ajuda a criar sua linhagem.
+
+Porém, não devemos inventar como fato canônico uma forma Vasto Lorde específica de Grimmjow se ela não for mostrada/confirmada.
+
+## Problema de design
+
+O jogador escolhe uma linhagem canônica específica em Adjuchas.
+
+O que fazer quando **não existe visual oficial daquela etapa**?
+
+Alternativas levantadas:
+
+**Modelo A — Formas genéricas por estágio:** todos usam formas raciais criadas pelo jogo até fases posteriores.
+
+**Modelo B — Formas modulares:** variantes de corpos, máscaras, características e cores sem vincular rigidamente a cada personagem canônico.
+
+**Modelo C — Linhagens específicas:** cada poder canônico recebe trajetória visual própria, usando formas canônicas quando existentes e adaptações fundamentadas quando não existem.
+
+Nenhum modelo foi definitivamente aprovado nesta discussão.
+
+O assistente demonstrou preferência pelo C, com cautela, mas o usuário **ainda não deu sua opinião final após a pesquisa**.
+
+---
+
+# 28. PESQUISA REALIZADA EM JOGOS DE BLEACH DO ROBLOX
+
+O usuário pediu pesquisa de referências **antes de decidir sobre as formas desconhecidas**.
+
+Foram analisados:
+
+- Type Soul.
+- Peroxide.
+- Project Mugetsu.
+- VV: Ultimatum.
+- Hollow Era.
+
+Os resultados abaixo refletem a pesquisa discutida neste chat, não uma nova verificação.
+
+## Type Soul
+
+Utiliza progressão racial com formas mais padronizadas:
+
+```text
+Hollow/Fishbone
+→ Menos
+→ Adjuchas
+→ Albino Adjuchas
+→ Vasto Lorde
+```
+
+As formas não são normalmente reconstruções individuais de cada Espada.
+
+A identidade de poder individual ganha peso em fases posteriores.
+
+**Insight aproveitável:** o avanço para Vasto Lorde envolve objetivos e desafios próprios, não apenas uma progress bar.
+
+**Limitação para nosso projeto:** Hollow permanece muito genérico antes de Arrancar, diminuindo a importância da linhagem escolhida.
+
+## Peroxide
+
+Utiliza diferentes variantes de corpo, máscara e outros elementos visuais de Hollow/Adjuchas/Vasto Lorde.
+
+Não depende de existir um visual canônico pré-Arrancar para todos os personagens.
+
+**Insight aproveitável:** diversidade visual modular e separação entre estágio racial e identidade de personagens canônicos.
+
+## Project Mugetsu
+
+Utiliza evolução por estágios, requisitos e alimentação/progresso.
+
+Seu foco não é criar uma trajetória visual canônica própria para cada Espada em todos os estágios.
+
+**Insight aproveitável:** simplicidade e clareza de progressão.
+
+## VV: Ultimatum
+
+Foi a referência considerada mais interessante para construção gradual de identidade corporal.
+
+A pesquisa indicou um sistema em que o Hollow possui tipos corporais e adquire características/Traits ao evoluir.
+
+Esses elementos podem incluir modificações físicas e propriedades mecânicas.
+
+**Insight aproveitável:** a forma final pode resultar das características desenvolvidas durante a vida Hollow, em vez de ser apenas uma skin trocada no instante da evolução.
+
+Exemplo conceitual de adaptação:
+
+```text
+identidade racial
++
+características evolutivas
++
+poder principal
+↓
+aparência e capacidades resultantes
+```
+
+Não há decisão de copiar o sistema de Traits do VV.
+
+## Hollow Era
+
+Trabalha com características físicas e progressão racial, com elementos como chifres e outras características corporais.
+
+**Insight aproveitável:** aparência pode ser composta por partes e elementos adquiridos.
+
+**Ponto a evitar:** transformar a identidade principal do jogador num sistema excessivamente dependente de RNG/loot sem coerência narrativa.
+
+---
+
+# 29. FAN ARTS — PESQUISA E CRITÉRIO
+
+Também foram consideradas fan arts e discussões da comunidade que imaginam formas Hollow antigas dos Espada.
+
+Esses conceitos normalmente partem de:
+
+```text
+Resurrección conhecida
++
+animal/conceito associado
++
+fragmentos de máscara
++
+silhueta
++
+habilidades conhecidas
+↓
+hipótese de forma Hollow anterior
+```
+
+Fan arts podem ajudar no brainstorming e nas referências visuais.
+
+**Não são fontes canônicas.**
+
+Quando uma forma não existe oficialmente, uma eventual criação deve ser descrita internamente como:
+
+> Adaptação original do mod fundamentada em características canônicas disponíveis.
+
+Não tratar adaptação como informação confirmada da obra.
+
+Também é importante não copiar diretamente uma fan art específica sem permissão/licença adequada.
+
+---
+
+# 30. RECOMENDAÇÃO PROVISÓRIA APÓS A PESQUISA
+
+O assistente sugeriu manter o modelo de **linhagens específicas**, mas com uma hierarquia de evidência:
+
+### Quando a forma é conhecida
+
+Reproduzir a referência canônica dentro das possibilidades do Minecraft.
+
+### Quando não é conhecida, mas existe informação suficiente
+
+Criar adaptação fundamentada no poder, aparência e conceitos canônicos.
+
+### Quando a informação é escassa
+
+Adotar um design conservador, sem inventar detalhes desnecessários.
+
+### Quando praticamente não existe base
+
+Considerar adiar a inclusão daquela linhagem até existir um design convincente.
+
+Também foi sugerido aproveitar ideias de modularidade do Peroxide/VV quando úteis.
+
+**IMPORTANTE: ESSA RECOMENDAÇÃO AINDA NÃO É DECISÃO APROVADA PELO USUÁRIO.**
+
+A conversa deve ser retomada aqui para ouvir a opinião dele e comparar alternativas.
+
+---
+
+# 31. ARRANCARIZAÇÃO — AINDA PENDENTE
+
+A ideia inicial foi tratar Arrancarização **não como nível obrigatório depois de Vasto Lorde**, mas como uma mudança de caminho de evolução.
+
+A origem Arrancar pode estar associada a diferentes estágios Hollow.
+
+Não impor automaticamente Vasto Lorde como requisito universal.
+
+## Questões pendentes
+
+- Em quais estágios é possível virar Arrancar?
+- Qual é a vantagem de virar cedo?
+- Qual é a vantagem de esperar?
+- A origem evolutiva altera poder, atributos ou capacidades?
+- Como não punir permanentemente quem vira Arrancar cedo?
+- Como preservar a evolução anterior na Resurrección?
+- Quais progressões deixam de existir após Arrancarização?
+
+Não fechar isso sem discussão.
+
+## Arrancar e técnicas
+
+Foi sugerida uma estrutura geral com:
+
+- Cero;
+- Bala;
+- Hierro;
+- Sonído;
+- Pesquisa;
+- Garganta/Descorrer;
+- capacidades individuais;
+- Zanpakutō Arrancar;
+- Resurrección no M07.
+
+A lista é ponto de partida, **não catálogo validado nem arquitetura individual concluída**.
+
+Não criar automaticamente uma Proficiência genérica de Arrancar.
+
+Analisar capacidade por capacidade.
+
+---
+
+# 32. REGRESSÃO DE ADJUCHAS — PENDENTE
+
+O cânone apresenta a necessidade de continuar devorando Hollows para sustentar o desenvolvimento dos Adjuchas, com risco de regressão.
+
+O usuário e o assistente ainda **não definiram como adaptar isso**.
+
+Não criar automaticamente uma mecânica de fome que puna o jogador por ficar um tempo sem jogar.
+
+Possibilidades a estudar:
+
+- estabilidade evolutiva;
+- condição de progresso;
+- ameaça durante determinadas quests;
+- eventos especiais;
+- outras adaptações.
+
+O objetivo é preservar a identidade canônica sem transformar a raça em manutenção irritante.
+
+**Status: PENDENTE.**
+
+---
+
+# 33. M06-08 — STATUS ATUAL DAS DECISÕES
+
+| ID | Assunto | Status |
+|---|---|---|
+| M06-08A | Hollow/Arrancar não copia disciplinas Shinigami | DECIDIDO |
+| M06-08B | Evolução racial como progressão macro Hollow | DECIDIDO EM PRINCÍPIO |
+| M06-08C | Predação obrigatória, com escala adaptada | DECIDIDO EM PRINCÍPIO — REFINADO |
+| M06-08D | Evolução com condições/marcos além de uma barra | DECIDIDO EM PRINCÍPIO |
+| M06-08E | Gillian jogável preserva individualidade | DECIDIDO EM PRINCÍPIO |
+| M06-08F | Momento e consequências da Arrancarização | PENDENTE |
+| M06-08G | Linhagem/poder individual via mestre/quest na evolução para Adjuchas | DECIDIDO EM PRINCÍPIO |
+| M06-08H | Representação da alimentação contínua/regressão | PENDENTE |
+| Sem ID final | Formas Adjuchas/Vasto Lorde não mostradas | EM DISCUSSÃO |
+| Sem ID final | Propriedades concretas de cada linhagem | PENDENTE |
+| Sem ID final | Técnicas gerais Hollow/Arrancar | A ESPECIFICAR |
+
+---
+
+# 34. DISTINÇÕES QUE NÃO PODEM SER PERDIDAS
+
+## Hollow não funciona como Shinigami
+
+Não importar automaticamente Proficiência para evolução Hollow.
+
+A progressão Shinigami é mais ligada à formação em disciplinas.
+
+A progressão Hollow é mais ligada à transformação de sua própria existência.
+
+## Linhagem não precisa ser classe
+
+Uma linhagem é o **poder principal racial**, não necessariamente uma classe convencional com árvore de habilidades.
+
+## Mestre não substitui biologia
+
+O mestre orienta aquisição da identidade/poder e quest de evolução.
+
+A predação permanece necessária.
+
+## Forma não mostrada não é canônica
+
+Toda criação deve distinguir referência oficial de adaptação.
+
+## Mastery não equivale a evolução racial
+
+Cero Mastery, por exemplo, representa domínio do Cero.
+
+Não é o mesmo que atingir Adjuchas ou Vasto Lorde.
+
+## Resurrección não deve surgir desconectada da trajetória anterior
+
+Queremos uma identidade Hollow que permaneça coerente após Arrancarização.
+
+## V1 simples não significa Hollow genérico obrigatoriamente
+
+Podemos começar com poucas linhagens muito bem implementadas e ampliar depois.
+
+## Escolhas permanentes precisam ser analisadas cuidadosamente
+
+Não criar uma escolha-armadilha de Arrancarização que obrigue reiniciar o personagem após descobrir consequências ocultas.
+
+---
+
+# 35. COMO A NOVA CONVERSA DEVE CONTINUAR
+
+A próxima conversa deve **não começar do zero e não refazer a arquitetura Shinigami**.
+
+A discussão exata a retomar é:
+
+> Como representar as formas Adjuchas e Vasto Lorde de linhagens ligadas a personagens canônicos cujas formas Hollow anteriores não foram mostradas?
+
+Já pesquisamos Type Soul, Peroxide, Project Mugetsu, VV: Ultimatum e Hollow Era.
+
+A pesquisa indicou três grandes caminhos:
+
+1. Formas genéricas por estágio.
+2. Composição modular de características Hollow.
+3. Trajetórias próprias por linhagem, reproduzindo o cânone quando existir e adaptando responsavelmente quando não existir.
+
+O assistente recomendou provisoriamente a terceira abordagem, potencialmente com elementos modulares, mas o usuário ainda precisa dar sua opinião.
+
+**Não assumir automaticamente que o modelo C está aprovado.**
+
+Depois disso, o fluxo natural é:
+
+- Definir que elementos uma linhagem concede já em Adjuchas.
+- Determinar o que muda em Vasto Lorde.
+- Separar capacidades naturais, capacidades da linhagem e técnicas gerais.
+- Rever predação e progressão para limitar grind.
+- Decidir momento e consequências da Arrancarização.
+- Tratar regressão/estabilidade do Adjuchas.
+- Especificar técnicas Hollow e Arrancar.
+- Concluir e auditar M06-08.
+- Documentar as decisões.
+- Seguir para M06-09 Quincy.
+
+---
+
+# 36. METODOLOGIA DE COLABORAÇÃO
+
+O usuário quer participar do design e entender as consequências das escolhas.
+
+Para cada questão relevante:
+
+**Apresentar o problema → comparar opções → explicar vantagens, riscos e impactos → recomendar a melhor solução → receber feedback → registrar o status.**
+
+Não concordar automaticamente com toda proposta do usuário.
+
+O usuário valoriza críticas técnicas e alternativas melhores quando justificadas.
+
+Não correr para listar centenas de técnicas enquanto a arquitetura ainda está sendo definida.
+
+Evitar inventar sistemas por simetria.
+
+Evitar complexidade sem ganho real de gameplay.
+
+Não atribuir ao cânone mecanismos que são adaptações criadas para o mod.
+
+Não fechar números exatos antes do momento adequado.
+
+## Status de documentação
+
+Usar consistentemente:
+
+- **DECIDIDO**
+- **DECIDIDO EM PRINCÍPIO**
+- **PROPOSTO**
+- **PENDENTE**
+- **BACKLOG**
+- **REVISADO/SUPERADO**
+
+Quando o usuário aprovar uma proposta, atualizar o status.
+
+Quando uma decisão posterior substituir uma anterior, deixar a revisão explícita.
+
+---
+
+# 37. SITUAÇÃO DO GIT
+
+A branch usada atualmente é:
+
+```text
+docs/m06-habilidades-combate
+```
+
+Foi fornecido ao usuário o comando:
+
+```bash
+git add .
+git commit -m "docs: especifica estrutura shinigami do modulo 06"
+git push
+```
+
+O usuário respondeu que estava pronto e autorizou o avanço para M06-08.
+
+Portanto, o M06-07 foi considerado registrado.
+
+**As decisões de M06-08 discutidas posteriormente ainda não foram consolidadas em um novo documento/commit nesta conversa.**
+
+Ao terminar M06-08, preparar registro de documentação antes de avançar.
+
+---
+
+# 38. INSTRUÇÃO FINAL PARA O ASSISTENTE DO NOVO CHAT
+
+Você está continuando o planejamento de um mod de Bleach para Minecraft Java.
+
+Leia este handoff como histórico de decisões. Preserve as regras aprovadas e não reabra assuntos encerrados sem motivo.
+
+Estamos no **M06-08 — Hollow / Arrancar**.
+
+Acabamos de estudar como jogos de Roblox solucionam a ausência de formas Hollow canônicas de determinados Espada.
+
+O usuário pediu a pesquisa para formar sua própria opinião antes de escolher a abordagem.
+
+**Retome exatamente da comparação entre formas genéricas, formas modulares e linhagens individuais com adaptações fundamentadas.**
+
+Discuta as consequências dessa escolha para:
+
+- aparência;
+- identidade;
+- capacidades;
+- evolução Adjuchas/Vasto Lorde;
+- esforço de produção;
+- compatibilidade com a Resurrección;
+- fidelidade ao cânone.
+
+Não invente uma decisão definitiva antes da manifestação do usuário.
+
+Continue o processo colaborativo de design e registre as escolhas progressivamente.
+
+**Fim do handoff.**

@@ -110,6 +110,15 @@ public class CharacterData {
         return activeForm;
     }
 
+    /** The form the next release goes to; the active form when nothing else was chosen. */
+    public String getTargetForm() {
+        return selectedForm.isEmpty() ? activeForm : selectedForm;
+    }
+
+    public boolean hasPendingTarget() {
+        return !getTargetForm().equalsIgnoreCase(activeForm);
+    }
+
     public void setActiveForm(String group, String form) {
         this.activeFormGroup = group == null ? "" : group.toLowerCase(Locale.ROOT);
         this.activeForm = form == null ? "" : form.toLowerCase(Locale.ROOT);

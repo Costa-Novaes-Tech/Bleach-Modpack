@@ -28,7 +28,7 @@ public record QuestActionC2S(Action action, String questId, int npcEntityId) {
     public static void handle(QuestActionC2S msg, Supplier<NetworkEvent.Context> ctx) {
         ctx.get().enqueueWork(() -> {
             ServerPlayer player = ctx.get().getSender();
-            if (player == null || !player.isAlive() || !com.bleachmod.common.data.PlayerCapability.get(player).map(data -> data.getStatus().hasCreatedCharacter() && data.getStatus().allowAction(player.level().getGameTime())).orElse(false)) {
+            if (player == null || !player.isAlive() || !com.bleachmod.common.data.PlayerCapability.get(player).map(data -> data.getStatus().hasCreatedCharacter() && data.getStatus().allowUiAction(player.level().getGameTime())).orElse(false)) {
                 return;
             }
             if (msg.action == Action.START) {

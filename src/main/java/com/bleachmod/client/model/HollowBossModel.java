@@ -1,224 +1,93 @@
 package com.bleachmod.client.model;
 
+import com.bleachmod.Reference;
+import com.bleachmod.common.visual.HollowBossEntrance;
+import com.bleachmod.common.visual.TwoBonePose;
 import com.bleachmod.entity.HollowBossEntity;
+import net.minecraft.resources.ResourceLocation;
+import org.joml.Matrix4f;
+import org.joml.Quaternionf;
+import org.joml.Vector3f;
+import software.bernie.geckolib.cache.object.GeoBone;
+import software.bernie.geckolib.core.animation.AnimationState;
+import software.bernie.geckolib.model.GeoModel;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
-import net.minecraft.client.model.HierarchicalModel;
-import net.minecraft.client.model.geom.ModelPart;
-import net.minecraft.client.model.geom.PartPose;
-import net.minecraft.client.model.geom.builders.CubeDeformation;
-import net.minecraft.client.model.geom.builders.CubeListBuilder;
-import net.minecraft.client.model.geom.builders.LayerDefinition;
-import net.minecraft.client.model.geom.builders.MeshDefinition;
-import net.minecraft.client.model.geom.builders.PartDefinition;
-import net.minecraft.util.Mth;
+/** Authored at 16 model units/block, matching the 5.4-block collision height. */
+public final class HollowBossModel extends GeoModel<HollowBossEntity> {
+    private record Base(float x,float y,float z,float rx,float ry,float rz) {
+        Base(GeoBone b) { this(b.getPosX(),b.getPosY(),b.getPosZ(),b.getRotX(),b.getRotY(),b.getRotZ()); }
+        void restore(GeoBone b) {
+            b.setPosX(x);b.setPosY(y);b.setPosZ(z);b.setRotX(rx);b.setRotY(ry);b.setRotZ(rz);
+        }
+    }
+    private final Map<GeoBone,Base> entranceBase=new LinkedHashMap<>();
 
-public class HollowBossModel extends HierarchicalModel<HollowBossEntity> {
+    @Override public void handleAnimations(HollowBossEntity boss,long id,AnimationState<HollowBossEntity> state) {
+        // Undo our previous overlay BEFORE GeckoLib evaluates the next entity/frame,
+        // rather than clearing a newly evaluated melee/charge/slam pose afterwards.
+        entranceBase.forEach((bone,base)->base.restore(bone));entranceBase.clear();
+        super.handleAnimations(boss,id,state);
+    }
+    private GeoBone edit(String name) {
+        var b=getBone(name).orElseThrow();entranceBase.computeIfAbsent(b,Base::new);return b;
+    }
+    private GeoBone rotate(String name,float x,float y,float z) {
+        var b=edit(name);b.setRotX(rad(x));b.setRotY(rad(y));b.setRotZ(rad(z));return b;
+    }
+    private static float rad(float degrees) { return (float)Math.toRadians(degrees); }
 
-    private final ModelPart root;
-
-    private final ModelPart head;
-    private final ModelPart rightArm;
-    private final ModelPart leftArm;
-    private final ModelPart rightLeg;
-    private final ModelPart leftLeg;
-
-    public HollowBossModel(ModelPart root) {
-        this.root = root;
-
-        this.head = root.getChild("head");
-        this.rightArm = root.getChild("right_arm");
-        this.leftArm = root.getChild("left_arm");
-        this.rightLeg = root.getChild("right_leg");
-        this.leftLeg = root.getChild("left_leg");
+    @Override public void setCustomAnimations(HollowBossEntity boss,long id,AnimationState<HollowBossEntity> state) {
+        super.setCustomAnimations(boss,id,state);
+        if(!boss.isEntering()) return;
+        float t=boss.getEntranceAge(state.getPartialTick()),fade=HollowBossEntrance.settle(t);
+        var body=rotate("body",HollowBossEntrance.bodyPitch(t),HollowBossEntrance.bodyYaw(t),HollowBossEntrance.bodyRoll(t));
+        body.setPosX(HollowBossEntrance.bodyX(t));body.setPosY(HollowBossEntrance.bodyY(t));
+        rotate("chest",HollowBossEntrance.chestPitch(t),HollowBossEntrance.chestYaw(t),-HollowBossEntrance.bodyRoll(t)*.3F);
+        rotate("head",HollowBossEntrance.headPitch(t),HollowBossEntrance.headYaw(t),-HollowBossEntrance.bodyRoll(t)*.5F);
+        rotate("jaw",HollowBossEntrance.jaw(t),0,0);
+        rotate("dorsal_fin",0,(float)Math.sin((t-8)*.14)*2*HollowBossEntrance.weight(t),0);
+        for(String side:new String[]{"right","left"}) {
+            boolean right=side.equals("right");var hand=HollowBossEntrance.hand(t,right);
+            reach(side+"_arm",side+"_arm_lower",side+"_hand",hand,t,true,fade);
+            reach(side+"_leg",side+"_leg_lower",side+"_foot",HollowBossEntrance.foot(t,right),t,false,fade);
+            for(int i=0;i<4;i++) rotate(side+"_finger_"+i,(20+i*4)*hand.lift()*fade,0,0);
+            rotate(side+"_thumb",0,-12*hand.lift()*fade,0);
+        }
     }
 
-    public static LayerDefinition createBodyLayer() {
-
-        MeshDefinition mesh = new MeshDefinition();
-        PartDefinition root = mesh.getRoot();
-
-        root.addOrReplaceChild(
-                "head",
-                CubeListBuilder.create()
-                        .texOffs(0, 0)
-                        .addBox(
-                                -4.0F,
-                                -12.0F,
-                                -5.5F,
-                                8.0F,
-                                10.0F,
-                                8.0F
-                        )
-                        .texOffs(24, 0)
-                        .addBox(
-                                -1.0F,
-                                -5.0F,
-                                -7.5F,
-                                2.0F,
-                                4.0F,
-                                2.0F
-                        ),
-                PartPose.offset(
-                        0.0F,
-                        -7.0F,
-                        -2.0F
-                )
-        );
-
-        root.addOrReplaceChild(
-                "body",
-                CubeListBuilder.create()
-                        .texOffs(0, 40)
-                        .addBox(
-                                -9.0F,
-                                -2.0F,
-                                -6.0F,
-                                18.0F,
-                                12.0F,
-                                11.0F
-                        )
-                        .texOffs(0, 70)
-                        .addBox(
-                                -4.5F,
-                                10.0F,
-                                -3.0F,
-                                9.0F,
-                                5.0F,
-                                6.0F,
-                                new CubeDeformation(0.5F)
-                        ),
-                PartPose.offset(
-                        0.0F,
-                        -7.0F,
-                        0.0F
-                )
-        );
-
-        root.addOrReplaceChild(
-                "right_arm",
-                CubeListBuilder.create()
-                        .texOffs(60, 21)
-                        .addBox(
-                                -13.0F,
-                                -2.5F,
-                                -3.0F,
-                                4.0F,
-                                30.0F,
-                                6.0F
-                        ),
-                PartPose.offset(
-                        0.0F,
-                        -7.0F,
-                        0.0F
-                )
-        );
-
-        root.addOrReplaceChild(
-                "left_arm",
-                CubeListBuilder.create()
-                        .texOffs(60, 58)
-                        .addBox(
-                                9.0F,
-                                -2.5F,
-                                -3.0F,
-                                4.0F,
-                                30.0F,
-                                6.0F
-                        ),
-                PartPose.offset(
-                        0.0F,
-                        -7.0F,
-                        0.0F
-                )
-        );
-
-        root.addOrReplaceChild(
-                "right_leg",
-                CubeListBuilder.create()
-                        .texOffs(37, 0)
-                        .addBox(
-                                -3.5F,
-                                -3.0F,
-                                -3.0F,
-                                6.0F,
-                                16.0F,
-                                5.0F
-                        ),
-                PartPose.offset(
-                        -4.0F,
-                        11.0F,
-                        0.0F
-                )
-        );
-
-        root.addOrReplaceChild(
-                "left_leg",
-                CubeListBuilder.create()
-                        .texOffs(60, 0)
-                        .mirror()
-                        .addBox(
-                                -3.5F,
-                                -3.0F,
-                                -3.0F,
-                                6.0F,
-                                16.0F,
-                                5.0F
-                        ),
-                PartPose.offset(
-                        5.0F,
-                        11.0F,
-                        0.0F
-                )
-        );
-
-        return LayerDefinition.create(
-                mesh,
-                128,
-                128
-        );
+    private void reach(String upperName,String lowerName,String endName,HollowBossEntrance.Contact contact,
+                       float age,boolean arm,float fade) {
+        var upper=rotate(upperName,0,0,0);var lower=rotate(lowerName,0,0,0);var end=rotate(endName,0,0,0);
+        // Fixed targets are in the final actor frame. Compensate root advance to keep
+        // supported palms/feet on the same patch of ground while the torso moves.
+        var target=new Vector3f(end.getPivotX(),contact.y(),contact.z()+HollowBossEntrance.retreat(age)*16);
+        new Matrix4f(matrix(upper.getParent())).invert().transformPosition(target);
+        var solved=TwoBonePose.solve(pivot(upper),pivot(lower),pivot(end),target,new Vector3f(0,0,arm?1:-1));
+        rotation(upper,solved.upper(),fade);rotation(lower,solved.lower(),fade);
+        var orientation=matrix(lower).getNormalizedRotation(new Quaternionf()).invert();
+        orientation.rotateX(rad((arm?-8:18)*contact.lift()));
+        rotation(end,orientation,fade);
     }
-
-    @Override
-    public void setupAnim(
-            HollowBossEntity entity,
-            float limbSwing,
-            float limbSwingAmount,
-            float ageInTicks,
-            float netHeadYaw,
-            float headPitch
-    ) {
-
-        this.head.yRot =
-                netHeadYaw * ((float) Math.PI / 180F);
-
-        this.head.xRot =
-                headPitch * ((float) Math.PI / 180F);
-
-        this.rightLeg.xRot =
-                -1.5F
-                        * Mth.triangleWave(limbSwing, 13.0F)
-                        * limbSwingAmount;
-
-        this.leftLeg.xRot =
-                1.5F
-                        * Mth.triangleWave(limbSwing, 13.0F)
-                        * limbSwingAmount;
-
-        this.rightArm.xRot =
-                (-0.2F
-                        + 1.5F
-                        * Mth.triangleWave(limbSwing, 13.0F))
-                        * limbSwingAmount;
-
-        this.leftArm.xRot =
-                (-0.2F
-                        - 1.5F
-                        * Mth.triangleWave(limbSwing, 13.0F))
-                        * limbSwingAmount;
+    private static void rotation(GeoBone bone,Quaternionf q,float fade) {
+        var e=TwoBonePose.eulerZYX(q);bone.setRotX(e.x*fade);bone.setRotY(e.y*fade);bone.setRotZ(e.z*fade);
     }
-
-    @Override
-    public ModelPart root() {
-        return this.root;
+    private static Vector3f pivot(GeoBone b) { return new Vector3f(b.getPivotX(),b.getPivotY(),b.getPivotZ()); }
+    private static Matrix4f matrix(GeoBone b) {
+        if(b==null)return new Matrix4f();
+        return matrix(b.getParent()).translate(-b.getPosX(),b.getPosY(),b.getPosZ())
+                .translate(b.getPivotX(),b.getPivotY(),b.getPivotZ())
+                .rotateZ(b.getRotZ()).rotateY(b.getRotY()).rotateX(b.getRotX())
+                .translate(-b.getPivotX(),-b.getPivotY(),-b.getPivotZ());
+    }
+    @Override public ResourceLocation getModelResource(HollowBossEntity boss) {
+        return Reference.id("geo/hollow_boss.geo.json");
+    }
+    @Override public ResourceLocation getTextureResource(HollowBossEntity boss) {
+        return Reference.id("textures/entity/hollow_boss.png");
+    }
+    @Override public ResourceLocation getAnimationResource(HollowBossEntity boss) {
+        return Reference.id("animations/hollow_boss.animation.json");
     }
 }

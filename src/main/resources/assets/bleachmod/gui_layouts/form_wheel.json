@@ -16,10 +16,13 @@
 
     {"id": "medal_sealed", "type": "button", "texture": "forms/medal_sealed.png", "states": ["normal", "hover", "active", "locked"], "state_if": {"active": "sealed_active"}, "pos": [261, 40], "enabled_if": "sealed_selectable", "action": "select:sealed", "tooltip": "{sealed_tip}"},
     {"id": "lock_sealed", "type": "image", "texture": "forms/lock.png", "pos": [334, 128], "visible_if": "sealed_show_lock"},
+    {"id": "target_sealed", "type": "text", "text": "{target_badge}", "uppercase": true, "bold": true, "pos": [305, 152], "align": "center", "valign": "middle", "scale": 0.8, "color": "#FFD34D", "visible_if": "sealed_target"},
     {"id": "medal_bankai", "type": "button", "texture": "forms/medal_bankai.png", "states": ["normal", "hover", "active", "locked"], "state_if": {"active": "bankai_active"}, "pos": [110, 222], "enabled_if": "bankai_selectable", "action": "select:bankai", "tooltip": "{bankai_tip}"},
     {"id": "lock_bankai", "type": "image", "texture": "forms/lock.png", "pos": [184, 286], "visible_if": "bankai_show_lock"},
+    {"id": "target_bankai", "type": "text", "text": "{target_badge}", "uppercase": true, "bold": true, "pos": [154, 334], "align": "center", "valign": "middle", "scale": 0.8, "color": "#FFD34D", "visible_if": "bankai_target"},
     {"id": "medal_shikai", "type": "button", "texture": "forms/medal_shikai.png", "states": ["normal", "hover", "active", "locked"], "state_if": {"active": "shikai_active"}, "pos": [407, 222], "enabled_if": "shikai_selectable", "action": "select:shikai", "tooltip": "{shikai_tip}"},
     {"id": "lock_shikai", "type": "image", "texture": "forms/lock.png", "pos": [480, 286], "visible_if": "shikai_show_lock"},
+    {"id": "target_shikai", "type": "text", "text": "{target_badge}", "uppercase": true, "bold": true, "pos": [451, 334], "align": "center", "valign": "middle", "scale": 0.8, "color": "#FFD34D", "visible_if": "shikai_target"},
 
     {"id": "guide", "type": "image", "texture": "ui/parchment_guide.png", "pos": [585, 72]},
     {"id": "deco_mask", "type": "image", "texture": "ui/parchment_mask_small.png", "pos": [748, 80], "tint": "#B3FFFFFF"},
@@ -32,6 +35,7 @@
     {"id": "current_bar", "type": "image", "texture": "ui/section_header_small.png", "pos": [600, 190]},
     {"id": "current_label", "type": "text", "translate": "screen.bleachmod.guide.current_form", "uppercase": true, "bold": true, "color": "#5FD4FF", "pos": [630, 203], "valign": "middle", "scale": 0.75},
     {"id": "current_form", "type": "text", "text": "{current_form}", "pos": [630, 225], "valign": "middle", "scale": 0.9, "color": "#3A2A1C", "shadow": false, "max_width": 200},
+    {"id": "target_form", "type": "text", "text": "{target_form}", "pos": [630, 241], "valign": "middle", "scale": 0.7, "color": "#8A5A00", "shadow": false, "max_width": 200, "visible_if": "form_pending"},
     {"id": "progress_bar", "type": "image", "texture": "ui/section_header_small.png", "pos": [600, 254]},
     {"id": "progress_label", "type": "text", "translate": "screen.bleachmod.guide.progress", "uppercase": true, "bold": true, "color": "#5FD4FF", "pos": [630, 267], "valign": "middle", "scale": 0.75},
     {"id": "progress_text", "type": "text", "text": "{progress_text}", "pos": [826, 267], "align": "right", "valign": "middle", "scale": 0.8, "color": "#3A2A1C", "shadow": false},

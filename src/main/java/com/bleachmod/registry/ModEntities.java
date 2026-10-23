@@ -46,7 +46,9 @@ public class ModEntities {
                     "hollow_boss",
                     () -> EntityType.Builder
                             .of(HollowBossEntity::new, MobCategory.MONSTER)
-                            .sized(0.8F, 2.0F)
+                            .sized(2.8F, 5.4F)
+                            .clientTrackingRange(12)
+                            .updateInterval(1)
                             .build("hollow_boss")
             );
 

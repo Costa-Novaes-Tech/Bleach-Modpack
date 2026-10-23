@@ -881,6 +881,19 @@ public final class MvpRegressionTest {
             var above=LayoutGeometry.place(info,320,180);
             eq(6F,above.x());yes(above.y()+above.height(info)<=180-22-6);
         });
+        test("atlas textures keep the full mipmap chain (sides divisible by 16)",()->{
+            for(String folder:List.of("item","block")){
+                var dir=java.nio.file.Path.of("src/main/resources/assets/bleachmod/textures",folder);
+                if(!java.nio.file.Files.isDirectory(dir))continue;
+                try(var files=java.nio.file.Files.walk(dir)){
+                    for(var file:files.filter(f->f.toString().endsWith(".png")).toList()){
+                        var img=javax.imageio.ImageIO.read(file.toFile());
+                        if(Integer.lowestOneBit(img.getWidth())<16||Integer.lowestOneBit(img.getHeight())<16)
+                            throw new AssertionError(file+": "+img.getWidth()+"x"+img.getHeight()+" limita o mipmap do atlas");
+                    }
+                }catch(java.io.IOException e){throw new java.io.UncheckedIOException(e);}
+            }
+        });
         test("GUI layouts parse and bar fills match their wells pixel for pixel",()->{
             var dir=java.nio.file.Path.of("src/main/resources/assets/bleachmod/gui_layouts");
             try(var files=java.nio.file.Files.list(dir)){
@@ -1300,6 +1313,33 @@ public final class MvpRegressionTest {
             var preview=new com.bleachmod.common.network.s2c.HigashiExecutionS2C(1,2,new net.minecraft.world.phys.Vec3(0,70,0),new net.minecraft.world.phys.Vec3(0,70,3),.6F,1.8F,false);
             yes(preview.valid()&&!preview.confirmed());var b=new net.minecraft.network.FriendlyByteBuf(io.netty.buffer.Unpooled.buffer());try{com.bleachmod.common.network.s2c.HigashiExecutionS2C.encode(preview,b);eq(preview,com.bleachmod.common.network.s2c.HigashiExecutionS2C.decode(b));}finally{b.release();}
         });
+        test("History Mode install is all-or-nothing and resumes after an interrupted copy",()->{
+            java.nio.file.Path dir=null;
+            try{
+                dir=java.nio.file.Files.createTempDirectory("history");
+                var src=dir.resolve("maps");var manifest=src.resolve("maps.json");java.nio.file.Files.createDirectories(src);java.nio.file.Files.writeString(manifest,"{}");
+                for(String id:List.of("a","b")){var region=src.resolve(id).resolve("region");java.nio.file.Files.createDirectories(region);java.nio.file.Files.write(region.resolve("r.0.0.mca"),new byte[4096]);}
+                java.nio.file.Files.createDirectories(src.resolve("a/entities"));java.nio.file.Files.write(src.resolve("a/entities/e.0.0.mca"),new byte[100]);
+                var world=dir.resolve("world");var installed=world.resolve("bleachmod/maps_installed.json");var marker=world.resolve("bleachmod/maps_installing");
+                var targets=new java.util.LinkedHashMap<String,java.nio.file.Path>();targets.put("a",world);targets.put("b",world.resolve("dimensions/bleachmod/b"));
+                var incomplete=new java.util.LinkedHashMap<>(targets);incomplete.put("c",world.resolve("dimensions/bleachmod/c"));java.nio.file.Files.createDirectories(src.resolve("c"));
+                boolean refused=false;
+                try{com.bleachmod.server.world.HistoryMapInstaller.installMaps(src,manifest,incomplete,installed);}catch(java.io.IOException expected){refused=true;}
+                yes(refused);yes(!java.nio.file.Files.exists(world));
+                java.nio.file.Files.createDirectories(marker.getParent());java.nio.file.Files.writeString(marker,"");
+                java.nio.file.Files.createDirectories(world.resolve("region"));java.nio.file.Files.write(world.resolve("region/r.9.9.mca"),new byte[10]);
+                java.nio.file.Files.createDirectories(world.resolve("region.staging"));
+                com.bleachmod.server.world.HistoryMapInstaller.installMaps(src,manifest,targets,installed);
+                yes(java.nio.file.Files.exists(installed));yes(!java.nio.file.Files.exists(marker));
+                yes(!java.nio.file.Files.exists(world.resolve("region/r.9.9.mca")));yes(!java.nio.file.Files.exists(world.resolve("region.staging")));
+                yes(java.nio.file.Files.size(world.resolve("region/r.0.0.mca"))==4096);yes(java.nio.file.Files.exists(world.resolve("entities/e.0.0.mca")));
+                yes(java.nio.file.Files.exists(targets.get("b").resolve("region/r.0.0.mca")));
+                java.nio.file.Files.delete(installed);refused=false;
+                try{com.bleachmod.server.world.HistoryMapInstaller.installMaps(src,manifest,targets,installed);}catch(java.io.IOException expected){refused=true;}
+                yes(refused);yes(java.nio.file.Files.exists(world.resolve("region/r.0.0.mca")));
+            }catch(java.io.IOException e){throw new java.io.UncheckedIOException(e);}
+            finally{if(dir!=null)try(var files=java.nio.file.Files.walk(dir)){for(var f:files.sorted(java.util.Comparator.reverseOrder()).toList())java.nio.file.Files.deleteIfExists(f);}catch(java.io.IOException ignored){}}
+        });
         test("History Mode map manifest keeps every map and rejects malformed entries",()->{
             var maps=historyManifest("{\"maps\":{\"human_world\":{\"dimension\":\"minecraft:overworld\",\"spawn\":{\"x\":19.5,\"y\":65,\"z\":-116.5}},"
                     +"\"hueco_mundo\":{\"dimension\":\"bleachmod:hueco_mundo\",\"spawn\":{\"x\":2528.9,\"y\":41,\"z\":2540.9,\"yaw\":90}}}}");
@@ -1387,6 +1427,43 @@ public final class MvpRegressionTest {
             var loaded=new PlayerData();loaded.load(tag);yes(loaded.getCharacter().isTechniqueDiscovered("bankai",4));eq(63D,loaded.getCharacter().getTechniqueMastery("bankai",4));yes(loaded.getAppearance().isSlim()&&!loaded.getAppearance().usesVanillaSkin());
             loaded.getCharacter().bindZanpakuto("ryujin_jakka");eq(45D,loaded.getCharacter().getTechniqueMastery("shikai",2));
             var clone=new PlayerData();clone.copyFrom(loaded);clone.getCharacter().bindZanpakuto("nozarashi");eq(63D,clone.getCharacter().getTechniqueMastery("bankai",4));
+        });
+        test("Boss entrance IK reaches support targets without stretching its limbs",()->{
+            var a=new org.joml.Vector3f(21,69,1);var b=new org.joml.Vector3f(24,41,-3);
+            var c=new org.joml.Vector3f(25,14,-9);
+            for(int x=-8;x<=8;x+=4)for(int y=12;y<=32;y+=5)for(int z=-30;z<=20;z+=5){
+                var target=new org.joml.Vector3f(25+x,y,z);
+                var chain=com.bleachmod.common.visual.TwoBonePose.solve(a,b,c,target,new org.joml.Vector3f(0,0,1));
+                var elbow=chain.upper().transform(new org.joml.Vector3f(b).sub(a)).add(a);
+                var tip=chain.lower().transform(new org.joml.Vector3f(c).sub(b));chain.upper().transform(tip);tip.add(elbow);
+                yes(Math.abs(elbow.distance(a)-a.distance(b))<.001);
+                yes(Math.abs(tip.distance(elbow)-b.distance(c))<.001);
+                if(target.distance(a)<a.distance(b)+b.distance(c)-.01F)yes(tip.distance(target)<.003);
+                else yes(Float.isFinite(tip.x+tip.y+tip.z));
+                var e=com.bleachmod.common.visual.TwoBonePose.eulerZYX(chain.upper());
+                var roundTrip=new org.joml.Quaternionf().rotationZYX(e.z,e.y,e.x);
+                yes(roundTrip.transform(new org.joml.Vector3f(b).sub(a)).add(a).distance(elbow)<.003);
+            }
+        });
+        test("Boss entrance alternates planted hands and airborne steps and settles before combat",()->{
+            float anchor=com.bleachmod.common.visual.HollowBossEntrance.hand(74,true).z();
+            for(float t=74;t<96;t+=.25F){
+                var p=com.bleachmod.common.visual.HollowBossEntrance.hand(t,true);
+                yes(p.planted() && p.y()==14 && p.z()==anchor);
+            }
+            yes(com.bleachmod.common.visual.HollowBossEntrance.hand(68,true).lift()>.5F);
+            yes(com.bleachmod.common.visual.HollowBossEntrance.hand(68,false).lift()==0);
+            yes(com.bleachmod.common.visual.HollowBossEntrance.foot(89,true).lift()>.5F);
+            yes(com.bleachmod.common.visual.HollowBossEntrance.foot(89,false).lift()==0);
+            eq(com.bleachmod.common.visual.HollowBossEntrance.retreat(56),com.bleachmod.common.visual.HollowBossEntrance.retreat(62));
+            eq(com.bleachmod.common.visual.HollowBossEntrance.retreat(86),com.bleachmod.common.visual.HollowBossEntrance.retreat(90));
+            for(float t=156;t<=160;t+=.25F){
+                yes(Math.abs(com.bleachmod.common.visual.HollowBossEntrance.retreat(t))<.0001F);
+                yes(com.bleachmod.common.visual.HollowBossEntrance.bodyY(t)==0);
+                yes(com.bleachmod.common.visual.HollowBossEntrance.settle(t)==0);
+                yes(com.bleachmod.common.visual.HollowBossEntrance.hand(t,true).planted());
+                yes(com.bleachmod.common.visual.HollowBossEntrance.foot(t,false).planted());
+            }
         });
         System.out.println("PASS: "+count+" regression scenarios");
     }

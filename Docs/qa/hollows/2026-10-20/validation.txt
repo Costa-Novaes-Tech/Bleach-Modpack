@@ -1,0 +1,57 @@
+Bleach Mod - Hollow variants - 2026-10-20
+Branch: feat/Jigui/new-hollow-model
+Base commit: 8ace6520e67d27441974b9ad92b443ddb33f9882
+Initial git status --short: empty
+No commits, resets, stashes, checkouts, pushes or installations.
+
+PASS check: exit 0; 127 regression scenarios (logs/check.txt).
+PASS build: exit 0; check + jar + reobfJar; 127 regression scenarios (logs/build.txt).
+PASS runGameTestServer: exit 0; all 160 required tests passed (logs/gametest.txt).
+PASS python tools/models/hollow_variants.py --check: exit 0.
+PASS git diff --check: exit 0.
+PASS JAR packaging: three geometries, three PNGs, animation, variant class, renderer.
+PASS compiled HollowEntity.class major version 61 (Java 17).
+PASS real Forge client: fresh isolated save; 9 framebuffer screenshots (logs/client.txt).
+Client Gradle session was intentionally left running for inspection; no exit code asserted.
+
+New GameTests (9):
+sameEntityTypeRollsAllVariantsForEggAndNaturalSpawn
+variantsHaveDistinctCombatStatsAndRealHitboxes
+saveReloadPreservesVariantDamageAndFlightWithoutHealing
+syncedVariantUpdatesObserverModelAndDimensions
+legacyAndInvalidTagsFallBackWithoutChangingBoss
+switchingFlightRestoresGroundNavigationAndGravity
+flyerNavigatesVerticallyAlongAerialPath
+flyerPursuesAndDamagesAnElevatedTarget
+meleeHitsUseTheVariantDamage
+
+The last two cases exercise real damage and flying melee pursuit, not only attribute values.
+Variant-sync test applies the synced entity values to a second object; it is not a
+two-client multiplayer session. Spawn tests call the same finalizeSpawn hooks used
+by eggs/natural/command/spawner births; no manual egg-click session is claimed.
+
+Artifact: build/libs/bleachmod-0.2.0.jar
+SHA256: 7711B491F0F26F7E0A869F7331A06AF4EE9E5855618129794B524B137C8D888A
+
+Visual samples: Minecraft 1280x720, AMD Radeon RX 7600, render distance 6,
+max heap 2 GiB, observed FPS 118-119. See frames.jsonl. This is not a load benchmark.
+PASS observed: three distinct models/sizes, masks, open chest holes, wings, aerial movement.
+PENDING: continuous video, visual melee contact, two connected clients, night,
+uneven/narrow terrain, sustained combat/load and optional Photon profile.
+Overall: functional checks passed; visual review limited to the recorded base scenario.
+
+Initial baseline was blocked before compilation by sandbox Gradle-cache access,
+then Java Unix-domain loopback with a non-ASCII temporary path. Authorized runs
+succeeded after setting jdk.net.unixdomain.tmpdir to the workspace build short path.
+One intermediate compilation lacked the GeckoLib PlayState import; fixed before
+all successful check/server/client runs. One initial client launch had an incorrectly
+splatted PowerShell argument; corrected in the temporary launcher before real capture.
+No global Java/PATH/settings changes; existing deprecation/scanner debug messages
+were retained. Root logs produced by regression tests were archived/restored so
+logs/debug.log is unchanged in the final diff.
+
+Changed production scope: HollowEntity, new HollowVariant, GeckoLib HollowRenderer,
+renderer registration, three model/texture sources and shared animations.
+Added QA scope: 9 GameTests, opt-in isolated client/world bootstrap, model generator,
+editable Blockbench files and this report/evidence. Boss/Zaraki/loot/spawn registration
+and player cinematic gameplay were preserved.

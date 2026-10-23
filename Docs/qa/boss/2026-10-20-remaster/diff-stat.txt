@@ -1,0 +1,10 @@
+ build.gradle                                       |   8 +-
+ .../client/events/ModEntityRenderers.java          |  45 +---
+ .../bleachmod/client/model/HollowBossModel.java    | 229 +----------------
+ .../com/bleachmod/entity/HollowBossEntity.java     | 273 ++++++++++++++++++---
+ .../bleachmod/gametest/HollowVariantGameTests.java |   2 +-
+ .../java/com/bleachmod/registry/ModEntities.java   |   4 +-
+ .../resources/assets/bleachmod/lang/en_us.json     |   1 +
+ .../resources/assets/bleachmod/lang/pt_br.json     |   1 +
+ .../bleachmod/textures/entity/hollow_boss.png      | Bin 8314 -> 3673 bytes
+ 9 files changed, 281 insertions(+), 282 deletions(-)

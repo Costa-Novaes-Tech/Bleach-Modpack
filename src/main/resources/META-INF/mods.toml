@@ -52,6 +52,6 @@ description='''${mod_description}'''
 [[dependencies.${mod_id}]]
     modId="playeranimator"
     mandatory=true
-    versionRange="[1.0.2-rc1,)"
+    versionRange="[1.0.2-rc1,1.1)"
     ordering="AFTER"
     side="BOTH"

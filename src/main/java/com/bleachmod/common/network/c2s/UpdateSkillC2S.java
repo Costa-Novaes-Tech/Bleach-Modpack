@@ -32,7 +32,7 @@ public record UpdateSkillC2S(String skill, SkillAction action) {
                 return;
             }
             PlayerCapability.get(player).ifPresent(data -> {
-                if (!data.getStatus().hasCreatedCharacter() || !player.isAlive() || !data.getStatus().allowAction(player.level().getGameTime())) return;
+                if (!data.getStatus().hasCreatedCharacter() || !player.isAlive() || !data.getStatus().allowUiAction(player.level().getGameTime())) return;
                 if (msg.action == SkillAction.PURCHASE && com.bleachmod.common.ProgressionService.purchaseSkill(data, msg.skill)) {
                     SyncHelper.full(player);
                 } else {

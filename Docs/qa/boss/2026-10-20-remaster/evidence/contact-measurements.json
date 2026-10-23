@@ -1,0 +1,67 @@
+[
+  {
+    "file": "screenshots/slam-654.png",
+    "gameTick": 662,
+    "clientTick": 654,
+    "attackTick": 23,
+    "bossY": -60.0,
+    "leftContactX": 2.5081591606140137,
+    "leftContactY": -60.00455856323242,
+    "leftContactZ": 3.0596578121185303,
+    "rightContactX": -1.5081584453582764,
+    "rightContactY": -60.00455856323242,
+    "rightContactZ": 3.0596580505371094
+  },
+  {
+    "file": "screenshots/slam-655.png",
+    "gameTick": 663,
+    "clientTick": 655,
+    "attackTick": 24,
+    "bossY": -60.0,
+    "leftContactX": 2.5121817588806152,
+    "leftContactY": -60.01585388183594,
+    "leftContactZ": 3.0699076652526855,
+    "rightContactX": -1.512183666229248,
+    "rightContactY": -60.01585388183594,
+    "rightContactZ": 3.069908380508423
+  },
+  {
+    "file": "screenshots/slam-656.png",
+    "gameTick": 664,
+    "clientTick": 656,
+    "attackTick": 25,
+    "bossY": -60.0,
+    "leftContactX": 2.5171308517456055,
+    "leftContactY": -60.029788970947266,
+    "leftContactZ": 3.0825767517089844,
+    "rightContactX": -1.517129898071289,
+    "rightContactY": -60.029788970947266,
+    "rightContactZ": 3.082578659057617
+  },
+  {
+    "file": "screenshots/slam-657.png",
+    "gameTick": 665,
+    "clientTick": 657,
+    "attackTick": 26,
+    "bossY": -60.0,
+    "leftContactX": 2.519381523132324,
+    "leftContactY": -60.03614807128906,
+    "leftContactZ": 3.088364601135254,
+    "rightContactX": -1.5193819999694824,
+    "rightContactY": -60.03614807128906,
+    "rightContactZ": 3.0883660316467285
+  },
+  {
+    "file": "screenshots/slam-658.png",
+    "gameTick": 666,
+    "clientTick": 658,
+    "attackTick": 27,
+    "bossY": -60.0,
+    "leftContactX": 2.515134811401367,
+    "leftContactY": -60.0241584777832,
+    "leftContactZ": 3.0774552822113037,
+    "rightContactX": -1.515134334564209,
+    "rightContactY": -60.0241584777832,
+    "rightContactZ": 3.077456474304199
+  }
+]

@@ -50286,7 +50286,7 @@
   ],
   "textures": [
     {
-      "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\src\\main\\resources\\assets\\bleachmod\\textures\\entity\\ice_hydra.png",
+      "path": "../../../src/main/resources/assets/bleachmod/textures/entity/ice_hydra.png",
       "name": "ice_hydra.png",
       "folder": "entity",
       "namespace": "bleachmod",

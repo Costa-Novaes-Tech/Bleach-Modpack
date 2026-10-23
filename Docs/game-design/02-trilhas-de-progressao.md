@@ -1,5 +1,11 @@
 # Trilhas de progressão
 
+> **Direção vigente REV-SP-02 — 22/10/2026:** Spiritual Points compram **skills e transformações**, conforme esclarecimento explícito do usuário, usando Dragon Mine Z como referência para a compra. **Mastery é desenvolvida pela prática e não é comprada.** Requisitos/contexto disponibilizam a aquisição; SP paga a compra/desbloqueio; usar a capacidade depois segue os custos próprios de Energia/Stamina. [Contrato comum em M05/11.2](05-atributos-e-recursos.md#112-rev-sp-02--compra-de-skills-e-transformacoes-com-spiritual-points). Preços e exceções concretas permanecem nas fichas; a compra não pode ser removida genericamente por interpretação de M05/M06.
+
+> **Síntese vigente — 22/10/2026:** sete trilhas e ausência de nível global preservadas; cinco atributos com progresso integrado (M05), Proficiência orgânica por campo e Mastery individual (M06), técnicas por aprendizado e marcos por requisitos próprios (M07). Tabelas e diagramas originais de ranks/pontos não devem ser utilizados isoladamente. Catálogo canônico e aquisição seguem M04/RAC-20; não há sorteio obrigatório do poder. [Revisão transversal de M01–M07](00-revisao-modulos-01-a-07-2026-10-22.md).
+
+> **Nota de continuidade — 20/10/2026:** este documento preserva o registro arquitetural original. M05, na seção **Revisões formais sobre o Módulo 02**, substitui/refina partes do crescimento dos atributos e da função dos Spiritual Points. M06-07 consolida Proficiência, repertórios e Mastery sem segundo rank obrigatório de disciplina. Aplicar essas revisões nos seus respectivos escopos; o resumo original abaixo não as revoga. Consulte o [handoff vigente](00-handoff-atual.md).
+
 ## Estado do módulo
 
 | Campo | Valor |
@@ -122,6 +128,8 @@ Como o jogador pode abandonar temporariamente uma campanha, cada trilha deve ind
 - balanceamento de party, PvP ou catch-up.
 
 ## Diagnóstico da progressão atual
+
+> **Diagnóstico histórico:** este trecho descreve a investigação original, não o estado do código revalidado em 22/10/2026. Há avanços posteriores registrados na [auditoria de 20/10](00-auditoria-estado-2026-10-20.md); também ela tem data/escopo próprios. Esta revisão é de contratos documentais, sem nova auditoria do runtime ou execução de Minecraft.
 
 O protótipo já separa parte do problema:
 
@@ -486,6 +494,8 @@ Os três campos não precisam avançar juntos nem possuir a mesma quantidade de 
 
 #### Independência não significa combinação livre
 
+> **Matriz histórica, complementada até 22/10/2026:** M04 define a aquisição da própria Zanpakutō canônica após a formação com Asauchi, sem exigir que a Asauchi se converta nela. M07-02/03 define Shikai/Bankai. Fullbring usa vetor conforme o poder (M04/F4), sem objeto obrigatório no prólogo (F12) nem sequência universal de formas (M07-09A). Vollständig exige Schrift compatível por adaptação aprovada em M07-07C; Letzt Stil é caminho separado (M07-08). A matriz original não revoga esses perfis.
+
 Classificação, manifestação e posição serão armazenadas separadamente, mas cada transformação ou poder declarará suas próprias condições de compatibilidade. A classificação de combate serve como leitura e possível requisito de prontidão; ela não cria poderes que a natureza atual do personagem não comporta.
 
 | Poder ou estado | Condição de natureza | Condições de progressão possíveis | O que não será requisito automático |
@@ -512,6 +522,8 @@ natureza ou caminho compatível
 ```
 
 #### Identidade do conjunto de poder canônico
+
+> **Refinamento posterior — 22/10/2026:** o catálogo permanece canônico, mas não obriga toda manifestação Fullbringer a ser um objeto portátil, nem a copiar a memória/biografia do personagem da obra. M04/F4/F12/RAC-20 e M07-09 governam vetor, aquisição e domínio. O método de aquisição conceitual já foi definido por RAC-20; conteúdo e apresentação concretos permanecem nos módulos responsáveis.
 
 Classificação, manifestação e cargo ainda não descrevem **qual conjunto canônico o jogador está desenvolvendo**. Todo personagem precisará de uma escolha persistente que mantenha coerência entre seus estágios, sem gerar técnicas inéditas.
 
@@ -617,6 +629,8 @@ Valores, repetibilidade, acesso e tipos de minigame serão especificados nos mó
 
 ### PRG-05 — Atributos e disciplinas ficam separados?
 
+> **Leitura corrigida após a revisão de 22/10/2026:** aplicar REV-SP-01/M05-11.1. A compra por Spiritual Points continua na base do jogo e pode integrar a aquisição de técnica/habilidade disponível. Aprendizado e compra não são excludentes; Mastery e Proficiência continuam distintas de saldo gasto. Os diagramas antigos precisam de conciliação por conteúdo, não de exclusão geral das compras.
+
 | Alternativa | Benefício | Custo ou risco |
 |---|---|---|
 | **A. Separar capacidades fundamentais de disciplinas aprendidas** | Clareza conceitual e espaço para mentores, técnicas e estilos. | Exige revisar a classificação atual de Zanjutsu, Hakuda e Kidō. |
@@ -655,6 +669,8 @@ Relevância do inimigo, variedade de ações, intervalos por alvo, conclusão do
 Essa solução preserva a leitura direta do protótipo, acrescenta Hohō e evita chamar conhecimento técnico de capacidade corporal. Nenhum rank atual será apagado automaticamente; `05-atributos-e-recursos.md` precisará propor migração e fórmula antes de qualquer mudança no código.
 
 ### PRG-06 — Como uma disciplina ou técnica é aprendida?
+
+> **Leitura corrigida após a revisão de 22/10/2026:** aplicar REV-SP-01/M05-11.1. A compra por Spiritual Points continua na base do jogo e pode integrar a aquisição de técnica/habilidade disponível. Aprendizado e compra não são excludentes; Mastery e Proficiência continuam distintas de saldo gasto. Os diagramas antigos precisam de conciliação por conteúdo, não de exclusão geral das compras.
 
 | Alternativa | Benefício | Custo ou risco |
 |---|---|---|
