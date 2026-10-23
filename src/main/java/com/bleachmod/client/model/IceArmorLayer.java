@@ -112,8 +112,23 @@ public final class IceArmorLayer extends RenderLayer<AbstractClientPlayer, Playe
                 float unfold = net.minecraft.util.Mth.lerp(ZanpakutoReleaseAnimation.iceGrowth(player, partialTick), -1.4F, -0.15F);
                 wing.zRot = unfold + (float) Math.sin(age * 0.08) * 0.06F;
                 wing.yRot = (float) Math.cos(age * 0.08) * 0.04F;
-
                 wing.getChild("tip").zRot=-.3F+(float)Math.sin(age*.08-.6)*.08F;
+
+                var g = ElementalActionVisuals.gesture(player);
+                if (g != null && "ryusenka".equals(g.kind())) {
+                    float gAge = ElementalActionVisuals.age(g, partialTick);
+                    if (gAge < 6.0F) {
+                        float prep = net.minecraft.util.Mth.clamp(gAge / 6.0F, 0, 1);
+                        wing.yRot = net.minecraft.util.Mth.lerp(prep, wing.yRot, 0.45F);
+                        wing.zRot = net.minecraft.util.Mth.lerp(prep, wing.zRot, -0.45F);
+                    } else if (gAge <= 20.0F) {
+                        float thrust = net.minecraft.util.Mth.clamp((gAge - 6.0F) / 3.0F, 0, 1);
+                        wing.yRot = net.minecraft.util.Mth.lerp(thrust, 0.45F, 0.85F);
+                        wing.zRot = net.minecraft.util.Mth.lerp(thrust, -0.45F, -0.10F);
+                        wing.getChild("tip").zRot = net.minecraft.util.Mth.lerp(thrust, -0.3F, -0.65F);
+                    }
+                }
+
                 draw(pose, buffers, light, getParentModel().body, wing, 1);
                 draw(pose, buffers, light, getParentModel().body, wing, -1);
 

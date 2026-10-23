@@ -122,11 +122,18 @@ public final class ElementalReworkGameTests {
     @GameTest(template="empty",batch="new_sennen",timeoutTicks=90)
     public static void sennenReplacesBarrierWithAreaContainment(GameTestHelper h){var p=player(h,"hyorinmaru","shikai");var inside=target(h,p,0,16);var outside=target(h,p,0,29);TechniqueService.executeSlot(p,d(p),3);p.setYRot(180);
         h.runAfterDelay(55,()->{try{h.assertTrue(inside.getHealth()<80 && inside.getTicksFrozen()>0 && outside.getHealth()==80,"Pillars did not close around the fixed target area");}finally{clean(p,inside,outside);}h.succeed();});}
-    @GameTest(template="empty",batch="new_bloom",timeoutTicks=130)
-    public static void floralReactivationUsesOriginalFieldAndOneCooldown(GameTestHelper h){var p=player(h,"hyorinmaru","bankai");var a=target(h,p,0,3);var b=target(h,p,0,28);var outside=target(h,p,0,33);h.onEachTick(()->HyorinmaruTechniqueService.tick(p,d(p)));
-        TechniqueService.executeSlot(p,d(p),4);h.runAfterDelay(20,()->{TechniqueService.executeSlot(p,d(p),4);h.assertTrue(d(p).getResources().getCurrentReiatsu()==65 && HyorinmaruTechniqueService.hasBankaiZone(p),"Early continuation charged or consumed the field");});
-        float[] before={0,0};h.runAfterDelay(65,()->{before[0]=a.getHealth();before[1]=b.getHealth();p.setPos(p.getX()+20,p.getY(),p.getZ());p.setYRot(180);TechniqueService.executeSlot(p,d(p),4);});
-        h.runAfterDelay(90,()->{try{h.assertTrue(a.getHealth()<before[0] && b.getHealth()<before[1] && outside.getHealth()==80,"Bloom followed player/aim or exceeded radius");h.assertTrue(d(p).getResources().getCurrentReiatsu()==65,"Continuation charged a second time");}finally{clean(p,a,b,outside);}h.succeed();});}
+    @GameTest(template="empty",batch="new_hyoten_roar",timeoutTicks=70)
+    public static void hyotenDirectRoarSummonsHydraAndDealsContinuousDamage(GameTestHelper h){
+        var p=player(h,"hyorinmaru","bankai");var a=target(h,p,0,3);var b=target(h,p,0,28);var outside=target(h,p,0,33);
+        h.onEachTick(()->HyorinmaruTechniqueService.tick(p,d(p)));
+        TechniqueService.executeSlot(p,d(p),4);
+        h.assertTrue(HyorinmaruTechniqueService.hasBankaiZone(p),"Hyoten glacial zone was not activated");
+        h.assertTrue(d(p).getResources().getCurrentReiatsu()==65,"Hyoten reiatsu cost mismatch");
+        h.runAfterDelay(35,()->{try{
+            h.assertTrue(a.getHealth()<80 && b.getHealth()<80 && outside.getHealth()==80,"Hyoten damage did not cover 30-block zone correctly");
+            h.assertTrue(a.getTicksFrozen()>0 && b.getTicksFrozen()>0,"Hyoten continuous chill not applied");
+        }finally{clean(p,a,b,outside);}h.succeed();});
+    }
     @GameTest(template="empty",batch="new_dragon_reach",timeoutTicks=65)
     public static void shikaiDragonReachesThirteenBlocksAndHasWiderBite(GameTestHelper h){var p=player(h,"hyorinmaru","shikai");var near=target(h,p,.75,13);var outside=target(h,p,0,17);TechniqueService.executeSlot(p,d(p),1);
         h.runAfterDelay(25,()->{try{h.assertTrue(near.getHealth()<80 && outside.getHealth()==80,"Shikai dragon range/width refinement failed");}finally{clean(p,near,outside);}h.succeed();});}

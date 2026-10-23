@@ -1,6 +1,7 @@
 package com.bleachmod.common.technique;
 
 import com.bleachmod.Reference;
+import com.bleachmod.common.visual.IceTechniqueVisuals;
 import com.bleachmod.common.data.*;
 import com.bleachmod.common.network.SyncHelper;
 import net.minecraft.core.BlockPos;
@@ -77,12 +78,7 @@ public final class ElementalTechniqueService {
         if(!TechniqueProgression.authorize(p,d,slot) || busy(p))return;
         String identity=d.getCharacter().getZanpakutoIdentity(),form=d.getCharacter().getActiveForm();
         boolean ice=identity.equals(CharacterData.HYORINMARU),bankai=form.equals("bankai");
-        if(ice && bankai && slot==4 && HyorinmaruTechniqueService.hasBankaiZone(p)){
-            var center=HyorinmaruTechniqueService.consumeBloom(p);
-            if(center!=null){var list=CASTS.get(p.getUUID());if(list!=null)list.removeIf(c->c.kind.equals("glacial_zone"));add(p,d,"bloom",4,30,24,center,30);}
-            else p.displayClientMessage(net.minecraft.network.chat.Component.translatable("message.bleachmod.ice.bloom_wait"),true);
-            return;
-        }
+
         var def=TechniqueDefinitions.require(identity,form,slot);
         if(def.id().equals("unavailable"))return;
         if(cooldown(d,slot)>0){p.displayClientMessage(net.minecraft.network.chat.Component.translatable("message.bleachmod.technique.cooldown",(cooldown(d,slot)+19)/20),true);return;}
@@ -201,6 +197,7 @@ public final class ElementalTechniqueService {
                         p.connection.teleport(p.getX(),p.getY(),p.getZ(),p.getYRot(),p.getXRot());
                         for(var t:targets(c,p.position().subtract(move.scale(.5)),2.2))if(p.hasLineOfSight(t) && hit(c,t,8,true)){chill(c,t,50);c.cocoons.put(t.getUUID(),t);c.nextHit.put(t.getUUID(),p.level().getGameTime()+40);iceCross(p,t.position());}
                     }
+                    IceTechniqueVisuals.ryusenkaThrustTrail(p, p.position(), c.forward);
                 }
                 if(age==20)SyncHelper.appearance(p);
                 if(age>=46)for(var t:c.cocoons.values())if(t.isAlive() && p.level().getGameTime()>=c.nextHit.getOrDefault(t.getUUID(),Long.MAX_VALUE) && c.ruptured.add(t.getUUID())){hit(c,t,6,false);iceCross(p,t.position());SyncHelper.appearance(p);}
@@ -226,7 +223,6 @@ public final class ElementalTechniqueService {
             case "jokaku"->{if(age<20 || age%20!=0)break;
                 for(var t:targets(c,c.origin,6))if(TechniqueGeometry.intersectsCylinder(c.origin,6,1,5,t.getBoundingBox()) && visible(c,t,c.origin))hit(c,t,4,false);
             }
-            case "bloom"->{if(age==20)for(var t:targets(c,c.origin,30))if(TechniqueGeometry.intersectsCylinder(c.origin,30,4,4,t.getBoundingBox()) && visible(c,t,c.origin)){hit(c,t,10,true);chill(c,t,40);iceCross(p,t.position());}}
             case "steam_cut"->{if(age==18)TechniqueService.applyConcentratedSteamCut(p);}
             case "minami"->army(c);
         }

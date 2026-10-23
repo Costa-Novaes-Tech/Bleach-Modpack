@@ -55,7 +55,6 @@ public final class ZanpakutoHud {
                 int slot = i + 1;
                 var definition = TechniqueDefinitions.require(identity, form, slot);
                 String name = Component.translatable(abilityKey(identity, form, i + 1)).getString();
-                if(identity.equals("hyorinmaru") && form.equals("bankai") && slot==4 && com.bleachmod.client.model.ElementalActionVisuals.bloomReady(mc.player))name=Component.translatable("ability.bleachmod.hyorinmaru.bloom").getString();
                 var senbon=d.getStatus().getSenbonHud();
                 if (CharacterData.SENBONZAKURA.equals(identity) && form.equals("bankai")) {
                     if (slot==2 && senbon.getInt("fieldRemaining")>0 && senbon.getInt("fieldReady")==0)

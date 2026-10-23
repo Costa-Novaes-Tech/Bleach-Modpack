@@ -1,13 +1,13 @@
-[23out.2026 09:21:37.288] [main/DEBUG] [io.netty.util.internal.logging.InternalLoggerFactory/]: Using SLF4J as the default logging framework
-[23out.2026 09:21:37.293] [main/DEBUG] [io.netty.util.ResourceLeakDetector/]: -Dio.netty.leakDetection.level: simple
-[23out.2026 09:21:37.293] [main/DEBUG] [io.netty.util.ResourceLeakDetector/]: -Dio.netty.leakDetection.targetRecords: 4
-[23out.2026 09:21:37.304] [main/DEBUG] [io.netty.util.internal.PlatformDependent0/]: -Dio.netty.noUnsafe: false
-[23out.2026 09:21:37.304] [main/DEBUG] [io.netty.util.internal.PlatformDependent0/]: Java version: 17
-[23out.2026 09:21:37.305] [main/DEBUG] [io.netty.util.internal.PlatformDependent0/]: sun.misc.Unsafe.theUnsafe: available
-[23out.2026 09:21:37.306] [main/DEBUG] [io.netty.util.internal.PlatformDependent0/]: sun.misc.Unsafe.copyMemory: available
-[23out.2026 09:21:37.307] [main/DEBUG] [io.netty.util.internal.PlatformDependent0/]: sun.misc.Unsafe.storeFence: available
-[23out.2026 09:21:37.307] [main/DEBUG] [io.netty.util.internal.PlatformDependent0/]: java.nio.Buffer.address: available
-[23out.2026 09:21:37.308] [main/DEBUG] [io.netty.util.internal.PlatformDependent0/]: direct buffer constructor: unavailable
+[23out.2026 11:21:08.079] [main/DEBUG] [io.netty.util.internal.logging.InternalLoggerFactory/]: Using SLF4J as the default logging framework
+[23out.2026 11:21:08.084] [main/DEBUG] [io.netty.util.ResourceLeakDetector/]: -Dio.netty.leakDetection.level: simple
+[23out.2026 11:21:08.084] [main/DEBUG] [io.netty.util.ResourceLeakDetector/]: -Dio.netty.leakDetection.targetRecords: 4
+[23out.2026 11:21:08.095] [main/DEBUG] [io.netty.util.internal.PlatformDependent0/]: -Dio.netty.noUnsafe: false
+[23out.2026 11:21:08.095] [main/DEBUG] [io.netty.util.internal.PlatformDependent0/]: Java version: 17
+[23out.2026 11:21:08.096] [main/DEBUG] [io.netty.util.internal.PlatformDependent0/]: sun.misc.Unsafe.theUnsafe: available
+[23out.2026 11:21:08.097] [main/DEBUG] [io.netty.util.internal.PlatformDependent0/]: sun.misc.Unsafe.copyMemory: available
+[23out.2026 11:21:08.098] [main/DEBUG] [io.netty.util.internal.PlatformDependent0/]: sun.misc.Unsafe.storeFence: available
+[23out.2026 11:21:08.099] [main/DEBUG] [io.netty.util.internal.PlatformDependent0/]: java.nio.Buffer.address: available
+[23out.2026 11:21:08.100] [main/DEBUG] [io.netty.util.internal.PlatformDependent0/]: direct buffer constructor: unavailable
 java.lang.UnsupportedOperationException: Reflective setAccessible(true) disabled
 	at io.netty.util.internal.ReflectionUtil.trySetAccessible(ReflectionUtil.java:31) ~[netty-common-4.1.82.Final.jar:4.1.82.Final]
 	at io.netty.util.internal.PlatformDependent0$5.run(PlatformDependent0.java:288) ~[netty-common-4.1.82.Final.jar:4.1.82.Final]
@@ -20,8 +20,8 @@ java.lang.UnsupportedOperationException: Reflective setAccessible(true) disabled
 	at com.bleachmod.MvpRegressionTest.lambda$main$127(MvpRegressionTest.java:986) ~[test/:?]
 	at com.bleachmod.MvpRegressionTest.test(MvpRegressionTest.java:1387) ~[test/:?]
 	at com.bleachmod.MvpRegressionTest.main(MvpRegressionTest.java:983) ~[test/:?]
-[23out.2026 09:21:37.313] [main/DEBUG] [io.netty.util.internal.PlatformDependent0/]: java.nio.Bits.unaligned: available, true
-[23out.2026 09:21:37.313] [main/DEBUG] [io.netty.util.internal.PlatformDependent0/]: jdk.internal.misc.Unsafe.allocateUninitializedArray(int): unavailable
+[23out.2026 11:21:08.107] [main/DEBUG] [io.netty.util.internal.PlatformDependent0/]: java.nio.Bits.unaligned: available, true
+[23out.2026 11:21:08.108] [main/DEBUG] [io.netty.util.internal.PlatformDependent0/]: jdk.internal.misc.Unsafe.allocateUninitializedArray(int): unavailable
 java.lang.IllegalAccessException: class io.netty.util.internal.PlatformDependent0$7 cannot access class jdk.internal.misc.Unsafe (in module java.base) because module java.base does not export jdk.internal.misc to unnamed module @3c41ed1d
 	at jdk.internal.reflect.Reflection.newIllegalAccessException(Reflection.java:392) ~[?:?]
 	at java.lang.reflect.AccessibleObject.checkAccess(AccessibleObject.java:674) ~[?:?]
@@ -36,16 +36,16 @@ java.lang.IllegalAccessException: class io.netty.util.internal.PlatformDependent
 	at com.bleachmod.MvpRegressionTest.lambda$main$127(MvpRegressionTest.java:986) ~[test/:?]
 	at com.bleachmod.MvpRegressionTest.test(MvpRegressionTest.java:1387) ~[test/:?]
 	at com.bleachmod.MvpRegressionTest.main(MvpRegressionTest.java:983) ~[test/:?]
-[23out.2026 09:21:37.313] [main/DEBUG] [io.netty.util.internal.PlatformDependent0/]: java.nio.DirectByteBuffer.<init>(long, int): unavailable
-[23out.2026 09:21:37.313] [main/DEBUG] [io.netty.util.internal.PlatformDependent/]: sun.misc.Unsafe: available
-[23out.2026 09:21:37.313] [main/DEBUG] [io.netty.util.internal.PlatformDependent/]: maxDirectMemory: 4213178368 bytes (maybe)
-[23out.2026 09:21:37.313] [main/DEBUG] [io.netty.util.internal.PlatformDependent/]: -Dio.netty.tmpdir: C:\Users\joaop\AppData\Local\Temp (java.io.tmpdir)
-[23out.2026 09:21:37.313] [main/DEBUG] [io.netty.util.internal.PlatformDependent/]: -Dio.netty.bitMode: 64 (sun.arch.data.model)
-[23out.2026 09:21:37.313] [main/DEBUG] [io.netty.util.internal.PlatformDependent/]: Platform: Windows
-[23out.2026 09:21:37.313] [main/DEBUG] [io.netty.util.internal.PlatformDependent/]: -Dio.netty.maxDirectMemory: -1 bytes
-[23out.2026 09:21:37.313] [main/DEBUG] [io.netty.util.internal.PlatformDependent/]: -Dio.netty.uninitializedArrayAllocationThreshold: -1
-[23out.2026 09:21:37.313] [main/DEBUG] [io.netty.util.internal.CleanerJava9/]: java.nio.ByteBuffer.cleaner(): available
-[23out.2026 09:21:37.313] [main/DEBUG] [io.netty.util.internal.PlatformDependent/]: -Dio.netty.noPreferDirect: false
-[23out.2026 09:21:37.326] [main/DEBUG] [io.netty.buffer.AbstractByteBuf/]: -Dio.netty.buffer.checkAccessible: true
-[23out.2026 09:21:37.326] [main/DEBUG] [io.netty.buffer.AbstractByteBuf/]: -Dio.netty.buffer.checkBounds: true
-[23out.2026 09:21:37.327] [main/DEBUG] [io.netty.util.ResourceLeakDetectorFactory/]: Loaded default ResourceLeakDetector: io.netty.util.ResourceLeakDetector@7cc9ce8
+[23out.2026 11:21:08.109] [main/DEBUG] [io.netty.util.internal.PlatformDependent0/]: java.nio.DirectByteBuffer.<init>(long, int): unavailable
+[23out.2026 11:21:08.110] [main/DEBUG] [io.netty.util.internal.PlatformDependent/]: sun.misc.Unsafe: available
+[23out.2026 11:21:08.110] [main/DEBUG] [io.netty.util.internal.PlatformDependent/]: maxDirectMemory: 4213178368 bytes (maybe)
+[23out.2026 11:21:08.111] [main/DEBUG] [io.netty.util.internal.PlatformDependent/]: -Dio.netty.tmpdir: C:\Users\joaop\AppData\Local\Temp (java.io.tmpdir)
+[23out.2026 11:21:08.111] [main/DEBUG] [io.netty.util.internal.PlatformDependent/]: -Dio.netty.bitMode: 64 (sun.arch.data.model)
+[23out.2026 11:21:08.111] [main/DEBUG] [io.netty.util.internal.PlatformDependent/]: Platform: Windows
+[23out.2026 11:21:08.112] [main/DEBUG] [io.netty.util.internal.PlatformDependent/]: -Dio.netty.maxDirectMemory: -1 bytes
+[23out.2026 11:21:08.112] [main/DEBUG] [io.netty.util.internal.PlatformDependent/]: -Dio.netty.uninitializedArrayAllocationThreshold: -1
+[23out.2026 11:21:08.114] [main/DEBUG] [io.netty.util.internal.CleanerJava9/]: java.nio.ByteBuffer.cleaner(): available
+[23out.2026 11:21:08.114] [main/DEBUG] [io.netty.util.internal.PlatformDependent/]: -Dio.netty.noPreferDirect: false
+[23out.2026 11:21:08.122] [main/DEBUG] [io.netty.buffer.AbstractByteBuf/]: -Dio.netty.buffer.checkAccessible: true
+[23out.2026 11:21:08.122] [main/DEBUG] [io.netty.buffer.AbstractByteBuf/]: -Dio.netty.buffer.checkBounds: true
+[23out.2026 11:21:08.124] [main/DEBUG] [io.netty.util.ResourceLeakDetectorFactory/]: Loaded default ResourceLeakDetector: io.netty.util.ResourceLeakDetector@7cc9ce8
