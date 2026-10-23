@@ -59,6 +59,23 @@ public final class IceTechniqueVisuals {
         return frame.requested();
     }
 
+    public static int serpentTrail(ServerPlayer owner, Vec3 position, Vec3 direction) {
+        VisualFrame frame = VisualFrame.technique(owner, position, 14);
+        frame.emit(ParticleTypes.SNOWFLAKE, position, 8, 0.45, 0.35, 0.45, 0.02);
+        frame.emit(ParticleTypes.ITEM_SNOWBALL, position, 3, 0.35, 0.25, 0.35, 0.03);
+        return frame.requested();
+    }
+
+    public static int ryusenkaThrustTrail(ServerPlayer owner, Vec3 position, Vec3 forward) {
+        VisualFrame frame = VisualFrame.technique(owner, position, 28);
+        Vec3 back = position.subtract(forward.scale(0.8)).add(0, 0.8, 0);
+        var dust = new DustParticleOptions(new org.joml.Vector3f(0.45F, 0.85F, 1.0F), 1.4F);
+        frame.emit(ParticleTypes.SNOWFLAKE, back, 12, 0.4, 0.4, 0.4, 0.03);
+        frame.emit(ParticleTypes.ITEM_SNOWBALL, back, 5, 0.3, 0.3, 0.3, 0.05);
+        frame.emit(dust, back, 6, 0.35, 0.35, 0.35, 0.02);
+        return frame.requested();
+    }
+
     /**
      * Authorial Daiguren Blizzard Storm:
      * Custom spiraling snowflakes, subzero mist and drifting frosty crystals around the Shinigami,

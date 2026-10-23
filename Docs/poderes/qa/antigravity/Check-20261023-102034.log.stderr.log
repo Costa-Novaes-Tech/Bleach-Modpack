@@ -1,0 +1,66 @@
+Note: SpongePowered MIXIN Annotation Processor Version=0.8.5 (MixinGradle Version=0.7.38)
+Note: Supported obfuscation types: ObfuscationServiceMCP supports [notch] ObfuscationServiceFG3 supports [searge]
+Note: Loading searge mappings from C:\Users\joaop\Downloads\Projeto_Programacao_BleachMod\Bleach-Modpack-design\build\createMcpToSrg\output.tsrg
+Note: Writing refmap to C:\Users\joaop\Downloads\Projeto_Programacao_BleachMod\Bleach-Modpack-design\build\tmp\compileJava\compileJava-refmap.json
+Note: Writing refmap to C:\Users\joaop\Downloads\Projeto_Programacao_BleachMod\Bleach-Modpack-design\build\tmp\compileJava\compileJava-refmap.json
+Note: Writing searge composite mappings to C:\Users\joaop\Downloads\Projeto_Programacao_BleachMod\Bleach-Modpack-design\build\tmp\compileJava\compileJava-mappings.tsrg
+Note: Writing refmap to C:\Users\joaop\Downloads\Projeto_Programacao_BleachMod\Bleach-Modpack-design\build\tmp\compileJava\compileJava-refmap.json
+Note: Writing refmap to C:\Users\joaop\Downloads\Projeto_Programacao_BleachMod\Bleach-Modpack-design\build\tmp\compileJava\compileJava-refmap.json
+Note: Writing searge composite mappings to C:\Users\joaop\Downloads\Projeto_Programacao_BleachMod\Bleach-Modpack-design\build\tmp\compileJava\compileJava-mappings.tsrg
+C:\Users\joaop\Downloads\Projeto_Programacao_BleachMod\Bleach-Modpack-design\src\main\java\com\bleachmod\client\appearance\SkinCompositor.java:100: warning: [removal] ResourceLocation(String) in ResourceLocation has been deprecated and marked for removal
+            var resource = Minecraft.getInstance().getResourceManager().getResource(new ResourceLocation(texture));
+                                                                                    ^
+C:\Users\joaop\Downloads\Projeto_Programacao_BleachMod\Bleach-Modpack-design\src\main\java\com\bleachmod\client\berserk\BerserkSkinLayer.java:24: warning: [removal] ResourceLocation(String,String) in ResourceLocation has been deprecated and marked for removal
+    private static final ResourceLocation WHITE = new ResourceLocation("minecraft", "textures/misc/white.png");
+                                                  ^
+C:\Users\joaop\Downloads\Projeto_Programacao_BleachMod\Bleach-Modpack-design\src\main\java\com\bleachmod\client\BleachClient.java:21: warning: [removal] get() in ModLoadingContext has been deprecated and marked for removal
+        net.minecraftforge.fml.ModLoadingContext.get().registerConfig(net.minecraftforge.fml.config.ModConfig.Type.CLIENT,ClientVisualConfig.SPEC,"bleachmod-client.toml");
+                                                ^
+C:\Users\joaop\Downloads\Projeto_Programacao_BleachMod\Bleach-Modpack-design\src\main\java\com\bleachmod\client\model\HyorinmaruBreathVisual.java:17: warning: [removal] ResourceLocation(String,String) in ResourceLocation has been deprecated and marked for removal
+        var buffers=mc.renderBuffers().bufferSource();var out=buffers.getBuffer(RenderType.entityTranslucent(new net.minecraft.resources.ResourceLocation("minecraft","textures/particle/generic_7.png")));
+                                                                                                             ^
+C:\Users\joaop\Downloads\Projeto_Programacao_BleachMod\Bleach-Modpack-design\src\main\java\com\bleachmod\client\model\HyorinmaruBreathVisual.java:33: warning: [removal] ResourceLocation(String,String) in ResourceLocation has been deprecated and marked for removal
+        buffers.endBatch(RenderType.entityTranslucent(new net.minecraft.resources.ResourceLocation("minecraft","textures/particle/generic_7.png")));
+                                                      ^
+C:\Users\joaop\Downloads\Projeto_Programacao_BleachMod\Bleach-Modpack-design\src\main\java\com\bleachmod\client\model\HyorinmaruFrozenGround.java:18: warning: [removal] ResourceLocation(String,String) in ResourceLocation has been deprecated and marked for removal
+    private static final RenderType PACKED=RenderType.entityTranslucent(new ResourceLocation("minecraft","textures/block/packed_ice.png"));
+                                                                        ^
+C:\Users\joaop\Downloads\Projeto_Programacao_BleachMod\Bleach-Modpack-design\src\main\java\com\bleachmod\client\model\HyorinmaruFrozenGround.java:19: warning: [removal] ResourceLocation(String,String) in ResourceLocation has been deprecated and marked for removal
+    private static final RenderType BLUE=RenderType.entityTranslucent(new ResourceLocation("minecraft","textures/block/blue_ice.png"));
+                                                                      ^
+C:\Users\joaop\Downloads\Projeto_Programacao_BleachMod\Bleach-Modpack-design\src\main\java\com\bleachmod\client\model\IceArmorLayer.java:118: error: kind has private access in View
+                if (g != null && "ryusenka".equals(g.kind)) {
+                                                    ^
+C:\Users\joaop\Downloads\Projeto_Programacao_BleachMod\Bleach-Modpack-design\src\main\java\com\bleachmod\client\model\ZanpakutoSheathLayer.java:20: warning: [removal] ResourceLocation(String,String) in ResourceLocation has been deprecated and marked for removal
+    private static final ResourceLocation MATERIAL = new ResourceLocation("minecraft", "textures/block/white_concrete.png");
+                                                     ^
+C:\Users\joaop\Downloads\Projeto_Programacao_BleachMod\Bleach-Modpack-design\src\main\java\com\bleachmod\common\technique\ElementalTechniqueService.java:199: error: cannot find symbol
+                    IceTechniqueVisuals.ryusenkaThrustTrail(p, p.position(), c.forward);
+                    ^
+  symbol:   variable IceTechniqueVisuals
+  location: class ElementalTechniqueService
+C:\Users\joaop\Downloads\Projeto_Programacao_BleachMod\Bleach-Modpack-design\src\main\java\com\bleachmod\common\util\ResourceIds.java:13: warning: [removal] ResourceLocation(String) in ResourceLocation has been deprecated and marked for removal
+        return new ResourceLocation(id);
+               ^
+C:\Users\joaop\Downloads\Projeto_Programacao_BleachMod\Bleach-Modpack-design\src\main\java\com\bleachmod\Reference.java:29: warning: [removal] ResourceLocation(String,String) in ResourceLocation has been deprecated and marked for removal
+        return new ResourceLocation(MOD_ID, path);
+               ^
+C:\Users\joaop\Downloads\Projeto_Programacao_BleachMod\Bleach-Modpack-design\src\main\java\com\bleachmod\server\world\HistoryWorld.java:74: warning: [removal] ResourceLocation(String) in ResourceLocation has been deprecated and marked for removal
+                ResourceLocation dimension = new ResourceLocation(map.get("dimension").getAsString());
+                                             ^
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+2 errors
+11 warnings
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':compileJava'.
+> Compilation failed; see the compiler error output for details.
+
+* Try:
+> Run with --info option to get more log output.
+> Run with --scan to get full insights.
+
+BUILD FAILED in 32s

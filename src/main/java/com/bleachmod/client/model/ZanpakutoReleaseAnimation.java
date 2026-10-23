@@ -68,22 +68,48 @@ public final class ZanpakutoReleaseAnimation {
             if(v.bankai && v.identity.equals("ryujin_jakka"))return RyujinActionVisuals.transform(player,com.bleachmod.common.visual.RyujinChoreography.release(t*v.duration,sign),part,type,value);
             boolean sword=part.equals(sign>0?"rightArm":"leftArm"),seal=part.equals(sign>0?"leftArm":"rightArm");
             if(v.bankai && v.identity.equals("hyorinmaru")){
-                boolean thrust = t >= 0.72F;
-                float thrustW = thrust ? (t - 0.72F) / 0.28F : 0;
-                if(type==TransformType.ROTATION){
-                    if(sword){
-                        float rotX = Mth.lerp(thrustW, -.55F, -.85F);
-                        return mix(value, rotX, -0.15F*sign, 0.12F*sign, w);
+                float age = t * v.duration;
+                float poseW = com.bleachmod.common.visual.HyorinmaruPlayerPose.weight(age, v.duration);
+                if(poseW <= 0.0F) return value;
+                boolean leftMain = player.getMainArm() == net.minecraft.world.entity.HumanoidArm.LEFT;
+                boolean item = part.equals(leftMain ? "leftItem" : "rightItem");
+                if(seal && !player.getOffhandItem().isEmpty()) return value;
+
+                if(type == TransformType.POSITION){
+                    if(item){
+                        var target = com.bleachmod.common.visual.HyorinmaruPlayerPose.itemPosition(leftMain);
+                        return mix(value, (float)target.x, (float)target.y, (float)target.z, poseW);
                     }
-                    if(seal && player.getOffhandItem().isEmpty()){
-                        float rotX = Mth.lerp(thrustW, -.7F, -.55F);
-                        return mix(value, rotX, 0.28F*sign, -0.15F*sign, w);
-                    }
-                    if(part.equals("body"))return mix(value, thrust ? -0.12F : 0.08F, -0.06F*sign, 0, w);
-                    if(part.equals("rightItem") || part.equals("leftItem"))return mix(value,0,0,0,w);
+                    if(part.equals("body")) return mix(value, 0, 0, 0, poseW);
                 }
-                if((type==TransformType.POSITION && (part.equals("rightItem") || part.equals("leftItem")))
-                        || type==TransformType.BEND && (sword||seal))return mix(value,0,0,0,w);
+                if(type == TransformType.BEND){
+                    if(sword || seal || part.equals("rightLeg") || part.equals("leftLeg")) return mix(value, 0, 0, 0, poseW);
+                }
+                if(type == TransformType.ROTATION){
+                    if(sword){
+                        var rot = com.bleachmod.common.visual.HyorinmaruPlayerPose.mainArm(leftMain, age).rotation();
+                        return mix(value, (float)rot.x, (float)rot.y, (float)rot.z, poseW);
+                    }
+                    if(seal){
+                        var rot = com.bleachmod.common.visual.HyorinmaruPlayerPose.supportArm(leftMain, age).rotation();
+                        return mix(value, (float)rot.x, (float)rot.y, (float)rot.z, poseW);
+                    }
+                    if(item){
+                        var rot = com.bleachmod.common.visual.HyorinmaruPlayerPose.itemRotation(leftMain);
+                        return mix(value, (float)rot.x, (float)rot.y, (float)rot.z, poseW);
+                    }
+                    if(part.equals("body")){
+                        var rot = com.bleachmod.common.visual.HyorinmaruPlayerPose.body(leftMain, age);
+                        return mix(value, (float)rot.x, (float)rot.y, (float)rot.z, poseW);
+                    }
+                    if(part.equals("head")){
+                        var rot = com.bleachmod.common.visual.HyorinmaruPlayerPose.head(leftMain, age);
+                        return mix(value, (float)rot.x, (float)rot.y, (float)rot.z, poseW);
+                    }
+                    if(part.equals("rightLeg") || part.equals("leftLeg")){
+                        return mix(value, 0, 0, 0, poseW);
+                    }
+                }
                 return value;
             }
             if(type==TransformType.ROTATION){
@@ -110,6 +136,19 @@ public final class ZanpakutoReleaseAnimation {
         var v=view(p);if(v==null)return;
         if(List.of("senbonzakura","benihime","asauchi").contains(v.identity)){RyujinActionVisuals.hand(e.getPoseStack(),com.bleachmod.common.visual.SignatureChoreography.release(v.identity,progress(p,v,e.getPartialTick())*v.duration,v.duration,p.getMainArm()==HumanoidArm.RIGHT?1:-1));return;}
         if(v.bankai && v.identity.equals("ryujin_jakka")){RyujinActionVisuals.hand(e.getPoseStack(),com.bleachmod.common.visual.RyujinChoreography.release(progress(p,v,e.getPartialTick())*v.duration,p.getMainArm()==HumanoidArm.RIGHT?1:-1));return;}
+        if(v.bankai && v.identity.equals("hyorinmaru")){
+            float age = progress(p, v, e.getPartialTick()) * v.duration;
+            float poseW = com.bleachmod.common.visual.HyorinmaruPlayerPose.weight(age, v.duration);
+            if(poseW > 0.0F){
+                float sign = p.getMainArm() == HumanoidArm.RIGHT ? 1.0F : -1.0F;
+                var pose = e.getPoseStack();
+                pose.translate(-sign * 0.18F * poseW, -0.16F * poseW, -0.22F * poseW);
+                pose.mulPose(Axis.XP.rotationDegrees(-32.0F * poseW));
+                pose.mulPose(Axis.YP.rotationDegrees(sign * 18.0F * poseW));
+                pose.mulPose(Axis.ZP.rotationDegrees(sign * 12.0F * poseW));
+                return;
+            }
+        }
         float w=weight(progress(p,v,e.getPartialTick())),sign=p.getMainArm()==HumanoidArm.RIGHT?1:-1;
         var pose=e.getPoseStack();
         pose.translate(-sign*.2*w,-.05*w,-.1*w);

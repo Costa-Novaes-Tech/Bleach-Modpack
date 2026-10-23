@@ -35,11 +35,6 @@ public final class HyorinmaruTechniqueService {
         DRAGONS.values().removeIf(dragon -> { dragon.removeIf(e -> { if(e.level()!=level)return false;e.discard();return true; });return dragon.isEmpty(); });
     }
     public static boolean hasBankaiZone(ServerPlayer p) { var f=FIELDS.get(p.getUUID());return f!=null && f.bankai && !f.barrier && p.level().getGameTime()<f.expires; }
-    public static Vec3 consumeBloom(ServerPlayer p) {
-        var f=FIELDS.get(p.getUUID());if(f==null || !f.bankai || f.barrier)return null;
-        long left=f.expires-p.level().getGameTime();if(left<=0 || left>60)return null;
-        FIELDS.remove(p.getUUID());GlacialSnowData.get(p.serverLevel()).release(p.serverLevel(),p.getUUID());return f.origin;
-    }
     public static boolean isActive(ServerPlayer player) { return FIELDS.containsKey(player.getUUID()); }
     public static boolean equipped(ServerPlayer p, PlayerData d) {
         return CharacterData.HYORINMARU.equals(d.getCharacter().getZanpakutoIdentity()) && p.getMainHandItem().is(ModItems.HYORINMARU.get());
@@ -86,6 +81,19 @@ public final class HyorinmaruTechniqueService {
                     slot == 3, bankai, form, player.level().dimension(), player.level().getGameTime() + (slot == 3 ? 60 : bankai ? 120 : 80));
             GlacialSnowData.get(player.serverLevel()).release(player.serverLevel(), player.getUUID());
             FIELDS.put(player.getUUID(), field); // One field per owner, including free-cast test mode.
+            if (slot == 4 && bankai) {
+                var old = DRAGONS.remove(player.getUUID());
+                if (old != null) old.forEach(net.minecraft.world.entity.Entity::discard);
+                var dragon = com.bleachmod.registry.ModEntities.ICE_DRAGON.get().create(player.serverLevel());
+                if (dragon != null) {
+                    dragon.configureRoar(player, player.position(), player.getYRot(), 120);
+                    if (player.serverLevel().addFreshEntity(dragon)) {
+                        var group = new java.util.ArrayList<com.bleachmod.entity.IceDragonEntity>();
+                        group.add(dragon);
+                        DRAGONS.put(player.getUUID(), group);
+                    }
+                }
+            }
         }
         player.serverLevel().playSound(null, player.blockPosition(), net.minecraft.sounds.SoundEvents.GLASS_BREAK, player.getSoundSource(), 0.7F, bankai ? 0.7F : 1.2F);
         player.displayClientMessage(Component.translatable("message.bleachmod.hyorinmaru." + (!released && slot >= 3 ? "sealed_" : "slot_") + slot), true);
@@ -168,8 +176,8 @@ public final class HyorinmaruTechniqueService {
                 IceControlService.chill(p, target, 30, f.bankai ? 2 : 1, f.barrier ? 3 : 4);
                 target.push(f.forward.x * 0.22, 0.04, f.forward.z * 0.22); target.hurtMarked = true;
             } else if (TechniqueGeometry.intersectsCylinder(f.origin, range, 4, 4, target.getBoundingBox())
-                    && MasteryPracticeService.hurt(p, target, p.damageSources().playerAttack(p), f.bankai ? 3 : 2, 4)) {
-                IceControlService.chill(p, target, 30, f.bankai ? 2 : 1, f.barrier ? 3 : 4);
+                    && MasteryPracticeService.hurt(p, target, p.damageSources().playerAttack(p), f.bankai ? 8 : 2, 4)) {
+                IceControlService.chill(p, target, 40, f.bankai ? 3 : 1, f.barrier ? 3 : 4);
             }
         }
     }

@@ -80,9 +80,21 @@ public final class HyorinmaruQaSequence {
     @SubscribeEvent(priority=net.minecraftforge.eventbus.api.EventPriority.LOWEST)
     public static void wideAttackView(net.minecraftforge.client.event.ViewportEvent.ComputeCameraAngles e) {
         var t=trial;
-        if(t==null || !enabled() || !(t.name().contains("slot2") || t.name().contains("slot3")))return;
+        if(t==null || !enabled())return;
         var mc=Minecraft.getInstance();if(mc.level==null)return;
-        Vec3 eye=t.origin().add(26,18,40),focus=t.origin().add(0,5,10);
+        Vec3 eye = null;
+        Vec3 focus = null;
+        if (t.name().contains("slot1")) {
+            eye = t.origin().add(3.8, 1.4, 4.8);
+            focus = t.origin().add(0, 1.0, 1.0);
+        } else if (t.name().contains("slot4")) {
+            eye = t.origin().add(10.0, 3.5, 14.0);
+            focus = t.origin().add(0, 9.5, 1.0);
+        } else if (t.name().contains("slot2") || t.name().contains("slot3")) {
+            eye = t.origin().add(22, 14, 28);
+            focus = t.origin().add(0, 5, 8);
+        }
+        if (eye == null || focus == null) return;
         try {
             if(cameraPosition==null)cameraPosition=net.minecraftforge.fml.util.ObfuscationReflectionHelper.findMethod(net.minecraft.client.Camera.class,"m_90581_",Vec3.class);
             cameraPosition.invoke(e.getCamera(),eye);

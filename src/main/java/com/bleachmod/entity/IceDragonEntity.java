@@ -32,6 +32,11 @@ public final class IceDragonEntity extends Phantom implements software.bernie.ge
     /** Subtraction is rollover-safe for transient scenes shorter than 2^31 ticks. */
     public double sceneAge(float partial) { return Math.max(0, (int)level().getGameTime()-entityData.get(SCENE_START))+partial; }
     public boolean isAssault() { return getPhantomSize()==14; }
+    public boolean isRoar() { return getPhantomSize()==15; }
+    public void configureRoar(net.minecraft.server.level.ServerPlayer p, Vec3 anchor, float yaw, int durationTicks) {
+        configureStationary(p, anchor, yaw, durationTicks);
+        setPhantomSize(15);
+    }
     public float assaultRange() { return entityData.get(ASSAULT_RANGE); }
     public void configureAssault(net.minecraft.server.level.ServerPlayer p, float range) { configureAssault(p,p.position(),p.getYRot(),range); }
     public void configureAssault(net.minecraft.server.level.ServerPlayer p, Vec3 anchor,float yaw,float range) {
@@ -73,6 +78,7 @@ public final class IceDragonEntity extends Phantom implements software.bernie.ge
                 :new Vec3(head==0?0:head==1?6:-6,.6,8+assaultRange());
     }
     public Vec3 curvePoint(int head,double age,double u){
+        if (isRoar()) return com.bleachmod.common.visual.HydraMotion.point(com.bleachmod.common.visual.HydraMotion.MODE_ROAR,head,age,u,assaultRange());
         return isAssault()?com.bleachmod.common.visual.HydraMotion.point(true,head,age,u,impactLocal(head).add(0,head==0?2.55:2.3,head==0?-3.6:-3.3))
                 :com.bleachmod.common.visual.HydraMotion.point(false,head,age,u,assaultRange());
     }
@@ -116,7 +122,7 @@ public final class IceDragonEntity extends Phantom implements software.bernie.ge
         setYRot(yaw);
         setYBodyRot(yaw);
     }
-    public boolean isManifestation() { return getPhantomSize() == MANIFESTATION_SIZE || isAssault(); }
+    public boolean isManifestation() { return getPhantomSize() == MANIFESTATION_SIZE || isAssault() || isRoar(); }
     @Override public void tick() {
         super.tick();
         if (level().isClientSide) return;
@@ -128,6 +134,9 @@ public final class IceDragonEntity extends Phantom implements software.bernie.ge
             if(isAssault()){
                 if(!PlayerCapability.get(p).map(d->HyorinmaruTechniqueService.equipped(p,d) && form.equals(d.getCharacter().getActiveForm())).orElse(false)){discard();return;}
                 assaultTick(p);
+            } else if(isRoar()){
+                if(!PlayerCapability.get(p).map(d->HyorinmaruTechniqueService.equipped(p,d) && form.equals(d.getCharacter().getActiveForm())).orElse(false)){discard();return;}
+                roarTick(p);
             }
             Vec3 pos = origin;
             setPos(pos);
@@ -157,6 +166,31 @@ public final class IceDragonEntity extends Phantom implements software.bernie.ge
         }
         setPos(next); setDeltaMovement(Vec3.ZERO);
         IceTechniqueVisuals.dragon(p, position());
+        IceTechniqueVisuals.serpentTrail(p, position(), direction);
+    }
+    private void roarTick(net.minecraft.server.level.ServerPlayer p) {
+        int age=(int)sceneAge(0);
+        if(age==8 || age==34 || age==62 || age==88) {
+            p.serverLevel().playSound(null, blockPosition(), net.minecraft.sounds.SoundEvents.ENDER_DRAGON_GROWL, net.minecraft.sounds.SoundSource.PLAYERS, 2.5F, 0.85F);
+        }
+        if(age==12 || age==66) {
+            p.serverLevel().playSound(null, blockPosition(), net.minecraft.sounds.SoundEvents.ENDER_DRAGON_AMBIENT, net.minecraft.sounds.SoundSource.PLAYERS, 1.8F, 0.75F);
+        }
+        if(age>=10 && age<=105){
+            for(int head=0;head<3;head++){
+                Vec3 headPos=curvePoint(head,age,1.0);
+                Vec3 forward=Vec3.directionFromRotation(0,getYRot()),right=new Vec3(forward.z,0,-forward.x);
+                Vec3 worldHead=position().add(right.scale(headPos.x)).add(0,headPos.y,0).add(forward.scale(headPos.z));
+                emit(p,net.minecraft.core.particles.ParticleTypes.SNOWFLAKE,worldHead,16,.6,1.2,.6,.35);
+                emit(p,net.minecraft.core.particles.ParticleTypes.ITEM_SNOWBALL,worldHead,5,.4,.8,.4,.28);
+            }
+            if(age%3==0){
+                double r=26.0*Math.sqrt(p.level().random.nextDouble());
+                double a=p.level().random.nextDouble()*Math.PI*2;
+                Vec3 dropPos=position().add(Math.cos(a)*r,9.0+p.level().random.nextDouble()*5.0,Math.sin(a)*r);
+                emit(p,net.minecraft.core.particles.ParticleTypes.SNOWFLAKE,dropPos,5,.8,-.4,.8,.04);
+            }
+        }
     }
     private void assaultTick(net.minecraft.server.level.ServerPlayer p) {
         int age=(int)sceneAge(0);
