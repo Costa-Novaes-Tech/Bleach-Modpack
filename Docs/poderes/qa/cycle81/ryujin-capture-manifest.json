@@ -1,0 +1,47 @@
+[
+  {
+    "case": "barrage_open",
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\ryujin-qa\\1792584885267-barrage_open",
+    "frames": 36,
+    "minY": -60.0,
+    "maxY": -60.0,
+    "minFpsObserved": 20,
+    "maxFpsObserved": 84
+  },
+  {
+    "case": "barrage_wall",
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\ryujin-qa\\1792584889733-barrage_wall",
+    "frames": 36,
+    "minY": -60.0,
+    "maxY": -60.0,
+    "minFpsObserved": 90,
+    "maxFpsObserved": 115
+  },
+  {
+    "case": "dash_open",
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\ryujin-qa\\1792584894734-dash_open",
+    "frames": 36,
+    "minY": -60.0,
+    "maxY": -60.0,
+    "minFpsObserved": 89,
+    "maxFpsObserved": 113
+  },
+  {
+    "case": "dash_wall",
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\ryujin-qa\\1792584899732-dash_wall",
+    "frames": 36,
+    "minY": -60.0,
+    "maxY": -60.0,
+    "minFpsObserved": 98,
+    "maxFpsObserved": 117
+  },
+  {
+    "case": "dash_up",
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\ryujin-qa\\1792584904732-dash_up",
+    "frames": 36,
+    "minY": -60.0,
+    "maxY": -41.25,
+    "minFpsObserved": 97,
+    "maxFpsObserved": 115
+  }
+]

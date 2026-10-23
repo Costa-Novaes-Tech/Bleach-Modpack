@@ -1,0 +1,456 @@
+
+> blockbench-mcp@0.3.1 test
+> npm run build && node --test "test/**/*.test.js"
+
+
+> blockbench-mcp@0.3.1 build
+> tsc
+
+TAP version 13
+# Subtest: requests shaped like the MCP server's fetch are accepted
+ok 1 - requests shaped like the MCP server's fetch are accepted
+  ---
+  duration_ms: 8.1619
+  type: 'test'
+  ...
+# Subtest: localhost and a Content-Type with charset are accepted
+ok 2 - localhost and a Content-Type with charset are accepted
+  ---
+  duration_ms: 1.6482
+  type: 'test'
+  ...
+# Subtest: any request carrying an Origin header is refused before dispatch
+ok 3 - any request carrying an Origin header is refused before dispatch
+  ---
+  duration_ms: 2.5525
+  type: 'test'
+  ...
+# Subtest: a no-cors text/plain POST (no preflight) is refused
+ok 4 - a no-cors text/plain POST (no preflight) is refused
+  ---
+  duration_ms: 1.7612
+  type: 'test'
+  ...
+# Subtest: a foreign Host (DNS rebinding) or a missing Host is refused
+ok 5 - a foreign Host (DNS rebinding) or a missing Host is refused
+  ---
+  duration_ms: 1.5937
+  type: 'test'
+  ...
+# Subtest: responses carry no CORS headers and OPTIONS is not answered with CORS
+ok 6 - responses carry no CORS headers and OPTIONS is not answered with CORS
+  ---
+  duration_ms: 2.0306
+  type: 'test'
+  ...
+# Subtest: execute_script is rejected when the 'Allow execute_script' setting is off
+ok 7 - execute_script is rejected when the 'Allow execute_script' setting is off
+  ---
+  duration_ms: 3.4545
+  type: 'test'
+  ...
+# Subtest: the harness loads the plugin and exposes every generator
+ok 8 - the harness loads the plugin and exposes every generator
+  ---
+  duration_ms: 8.8951
+  type: 'test'
+  ...
+# Subtest: voxelize_matrix extrudes a matrix with the first row at the TOP
+ok 9 - voxelize_matrix extrudes a matrix with the first row at the TOP
+  ---
+  duration_ms: 3.0101
+  type: 'test'
+  ...
+# Subtest: voxelize_matrix honours pixel_size, palette depth/offset and names
+ok 10 - voxelize_matrix honours pixel_size, palette depth/offset and names
+  ---
+  duration_ms: 2.4096
+  type: 'test'
+  ...
+# Subtest: voxelize_matrix merges runs when asked, without changing the shape
+ok 11 - voxelize_matrix merges runs when asked, without changing the shape
+  ---
+  duration_ms: 3.453
+  type: 'test'
+  ...
+# Subtest: voxelize_matrix maps every plane onto the documented axes
+ok 12 - voxelize_matrix maps every plane onto the documented axes
+  ---
+  duration_ms: 5.8098
+  type: 'test'
+  ...
+# Subtest: voxelize_matrix skips blanks, reports unmapped characters and refuses nonsense
+ok 13 - voxelize_matrix skips blanks, reports unmapped characters and refuses nonsense
+  ---
+  duration_ms: 1.5433
+  type: 'test'
+  ...
+# Subtest: voxelize_matrix accepts a newline blob and a JSON string (client serialization)
+ok 14 - voxelize_matrix accepts a newline blob and a JSON string (client serialization)
+  ---
+  duration_ms: 1.4726
+  type: 'test'
+  ...
+# Subtest: add_hollow_volume builds six non-overlapping walls around a cavity
+ok 15 - add_hollow_volume builds six non-overlapping walls around a cavity
+  ---
+  duration_ms: 2.1957
+  type: 'test'
+  ...
+# Subtest: add_hollow_volume opens the faces it is told to, by any accepted name
+ok 16 - add_hollow_volume opens the faces it is told to, by any accepted name
+  ---
+  duration_ms: 11.2262
+  type: 'test'
+  ...
+# Subtest: add_hollow_volume clamps an impossible wall thickness and says so
+ok 17 - add_hollow_volume clamps an impossible wall thickness and says so
+  ---
+  duration_ms: 2.1588
+  type: 'test'
+  ...
+# Subtest: add_hollow_volume rejects bad input with actionable messages
+ok 18 - add_hollow_volume rejects bad input with actionable messages
+  ---
+  duration_ms: 1.3668
+  type: 'test'
+  ...
+# Subtest: generate_array spans a line and centres each element on its point
+ok 19 - generate_array spans a line and centres each element on its point
+  ---
+  duration_ms: 4.4919
+  type: 'test'
+  ...
+# Subtest: generate_array 'cells' distribution tiles without hanging off the ends
+ok 20 - generate_array 'cells' distribution tiles without hanging off the ends
+  ---
+  duration_ms: 1.6114
+  type: 'test'
+  ...
+# Subtest: generate_array anchors, tapers and staggers depth
+ok 21 - generate_array anchors, tapers and staggers depth
+  ---
+  duration_ms: 1.3014
+  type: 'test'
+  ...
+# Subtest: generate_array warns about a missing depth stagger only when elements overlap
+ok 22 - generate_array warns about a missing depth stagger only when elements overlap
+  ---
+  duration_ms: 3.0777
+  type: 'test'
+  ...
+# Subtest: generate_array distributes a radial ring and turns elements outward
+ok 23 - generate_array distributes a radial ring and turns elements outward
+  ---
+  duration_ms: 1.9404
+  type: 'test'
+  ...
+# Subtest: generate_array halves a ring on request and lays out a grid
+ok 24 - generate_array halves a ring on request and lays out a grid
+  ---
+  duration_ms: 2.0023
+  type: 'test'
+  ...
+# Subtest: generate_array is deterministic with a seed and random without one
+ok 25 - generate_array is deterministic with a seed and random without one
+  ---
+  duration_ms: 2.8027
+  type: 'test'
+  ...
+# Subtest: generate_array rejects bad input with actionable messages
+ok 26 - generate_array rejects bad input with actionable messages
+  ---
+  duration_ms: 2.1571
+  type: 'test'
+  ...
+# Subtest: extrude_chain builds a nested bone chain that tapers
+ok 27 - extrude_chain builds a nested bone chain that tapers
+  ---
+  duration_ms: 1.8996
+  type: 'test'
+  ...
+# Subtest: extrude_chain reports where a curved chain actually ends
+ok 28 - extrude_chain reports where a curved chain actually ends
+  ---
+  duration_ms: 1.0939
+  type: 'test'
+  ...
+# Subtest: extrude_chain without bones bakes the accumulated rotation into each cube
+ok 29 - extrude_chain without bones bakes the accumulated rotation into each cube
+  ---
+  duration_ms: 1.5411
+  type: 'test'
+  ...
+# Subtest: extrude_chain grows in the direction it is given
+ok 30 - extrude_chain grows in the direction it is given
+  ---
+  duration_ms: 2.6905
+  type: 'test'
+  ...
+# Subtest: extrude_chain warns about a boneless chain in an animated format
+ok 31 - extrude_chain warns about a boneless chain in an animated format
+  ---
+  duration_ms: 1.5631
+  type: 'test'
+  ...
+# Subtest: extrude_chain rejects bad input with actionable messages
+ok 32 - extrude_chain rejects bad input with actionable messages
+  ---
+  duration_ms: 1.1909
+  type: 'test'
+  ...
+# Subtest: audit_complexity calls an empty model too_primitive
+ok 33 - audit_complexity calls an empty model too_primitive
+  ---
+  duration_ms: 2.8815
+  type: 'test'
+  ...
+# Subtest: audit_complexity catches the monolithic-box blockout
+ok 34 - audit_complexity catches the monolithic-box blockout
+  ---
+  duration_ms: 1.6825
+  type: 'test'
+  ...
+# Subtest: audit_complexity passes a dense, layered model
+ok 35 - audit_complexity passes a dense, layered model
+  ---
+  duration_ms: 23.917
+  type: 'test'
+  ...
+# Subtest: audit_complexity scales its verdict to the target and honours min_cubes
+ok 36 - audit_complexity scales its verdict to the target and honours min_cubes
+  ---
+  duration_ms: 11.418
+  type: 'test'
+  ...
+# Subtest: audit_complexity defaults its budget from the rig it can see
+ok 37 - audit_complexity defaults its budget from the rig it can see
+  ---
+  duration_ms: 4.3074
+  type: 'test'
+  ...
+# Subtest: generate_array reports z-fighting it could not avoid, and stays quiet when clean
+ok 38 - generate_array reports z-fighting it could not avoid, and stays quiet when clean
+  ---
+  duration_ms: 3.3257
+  type: 'test'
+  ...
+# Subtest: a hollow shell and a voxelized matrix are clean by construction
+ok 39 - a hollow shell and a voxelized matrix are clean by construction
+  ---
+  duration_ms: 2.7684
+  type: 'test'
+  ...
+# Subtest: add_wing builds arm -> forearm -> a finger fan, with membrane riding on its bones
+ok 40 - add_wing builds arm -> forearm -> a finger fan, with membrane riding on its bones
+  ---
+  duration_ms: 19.0673
+  type: 'test'
+  ...
+# Subtest: add_wing's bone rotations put the elbow, wrist and every tip where it reports
+ok 41 - add_wing's bone rotations put the elbow, wrist and every tip where it reports
+  ---
+  duration_ms: 20.7954
+  type: 'test'
+  ...
+# Subtest: add_wing's membrane is continuous: no hole between fingers or back to the body
+ok 42 - add_wing's membrane is continuous: no hole between fingers or back to the body
+  ---
+  duration_ms: 25.8397
+  type: 'test'
+  ...
+# Subtest: add_wing mirrors by side and lays a vertical wing out upward
+ok 43 - add_wing mirrors by side and lays a vertical wing out upward
+  ---
+  duration_ms: 30.5951
+  type: 'test'
+  ...
+# Subtest: add_wing builds a double-sided mesh membrane whose corners are the finger tips
+ok 44 - add_wing builds a double-sided mesh membrane whose corners are the finger tips
+  ---
+  duration_ms: 4.4247
+  type: 'test'
+  ...
+# Subtest: wings get their own rig slot and drive the fly cycle instead of the arms
+ok 45 - wings get their own rig slot and drive the fly cycle instead of the arms
+  ---
+  duration_ms: 32.4243
+  type: 'test'
+  ...
+# Subtest: add_wing rejects bad input with actionable messages
+ok 46 - add_wing rejects bad input with actionable messages
+  ---
+  duration_ms: 1.6524
+  type: 'test'
+  ...
+# Subtest: generated geometry parents into bones and is seen by check_model
+ok 47 - generated geometry parents into bones and is seen by check_model
+  ---
+  duration_ms: 2.4673
+  type: 'test'
+  ...
+# Subtest: side-tagged generators refuse geometry on the wrong side
+ok 48 - side-tagged generators refuse geometry on the wrong side
+  ---
+  duration_ms: 2.9263
+  type: 'test'
+  ...
+# Subtest: text() coerces undefined into a valid content block
+ok 49 - text() coerces undefined into a valid content block
+  ---
+  duration_ms: 1.119
+  type: 'test'
+  ...
+# Subtest: text() passes strings through and pretty-prints objects
+ok 50 - text() passes strings through and pretty-prints objects
+  ---
+  duration_ms: 0.2864
+  type: 'test'
+  ...
+# Subtest: every tool has a name, a description and an object schema
+ok 51 - every tool has a name, a description and an object schema
+  ---
+  duration_ms: 0.6957
+  type: 'test'
+  ...
+# Subtest: orientation tools are registered
+ok 52 - orientation tools are registered
+  ---
+  duration_ms: 1.0233
+  type: 'test'
+  ...
+# Subtest: cube and bone creation accept a validated `side`
+ok 53 - cube and bone creation accept a validated `side`
+  ---
+  duration_ms: 0.2179
+  type: 'test'
+  ...
+# Subtest: side-sensitive tools state the convention in their description
+ok 54 - side-sensitive tools state the convention in their description
+  ---
+  duration_ms: 0.2981
+  type: 'test'
+  ...
+# Subtest: request_review and ask_user are registered and blocking-capable
+ok 55 - request_review and ask_user are registered and blocking-capable
+  ---
+  duration_ms: 2.6226
+  type: 'test'
+  ...
+# Subtest: rigging tools are registered with segment controls
+ok 56 - rigging tools are registered with segment controls
+  ---
+  duration_ms: 0.4623
+  type: 'test'
+  ...
+# Subtest: generate_animation covers the standard cycle set
+ok 57 - generate_animation covers the standard cycle set
+  ---
+  duration_ms: 0.5701
+  type: 'test'
+  ...
+# Subtest: animation inspection tools are registered
+ok 58 - animation inspection tools are registered
+  ---
+  duration_ms: 0.5681
+  type: 'test'
+  ...
+# Subtest: add_keyframes documents the rotation signs and offers close_loop
+ok 59 - add_keyframes documents the rotation signs and offers close_loop
+  ---
+  duration_ms: 0.2822
+  type: 'test'
+  ...
+# Subtest: get_guide exposes the orientation, rigging and review playbooks
+ok 60 - get_guide exposes the orientation, rigging and review playbooks
+  ---
+  duration_ms: 0.1764
+  type: 'test'
+  ...
+# Subtest: export_model is registered and requires a path
+ok 61 - export_model is registered and requires a path
+  ---
+  duration_ms: 0.1771
+  type: 'test'
+  ...
+# Subtest: execute_script documents that an explicit return is required
+ok 62 - execute_script documents that an explicit return is required
+  ---
+  duration_ms: 0.2072
+  type: 'test'
+  ...
+# Subtest: every procedural generator is registered with its required inputs
+ok 63 - every procedural generator is registered with its required inputs
+  ---
+  duration_ms: 0.2535
+  type: 'test'
+  ...
+# Subtest: voxelize_matrix takes a string matrix, a palette and the three planes
+ok 64 - voxelize_matrix takes a string matrix, a palette and the three planes
+  ---
+  duration_ms: 0.3045
+  type: 'test'
+  ...
+# Subtest: add_hollow_volume documents the face names and takes bounds + thickness
+ok 65 - add_hollow_volume documents the face names and takes bounds + thickness
+  ---
+  duration_ms: 0.1892
+  type: 'test'
+  ...
+# Subtest: generate_array covers all three modes and the anti-z-fighting control
+ok 66 - generate_array covers all three modes and the anti-z-fighting control
+  ---
+  duration_ms: 0.2429
+  type: 'test'
+  ...
+# Subtest: extrude_chain defaults to bones and explains the curvature
+ok 67 - extrude_chain defaults to bones and explains the curvature
+  ---
+  duration_ms: 0.1958
+  type: 'test'
+  ...
+# Subtest: add_wing exposes the wing layout and steers away from hand-built membranes
+ok 68 - add_wing exposes the wing layout and steers away from hand-built membranes
+  ---
+  duration_ms: 0.5916
+  type: 'test'
+  ...
+# Subtest: audit_complexity states the cube budgets and its three verdicts
+ok 69 - audit_complexity states the cube budgets and its three verdicts
+  ---
+  duration_ms: 0.2014
+  type: 'test'
+  ...
+# Subtest: add_cubes points at the budget and the generators instead of 6-8 boxes
+ok 70 - add_cubes points at the budget and the generators instead of 6-8 boxes
+  ---
+  duration_ms: 0.1567
+  type: 'test'
+  ...
+# Subtest: coerceArgs parses JSON text into the arrays and objects a schema wants
+ok 71 - coerceArgs parses JSON text into the arrays and objects a schema wants
+  ---
+  duration_ms: 0.2832
+  type: 'test'
+  ...
+# Subtest: coerceArgs splits a matrix blob on newlines and a list on commas
+ok 72 - coerceArgs splits a matrix blob on newlines and a list on commas
+  ---
+  duration_ms: 0.3714
+  type: 'test'
+  ...
+# Subtest: coerceArgs wraps a single value where a list is expected, and leaves the rest alone
+ok 73 - coerceArgs wraps a single value where a list is expected, and leaves the rest alone
+  ---
+  duration_ms: 0.4014
+  type: 'test'
+  ...
+1..73
+# tests 73
+# suites 0
+# pass 73
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 456.2973

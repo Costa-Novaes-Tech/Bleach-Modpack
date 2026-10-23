@@ -49,6 +49,21 @@ public final class BenihimeEntranceGameTests {
     private static void clean(FakePlayer p) {
         ReleaseAnimationService.cancel(p); BenihimeEntranceService.cancel(p);
     }
+    @GameTest(template="empty",batch="benihime_stage_placement")
+    public static void obstructedStageIsSynchronizedWithoutTurningOrMovingPlayer(GameTestHelper h){
+        var p=player(h);var anchor=p.position();var old=new java.util.HashMap<BlockPos,net.minecraft.world.level.block.state.BlockState>();
+        try{
+            for(int x=-6;x<=6;x++)for(int y=0;y<13;y++){
+                var pos=BlockPos.containing(anchor.add(x,y,-7));old.put(pos,h.getLevel().getBlockState(pos));
+                h.getLevel().setBlockAndUpdate(pos,net.minecraft.world.level.block.Blocks.STONE.defaultBlockState());
+            }
+            BenihimeEntranceService.begin(p);var snapshot=BenihimeEntranceService.snapshot(p);
+            h.assertTrue(snapshot.contains("stageYaw")&&Math.abs(snapshot.getFloat("stageYaw"))>=25,"Blocked stage axis was not replaced or synchronized");
+            h.assertTrue(p.position().equals(anchor)&&p.getYRot()==0&&snapshot.getFloat("yaw")==0,"Visual placement moved or rotated the player");
+            h.assertTrue(data(p).getResources().getCurrentReiatsu()==100,"Visual placement consumed gameplay resources");
+        }finally{old.forEach((pos,state)->h.getLevel().setBlockAndUpdate(pos,state));clean(p);}
+        h.succeed();
+    }
     @GameTest(template="empty", batch="benihime_entrance_commit", timeoutTicks=90)
     public static void presentationOutlivesReleaseWithoutChangingCommitOrChargingTwice(GameTestHelper h) {
         var p = player(h); var d = data(p);
@@ -73,6 +88,15 @@ public final class BenihimeEntranceGameTests {
             h.succeed();
         });
     }
+    @GameTest(template="empty",batch="benihime_walk_keeps_reveal",timeoutTicks=90)
+    public static void walkingAfterCommitDoesNotSkipTheRemainingEntrance(GameTestHelper h){
+        var p=player(h);var d=data(p);var anchor=p.position();ReleaseAnimationService.begin(p,d,"zanpakuto","bankai",7);
+        h.onEachTick(()->{ReleaseAnimationService.tick(p);tickScene(p);});
+        h.runAfterDelay(70,()->{try{p.setPos(anchor.add(5,0,0));tickScene(p);var scene=BenihimeEntranceService.snapshot(p);
+            h.assertTrue(scene.getInt("duration")==560&&scene.getInt("elapsed")>=70,"Walking skipped the reveal");
+            h.assertTrue(scene.getDouble("x")==anchor.x&&d.getResources().getCurrentReiatsu()==93,"Walking moved the stage or charged twice");
+        }finally{clean(p);}h.succeed();});
+    }
     @GameTest(template="empty", batch="benihime_entrance_cleanup")
     public static void cancellationEquipmentMovementAndDimensionRemovePresentation(GameTestHelper h) {
         for (int scenario = 0; scenario < 5; scenario++) {
@@ -83,7 +107,7 @@ public final class BenihimeEntranceGameTests {
                 switch (scenario) {
                     case 0 -> ReleaseAnimationService.cancel(p);
                     case 1 -> { p.setItemSlot(EquipmentSlot.MAINHAND, ItemStack.EMPTY); ReleaseAnimationService.tick(p); }
-                    case 2 -> p.setPos(p.position().add(2, 0, 0));
+                    case 2 -> p.setPos(p.position().add(600, 0, 0));
                     case 3 -> p.setServerLevel(p.getServer().getLevel(Level.NETHER));
                     case 4 -> { p.setHealth(0); ReleaseAnimationService.tick(p); }
                 }

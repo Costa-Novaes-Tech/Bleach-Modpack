@@ -40,7 +40,7 @@ public final class ZanpakutoReleaseAnimation {
         String identity=tag.getString("identity"),form=tag.getString("form");
         int duration=tag.getInt("duration"),elapsed=tag.getInt("elapsed");
         if(!List.of("ryujin_jakka","hyorinmaru","senbonzakura","benihime","asauchi").contains(identity) || !List.of("shikai","bankai").contains(form)
-                || duration!=(form.equals("bankai")?60:24) || elapsed<0 || elapsed>=duration){VIEWS.remove(id);return;}
+                || duration!=(form.equals("bankai")?(identity.equals("hyorinmaru")?com.bleachmod.common.technique.HyorinmaruCinematicService.DURATION:60):24) || elapsed<0 || elapsed>=duration){VIEWS.remove(id);return;}
         VIEWS.put(id,new View(identity,form.equals("bankai"),duration,level.getGameTime()-elapsed));
     }
     private static View view(AbstractClientPlayer p) {
@@ -51,7 +51,7 @@ public final class ZanpakutoReleaseAnimation {
     }
     public static float manifestationGrowth(AbstractClientPlayer p,float partial){var v=view(p);return v==null?1:Mth.clamp((progress(p,v,partial)-.66F)/.3F,0,1);}
     public static boolean active(AbstractClientPlayer p){return view(p)!=null;}
-    public static float iceGrowth(AbstractClientPlayer p,float partial){var v=view(p);return v==null?1:Mth.clamp((progress(p,v,partial)-.66F)/.3F,0,1);}
+    public static float iceGrowth(AbstractClientPlayer p,float partial){var v=view(p);return v==null?1:Mth.clamp((progress(p,v,partial)*v.duration-com.bleachmod.common.visual.HyorinmaruTimeline.COMMIT)/92F,0,1);}
     private static float progress(AbstractClientPlayer p,View v,float partial){return Mth.clamp((p.level().getGameTime()-v.start+partial)/v.duration,0,1);}
     private static float weight(float t){return Math.min(1,t*8)*Math.min(1,(1-t)*6);}
     private static Vec3f mix(Vec3f a,float x,float y,float z,float w){return new Vec3f(Mth.lerp(w,a.getX(),x),Mth.lerp(w,a.getY(),y),Mth.lerp(w,a.getZ(),z));}
@@ -67,7 +67,51 @@ public final class ZanpakutoReleaseAnimation {
             if(List.of("senbonzakura","benihime","asauchi").contains(v.identity))return RyujinActionVisuals.transform(player,com.bleachmod.common.visual.SignatureChoreography.release(v.identity,t*v.duration,v.duration,sign),part,type,value);
             if(v.bankai && v.identity.equals("ryujin_jakka"))return RyujinActionVisuals.transform(player,com.bleachmod.common.visual.RyujinChoreography.release(t*v.duration,sign),part,type,value);
             boolean sword=part.equals(sign>0?"rightArm":"leftArm"),seal=part.equals(sign>0?"leftArm":"rightArm");
-            boolean fire=v.identity.equals("ryujin_jakka");
+            if(v.bankai && v.identity.equals("hyorinmaru")){
+                float age = t * v.duration;
+                float poseW = com.bleachmod.common.visual.HyorinmaruPlayerPose.weight(age, v.duration);
+                if(poseW <= 0.0F) return value;
+                boolean leftMain = player.getMainArm() == net.minecraft.world.entity.HumanoidArm.LEFT;
+                boolean item = part.equals(leftMain ? "leftItem" : "rightItem");
+                if(seal && !player.getOffhandItem().isEmpty()) return value;
+
+                if(type == TransformType.POSITION){
+                    if(item){
+                        var target = com.bleachmod.common.visual.HyorinmaruPlayerPose.itemPosition(leftMain);
+                        return mix(value, (float)target.x, (float)target.y, (float)target.z, poseW);
+                    }
+                    if(part.equals("body")) return mix(value, 0, 0, 0, poseW);
+                }
+                if(type == TransformType.BEND){
+                    if(sword || seal || part.equals("rightLeg") || part.equals("leftLeg")) return mix(value, 0, 0, 0, poseW);
+                }
+                if(type == TransformType.ROTATION){
+                    if(sword){
+                        var rot = com.bleachmod.common.visual.HyorinmaruPlayerPose.mainArm(leftMain, age).rotation();
+                        return mix(value, (float)rot.x, (float)rot.y, (float)rot.z, poseW);
+                    }
+                    if(seal){
+                        var rot = com.bleachmod.common.visual.HyorinmaruPlayerPose.supportArm(leftMain, age).rotation();
+                        return mix(value, (float)rot.x, (float)rot.y, (float)rot.z, poseW);
+                    }
+                    if(item){
+                        var rot = com.bleachmod.common.visual.HyorinmaruPlayerPose.itemRotation(leftMain);
+                        return mix(value, (float)rot.x, (float)rot.y, (float)rot.z, poseW);
+                    }
+                    if(part.equals("body")){
+                        var rot = com.bleachmod.common.visual.HyorinmaruPlayerPose.body(leftMain, age);
+                        return mix(value, (float)rot.x, (float)rot.y, (float)rot.z, poseW);
+                    }
+                    if(part.equals("head")){
+                        var rot = com.bleachmod.common.visual.HyorinmaruPlayerPose.head(leftMain, age);
+                        return mix(value, (float)rot.x, (float)rot.y, (float)rot.z, poseW);
+                    }
+                    if(part.equals("rightLeg") || part.equals("leftLeg")){
+                        return mix(value, 0, 0, 0, poseW);
+                    }
+                }
+                return value;
+            }
             if(type==TransformType.ROTATION){
                 if(sword){
                     return mix(value,-1.35F,-.25F*sign,-.2F*sign,w);
@@ -92,41 +136,23 @@ public final class ZanpakutoReleaseAnimation {
         var v=view(p);if(v==null)return;
         if(List.of("senbonzakura","benihime","asauchi").contains(v.identity)){RyujinActionVisuals.hand(e.getPoseStack(),com.bleachmod.common.visual.SignatureChoreography.release(v.identity,progress(p,v,e.getPartialTick())*v.duration,v.duration,p.getMainArm()==HumanoidArm.RIGHT?1:-1));return;}
         if(v.bankai && v.identity.equals("ryujin_jakka")){RyujinActionVisuals.hand(e.getPoseStack(),com.bleachmod.common.visual.RyujinChoreography.release(progress(p,v,e.getPartialTick())*v.duration,p.getMainArm()==HumanoidArm.RIGHT?1:-1));return;}
+        if(v.bankai && v.identity.equals("hyorinmaru")){
+            float age = progress(p, v, e.getPartialTick()) * v.duration;
+            float poseW = com.bleachmod.common.visual.HyorinmaruPlayerPose.weight(age, v.duration);
+            if(poseW > 0.0F){
+                float sign = p.getMainArm() == HumanoidArm.RIGHT ? 1.0F : -1.0F;
+                var pose = e.getPoseStack();
+                pose.translate(-sign * 0.18F * poseW, -0.16F * poseW, -0.22F * poseW);
+                pose.mulPose(Axis.XP.rotationDegrees(-32.0F * poseW));
+                pose.mulPose(Axis.YP.rotationDegrees(sign * 18.0F * poseW));
+                pose.mulPose(Axis.ZP.rotationDegrees(sign * 12.0F * poseW));
+                return;
+            }
+        }
         float w=weight(progress(p,v,e.getPartialTick())),sign=p.getMainArm()==HumanoidArm.RIGHT?1:-1;
         var pose=e.getPoseStack();
         pose.translate(-sign*.2*w,-.05*w,-.1*w);
         pose.mulPose(Axis.ZP.rotationDegrees(sign*(v.bankai && v.identity.equals("ryujin_jakka")?75:20)*w));
         pose.mulPose(Axis.XP.rotationDegrees(-15*w));
-    }
-    @SubscribeEvent public static void tick(TickEvent.ClientTickEvent e){
-        if(e.phase!=TickEvent.Phase.END)return;
-        var mc=Minecraft.getInstance();if(mc.level==null){clear();return;}
-        VIEWS.entrySet().removeIf(entry->mc.level.getGameTime()-entry.getValue().start>=entry.getValue().duration);
-        for(var entry:VIEWS.entrySet()){
-            if(!(mc.level.getEntity(entry.getKey()) instanceof AbstractClientPlayer p) || view(p)==null || mc.player==null || mc.player.distanceToSqr(p)>64*64)continue;
-            var v=entry.getValue();float t=progress(p,v,0);
-            if(List.of("senbonzakura","benihime","asauchi").contains(v.identity)){SignatureActionVisuals.releaseParticles(p,v.identity,t,v.bankai);if(p==mc.player && mc instanceof net.bettercombat.api.MinecraftClient_BetterCombat bc)bc.cancelUpswing();continue;}
-            if(v.bankai && v.identity.equals("ryujin_jakka")){RyujinActionVisuals.releaseParticles(p,t*v.duration);if(p==mc.player && mc instanceof net.bettercombat.api.MinecraftClient_BetterCombat bc)bc.cancelUpswing();continue;}
-            boolean fire=v.identity.equals("ryujin_jakka");
-            var forward=Vec3.directionFromRotation(0,p.getYRot());var side=new Vec3(-forward.z,0,forward.x);
-            float sign=p.getMainArm()==HumanoidArm.RIGHT?1:-1;
-            Vec3 blade=p.position().add(forward.scale(.7)).add(side.scale(sign*.3)).add(0,1,0);
-            int samples=mc.options.particles().get()==net.minecraft.client.ParticleStatus.MINIMAL?3:12;
-            for(int i=0;i<samples;i++){
-                double a=i*Math.PI*2/samples+t*6;
-                if(fire && v.bankai && t<.67){
-                    double r=3.8*(1-t/.67)+.25;
-                    Vec3 point=p.position().add(Math.cos(a)*r,.4+(i%4)*.45,Math.sin(a)*r);
-                    Vec3 velocity=blade.subtract(point).scale(.22);
-                    mc.level.addParticle(ParticleTypes.FLAME,point.x,point.y,point.z,velocity.x,velocity.y,velocity.z);
-                }else{
-                    double r=fire?.2:(.8+Math.max(0,t-.66)*6);
-                    Vec3 point=fire?blade.add(side.scale(Math.sin(a)*.7)):p.position().add(Math.cos(a)*r,.4+(i%4)*.4,Math.sin(a)*r);
-                    mc.level.addParticle(fire?(v.bankai?ParticleTypes.SMOKE:ParticleTypes.FLAME):ParticleTypes.SNOWFLAKE,
-                            point.x,point.y,point.z,fire?0:Math.cos(a)*.06,.025,fire?0:Math.sin(a)*.06);
-                }
-            }
-            if(p==mc.player && mc instanceof net.bettercombat.api.MinecraftClient_BetterCombat bc)bc.cancelUpswing();
-        }
     }
 }

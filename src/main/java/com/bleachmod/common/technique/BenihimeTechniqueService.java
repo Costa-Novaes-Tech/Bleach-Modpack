@@ -44,6 +44,7 @@ public final class BenihimeTechniqueService {
     }
     private static final class State {
         final ServerPlayer owner;final ServerLevel level;final String form;Action action;Net net;Corridor path;
+        LivingEntity bound;long boundUntil,decoyUntil;net.minecraft.world.entity.decoration.ArmorStand decoy;
         float shield;long shieldUntil,buffUntil,nextSelf,nextAura,frameTick=Long.MIN_VALUE;int charges,frames;final Map<UUID,Long> exposed=new HashMap<>();
         State(ServerPlayer p,String form){owner=p;level=p.serverLevel();this.form=form;nextSelf=level.getGameTime()+20;nextAura=level.getGameTime()+40;}
         void draw(int kind,Vec3 o,Vec3 end,double radius,double progress,int variant){
@@ -58,7 +59,7 @@ public final class BenihimeTechniqueService {
     public static boolean equipped(ServerPlayer p,PlayerData d){return CharacterData.BENIHIME.equals(d.getCharacter().getZanpakutoIdentity()) && p.getMainHandItem().is(ModItems.BENIHIME.get());}
     private static boolean valid(ServerPlayer p,PlayerData d){String form=d.getCharacter().getActiveForm();return p.isAlive() && !p.isSpectator() && d.getStatus().hasCreatedCharacter()
             && equipped(p,d) && Reference.RACE_SHINIGAMI.equals(d.getCharacter().getRace()) && "zanpakuto".equals(d.getCharacter().getActiveFormGroup())
-            && (form.equals("shikai") || form.equals("bankai")) && TransformationsHelper.isUnlocked(d,"zanpakuto",form);}
+            && (form.equals("sealed") || form.equals("shikai") || form.equals("bankai")) && TransformationsHelper.isUnlocked(d,"zanpakuto",form);}
     private static State current(ServerPlayer p){var s=ACTIVE.get(p.getUUID());return s!=null && s.owner==p && s.level==p.serverLevel()?s:null;}
     private static State state(ServerPlayer p,PlayerData d){var s=current(p);if(s==null || !s.form.equals(d.getCharacter().getActiveForm())){cancel(p);s=new State(p,d.getCharacter().getActiveForm());ACTIVE.put(p.getUUID(),s);}return s;}
     private static boolean legitimate(State s){return s!=null && PlayerCapability.get(s.owner).map(d->valid(s.owner,d) && s.form.equals(d.getCharacter().getActiveForm())).orElse(false);}
@@ -98,38 +99,58 @@ public final class BenihimeTechniqueService {
     }
     private static List<LivingEntity> enemies(State s,Vec3 center,double radius){return s.level.getEntitiesOfClass(LivingEntity.class,new AABB(center,center).inflate(radius+1),e->TechniqueTargets.allowed(s.owner,e) && s.owner.hasLineOfSight(e))
             .stream().filter(e->SenbonGeometry.inside(center,e.position(),radius,3)).filter(e->line(s,center.add(0,.3,0),e.getBoundingBox().getCenter())).limit(BenihimePolicy.MAX_TARGETS).toList();}
+    private static List<LivingEntity> threadTargets(State s,Action a){
+        return s.level.getEntitiesOfClass(LivingEntity.class,new AABB(a.origin,a.end).inflate(a.slot==4?3.2:1.0),e->TechniqueTargets.allowed(s.owner,e))
+                .stream().filter(e->e.getBoundingBox().getCenter().subtract(a.origin).dot(a.forward)>=0)
+                .filter(e->e.getBoundingBox().inflate(a.slot==4?2.7:.6).contains(a.origin)||e.getBoundingBox().inflate(a.slot==4?2.7:.6).clip(a.origin,a.end).isPresent())
+                .filter(e->line(s,a.origin,e.getBoundingBox().getCenter())).limit(BenihimePolicy.MAX_TARGETS).toList();
+    }
     private static void hurt(State s,LivingEntity t,float damage,int slot){MasteryPracticeService.hurt(s.owner,t,s.owner.damageSources().playerAttack(s.owner),damage,slot);}
     private static int cooldown(StatusData d,int slot){return switch(slot){case 1->d.getTechniqueSlot1CooldownTicks();case 2->d.getTechniqueSlot2CooldownTicks();case 3->d.getTechniqueSlot3CooldownTicks();default->d.getTechniqueSlot4CooldownTicks();};}
     private static void cooldown(StatusData d,int slot,int ticks){switch(slot){case 1->d.setTechniqueSlot1CooldownTicks(ticks);case 2->d.setTechniqueSlot2CooldownTicks(ticks);case 3->d.setTechniqueSlot3CooldownTicks(ticks);default->d.setTechniqueSlot4CooldownTicks(ticks);}}
     private static boolean fail(ServerPlayer p,String key){p.displayClientMessage(Component.translatable("message.bleachmod.benihime."+key),true);return false;}
     public static boolean executeSlot(ServerPlayer p,PlayerData d,int slot){
         if(!TechniqueProgression.authorize(p,d,slot) || !valid(p,d) || p.isUsingItem() || d.getStatus().isActionCharging())return false;
-        var s=state(p,d);boolean bankai=s.form.equals("bankai");long now=s.level.getGameTime();
+        var s=state(p,d);boolean bankai=s.form.equals("bankai"),sealed=s.form.equals("sealed");long now=s.level.getGameTime();
         if(s.action!=null)return fail(p,"busy");
         if(cooldown(d.getStatus(),slot)>0)return fail(p,"cooldown");
-        if(!bankai && slot==4 && (s.net==null || now-s.net.start>=BenihimePolicy.NET_TICKS || p.position().distanceToSqr(s.net.center)>BenihimePolicy.AREA*BenihimePolicy.AREA))return fail(p,"need_net");
-        if(!bankai && slot==2 && ward(p))return fail(p,"busy");
-        if(bankai && slot==4 && d.getStatus().getBenihimePathCharges()==0)return fail(p,"cooldown");
+        if(s.net!=null && (now-s.net.start>=BenihimePolicy.NET_TICKS || p.position().distanceToSqr(s.net.center)>BenihimePolicy.AREA*BenihimePolicy.AREA))s.net=null;
+        if(!bankai && !sealed && slot==2 && ward(p))return fail(p,"busy");
+        if(bankai && slot==3 && d.getStatus().getBenihimePathCharges()==0)return fail(p,"cooldown");
         Vec3 origin=p.position().add(0,1,0),f=p.getLookAngle().normalize(),end=origin;LivingEntity recipient=p;
-        if(!bankai && slot==3 || bankai && slot==1){end=bankai?aim(p,16):netAim(p);if(end==null)return fail(p,"target");}
-        if(!bankai && slot==4)end=s.net.center;
+        if(!bankai && !sealed && slot==3 || bankai && slot==1){end=bankai?aim(p,16):netAim(p);if(end==null)return fail(p,"target");}
+        if(!bankai && !sealed && slot==4)end=s.net==null?aim(p,18):s.net.center;
         if(bankai && slot==2){recipient=healingTarget(s);if(recipient.getHealth()>=recipient.getMaxHealth())return fail(p,"full_health");end=recipient.position().add(0,1,0);}
-        if(bankai && slot==4){end=pathEnd(p);if(end==null)return fail(p,"path");}
+        if(bankai && slot==3){end=pathEnd(p);if(end==null)return fail(p,"path");}
+        if(bankai && slot==4){end=netAim(p);if(end==null)return fail(p,"target");}
+        if(sealed){
+            if(slot==1||slot==2)end=aim(p,slot==1?4:22);
+            if(slot==3){recipient=aimedEnemy(s,18);if(recipient==null)return fail(p,"target");end=recipient.position();}
+            if(slot==4){end=pathEnd(p,SenbonGeometry.forward(p.getYRot()).scale(-1),6);if(end==null)return fail(p,"path");}
+        }
+        if(end==null)return fail(p,"target");
         var def=TechniqueDefinitions.require(CharacterData.BENIHIME,s.form,slot);
-        if(!d.getResources().consumeReiatsu(def.cost()))return fail(p,"energy");if(bankai && slot==4){boolean last=d.getStatus().getBenihimePathCharges()==1;d.getStatus().useBenihimePath();s.path=null;if(last)cooldown(d.getStatus(),slot,def.cooldownTicks());}
+        if(!d.getResources().consumeReiatsu(def.cost()))return fail(p,"energy");if(bankai && slot==3){boolean last=d.getStatus().getBenihimePathCharges()==1;d.getStatus().useBenihimePath();s.path=null;if(last)cooldown(d.getStatus(),slot,def.cooldownTicks());}
         else cooldown(d.getStatus(),slot,def.cooldownTicks());
-        if(!bankai && slot==2){s.shield=BenihimePolicy.SHIELD_CAPACITY;s.shieldUntil=now+BenihimePolicy.SHIELD_TICKS;d.getGuard().release();}
-        else if(bankai && slot==3){s.charges=3;s.buffUntil=now+BenihimePolicy.BUFF_TICKS;}
-        else {s.action=new Action(slot,now,origin,f,end);if(bankai && slot==2)s.action.recipient=recipient.getUUID();if(!bankai && slot==4){s.action.detonationNet=s.net;s.action.radius=netRadius(s.net,now);s.net=null;}}
-        s.level.playSound(null,p.blockPosition(),SoundEvents.AMETHYST_BLOCK_CHIME,p.getSoundSource(),.65F,bankai?.65F:1.15F);SignatureAnimationService.play(p,def.id());SyncHelper.resources(p);return true;
+        if(!bankai && !sealed && slot==2){s.shield=BenihimePolicy.SHIELD_CAPACITY;s.shieldUntil=now+BenihimePolicy.SHIELD_TICKS;d.getGuard().release();}
+
+        else {s.action=new Action(slot,now,origin,f,end);if(bankai && slot==2||sealed && slot==3)s.action.recipient=recipient.getUUID();if(!bankai && !sealed && slot==4 && s.net!=null){s.action.detonationNet=s.net;s.action.radius=netRadius(s.net,now);s.net=null;}}
+        s.level.playSound(null,p.blockPosition(),SoundEvents.AMETHYST_BLOCK_CHIME,p.getSoundSource(),.65F,bankai?.65F:1.15F);SignatureAnimationService.play(p,def.id(),!bankai && !sealed && slot==4 && s.action.detonationNet!=null?16:com.bleachmod.common.visual.SignatureChoreography.duration(def.id()));SyncHelper.resources(p);return true;
     }
     private static LivingEntity healingTarget(State s){Vec3 from=s.owner.getEyePosition(),to=from.add(s.owner.getLookAngle().scale(BenihimePolicy.HEAL_RANGE));
         return s.level.getEntitiesOfClass(LivingEntity.class,new AABB(from,to).inflate(1),e->healable(s.owner,e) && e!=s.owner && s.owner.hasLineOfSight(e))
                 .stream().filter(e->e.getBoundingBox().inflate(.4).clip(from,to).isPresent()).min(Comparator.comparingDouble(s.owner::distanceToSqr)).orElse(s.owner);}
-    private static Vec3 pathEnd(ServerPlayer p){
+    private static LivingEntity aimedEnemy(State s,double range){
+        Vec3 from=s.owner.getEyePosition(),to=aim(s.owner,range);if(to==null)return null;
+        return s.level.getEntitiesOfClass(LivingEntity.class,new AABB(from,to).inflate(.6),e->TechniqueTargets.allowed(s.owner,e))
+                .stream().filter(e->e.getBoundingBox().inflate(.5).clip(from,to).isPresent()&&s.owner.hasLineOfSight(e))
+                .min(Comparator.comparingDouble(s.owner::distanceToSqr)).orElse(null);
+    }
+    private static Vec3 pathEnd(ServerPlayer p){return pathEnd(p,p.getLookAngle().normalize(),BenihimePolicy.PATH_RANGE);}
+    private static Vec3 pathEnd(ServerPlayer p,Vec3 direction,double range){
         if(p.isPassenger() || p.isSleeping() || p.isFallFlying())return null;
-        Vec3 f=p.getLookAngle().normalize();
-        for(double distance=BenihimePolicy.PATH_RANGE;distance>=3;distance-=1){Vec3 candidate=p.position().add(f.scale(distance));
+        Vec3 f=direction;
+        for(double distance=range;distance>=1;distance-=.5){Vec3 candidate=p.position().add(f.scale(distance));
             var box=p.getBoundingBox().move(candidate.subtract(p.position()));var sweep=p.getBoundingBox().expandTowards(candidate.subtract(p.position()));
             if(box.minY<p.level().getMinBuildHeight() || box.maxY>p.level().getMaxBuildHeight() || !loaded(p.serverLevel(),p.position(),candidate) || !p.level().getWorldBorder().isWithinBounds(box) || !p.level().noCollision(p,sweep))continue;
             if(Math.abs(f.y)>.2)return candidate;
@@ -140,18 +161,43 @@ public final class BenihimeTechniqueService {
     public static void tick(ServerPlayer p,PlayerData d){
         if(!valid(p,d)){cancel(p);return;}var s=state(p,d);long now=s.level.getGameTime();
         s.exposed.values().removeIf(until->until<=now);if(s.buffUntil<=now)s.charges=0;if(s.shieldUntil<=now)s.shield=0;
-        if(d.getGuard().broken())s.action=null;
+        if(d.getGuard().broken() && s.action!=null){s.action=null;SignatureAnimationService.cancel(p,CharacterData.BENIHIME);}
         if(s.action!=null)tickAction(s,now);
         if(s.net!=null)tickNet(s,now);
         if(s.path!=null)tickPath(s,now);
+        if(s.bound!=null){
+            if(now>=s.boundUntil||!TechniqueTargets.allowed(p,s.bound)||p.distanceToSqr(s.bound)>22*22)s.bound=null;
+            else{if(now%2==0)s.draw(RODS,s.bound.position(),s.bound.position(),1,(s.boundUntil-now)/60.0,0);
+                s.bound.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN,8,s.bound instanceof ServerPlayer || !s.bound.canChangeDimensions()?1:4,false,false,true));}
+        }
+        if(s.decoy!=null && (now>=s.decoyUntil||!s.decoy.isAlive()||p.distanceToSqr(s.decoy)>32*32)){s.decoy.discard();s.decoy=null;}
         if(ward(p) && now%4==0)s.draw(SHIELD,p.position(),p.position(),1.6,s.shield/BenihimePolicy.SHIELD_CAPACITY,0);
         if(s.charges>0 && now%4==0)s.draw(BUFF,p.position(),p.position(),1,(s.buffUntil-now)/(double)BenihimePolicy.BUFF_TICKS,s.charges);
         if(s.form.equals("bankai")){
-            if(now%4==0)s.draw(QUEEN,p.position(),p.position(),BenihimePolicy.AREA,(now%120)/120.0,s.action==null?(s.charges>0?3:0):s.action.slot);
+            if(now%2==0){var a=s.action;s.draw(QUEEN,p.position(),a==null?p.position():a.end,BenihimePolicy.AREA,a==null?0:(now-a.start)/(double)(a.slot==1?24:a.slot==2?30:a.slot==3?6:60),a==null?0:a.slot);}
             tickRegeneration(s,now);
         }
     }
     private static void tickAction(State s,long now){Action a=s.action;int age=(int)(now-a.start);boolean bankai=s.form.equals("bankai");
+        if(s.form.equals("sealed")){
+            switch(a.slot){
+                case 1->{s.draw(INCISION,a.origin,a.end,1.6,age/16.0,0);
+                    if(age==6)for(var t:threadTargets(s,a))hurt(s,t,8,1);
+                    if(age>=16)s.action=null;}
+                case 2->{s.draw(KIDO,a.origin,a.end,.25,age/18.0,0);
+                    if(age==8)for(var t:s.level.getEntitiesOfClass(LivingEntity.class,new AABB(a.origin,a.end).inflate(.6),e->TechniqueTargets.allowed(s.owner,e)).stream().sorted(Comparator.comparingDouble(e->e.distanceToSqr(a.origin))).limit(BenihimePolicy.MAX_TARGETS).toList())
+                        if((t.getBoundingBox().inflate(.25).contains(a.origin)||t.getBoundingBox().inflate(.25).clip(a.origin,a.end).isPresent())&&line(s,a.origin,t.getBoundingBox().getCenter())){hurt(s,t,10,2);break;}
+                    if(age>=18)s.action=null;}
+                case 3->{if(age>=12){var t=s.level.getEntity(a.recipient);
+                    if(t instanceof LivingEntity living&&TechniqueTargets.allowed(s.owner,living)&&s.owner.distanceToSqr(living)<=18*18&&s.owner.hasLineOfSight(living)){
+                        s.bound=living;s.boundUntil=now+(living instanceof ServerPlayer||!living.canChangeDimensions()?24:60);MasteryPracticeService.control(s.owner,living,3);}
+                    s.action=null;}}
+                case 4->{s.draw(DECOY,a.origin.add(0,-1,0),a.end,1,age/12.0,0);
+                    if(age==4)deployGigai(s,a,now);
+                    if(age>=12)s.action=null;}
+            }
+            return;
+        }
         if(!bankai)switch(a.slot){
             case 1->{
                 double distance=Math.min(BenihimePolicy.SHOT_RANGE,(age+1)*1.2);Vec3 end=a.origin.add(a.forward.scale(distance));
@@ -164,12 +210,22 @@ public final class BenihimeTechniqueService {
             }
             case 3->{s.draw(NET,a.end,a.end,BenihimePolicy.NET_RADIUS*Math.min(1,age/20.0),Math.min(1,age/20.0),0);if(age>=20){s.net=new Net(a.end,now);for(var t:netTargets(s,a.end,BenihimePolicy.NET_RADIUS)){s.net.captured.put(t.getUUID(),t.position());MasteryPracticeService.control(s.owner,t,3);}s.action=null;}}
             case 4->{
+                if(a.detonationNet==null){
+                    s.draw(THREAD_LASH,a.origin,a.end,5,age/28.0,0);
+                    if(age==8 || age==18 || age==28)for(var t:threadTargets(s,a)){hurt(s,t,6,4);t.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN,12,1,false,false,true));}
+                    if(age>=28)s.action=null;return;
+                }
                 s.draw(NET,a.end,a.end,a.radius,1,1);s.draw(BEADS,a.origin,a.end,a.radius,Math.min(1,age/16.0),1);
                 restrainNet(s,a.detonationNet,a.radius,now);
                 if(age>=16){for(var t:netTargets(s,a.end,a.radius))hurt(s,t,BenihimePolicy.BLAST_DAMAGE,4);s.draw(INCISION,a.end,a.end,a.radius,1,1);s.action=null;}
             }
         } else switch(a.slot){
-            case 1->{if(s.owner.position().distanceToSqr(a.end)>BenihimePolicy.AREA*BenihimePolicy.AREA){s.action=null;return;}s.draw(INCISION,a.origin,a.end,4,Math.min(1,age/12.0),0);if(age>=12){for(var t:enemies(s,a.end,4)){if(s.exposed.size()<32)s.exposed.put(t.getUUID(),now+60);hurt(s,t,BenihimePolicy.INCISION_DAMAGE,1);}s.action=null;}}
+            case 1->{
+                if(s.owner.position().distanceToSqr(a.end)>BenihimePolicy.AREA*BenihimePolicy.AREA){s.action=null;return;}
+                s.draw(INCISION,a.origin,a.end,4,Math.min(1,age/24.0),age<18?0:2);
+                if(age==12 || age==24)for(var t:enemies(s,a.end,4)){if(s.exposed.size()<32)s.exposed.put(t.getUUID(),now+60);hurt(s,t,BenihimePolicy.INCISION_DAMAGE/2,1);}
+                if(age>=24)s.action=null;
+            }
             case 2->{
                 LivingEntity t=a.recipient.equals(s.owner.getUUID())?s.owner:s.level.getEntity(a.recipient) instanceof LivingEntity living?living:null;
                 if(t==null || !healable(s.owner,t) || s.owner.distanceToSqr(t)>BenihimePolicy.HEAL_RANGE*BenihimePolicy.HEAL_RANGE || !s.owner.hasLineOfSight(t)){s.action=null;return;}
@@ -177,8 +233,43 @@ public final class BenihimeTechniqueService {
                 if(age>=10 && a.pulse<(age/10)-1 && age<=30){a.pulse=(age/10)-1;float before=t.getHealth();t.heal(BenihimePolicy.HEAL_PULSE);MasteryPracticeService.healing(s.owner,t,2,t.getHealth()-before);}
                 if(age>=30)s.action=null;
             }
-            case 4->{s.draw(CORRIDOR,s.owner.position(),a.end,1,Math.min(1,age/6.0),0);if(age>=6){s.path=new Corridor(s.owner.position(),a.end,now,Math.abs(a.forward.y)>.2);s.action=null;}}
+            case 3->{s.draw(CORRIDOR,s.owner.position(),a.end,1,Math.min(1,age/6.0),0);if(age>=6){s.path=new Corridor(s.owner.position(),a.end,now,Math.abs(a.forward.y)>.2);s.action=null;tickPath(s,now);}}
+            case 4->{
+                if(s.owner.position().distanceToSqr(a.end)>24*24){s.action=null;return;}
+                s.draw(SURGERY,a.origin,a.end,BenihimePolicy.FINAL_RADIUS,age/(double)BenihimePolicy.FINAL_TICKS,0);
+                // Fixed field; damage every twelve ticks respects vanilla hurt immunity.
+                if(age>=12 && age<=BenihimePolicy.FINAL_TICKS && age%12==0){
+                    s.level.playSound(null,BlockPos.containing(a.end),age==BenihimePolicy.FINAL_TICKS?SoundEvents.AMETHYST_CLUSTER_BREAK:SoundEvents.SHEEP_SHEAR,s.owner.getSoundSource(),.7F,age==60?.7F:1.1F);
+                    for(var t:netTargets(s,a.end,BenihimePolicy.FINAL_RADIUS)){
+                        hurt(s,t,age==60?12:7,4);
+                        t.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN,12,t instanceof ServerPlayer?0:1,false,false,true));
+                    }
+                }
+                if(age>=BenihimePolicy.FINAL_TICKS){
+                    BerserkTerrain.crater(s.owner,a.end,6,1,1.8);
+                    s.level.playSound(null,BlockPos.containing(a.end),SoundEvents.GENERIC_EXPLODE,s.owner.getSoundSource(),.85F,.7F);
+                    s.level.sendParticles(net.minecraft.core.particles.ParticleTypes.EXPLOSION,a.end.x,a.end.y+1,a.end.z,12,5,.4,5,.05);
+                    s.action=null;
+                }
+            }
         }
+    }
+    private static void deployGigai(State s,Action a,long now){
+        var p=s.owner;Vec3 delta=a.end.subtract(p.position());
+        if(p.position().distanceToSqr(a.origin.add(0,-1,0))>2.25||!loaded(s.level,p.position(),a.end)||!s.level.noCollision(p,p.getBoundingBox().expandTowards(delta)))return;
+        var support=s.level.clip(new ClipContext(a.end.add(0,.1,0),a.end.add(0,-.2,0),ClipContext.Block.COLLIDER,ClipContext.Fluid.NONE,p));
+        if(support.getType()==HitResult.Type.MISS)return;
+        if(s.decoy!=null)s.decoy.discard();
+        var dummy=net.minecraft.world.entity.EntityType.ARMOR_STAND.create(s.level);if(dummy==null)return;
+        dummy.setInvulnerable(true);dummy.setPos(a.origin.add(0,-1,0));dummy.setYRot(p.getYRot());dummy.setShowArms(true);dummy.setNoBasePlate(true);
+        var head=new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.PLAYER_HEAD);
+        head.getOrCreateTag().put("SkullOwner",net.minecraft.nbt.NbtUtils.writeGameProfile(new CompoundTag(),p.getGameProfile()));dummy.setItemSlot(EquipmentSlot.HEAD,head);
+        var robe=new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.LEATHER_CHESTPLATE);
+        ((net.minecraft.world.item.DyeableLeatherItem)robe.getItem()).setColor(robe,0x344C3B);dummy.setItemSlot(EquipmentSlot.CHEST,robe);
+        dummy.setItemSlot(EquipmentSlot.LEGS,new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.LEATHER_LEGGINGS));
+        s.level.addFreshEntity(dummy);dummy.getPersistentData().putBoolean("bleachmod_gigai",true);s.decoy=dummy;s.decoyUntil=now+60;
+        for(var mob:s.level.getEntitiesOfClass(Mob.class,p.getBoundingBox().inflate(12)).stream().limit(32).toList())if(mob.getTarget()==p&&mob.hasLineOfSight(dummy)){mob.setTarget(dummy);MasteryPracticeService.control(p,mob,4);}
+        p.connection.teleport(a.end.x,a.end.y,a.end.z,p.getYRot(),p.getXRot());p.setPos(a.end);p.setDeltaMovement(Vec3.ZERO);p.fallDistance=0;
     }
     private static void tickNet(State s,long now){Net net=s.net;if(now-net.start>=BenihimePolicy.NET_TICKS || s.owner.position().distanceToSqr(net.center)>BenihimePolicy.AREA*BenihimePolicy.AREA){s.net=null;return;}
         double radius=netRadius(net,now);
@@ -216,7 +307,7 @@ public final class BenihimeTechniqueService {
         }
     }
     private static void tickPath(State s,long now){var path=s.path;if(now-path.start>=BenihimePolicy.PATH_TICKS || s.owner.position().distanceToSqr(path.from)>BenihimePolicy.AREA*BenihimePolicy.AREA || s.owner.position().distanceToSqr(path.to)>BenihimePolicy.AREA*BenihimePolicy.AREA){s.path=null;return;}
-        if(now%4!=0)return;s.draw(CORRIDOR,path.from,path.to,1,1,0);
+        if(now%4!=0 && now!=path.start)return;s.draw(CORRIDOR,path.from,path.to,1,1,0);
         for(var other:ACTIVE.values())if(other!=s && other.shield>0 && other.level==s.level && TechniqueTargets.allowed(s.owner,other.owner)
                 && other.owner.getBoundingBox().inflate(1.5).clip(path.from.add(0,1,0),path.to.add(0,1,0)).isPresent()){other.shield=0;SyncHelper.resources(other.owner);}
         for(var projectile:s.level.getEntitiesOfClass(Projectile.class,new AABB(path.from,path.to).inflate(1.5)))
@@ -244,7 +335,10 @@ public final class BenihimeTechniqueService {
     public static CompoundTag hud(ServerPlayer p){var tag=new CompoundTag();var s=current(p);if(s==null)return tag;long now=s.level.getGameTime();
         tag.putInt("pathCharges",PlayerCapability.get(p).map(d->d.getStatus().getBenihimePathCharges()).orElse(3));tag.putInt("shield",(int)Math.ceil(Math.max(0,s.shield)));if(s.net!=null)tag.putInt("net",(int)Math.max(0,BenihimePolicy.NET_TICKS-(now-s.net.start)));
         tag.putInt("charges",s.buffUntil>now?s.charges:0);if(s.path!=null)tag.putInt("path",(int)Math.max(0,BenihimePolicy.PATH_TICKS-(now-s.path.start)));return tag;}
-    public static void cancel(ServerPlayer p){SignatureAnimationService.cancel(p,CharacterData.BENIHIME);var s=ACTIVE.remove(p.getUUID());if(s!=null)s.draw(CLEAR,p.position(),p.position(),0,0,0);}
+    public static void cancel(ServerPlayer p){SignatureAnimationService.cancel(p,CharacterData.BENIHIME);var s=ACTIVE.remove(p.getUUID());if(s!=null){if(s.decoy!=null)s.decoy.discard();s.draw(CLEAR,p.position(),p.position(),0,0,0);}}
+    @SubscribeEvent public static void discardSavedGigai(net.minecraftforge.event.entity.EntityJoinLevelEvent event){
+        if(event.getLevel() instanceof ServerLevel && event.getEntity().getPersistentData().getBoolean("bleachmod_gigai"))event.setCanceled(true);
+    }
     public static void clear(){for(var s:List.copyOf(ACTIVE.values()))cancel(s.owner);ACTIVE.clear();SUPPORT.clear();}
     public static void unload(net.minecraft.world.level.Level level){for(var s:List.copyOf(ACTIVE.values()))if(s.level==level)cancel(s.owner);SUPPORT.values().removeIf(v->v.level==level);}
 }

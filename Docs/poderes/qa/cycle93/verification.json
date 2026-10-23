@@ -1,0 +1,133 @@
+{
+  "branch": "Feature-Poderes-bankais",
+  "base_commit": "14480c5",
+  "baseline": {
+    "regressions": 141,
+    "gametests": 176
+  },
+  "base": {
+    "regressions": 141,
+    "gametests": 176
+  },
+  "photon": {
+    "regressions": 141,
+    "gametests": "not rerun; common logic covered by base"
+  },
+  "profiles": {
+    "base": {
+      "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\hyorinmaru-qa\\cycle93-1792688367426",
+      "cases": {
+        "01_bankai_transformation": {
+          "frames": 103,
+          "last_server_tick": 412
+        },
+        "02_bankai_wings_lotus": {
+          "frames": 11,
+          "last_server_tick": 40
+        },
+        "03_slot1_ryusenka": {
+          "frames": 27,
+          "last_server_tick": 108
+        },
+        "04_slot2_hydra_assault": {
+          "frames": 28,
+          "last_server_tick": 108
+        },
+        "05_slot3_ice_eruption": {
+          "frames": 28,
+          "last_server_tick": 108
+        },
+        "06_slot4_blizzard_zone": {
+          "frames": 27,
+          "last_server_tick": 108
+        },
+        "07_shikai_slot3_sennen": {
+          "frames": 26,
+          "last_server_tick": 108
+        },
+        "08_sealed_armor": {
+          "frames": 36,
+          "last_server_tick": 140
+        },
+        "09_slot2_hydra_wall": {
+          "frames": 27,
+          "last_server_tick": 108
+        },
+        "10_slot2_hydra_uneven": {
+          "frames": 28,
+          "last_server_tick": 108
+        }
+      },
+      "audio_cues_once": [
+        "24",
+        "216",
+        "330"
+      ],
+      "suite_complete": true
+    },
+    "photon": {
+      "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\photon\\hyorinmaru-qa\\cycle93-1792688591974",
+      "cases": {
+        "01_bankai_transformation": {
+          "frames": 103,
+          "last_server_tick": 412
+        },
+        "02_bankai_wings_lotus": {
+          "frames": 11,
+          "last_server_tick": 40
+        },
+        "03_slot1_ryusenka": {
+          "frames": 27,
+          "last_server_tick": 108
+        },
+        "04_slot2_hydra_assault": {
+          "frames": 28,
+          "last_server_tick": 108
+        },
+        "05_slot3_ice_eruption": {
+          "frames": 28,
+          "last_server_tick": 108
+        },
+        "06_slot4_blizzard_zone": {
+          "frames": 28,
+          "last_server_tick": 108
+        },
+        "07_shikai_slot3_sennen": {
+          "frames": 28,
+          "last_server_tick": 108
+        },
+        "08_sealed_armor": {
+          "frames": 36,
+          "last_server_tick": 140
+        },
+        "09_slot2_hydra_wall": {
+          "frames": 28,
+          "last_server_tick": 108
+        },
+        "10_slot2_hydra_uneven": {
+          "frames": 28,
+          "last_server_tick": 108
+        }
+      },
+      "audio_cues_once": [
+        "24",
+        "216",
+        "330"
+      ],
+      "suite_complete": true
+    }
+  },
+  "jar_sha256": "de61e441f48fdc9d410b3f6f39785c5437e50283cc4d368dfe1c1d1309c93e3f",
+  "jar_integrity_error": null,
+  "asset_mismatches": [],
+  "packs": {
+    "combat-test-pack": {
+      "jars": 5,
+      "matches_mod": true
+    },
+    "photon-test-pack": {
+      "jars": 7,
+      "matches_mod": true
+    }
+  }
+}

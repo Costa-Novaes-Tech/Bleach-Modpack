@@ -25,7 +25,7 @@ public final class BenihimeGameTests {
         Vec3 pos=h.absoluteVec(new Vec3(2.5,2,2.5));p.setPos(pos.x,h.getLevel().getMaxBuildHeight()-34,pos.z);p.setYRot(0);p.setXRot(0);p.setOnGround(true);p.setNoGravity(true);
         for(int x=-2;x<=2;x++)for(int z=-2;z<=2;z++)h.getLevel().getChunkAt(p.blockPosition().offset(x*16,0,z*16));
         var d=data(p);d.initializeShinigami();d.getCharacter().bindZanpakuto("benihime");d.getSkills().get("zanpakuto").setLevel(2);
-        d.getCharacter().unlockForm("shikai");d.getCharacter().unlockForm("bankai");d.getCharacter().setMastery("zanpakuto","shikai",100);d.getCharacter().setMastery("zanpakuto","bankai",100);d.getCharacter().setActiveForm("zanpakuto",form);
+        d.getCharacter().unlockForm("shikai");d.getCharacter().unlockForm("bankai");d.getCharacter().setMastery("zanpakuto","sealed",100);d.getCharacter().setMastery("zanpakuto","shikai",100);d.getCharacter().setMastery("zanpakuto","bankai",100);d.getCharacter().setActiveForm("zanpakuto",form);
         p.setItemSlot(EquipmentSlot.MAINHAND,new ItemStack(ModItems.BENIHIME.get()));return p;
     }
     private static Zombie target(GameTestHelper h,FakePlayer p,double x,double z){var t=EntityType.ZOMBIE.create(h.getLevel());t.setPos(p.position().add(x,0,z));t.setNoAi(true);t.setNoGravity(true);t.setItemSlot(EquipmentSlot.HEAD,new ItemStack(Items.IRON_HELMET));t.getAttribute(Attributes.MAX_HEALTH).setBaseValue(1000);t.setHealth(1000);h.getLevel().addFreshEntity(t);return t;}
@@ -38,8 +38,43 @@ public final class BenihimeGameTests {
     private static void removeAlly(GameTestHelper h,FakePlayer p){h.getLevel().removePlayerImmediately(p,Entity.RemovalReason.DISCARDED);}
     @GameTest(template="empty",batch="beni_access")
     public static void identityEquipmentAndSealedLocksRejectWithoutCost(GameTestHelper h){var p=player(h,"sealed");var d=data(p);float before=d.getResources().getCurrentReiatsu();
-        h.assertTrue(!BenihimeTechniqueService.executeSlot(p,d,1),"Sealed elemental skill accepted");d.getCharacter().setActiveForm("zanpakuto","shikai");p.setItemSlot(EquipmentSlot.MAINHAND,new ItemStack(ModItems.SENBONZAKURA.get()));
+        h.assertTrue(BenihimeTechniqueService.executeSlot(p,d,1),"Sealed cane draw refused");BenihimeTechniqueService.cancel(p);before=d.getResources().getCurrentReiatsu();d.getCharacter().setActiveForm("zanpakuto","shikai");p.setItemSlot(EquipmentSlot.MAINHAND,new ItemStack(ModItems.SENBONZAKURA.get()));
         h.assertTrue(!BenihimeTechniqueService.executeSlot(p,d,1),"Wrong identity item cast accepted");h.assertTrue(d.getResources().getCurrentReiatsu()==before,"Rejected skill charged");done(h,p);}
+    @GameTest(template="empty",batch="beni_sealed_shot",timeoutTicks=50)
+    public static void sealedByakuraiHitsAtRangeAndDoesNotGrantRegeneration(GameTestHelper h){
+        var p=player(h,"sealed");var d=data(p);p.setHealth(10);var t=target(h,p,0,19);ticks(h,p);
+        h.assertTrue(BenihimeTechniqueService.executeSlot(p,d,2),"Byakurai refused");h.assertTrue(d.getResources().getCurrentReiatsu()==88,"Byakurai cost mismatch");
+        h.runAfterDelay(35,()->{h.assertTrue(t.getHealth()<1000&&p.getHealth()==10,"Sealed beam missed or gained Bankai regeneration");done(h,p,t);});
+    }
+    @GameTest(template="empty",batch="beni_sealed_ray_near",timeoutTicks=40)
+    public static void sealedByakuraiHitsOverlappingTargetBeforeDistantEnemy(GameTestHelper h){
+        var p=player(h,"sealed");var far=target(h,p,0,10);var near=target(h,p,0,0);ticks(h,p);
+        h.assertTrue(BenihimeTechniqueService.executeSlot(p,data(p),2),"Point blank Byakurai refused");
+        h.runAfterDelay(25,()->{h.assertTrue(near.getHealth()<1000&&far.getHealth()==1000,"Beam missed overlapping target or pierced through it");done(h,p,near,far);});
+    }
+    @GameTest(template="empty",batch="beni_sealed_rods",timeoutTicks=100)
+    public static void sealedSixRodsBindOneTargetAndExpire(GameTestHelper h){
+        var p=player(h,"sealed");var d=data(p);var t=target(h,p,0,7);var outside=target(h,p,3,7);ticks(h,p);
+        h.assertTrue(BenihimeTechniqueService.executeSlot(p,d,3),"Six rods refused");
+        h.runAfterDelay(25,()->h.assertTrue(t.hasEffect(net.minecraft.world.effect.MobEffects.MOVEMENT_SLOWDOWN)&&!outside.hasEffect(net.minecraft.world.effect.MobEffects.MOVEMENT_SLOWDOWN)&&t.getHealth()==1000,"Six rods selected wrong target or damaged it"));
+        h.runAfterDelay(90,()->{h.assertTrue(!t.hasEffect(net.minecraft.world.effect.MobEffects.MOVEMENT_SLOWDOWN),"Six rods lease persisted");done(h,p,t,outside);});
+    }
+    @GameTest(template="empty",batch="beni_sealed_gigai",timeoutTicks=95)
+    public static void sealedGigaiBackstepsDistractsAndCleansMannequin(GameTestHelper h){
+        var p=player(h,"sealed");var d=data(p);var origin=p.position();var blocks=netFloor(h,p);var t=target(h,p,0,3);t.setTarget(p);ticks(h,p);
+        h.assertTrue(BenihimeTechniqueService.executeSlot(p,d,4),"Gigai refused");h.assertTrue(d.getResources().getCurrentReiatsu()==78,"Gigai charged wrong cost");
+        h.runAfterDelay(10,()->{h.assertTrue(p.getZ()<origin.z-5,"Gigai did not backstep");h.assertTrue(t.getTarget() instanceof net.minecraft.world.entity.decoration.ArmorStand,"Mob was not distracted");});
+        h.runAfterDelay(80,()->{try{h.assertTrue(h.getLevel().getEntitiesOfClass(net.minecraft.world.entity.decoration.ArmorStand.class,new net.minecraft.world.phys.AABB(origin,origin).inflate(3),e->e.getPersistentData().getBoolean("bleachmod_gigai")).isEmpty(),"Gigai left orphan");}finally{removeBlocks(h,blocks);}done(h,p,t);});
+    }
+    @GameTest(template="empty",batch="beni_final_terrain",timeoutTicks=85)
+    public static void finalStitchBreaksNaturalSurfaceOnlyAtFinalRupture(GameTestHelper h){
+        var p=player(h,"bankai");var d=data(p);var origin=p.position();var blocks=netFloor(h,p);var center=origin.add(0,0,12);
+        var dirt=BlockPos.containing(center.add(3,-1,0));var chest=BlockPos.containing(center.add(-3,-1,0));var brick=BlockPos.containing(center.add(0,-1,3));
+        h.getLevel().setBlockAndUpdate(dirt,net.minecraft.world.level.block.Blocks.DIRT.defaultBlockState());h.getLevel().setBlockAndUpdate(chest,net.minecraft.world.level.block.Blocks.CHEST.defaultBlockState());h.getLevel().setBlockAndUpdate(brick,net.minecraft.world.level.block.Blocks.STONE_BRICKS.defaultBlockState());
+        ticks(h,p);h.assertTrue(BenihimeTechniqueService.executeSlot(p,d,4),"Supreme refused");
+        h.runAfterDelay(35,()->h.assertTrue(!h.getLevel().getBlockState(dirt).isAir(),"Terrain broke before final rupture"));
+        h.runAfterDelay(68,()->{try{h.assertTrue(h.getLevel().getBlockState(dirt).isAir(),"Final rupture did not break natural ground");h.assertTrue(h.getLevel().getBlockState(chest).is(net.minecraft.world.level.block.Blocks.CHEST)&&h.getLevel().getBlockState(brick).is(net.minecraft.world.level.block.Blocks.STONE_BRICKS),"Supreme destroyed a chest or building block");}finally{removeBlocks(h,blocks);}done(h,p);});
+    }
     @GameTest(template="empty",batch="beni_shot",timeoutTicks=40)
     public static void nakeHitsForwardTargetAndCooldownPreventsDebit(GameTestHelper h){var p=player(h,"shikai");var t=target(h,p,0,10);var back=target(h,p,0,-4);ticks(h,p);var d=data(p);
         h.assertTrue(BenihimeTechniqueService.executeSlot(p,d,1),"Nake refused");h.assertTrue(!BenihimeTechniqueService.executeSlot(p,d,1),"Duplicate Nake accepted");
@@ -53,8 +88,8 @@ public final class BenihimeGameTests {
         t.setPos(p.position().add(0,0,3));for(int i=0;i<3;i++)MinecraftForge.EVENT_BUS.post(new LivingHurtEvent(p,p.damageSources().mobAttack(t),10));
         h.assertTrue(!BenihimeTechniqueService.ward(p),"Shield capacity never broke");done(h,p,t);}
     @GameTest(template="empty",batch="beni_combo",timeoutTicks=60)
-    public static void shibariIsRequiredAndHiasobiConsumesItsNet(GameTestHelper h){var p=player(h,"shikai");var d=data(p);var t=target(h,p,0,12);ticks(h,p);
-        h.assertTrue(!BenihimeTechniqueService.executeSlot(p,d,4) && d.getResources().getCurrentReiatsu()==100,"Missing net charged detonation");
+    public static void hiasobiConsumesPreparedNet(GameTestHelper h){var p=player(h,"shikai");var d=data(p);var t=target(h,p,0,12);ticks(h,p);
+
         h.assertTrue(BenihimeTechniqueService.executeSlot(p,d,3),"Shibari refused");
         h.runAfterDelay(25,()->{h.assertTrue(t.getHealth()==1000 && t.hasEffect(net.minecraft.world.effect.MobEffects.MOVEMENT_SLOWDOWN),"Net damaged or failed to bind");
             h.assertTrue(BenihimeTechniqueService.executeSlot(p,d,4),"Prepared detonation refused");h.assertTrue(!BenihimeTechniqueService.hud(p).contains("net"),"Detonation retained net");
@@ -64,7 +99,7 @@ public final class BenihimeGameTests {
     public static void dissectionDealsDelayedDamageAndExposureExpires(GameTestHelper h){var p=player(h,"bankai");var t=target(h,p,0,16);ticks(h,p);BenihimeTechniqueService.executeSlot(p,data(p),1);
         h.runAfterDelay(6,()->h.assertTrue(t.getHealth()==1000,"Dissection skipped its warning"));
         h.runAfterDelay(18,()->h.assertTrue(t.getHealth()<1000 && BenihimeTechniqueService.damageBonus(p,t)>.19,"Dissection/exposure absent"));
-        h.runAfterDelay(80,()->{h.assertTrue(BenihimeTechniqueService.damageBonus(p,t)==0,"Exposure never expired");done(h,p,t);});}
+        h.runAfterDelay(88,()->{h.assertTrue(BenihimeTechniqueService.damageBonus(p,t)==0,"Exposure never expired");done(h,p,t);});}
     @GameTest(template="empty",batch="beni_self_heal",timeoutTicks=50)
     public static void reconstructionHealsInPulsesAndOnlyActiveHealingTrains(GameTestHelper h){var p=player(h,"bankai");var d=data(p);p.setHealth(10);ticks(h,p);
         h.assertTrue(BenihimeTechniqueService.executeSlot(p,d,2),"Reconstruction refused");h.runAfterDelay(5,()->h.assertTrue(p.getHealth()==10,"Reconstruction skipped preparation"));
@@ -85,30 +120,55 @@ public final class BenihimeGameTests {
     public static void overlappingBenihimeAurasDoNotMultiplyAlliedHealing(GameTestHelper h){var p=player(h,"bankai");var second=player(h,"bankai");second.setPos(p.position().add(2,0,0));var friend=ally(h,p,0,5);var t=team(h,p,second,friend);ticks(h,p,second);
         h.runAfterDelay(45,()->{try{h.assertTrue(friend.getHealth()==11,"Two auras stacked allied healing");}
             finally{removeAlly(h,friend);h.getLevel().getScoreboard().removePlayerTeam(t);BenihimeTechniqueService.cancel(second);}done(h,p);});}
-    @GameTest(template="empty",batch="beni_buff")
-    public static void restructuringHasOnlyThreeSuccessfulStrikes(GameTestHelper h){var p=player(h,"bankai");var t=target(h,p,0,3);var nearby=target(h,p,1,3);var d=data(p);BenihimeTechniqueService.executeSlot(p,d,3);
-        h.assertTrue(BenihimeTechniqueService.damageBonus(p,t)>.29,"Restructured arm bonus absent");
-        for(int i=0;i<3;i++){t.invulnerableTime=0;t.hurt(p.damageSources().playerAttack(p),4);}
-        h.assertTrue(BenihimeTechniqueService.hud(p).getInt("charges")==0 && BenihimeTechniqueService.damageBonus(p,t)==0,"Restructuring exceeded three successful hits");h.assertTrue(nearby.getHealth()==1000 && nearby.getDeltaMovement().horizontalDistanceSqr()>.01,"Restructured impact must push nearby enemies without extra damage");done(h,p,t,nearby);}
+    @GameTest(template="empty",batch="beni_ultimate",timeoutTicks=95)
+    public static void finalStitchTelegraphsPulsesAndExcludesAllies(GameTestHelper h){
+        var p=player(h,"bankai");var d=data(p);var t=target(h,p,0,12);var outside=target(h,p,14,12);var friend=target(h,p,2,12);
+        var board=h.getLevel().getScoreboard();var group=board.addPlayerTeam("stitch"+UUID.randomUUID().toString().substring(0,6));board.addPlayerToTeam(p.getScoreboardName(),group);board.addPlayerToTeam(friend.getScoreboardName(),group);
+        ticks(h,p);h.assertTrue(BenihimeTechniqueService.executeSlot(p,d,4),"Ultimate refused");
+        h.assertTrue(!BenihimeTechniqueService.executeSlot(p,d,4) && d.getResources().getCurrentReiatsu()==50,"Ultimate charged duplicate");
+        h.runAfterDelay(8,()->h.assertTrue(t.getHealth()==1000,"Ultimate skipped telegraph"));
+        h.runAfterDelay(30,()->h.assertTrue(t.getHealth()<1000 && t.getHealth()>970,"Intermediate pulses absent or excessive"));
+        h.runAfterDelay(68,()->{try{h.assertTrue(t.getHealth()<985 && outside.getHealth()==1000 && friend.getHealth()==1000,"Ultimate missed area or hit ally/outside");h.assertTrue(!BenihimeTechniqueService.busy(p),"Ultimate lease retained");}finally{board.removePlayerTeam(group);}done(h,p,t,outside,friend);});
+    }
+    @GameTest(template="empty",batch="beni_standalone_threads",timeoutTicks=40)
+    public static void standaloneHiasobiCutsAlongThreadsWithoutNet(GameTestHelper h){
+        var p=player(h,"shikai");var near=target(h,p,0,3);var far=target(h,p,0,10);var back=target(h,p,0,-3);ticks(h,p);
+        h.assertTrue(BenihimeTechniqueService.executeSlot(p,data(p),4),"Standalone Hiasobi refused");
+        h.runAfterDelay(5,()->h.assertTrue(near.getHealth()==1000,"Threads skipped windup"));
+        h.runAfterDelay(33,()->{h.assertTrue(near.getHealth()<1000 && far.getHealth()<1000 && back.getHealth()==1000,"Thread lane incorrect");h.assertTrue(!BenihimeTechniqueService.hud(p).contains("net"),"Standalone created trap");done(h,p,near,far,back);});
+    }
+    @GameTest(template="empty",batch="beni_thread_wall",timeoutTicks=40)
+    public static void standaloneThreadsRespectSolidWalls(GameTestHelper h){
+        var p=player(h,"shikai");var near=target(h,p,0,2);var blocked=target(h,p,0,6);var blocks=new ArrayList<BlockPos>();
+        for(int x=-3;x<=3;x++)for(int y=0;y<4;y++){var pos=p.blockPosition().offset(x,y,4);blocks.add(pos);h.getLevel().setBlockAndUpdate(pos,net.minecraft.world.level.block.Blocks.STONE.defaultBlockState());}
+        ticks(h,p);h.assertTrue(BenihimeTechniqueService.executeSlot(p,data(p),4),"Thread cast refused before wall");
+        h.runAfterDelay(34,()->{try{h.assertTrue(near.getHealth()<1000 && blocked.getHealth()==1000,"Threads crossed solid wall");}finally{removeBlocks(h,blocks);}done(h,p,near,blocked);});
+    }
+    @GameTest(template="empty",batch="beni_ultimate_cancel",timeoutTicks=90)
+    public static void unequippingStopsFinalStitchWithoutRefundingCost(GameTestHelper h){
+        var p=player(h,"bankai");var d=data(p);var t=target(h,p,0,12);ticks(h,p);h.assertTrue(BenihimeTechniqueService.executeSlot(p,d,4),"Ultimate refused");
+        float[] after={1000};h.runAfterDelay(20,()->{after[0]=t.getHealth();p.setItemSlot(EquipmentSlot.MAINHAND,ItemStack.EMPTY);});
+        h.runAfterDelay(70,()->{h.assertTrue(t.getHealth()==after[0] && !BenihimeTechniqueService.busy(p),"Cancelled ultimate kept damaging");h.assertTrue(d.getResources().getCurrentReiatsu()==50 && d.getStatus().getTechniqueSlot4CooldownTicks()>0,"Cancellation reset cost/cooldown");done(h,p,t);});
+    }
     @GameTest(template="empty",batch="beni_path",timeoutTicks=100)
     public static void pathTravelsOnceAndExpiresWithoutChangingTerrain(GameTestHelper h){var p=player(h,"bankai");var d=data(p);Vec3 start=p.position();var floor=new ArrayList<BlockPos>();ticks(h,p);
         for(int x=-1;x<=1;x++)for(int z=0;z<=13;z++){var pos=p.blockPosition().offset(x,-1,z);floor.add(pos);h.getLevel().setBlockAndUpdate(pos,net.minecraft.world.level.block.Blocks.STONE.defaultBlockState());}
-        h.assertTrue(BenihimeTechniqueService.executeSlot(p,d,4),"Supported path refused");h.assertTrue(d.getResources().getCurrentReiatsu()==70 && d.getStatus().getTechniqueSlot4CooldownTicks()==0 && d.getStatus().getBenihimePathCharges()==2,"Path metadata mismatch");
+        h.assertTrue(BenihimeTechniqueService.executeSlot(p,d,3),"Supported path refused");h.assertTrue(d.getResources().getCurrentReiatsu()==70 && d.getStatus().getTechniqueSlot3CooldownTicks()==0 && d.getStatus().getBenihimePathCharges()==2,"Path metadata mismatch");
         h.runAfterDelay(18,()->h.assertTrue(p.position().z-start.z>11,"Owner did not traverse corridor"));
         h.runAfterDelay(80,()->{try{h.assertTrue(!BenihimeTechniqueService.hud(p).contains("path"),"Corridor did not expire");for(var pos:floor)h.assertTrue(h.getLevel().getBlockState(pos).is(net.minecraft.world.level.block.Blocks.STONE),"Path modified terrain");}
             finally{for(var pos:floor)h.getLevel().removeBlock(pos,false);}done(h,p);});}
     @GameTest(template="empty",batch="beni_path_obstacle",timeoutTicks=45)
     public static void corridorRechecksNewWallsBeforeTraversal(GameTestHelper h){var p=player(h,"bankai");var start=p.position();var blocks=new ArrayList<BlockPos>();ticks(h,p);
         for(int x=-1;x<=1;x++)for(int z=0;z<=13;z++){var pos=p.blockPosition().offset(x,-1,z);blocks.add(pos);h.getLevel().setBlockAndUpdate(pos,net.minecraft.world.level.block.Blocks.STONE.defaultBlockState());}
-        h.assertTrue(BenihimeTechniqueService.executeSlot(p,data(p),4),"Supported corridor refused");
+        h.assertTrue(BenihimeTechniqueService.executeSlot(p,data(p),3),"Supported corridor refused");
         for(int y=0;y<3;y++){var pos=p.blockPosition().offset(0,y,5);blocks.add(pos);h.getLevel().setBlockAndUpdate(pos,net.minecraft.world.level.block.Blocks.STONE.defaultBlockState());}
         h.runAfterDelay(20,()->{try{h.assertTrue(p.position().distanceToSqr(start)<.1,"Corridor traversed a newly placed wall");}finally{for(var pos:blocks)h.getLevel().removeBlock(pos,false);}done(h,p);});}
     @GameTest(template="empty",batch="beni_vertical_charges",timeoutTicks=65)
     public static void threePathsTravelVerticallyThenStartCooldown(GameTestHelper h){var p=player(h,"bankai");var d=data(p);d.getResources().setCostsDisabled(true);ticks(h,p);Vec3 start=p.position();p.setXRot(-90);
-        h.assertTrue(BenihimeTechniqueService.executeSlot(p,d,4),"Upward path refused");
-        h.runAfterDelay(12,()->{h.assertTrue(p.getY()>start.y+11 && d.getStatus().getBenihimePathCharges()==2,"First vertical traversal/charge failed");p.setXRot(90);h.assertTrue(BenihimeTechniqueService.executeSlot(p,d,4),"Downward reuse refused");});
-        h.runAfterDelay(24,()->{h.assertTrue(Math.abs(p.getY()-start.y)<.1 && d.getStatus().getBenihimePathCharges()==1,"Downward traversal failed");p.setXRot(-90);h.assertTrue(BenihimeTechniqueService.executeSlot(p,d,4),"Third charge refused");h.assertTrue(d.getStatus().getTechniqueSlot4CooldownTicks()==260,"Third use did not start cooldown");});
-        h.runAfterDelay(38,()->{h.assertTrue(!BenihimeTechniqueService.executeSlot(p,d,4) && d.getStatus().getBenihimePathCharges()==0,"Fourth use bypassed cooldown");d.getStatus().setTechniqueSlot4CooldownTicks(0);h.assertTrue(d.getStatus().getBenihimePathCharges()==3,"Charge batch did not recover");done(h,p);});}
+        h.assertTrue(BenihimeTechniqueService.executeSlot(p,d,3),"Upward path refused");
+        h.runAfterDelay(12,()->{h.assertTrue(p.getY()>start.y+11 && d.getStatus().getBenihimePathCharges()==2,"First vertical traversal/charge failed");p.setXRot(90);h.assertTrue(BenihimeTechniqueService.executeSlot(p,d,3),"Downward reuse refused");});
+        h.runAfterDelay(24,()->{h.assertTrue(Math.abs(p.getY()-start.y)<.1 && d.getStatus().getBenihimePathCharges()==1,"Downward traversal failed");p.setXRot(-90);h.assertTrue(BenihimeTechniqueService.executeSlot(p,d,3),"Third charge refused");h.assertTrue(d.getStatus().getTechniqueSlot3CooldownTicks()==260,"Third use did not start cooldown");});
+        h.runAfterDelay(38,()->{h.assertTrue(!BenihimeTechniqueService.executeSlot(p,d,3) && d.getStatus().getBenihimePathCharges()==0,"Fourth use bypassed cooldown");d.getStatus().setTechniqueSlot3CooldownTicks(0);h.assertTrue(d.getStatus().getBenihimePathCharges()==3,"Charge batch did not recover");done(h,p);});}
     @GameTest(template="empty",batch="beni_contracting_net",timeoutTicks=110)
     public static void expandedNetCapturesDistantMobAndContractsTowardCenter(GameTestHelper h){var p=player(h,"shikai");var t=target(h,p,8,12);var outside=target(h,p,11,12);ticks(h,p);double start=t.getX();
         h.assertTrue(BenihimeTechniqueService.executeSlot(p,data(p),3),"Expanded net refused");
@@ -137,10 +197,10 @@ public final class BenihimeGameTests {
         h.runAfterDelay(65,()->{h.assertTrue(t.position().multiply(1,0,1).distanceTo(center.multiply(1,0,1))<6,"Outward movement overcame the tether");h.assertTrue(BenihimeTechniqueService.hud(p).getInt("net")>45,"Contraction timer changed");done(h,p,t);});}
     @GameTest(template="empty",batch="beni_invalid_path")
     public static void unsupportedPathAndFullHealthReconstructionDoNotSpendReiatsu(GameTestHelper h){var p=player(h,"bankai");var d=data(p);
-        h.assertTrue(!BenihimeTechniqueService.executeSlot(p,d,4),"Unsupported path accepted");h.assertTrue(!BenihimeTechniqueService.executeSlot(p,d,2),"Full-health reconstruction accepted");
-        h.assertTrue(d.getResources().getCurrentReiatsu()==100 && d.getStatus().getTechniqueSlot4CooldownTicks()==0,"Rejected cast charged resources");done(h,p);}
+        h.assertTrue(!BenihimeTechniqueService.executeSlot(p,d,3),"Unsupported path accepted");h.assertTrue(!BenihimeTechniqueService.executeSlot(p,d,2),"Full-health reconstruction accepted");
+        h.assertTrue(d.getResources().getCurrentReiatsu()==100 && d.getStatus().getTechniqueSlot3CooldownTicks()==0,"Rejected cast charged resources");done(h,p);}
     @GameTest(template="empty",batch="beni_cleanup",timeoutTicks=70)
-    public static void unequippingCancelsSupportAndAllRuntimeLeases(GameTestHelper h){var p=player(h,"bankai");var d=data(p);p.setHealth(10);ticks(h,p);BenihimeTechniqueService.executeSlot(p,d,3);
+    public static void unequippingCancelsSupportAndAllRuntimeLeases(GameTestHelper h){var p=player(h,"bankai");var d=data(p);p.setHealth(10);ticks(h,p);BenihimeTechniqueService.executeSlot(p,d,4);
         h.runAfterDelay(10,()->{p.setItemSlot(EquipmentSlot.MAINHAND,ItemStack.EMPTY);RyujinTechniqueService.cancel(p);});
         h.runAfterDelay(45,()->{h.assertTrue(p.getHealth()==10 && !BenihimeTechniqueService.busy(p) && BenihimeTechniqueService.hud(p).isEmpty(),"Unequipping retained regeneration or leases");done(h,p);});}
 }

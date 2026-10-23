@@ -1,0 +1,22 @@
+Root=C:\Users\joaop\Downloads\Projeto_Programacao_BleachMod\Bleach-Modpack-design Branch=codex/design-poderes-criaturas Java=C:\Program Files\Eclipse Adoptium\jdk-17.0.20.101-hotspot Tasks=check build
+Exit=0 Log=C:\Users\joaop\Downloads\Projeto_Programacao_BleachMod\Bleach-Modpack-design\Docs\poderes\qa\antigravity\Check-20261023-085933.log
+> Task :jar
+> Task :configureReobfTaskForReobfJar
+> Task :reobfJar
+> Task :addMixinsToJarJar
+> Task :jarJar SKIPPED
+> Task :test
+> Task :check
+> Task :configureReobfTaskForReobfJarJar
+> Task :reobfJarJar SKIPPED
+> Task :assemble
+> Task :build
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 9.0.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/8.8/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 43s
+14 actionable tasks: 10 executed, 4 up-to-date

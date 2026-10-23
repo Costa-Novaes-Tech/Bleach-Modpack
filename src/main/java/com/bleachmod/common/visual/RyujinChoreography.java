@@ -32,26 +32,46 @@ public final class RyujinChoreography {
         return switch(kind){
             case "sealed_cut"->curve(age,sign,neutral(0),k(4,-2.25,.2,-.3,-.04,-.2,-.12,-.6,.05,.1),k(6,-.55,-.25,.2,.12,.18,.22,.5,-.05,-.1),k(10,.05,-.35,.15,.08,.25,.15,.2,-.1,-.15),neutral(16));
             case "sealed_sweep"->curve(age,sign,neutral(0),k(4,-1.1,.9,-.15,0,-.5,-.18,-.1,-.7,.5),k(6,-1.1,-.7,.1,.05,.4,.2,.1,.65,-.55),k(10,-.7,-.9,.2,.04,.5,.18,.1,.8,-.35),neutral(16));
-            case "flame_barrage"->curve(age,sign,neutral(0),k(4,-2.65,.25,-.25,-.08,-.18,-.2,-.9,0,.1),k(6,-.5,-.2,.15,.2,.22,.3,.6,0,-.15),k(10,.1,-.3,.2,.12,.25,.2,.3,0,-.2),neutral(16));
+            case "flame_barrage"->curve(age,sign,neutral(0),
+                    key(4,v(-2.7,.22,-.22),v(-1.75,-.22,.18),v(-.1,-.22,0),v(-.18,0,.06),Vec3.ZERO,v(-.10,.06,-.12),v(-.95,0,.12)),
+                    key(6,v(-.55,-.18,.12),v(-.95,-.2,.12),v(.22,.24,0),v(.30,0,.06),Vec3.ZERO,v(.02,-.10,-.22),v(.65,0,-.16)),
+                    key(9,v(-.28,-.22,.14),v(-.8,-.16,.1),v(.16,.19,0),v(.20,0,.05),Vec3.ZERO,v(.02,-.07,-.15),v(.38,0,-.12)),
+                    k(13,-.40,-.10,.10,.06,.10,.08,.10,0,-.06),neutral(16));
             case "flame_fan"->curve(age,sign,neutral(0),k(5,-1.25,1.05,-.15,0,-.5,-.2,-.1,-.85,.6),k(13,-1.25,0,-.2,.07,0,.2,.05,0,0),k(20,-.9,-1.05,.15,.06,.5,.25,.1,.85,-.6),neutral(22));
             case "flame_tornado"->curve(age,sign,neutral(0),k(3,-2,.65,-.4,0,-.4,-.2,-.35,-.5,.7),k(7,-2,-.65,.4,.04,.45,.2,-.2,.55,-.7),k(12,-1.1,.65,-.2,.02,-.35,-.18,.1,-.45,.5),neutral(18));
             case "jokaku"->curve(age,sign,neutral(0),k(5,-2.1,.2,-.25,-.05,-.15,-.1,-.65,.05,.2),k(13,-.85,-.1,-.15,.12,.12,.18,.25,-.05,-.25),k(17,-.7,-.15,-.1,.08,.15,.12,.2,-.1,-.2),neutral(20));
-            case "flame_dash"->curve(age,sign,neutral(0),k(2,-1.45,.15,-.15,.3,-.1,-.65,-.2,.15,.05),k(8,-1.6,.1,-.1,.35,-.08,.65,-.15,.1,0),k(12,-1.45,.1,-.1,.28,-.06,-.65,-.1,.1,0),neutral(16));
+            case "flame_dash"->curve(age,sign,neutral(0),
+                    key(2,v(-2.95,.08,-.08),v(-2.85,-.08,.08),Vec3.ZERO,Vec3.ZERO,Vec3.ZERO,v(-.04,-.04,-.16),v(-.15,0,0)),
+                    key(13,v(-2.95,.08,-.08),v(-2.85,-.08,.08),Vec3.ZERO,Vec3.ZERO,Vec3.ZERO,v(-.04,-.04,-.16),v(-.15,0,0)),neutral(16));
             // Coiled at the outside hip; short whole-body rotation, not Rajada's overhead swing.
-            case "higashi"->curve(age,sign,neutral(0),k(6,.25,.65,-.95,.07,-.40,.15,-.6,0,-.3),k(10,.30,.70,-1.0,.08,-.45,.18,-.65,0,-.35),k(16,-.9,-.15,.25,-.06,.50,-.18,.15,0,.2),neutral(22));
+            case "higashi"->curve(age,sign,neutral(0),higashiHip(6),higashiHip(10),higashiCross(12),higashiEnd(16),neutral(22));
             case "minami"->curve(age,sign,neutral(0),k(7,-2.15,.2,-.3,-.05,-.1,-.18,-.65,0,.2),k(16,-.3,.15,-.15,.3,-.1,.4,.7,0,-.25),k(18,-.3,.15,-.15,.28,-.1,.35,.65,0,-.2),neutral(22));
             case "steam_cut"->curve(age,sign,neutral(0),k(9,-2.8,.2,-.2,-.08,-.2,-.2,-1.05,0,.1),k(16,-2.75,.25,-.25,-.1,-.25,-.25,-1.1,0,.15),k(18,-.5,-.2,.1,.22,.3,.4,.8,0,-.3),k(24,.05,-.4,.2,.15,.35,.25,.3,0,-.25),neutral(32));
             default->interpolate(neutral(0),neutral(0),0,sign,0);
         };
     }
-    /** Execution shot: draw at the hip, strike on tick 12, hold the follow-through then recover. */
+    private static Key dashKey(float age,double stride,double lean){
+        return key(age,v(-.48,.10,-.10),v(-.72,-.35,.38),v(lean,-.08,0),v(stride,0,.04),
+                Vec3.ZERO,v(-.04,-.06,-.18),v(-.18,.08,-.02));
+    }
+    // Positive roll keeps the sword hand on its own hip. The former negative roll crossed the torso.
+    private static Key higashiHip(float tick){
+        return key(tick,v(.18,.04,.24),v(-.5,.18,-.12),v(.06,-.45,0),v(.12,0,.06),Vec3.ZERO,
+                v(.10,-.20,.04),v(.16,-.10,-.18));
+    }
+    private static Key higashiCross(float tick){
+        return key(tick,v(-.32,-.14,.06),v(-.65,.10,.08),v(.02,-.12,0),v(.04,0,.05),Vec3.ZERO,
+                v(.03,-.06,-.12),v(-.18,.08,.12));
+    }
+    private static Key higashiEnd(float tick){
+        return key(tick,v(-.98,-.45,-.16),v(-.8,.18,.14),v(-.06,.50,0),v(-.14,0,.05),Vec3.ZERO,
+                v(-.10,.12,-.12),v(-.55,.22,.38));
+    }
+    /** Same draw and rising blade as the normal strike, followed by the confirmed dramatic hold. */
     public static Pose execution(float age,float sign){
-        return curve(age,sign,neutral(0),
-                k(6,.25,.65,-.95,.07,-.40,.15,-.6,0,-.3),
-                k(10,.30,.70,-1.0,.08,-.45,.18,-.65,0,-.35),
-                k(16,-.9,-.15,.25,-.06,.50,-.18,.15,0,.2),
-                k(HigashiCinematicPath.IGNITE,-.9,-.15,.25,-.06,.50,-.18,.15,0,.2),
-                k(HigashiCinematicPath.END-8,-1.25,-.30,.35,0,.2,-.03,0,0,0),neutral(HigashiCinematicPath.END));
+        return curve(age,sign,neutral(0),higashiHip(6),higashiHip(10),higashiCross(12),
+                higashiEnd(16),higashiEnd(HigashiCinematicPath.IGNITE),
+                k(HigashiCinematicPath.END-8,-.65,-.15,.06,0,.16,-.03,0,0,0),neutral(HigashiCinematicPath.END));
     }
     /** No idle layer: outward pose exists only inside the 60-tick release and fades out by tick 60. */
     public static Pose release(float age,float sign){

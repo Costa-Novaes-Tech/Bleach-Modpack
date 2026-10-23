@@ -55,7 +55,6 @@ public final class ZanpakutoHud {
                 int slot = i + 1;
                 var definition = TechniqueDefinitions.require(identity, form, slot);
                 String name = Component.translatable(abilityKey(identity, form, i + 1)).getString();
-                if(identity.equals("hyorinmaru") && form.equals("bankai") && slot==4 && com.bleachmod.client.model.ElementalActionVisuals.bloomReady(mc.player))name=Component.translatable("ability.bleachmod.hyorinmaru.bloom").getString();
                 var senbon=d.getStatus().getSenbonHud();
                 if (CharacterData.SENBONZAKURA.equals(identity) && form.equals("bankai")) {
                     if (slot==2 && senbon.getInt("fieldRemaining")>0 && senbon.getInt("fieldReady")==0)
@@ -87,9 +86,8 @@ public final class ZanpakutoHud {
                 if(CharacterData.BENIHIME.equals(identity)) {
                     var view=d.getStatus().getBenihimeHud();
                     if(form.equals("shikai") && slot==2 && view.getInt("shield")>0)resources=Component.translatable("hud.bleachmod.benihime.shield",view.getInt("shield")).getString();
-                    if(form.equals("shikai") && slot==4)resources=Component.translatable(view.getInt("net")>0?"hud.bleachmod.benihime.detonate":"hud.bleachmod.benihime.need_net").getString();
-                    if(form.equals("bankai") && slot==3 && view.getInt("charges")>0)resources=Component.translatable("hud.bleachmod.benihime.charges",view.getInt("charges")).getString();
-                    if(form.equals("bankai") && slot==4)resources=Component.translatable("hud.bleachmod.benihime.path_charges",view.getInt("pathCharges")).getString();
+                    if(form.equals("shikai") && slot==4)resources=Component.translatable(view.getInt("net")>0?"hud.bleachmod.benihime.detonate":"hud.bleachmod.benihime.thread_lash").getString();
+                    if(form.equals("bankai") && slot==3)resources=Component.translatable("hud.bleachmod.benihime.path_charges",view.getInt("pathCharges")).getString();
                 }
                 g.drawString(mc.font, mc.font.plainSubstrByWidth(resources, width - 16), 8, 51 + i * 25, 0x85AAC2, false);
             }

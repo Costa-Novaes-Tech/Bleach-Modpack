@@ -1,3 +1,7 @@
+> **Ciclo 74 — apresentação Benihime, 20/10/2026:** [piso, penumbra/holofote, câmera e áudio](74-benihime-palco-penumbra-camera-audio-2026-10-20.md). Rede **2.29**, schema **9**; usar a mesma build em clientes/servidor. Piso temporário visual, sem colisão ou alterações nos blocos. Nome da Bankai com trilha reduzida e fala reforçada; aceite artístico/escuta continua pendente. Os avisos anteriores são históricos.
+
+> **Estado vigente — ciclo 72, 20/10/2026:** [revisão geral do roadmap e game design](72-revisao-geral-roadmap-gamedesign-2026-10-20.md). Consolida entregas, aceites, pendências e divergências de documentação; os registros abaixo são históricos. Nome completo da Bankai ainda encoberto pela música; correção adiada nesta rodada. Sem código ou novos testes.
+
 > **Nova conversa — entrada recomendada, 15/10/2026:** leia primeiro [Continuidade do projeto](00-CONTINUIDADE-CODEX.md). O resumo reúne estado homologado, branch/restrições, protocolo/schema, mapa técnico, validações e proposta seguinte. Não é necessário importar todo o histórico nem reler todos os relatórios. Os registros abaixo permanecem como histórico.
 
 > **Estado vigente — ciclo 36, 13/10/2026:** proporção/inclinação finais da bainha homologadas pelo usuário; documentação consolidada de combate, stamina, armas indestrutíveis e saque/guarda. [Contratos atuais, arquivos, histórico e próxima proposta](36-consolidacao-homologacao-proximos-passos-2026-10-13.md). Próxima recomendação: esquiva curta com stamina, ainda sem implementação. Registros anteriores abaixo são históricos.
@@ -419,3 +423,8 @@ Homologação final recebida do usuário para bainha, proporção e inclinação
 ## Passagem para nova conversa — 15/10/2026
 
 Criado [00-CONTINUIDADE-CODEX.md](00-CONTINUIDADE-CODEX.md) com regras, funcionalidades homologadas, mapa técnico, comandos de verificação, limites conhecidos e próximo trabalho ainda proposto. Nenhuma funcionalidade nova ou teste de código executado nesta atualização. Alterações documentais limitadas a Docs/poderes.
+
+
+## Ciclo 82 — passagem para autoria de poderes e criaturas (21/10/2026)
+
+Criado [documento operacional da nova frente](82-nova-frente-design-poderes-criaturas-blockbench-2026-10-21.md), com contexto até o ciclo 81, runtime 2.31/schema9/revisão3, roadmap, ferramentas registradas versus verificadas, instruções para nova branch, pipeline Blockbench/GeckoLib/PlayerAnimator/Better Combat, preservação de Zaraki/Hollows da equipe e critérios de QA. Somente documentação; nenhuma branch criada, ferramenta instalada ou funcionalidade implementada. Evidências históricas não foram reexecutadas.

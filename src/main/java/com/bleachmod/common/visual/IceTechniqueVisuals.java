@@ -5,7 +5,7 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.phys.Vec3;
 
-/** Homologated ice slot visuals. These emitters never apply combat or terrain changes. */
+/** Homologated ice slot visuals and authorial blizzard storm effects. */
 public final class IceTechniqueVisuals {
     private IceTechniqueVisuals() { }
     public record Cut(int slot, boolean released, boolean bankai) {
@@ -57,5 +57,51 @@ public final class IceTechniqueVisuals {
         VisualFrame frame = VisualFrame.technique(owner, position, 10);
         frame.emit(ParticleTypes.SNOWFLAKE, position, 10, .5, .4, .5, .03);
         return frame.requested();
+    }
+
+    public static int serpentTrail(ServerPlayer owner, Vec3 position, Vec3 direction) {
+        VisualFrame frame = VisualFrame.technique(owner, position, 14);
+        frame.emit(ParticleTypes.SNOWFLAKE, position, 8, 0.45, 0.35, 0.45, 0.02);
+        frame.emit(ParticleTypes.ITEM_SNOWBALL, position, 3, 0.35, 0.25, 0.35, 0.03);
+        return frame.requested();
+    }
+
+    public static int ryusenkaThrustTrail(ServerPlayer owner, Vec3 position, Vec3 forward) {
+        VisualFrame frame = VisualFrame.technique(owner, position, 28);
+        Vec3 back = position.subtract(forward.scale(0.8)).add(0, 0.8, 0);
+        var dust = new DustParticleOptions(new org.joml.Vector3f(0.45F, 0.85F, 1.0F), 1.4F);
+        frame.emit(ParticleTypes.SNOWFLAKE, back, 12, 0.4, 0.4, 0.4, 0.03);
+        frame.emit(ParticleTypes.ITEM_SNOWBALL, back, 5, 0.3, 0.3, 0.3, 0.05);
+        frame.emit(dust, back, 6, 0.35, 0.35, 0.35, 0.02);
+        return frame.requested();
+    }
+
+    /**
+     * Authorial Daiguren Blizzard Storm:
+     * Custom spiraling snowflakes, subzero mist and drifting frosty crystals around the Shinigami,
+     * completely independent of Minecraft's vanilla global weather engine.
+     */
+    public static void blizzardAura(ServerPlayer owner) {
+        var level = owner.serverLevel();
+        var pos = owner.position();
+        double time = owner.tickCount * 0.18;
+
+        // Swirling vortex of snow crystals in twin spirals around the player
+        for (int i = 0; i < 4; i++) {
+            double angle = time + i * (Math.PI / 2.0);
+            double dist = 1.8 + Math.sin(time * 0.5 + i) * 0.6;
+            double px = pos.x + Math.cos(angle) * dist;
+            double pz = pos.z + Math.sin(angle) * dist;
+            double py = pos.y + 0.3 + (i * 0.5);
+            level.sendParticles(ParticleTypes.SNOWFLAKE, px, py, pz, 3, 0.15, 0.25, 0.15, 0.02);
+        }
+
+        // Drifting high-altitude blizzard snowflakes in 16m radius
+        for (int i = 0; i < 6; i++) {
+            double rx = pos.x + (owner.getRandom().nextDouble() - 0.5) * 20.0;
+            double rz = pos.z + (owner.getRandom().nextDouble() - 0.5) * 20.0;
+            double ry = pos.y + 2.5 + owner.getRandom().nextDouble() * 3.5;
+            level.sendParticles(ParticleTypes.SNOWFLAKE, rx, ry, rz, 2, 0.4, 0.8, 0.4, 0.03);
+        }
     }
 }

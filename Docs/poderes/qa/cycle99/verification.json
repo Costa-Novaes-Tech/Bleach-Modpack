@@ -1,0 +1,40 @@
+{
+  "branch": "Feature-Poderes-bankais",
+  "base": "48e8f58",
+  "regressions": 142,
+  "check": "passed",
+  "client": "passed / exit 0 / 10 scenarios",
+  "qaRun": "run-benihime-qa\\base\\hyorinmaru-qa\\cycle93-1792754067006",
+  "scenarioCaptures": {
+    "01_bankai_transformation": 104,
+    "02_bankai_wings_lotus": 11,
+    "03_slot1_ryusenka": 27,
+    "04_slot2_hydra_assault": 28,
+    "05_slot3_ice_eruption": 28,
+    "06_slot4_blizzard_zone": 27,
+    "07_shikai_slot3_sennen": 28,
+    "08_sealed_armor": 36,
+    "09_slot2_hydra_wall": 28,
+    "10_slot2_hydra_uneven": 28
+  },
+  "audioCuesObserved": [
+    24,
+    217,
+    330
+  ],
+  "expectedCues": [
+    24,
+    216,
+    330
+  ],
+  "jarSHA256": "b78418430704ea88f6f9d553071c48d0dab7f3fc5c846c46f70516d44f5be5b2",
+  "visual": "Close, wide reveal, breath side view and orbital third-person return inspected in real client captures",
+  "pending": [
+    "User listening/artistic approval",
+    "First-person and front-F5 return in real client",
+    "Walls/irregular ground camera",
+    "Photon/dedicated/observer"
+  ],
+  "gameTests": "Not rerun: presentation-only change",
+  "antigravityIntegration": "Not merged"
+}

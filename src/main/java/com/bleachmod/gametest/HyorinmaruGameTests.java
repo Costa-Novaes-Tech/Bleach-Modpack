@@ -96,12 +96,25 @@ public final class HyorinmaruGameTests {
             HyorinmaruTechniqueService.tick(p, data(p));
             h.assertTrue(!HyorinmaruTechniqueService.isActive(p), "Expired zone remains active");
             if (com.bleachmod.common.technique.BlizzardWeatherData.eligible(p.serverLevel(), p.blockPosition())) {
-                h.assertTrue(com.bleachmod.common.technique.BlizzardWeatherData.get(p.serverLevel()).isManaged(), "Zone expiration cancelled ongoing Bankai weather");
+                h.assertTrue(com.bleachmod.common.technique.BlizzardWeatherData.get(p.serverLevel()).isManaged()==false, "Bankai unexpectedly acquired a weather lease");
             }
         } finally {
             // Leave Bankai first: onEachTick may still run the caster after cleanup and must release, not renew, the weather lease.
             data(p).getCharacter().setActiveForm("zanpakuto", "sealed");
             scoreboard.removePlayerTeam(team); ally.discard(); enemy.discard(); RyujinTechniqueService.cancel(p);
         } h.succeed(); });
+    }
+
+    @GameTest(template = "empty")
+    public static void hyorinmaruCinematicStartsSnapshotsAndCancels(GameTestHelper h) {
+        var p = player(h);
+        HyorinmaruCinematicService.begin(p);
+        var snapshot = HyorinmaruCinematicService.snapshot(p);
+        h.assertTrue(HyorinmaruCinematicService.active(p), "Cinematic not active after begin");
+        h.assertTrue(snapshot.getInt("duration") == HyorinmaruCinematicService.DURATION, "Wrong cinematic duration");
+        HyorinmaruCinematicService.cancel(p);
+        h.assertTrue(!HyorinmaruCinematicService.active(p), "Cinematic still active after cancel");
+        h.assertTrue(HyorinmaruCinematicService.snapshot(p).isEmpty(), "Snapshot not empty after cancel");
+        h.succeed();
     }
 }

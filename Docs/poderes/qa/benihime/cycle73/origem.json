@@ -1,0 +1,14 @@
+{
+  "source": "C:\\Users\\joaop\\Downloads\\Gravando 2026-10-20 201016.mp4",
+  "sha256": "05a6a1b2d08b9432483a059bcd940e58aa12a07a074b405a948359ffa77422fe",
+  "bytes": 484725596,
+  "duration_seconds": 461.13,
+  "resolution": [
+    1920,
+    1020
+  ],
+  "fps": 30,
+  "audio": "AAC estéreo 48 kHz 192 kb/s; presença verificada, sem avaliação auditiva nesta rodada",
+  "method": "FFmpeg 7.1 local via imageio-ffmpeg 0.6.0; panorama a cada 10 s, quatro trechos a 1 quadro/s, quadros destacados a 1280 pixels. Tempos nos contatos aproximados (+0,5 s). Não avalia todos os 30 quadros/s.",
+  "runtime_changed": false
+}

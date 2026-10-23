@@ -8,7 +8,7 @@ public final class SignatureChoreography {
     public static final Map<String,Integer> LENGTHS=Map.ofEntries(
         Map.entry("petal_cut",6),Map.entry("five_cuts",54),Map.entry("petal_stream",24),Map.entry("petal_convergence",12),Map.entry("petal_guard",12),
         Map.entry("floral_garden",16),Map.entry("floral_bloom",16),Map.entry("senkei",20),Map.entry("ikka_senjinka",12),Map.entry("hakuteiken",26),
-        Map.entry("nake",15),Map.entry("shield",12),Map.entry("shibari",20),Map.entry("hiasobi",16),Map.entry("dissection",12),Map.entry("reconstruction",30),Map.entry("restructure",18),Map.entry("path",6));
+        Map.entry("cane_draw",16),Map.entry("byakurai",18),Map.entry("six_rods",20),Map.entry("gigai",12),Map.entry("nake",15),Map.entry("shield",12),Map.entry("shibari",20),Map.entry("hiasobi",28),Map.entry("dissection",24),Map.entry("reconstruction",30),Map.entry("final_stitch",60),Map.entry("path",6));
     private SignatureChoreography(){ }
     public static int duration(String kind){return LENGTHS.getOrDefault(kind,0);}
     private static RyujinChoreography.Pose empty(){return new RyujinChoreography.Pose(Vec3.ZERO,Vec3.ZERO,Vec3.ZERO,Vec3.ZERO,Vec3.ZERO,Vec3.ZERO,Vec3.ZERO,0);}

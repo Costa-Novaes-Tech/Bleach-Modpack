@@ -1,0 +1,18 @@
+[
+  {
+    "source": "Kannonbiraki_Benihime_Aratame_voice_clean.wav",
+    "sourceSha256": "2d58dcc25995546c60eee157bdc2c0a9bdb114db03a168cd6412b6c0ed46cdd5",
+    "target": "src\\main\\resources\\assets\\bleachmod\\sounds\\benihime_voice_name.ogg",
+    "sha256": "42e6c8c1456f53f97050c22bd3d4dcb020cd48275d4324e70d6e320be433684c",
+    "filters": "aresample=44100,volume=4dB,afade=t=in:d=0.01,afade=t=out:st=4.08:d=0.043,alimiter=limit=0.97:level=false:latency=true",
+    "channels": 1
+  },
+  {
+    "source": "bankai_final_ordered_30s.wav",
+    "sourceSha256": "37eef641ef61bc3be64f12ff74211757a1a1bc51268a3e1f8e668dd15b29dfa2",
+    "target": "src\\main\\resources\\assets\\bleachmod\\sounds\\benihime_invocation_mix.ogg",
+    "sha256": "b70ccbac632182bb06b6dbed9dba9714877830f0ead1152c149e9677bba893f9",
+    "filters": "[0:a]atrim=start=1.2:end=29.2,asetpts=PTS-STARTPTS,aresample=44100,volume=0.84,afade=t=in:d=0.10,afade=t=out:st=27.4:d=0.6,volume='if(lt(t,20.8),1,if(lt(t,22.8),1-0.82*(t-20.8)/2,0.18))':eval=frame[bed];[1:a]aresample=44100,volume=1.333980967,adelay=1017175S:all=1[extra];[bed][extra]amix=inputs=2:duration=first:normalize=0,alimiter=limit=0.70:level=false:latency=true:enable='gte(t,20.8)'[final]",
+    "channels": 2
+  }
+]

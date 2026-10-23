@@ -1,0 +1,24 @@
+## Feature-Poderes-bankais...origin/Feature-Poderes-bankais
+ M Docs/poderes/00-CONTINUIDADE-CODEX.md
+ M Docs/poderes/72-revisao-geral-roadmap-gamedesign-2026-10-20.md
+ M Docs/poderes/README.md
+ M src/main/java/com/bleachmod/Reference.java
+ M src/main/java/com/bleachmod/client/cinematic/HyorinmaruCinematicClient.java
+ M src/main/java/com/bleachmod/client/cinematic/HyorinmaruQaSequence.java
+ M src/main/java/com/bleachmod/client/model/IceDragonRenderer.java
+ M src/main/java/com/bleachmod/common/technique/BlizzardWeatherData.java
+ M src/main/java/com/bleachmod/common/technique/ElementalTechniqueService.java
+ M src/main/java/com/bleachmod/common/technique/HyorinmaruTechniqueService.java
+ M src/main/java/com/bleachmod/common/visual/HydraMotion.java
+ M src/main/java/com/bleachmod/entity/IceDragonEntity.java
+ M src/main/java/com/bleachmod/gametest/ElementalReworkGameTests.java
+ M src/main/java/com/bleachmod/gametest/HyorinmaruGameTests.java
+ M src/main/java/com/bleachmod/gametest/ReleaseAndDragonGameTests.java
+ M src/main/resources/assets/bleachmod/geo/ice_hydra.geo.json
+ M src/test/java/com/bleachmod/MvpRegressionTest.java
+ M tools/models/hydra_organic.py
+ M tools/models/source/ice_hydra.bbmodel
+?? Docs/poderes/90-planejamento-refino-hidra-impactos-sem-weather-2026-10-21.md
+?? Docs/poderes/91-hidra-robusta-explosoes-clima-local-2026-10-22.md
+?? Docs/poderes/qa/cycle91/
+?? src/main/java/com/bleachmod/client/model/HydraImpactVisuals.java

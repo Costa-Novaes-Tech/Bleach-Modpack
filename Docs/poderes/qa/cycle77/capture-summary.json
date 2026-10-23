@@ -1,0 +1,114 @@
+[
+  {
+    "case": "lethal",
+    "frames": 53,
+    "activeFrames": 35,
+    "fpsObservedMedian": 21,
+    "uniquePngFrames": 53
+  },
+  {
+    "case": "threshold",
+    "frames": 66,
+    "activeFrames": 38,
+    "fpsObservedMedian": 67.0,
+    "uniquePngFrames": 66
+  },
+  {
+    "case": "survive",
+    "frames": 66,
+    "activeFrames": 0,
+    "fpsObservedMedian": 72.0,
+    "uniquePngFrames": 66
+  },
+  {
+    "case": "miss",
+    "frames": 66,
+    "activeFrames": 0,
+    "fpsObservedMedian": 98.0,
+    "uniquePngFrames": 66
+  },
+  {
+    "case": "sealed-melee",
+    "frames": 51,
+    "activeFrames": 18,
+    "fpsObservedMedian": 107,
+    "uniquePngFrames": 51
+  },
+  {
+    "case": "shikai-melee",
+    "frames": 51,
+    "activeFrames": 18,
+    "fpsObservedMedian": 108,
+    "uniquePngFrames": 51
+  },
+  {
+    "case": "bankai-melee",
+    "frames": 51,
+    "activeFrames": 18,
+    "fpsObservedMedian": 70,
+    "uniquePngFrames": 51
+  },
+  {
+    "case": "shikai-first-person",
+    "frames": 51,
+    "activeFrames": 18,
+    "fpsObservedMedian": 87,
+    "uniquePngFrames": 51
+  },
+  {
+    "case": "nake",
+    "frames": 51,
+    "activeFrames": 14,
+    "fpsObservedMedian": 105,
+    "uniquePngFrames": 51
+  },
+  {
+    "case": "shield",
+    "frames": 51,
+    "activeFrames": 11,
+    "fpsObservedMedian": 108,
+    "uniquePngFrames": 51
+  },
+  {
+    "case": "shibari",
+    "frames": 51,
+    "activeFrames": 19,
+    "fpsObservedMedian": 98,
+    "uniquePngFrames": 51
+  },
+  {
+    "case": "hiasobi",
+    "frames": 51,
+    "activeFrames": 16,
+    "fpsObservedMedian": 105,
+    "uniquePngFrames": 51
+  },
+  {
+    "case": "dissection",
+    "frames": 51,
+    "activeFrames": 11,
+    "fpsObservedMedian": 107,
+    "uniquePngFrames": 51
+  },
+  {
+    "case": "reconstruction",
+    "frames": 51,
+    "activeFrames": 29,
+    "fpsObservedMedian": 102,
+    "uniquePngFrames": 51
+  },
+  {
+    "case": "restructure",
+    "frames": 51,
+    "activeFrames": 17,
+    "fpsObservedMedian": 98,
+    "uniquePngFrames": 51
+  },
+  {
+    "case": "path",
+    "frames": 51,
+    "activeFrames": 5,
+    "fpsObservedMedian": 100,
+    "uniquePngFrames": 49
+  }
+]

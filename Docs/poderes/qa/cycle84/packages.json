@@ -1,0 +1,17 @@
+[
+  {
+    "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\build\\libs\\bleachmod-0.2.0.jar",
+    "sha256": "0b057bfac95f610e8383bf4c3b9ce20e726a134834c1807c65a70d6cf3eb63df",
+    "zipCRC": "passed"
+  },
+  {
+    "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\build\\combat-test-pack\\mods\\bleachmod-0.2.0.jar",
+    "sha256": "0b057bfac95f610e8383bf4c3b9ce20e726a134834c1807c65a70d6cf3eb63df",
+    "zipCRC": "passed"
+  },
+  {
+    "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\build\\photon-test-pack\\mods\\bleachmod-0.2.0.jar",
+    "sha256": "0b057bfac95f610e8383bf4c3b9ce20e726a134834c1807c65a70d6cf3eb63df",
+    "zipCRC": "passed"
+  }
+]

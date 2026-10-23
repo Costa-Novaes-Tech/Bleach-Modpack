@@ -1,0 +1,82 @@
+{
+  "branch": "Feature-Poderes-bankais",
+  "head": "7621758c5c6bdc4a12778a06a0adace8b3e8b584",
+  "network": "2.29",
+  "schema": 9,
+  "clientQaWorld": "Benihime-QA-68-1792540164560",
+  "hero": {
+    "original": "run-benihime-qa\\base\\benihime-qa\\1792540185012\\screenshots\\frame-00060-t00120-front.png",
+    "sha256": "2a4e0d1c0cf52c6cd45c8c02d3118346fab4d914ee040cd0c9b84d440a6fff60"
+  },
+  "packs": {
+    "base": [
+      {
+        "file": "better-combat-1.9.0+1.20.1-forge.jar",
+        "bytes": 1054339,
+        "sha256": "49c69dccf2c641246b4e3deca81ebac21f0ee119e81fc713b838b8e33569eea1"
+      },
+      {
+        "file": "bleachmod-0.2.0.jar",
+        "bytes": 15185310,
+        "sha256": "c4b1e498bdac53c2fd873b98e4488339b3d86f93eb9b8f8fc3eee6e393bafc75"
+      },
+      {
+        "file": "cloth-config-11.1.136+forge.jar",
+        "bytes": 1181413,
+        "sha256": "1e895e85cf5b1e1905ef3178ec155c8badfe22a1577b92c09143a5aa1f4ce0f2"
+      },
+      {
+        "file": "geckolib-aC5KMoNg.jar",
+        "bytes": 1038209,
+        "sha256": "4518779a31b6c2abb92c98b5ad17ef3d60177df68626bfc86c44de2764913c2b"
+      },
+      {
+        "file": "playeranimator-1.0.2-rc1+1.20-forge.jar",
+        "bytes": 181437,
+        "sha256": "90d9965cb9efdbda29fdc5610be3914cf7008bf5c392ff34f7ab25f96a852691"
+      }
+    ],
+    "photon": [
+      {
+        "file": "better-combat-1.9.0+1.20.1-forge.jar",
+        "bytes": 1054339,
+        "sha256": "49c69dccf2c641246b4e3deca81ebac21f0ee119e81fc713b838b8e33569eea1"
+      },
+      {
+        "file": "bleachmod-0.2.0.jar",
+        "bytes": 15185310,
+        "sha256": "c4b1e498bdac53c2fd873b98e4488339b3d86f93eb9b8f8fc3eee6e393bafc75"
+      },
+      {
+        "file": "cloth-config-11.1.136+forge.jar",
+        "bytes": 1181413,
+        "sha256": "1e895e85cf5b1e1905ef3178ec155c8badfe22a1577b92c09143a5aa1f4ce0f2"
+      },
+      {
+        "file": "geckolib-aC5KMoNg.jar",
+        "bytes": 1038209,
+        "sha256": "4518779a31b6c2abb92c98b5ad17ef3d60177df68626bfc86c44de2764913c2b"
+      },
+      {
+        "file": "ldlib-ONxYJpRz.jar",
+        "bytes": 3088005,
+        "sha256": "b6cc3420f05bbfa9f5dec6782307cf556722697561cbc3faa494bd15b1d79fb5"
+      },
+      {
+        "file": "photon-editor-a7chTVuf.jar",
+        "bytes": 5078005,
+        "sha256": "3bd09a759744e9e3b3e7315eaafa9dcd27945ef13331148e8b8169950560e5fb"
+      },
+      {
+        "file": "playeranimator-1.0.2-rc1+1.20-forge.jar",
+        "bytes": 181437,
+        "sha256": "90d9965cb9efdbda29fdc5610be3914cf7008bf5c392ff34f7ab25f96a852691"
+      }
+    ]
+  },
+  "changedSources": {
+    "src\\main\\java\\com\\bleachmod\\client\\cinematic\\BenihimeEntranceClient.java": "b4d2af0480cfc9b08aea17f4bda605076947f23b3633bce269d701919f9f4010",
+    "src\\main\\java\\com\\bleachmod\\common\\technique\\BenihimeEntranceService.java": "71a5ff29be2c2beac36a195a3cf8acfe28fbf606550efc571231c429d93f20a1",
+    "src\\main\\java\\com\\bleachmod\\common\\visual\\BenihimeStage.java": "5ec3c48cedee3c816b2f05042cf7bea869dae15d67e414bfd9d692d248a59e48"
+  }
+}

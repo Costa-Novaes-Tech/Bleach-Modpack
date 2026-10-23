@@ -1,3 +1,5 @@
+> **Ciclo 74 — apresentação Benihime, 20/10/2026:** [piso, penumbra/holofote, câmera e áudio](74-benihime-palco-penumbra-camera-audio-2026-10-20.md). Rede **2.29**, schema **9**; usar a mesma build em clientes/servidor. Piso temporário visual, sem colisão ou alterações nos blocos. Nome da Bankai com trilha reduzida e fala reforçada; aceite artístico/escuta continua pendente. Os avisos anteriores são históricos.
+
 > **Integração 63 — 19/10:** [Zaraki, História, aparência e poderes revisados](63-integracao-main-zaraki-aparencia-historia-2026-10-19.md), rede 2.25. Usar a mesma build nos clientes/servidor; Photon permanece piloto opcional. Os avisos anteriores são históricos.
 
 > **Ciclo 62 — teste atual:** [nova câmera Higashi e piloto Photon](62-higashi-camera-dirigida-piloto-photon-2026-10-18.md), rede 2.24. Pacote normal cinco JARs; Photon/LDLib e comandos de bancada são opcionais, em pacote separado. Ler o roteiro e os limites do piloto antes dos registros históricos abaixo.

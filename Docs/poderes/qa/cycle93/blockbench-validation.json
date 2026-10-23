@@ -1,0 +1,18 @@
+{
+  "source_production_unchanged": true,
+  "laboratory_model": "tools\\models\\lab\\cycle93\\hydra_head_control_test.bbmodel",
+  "cubes": 29,
+  "animations": [
+    [
+      "animation.hydra_lab.jaw_test",
+      1.6
+    ]
+  ],
+  "first_last_pose_mean_pixel_difference": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "transport_tested": "HTTP localhost bridge of Blockbench MCP; not Codex native stdio registration",
+  "execute_script": "disabled via native Settings; no calls made"
+}

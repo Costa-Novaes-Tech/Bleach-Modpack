@@ -1,0 +1,52 @@
+## Feature-Poderes-bankais...origin/Feature-Poderes-bankais
+ M Docs/poderes/00-CONTINUIDADE-CODEX.md
+ M Docs/poderes/72-revisao-geral-roadmap-gamedesign-2026-10-20.md
+ M Docs/poderes/README.md
+ M build.gradle
+ M src/main/java/com/bleachmod/Reference.java
+ M src/main/java/com/bleachmod/client/cinematic/BenihimeCombatQaSequence.java
+ M src/main/java/com/bleachmod/client/cinematic/HyorinmaruCinematicClient.java
+ M src/main/java/com/bleachmod/client/cinematic/HyorinmaruQaSequence.java
+ M src/main/java/com/bleachmod/client/model/ElementalActionVisuals.java
+ M src/main/java/com/bleachmod/client/model/IceArmorLayer.java
+ M src/main/java/com/bleachmod/client/model/IceDragonRenderer.java
+ M src/main/java/com/bleachmod/client/model/ZanpakutoReleaseAnimation.java
+ M src/main/java/com/bleachmod/common/data/CharacterData.java
+ M src/main/java/com/bleachmod/common/technique/ElementalTechniqueService.java
+ M src/main/java/com/bleachmod/common/technique/HyorinmaruCinematicService.java
+ M src/main/java/com/bleachmod/common/technique/HyorinmaruTechniqueService.java
+ M src/main/java/com/bleachmod/common/technique/ReleaseAnimationService.java
+ M src/main/java/com/bleachmod/common/technique/TechniqueDefinitions.java
+ M src/main/java/com/bleachmod/entity/IceDragonEntity.java
+ M src/main/java/com/bleachmod/gametest/ElementalReworkGameTests.java
+ M src/main/java/com/bleachmod/gametest/IceRefinementGameTests.java
+ M src/main/java/com/bleachmod/gametest/ReleaseAndDragonGameTests.java
+ M src/main/java/com/bleachmod/init/ModSounds.java
+ M src/main/resources/assets/bleachmod/animations/ice_hydra.animation.json
+ M src/main/resources/assets/bleachmod/attack_animations/benihime_diagonal.json
+ M src/main/resources/assets/bleachmod/attack_animations/benihime_return.json
+ M src/main/resources/assets/bleachmod/attack_animations/benihime_thrust.json
+ M src/main/resources/assets/bleachmod/geo/ice_hydra.geo.json
+ M src/main/resources/assets/bleachmod/lang/en_us.json
+ M src/main/resources/assets/bleachmod/lang/pt_br.json
+ M src/main/resources/assets/bleachmod/player_animation/benihime_diagonal.json
+ M src/main/resources/assets/bleachmod/player_animation/benihime_return.json
+ M src/main/resources/assets/bleachmod/player_animation/benihime_thrust.json
+ M src/main/resources/assets/bleachmod/sounds.json
+ M src/test/java/com/bleachmod/MvpRegressionTest.java
+ M tools/models/ice_hydra.py
+ M tools/models/source/ice_hydra.bbmodel
+?? Docs/poderes/84-revisao-combate-benihime-hyorinmaru-2026-10-21.md
+?? Docs/poderes/86-prototipo-hyorinmaru-hidra-baforada-transformacao-2026-10-21.md
+?? Docs/poderes/87-plano-implementacao-hyorinmaru-transformacao-kit-2026-10-21.md
+?? Docs/poderes/88-revisao-kit-hyorinmaru-hidra-erupcao-storyboards-2026-10-21.md
+?? Docs/poderes/89-implementacao-hyorinmaru-hidra-kit-2026-10-21.md
+?? Docs/poderes/media/86-hyorinmaru/
+?? Docs/poderes/media/88-hyorinmaru/
+?? Docs/poderes/qa/cycle84/
+?? Docs/poderes/qa/cycle89/
+?? src/main/java/com/bleachmod/client/model/HyorinmaruBreathVisual.java
+?? src/main/java/com/bleachmod/common/technique/GlacialFragilityService.java
+?? src/main/java/com/bleachmod/common/visual/HydraMotion.java
+?? tools/models/benihime_combat.py
+?? tools/models/hydra_organic.py

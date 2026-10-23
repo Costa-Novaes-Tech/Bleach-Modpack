@@ -1,0 +1,73 @@
+{
+  "branch": "Feature-Poderes-bankais",
+  "baseCommit": "b398fdc",
+  "network": "2.29",
+  "schema": 9,
+  "validation": {
+    "base": {
+      "regressions": 129,
+      "gameTests": 155,
+      "exitCode": 0
+    },
+    "photon": {
+      "regressions": 129,
+      "gameTests": 155,
+      "exitCode": 0
+    },
+    "graphical": "base singleplayer; 4 scenarios; no Photon graphical or two clients"
+  },
+  "packs": {
+    "combat-test-pack": [
+      {
+        "file": "better-combat-1.9.0+1.20.1-forge.jar",
+        "sha256": "49c69dccf2c641246b4e3deca81ebac21f0ee119e81fc713b838b8e33569eea1"
+      },
+      {
+        "file": "bleachmod-0.2.0.jar",
+        "sha256": "a6a7d500397cee5db531893e5ed5d26a82cb6be030fe7ae2f18a403f0082c470"
+      },
+      {
+        "file": "cloth-config-11.1.136+forge.jar",
+        "sha256": "1e895e85cf5b1e1905ef3178ec155c8badfe22a1577b92c09143a5aa1f4ce0f2"
+      },
+      {
+        "file": "geckolib-aC5KMoNg.jar",
+        "sha256": "4518779a31b6c2abb92c98b5ad17ef3d60177df68626bfc86c44de2764913c2b"
+      },
+      {
+        "file": "playeranimator-1.0.2-rc1+1.20-forge.jar",
+        "sha256": "90d9965cb9efdbda29fdc5610be3914cf7008bf5c392ff34f7ab25f96a852691"
+      }
+    ],
+    "photon-test-pack": [
+      {
+        "file": "better-combat-1.9.0+1.20.1-forge.jar",
+        "sha256": "49c69dccf2c641246b4e3deca81ebac21f0ee119e81fc713b838b8e33569eea1"
+      },
+      {
+        "file": "bleachmod-0.2.0.jar",
+        "sha256": "a6a7d500397cee5db531893e5ed5d26a82cb6be030fe7ae2f18a403f0082c470"
+      },
+      {
+        "file": "cloth-config-11.1.136+forge.jar",
+        "sha256": "1e895e85cf5b1e1905ef3178ec155c8badfe22a1577b92c09143a5aa1f4ce0f2"
+      },
+      {
+        "file": "geckolib-aC5KMoNg.jar",
+        "sha256": "4518779a31b6c2abb92c98b5ad17ef3d60177df68626bfc86c44de2764913c2b"
+      },
+      {
+        "file": "ldlib-ONxYJpRz.jar",
+        "sha256": "b6cc3420f05bbfa9f5dec6782307cf556722697561cbc3faa494bd15b1d79fb5"
+      },
+      {
+        "file": "photon-editor-a7chTVuf.jar",
+        "sha256": "3bd09a759744e9e3b3e7315eaafa9dcd27945ef13331148e8b8169950560e5fb"
+      },
+      {
+        "file": "playeranimator-1.0.2-rc1+1.20-forge.jar",
+        "sha256": "90d9965cb9efdbda29fdc5610be3914cf7008bf5c392ff34f7ab25f96a852691"
+      }
+    ]
+  }
+}

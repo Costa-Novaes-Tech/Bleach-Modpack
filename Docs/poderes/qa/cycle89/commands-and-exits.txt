@@ -1,0 +1,10 @@
+Baseline: gradlew.bat check runGameTestServer --offline --console=plain => exit 0; 137 / 168.
+Final base: gradlew.bat check build runGameTestServer prepareCombatTestPack --offline --console=plain => exit 0; 139 / 173.
+Final Photon: gradlew.bat -PphotonPilot=true check build runGameTestServer prepareCombatTestPack preparePhotonTestPack --offline --console=plain => exit 0; 139 / 173.
+Presentation-only refinement after the gameplay suite: vanilla cloud sprite/size. Repeated check/build and both real client QA sequences; exit 0. No combat code changes after the 173-test suite.
+Latest base delivery: check build prepareCombatTestPack preparePhotonTestPack + isolated runClient => exit 0; all 8 scenarios complete.
+Latest Photon density runClient: isolated runClient => exit 0; all 8 scenarios complete.
+python tools/models/ice_hydra.py --check => exit 0.
+git diff --check => exit 0.
+Earlier iterations: 1 obsolete slot-based legacy projectile test; 3 fixture/expected-damage failures (unlock fixture and form/armor math); then 2 expected-damage failures resolved using shared CombatBalance and vanilla armor math. Kept old projectile coverage through direct configuration and added new hydra coverage. No global damage formula or required test disabled.
+First Photon launch: exited normally at onboarding before QA; not counted as completed QA. Prepared isolated options from the base QA profile and reran successfully.

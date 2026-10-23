@@ -1,0 +1,34 @@
+{
+  "date": "2026-10-23",
+  "initialPowers": "1791be5",
+  "initialDesign": "04bbea2",
+  "mainBase": "3a37ca7",
+  "designMerge": "d67f101",
+  "regressions": 146,
+  "gameTests": 223,
+  "client": "exit 0 / 10 QA scenarios / 2m51s",
+  "scenarios": {
+    "01_bankai_transformation": 101,
+    "02_bankai_wings_lotus": 11,
+    "03_slot1_ryusenka": 27,
+    "04_slot2_hydra_assault": 26,
+    "05_slot3_ice_eruption": 28,
+    "06_slot4_blizzard_zone": 28,
+    "07_shikai_slot3_sennen": 28,
+    "08_sealed_armor": 35,
+    "09_slot2_hydra_wall": 28,
+    "10_slot2_hydra_uneven": 28
+  },
+  "generator": "python tools/models/ice_hydra.py --check / passed",
+  "jarSHA256": "fea08f3e516ef98285ce27bbf30ce617c1e8e389d379b556fd5d87b67f07c6a3",
+  "conflicts": [
+    "Docs/poderes/00-CONTINUIDADE-CODEX.md: preserve both fronts and supersede stale diagnosis",
+    "logs/debug.log: honor main removal, preserve evidence"
+  ],
+  "extraFix": "Portable relative texture path in generated Blockbench source",
+  "untouchedMain": true,
+  "pending": [
+    "User artistic approval",
+    "Photon runtime and two-client observer not repeated"
+  ]
+}

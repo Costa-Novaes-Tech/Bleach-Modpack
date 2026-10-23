@@ -38,10 +38,10 @@ public final class TechniqueDefinitions {
             float[] fireCosts=sealed?new float[]{8,8,0,0}:bankai?new float[]{20,25,40,45}:new float[]{15,25,40,35};
             int[] fireCds=sealed?new int[]{60,80,0,0}:bankai?new int[]{100,160,300,1200}:new int[]{80,100,300,300};
             for(int slot=1;slot<=4;slot++)add(entries,CharacterData.RYUJIN,form,slot,fireIds[slot-1],"ability.bleachmod.ryujin."+fireIds[slot-1],fireCosts[slot-1],fireCds[slot-1],0);
-            String[] iceIds=sealed?new String[]{"front_cut","wide_cut","unavailable","duel_control"}
-                :bankai?new String[]{"ice_dragon","ryusenka","sennen","glacial_zone"}:new String[]{"ice_dragon","crescent_chain","duel_control","glacial_zone"};
-            float[] costs=sealed?new float[]{8,8,0,18}:bankai?new float[]{20,25,30,35}:new float[]{15,20,18,30};
-            int[] cooldowns=sealed?new int[]{100,160,0,300}:new int[]{100,160,240,300};
+            String[] iceIds=sealed?new String[]{"front_cut","wide_cut","frost_armor","duel_control"}
+                :bankai?new String[]{"ryusenka","hydra_assault","ice_eruption","glacial_zone"}:new String[]{"ice_dragon","crescent_chain","sennen","glacial_zone"};
+            float[] costs=sealed?new float[]{8,8,12,18}:bankai?new float[]{25,30,35,35}:new float[]{15,20,30,30};
+            int[] cooldowns=sealed?new int[]{100,160,240,300}:bankai?new int[]{160,240,320,300}:new int[]{100,160,280,300};
             for(int slot=1;slot<=4;slot++)add(entries,CharacterData.HYORINMARU,form,slot,iceIds[slot-1],
                 "ability.bleachmod.hyorinmaru."+iceIds[slot-1],costs[slot-1],cooldowns[slot-1],0);
             // Zaraki Kenpachi: brute force when sealed, the Nozarashi cleaver in Shikai, Berserk Mode in Bankai.
@@ -63,11 +63,11 @@ public final class TechniqueDefinitions {
             for (int slot = 1; slot <= 4; slot++) add(entries, CharacterData.SENBONZAKURA, form, slot,
                     ids[slot-1], "ability.bleachmod.senbonzakura." + ids[slot-1], costs[slot-1], cooldowns[slot-1], 0);
         }
-        for(String form:List.of("shikai","bankai")) {
+        for(String form:List.of("sealed","shikai","bankai")) {
             boolean bankai=form.equals("bankai");
-            String[] ids=bankai?new String[]{"dissection","reconstruction","restructure","path"}:new String[]{"nake","shield","shibari","hiasobi"};
-            float[] costs=bankai?new float[]{25,28,22,30}:new float[]{12,18,20,25};
-            int[] cooldowns=bankai?new int[]{140,240,200,260}:new int[]{60,140,160,200};
+            String[] ids=form.equals("sealed")?new String[]{"cane_draw","byakurai","six_rods","gigai"}:bankai?new String[]{"dissection","reconstruction","path","final_stitch"}:new String[]{"nake","shield","shibari","hiasobi"};
+            float[] costs=form.equals("sealed")?new float[]{8,12,18,22}:bankai?new float[]{25,28,30,50}:new float[]{12,18,20,25};
+            int[] cooldowns=form.equals("sealed")?new int[]{60,100,180,240}:bankai?new int[]{140,240,260,560}:new int[]{60,140,160,200};
             for(int slot=1;slot<=4;slot++)add(entries,CharacterData.BENIHIME,form,slot,ids[slot-1],"ability.bleachmod.benihime."+ids[slot-1],costs[slot-1],cooldowns[slot-1],0);
         }
         return Collections.unmodifiableMap(entries);

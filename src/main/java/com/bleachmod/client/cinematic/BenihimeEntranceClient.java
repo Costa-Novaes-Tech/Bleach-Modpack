@@ -2,6 +2,7 @@ package com.bleachmod.client.cinematic;
 
 import com.bleachmod.Reference;
 import com.bleachmod.common.visual.BenihimeEntranceGeometry;
+import com.bleachmod.common.visual.BenihimeStage;
 import com.mojang.blaze3d.vertex.*;
 import dev.kosmx.playerAnim.api.TransformType;
 import dev.kosmx.playerAnim.api.firstPerson.FirstPersonMode;
@@ -29,7 +30,7 @@ import com.mojang.brigadier.arguments.*;
 /** Shared renderer for the synchronized entrance and the explicitly dev-only inspection bench. */
 @Mod.EventBusSubscriber(modid=Reference.MOD_ID,value=Dist.CLIENT)
 public final class BenihimeEntranceClient {
-    private record Scene(long start,Vec3 anchor,Vec3 forward,boolean bench){ }
+    private record Scene(long start,Vec3 anchor,Vec3 forward,Vec3 actorForward,boolean bench){ }
     private static final Map<Integer,Scene> SCENES=new HashMap<>();
     private static net.minecraft.client.multiplayer.ClientLevel world;
     private static CameraType previous;
@@ -50,6 +51,8 @@ public final class BenihimeEntranceClient {
         private Types(){super("unused",DefaultVertexFormat.POSITION_COLOR,VertexFormat.Mode.QUADS,8192,false,true,()->{},()->{});}
         private static final RenderType SCENE=create("benihime_entrance",DefaultVertexFormat.POSITION_COLOR,VertexFormat.Mode.QUADS,262144,false,false,
                 CompositeState.builder().setShaderState(RENDERTYPE_LIGHTNING_SHADER).setCullState(NO_CULL).setWriteMaskState(COLOR_DEPTH_WRITE).createCompositeState(false));
+        private static final RenderType FLOOR=create("benihime_stage",DefaultVertexFormat.POSITION_COLOR,VertexFormat.Mode.QUADS,65536,false,true,
+                CompositeState.builder().setShaderState(RENDERTYPE_LIGHTNING_SHADER).setTransparencyState(TRANSLUCENT_TRANSPARENCY).setCullState(NO_CULL).setWriteMaskState(COLOR_WRITE).createCompositeState(false));
     }
     private BenihimeEntranceClient(){ }
     public static void init(){PlayerAnimationFactory.ANIMATION_DATA_FACTORY.registerFactory(Reference.id("benihime_entrance"),4500,Body::new);}
@@ -59,14 +62,14 @@ public final class BenihimeEntranceClient {
         var mc=Minecraft.getInstance();if(mc.level==null)return;if(world!=mc.level){clear();world=mc.level;}
         int age=tag.getInt("elapsed");
         if(tag.getInt("duration")!=560||age<0||age>=560){finish(id);return;}
-        var anchor=new Vec3(tag.getDouble("x"),tag.getDouble("y"),tag.getDouble("z"));float yaw=tag.getFloat("yaw");
+        var anchor=new Vec3(tag.getDouble("x"),tag.getDouble("y"),tag.getDouble("z"));float yaw=tag.contains("stageYaw")?tag.getFloat("stageYaw"):tag.getFloat("yaw");
         if(!Double.isFinite(anchor.lengthSqr())||!Float.isFinite(yaw))return;
         boolean fresh=!SCENES.containsKey(id);
         if(fresh&&SCENES.size()>=8){
             if(mc.player==null||id!=mc.player.getId())return;
             SCENES.keySet().stream().filter(other->other!=id).findFirst().ifPresent(SCENES::remove);
         }
-        SCENES.put(id,new Scene(mc.level.getGameTime()-age,anchor,Vec3.directionFromRotation(0,yaw),false));
+        SCENES.put(id,new Scene(mc.level.getGameTime()-age,anchor,Vec3.directionFromRotation(0,yaw),Vec3.directionFromRotation(0,tag.getFloat("yaw")),false));
         if(fresh&&mc.player!=null&&mc.player.getId()==id&&age<20)cameraEnabled=true;
     }
     private static double age(Scene s,float partial){return s.bench?(paused>=0?paused:benchTicks+partial):world.getGameTime()-s.start+partial;}
@@ -84,7 +87,7 @@ public final class BenihimeEntranceClient {
     @SubscribeEvent public static void tick(TickEvent.ClientTickEvent e){
         if(e.phase!=TickEvent.Phase.END)return;var mc=Minecraft.getInstance();
         if(world!=mc.level){clear();world=mc.level;}if(mc.level==null||mc.player==null)return;
-        for(var id:List.copyOf(SCENES.keySet())){var p=mc.level.getEntity(id);var s=SCENES.get(id);if(p==null||!p.isAlive()||(!s.bench&&(age(s,0)>=560||p.position().distanceToSqr(s.anchor)>2.25)))finish(id);}
+        for(var id:List.copyOf(SCENES.keySet())){var p=mc.level.getEntity(id);var s=SCENES.get(id);if(p==null||!p.isAlive()||(!s.bench&&(age(s,0)>=560||p.position().distanceToSqr(s.anchor)>512*512)))finish(id);}
         var s=local();
         BenihimeEntranceAudio.retain(SCENES.keySet());
         for(var entry:SCENES.entrySet())if(!entry.getValue().bench){
@@ -110,12 +113,21 @@ public final class BenihimeEntranceClient {
     }
     @SubscribeEvent public static void render(RenderLevelStageEvent e){
         if(e.getStage()!=RenderLevelStageEvent.Stage.AFTER_PARTICLES||world!=Minecraft.getInstance().level||SCENES.isEmpty())return;
-        var mc=Minecraft.getInstance();var buffer=mc.renderBuffers().bufferSource();var vertices=buffer.getBuffer(Types.SCENE);var matrix=e.getPoseStack().last().pose();
+        var mc=Minecraft.getInstance();var buffer=mc.renderBuffers().bufferSource();var matrix=e.getPoseStack().last().pose();
+        var floor=buffer.getBuffer(Types.FLOOR);
+        for(var scene:SCENES.values())if(!following(scene)&&mc.player.distanceToSqr(scene.anchor)<96*96){
+            for(var q:BenihimeStage.floor(scene.anchor.subtract(e.getCamera().getPosition()),scene.forward,age(scene,e.getPartialTick())))
+                for(var v:List.of(q.a(),q.b(),q.c(),q.d())){int c=q.color();floor.vertex(matrix,(float)v.x,(float)v.y,(float)v.z).color(c>>>24,(c>>>16)&255,(c>>>8)&255,c&255).endVertex();}
+        }
+        buffer.endBatch(Types.FLOOR);
+        var vertices=buffer.getBuffer(Types.SCENE);
         for(var entry:SCENES.entrySet()){
             var s=entry.getValue();if(mc.player.distanceToSqr(s.anchor)>96*96)continue;
             var origin=s.anchor.subtract(e.getCamera().getPosition());var forward=s.forward;boolean idle=following(s);
             if(idle){double now=benchTicks+e.getPartialTick();if(benchFollow==null){benchFollow=new com.bleachmod.common.visual.BenihimeFollowMotion.Pose(s.anchor,(float)Math.toDegrees(Math.atan2(-s.forward.x,s.forward.z)));followTime=now;}benchFollow=com.bleachmod.common.visual.BenihimeFollowMotion.advance(benchFollow,mc.player.getPosition(e.getPartialTick()),mc.player.getYRot(),now-followTime);followTime=now;origin=benchFollow.anchor().subtract(e.getCamera().getPosition());forward=benchFollow.forward();}
-            var ground=BenihimeTerrain.sample(origin.add(e.getCamera().getPosition()),forward);
+            var terrain=BenihimeTerrain.sample(origin.add(e.getCamera().getPosition()),forward);
+            double plane=idle?0:BenihimeStage.floorWeight(age(s,e.getPartialTick()));
+            BenihimeEntranceGeometry.Ground ground=(x,z)->terrain.height(x,z)*(1-plane);
             var geometry=idle?BenihimeEntranceGeometry.buildIdle(origin,forward,age(s,e.getPartialTick())-560,0,ground):BenihimeEntranceGeometry.build(origin,forward,Math.min(560,age(s,e.getPartialTick())),ground);
             for(var q:geometry)for(var v:List.of(q.a(),q.b(),q.c(),q.d())){
                 int c=q.color();vertices.vertex(matrix,(float)v.x,(float)v.y,(float)v.z).color(c>>>24,(c>>>16)&255,(c>>>8)&255,c&255).endVertex();
@@ -128,19 +140,26 @@ public final class BenihimeEntranceClient {
         Vec3 a=s.anchor,f=s.forward,right=new Vec3(-f.z,0,f.x);Vec3 eye,focus;float fov=55;
         if(s.bench&&angle.equals("hand")){eye=a.add(f.scale(-7)).add(right.scale(-4)).add(0,5,0);focus=a.add(f.scale(-12)).add(0,4.6,0);fov=45;}
         else if(s.bench&&angle.equals("side")){eye=a.add(right.scale(19)).add(f.scale(-5)).add(0,6,0);focus=a.add(f.scale(-10)).add(0,4.8,0);}
-        else if(age<72&&!s.bench){double t=Mth.clamp(age/50,0,1);double face=com.bleachmod.common.visual.BenihimePlayerPose.faceHeight(age);eye=a.add(f.scale(2.3-.7*t)).add(0,face+.12,0);focus=a.add(0,face,0);fov=42;}
+        else if(age<72&&!s.bench){double t=Mth.clamp(age/50,0,1);double face=com.bleachmod.common.visual.BenihimePlayerPose.faceHeight(age);eye=a.add(s.actorForward.scale(2.3-.7*t)).add(0,face+.12,0);focus=a.add(0,face,0);fov=42;}
         else{double t=s.bench?1:Mth.clamp((age-72)/40,0,1);double lateral=2*t*(1-com.bleachmod.common.visual.BenihimeEntranceTimeline.progress(age,340,450));eye=a.add(f.scale(3+5*t)).add(right.scale(lateral)).add(0,1.5+1.6*t,0);focus=a.add(f.scale(-8*t)).add(0,1+2.5*t,0);fov=58;}
         if(!s.bench&&age>528){
             double t=Mth.clamp((age-528)/32,0,1);t=t*t*(3-2*t);var normal=returnShot();
             Vec3 from=focus.subtract(eye).normalize(),to=normal.focus.subtract(normal.eye).normalize();
             double yaw=Math.toDegrees(Math.atan2(-from.x,from.z)),targetYaw=Math.toDegrees(Math.atan2(-to.x,to.z));
             double pitch=-Math.toDegrees(Math.asin(Mth.clamp(from.y,-1,1))),targetPitch=-Math.toDegrees(Math.asin(Mth.clamp(to.y,-1,1)));
-            eye=eye.lerp(normal.eye,t);
+            eye=previous==CameraType.FIRST_PERSON?BenihimeStage.returnEye(eye,normal.eye,mcLook(),t):eye.lerp(normal.eye,t);
             // Interpolate orientation, not the two focus points: opposing views must not collapse through a zero look vector.
             Vec3 direction=Vec3.directionFromRotation((float)Mth.lerp(t,pitch,targetPitch),(float)(yaw+Mth.wrapDegrees(targetYaw-yaw)*t));
             focus=eye.add(direction.scale(8));fov=(float)Mth.lerp(t,fov,normal.fov);
         }
         return new Shot(eye,focus,fov);
+    }
+    private static Vec3 mcLook(){return Minecraft.getInstance().player.getLookAngle();}
+    /** The final first-person approach must not render the inside/front of the local head. */
+    @SubscribeEvent public static void hideHeadOnReturn(RenderPlayerEvent.Pre e){
+        var mc=Minecraft.getInstance();var s=local();
+        if(e.getEntity()!=mc.player||s==null||s.bench||previous!=CameraType.FIRST_PERSON||!cameraActive()||age(s,e.getPartialTick())<528)return;
+        if(mc.gameRenderer.getMainCamera().getPosition().distanceToSqr(mc.player.getEyePosition())<1.8)e.setCanceled(true);
     }
     /** Return to the perspective that preceded the scene, including its look pitch. */
     private static Shot returnShot(){
@@ -169,24 +188,49 @@ public final class BenihimeEntranceClient {
     @SubscribeEvent public static void overlay(RenderGuiEvent.Post e){
         var mc=Minecraft.getInstance();
         if(mc.player!=null&&mc.level==world&&mc.screen==null&&com.bleachmod.client.ClientVisualConfig.BENIHIME_PENUMBRA.get()){
-            double shade=0;
+            double shade=0;Scene brightest=null;
             for(var scene:SCENES.values()){
                 double age=age(scene,e.getPartialTick());
                 if(age>=560)continue;
                 Vec3 delta=scene.anchor.add(scene.forward.scale(-9)).add(0,5,0).subtract(mc.gameRenderer.getMainCamera().getPosition());
                 Vec3 direction=delta.normalize();
-                double facing=mc.gameRenderer.getMainCamera().getLookVector().dot((float)direction.x,(float)direction.y,(float)direction.z);
+                double facing=viewDirection(e.getPartialTick()).dot(direction);
                 double distance=Mth.clamp((72-delta.length())/32,0,1);
-                double envelope=com.bleachmod.common.visual.BenihimeEntranceTimeline.progress(age,72,176)*(1-com.bleachmod.common.visual.BenihimeEntranceTimeline.progress(age,450,560));
-                shade=Math.max(shade,.22*distance*Mth.clamp((facing-.3)/.6,0,1)*envelope);
+                double value=distance*Mth.clamp((facing-.3)/.6,0,1)*BenihimeStage.darkness(age);
+                if(value>shade){shade=value;brightest=scene;}
             }
-            int alpha=(int)(255*shade);if(alpha>0)e.getGuiGraphics().fill(0,0,e.getGuiGraphics().guiWidth(),e.getGuiGraphics().guiHeight(),alpha<<24);
+            if(shade>0&&brightest!=null)spotlight(e,brightest,shade);
         }
         if(!cameraActive())return;var g=e.getGuiGraphics();int h=(int)(g.guiHeight()*.06);g.fill(0,0,g.guiWidth(),h,0xff000000);g.fill(0,g.guiHeight()-h,g.guiWidth(),g.guiHeight(),0xff000000);
         if(local().bench)g.drawString(Minecraft.getInstance().font,"BENIHIME QA / CLIENTE FORGE REAL / tick "+(int)age(local(),e.getPartialTick())+" / "+angle,8,5,0xffffff,false);
         double t=age(local(),e.getPartialTick());
         if(t>28&&t<65)g.drawCenteredString(Minecraft.getInstance().font,"Bankai",g.guiWidth()/2,g.guiHeight()-h-22,0xeee2df);
         if(t>461&&t<545)g.drawCenteredString(Minecraft.getInstance().font,"Kannonbiraki Benihime Aratame",g.guiWidth()/2,g.guiHeight()-h-22,0xeee2df);
+    }
+    /** Smooth screen-space penumbra with a protected ellipse over the actual player projection. */
+    private static void spotlight(RenderGuiEvent.Post e,Scene scene,double shade){
+        var mc=Minecraft.getInstance();var g=e.getGuiGraphics();double w=g.guiWidth(),h=g.guiHeight();
+        var camera=mc.gameRenderer.getMainCamera();Vec3 actor=scene.anchor;
+        for(var entry:SCENES.entrySet())if(entry.getValue()==scene){var entity=world.getEntity(entry.getKey());if(entity!=null)actor=entity.getPosition(e.getPartialTick());break;}
+        Vec3 relative=actor.add(0,.95,0).subtract(camera.getPosition()),look=viewDirection(e.getPartialTick());
+        Vec3 right=look.cross(new Vec3(0,1,0)).normalize(),up=right.cross(look).normalize();
+        double depth=relative.dot(look),tan=Math.tan(Math.toRadians(cameraActive()?shot(local(),age(local(),e.getPartialTick())).fov:mc.options.fov().get())/2);
+        double scale=h/(2*tan*Math.max(.1,depth));
+        double cx=w*.5+relative.dot(right)*scale,cy=h*.5-relative.dot(up)*scale,rx=Math.max(12,.85*scale),ry=Math.max(20,1.5*scale);
+        var vertices=g.bufferSource().getBuffer(RenderType.gui());var matrix=g.pose().last().pose();
+        for(int y=0;y<h;y+=12)for(int x=0;x<w;x+=12){
+            int x2=(int)Math.min(w,x+12),y2=(int)Math.min(h,y+12);
+            for(int[] p:new int[][]{{x,y},{x,y2},{x2,y2},{x2,y}}){
+                double mask=depth>.1?BenihimeStage.mask(p[0],p[1],cx,cy,rx,ry):1;
+                vertices.vertex(matrix,p[0],p[1],0).color(0,0,5,(int)(255*shade*mask)).endVertex();
+            }
+        }
+        g.flush();
+    }
+    private static Vec3 viewDirection(float partial){
+        var camera=Minecraft.getInstance().gameRenderer.getMainCamera();
+        if(cameraActive())return shot(local(),age(local(),partial)).focus.subtract(camera.getPosition()).normalize();
+        return new Vec3(camera.getLookVector());
     }
     private static final class Body implements IAnimation{
         final AbstractClientPlayer player;Body(AbstractClientPlayer p){player=p;}
@@ -239,7 +283,7 @@ public final class BenihimeEntranceClient {
     }
     private static void bench(){
         var mc=Minecraft.getInstance();if(!dev()||mc.level==null||mc.player==null||!mc.hasSingleplayerServer())return;
-        clear();world=mc.level;SCENES.put(mc.player.getId(),new Scene(world.getGameTime(),mc.player.position(),Vec3.directionFromRotation(0,mc.player.getYRot()),true));
+        clear();world=mc.level;var forward=Vec3.directionFromRotation(0,mc.player.getYRot());SCENES.put(mc.player.getId(),new Scene(world.getGameTime(),mc.player.position(),forward,forward,true));
         cameraEnabled=true;paused=-1;angle="front";sequence=System.currentTimeMillis();evidence=new File(mc.gameDirectory,"benihime-qa/"+sequence);lastCapture=-1;
     }
     private static void capture(String label){

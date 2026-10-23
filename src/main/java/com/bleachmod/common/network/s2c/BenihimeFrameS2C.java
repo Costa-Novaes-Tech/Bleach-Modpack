@@ -8,9 +8,9 @@ import net.minecraftforge.network.NetworkEvent;
 import java.util.function.Supplier;
 
 public record BenihimeFrameS2C(int owner,int kind,Vec3 origin,Vec3 end,Vec3 forward,float radius,float progress,int variant) {
-    public static final int QUEEN=0,SLASH=1,SHIELD=2,NET=3,BEADS=4,INCISION=5,HEAL=6,BUFF=7,CORRIDOR=8,CLEAR=9;
+    public static final int QUEEN=0,SLASH=1,SHIELD=2,NET=3,BEADS=4,INCISION=5,HEAL=6,BUFF=7,CORRIDOR=8,CLEAR=9,THREAD_LASH=10,SURGERY=11,KIDO=12,RODS=13,DECOY=14;
     public boolean valid() {
-        return owner>=0 && kind>=0 && kind<=CLEAR && finite(origin) && finite(end) && finite(forward)
+        return owner>=0 && kind>=0 && kind<=DECOY && finite(origin) && finite(end) && finite(forward)
                 && origin.distanceToSqr(end)<=64*64 && forward.lengthSqr()>.5 && forward.lengthSqr()<1.01
                 && Float.isFinite(radius) && radius>=0 && radius<=24 && Float.isFinite(progress) && progress>=0 && progress<=1 && variant>=0 && variant<=8;
     }

@@ -1,0 +1,348 @@
+{
+  "schemaVersion": 1,
+  "createdUtc": "2026-10-21T00:10:59.546323+00:00",
+  "sourceDirectory": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\cinematic-qa\\1792541329046-lethal",
+  "source": "Minecraft Screenshot.grab framebuffer",
+  "metadataSha256": "7ca250a71778d230fb9169bccd8c16e7ec444e98fdb728a9f9d5e715ffa81f30",
+  "environment": {
+    "world": "Benihime-QA-68-1792541316150",
+    "renderer": "Intel(R) Iris(R) Xe Graphics",
+    "scenario": "lethal",
+    "captureSamplingTicks": 2,
+    "maxHeapBytes": 2147483648,
+    "renderDistance": 6
+  },
+  "environmentSha256": "6655886d0170343acd6827e41c02f7e08d07667badfd46c17f6e160dc500c9d0",
+  "pngBytesUnmodified": true,
+  "visualApproval": "PENDING HUMAN REVIEW",
+  "provenanceLimit": "Origin is checked against local capture metadata; it is not cryptographic attestation.",
+  "frameCount": 12,
+  "frames": [
+    {
+      "file": "screenshots/frame-000000.png",
+      "gameTick": 9,
+      "wallMs": 1792541329262,
+      "phase": "SETUP",
+      "view": "front",
+      "scenario": "lethal",
+      "fpsObserved": 7,
+      "width": 1280,
+      "height": 720,
+      "origin": [
+        0.5,
+        -60.0,
+        0.5
+      ],
+      "source": "Minecraft Screenshot.grab framebuffer",
+      "sha256": "3d1bdcd44fad798cb58342a384b39ad732278b3f20619fd863b2e3e698a4091a",
+      "sizeBytes": 412632,
+      "originalFile": "screenshots/frame-0000-t0009-SETUP.png"
+    },
+    {
+      "file": "screenshots/frame-000001.png",
+      "gameTick": 20,
+      "wallMs": 1792541329859,
+      "phase": "DRAW",
+      "view": "front",
+      "scenario": "lethal",
+      "fpsObserved": 3,
+      "width": 1280,
+      "height": 720,
+      "origin": [
+        0.5,
+        -60.0,
+        0.5
+      ],
+      "source": "Minecraft Screenshot.grab framebuffer",
+      "sha256": "a231496c155e16eabb540308a85ed5c18e917609c03db3a66fa8d58a6856db19",
+      "sizeBytes": 441960,
+      "originalFile": "screenshots/frame-0005-t0020-DRAW.png"
+    },
+    {
+      "file": "screenshots/frame-000002.png",
+      "gameTick": 28,
+      "wallMs": 1792541330401,
+      "phase": "DRAW",
+      "view": "side",
+      "scenario": "lethal",
+      "fpsObserved": 3,
+      "width": 1280,
+      "height": 720,
+      "origin": [
+        0.5,
+        -60.0,
+        0.5
+      ],
+      "source": "Minecraft Screenshot.grab framebuffer",
+      "sha256": "9a0f78765ba29e65cd634834b1b965f58cbc3b6f57011ffe57e7540eed2f5c91",
+      "sizeBytes": 206533,
+      "originalFile": "screenshots/frame-0008-t0028-DRAW.png"
+    },
+    {
+      "file": "screenshots/frame-000003.png",
+      "gameTick": 33,
+      "wallMs": 1792541330626,
+      "phase": "CUT",
+      "view": "side",
+      "scenario": "lethal",
+      "fpsObserved": 8,
+      "width": 1280,
+      "height": 720,
+      "origin": [
+        0.5,
+        -60.0,
+        2.5008
+      ],
+      "source": "Minecraft Screenshot.grab framebuffer",
+      "sha256": "223ff26f3397410c185bba9be8d31cf61a521615c40244a4017c902d511ef2cf",
+      "sizeBytes": 208778,
+      "originalFile": "screenshots/frame-0010-t0033-CUT.png"
+    },
+    {
+      "file": "screenshots/frame-000004.png",
+      "gameTick": 35,
+      "wallMs": 1792541330705,
+      "phase": "CUT",
+      "view": "side",
+      "scenario": "lethal",
+      "fpsObserved": 8,
+      "width": 1280,
+      "height": 720,
+      "origin": [
+        0.5,
+        -60.0,
+        2.5008
+      ],
+      "source": "Minecraft Screenshot.grab framebuffer",
+      "sha256": "911d3b2c416820e3009208ebb7e2ef9ec8b47c4fb4bfead4d6b04b8e7cbd85ce",
+      "sizeBytes": 217221,
+      "originalFile": "screenshots/frame-0011-t0035-CUT.png"
+    },
+    {
+      "file": "screenshots/frame-000005.png",
+      "gameTick": 50,
+      "wallMs": 1792541331588,
+      "phase": "HOLD",
+      "view": "side",
+      "scenario": "lethal",
+      "fpsObserved": 14,
+      "width": 1280,
+      "height": 720,
+      "origin": [
+        0.5,
+        -60.0,
+        2.5008
+      ],
+      "source": "Minecraft Screenshot.grab framebuffer",
+      "sha256": "f912e85c5704edec42f00eb748ddbc0e1a19e84579d0fb07fffdd3f8366cfc7c",
+      "sizeBytes": 264427,
+      "originalFile": "screenshots/frame-0021-t0050-HOLD.png"
+    },
+    {
+      "file": "screenshots/frame-000006.png",
+      "gameTick": 74,
+      "wallMs": 1792541332750,
+      "phase": "HOLD",
+      "view": "side",
+      "scenario": "lethal",
+      "fpsObserved": 19,
+      "width": 1280,
+      "height": 720,
+      "origin": [
+        0.5,
+        -60.0,
+        2.5008
+      ],
+      "source": "Minecraft Screenshot.grab framebuffer",
+      "sha256": "d33c9c09c418f8a5798f41326d11573bdc90edafda48b26fa26910dfb72e0fce",
+      "sizeBytes": 259262,
+      "originalFile": "screenshots/frame-0033-t0074-HOLD.png"
+    },
+    {
+      "file": "screenshots/frame-000007.png",
+      "gameTick": 76,
+      "wallMs": 1792541332850,
+      "phase": "IGNITE",
+      "view": "side",
+      "scenario": "lethal",
+      "fpsObserved": 19,
+      "width": 1280,
+      "height": 720,
+      "origin": [
+        0.5,
+        -60.0,
+        2.5008
+      ],
+      "source": "Minecraft Screenshot.grab framebuffer",
+      "sha256": "d16ed3a74624165548fa5a77c59b4bc0be62e8de4596c684e9a388fb58f1ce45",
+      "sizeBytes": 258149,
+      "originalFile": "screenshots/frame-0034-t0076-IGNITE.png"
+    },
+    {
+      "file": "screenshots/frame-000008.png",
+      "gameTick": 84,
+      "wallMs": 1792541333258,
+      "phase": "IGNITE",
+      "view": "side",
+      "scenario": "lethal",
+      "fpsObserved": 19,
+      "width": 1280,
+      "height": 720,
+      "origin": [
+        0.5,
+        -60.0,
+        2.5008
+      ],
+      "source": "Minecraft Screenshot.grab framebuffer",
+      "sha256": "bf972206cec3529037a7f8483df9b039a9b0d19c56f5aaa683da3ee6ad759ee8",
+      "sizeBytes": 268090,
+      "originalFile": "screenshots/frame-0038-t0084-IGNITE.png"
+    },
+    {
+      "file": "screenshots/frame-000009.png",
+      "gameTick": 96,
+      "wallMs": 1792541333868,
+      "phase": "ASH",
+      "view": "side",
+      "scenario": "lethal",
+      "fpsObserved": 32,
+      "width": 1280,
+      "height": 720,
+      "origin": [
+        0.5,
+        -60.0,
+        2.5008
+      ],
+      "source": "Minecraft Screenshot.grab framebuffer",
+      "sha256": "47e43251acdb70ac83e632d964b2da768b6a0e141889abda00247effa6722433",
+      "sizeBytes": 293846,
+      "originalFile": "screenshots/frame-0044-t0096-ASH.png"
+    },
+    {
+      "file": "screenshots/frame-000010.png",
+      "gameTick": 112,
+      "wallMs": 1792541334655,
+      "phase": "RETURN",
+      "view": "side",
+      "scenario": "lethal",
+      "fpsObserved": 24,
+      "width": 1280,
+      "height": 720,
+      "origin": [
+        0.5,
+        -60.0,
+        2.5008
+      ],
+      "source": "Minecraft Screenshot.grab framebuffer",
+      "sha256": "d3954524d6d041cfe0ec35266238b67460a5e527382ebb68c2eed4db09959581",
+      "sizeBytes": 330435,
+      "originalFile": "screenshots/frame-0052-t0112-RETURN.png"
+    },
+    {
+      "file": "screenshots/frame-000011.png",
+      "gameTick": 130,
+      "wallMs": 1792541335566,
+      "phase": "RETURN",
+      "view": "front",
+      "scenario": "lethal",
+      "fpsObserved": 24,
+      "width": 1280,
+      "height": 720,
+      "origin": [
+        0.5,
+        -60.0,
+        2.5008
+      ],
+      "source": "Minecraft Screenshot.grab framebuffer",
+      "sha256": "d9afd1a9d54ef8a3f84db791237d8a5f9f2242aac7366a55547e712c42dfc3f7",
+      "sizeBytes": 449196,
+      "originalFile": "screenshots/frame-0061-t0130-RETURN.png"
+    }
+  ],
+  "criticalSelections": [
+    {
+      "requestedTick": 0,
+      "frameIndex": 0
+    },
+    {
+      "requestedTick": 72,
+      "frameIndex": 6
+    },
+    {
+      "requestedTick": 108,
+      "frameIndex": 10
+    },
+    {
+      "requestedTick": 137,
+      "frameIndex": 11
+    },
+    {
+      "requestedTick": 150,
+      "frameIndex": 11
+    },
+    {
+      "requestedTick": 166,
+      "frameIndex": 11
+    },
+    {
+      "requestedTick": 176,
+      "frameIndex": 11
+    },
+    {
+      "requestedTick": 210,
+      "frameIndex": 11
+    },
+    {
+      "requestedTick": 236,
+      "frameIndex": 11
+    },
+    {
+      "requestedTick": 260,
+      "frameIndex": 11
+    },
+    {
+      "requestedTick": 290,
+      "frameIndex": 11
+    },
+    {
+      "requestedTick": 320,
+      "frameIndex": 11
+    },
+    {
+      "requestedTick": 340,
+      "frameIndex": 11
+    },
+    {
+      "requestedTick": 376,
+      "frameIndex": 11
+    },
+    {
+      "requestedTick": 410,
+      "frameIndex": 11
+    },
+    {
+      "requestedTick": 450,
+      "frameIndex": 11
+    },
+    {
+      "requestedTick": 490,
+      "frameIndex": 11
+    },
+    {
+      "requestedTick": 520,
+      "frameIndex": 11
+    },
+    {
+      "requestedTick": 558,
+      "frameIndex": 11
+    }
+  ],
+  "video": {
+    "status": "not requested"
+  },
+  "selection": {
+    "sourceRun": "1792541329046-lethal",
+    "completeFrames": 62,
+    "exported": 12
+  }
+}

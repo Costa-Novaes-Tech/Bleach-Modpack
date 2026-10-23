@@ -1,0 +1,31 @@
+{
+  "parent": "bettercombat:sword",
+  "attributes": {
+    "attack_range": 3.0,
+    "category": "bleach_benihime_fencing",
+    "two_handed": false,
+    "attacks": [
+      {
+        "hitbox": "VERTICAL_PLANE",
+        "angle": 75,
+        "animation": "bleachmod:benihime_diagonal",
+        "upswing": 0.45,
+        "damage_multiplier": 1.0
+      },
+      {
+        "hitbox": "HORIZONTAL_PLANE",
+        "angle": 95,
+        "animation": "bleachmod:benihime_return",
+        "upswing": 0.45,
+        "damage_multiplier": 1.0
+      },
+      {
+        "hitbox": "FORWARD_BOX",
+        "angle": 0,
+        "animation": "bleachmod:benihime_thrust",
+        "upswing": 0.45,
+        "damage_multiplier": 1.0
+      }
+    ]
+  }
+}

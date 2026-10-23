@@ -68,5 +68,37 @@
         "stream": true
       }
     ]
-  }
+  },
+  "voice.hyorinmaru_bankai": {
+    "subtitle": "subtitles.bleachmod.voice.hyorinmaru_bankai",
+    "sounds": [
+      {
+        "name": "bleachmod:hyorinmaru_voice_bankai",
+        "stream": false,
+        "preload": true,
+        "attenuation_distance": 64
+      }
+    ]
+  },
+  "voice.hyorinmaru_name": {
+    "subtitle": "subtitles.bleachmod.voice.hyorinmaru_name",
+    "sounds": [
+      {
+        "name": "bleachmod:hyorinmaru_voice_name",
+        "stream": true,
+        "attenuation_distance": 64
+      }
+    ]
+  },
+  "hyorinmaru.roar": {
+    "subtitle": "subtitles.bleachmod.hyorinmaru.roar",
+    "sounds": [
+      {
+        "name": "bleachmod:hyorinmaru_roar",
+        "stream": false,
+        "attenuation_distance": 64
+      }
+    ]
+  },
+  "hyorinmaru.theme": {"sounds": [{"name": "bleachmod:hyorinmaru_theme", "stream": true}]}
 }

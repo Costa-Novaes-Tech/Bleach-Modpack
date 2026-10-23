@@ -26,6 +26,7 @@ public final class HyorinmaruTechniqueService {
         ElementalTechniqueService.cancel(player);
         FIELDS.remove(player.getUUID()); GlacialSnowData.get(player.serverLevel()).release(player.serverLevel(), player.getUUID());
         IceArmorService.cancel(player); IceControlService.cancel(player); BlizzardWeatherData.cancel(player);
+        if (!ReleaseAnimationService.committing(player)) HyorinmaruCinematicService.cancel(player);
         var dragon = DRAGONS.remove(player.getUUID()); if (dragon != null) dragon.forEach(net.minecraft.world.entity.Entity::discard);
     }
     public static void clear() { FIELDS.clear(); DRAGONS.values().forEach(list -> list.forEach(net.minecraft.world.entity.Entity::discard)); DRAGONS.clear(); IceArmorService.clear(); IceControlService.clear(); }
@@ -34,11 +35,6 @@ public final class HyorinmaruTechniqueService {
         DRAGONS.values().removeIf(dragon -> { dragon.removeIf(e -> { if(e.level()!=level)return false;e.discard();return true; });return dragon.isEmpty(); });
     }
     public static boolean hasBankaiZone(ServerPlayer p) { var f=FIELDS.get(p.getUUID());return f!=null && f.bankai && !f.barrier && p.level().getGameTime()<f.expires; }
-    public static Vec3 consumeBloom(ServerPlayer p) {
-        var f=FIELDS.get(p.getUUID());if(f==null || !f.bankai || f.barrier)return null;
-        long left=f.expires-p.level().getGameTime();if(left<=0 || left>60)return null;
-        FIELDS.remove(p.getUUID());GlacialSnowData.get(p.serverLevel()).release(p.serverLevel(),p.getUUID());return f.origin;
-    }
     public static boolean isActive(ServerPlayer player) { return FIELDS.containsKey(player.getUUID()); }
     public static boolean equipped(ServerPlayer p, PlayerData d) {
         return CharacterData.HYORINMARU.equals(d.getCharacter().getZanpakutoIdentity()) && p.getMainHandItem().is(ModItems.HYORINMARU.get());
@@ -85,6 +81,19 @@ public final class HyorinmaruTechniqueService {
                     slot == 3, bankai, form, player.level().dimension(), player.level().getGameTime() + (slot == 3 ? 60 : bankai ? 120 : 80));
             GlacialSnowData.get(player.serverLevel()).release(player.serverLevel(), player.getUUID());
             FIELDS.put(player.getUUID(), field); // One field per owner, including free-cast test mode.
+            if (slot == 4 && bankai) {
+                var old = DRAGONS.remove(player.getUUID());
+                if (old != null) old.forEach(net.minecraft.world.entity.Entity::discard);
+                var dragon = com.bleachmod.registry.ModEntities.ICE_DRAGON.get().create(player.serverLevel());
+                if (dragon != null) {
+                    dragon.configureRoar(player, player.position(), player.getYRot(), 120);
+                    if (player.serverLevel().addFreshEntity(dragon)) {
+                        var group = new java.util.ArrayList<com.bleachmod.entity.IceDragonEntity>();
+                        group.add(dragon);
+                        DRAGONS.put(player.getUUID(), group);
+                    }
+                }
+            }
         }
         player.serverLevel().playSound(null, player.blockPosition(), net.minecraft.sounds.SoundEvents.GLASS_BREAK, player.getSoundSource(), 0.7F, bankai ? 0.7F : 1.2F);
         player.displayClientMessage(Component.translatable("message.bleachmod.hyorinmaru." + (!released && slot >= 3 ? "sealed_" : "slot_") + slot), true);
@@ -134,7 +143,13 @@ public final class HyorinmaruTechniqueService {
         IceTechniqueVisuals.duel(p, target.position());
     }
     public static void tick(ServerPlayer p, PlayerData d) {
-        IceArmorService.tick(p); BlizzardWeatherData.tickCaster(p, d);
+        IceArmorService.tick(p);
+        // Bankai atmosphere is local; never acquire a dimension-wide weather lease.
+        if (CharacterData.HYORINMARU.equals(d.getCharacter().getZanpakutoIdentity()) && equipped(p,d)
+                && p.isAlive() && !p.isSpectator() && Reference.FORM_BANKAI.equals(d.getCharacter().getActiveForm())
+                && !ReleaseAnimationService.busy(p) && p.tickCount % 8 == 0) {
+            IceTechniqueVisuals.blizzardAura(p);
+        }
         var dragon = DRAGONS.get(p.getUUID()); if (dragon != null) { dragon.removeIf(net.minecraft.world.entity.Entity::isRemoved); if(dragon.isEmpty())DRAGONS.remove(p.getUUID()); }
         Field f = FIELDS.get(p.getUUID());
         if (f == null) return;
@@ -161,8 +176,8 @@ public final class HyorinmaruTechniqueService {
                 IceControlService.chill(p, target, 30, f.bankai ? 2 : 1, f.barrier ? 3 : 4);
                 target.push(f.forward.x * 0.22, 0.04, f.forward.z * 0.22); target.hurtMarked = true;
             } else if (TechniqueGeometry.intersectsCylinder(f.origin, range, 4, 4, target.getBoundingBox())
-                    && MasteryPracticeService.hurt(p, target, p.damageSources().playerAttack(p), f.bankai ? 3 : 2, 4)) {
-                IceControlService.chill(p, target, 30, f.bankai ? 2 : 1, f.barrier ? 3 : 4);
+                    && MasteryPracticeService.hurt(p, target, p.damageSources().playerAttack(p), f.bankai ? 8 : 2, 4)) {
+                IceControlService.chill(p, target, 40, f.bankai ? 3 : 1, f.barrier ? 3 : 4);
             }
         }
     }

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Capacitar Antigravity pessoal"
+  short_description: "Melhore julgamento, ferramentas e testes do Antigravity"
+  default_prompt: "Use $antigravity-development-coach para avaliar meu Antigravity pessoal e aprimorar suas instruções, ferramentas e compreensão de testes com evidências."
