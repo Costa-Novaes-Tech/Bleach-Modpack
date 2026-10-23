@@ -1,0 +1,11 @@
+{
+  "job_id": "2026-10-23T11-50-24-642Z-Check",
+  "mode": "Check",
+  "pid": 20972,
+  "state": "failed",
+  "started": "2026-10-23T11:50:24.675Z",
+  "log": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\qa\\antigravity\\runtime-mcp\\2026-10-23T11-50-24-642Z-Check.log",
+  "exit_code": 1,
+  "signal": null,
+  "finished": "2026-10-23T11:51:26.733Z"
+}

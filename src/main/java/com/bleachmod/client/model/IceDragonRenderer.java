@@ -42,7 +42,7 @@ public final class IceDragonRenderer extends GeoEntityRenderer<IceDragonEntity> 
                 bone.setPosX((float)(-tip.x*16));bone.setPosY((float)(tip.y*16));bone.setPosZ((float)(-tip.z*16));
                 float scale=(float)com.bleachmod.common.visual.HydraMotion.smooth((growth-.65)/.35)*(head==0?1.1F:1);
                 bone.setScaleX(scale);bone.setScaleY(scale);bone.setScaleZ(scale);bone.setHidden(scale<.01 || d.isAssault() && ((d.impactMask() & (1<<head))!=0 || age>=com.bleachmod.common.visual.HydraMotion.impactTick(head)));
-                bone.setRotX((float)Math.toRadians(d.isAssault()?-35*com.bleachmod.common.visual.HydraMotion.strike(head,age):-8-22*com.bleachmod.common.visual.HydraMotion.smooth((age-48)/24)*(1-com.bleachmod.common.visual.HydraMotion.smooth((age-90)/20))));bone.setRotY((float)Math.toRadians(head==1?-16:head==2?16:0));
+                bone.setRotX(com.bleachmod.common.visual.HydraMotion.headRotX(d.isAssault(),head,age));bone.setRotY((float)Math.toRadians(head==1?-16:head==2?16:0));
                 var jaw=getAnimationProcessor().getBone("jaw_"+name);if(jaw!=null)jaw.setRotX(com.bleachmod.common.visual.HydraMotion.jaw(d.isAssault(),head,age));
             }
         }
