@@ -1,6 +1,8 @@
 package com.bleachmod.client.cinematic;
 
 import com.bleachmod.Reference;
+import com.bleachmod.common.visual.SenbonAtmosphere;
+import com.bleachmod.common.visual.SenbonCameraPath;
 import com.bleachmod.common.visual.SenbonGeometry;
 import com.bleachmod.init.ModParticles;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
@@ -8,12 +10,19 @@ import com.mojang.blaze3d.vertex.VertexFormat;
 import net.minecraft.client.Camera;
 import net.minecraft.client.CameraType;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
+import net.minecraft.world.level.ClipContext;
+import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.RenderGuiEvent;
+import net.minecraftforge.client.event.RenderGuiOverlayEvent;
 import net.minecraftforge.client.event.RenderLevelStageEvent;
+import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.client.event.ViewportEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
@@ -25,8 +34,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Client-side camera director, monumental blade renderer, sinking katana simulator,
- * and petal gale simulator for Byakuya Kuchiki's Bankai: Senbonzakura Kageyoshi.
+ * Client-side camera director, monumental blade renderer, atmospheric controller,
+ * and cinematic subtitle presenter for Byakuya Kuchiki's Bankai: Senbonzakura Kageyoshi.
  * Total presentation duration: 290 ticks (14.5 seconds).
  */
 @Mod.EventBusSubscriber(modid = Reference.MOD_ID, value = Dist.CLIENT)
@@ -61,102 +70,158 @@ public final class SenbonzakuraCinematicClient {
         return world == Minecraft.getInstance().level && SCENES.containsKey(id);
     }
 
+    public static boolean isCameraActive() {
+        return cameraActive;
+    }
+
+    private static Scene local() {
+        var mc = Minecraft.getInstance();
+        if (mc.player == null) return null;
+        return SCENES.get(mc.player.getId());
+    }
+
+    private static double age(Scene s, float partial) {
+        if (world == null) return 0.0;
+        return (world.getGameTime() - s.start) + partial;
+    }
+
     public static void accept(int id, CompoundTag tag) {
         Minecraft mc = Minecraft.getInstance();
         if (mc.level == null) return;
         if (world != mc.level) {
-            SenbonzakuraEntranceAudio.clear();
-            SCENES.clear();
+            clear();
             world = mc.level;
         }
 
         int elapsed = tag.getInt("elapsed");
         int duration = tag.getInt("duration");
         if (duration <= 0 || elapsed < 0 || elapsed >= duration) {
-            SCENES.remove(id);
-            SenbonzakuraEntranceAudio.stop(id);
-            if (mc.player != null && mc.player.getId() == id && cameraActive) {
-                restoreCamera(mc);
-            }
+            finish(id);
             return;
         }
 
         Vec3 anchor = new Vec3(tag.getDouble("x"), tag.getDouble("y"), tag.getDouble("z"));
         float yaw = tag.getFloat("yaw");
         Vec3 forward = Vec3.directionFromRotation(0, yaw);
+
+        boolean fresh = !SCENES.containsKey(id);
         SCENES.put(id, new Scene(mc.level.getGameTime() - elapsed, anchor, forward, yaw));
-    }
 
-    @SubscribeEvent(priority = EventPriority.HIGHEST)
-    public static void onComputeCameraAngles(ViewportEvent.ComputeCameraAngles e) {
-        Minecraft mc = Minecraft.getInstance();
-        if (mc.player == null || mc.level == null) return;
-
-        Scene scene = SCENES.get(mc.player.getId());
-        if (scene == null) {
-            if (cameraActive) restoreCamera(mc);
-            return;
-        }
-
-        long age = mc.level.getGameTime() - scene.start;
-        if (age < 0 || age >= DURATION) {
-            if (cameraActive) restoreCamera(mc);
-            return;
-        }
-
-        if (!cameraActive) {
-            previousCameraType = mc.options.getCameraType();
-            mc.options.setCameraType(CameraType.THIRD_PERSON_BACK);
+        if (fresh && mc.player != null && mc.player.getId() == id) {
+            if (previousCameraType == null) {
+                previousCameraType = mc.options.getCameraType();
+            }
             cameraActive = true;
+            mc.options.setCameraType(CameraType.THIRD_PERSON_BACK);
         }
-
-        Vec3 forward = scene.forward;
-        Vec3 left = SenbonGeometry.left(forward);
-        Vec3 anchor = scene.anchor;
-
-        Vec3 eye;
-        Vec3 focus;
-
-        if (age < 10) {
-            // Plano I: Preparação serena (0.0..0.5s) - Enquadramento elegante do ritual
-            eye = anchor.add(forward.scale(1.9)).add(left.scale(0.75)).add(0, 1.35, 0);
-            focus = anchor.add(0, 1.05, 0);
-        } else if (age < 76) {
-            // Plano II: A Queda & Afundamento (0.5..3.8s) - Acompanha a katana caindo e afundando no espelho d'água
-            float t = (age - 10.0F) / 66.0F;
-            float smooth = t * t * (3.0F - 2.0F * t);
-            eye = anchor.add(forward.scale(Mth.lerp(smooth, 1.9, 2.7))).add(left.scale(Mth.lerp(smooth, 0.75, 1.2))).add(0, Mth.lerp(smooth, 1.35, 0.55), 0);
-            focus = anchor.add(forward.scale(0.35 * (1.0F - smooth))).add(0, Mth.lerp(smooth, 0.95, 0.05), 0);
-        } else if (age < 160) {
-            // Plano III: O Corredor de Lâminas Monumentais (3.8..8.0s) - Contrapicado dramático revelando a escala monumental
-            float t = (age - 76.0F) / 84.0F;
-            float smooth = t * t * (3.0F - 2.0F * t);
-            eye = anchor.add(forward.scale(Mth.lerp(smooth, 3.2, 7.8))).add(left.scale(Math.sin(smooth * Math.PI) * 0.5)).add(0, 0.65, 0);
-            focus = anchor.add(0, Mth.lerp(smooth, 4.0, 14.5), 0).add(forward.scale(Mth.lerp(smooth, 0.0, -3.5)));
-        } else if (age < 228) {
-            // Plano IV: O Chamado Soberano ("Senbonzakura Kageyoshi") (8.0..11.4s) - Byakuya ao centro do corredor de luz
-            float t = (age - 160.0F) / 68.0F;
-            float smooth = t * t * (3.0F - 2.0F * t);
-            eye = anchor.add(forward.scale(Mth.lerp(smooth, 5.8, 4.8))).add(left.scale(Mth.lerp(smooth, 1.2, 0.0))).add(0, Mth.lerp(smooth, 1.45, 1.75), 0);
-            focus = anchor.add(0, 1.35, 0);
-        } else if (age < 266) {
-            // Plano V: Dispersão Progressiva em Pétalas (11.4..13.3s) - Recuo amplo mostrando as lâminas se desfazendo
-            float t = (age - 228.0F) / 38.0F;
-            float smooth = t * t * (3.0F - 2.0F * t);
-            eye = anchor.add(forward.scale(Mth.lerp(smooth, 4.8, 8.2))).add(left.scale(0.0)).add(0, Mth.lerp(smooth, 1.75, 3.2), 0);
-            focus = anchor.add(0, 1.4, 0);
-        } else {
-            // Retorno Suave ao Controle do Jogador (13.3..14.5s)
-            float t = (age - 266.0F) / 24.0F;
-            float smooth = t * t * (3.0F - 2.0F * t);
-            eye = anchor.add(forward.scale(Mth.lerp(smooth, 8.2, 4.0))).add(0, Mth.lerp(smooth, 3.2, 1.7), 0);
-            focus = anchor.add(0, 1.4, 0);
-        }
-
-        applyCamera(e, eye, focus);
     }
 
-    private static void applyCamera(ViewportEvent.ComputeCameraAngles e, Vec3 eye, Vec3 focus) {
+    private static void finish(int id) {
+        SCENES.remove(id);
+        SenbonzakuraEntranceAudio.stop(id);
+        Minecraft mc = Minecraft.getInstance();
+        if (mc.player != null && mc.player.getId() == id) {
+            restoreCamera(mc);
+        }
+    }
+
+    private static void clear() {
+        SCENES.clear();
+        SenbonzakuraEntranceAudio.clear();
+        restoreCamera(Minecraft.getInstance());
+    }
+
+    private static void restoreCamera(Minecraft mc) {
+        if (cameraActive) {
+            cameraActive = false;
+            if (previousCameraType != null && mc.options != null) {
+                mc.options.setCameraType(previousCameraType);
+            }
+            previousCameraType = null;
+        }
+    }
+
+    private static float currentFov(float partialTick) {
+        var s = local();
+        if (s == null) return 70.0F;
+        double age = age(s, partialTick);
+        float pathFov = SenbonCameraPath.sample(age).fov();
+        if (age >= SenbonCameraPath.RETURN_START) {
+            var mc = Minecraft.getInstance();
+            double t = SenbonCameraPath.ease((age - SenbonCameraPath.RETURN_START) / (DURATION - SenbonCameraPath.RETURN_START));
+            return (float) Mth.lerp(t, pathFov, mc.options.fov().get());
+        }
+        return pathFov;
+    }
+
+    private static Vec3 viewDirection(float partialTick) {
+        var mc = Minecraft.getInstance();
+        var camera = mc.gameRenderer.getMainCamera();
+        var s = local();
+        if (cameraActive && s != null) {
+            double age = age(s, partialTick);
+            var frame = SenbonCameraPath.sample(age);
+            Vec3 left = SenbonGeometry.left(s.forward);
+            Vec3 focus = s.anchor.add(left.scale(frame.focus().x)).add(0, frame.focus().y, 0).add(s.forward.scale(frame.focus().z));
+            return focus.subtract(camera.getPosition()).normalize();
+        }
+        return new Vec3(camera.getLookVector());
+    }
+
+    @SubscribeEvent(priority = EventPriority.LOW)
+    public static void onComputeCameraAngles(ViewportEvent.ComputeCameraAngles e) {
+        if (!cameraActive || world == null) return;
+        Minecraft mc = Minecraft.getInstance();
+        var s = local();
+        if (s == null || mc.player == null) {
+            restoreCamera(mc);
+            return;
+        }
+
+        double age = age(s, (float) e.getPartialTick());
+        if (age < 0.0 || age >= DURATION) {
+            restoreCamera(mc);
+            return;
+        }
+
+        var frame = SenbonCameraPath.sample(age);
+        Vec3 forward = s.forward;
+        Vec3 left = SenbonGeometry.left(forward);
+
+        // Convert camera coordinates from relative space (X lateral, Y vertical, Z forward) to world coordinates
+        Vec3 eye = s.anchor.add(left.scale(frame.eye().x)).add(0, frame.eye().y, 0).add(forward.scale(frame.eye().z));
+        Vec3 focus = s.anchor.add(left.scale(frame.focus().x)).add(0, frame.focus().y, 0).add(forward.scale(frame.focus().z));
+
+        // Smooth return to the player's actual previous perspective
+        if (age >= SenbonCameraPath.RETURN_START) {
+            double blend = (age - SenbonCameraPath.RETURN_START) / (DURATION - SenbonCameraPath.RETURN_START);
+            double t = SenbonCameraPath.ease(blend);
+            Vec3 normalEye = mc.player.getEyePosition();
+            Vec3 look = mc.player.getViewVector((float) e.getPartialTick());
+            Vec3 end = normalEye;
+            if (previousCameraType == CameraType.THIRD_PERSON_BACK) {
+                end = normalEye.subtract(look.scale(4.0));
+            } else if (previousCameraType == CameraType.THIRD_PERSON_FRONT) {
+                end = normalEye.add(look.scale(4.0));
+            }
+            Vec3 targetDirection = (previousCameraType == CameraType.THIRD_PERSON_FRONT) ? look.scale(-1.0) : look;
+            Vec3 direction = SenbonCameraPath.blendDirection(focus.subtract(eye), targetDirection, t);
+            eye = SenbonCameraPath.returnEye(eye, normalEye, end, look, t);
+            focus = eye.add(direction.scale(8.0));
+        }
+
+        // Block collision check preventing camera clipping through walls
+        Vec3 safeOrigin = mc.player.getEyePosition();
+        var hit = world.clip(new ClipContext(safeOrigin, eye, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, mc.player));
+        if (hit.getType() != HitResult.Type.MISS) {
+            eye = hit.getLocation().add(safeOrigin.subtract(eye).normalize().scale(0.2));
+        }
+
+        if (eye.distanceToSqr(focus) < 0.15) {
+            restoreCamera(mc);
+            return;
+        }
+
         try {
             if (cameraPositionMethod == null) {
                 cameraPositionMethod = net.minecraftforge.fml.util.ObfuscationReflectionHelper.findMethod(Camera.class, "m_90581_", Vec3.class);
@@ -166,45 +231,264 @@ public final class SenbonzakuraCinematicClient {
             e.setYaw((float) Math.toDegrees(Math.atan2(-delta.x, delta.z)));
             e.setPitch((float) -Math.toDegrees(Math.atan2(delta.y, delta.horizontalDistance())));
             e.setRoll(0.0F);
-        } catch (ReflectiveOperationException ignored) { }
+        } catch (ReflectiveOperationException ignored) {
+            restoreCamera(mc);
+        }
     }
 
-    private static void restoreCamera(Minecraft mc) {
-        cameraActive = false;
-        if (previousCameraType != null) {
-            mc.options.setCameraType(previousCameraType);
-            previousCameraType = null;
+    @SubscribeEvent
+    public static void onComputeFov(ViewportEvent.ComputeFov e) {
+        if (!cameraActive || world == null) return;
+        var s = local();
+        if (s == null) return;
+        double age = age(s, (float) e.getPartialTick());
+        if (age >= 0.0 && age < DURATION && e.usedConfiguredFov()) {
+            e.setFOV(currentFov((float) e.getPartialTick()));
         }
+    }
+
+    /**
+     * Prevents viewing inside the player's head on first-person camera return.
+     */
+    @SubscribeEvent
+    public static void hidePlayerOnReturn(RenderPlayerEvent.Pre event) {
+        var mc = Minecraft.getInstance();
+        var s = local();
+        if (!cameraActive || s == null || event.getEntity() != mc.player || previousCameraType != CameraType.FIRST_PERSON) return;
+        double age = age(s, event.getPartialTick());
+        if (age >= SenbonCameraPath.RETURN_START && mc.gameRenderer.getMainCamera().getPosition().distanceToSqr(mc.player.getEyePosition()) < 1.8) {
+            event.setCanceled(true);
+        }
+    }
+
+    /**
+     * Atmospheric twilight darkening: blends distant fog towards a deep spiritual indigo/violet night
+     * without touching global weather, daytime, or player brightness.
+     */
+    @SubscribeEvent
+    public static void onComputeFogColor(ViewportEvent.ComputeFogColor e) {
+        if (world == null || SCENES.isEmpty()) return;
+        double shade = computeAtmosphereShade((float) e.getPartialTick());
+        if (shade <= 0.005) return;
+
+        float dark = (float) (shade * 0.88);
+        e.setRed(Mth.lerp(dark, e.getRed(), 0.035F));
+        e.setGreen(Mth.lerp(dark, e.getGreen(), 0.020F));
+        e.setBlue(Mth.lerp(dark, e.getBlue(), 0.075F));
+    }
+
+    @SubscribeEvent
+    public static void onRenderFog(ViewportEvent.RenderFog e) {
+        if (world == null || SCENES.isEmpty()) return;
+        double shade = computeAtmosphereShade((float) e.getPartialTick());
+        if (shade <= 0.01) return;
+
+        float dark = (float) shade;
+        float vanillaNear = e.getNearPlaneDistance();
+        float vanillaFar = e.getFarPlaneDistance();
+        e.setNearPlaneDistance(Mth.lerp(dark * 0.85F, vanillaNear, 16.0F));
+        e.setFarPlaneDistance(Mth.lerp(dark * 0.85F, vanillaFar, 40.0F));
+        e.setCanceled(true);
+    }
+
+    private static double computeAtmosphereShade(float partialTick) {
+        var mc = Minecraft.getInstance();
+        if (mc.player == null) return 0.0;
+        double maxShade = 0.0;
+        Vec3 camPos = mc.gameRenderer.getMainCamera().getPosition();
+        Vec3 viewDir = viewDirection(partialTick);
+
+        for (var scene : SCENES.values()) {
+            double age = age(scene, partialTick);
+            if (age < 0.0 || age >= DURATION) continue;
+
+            double dark = SenbonAtmosphere.darkness(age);
+            if (dark <= 0.0) continue;
+
+            boolean isLocalCaster = mc.player.getId() == getIdForScene(scene);
+            if (isLocalCaster && cameraActive) {
+                if (dark > maxShade) maxShade = dark;
+            } else {
+                // Observer: proximity and orientation check
+                Vec3 delta = scene.anchor.subtract(camPos);
+                double distanceFactor = Mth.clamp((52.0 - delta.length()) / 28.0, 0.0, 1.0);
+                double facingFactor = Mth.clamp((viewDir.dot(delta.normalize()) - 0.2) / 0.6, 0.0, 1.0);
+                double observerShade = distanceFactor * facingFactor * dark;
+                if (observerShade > maxShade) maxShade = observerShade;
+            }
+        }
+        return maxShade;
+    }
+
+    private static int getIdForScene(Scene scene) {
+        for (var entry : SCENES.entrySet()) {
+            if (entry.getValue() == scene) return entry.getKey();
+        }
+        return -1;
+    }
+
+    @SubscribeEvent
+    public static void onHudOverlay(RenderGuiOverlayEvent.Pre event) {
+        if (cameraActive && local() != null) {
+            // Cancel vanilla combat HUD so cinematic letterboxing and subtitles stay clean
+            event.setCanceled(true);
+        }
+    }
+
+    @SubscribeEvent
+    public static void onGuiRender(RenderGuiEvent.Post event) {
+        var mc = Minecraft.getInstance();
+        if (mc.level != world || mc.player == null || mc.screen != null) return;
+
+        // 1. Atmosphere Screen-space Spotlight Penumbra (Local and Observers)
+        double shade = computeAtmosphereShade(event.getPartialTick());
+        Scene targetScene = local();
+        if (targetScene == null) {
+            for (var s : SCENES.values()) {
+                targetScene = s;
+                break;
+            }
+        }
+        if (shade > 0.01 && targetScene != null) {
+            renderSpotlightPenumbra(event, targetScene, shade);
+        }
+
+        if (!cameraActive) return;
+        var s = local();
+        if (s == null) return;
+
+        double age = age(s, event.getPartialTick());
+        if (age < 0.0 || age >= DURATION) return;
+
+        GuiGraphics g = event.getGuiGraphics();
+        double envelope = SenbonCameraPath.ease(age / 12.0) * (1.0 - SenbonCameraPath.ease((age - (DURATION - 16)) / 16.0));
+        int barHeight = (int) (g.guiHeight() * 0.065 * envelope);
+
+        // 2. Cinematic Letterbox Bars
+        if (barHeight > 0) {
+            g.fill(0, 0, g.guiWidth(), barHeight, 0xEE000000);
+            g.fill(0, g.guiHeight() - barHeight, g.guiWidth(), g.guiHeight(), 0xEE000000);
+        }
+
+        // 3. Cinematic Subtitles (Centered at the lower screen with subtle dark plate)
+        var sub = SenbonAtmosphere.subtitle(age);
+        if (sub != null && sub.alpha() > 0.01F) {
+            var font = mc.font;
+            String text = Component.translatable(sub.translationKey()).getString();
+            int textWidth = font.width(text);
+            int y = g.guiHeight() - barHeight - 22;
+
+            int padX = 8, padY = 3;
+            int x1 = (g.guiWidth() - textWidth) / 2 - padX;
+            int x2 = (g.guiWidth() + textWidth) / 2 + padX;
+            int y1 = y - padY;
+            int y2 = y + font.lineHeight + padY;
+
+            // Subtle dark translucent background pill
+            int bgAlpha = (int) (140 * sub.alpha());
+            g.fill(x1, y1, x2, y2, (bgAlpha << 24) | 0x0A0B12);
+
+            // Ivory text with drop shadow
+            int textAlpha = (int) (255 * sub.alpha());
+            int textColor = (textAlpha << 24) | 0xF0F4F8;
+            g.drawCenteredString(font, text, g.guiWidth() / 2, y, textColor);
+        }
+    }
+
+    /**
+     * Renders a screen-space vignette with a soft elliptical cutout over the player's projected body,
+     * maintaining full clarity on the Shinigami while dimming peripheral background elements.
+     */
+    private static void renderSpotlightPenumbra(RenderGuiEvent.Post e, Scene scene, double shade) {
+        var mc = Minecraft.getInstance();
+        var g = e.getGuiGraphics();
+        double w = g.guiWidth(), h = g.guiHeight();
+        var camera = mc.gameRenderer.getMainCamera();
+        Vec3 actor = scene.anchor;
+        Vec3 relative = actor.add(0, 0.95, 0).subtract(camera.getPosition());
+        Vec3 look = viewDirection((float) e.getPartialTick());
+        Vec3 right = look.cross(new Vec3(0, 1, 0)).normalize();
+        Vec3 up = right.cross(look).normalize();
+        double depth = relative.dot(look);
+
+        float fovVal = cameraActive ? currentFov((float) e.getPartialTick()) : mc.options.fov().get().floatValue();
+        double tan = Math.tan(Math.toRadians(fovVal) / 2.0);
+        double scale = h / (2.0 * tan * Math.max(0.1, depth));
+        double cx = w * 0.5 + relative.dot(right) * scale;
+        double cy = h * 0.5 - relative.dot(up) * scale;
+        double rx = Math.max(14.0, 1.15 * scale);
+        double ry = Math.max(22.0, 1.85 * scale);
+
+        var vertices = g.bufferSource().getBuffer(RenderType.gui());
+        var matrix = g.pose().last().pose();
+        int step = 16;
+        for (int y = 0; y < h; y += step) {
+            for (int x = 0; x < w; x += step) {
+                int x2 = (int) Math.min(w, x + step);
+                int y2 = (int) Math.min(h, y + step);
+                for (int[] p : new int[][]{{x, y}, {x, y2}, {x2, y2}, {x2, y}}) {
+                    double mask = depth > 0.1 ? SenbonAtmosphere.ellipseMask(p[0], p[1], cx, cy, rx, ry) : 1.0;
+                    vertices.vertex(matrix, p[0], p[1], 0).color(6, 4, 12, (int) (225 * shade * mask)).endVertex();
+                }
+            }
+        }
+        g.flush();
     }
 
     @SubscribeEvent
     public static void onClientTick(TickEvent.ClientTickEvent e) {
         if (e.phase != TickEvent.Phase.END) return;
         Minecraft mc = Minecraft.getInstance();
-        if (mc.level == null) return;
+        if (mc.level == null) {
+            clear();
+            return;
+        }
+        if (world != mc.level) {
+            clear();
+            world = mc.level;
+            return;
+        }
 
-        // Cleanup expired scenes & audio
-        for (var it = SCENES.entrySet().iterator(); it.hasNext(); ) {
-            var entry = it.next();
-            if (mc.level.getGameTime() - entry.getValue().start >= DURATION) {
-                SenbonzakuraEntranceAudio.stop(entry.getKey());
-                it.remove();
+        // If player gives movement/attack input after combat lock (tick 60), smoothly restore camera
+        if (cameraActive && mc.player != null) {
+            var s = local();
+            if (s != null && (mc.level.getGameTime() - s.start) >= 60) {
+                if (mc.player.hurtTime > 0
+                        || mc.options.keyUp.isDown()
+                        || mc.options.keyDown.isDown()
+                        || mc.options.keyLeft.isDown()
+                        || mc.options.keyRight.isDown()
+                        || mc.options.keyAttack.isDown()
+                        || mc.options.keyUse.isDown()
+                        || mc.options.keyJump.isDown()
+                        || CinematicDirector.localActive()) {
+                    restoreCamera(mc);
+                }
             }
         }
 
-        if (mc.player != null && !SCENES.containsKey(mc.player.getId()) && cameraActive) {
-            restoreCamera(mc);
-        }
-
-        // Particle simulation & audio update during cinematic
-        for (Map.Entry<Integer, Scene> entry : SCENES.entrySet()) {
+        // Cleanup expired scenes & update audio
+        for (var it = SCENES.entrySet().iterator(); it.hasNext(); ) {
+            var entry = it.next();
             int id = entry.getKey();
             Scene s = entry.getValue();
             long age = mc.level.getGameTime() - s.start;
-            if (age < 0 || age >= DURATION) continue;
-
+            if (age >= DURATION) {
+                SenbonzakuraEntranceAudio.stop(id);
+                it.remove();
+                if (mc.player != null && mc.player.getId() == id) {
+                    restoreCamera(mc);
+                }
+                continue;
+            }
             boolean isLocal = mc.player != null && mc.player.getId() == id;
             SenbonzakuraEntranceAudio.update(id, age, s.anchor, isLocal);
+        }
+
+        // Particle simulation during cinematic
+        for (Scene s : SCENES.values()) {
+            long age = mc.level.getGameTime() - s.start;
+            if (age < 0 || age >= DURATION) continue;
 
             Vec3 anchor = s.anchor;
             Vec3 forward = s.forward;
@@ -226,7 +510,7 @@ public final class SenbonzakuraCinematicClient {
             // Phase 4: Massive dual cyclone vortex of petals during blade dispersion (age 228..290)
             if (age >= 228) {
                 float petalProgress = (age - 228.0F) / 62.0F;
-                int petalCount = 32;
+                int petalCount = 28;
                 for (int side : new int[]{-1, 1}) {
                     Vec3 colCenter = anchor.add(left.scale(side * 4.5));
                     for (int i = 0; i < petalCount; i++) {
@@ -295,25 +579,20 @@ public final class SenbonzakuraCinematicClient {
      * and progressively sinking into the spiritual water surface by clipping quads at ground level.
      */
     private static void renderFallingSinkingKatana(com.mojang.blaze3d.vertex.VertexConsumer v, org.joml.Matrix4f m, Vec3 dropOrigin, double groundRelY, int age, Vec3 forward, Vec3 left) {
-        // Drop starts at hand height (1.25m above ground)
-        // Katana dimensions: 1.05m total (blade 0.75m, tsuba 0.04m, tsuka hilt 0.26m)
         float initialHiltTop = 1.25F;
         float fallDist;
         if (age < 35) {
-            // Freefall from hand to ground contact (ticks 10..35 = 25 ticks)
             float t = (age - 10.0F) / 25.0F;
-            fallDist = t * t * 0.20F; // Tip starts at 0.20m above ground, reaches ground at tick 35
+            fallDist = t * t * 0.20F;
         } else {
-            // Progressively sinking into the spiritual water floor (ticks 35..76 = 41 ticks)
             float t = (age - 35.0F) / 41.0F;
-            fallDist = 0.20F + t * 1.05F; // Entire 1.05m sword sinks through the water plane
+            fallDist = 0.20F + t * 1.05F;
         }
 
         double hiltTopY = dropOrigin.y + (initialHiltTop - fallDist);
         double tsubaY = hiltTopY - 0.26;
         double tipY = tsubaY - 0.75;
 
-        // If completely submerged, nothing to render
         if (hiltTopY <= groundRelY) return;
 
         Vec3 up = new Vec3(0, 1, 0);
@@ -325,9 +604,7 @@ public final class SenbonzakuraCinematicClient {
             double bladeLength = bladeTop - bladeBottom;
             if (bladeLength > 0.01) {
                 Vec3 bladeBase = new Vec3(dropOrigin.x, bladeBottom, dropOrigin.z);
-                // Steel blade core
                 quadPillar(v, m, bladeBase, up, left, forward, 0.022F, (float) bladeLength, 215, 225, 240, 245);
-                // Glowing hamon cutting edge
                 Vec3 edgeStart = bladeBase.add(left.scale(-0.024));
                 quadRibbon(v, m, edgeStart, edgeStart.add(0, bladeLength, 0), forward.scale(0.012), 255, 175, 220, 255);
             }
@@ -347,7 +624,6 @@ public final class SenbonzakuraCinematicClient {
             if (hiltLength > 0.01) {
                 Vec3 hiltBase = new Vec3(dropOrigin.x, hiltBottom, dropOrigin.z);
                 quadPillar(v, m, hiltBase, up, left, forward, 0.018F, (float) hiltLength, 95, 35, 125, 255);
-                // Golden kashira pommel
                 if (hiltTopY - 0.03 >= groundRelY) {
                     Vec3 pommelBase = new Vec3(dropOrigin.x, hiltTopY - 0.03, dropOrigin.z);
                     quadPillar(v, m, pommelBase, up, left, forward, 0.022F, 0.03F, 240, 195, 75, 255);
@@ -357,7 +633,6 @@ public final class SenbonzakuraCinematicClient {
     }
 
     private static void renderReishiRippleDiscs(com.mojang.blaze3d.vertex.VertexConsumer v, org.joml.Matrix4f m, Vec3 origin, int age) {
-        // Multi-tiered glowing rings expanding on the floor
         double[] baseRadii = {0.8, 1.8, 3.2, 4.8, 6.5};
         float life = Mth.clamp((age - 30.0F) / 150.0F, 0.0F, 1.0F);
         float fade = (age >= 140) ? (1.0F - (age - 140.0F) / 40.0F) : 1.0F;
@@ -407,21 +682,17 @@ public final class SenbonzakuraCinematicClient {
             for (int i = 0; i < bladeCountPerRow; i++) {
                 Vec3 bladeBase = origin.add(left.scale(side * corridorHalfWidth)).add(forward.scale(startZ + i * bladeSpacingZ));
 
-                // Sequential emergence from back to front
                 float delay = 76.0F + (bladeCountPerRow - 1 - i) * 3.2F;
                 float rawGrow = Mth.clamp((age - delay) / 32.0F, 0.0F, 1.0F);
                 if (rawGrow <= 0.0F) continue;
 
-                // Smooth ease-out growth curve
                 float grow = (float) Math.sin(rawGrow * Math.PI * 0.5);
 
-                // Subtle resonant tremor during name invocation (age 160..228)
                 float tremor = 0.0F;
                 if (age >= 160 && age <= 228) {
                     tremor = (float) Math.sin((age * 0.75F) + i * 0.6F) * 0.06F;
                 }
 
-                // Progressive dissolution into petals from top to bottom (age 228..266)
                 float dissolve = 0.0F;
                 float fade = 1.0F;
                 if (age >= 228) {
@@ -447,8 +718,6 @@ public final class SenbonzakuraCinematicClient {
         // 1. Tsuka (Purple Hilt) & Pommel
         float hiltHeight = Math.min(3.2F, totalHeight * 0.16F);
         quadPillar(v, m, bladeOrigin, up, left, forward, 0.28F, hiltHeight, 85, 30, 120, alpha);
-
-        // Kashira golden pommel at base
         quadPillar(v, m, bladeOrigin, up, left, forward, 0.32F, 0.45F, 240, 195, 75, alpha);
 
         // 2. Tsuba (Rectangular Open-Frame Gold Guard)
@@ -463,17 +732,11 @@ public final class SenbonzakuraCinematicClient {
             Vec3 bladeStart = bladeOrigin.add(0, hiltHeight + 0.35F, 0);
             float bladeLen = totalHeight - (hiltHeight + 0.35F);
 
-            // Steel blade core
             quadPillar(v, m, bladeStart, up, left, forward, 0.36F, bladeLen, 210, 222, 238, (int) (235 * fade));
-
-            // Glowing pink/white cutting edge with hamon temper line
             Vec3 edgeStart = bladeStart.add(left.scale(-0.38F));
             quadRibbon(v, m, edgeStart, edgeStart.add(0, bladeLen, 0), forward.scale(0.16F), 255, 175, 220, alpha);
-
-            // Razor shine apex (pure bright line)
             quadRibbon(v, m, edgeStart, edgeStart.add(0, bladeLen, 0), up.scale(0.06F), 255, 255, 255, alpha);
 
-            // Angled Kissaki Tip (only if not yet dissolved away)
             if (dissolve < 0.15F) {
                 Vec3 tipBase = bladeStart.add(0, bladeLen, 0);
                 Vec3 tipApex = tipBase.add(0, 1.2F, 0).add(left.scale(0.18F));
