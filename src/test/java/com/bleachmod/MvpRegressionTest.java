@@ -16,6 +16,30 @@ import java.util.*;
 public final class MvpRegressionTest {
     private static int count;
     public static void main(String[] args) {
+        test("Benihime camera follows the grasp and opens before floor supports without moving the rig clock",()->{
+            var previous=com.bleachmod.common.visual.BenihimeEntranceCamera.sample(108);
+            for(int i=433;i<=2112;i++){
+                double age=i/4.0;
+                var frame=com.bleachmod.common.visual.BenihimeEntranceCamera.sample(age);
+                yes(Double.isFinite(frame.eye().lengthSqr()));
+                yes(frame.eye().distanceTo(frame.focus())>2);
+                yes(frame.eye().distanceTo(previous.eye())<.5);
+                yes(frame.focus().distanceTo(previous.focus())<.5);
+                yes(frame.fov()>=40 && frame.fov()<=60);
+                if(age>=138 && age<=176){
+                    yes(frame.focus().distanceTo(com.bleachmod.common.visual.BenihimeEntranceGeometry.hemAnchor(age))<1);
+                    yes(frame.eye().z<11);
+                }
+                previous=frame;
+            }
+            for(int t:new int[]{280,340,450,528}){
+                var frame=com.bleachmod.common.visual.BenihimeEntranceCamera.sample(t);
+                var wide=com.bleachmod.common.visual.BenihimeEntranceCamera.wide(t);
+                yes(frame.eye().distanceTo(wide.eye())<.00001);
+            }
+            eq(560,com.bleachmod.common.visual.BenihimeEntranceTimeline.DURATION);
+            eq(176,com.bleachmod.common.visual.BenihimeEntranceTimeline.Phase.PULL.start());
+        });
         test("Hyorinmaru camera stays continuous and opposing return directions never collapse",()->{
             var previous=com.bleachmod.common.visual.HyorinmaruCameraPath.sample(0);
             for(int i=1;i<=1840;i++){

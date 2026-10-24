@@ -141,7 +141,21 @@ public final class BenihimeEntranceClient {
         if(s.bench&&angle.equals("hand")){eye=a.add(f.scale(-7)).add(right.scale(-4)).add(0,5,0);focus=a.add(f.scale(-12)).add(0,4.6,0);fov=45;}
         else if(s.bench&&angle.equals("side")){eye=a.add(right.scale(19)).add(f.scale(-5)).add(0,6,0);focus=a.add(f.scale(-10)).add(0,4.8,0);}
         else if(age<72&&!s.bench){double t=Mth.clamp(age/50,0,1);double face=com.bleachmod.common.visual.BenihimePlayerPose.faceHeight(age);eye=a.add(s.actorForward.scale(2.3-.7*t)).add(0,face+.12,0);focus=a.add(0,face,0);fov=42;}
-        else{double t=s.bench?1:Mth.clamp((age-72)/40,0,1);double lateral=2*t*(1-com.bleachmod.common.visual.BenihimeEntranceTimeline.progress(age,340,450));eye=a.add(f.scale(3+5*t)).add(right.scale(lateral)).add(0,1.5+1.6*t,0);focus=a.add(f.scale(-8*t)).add(0,1+2.5*t,0);fov=58;}
+        else if(s.bench){double t=1;double lateral=2*t*(1-com.bleachmod.common.visual.BenihimeEntranceTimeline.progress(age,340,450));eye=a.add(f.scale(3+5*t)).add(right.scale(lateral)).add(0,1.5+1.6*t,0);focus=a.add(f.scale(-8*t)).add(0,1+2.5*t,0);fov=58;}
+        else{
+            var frame=com.bleachmod.common.visual.BenihimeEntranceCamera.sample(Math.max(108,age));
+            Vec3 across=com.bleachmod.common.visual.SenbonGeometry.left(f),behind=f.scale(-1);
+            eye=a.add(across.scale(frame.eye().x)).add(0,frame.eye().y,0).add(behind.scale(frame.eye().z));
+            focus=a.add(across.scale(frame.focus().x)).add(0,frame.focus().y,0).add(behind.scale(frame.focus().z));
+            fov=frame.fov();
+            if(age<108){
+                double t=com.bleachmod.common.visual.BenihimeEntranceTimeline.progress(age,72,108);
+                double faceHeight=com.bleachmod.common.visual.BenihimePlayerPose.faceHeight(age);
+                eye=a.add(s.actorForward.scale(1.6)).add(0,faceHeight+.12,0).lerp(eye,t);
+                focus=a.add(0,faceHeight,0).lerp(focus,t);
+                fov=(float)Mth.lerp(t,42,fov);
+            }
+        }
         if(!s.bench&&age>528){
             double t=Mth.clamp((age-528)/32,0,1);t=t*t*(3-2*t);var normal=returnShot();
             Vec3 from=focus.subtract(eye).normalize(),to=normal.focus.subtract(normal.eye).normalize();
