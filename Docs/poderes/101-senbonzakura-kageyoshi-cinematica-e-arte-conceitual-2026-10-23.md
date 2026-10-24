@@ -216,7 +216,7 @@ Na segunda iteração de modelagem, os scaffolds foram elevados ao padrão final
 
 ---
 
-## 7. Expansão Cinemática Canônica: 14.5s (290 Ticks) com Áudio Oficial e 20 Lâminas Colossais
+## 7. Expansão Cinemática: 14.5s (290 Ticks, Duração Adotada pelo Projeto) com Áudio Oficial e 20 Lâminas Colossais
 
 ### 7.1. Pipeline e Preservação de Áudio do Usuário
 Os áudios fornecidos pelo usuário foram analisados tecnicamente, normalizados e convertidos em OGG de alta fidelidade (Vorbis q6, 44.1 kHz) com ducking inteligente da trilha sonora durante as falas:
@@ -273,3 +273,75 @@ Os áudios fornecidos pelo usuário foram analisados tecnicamente, normalizados 
     - `frame-t228.png`: Gesto de comando com braço estendido e vibração harmônica.
     - `frame-t266.png`: Vórtice ciclônico de pétalas.
     - `frame-t290.png`: Retorno suave ao F5.
+
+---
+
+## 8. Refinamento de Legendas, Trajetória Contínua de Câmera e Atmosfera Visual (Ciclo 101.1)
+
+Em resposta à homologação do ciclo expandido e às observações técnicas de continuidade, a cinemática de transformação da Bankai de Senbonzakura Kageyoshi recebeu uma reformulação completa em três pilares fundamentais: legendas cinematográficas centrais, direção de câmera contínua sem quebras de foco e atmosfera espiritual crepuscular.
+
+### 8.1. Legendas Cinematográficas Centrais e Sincronia Precisa de Fala
+1. **Medição Acústica Rigorosa do Áudio**:
+   - `Senbonzakura_Bankai_complete_voice.wav`: duração total 3.300s, com início efetivo de fonemas em 0.040s e término em 3.267s. O cue é disparado no tick 10. A legenda central *"Bankai."* inicia fade-in imediatamente no tick 10, atinge opacidade máxima nos ticks 18..70 e executa fade-out suave até o tick 78.
+   - `Senbonzakura_Kageyoshi_best_voice.wav`: duração total 3.350s. **Constatou-se uma janela de silêncio inicial de 0.429s (8.5 ticks) antes do primeiro fonema de "Senbonzakura"**. Disparar a legenda no tick 160 criava descompasso visual com a fala. A legenda central *"Senbonzakura Kageyoshi."* passa a realizar fade-in no tick 165 (sincronizada com o início do áudio audível), sustenta visibilidade completa durante toda a enunciação até o tick 228 e realiza fade-out suave até o tick 244.
+2. **Design e Tipografia**:
+   - Texto em tom marfim claro (`0xF0F4F8`) com sombra projetada (*drop shadow*), eliminando sobreposição ilegível de texto rosa sobre pétalas de cerejeira.
+   - Pílula de fundo retangular suave em azul-noite escuro translúcido (`0x0A0B12` com alfa proporcional de até 140/255), posicionada centralizada na parte inferior da tela, exatamente acima da barra preta inferior da proporção cinematográfica (*letterbox*).
+3. **Localização e Acessibilidade**:
+   - Chaves dedicadas adicionadas a `en_us.json` e `pt_br.json`:
+     - `cinematic.bleachmod.senbonzakura.bankai`: "Bankai."
+     - `cinematic.bleachmod.senbonzakura.name`: "Senbonzakura Kageyoshi."
+   - Preservação total das legendas nativas de acessibilidade do Minecraft via `subtitles.bleachmod.voice.senbonzakura_bankai` e `subtitles.bleachmod.voice.senbonzakura_name`.
+   - **Ordem de Overlays e Compatibilidade**: O cancelamento do HUD de combate em `RenderGuiOverlayEvent.Pre` oculta apenas elementos de gameplay (corações, fome, barra de itens e mira), permitindo que `RenderGuiEvent.Post` desenhe as barras cinematográficas pretas, a vinheta e as legendas centralizadas com total clareza. Na finalização ou interrupção da cena, todos os elementos são imediatamente restaurados.
+
+### 8.2. Redesenho da Trajetória Contínua da Câmera (`SenbonCameraPath.java`)
+1. **Eliminação de Descontinuidades ($C^0$ e $C^1$)**:
+   - A implementação anterior utilizava equações separadas por segmento, provocando descontinuidades de posição e foco nos ticks 76 (salto de 4 blocos) e 160 (salto vertical de 13 blocos).
+   - O novo caminho foi parametrizado em uma tabela única de keyframes contínuos com pontos de contorno idênticos:
+     - $t = 0 \dots 10$: Plano médio frontal estável enquadrando o rosto sereno, a mão direita e a katana invertida.
+     - $t = 10 \dots 35$: Acompanhamento controlado da queda, preservando o alinhamento visual contínuo entre mão, lâmina e o solo.
+     - $t = 35 \dots 76$: Tomada superior oblíqua registrando o contato no solo aquoso e as ondulações concêntricas de Reishi, sem atravessar o solo.
+     - $t = 76 \dots 112$: Contrapicado dramático acompanhando a ascensão real das 20 lâminas gigantes brotando da terra em direção ao céu.
+     - $t = 112 \dots 160$: Revelação em profundidade do corredor simétrico e descida suave e fluida do foco até Byakuya, eliminando qualquer salto no tick 160.
+     - $t = 160 \dots 228$: Composição frontal nobre durante a invocação do nome com aproximação lenta e discreta (*push-in* de 0.8 blocos ao longo de 68 ticks), sem rotações contínuas desnecessárias.
+     - $t = 228 \dots 266$: Recuo moderado enquadrando a desintegração das lâminas em tufões ciclônicos de pétalas, mantendo o Shinigami visível no centro.
+     - $t = 266 \dots 290$: Retorno orbital suave à perspectiva real anteriormente usada pelo jogador (`FIRST_PERSON`, `THIRD_PERSON_BACK` ou `THIRD_PERSON_FRONT`).
+2. **Prevenção de Colisão com o Cenário**:
+   - Verificação em tempo real via `world.clip(new ClipContext(safeOrigin, eye, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, player))`.
+   - Caso a câmera encontre blocos sólidos no caminho orbital ou de recuo, ela é contida e projetada para a superfície do bloco com margem de segurança de 0.2 blocos, evitando travessia de paredes ou telas pretas.
+3. **Retorno Suave em Primeira Pessoa Sem Visão Interna**:
+   - Integração com `RenderPlayerEvent.Pre` (`hidePlayerOnReturn`): quando a perspectiva de retorno é primeira pessoa, o modelo da cabeça do jogador é omitido assim que a câmera se aproxima a menos de 1.8 blocos do ponto de visão, prevenindo a visualização interna do crânio/olhos do modelo.
+
+### 8.3. Atmosfera Espiritual Crepuscular e Penumbra Screen-space (`SenbonAtmosphere.java`)
+1. **Transição Gradual de Luminosidade**:
+   - $t = 0 \dots 35$: Escurecimento suave da atmosfera ($0.0 \to 1.0$).
+   - $t = 35 \dots 228$: Sustentação contínua da penumbra espiritual profunda ($1.0$).
+   - $t = 228 \dots 266$: Recuperação luminosa parcial durante a dispersão das pétalas ($1.0 \to 0.30$).
+   - $t = 266 \dots 290$: Retorno total à claridade natural do mundo ($0.30 \to 0.0$).
+2. **Névoa Espiritual Crepuscular (Indigo/Violeta)**:
+   - Modulação via `ViewportEvent.ComputeFogColor` e `ViewportEvent.RenderFog`: a cor da névoa do mundo se converte em um azul-escuro crepuscular índigo/violeta (`0.035, 0.020, 0.075`), e as distâncias de névoa aproximam-se para 16 blocos (plano próximo) e 40 blocos (plano distante).
+   - Esse contraste cinematográfico destaca intensamente o brilho branco do aço, o fio de têmpera (*hamon*) luminescente e as milhares de pétalas de cerejeira em suspensão, mesmo durante o meio-dia no jogo.
+   - **Preservação de Integridade**: Nenhum comando global de clima (`/weather`) é executado (sem chuva ou tempestades), o relógio de tempo do mundo (`timeOfDay`) não é adulterado e nenhum efeito negativo de poção (`Blindness` ou `Darkness`) é aplicado aos jogadores.
+3. **Vinheta com Recorte Elíptico de Foco (*Spotlight Penumbra*)**:
+   - Em `RenderGuiEvent.Post`, uma máscara elíptica suave projeta um foco de iluminação ao redor da silhueta de Byakuya, escurecendo a periferia da tela enquanto mantém o Shinigami perfeitamente iluminado e nítido.
+4. **Visão de Observadores e Atenuação por Distância**:
+   - Jogadores observadores dentro do raio de 52 blocos recebem escurecimento volumétrico atenuado proporcionalmente à distância e ao ângulo de visão voltado para o epicentro da liberação.
+
+### 8.4. Validação e Evidências Visuais Reais em Jogo (Ciclo 101.1)
+- **Compilação Gradle**:
+  - `.\gradlew.bat compileJava --offline --console=plain` -> **BUILD SUCCESSFUL (Exit 0)** em 1m 2s.
+- **GameTests Headless**:
+  - `tools/antigravity/Invoke-Design.ps1 -Mode GameTests` -> **All 223 required tests passed :) (Exit 0)** em 2m 58s.
+  - Testes cobrindo interrupção, commit de forma, consumo de stamina/reiatsu, esquiva, defesa e integridade das 6 classes de Zanpakutō.
+- **ClientQa In-Game Real (Suíte Completa de 6 Cenários)**:
+  - Comando: `tools/antigravity/Invoke-Design.ps1 -Mode ClientQa`
+  - Log: `Docs/poderes/qa/antigravity/ClientQa-20261023-204628.log`
+  - Resultado: **BUILD SUCCESSFUL (Exit 0)** em 6m 31s.
+  - Cenários executados e validados:
+    1. `01_bankai_day_transformation`: Transformação diurna completa de 290 ticks. Legendas *"Bankai."* (t=10..78) e *"Senbonzakura Kageyoshi."* (t=165..244) renderizadas no centro sobre pílula escura translúcida e barras pretas. Atmosfera crepuscular e continuidade perfeita da câmera.
+    2. `02_bankai_night_transformation`: Transformação em ambiente noturno. Alto contraste das lâminas de aço iluminadas e pétalas de sakura.
+    3. `03_bankai_first_person_return`: Jogador iniciando em 1ª pessoa (`CameraType.FIRST_PERSON`). A cinemática transita para terceira pessoa para o espetáculo e retorna com precisão para primeira pessoa no tick 290, com a katana na mão direita e sem visualizar o interior da cabeça.
+    4. `04_bankai_near_wall_collision`: Transformação executada encostada a uma parede maciça de tijolos de pedra. A câmera colide e ajusta a distância com segurança, sem atravessar a parede.
+    5. `05_bankai_interruption_cleanup`: Interrupção forçada via esquiva no tick 70. A câmera, as barras cinematográficas, a legenda e os efeitos atmosféricos foram imediatamente cancelados e o controle restaurado instantaneamente. A forma Bankai permaneceu ativa (pois o commit formal ocorreu no tick 40).
+    6. `06_bankai_consecutive_activation`: Segunda ativação consecutiva logo após limpeza, comprovando ausência de vazamento de estado, duplicação de áudio ou dessincronização de câmera.
+  - Capturas registradas e preservadas em `run-benihime-qa/base/senbonzakura-qa/cycle101-1792799290780/` e incorporadas ao storyboard visual do mod.

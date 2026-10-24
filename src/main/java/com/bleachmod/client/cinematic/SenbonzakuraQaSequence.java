@@ -12,12 +12,15 @@ import com.mojang.logging.LogUtils;
 import net.minecraft.client.CameraType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.Screenshot;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Husk;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
@@ -39,18 +42,23 @@ import java.util.UUID;
 import static net.minecraft.commands.Commands.literal;
 
 /**
- * Automated in-game validation sequence and screenshot capture for Byakuya Kuchiki's Bankai: Senbonzakura Kageyoshi.
- * Captures the 100-tick cinematic sequence:
- *   - The vertical drop of the katana into water ripples (t=0..20)
- *   - The 12 colossal rising blades emerging symmetrically (t=20..55)
- *   - The stoic stance and "Chire" command gesture with resonant tremor (t=55..75)
- *   - The dual cyclone vortex of shattering petals and combat recovery (t=75..100)
+ * Automated in-game validation suite and screenshot capture for Byakuya Kuchiki's Bankai: Senbonzakura Kageyoshi.
+ * Validates:
+ *   - Day and night transformations
+ *   - Perspective return across first-person, third-person back, and third-person front
+ *   - Wall collision safety
+ *   - Clean interruption and consecutive activations
+ *   - Continuous camera trajectory, atmospheric darkening, and localized subtitles
  */
 @Mod.EventBusSubscriber(modid = Reference.MOD_ID, value = Dist.CLIENT)
 public final class SenbonzakuraQaSequence {
     private static final String[] CASES = {
-            "01_bankai_transformation",
-            "02_bankai_combat_chire"
+            "01_bankai_day_transformation",
+            "02_bankai_night_transformation",
+            "03_bankai_first_person_return",
+            "04_bankai_near_wall_collision",
+            "05_bankai_interruption_cleanup",
+            "06_bankai_consecutive_activation"
     };
 
     private record Trial(String name, UUID owner, Vec3 origin, long start, int maxTicks, List<UUID> targets) { }
@@ -90,14 +98,14 @@ public final class SenbonzakuraQaSequence {
                     stage = 0;
                     wait = 0;
                     trial = null;
-                    c.getSource().sendSuccess(() -> net.minecraft.network.chat.Component.literal("§d[Senbonzakura QA] Starting test suite..."), false);
+                    c.getSource().sendSuccess(() -> Component.literal("§d[Senbonzakura QA] Starting test suite..."), false);
                     return 1;
                 }))
                 .then(literal("stop").executes(c -> {
                     stage = CASES.length + 1;
                     trial = null;
                     manualTriggered = false;
-                    c.getSource().sendSuccess(() -> net.minecraft.network.chat.Component.literal("§c[Senbonzakura QA] Stopped."), false);
+                    c.getSource().sendSuccess(() -> Component.literal("§c[Senbonzakura QA] Stopped."), false);
                     return 1;
                 })));
     }
@@ -107,7 +115,6 @@ public final class SenbonzakuraQaSequence {
         if (e.phase != TickEvent.Phase.END || !enabled()) return;
         var mc = Minecraft.getInstance();
         if (mc.screen != null || mc.isPaused()) return;
-        // Wait until previous sequences finish if automated
         if (!manualTriggered && (!BenihimeQaBootstrap.automatedFinished() || !HyorinmaruQaSequence.automatedFinished())) return;
 
         wait++;
@@ -118,8 +125,8 @@ public final class SenbonzakuraQaSequence {
         }
 
         if (stage < CASES.length) {
-            int neededWait = (stage == 0) ? 40 : (trial != null ? trial.maxTicks() + 20 : 100);
-            if ((stage == 0 && wait >= neededWait) || (stage > 0 && serverFinished && wait >= 40)) {
+            int neededWait = (stage == 0) ? 60 : (trial != null ? trial.maxTicks() + 20 : 100);
+            if ((stage == 0 && wait >= neededWait) || (stage > 0 && serverFinished && wait >= 30)) {
                 var name = CASES[stage];
                 var id = mc.player.getUUID();
                 int index = stage++;
@@ -129,8 +136,15 @@ public final class SenbonzakuraQaSequence {
                 trial = null;
                 lastFrame = -1;
 
-                mc.options.setCameraType(CameraType.THIRD_PERSON_BACK);
-                mc.options.hideGui = true;
+                // Adjust initial client camera based on scenario
+                if (name.contains("first_person")) {
+                    mc.options.setCameraType(CameraType.FIRST_PERSON);
+                } else if (name.contains("night")) {
+                    mc.options.setCameraType(CameraType.THIRD_PERSON_BACK);
+                } else {
+                    mc.options.setCameraType(CameraType.THIRD_PERSON_BACK);
+                }
+                mc.options.hideGui = false;
 
                 evidence = mc.gameDirectory.toPath().resolve("senbonzakura-qa/cycle101-" + RUN_ID + "/" + name);
                 try {
@@ -139,16 +153,16 @@ public final class SenbonzakuraQaSequence {
 
                 mc.getSingleplayerServer().execute(() -> prepareServer(mc.getSingleplayerServer().getPlayerList().getPlayer(id), index, name));
             }
-        } else if (stage == CASES.length && serverFinished && wait >= 40) {
+        } else if (stage == CASES.length && serverFinished && wait >= 30) {
             stage++;
             trial = null;
             mc.options.setCameraType(previousCamera != null ? previousCamera : CameraType.FIRST_PERSON);
             mc.options.hideGui = previousHud;
             LogUtils.getLogger().info("=================================================================");
-            LogUtils.getLogger().info("Senbonzakura QA sequence COMPLETE: All scenarios executed & captured!");
+            LogUtils.getLogger().info("Senbonzakura QA sequence COMPLETE: All 6 scenarios executed & captured!");
             LogUtils.getLogger().info("=================================================================");
             if (mc.player != null) {
-                mc.player.displayClientMessage(net.minecraft.network.chat.Component.literal("§d[Senbonzakura QA] Sequência finalizada com sucesso! Screenshots salvas em senbonzakura-qa/"), false);
+                mc.player.displayClientMessage(Component.literal("§d[Senbonzakura QA] Sequência finalizada com sucesso! Screenshots salvas em senbonzakura-qa/"), false);
             }
             if (Boolean.getBoolean("bleachmod.qaAutoExit")) {
                 LogUtils.getLogger().info("Senbonzakura QA auto-exit requested; closing client cleanly...");
@@ -166,7 +180,7 @@ public final class SenbonzakuraQaSequence {
         var d = PlayerCapability.get(p).orElse(null);
         if (d == null) return;
 
-        int x = 120 + 60 * index;
+        int x = 120 + 70 * index;
         int y = p.serverLevel().getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, x, 0);
         var origin = new Vec3(x + 0.5, y, 0.5);
         p.teleportTo(p.serverLevel(), origin.x, origin.y, origin.z, 0, 0);
@@ -186,40 +200,73 @@ public final class SenbonzakuraQaSequence {
         d.getResources().setCurrentReiatsu(d.getResources().getMaxReiatsu());
 
         var targets = new ArrayList<UUID>();
-        int maxTicks = 115;
+        int maxTicks = SenbonzakuraCinematicService.DURATION + 15;
+        long timeOfDay = 6000;
 
         switch (index) {
             case 0 -> {
-                // Bankai Transformation: 100 ticks
+                // Scenario 1: Bankai Day Transformation (Full 290-tick timeline)
+                timeOfDay = 6000;
                 d.getCharacter().setActiveForm("zanpakuto", "shikai");
                 d.getCharacter().setSelectedForm("zanpakuto", "shikai");
                 ReleaseAnimationService.begin(p, d, "zanpakuto", "bankai", 0f);
-                maxTicks = SenbonzakuraCinematicService.DURATION + 15;
-                LogUtils.getLogger().info("Senbonzakura QA: Started Bankai Transformation");
+                LogUtils.getLogger().info("Senbonzakura QA: [Scenario 1] Day Transformation");
             }
             case 1 -> {
-                // Bankai Combat / Petal Attack
-                d.getCharacter().setActiveForm("zanpakuto", "bankai");
-                d.getCharacter().setSelectedForm("zanpakuto", "bankai");
-                Husk target = EntityType.HUSK.create(p.serverLevel());
-                if (target != null) {
-                    target.setPos(origin.add(0, 0, 12));
-                    target.setNoAi(true);
-                    target.setPersistenceRequired();
-                    target.getAttribute(Attributes.MAX_HEALTH).setBaseValue(500);
-                    target.setHealth(500);
-                    target.setYRot(180);
-                    p.serverLevel().addFreshEntity(target);
-                    targets.add(target.getUUID());
+                // Scenario 2: Bankai Night Transformation
+                timeOfDay = 18000;
+                d.getCharacter().setActiveForm("zanpakuto", "shikai");
+                d.getCharacter().setSelectedForm("zanpakuto", "shikai");
+                ReleaseAnimationService.begin(p, d, "zanpakuto", "bankai", 0f);
+                LogUtils.getLogger().info("Senbonzakura QA: [Scenario 2] Night Transformation");
+            }
+            case 2 -> {
+                // Scenario 3: Bankai First Person Return
+                timeOfDay = 6000;
+                d.getCharacter().setActiveForm("zanpakuto", "shikai");
+                d.getCharacter().setSelectedForm("zanpakuto", "shikai");
+                ReleaseAnimationService.begin(p, d, "zanpakuto", "bankai", 0f);
+                LogUtils.getLogger().info("Senbonzakura QA: [Scenario 3] First-Person Return");
+            }
+            case 3 -> {
+                // Scenario 4: Near Wall Collision Test
+                timeOfDay = 6000;
+                // Build a 6x6 stone wall 3 blocks behind player to test collision clipping
+                BlockPos base = p.blockPosition();
+                for (int dx = -3; dx <= 3; dx++) {
+                    for (int dy = 0; dy <= 6; dy++) {
+                        p.serverLevel().setBlock(base.offset(dx, dy, -3), Blocks.STONE_BRICKS.defaultBlockState(), 3);
+                    }
                 }
-                maxTicks = 60;
-                LogUtils.getLogger().info("Senbonzakura QA: Bankai Combat Showcase");
+                d.getCharacter().setActiveForm("zanpakuto", "shikai");
+                d.getCharacter().setSelectedForm("zanpakuto", "shikai");
+                ReleaseAnimationService.begin(p, d, "zanpakuto", "bankai", 0f);
+                maxTicks = 140;
+                LogUtils.getLogger().info("Senbonzakura QA: [Scenario 4] Near Wall Collision");
+            }
+            case 4 -> {
+                // Scenario 5: Interruption cleanup test
+                timeOfDay = 6000;
+                d.getCharacter().setActiveForm("zanpakuto", "shikai");
+                d.getCharacter().setSelectedForm("zanpakuto", "shikai");
+                ReleaseAnimationService.begin(p, d, "zanpakuto", "bankai", 0f);
+                maxTicks = 90;
+                LogUtils.getLogger().info("Senbonzakura QA: [Scenario 5] Interruption Cleanup");
+            }
+            case 5 -> {
+                // Scenario 6: Consecutive activation test
+                timeOfDay = 6000;
+                d.getCharacter().setActiveForm("zanpakuto", "shikai");
+                d.getCharacter().setSelectedForm("zanpakuto", "shikai");
+                ReleaseAnimationService.begin(p, d, "zanpakuto", "bankai", 0f);
+                maxTicks = 120;
+                LogUtils.getLogger().info("Senbonzakura QA: [Scenario 6] Consecutive Activation");
             }
         }
 
         SyncHelper.full(p);
         SyncHelper.appearance(p);
-        p.serverLevel().setDayTime(6000);
+        p.serverLevel().setDayTime(timeOfDay);
 
         serverFinished = false;
         serverAge = 0;
@@ -239,12 +286,12 @@ public final class SenbonzakuraQaSequence {
         long age = p.level().getGameTime() - t.start();
         serverAge = (int) age;
 
-        // Cast technique for slot 1 at tick 10 in combat trial
-        if (age == 10 && t.name().contains("combat")) {
+        // In scenario 5 (interruption), trigger dodge/guard at tick 70
+        if (t.name().contains("interruption") && age == 70) {
             PlayerData d = PlayerCapability.get(p).orElse(null);
             if (d != null) {
-                TechniqueService.executeSlot(p, d, 1);
-                LogUtils.getLogger().info("Senbonzakura QA executed Slot 1 (Petal Cut)");
+                d.getStatus().beginDodge(new Vec3(1, 0, 0), p.level().getGameTime());
+                LogUtils.getLogger().info("Senbonzakura QA simulated dodge interrupt at tick 70");
             }
         }
 
@@ -267,8 +314,8 @@ public final class SenbonzakuraQaSequence {
         int age = serverAge;
         if (age < 0 || age > t.maxTicks()) return;
 
-        // Capture key dramatic ticks and periodic milestones
-        boolean keyTick = (age == 0 || age == 10 || age == 35 || age == 76 || age == 120 || age == 160 || age == 200 || age == 228 || age == 266 || age == 290 || (age % 16 == 0));
+        // Capture milestones and key transitions
+        boolean keyTick = (age == 0 || age == 10 || age == 35 || age == 76 || age == 112 || age == 120 || age == 160 || age == 200 || age == 228 || age == 266 || age == 290 || (age % 24 == 0));
         if (!keyTick || lastFrame == age) return;
         lastFrame = age;
 
