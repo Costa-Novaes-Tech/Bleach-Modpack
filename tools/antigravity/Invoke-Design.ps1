@@ -37,7 +37,7 @@ try {
             }
         }
         $nativeArgs = 'gradlew.bat --no-daemon --console=plain ' + ($gradleTasks -join ' ')
-        $windowStyle = if ($Mode -in @('Client', 'ClientQa')) { 'Normal' } else { 'Hidden' }
+        $windowStyle = if ($Mode -eq 'Client') { 'Normal' } else { 'Hidden' }
         $process = Start-Process -FilePath $env:ComSpec -ArgumentList @('/d', '/c', $nativeArgs) -WorkingDirectory $designRoot -WindowStyle $windowStyle -RedirectStandardOutput $log -RedirectStandardError "$log.stderr.log" -Wait -PassThru
         $code = $process.ExitCode
         Write-Host "Exit=$code Log=$log"

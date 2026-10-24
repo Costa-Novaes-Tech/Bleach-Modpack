@@ -454,5 +454,9 @@
   "ability.bleachmod.benihime.gigai": "Gigai Portátil",
   "ability.bleachmod.hyorinmaru.hydra_assault": "Assalto da Hidra Glacial",
   "ability.bleachmod.hyorinmaru.ice_eruption": "Erupção Glacial",
-  "ability.bleachmod.hyorinmaru.frost_armor": "Revestimento de Geada"
+  "ability.bleachmod.hyorinmaru.frost_armor": "Revestimento de Geada",
+  "subtitles.bleachmod.voice.senbonzakura_bankai": "Bankai.",
+  "subtitles.bleachmod.voice.senbonzakura_name": "Senbonzakura Kageyoshi.",
+  "cinematic.bleachmod.senbonzakura.bankai": "Bankai.",
+  "cinematic.bleachmod.senbonzakura.name": "Senbonzakura Kageyoshi."
 }
