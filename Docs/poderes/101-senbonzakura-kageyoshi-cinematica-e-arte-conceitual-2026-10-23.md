@@ -345,3 +345,63 @@ Em resposta à homologação do ciclo expandido e às observações técnicas de
     5. `05_bankai_interruption_cleanup`: Interrupção forçada via esquiva no tick 70. A câmera, as barras cinematográficas, a legenda e os efeitos atmosféricos foram imediatamente cancelados e o controle restaurado instantaneamente. A forma Bankai permaneceu ativa (pois o commit formal ocorreu no tick 40).
     6. `06_bankai_consecutive_activation`: Segunda ativação consecutiva logo após limpeza, comprovando ausência de vazamento de estado, duplicação de áudio ou dessincronização de câmera.
   - Capturas registradas e preservadas em `run-benihime-qa/base/senbonzakura-qa/cycle101-1792799290780/` e incorporadas ao storyboard visual do mod.
+
+---
+
+## 9. Palco Espiritual da Bankai: Piso Escuro Conformado ao Terreno e Fundo Espacial 3D de Pétalas de Sakura (Ciclo 101.2 — 25/10/2026)
+
+Inspirado na arquitetura de palco cenográfico da **Benihime** (`BenihimeStage`, `BenihimeTerrain`, `BenihimeEntranceClient`), mas desenhado com identidade artística própria da **Senbonzakura Kageyoshi**, implementamos o sistema de palco espiritual em [`SenbonStage.java`](file:///c:/Users/joaop/Downloads/Projeto_Programacao_BleachMod/Bleach-Modpack-design/src/main/java/com/bleachmod/common/visual/SenbonStage.java) e sua integração em [`SenbonzakuraCinematicClient.java`](file:///c:/Users/joaop/Downloads/Projeto_Programacao_BleachMod/Bleach-Modpack-design/src/main/java/com/bleachmod/client/cinematic/SenbonzakuraCinematicClient.java).
+
+### 9.1. Piso Espiritual Escuro (`SenbonStage.floor` & `SenbonStage.surfaceDetails`)
+1. **Identidade Cênica e Paleta**:
+   - Superfície quase preta com nuances sutis de índigo noturno e reflexos rosados sob o ponto de queda/afundamento da katana $(0.32, 0.35)$ e ao longo das duas fileiras de 20 lâminas colossais $(X = \pm 4.5, Z \in [-16.0, 18.2])$.
+   - Dimensão de $X \in [-15, 15]$ por $Z \in [-32, 22]$ ($30 \times 54$ blocos) com *feathering* elíptico e retangular nas bordas, cobrindo com folga o jogador e toda a implantação do corredor em todos os enquadramentos da câmera.
+2. **Formação Progressiva e Envelope Coordenado**:
+   - **Entrada ($t = 0 \dots 35$)**: Expansão radial progressiva a partir do ponto de contato da katana via `smoothstep(0, 35, age)`, atingindo presença plena (`stageWeight == 1.0`) exatamente no tick 35 quando a ponta da lâmina toca a superfície.
+   - **Sustentação ($t = 35 \dots 228$)**: Presença integral durante a submersão da katana, a ascensão das 20 lâminas e a invocação do nome *"Senbonzakura Kageyoshi."*.
+   - **Dissolução ($t = 228 \dots 290$)**: Dissolução suave (`1.0 -> 0.0`) coordenada com a dispersão das lâminas, a recuperação da penumbra (`SenbonAtmosphere.darkness`) e o retorno da câmera à perspectiva do jogador.
+3. **Valorização do Contato e das Ondulações**:
+   - Em `SenbonzakuraCinematicClient.renderFallingSinkingKatana`, adicionamos um colar luminoso na linha exata de interseção da lâmina com o piso ($t = 33 \dots 75$).
+   - Em `renderReishiRippleDiscs`, as ondulações concêntricas passaram a combinar um halo externo índigo-rosado suave refletido sobre o piso escuro com uma crista interna nítida em rosa-sakura, escalonadas verticalmente em incrementos de `0.0015` blocos para eliminar qualquer cintilação (*z-fighting*).
+4. **Pétalas Esparsas de Superfície e Rastros Suaves**:
+   - `SenbonStage.surfaceDetails` gera 18 rastros translúcidos suaves (*surface trails*) e 44 pétalas de sakura esculpidas próximas à superfície, preservando uma zona central limpa ($r^2 > 3.2$ ao redor do jogador e do ponto de queda da katana) para manter total legibilidade do personagem, da espada afundando e das legendas.
+5. **Conformação a Terreno Irregular Sem Placa Flutuante**:
+   - Reutilizando o princípio de amostragem de colisão do cliente (`world.clip` com `ClipContext.Block.COLLIDER` sem carregamento de chunks ou alteração de blocos), o piso constrói uma malha *watertight* de vértices compartilhados (`buildVertexHeightGrid`).
+   - Degraus e lajes até $+1.05$ blocos e depressões até $-1.25$ blocos são acompanhados organicamente sem rachaduras entre quads adjacentes e sem que blocos de meio-bloco (*slabs*) atravessem a superfície.
+   - Paredes verticais altas ($y - anchor.y > 1.15$) são filtradas em `safeGround`, impedindo que o piso suba pelas paredes.
+   - **Puramente cenográfico**: não substitui blocos do mundo, não altera colisão e não reposiciona entidades.
+
+### 9.2. Fundo Espacial 3D com Arte de Pétalas de Sakura (`SenbonStage.backdrop`)
+1. **Abóbada Espacial 3D Sem Bordas Aparentes**:
+   - Em vez de um painel 2D plano colado na tela, o fundo é uma abóbada espacial 3D curva ($\pm 153^\circ$ de cobertura azimutal lateral, altura de $Y = -2.2$ até $Y = 40.0$ blocos) posicionada atrás do corredor de lâminas.
+   - A parte superior curva-se progressivamente sobre o corredor a partir de $Y = 12$, fechando o zênite para que a tomada em contrapicado ($t = 76 \dots 120$) enquadre as lâminas de 22 blocos contra a escuridão índigo/violeta da abóbada, sem exibir bordas de painel ou abertura no topo.
+2. **Composição Original em Camadas de Profundidade**:
+   - **Névoa Espiritual em Profundidade Média**: 8 fitas translúcidas em arco suave ($R \approx 20..24$).
+   - **Camada Distante (Far Layer)**: 18 grandes flores/pétalas suaves de sakura ($R \approx 26..27.5$, tamanho $2.1..3.5$ blocos) estruturadas em tripla camada (halo difuso violeta-rosa, corpo sakura e núcleo luminoso).
+   - **Camada Média (Mid Layer)**: 36 pétalas médias fluidas ($R \approx 19..24$, tamanho $0.82..1.36$ blocos) com rotação e deriva contínua.
+   - **Camada Próxima ao Corredor (Near Layer)**: 44 pétalas menores e nítidas ($R \approx 13.8..17.2$, tamanho $0.34..0.56$ blocos) compondo paralaxe tridimensional real durante o movimento da câmera.
+3. **Espaço Negativo e Ordem de Renderização**:
+   - A função `SenbonStage.negativeSpaceMask(theta, y)` preserva uma janela central escura e limpa diretamente atrás da silhueta de Byakuya e das legendas centrais ($|\theta| < 0.22\text{ rad}, Y < 6.5$).
+   - Em `SenbonzakuraCinematicClient.onRenderLevelStage`, a renderização é dividida em três passes ordenados:
+     1. `Types.STAGE_BACKDROP` (fundo 3D e camadas de pétalas ao fundo, com teste de profundidade `LEQUAL_DEPTH_TEST` respeitando a oclusão do jogador);
+     2. `Types.STAGE_FLOOR` (piso espiritual escuro sobre o terreno);
+     3. `Types.GLOW` (detalhes de superfície, ondulações de contato, katana submergindo e as 20 lâminas monumentais à frente do fundo).
+4. **Intensificação Sutil na Dispersão ($t = 228 \dots 290$)**:
+   - Durante a dissolução das lâminas, `SenbonStage.dispersionBoost(age)` e a fase integrada $C^1$-contínua `SenbonStage.petalPhase(age)` aceleram suavemente o fluxo das pétalas do fundo e da superfície, sem saltos de fase no tick 228 e mantendo as lâminas em dissolução como foco principal.
+
+### 9.3. Limpeza Garantida e Validação (Ciclo 101.2)
+1. **Remoção Completa e Prevenção de Acúmulo**:
+   - Handlers adicionados para `ClientPlayerNetworkEvent.LoggingOut`, `LevelEvent.Unload`, mudança de mundo (`world != mc.level`), término por tempo (`age >= DURATION`), interrupção por servidor (`duration == 0`) e limite máximo de 8 cenas simultâneas. Reativações consecutivas substituem o registro pelo mesmo ID de entidade, impedindo acúmulo de pisos, fundos ou emissores.
+   - Penumbra para observadores delimitada a $< 48$ blocos e ângulo de visão voltado para a cena (`0.65 * distanceFactor * facingFactor * dark`).
+2. **Evidências de Compilação, GameTests e Cliente Real**:
+   - **Compilação**: `.\gradlew.bat compileJava --offline --console=plain` -> **BUILD SUCCESSFUL (Exit 0)**.
+   - **GameTests**: `powershell.exe -ExecutionPolicy Bypass -File tools/antigravity/Invoke-Design.ps1 -Mode GameTests` -> **All 224 required tests passed :) (Exit 0)** (Log: `Docs/poderes/qa/antigravity/GameTests-20261025-154308.log`), incluindo `SenbonStageGameTests.stageFloorAndBackdropRespectEnvelopeNegativeSpaceAndTerrain`.
+   - **ClientQa (7 Cenários Reais)**: `powershell.exe -ExecutionPolicy Bypass -File tools/antigravity/Invoke-Design.ps1 -Mode ClientQa` -> **BUILD SUCCESSFUL (Exit 0)** (Log: `Docs/poderes/qa/antigravity/ClientQa-20261025-154625.log`, capturas em `run-benihime-qa/base/senbonzakura-qa/cycle101-1792954021666/`):
+     - `01_bankai_day_transformation` (ticks `0, 24, 35, 48, 72, 76, 96, 112, 120, 144, 160, 168, 192, 200, 216, 228, 240, 264, 266, 288, 290`);
+     - `02_bankai_night_transformation`;
+     - `03_bankai_first_person_return`;
+     - `04_bankai_near_wall_collision` (parede de tijolos não escalada pelo piso);
+     - `05_bankai_interruption_cleanup` (remoção imediata de piso, fundo e legendas após esquiva no tick 70);
+     - `06_bankai_consecutive_activation` (reativação no tick 55 sem duplicação de geometria);
+     - `07_bankai_uneven_terrain` (relevo em degraus de lajes de pedra acompanhado suavemente pelo piso, sem placa flutuante).
+   - **Nota Metodológica sobre as Evidências**: As capturas de tela em `cycle101-1792954021666` são quadros amostrados do framebuffer real do cliente Forge (`Screenshot.grab`), comprovando geometria, oclusão, enquadramento, conformação ao relevo e limpeza nos marcos de tick; quadros amostrados não substituem gravação contínua de vídeo para aferir fluidez inter-frame nem substituem escuta humana para qualidade acústica.

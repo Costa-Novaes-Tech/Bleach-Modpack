@@ -58,14 +58,16 @@ public final class SenbonzakuraQaSequence {
             "03_bankai_first_person_return",
             "04_bankai_near_wall_collision",
             "05_bankai_interruption_cleanup",
-            "06_bankai_consecutive_activation"
+            "06_bankai_consecutive_activation",
+            "07_bankai_uneven_terrain"
     };
 
-    private record Trial(String name, UUID owner, Vec3 origin, long start, int maxTicks, List<UUID> targets) { }
+    private static final int SETTLE_TICKS = 14;
+    private record Trial(String name, UUID owner, Vec3 origin, long start, int maxTicks, List<UUID> targets, List<BlockPos> placedBlocks, int scenarioIndex) { }
 
     private static volatile Trial trial;
     private static volatile boolean serverFinished;
-    private static volatile int serverAge;
+    private static volatile int serverAge = -SETTLE_TICKS;
     private static int stage = 0;
     private static int wait = 0;
     private static int lastFrame = -1;
@@ -132,7 +134,7 @@ public final class SenbonzakuraQaSequence {
                 int index = stage++;
                 wait = 0;
                 serverFinished = false;
-                serverAge = 0;
+                serverAge = -SETTLE_TICKS;
                 trial = null;
                 lastFrame = -1;
 
@@ -159,7 +161,7 @@ public final class SenbonzakuraQaSequence {
             mc.options.setCameraType(previousCamera != null ? previousCamera : CameraType.FIRST_PERSON);
             mc.options.hideGui = previousHud;
             LogUtils.getLogger().info("=================================================================");
-            LogUtils.getLogger().info("Senbonzakura QA sequence COMPLETE: All 6 scenarios executed & captured!");
+            LogUtils.getLogger().info("Senbonzakura QA sequence COMPLETE: All 7 scenarios executed & captured!");
             LogUtils.getLogger().info("=================================================================");
             if (mc.player != null) {
                 mc.player.displayClientMessage(Component.literal("§d[Senbonzakura QA] Sequência finalizada com sucesso! Screenshots salvas em senbonzakura-qa/"), false);
@@ -198,8 +200,11 @@ public final class SenbonzakuraQaSequence {
         d.getStatus().clearCooldowns();
         d.getGuard().interrupt();
         d.getResources().setCurrentReiatsu(d.getResources().getMaxReiatsu());
+        d.getCharacter().setActiveForm("zanpakuto", "shikai");
+        d.getCharacter().setSelectedForm("zanpakuto", "shikai");
 
         var targets = new ArrayList<UUID>();
+        var placedBlocks = new ArrayList<BlockPos>();
         int maxTicks = SenbonzakuraCinematicService.DURATION + 15;
         long timeOfDay = 6000;
 
@@ -207,60 +212,62 @@ public final class SenbonzakuraQaSequence {
             case 0 -> {
                 // Scenario 1: Bankai Day Transformation (Full 290-tick timeline)
                 timeOfDay = 6000;
-                d.getCharacter().setActiveForm("zanpakuto", "shikai");
-                d.getCharacter().setSelectedForm("zanpakuto", "shikai");
-                ReleaseAnimationService.begin(p, d, "zanpakuto", "bankai", 0f);
                 LogUtils.getLogger().info("Senbonzakura QA: [Scenario 1] Day Transformation");
             }
             case 1 -> {
                 // Scenario 2: Bankai Night Transformation
                 timeOfDay = 18000;
-                d.getCharacter().setActiveForm("zanpakuto", "shikai");
-                d.getCharacter().setSelectedForm("zanpakuto", "shikai");
-                ReleaseAnimationService.begin(p, d, "zanpakuto", "bankai", 0f);
                 LogUtils.getLogger().info("Senbonzakura QA: [Scenario 2] Night Transformation");
             }
             case 2 -> {
                 // Scenario 3: Bankai First Person Return
                 timeOfDay = 6000;
-                d.getCharacter().setActiveForm("zanpakuto", "shikai");
-                d.getCharacter().setSelectedForm("zanpakuto", "shikai");
-                ReleaseAnimationService.begin(p, d, "zanpakuto", "bankai", 0f);
                 LogUtils.getLogger().info("Senbonzakura QA: [Scenario 3] First-Person Return");
             }
             case 3 -> {
                 // Scenario 4: Near Wall Collision Test
                 timeOfDay = 6000;
-                // Build a 6x6 stone wall 3 blocks behind player to test collision clipping
-                BlockPos base = p.blockPosition();
+                BlockPos base = BlockPos.containing(origin);
                 for (int dx = -3; dx <= 3; dx++) {
                     for (int dy = 0; dy <= 6; dy++) {
-                        p.serverLevel().setBlock(base.offset(dx, dy, -3), Blocks.STONE_BRICKS.defaultBlockState(), 3);
+                        BlockPos pos = base.offset(dx, dy, -3);
+                        placedBlocks.add(pos);
+                        p.serverLevel().setBlock(pos, Blocks.STONE_BRICKS.defaultBlockState(), 3);
                     }
                 }
-                d.getCharacter().setActiveForm("zanpakuto", "shikai");
-                d.getCharacter().setSelectedForm("zanpakuto", "shikai");
-                ReleaseAnimationService.begin(p, d, "zanpakuto", "bankai", 0f);
                 maxTicks = 140;
                 LogUtils.getLogger().info("Senbonzakura QA: [Scenario 4] Near Wall Collision");
             }
             case 4 -> {
                 // Scenario 5: Interruption cleanup test
                 timeOfDay = 6000;
-                d.getCharacter().setActiveForm("zanpakuto", "shikai");
-                d.getCharacter().setSelectedForm("zanpakuto", "shikai");
-                ReleaseAnimationService.begin(p, d, "zanpakuto", "bankai", 0f);
                 maxTicks = 90;
                 LogUtils.getLogger().info("Senbonzakura QA: [Scenario 5] Interruption Cleanup");
             }
             case 5 -> {
                 // Scenario 6: Consecutive activation test
                 timeOfDay = 6000;
-                d.getCharacter().setActiveForm("zanpakuto", "shikai");
-                d.getCharacter().setSelectedForm("zanpakuto", "shikai");
-                ReleaseAnimationService.begin(p, d, "zanpakuto", "bankai", 0f);
-                maxTicks = 120;
+                maxTicks = 135;
                 LogUtils.getLogger().info("Senbonzakura QA: [Scenario 6] Consecutive Activation");
+            }
+            case 6 -> {
+                // Scenario 7: Uneven terrain / stepped relief test
+                timeOfDay = 6000;
+                BlockPos base = BlockPos.containing(origin);
+                for (int dx = -8; dx <= 8; dx++) {
+                    for (int dz = -18; dz <= 14; dz++) {
+                        // Leave immediate 2-block radius around player & katana drop clear, add stepped relief around corridor
+                        if (Math.abs(dx) <= 2 && Math.abs(dz) <= 2) continue;
+                        if ((Math.abs(dx) >= 3 && Math.abs(dx) <= 6 && (dz + 20) % 4 < 2)
+                                || (dz <= -6 && dz >= -14 && Math.abs(dx) <= 4 && (dz + 20) % 3 == 0)) {
+                            BlockPos pos = base.offset(dx, 0, dz);
+                            placedBlocks.add(pos);
+                            p.serverLevel().setBlock(pos, Blocks.SMOOTH_STONE_SLAB.defaultBlockState(), 3);
+                        }
+                    }
+                }
+                maxTicks = 180;
+                LogUtils.getLogger().info("Senbonzakura QA: [Scenario 7] Uneven Terrain Relief");
             }
         }
 
@@ -269,9 +276,10 @@ public final class SenbonzakuraQaSequence {
         p.serverLevel().setDayTime(timeOfDay);
 
         serverFinished = false;
-        serverAge = 0;
-        trial = new Trial(name, p.getUUID(), origin, p.level().getGameTime(), maxTicks, List.copyOf(targets));
-        LogUtils.getLogger().info("Senbonzakura QA prepared {} at {} targets={}", name, origin, targets.size());
+        serverAge = -SETTLE_TICKS;
+        long releaseStart = p.level().getGameTime() + SETTLE_TICKS;
+        trial = new Trial(name, p.getUUID(), origin, releaseStart, maxTicks, List.copyOf(targets), List.copyOf(placedBlocks), index);
+        LogUtils.getLogger().info("Senbonzakura QA prepared {} at {} (release in {} ticks)", name, origin, SETTLE_TICKS);
     }
 
     @SubscribeEvent
@@ -286,6 +294,16 @@ public final class SenbonzakuraQaSequence {
         long age = p.level().getGameTime() - t.start();
         serverAge = (int) age;
 
+        // Trigger the actual Bankai release at age == 0 after the teleport/chunk settle window
+        if (age == 0) {
+            PlayerData d = PlayerCapability.get(p).orElse(null);
+            if (d != null) {
+                d.getCharacter().setActiveForm("zanpakuto", "shikai");
+                d.getCharacter().setSelectedForm("zanpakuto", "shikai");
+                ReleaseAnimationService.begin(p, d, "zanpakuto", "bankai", 0f);
+            }
+        }
+
         // In scenario 5 (interruption), trigger dodge/guard at tick 70
         if (t.name().contains("interruption") && age == 70) {
             PlayerData d = PlayerCapability.get(p).orElse(null);
@@ -295,11 +313,27 @@ public final class SenbonzakuraQaSequence {
             }
         }
 
+        // In scenario 6 (consecutive activation), cancel and re-trigger at tick 55 to verify zero stage accumulation
+        if (t.name().contains("consecutive") && age == 55) {
+            PlayerData d = PlayerCapability.get(p).orElse(null);
+            if (d != null) {
+                SenbonzakuraCinematicService.cancel(p);
+                ReleaseAnimationService.cancel(p);
+                d.getCharacter().setActiveForm("zanpakuto", "shikai");
+                d.getCharacter().setSelectedForm("zanpakuto", "shikai");
+                ReleaseAnimationService.begin(p, d, "zanpakuto", "bankai", 0f);
+                LogUtils.getLogger().info("Senbonzakura QA re-triggered consecutive activation at tick 55");
+            }
+        }
+
         if (age >= t.maxTicks()) {
             serverFinished = true;
             for (var tid : t.targets()) {
                 var ent = p.serverLevel().getEntity(tid);
                 if (ent != null) ent.discard();
+            }
+            for (var pos : t.placedBlocks()) {
+                p.serverLevel().removeBlock(pos, false);
             }
         }
     }
@@ -315,7 +349,7 @@ public final class SenbonzakuraQaSequence {
         if (age < 0 || age > t.maxTicks()) return;
 
         // Capture milestones and key transitions
-        boolean keyTick = (age == 0 || age == 10 || age == 35 || age == 76 || age == 112 || age == 120 || age == 160 || age == 200 || age == 228 || age == 266 || age == 290 || (age % 24 == 0));
+        boolean keyTick = (age == 0 || age == 10 || age == 24 || age == 35 || age == 48 || age == 72 || age == 76 || age == 96 || age == 112 || age == 120 || age == 144 || age == 160 || age == 168 || age == 200 || age == 228 || age == 240 || age == 266 || age == 288 || age == 290 || (age % 24 == 0));
         if (!keyTick || lastFrame == age) return;
         lastFrame = age;
 
