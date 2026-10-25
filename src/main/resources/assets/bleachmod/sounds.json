@@ -100,7 +100,14 @@
       }
     ]
   },
-  "hyorinmaru.theme": {"sounds": [{"name": "bleachmod:hyorinmaru_theme", "stream": true}]},
+  "hyorinmaru.theme": {
+    "sounds": [
+      {
+        "name": "bleachmod:hyorinmaru_theme",
+        "stream": true
+      }
+    ]
+  },
   "voice.senbonzakura_bankai": {
     "subtitle": "subtitles.bleachmod.voice.senbonzakura_bankai",
     "sounds": [
@@ -127,6 +134,27 @@
       {
         "name": "bleachmod:senbonzakura_theme",
         "stream": true
+      }
+    ]
+  },
+  "voice.ryujin_bankai": {
+    "subtitle": "subtitles.bleachmod.voice.ryujin_bankai",
+    "sounds": [
+      {
+        "name": "bleachmod:ryujin_voice_bankai",
+        "stream": false,
+        "preload": true,
+        "attenuation_distance": 64
+      }
+    ]
+  },
+  "voice.ryujin_name": {
+    "subtitle": "subtitles.bleachmod.voice.ryujin_name",
+    "sounds": [
+      {
+        "name": "bleachmod:ryujin_voice_name",
+        "stream": true,
+        "attenuation_distance": 64
       }
     ]
   }

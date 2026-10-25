@@ -70,6 +70,7 @@ public final class BleachClient {
         event.enqueueWork(com.bleachmod.client.cinematic.BenihimeEntranceClient::init);
         event.enqueueWork(com.bleachmod.client.cinematic.HyorinmaruCinematicClient::init);
         event.enqueueWork(com.bleachmod.client.cinematic.SenbonzakuraCinematicClient::init);
+        event.enqueueWork(com.bleachmod.client.cinematic.RyujinBankaiEntranceClient::init);
         event.enqueueWork(com.bleachmod.client.berserk.NozarashiStance::init);
     }
 

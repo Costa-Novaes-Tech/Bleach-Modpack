@@ -36,7 +36,7 @@ public final class RyujinActionVisuals {
     public static void clear(){SPINS.clear();EMERGENCE.clear();RELEASE_TICKS.clear();TRAILS.clear();budgetTick=Long.MIN_VALUE;budget=0;}
     private static void budget(){var mc=Minecraft.getInstance();if(mc.level!=null && budgetTick!=mc.level.getGameTime()){budgetTick=mc.level.getGameTime();budget=640;}}
     private static Vec3f mix(Vec3f from,Vec3 to,float w){return new Vec3f(Mth.lerp(w,from.getX(),(float)to.x),Mth.lerp(w,from.getY(),(float)to.y),Mth.lerp(w,from.getZ(),(float)to.z));}
-    static Vec3f transform(AbstractClientPlayer p,RyujinChoreography.Pose pose,String part,TransformType type,Vec3f value){
+    public static Vec3f transform(AbstractClientPlayer p,RyujinChoreography.Pose pose,String part,TransformType type,Vec3f value){
         float sign=p.getMainArm()==HumanoidArm.RIGHT?1:-1,w=pose.weight();
         boolean arm=part.equals(sign>0?"rightArm":"leftArm"),support=part.equals(sign>0?"leftArm":"rightArm");
         boolean item=part.equals(sign>0?"rightItem":"leftItem");

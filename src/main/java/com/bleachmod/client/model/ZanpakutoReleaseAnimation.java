@@ -68,7 +68,7 @@ public final class ZanpakutoReleaseAnimation {
                 if(v.bankai && (v.identity.equals("senbonzakura") || v.identity.equals("benihime"))) return value;
                 return RyujinActionVisuals.transform(player,com.bleachmod.common.visual.SignatureChoreography.release(v.identity,t*v.duration,v.duration,sign),part,type,value);
             }
-            if(v.bankai && v.identity.equals("ryujin_jakka"))return RyujinActionVisuals.transform(player,com.bleachmod.common.visual.RyujinChoreography.release(t*v.duration,sign),part,type,value);
+            if(v.bankai && v.identity.equals("ryujin_jakka")) return value;
             boolean sword=part.equals(sign>0?"rightArm":"leftArm"),seal=part.equals(sign>0?"leftArm":"rightArm");
             if(v.bankai && v.identity.equals("hyorinmaru")){
                 float age = t * v.duration;
