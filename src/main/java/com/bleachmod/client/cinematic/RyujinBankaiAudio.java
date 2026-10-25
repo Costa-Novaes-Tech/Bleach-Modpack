@@ -112,7 +112,7 @@ final class RyujinBankaiAudio {
         }
 
         // Cue 2: "Zanka no Tachi" at tick 60
-        if (age >= RyujinBankaiTimeline.CUE_NAME && !state.firedName && age < 120) {
+        if (age >= RyujinBankaiTimeline.CUE_NAME && !state.firedName && age < 105) {
             state.firedName = true;
             var sound = new SimpleSoundInstance(
                     ModSounds.RYUJIN_VOICE_NAME.get().getLocation(),

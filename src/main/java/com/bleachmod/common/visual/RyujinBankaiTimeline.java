@@ -106,9 +106,9 @@ public final class RyujinBankaiTimeline {
 
     public static float nameSubtitleAlpha(double ticks) {
         double age = clamp(ticks);
-        if (age < 64 || age > 124) return 0.0F;
-        if (age < 70) return (float) progress(age, 64, 70);
-        if (age < 114) return 1.0F;
-        return (float) (1.0 - progress(age, 114, 124));
+        if (age < 64 || age > 106) return 0.0F;
+        if (age < 68) return (float) progress(age, 64, 68);
+        if (age < 102) return 1.0F;
+        return (float) (1.0 - progress(age, 102, 106));
     }
 }
