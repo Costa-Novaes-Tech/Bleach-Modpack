@@ -13,11 +13,11 @@ public final class SenbonAtmosphere {
      * Atmospheric darkness curve:
      *   0..35:   Gradual entry of twilight/darkness (0.0 -> 1.0)
      *   35..228: Sustained dark spiritual atmosphere (1.0)
-     *   228..266: Partial recovery during petal dispersion (1.0 -> 0.30)
-     *   266..290: Complete return to normal appearance (0.30 -> 0.0)
+     *   228..266: Partial recovery during petal dispersion (1.0 -> 0.28)
+     *   266..290: Complete return to normal appearance (0.28 -> 0.0)
      */
     public static double darkness(double age) {
-        if (age < 0.0 || age >= 290.0) return 0.0;
+        if (!Double.isFinite(age) || age <= 0.0 || age >= 290.0) return 0.0;
         if (age < 35.0) {
             double t = age / 35.0;
             return t * t * (3.0 - 2.0 * t);
@@ -26,11 +26,11 @@ public final class SenbonAtmosphere {
         } else if (age < 266.0) {
             double t = (age - 228.0) / 38.0;
             double smooth = t * t * (3.0 - 2.0 * t);
-            return Mth.lerp(smooth, 1.0, 0.30);
+            return Mth.lerp(smooth, 1.0, 0.28);
         } else {
             double t = (age - 266.0) / 24.0;
             double smooth = t * t * (3.0 - 2.0 * t);
-            return Mth.lerp(smooth, 0.30, 0.0);
+            return Mth.lerp(smooth, 0.28, 0.0);
         }
     }
 

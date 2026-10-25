@@ -1,9 +1,12 @@
 package com.bleachmod.client.cinematic;
 
 import com.bleachmod.Reference;
+import com.bleachmod.common.visual.BenihimeEntranceGeometry;
+import com.bleachmod.common.visual.BenihimeGeometry;
 import com.bleachmod.common.visual.SenbonAtmosphere;
 import com.bleachmod.common.visual.SenbonCameraPath;
 import com.bleachmod.common.visual.SenbonGeometry;
+import com.bleachmod.common.visual.SenbonStage;
 import com.bleachmod.init.ModParticles;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.VertexFormat;
@@ -12,6 +15,7 @@ import net.minecraft.client.CameraType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
@@ -19,23 +23,26 @@ import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.ClientPlayerNetworkEvent;
 import net.minecraftforge.client.event.RenderGuiEvent;
 import net.minecraftforge.client.event.RenderGuiOverlayEvent;
 import net.minecraftforge.client.event.RenderLevelStageEvent;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.client.event.ViewportEvent;
 import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.event.level.LevelEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 import java.lang.reflect.Method;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
- * Client-side camera director, monumental blade renderer, atmospheric controller,
- * and cinematic subtitle presenter for Byakuya Kuchiki's Bankai: Senbonzakura Kageyoshi.
+ * Client-side camera director, dark spiritual floor & petal backdrop renderer, monumental blade renderer,
+ * atmospheric controller, and cinematic subtitle presenter for Byakuya Kuchiki's Bankai: Senbonzakura Kageyoshi.
  * Total presentation duration: 290 ticks (14.5 seconds).
  */
 @Mod.EventBusSubscriber(modid = Reference.MOD_ID, value = Dist.CLIENT)
@@ -46,7 +53,13 @@ public final class SenbonzakuraCinematicClient {
         private Types() {
             super("senbon_unused", DefaultVertexFormat.POSITION_COLOR, VertexFormat.Mode.QUADS, 4096, false, true, () -> {}, () -> {});
         }
-        static final RenderType GLOW = create("senbon_cinematic_glow", DefaultVertexFormat.POSITION_COLOR, VertexFormat.Mode.QUADS, 4096, false, true,
+        static final RenderType STAGE_BACKDROP = create("senbon_stage_backdrop", DefaultVertexFormat.POSITION_COLOR, VertexFormat.Mode.QUADS, 65536, false, true,
+                CompositeState.builder().setShaderState(RENDERTYPE_LIGHTNING_SHADER).setTransparencyState(TRANSLUCENT_TRANSPARENCY)
+                        .setCullState(NO_CULL).setWriteMaskState(COLOR_WRITE).createCompositeState(false));
+        static final RenderType STAGE_FLOOR = create("senbon_stage_floor", DefaultVertexFormat.POSITION_COLOR, VertexFormat.Mode.QUADS, 65536, false, true,
+                CompositeState.builder().setShaderState(RENDERTYPE_LIGHTNING_SHADER).setTransparencyState(TRANSLUCENT_TRANSPARENCY)
+                        .setCullState(NO_CULL).setWriteMaskState(COLOR_WRITE).createCompositeState(false));
+        static final RenderType GLOW = create("senbon_cinematic_glow", DefaultVertexFormat.POSITION_COLOR, VertexFormat.Mode.QUADS, 65536, false, true,
                 CompositeState.builder().setShaderState(RENDERTYPE_LIGHTNING_SHADER).setTransparencyState(TRANSLUCENT_TRANSPARENCY)
                         .setCullState(NO_CULL).setWriteMaskState(COLOR_WRITE).setOutputState(PARTICLES_TARGET).createCompositeState(false));
     }
@@ -102,9 +115,14 @@ public final class SenbonzakuraCinematicClient {
 
         Vec3 anchor = new Vec3(tag.getDouble("x"), tag.getDouble("y"), tag.getDouble("z"));
         float yaw = tag.getFloat("yaw");
+        if (!Double.isFinite(anchor.lengthSqr()) || !Float.isFinite(yaw)) return;
         Vec3 forward = Vec3.directionFromRotation(0, yaw);
 
         boolean fresh = !SCENES.containsKey(id);
+        if (fresh && SCENES.size() >= 8) {
+            if (mc.player == null || id != mc.player.getId()) return;
+            SCENES.keySet().stream().filter(other -> other != id).findFirst().ifPresent(SenbonzakuraCinematicClient::finish);
+        }
         SCENES.put(id, new Scene(mc.level.getGameTime() - elapsed, anchor, forward, yaw));
 
         if (fresh && mc.player != null && mc.player.getId() == id) {
@@ -113,6 +131,18 @@ public final class SenbonzakuraCinematicClient {
             }
             cameraActive = true;
             mc.options.setCameraType(CameraType.THIRD_PERSON_BACK);
+        }
+    }
+
+    @SubscribeEvent
+    public static void onLogout(ClientPlayerNetworkEvent.LoggingOut e) {
+        clear();
+    }
+
+    @SubscribeEvent
+    public static void onLevelUnload(LevelEvent.Unload e) {
+        if (e.getLevel().isClientSide()) {
+            clear();
         }
     }
 
@@ -309,11 +339,11 @@ public final class SenbonzakuraCinematicClient {
             if (isLocalCaster && cameraActive) {
                 if (dark > maxShade) maxShade = dark;
             } else {
-                // Observer: proximity and orientation check
+                // Observer: proximity (< 48 blocks) and orientation check towards the scene
                 Vec3 delta = scene.anchor.subtract(camPos);
-                double distanceFactor = Mth.clamp((52.0 - delta.length()) / 28.0, 0.0, 1.0);
-                double facingFactor = Mth.clamp((viewDir.dot(delta.normalize()) - 0.2) / 0.6, 0.0, 1.0);
-                double observerShade = distanceFactor * facingFactor * dark;
+                double distanceFactor = Mth.clamp((48.0 - delta.length()) / 24.0, 0.0, 1.0);
+                double facingFactor = Mth.clamp((viewDir.dot(delta.normalize()) - 0.25) / 0.55, 0.0, 1.0);
+                double observerShade = 0.65 * distanceFactor * facingFactor * dark;
                 if (observerShade > maxShade) maxShade = observerShade;
             }
         }
@@ -467,13 +497,14 @@ public final class SenbonzakuraCinematicClient {
             }
         }
 
-        // Cleanup expired scenes & update audio
+        // Cleanup expired or invalid scenes & update audio
         for (var it = SCENES.entrySet().iterator(); it.hasNext(); ) {
             var entry = it.next();
             int id = entry.getKey();
             Scene s = entry.getValue();
+            var actor = mc.level.getEntity(id);
             long age = mc.level.getGameTime() - s.start;
-            if (age >= DURATION) {
+            if (actor == null || !actor.isAlive() || age >= DURATION || actor.position().distanceToSqr(s.anchor) > 512 * 512) {
                 SenbonzakuraEntranceAudio.stop(id);
                 it.remove();
                 if (mc.player != null && mc.player.getId() == id) {
@@ -538,35 +569,61 @@ public final class SenbonzakuraCinematicClient {
 
         var pose = event.getPoseStack();
         Vec3 camera = event.getCamera().getPosition();
+        float partialTick = event.getPartialTick();
         pose.pushPose();
 
         var buffers = mc.renderBuffers().bufferSource();
-        var vertices = buffers.getBuffer(Types.GLOW);
         var matrix = pose.last().pose();
 
+        // Pass 1: Curved 3D Spatial Dark Backdrop & Depth Layers of Sakura Petals (furthest back)
+        var backdropBuf = buffers.getBuffer(Types.STAGE_BACKDROP);
         for (Scene s : SCENES.values()) {
-            long age = mc.level.getGameTime() - s.start;
-            if (age < 0 || age >= DURATION) continue;
+            double age = age(s, partialTick);
+            if (age < 0.0 || age >= DURATION || mc.player.distanceToSqr(s.anchor) > 96 * 96) continue;
+            emitQuads(backdropBuf, matrix, SenbonStage.backdrop(s.anchor.subtract(camera), s.forward, age));
+        }
+        buffers.endBatch(Types.STAGE_BACKDROP);
+
+        // Pass 2: Terrain-Conforming Dark Spiritual Floor (0..35 entry, 35..228 sustain, 228..290 dissolution)
+        var floorBuf = buffers.getBuffer(Types.STAGE_FLOOR);
+        for (Scene s : SCENES.values()) {
+            double age = age(s, partialTick);
+            if (age < 0.0 || age >= DURATION || mc.player.distanceToSqr(s.anchor) > 96 * 96) continue;
+            var ground = sampleTerrain(s.anchor, s.forward);
+            emitQuads(floorBuf, matrix, SenbonStage.floor(s.anchor.subtract(camera), s.forward, age, ground));
+        }
+        buffers.endBatch(Types.STAGE_FLOOR);
+
+        // Pass 3: Foreground Elements (Surface Petals/Trails, Enhanced Contact Ripples, Falling Katana, 20 Monumental Blades)
+        var vertices = buffers.getBuffer(Types.GLOW);
+        for (Scene s : SCENES.values()) {
+            double age = age(s, partialTick);
+            if (age < 0.0 || age >= DURATION || mc.player.distanceToSqr(s.anchor) > 96 * 96) continue;
 
             Vec3 anchor = s.anchor;
             Vec3 forward = s.forward;
             Vec3 left = SenbonGeometry.left(forward);
+            Vec3 originRelCam = anchor.subtract(camera);
             Vec3 dropPoint = anchor.add(forward.scale(0.35)).add(left.scale(0.32));
-            double groundY = anchor.y + 0.02;
+            double groundY = anchor.y + 0.024;
+            var ground = sampleTerrain(anchor, forward);
 
-            // 1. Render Falling & Sinking Katana with physical floor clipping (age 10..76)
-            if (age >= 10 && age < 76) {
-                renderFallingSinkingKatana(vertices, matrix, dropPoint.subtract(camera), groundY - camera.y, (int) age, forward, left);
+            // 1. Sparse low-lying sakura petals and soft luminous trails above the dark floor
+            emitQuads(vertices, matrix, SenbonStage.surfaceDetails(originRelCam, forward, age, ground));
+
+            // 2. Concentric Reishi Water Ripple Discs on the dark floor (age 30..180)
+            if (age >= 30.0 && age < 180.0) {
+                renderReishiRippleDiscs(vertices, matrix, dropPoint.subtract(camera), age);
             }
 
-            // 2. Render Concentric Reishi Water Ripple Discs on the ground (age 30..180)
-            if (age >= 30 && age < 180) {
-                renderReishiRippleDiscs(vertices, matrix, dropPoint.subtract(camera), (int) age);
+            // 3. Falling & Sinking Katana with physical floor clipping (age 10..76)
+            if (age >= 10.0 && age < 76.0) {
+                renderFallingSinkingKatana(vertices, matrix, dropPoint.subtract(camera), groundY - camera.y, age, forward, left);
             }
 
-            // 3. Render 20 Monumental Colossal Blades (10 left, 10 right) (age 76..266)
-            if (age >= 76 && age < 266) {
-                renderMonumentalBladeCorridor(vertices, matrix, anchor.subtract(camera), forward, left, (int) age);
+            // 4. 20 Monumental Colossal Blades (10 left, 10 right) (age 76..266)
+            if (age >= 76.0 && age < 266.0) {
+                renderMonumentalBladeCorridor(vertices, matrix, originRelCam, forward, left, age);
             }
         }
 
@@ -574,18 +631,55 @@ public final class SenbonzakuraCinematicClient {
         pose.popPose();
     }
 
+    private static void emitQuads(com.mojang.blaze3d.vertex.VertexConsumer buf, org.joml.Matrix4f matrix, List<BenihimeGeometry.Quad> quads) {
+        for (var q : quads) {
+            int c = q.color();
+            int r = c >>> 24;
+            int g = (c >>> 16) & 255;
+            int b = (c >>> 8) & 255;
+            int a = c & 255;
+            for (var v : List.of(q.a(), q.b(), q.c(), q.d())) {
+                buf.vertex(matrix, (float) v.x, (float) v.y, (float) v.z).color(r, g, b, a).endVertex();
+            }
+        }
+    }
+
+    /**
+     * Client collision-shape sampling aligned with Senbonzakura's local coordinates (+X left, +Z forward).
+     * Never loads chunks, modifies blocks, or alters entity collision.
+     */
+    private static BenihimeEntranceGeometry.Ground sampleTerrain(Vec3 anchor, Vec3 forward) {
+        var mc = Minecraft.getInstance();
+        var level = mc.level;
+        Vec3 flat = new Vec3(forward.x, 0.0, forward.z);
+        Vec3 normForward = flat.lengthSqr() > 1.0E-5 ? flat.normalize() : new Vec3(0.0, 0.0, 1.0);
+        Vec3 left = SenbonGeometry.left(normForward);
+        return (x, z) -> {
+            if (level == null || mc.player == null) return 0.0;
+            Vec3 point = anchor.add(left.scale(x)).add(normForward.scale(z));
+            if (!level.hasChunkAt(BlockPos.containing(point))) return 0.0;
+            var hit = level.clip(new ClipContext(
+                    point.add(0.0, 2.2, 0.0),
+                    point.add(0.0, -2.2, 0.0),
+                    ClipContext.Block.COLLIDER,
+                    ClipContext.Fluid.NONE,
+                    mc.player));
+            return hit.getType() == HitResult.Type.MISS ? 0.0 : hit.getLocation().y - anchor.y;
+        };
+    }
+
     /**
      * Renders the falling katana physically separating from the hand, falling under gravity,
      * and progressively sinking into the spiritual water surface by clipping quads at ground level.
      */
-    private static void renderFallingSinkingKatana(com.mojang.blaze3d.vertex.VertexConsumer v, org.joml.Matrix4f m, Vec3 dropOrigin, double groundRelY, int age, Vec3 forward, Vec3 left) {
+    private static void renderFallingSinkingKatana(com.mojang.blaze3d.vertex.VertexConsumer v, org.joml.Matrix4f m, Vec3 dropOrigin, double groundRelY, double age, Vec3 forward, Vec3 left) {
         float initialHiltTop = 1.25F;
         float fallDist;
-        if (age < 35) {
-            float t = (age - 10.0F) / 25.0F;
+        if (age < 35.0) {
+            float t = (float) ((age - 10.0) / 25.0);
             fallDist = t * t * 0.20F;
         } else {
-            float t = (age - 35.0F) / 41.0F;
+            float t = (float) ((age - 35.0) / 41.0);
             fallDist = 0.20F + t * 1.05F;
         }
 
@@ -596,6 +690,13 @@ public final class SenbonzakuraCinematicClient {
         if (hiltTopY <= groundRelY) return;
 
         Vec3 up = new Vec3(0, 1, 0);
+
+        // Subtle luminous collar exactly at the surface contact line while the katana sinks (age 33..75)
+        if (age >= 33.0 && tipY <= groundRelY + 0.04) {
+            int collarAlpha = (int) (210 * Mth.clamp((76.0 - age) / 14.0, 0.0, 1.0));
+            Vec3 surfaceContact = new Vec3(dropOrigin.x, groundRelY - dropOrigin.y, dropOrigin.z);
+            drawRing(v, m, dropOrigin.add(0, surfaceContact.y, 0), 0.03, 0.19, 255, 185, 230, collarAlpha, 0.014F);
+        }
 
         // 1. Blade Body (Silver steel with glowing hamon edge)
         if (tsubaY > groundRelY) {
@@ -632,20 +733,30 @@ public final class SenbonzakuraCinematicClient {
         }
     }
 
-    private static void renderReishiRippleDiscs(com.mojang.blaze3d.vertex.VertexConsumer v, org.joml.Matrix4f m, Vec3 origin, int age) {
-        double[] baseRadii = {0.8, 1.8, 3.2, 4.8, 6.5};
-        float life = Mth.clamp((age - 30.0F) / 150.0F, 0.0F, 1.0F);
-        float fade = (age >= 140) ? (1.0F - (age - 140.0F) / 40.0F) : 1.0F;
+    private static void renderReishiRippleDiscs(com.mojang.blaze3d.vertex.VertexConsumer v, org.joml.Matrix4f m, Vec3 origin, double age) {
+        double[] baseRadii = {0.55, 1.35, 2.45, 3.80, 5.35, 7.10};
+        float life = (float) Mth.clamp((age - 30.0) / 150.0, 0.0, 1.0);
+        float entry = (float) SenbonStage.smoothstep(30.0, 38.0, age);
+        float fade = (age >= 136.0) ? (float) (1.0 - (age - 136.0) / 44.0) : 1.0F;
 
         for (int r = 0; r < baseRadii.length; r++) {
-            double rad = baseRadii[r] * (0.4 + life * 0.9) + Math.sin(age * 0.12 + r) * 0.18;
-            int alpha = (int) (200 * fade * Mth.clamp(1.0F - (float) r / 5.0F, 0.25F, 1.0F));
-            drawRing(v, m, origin, rad, rad + 0.32, 255, 130, 210, alpha);
+            double rad = baseRadii[r] * (0.32 + life * 0.96) + Math.sin(age * 0.14 + r * 0.9) * 0.14;
+            float ringFade = entry * fade * Mth.clamp(1.0F - (float) r / 6.2F, 0.22F, 1.0F);
+            int crestAlpha = (int) (218 * ringFade);
+            int haloAlpha = (int) (96 * ringFade);
+            float yOffset = 0.036F + r * 0.0015F;
+
+            // Soft indigo-rose outer reflection halo on the dark spiritual water
+            drawRing(v, m, origin, Math.max(0.02, rad - 0.14), rad + 0.44, 155, 65, 145, haloAlpha, yOffset - 0.002F);
+            // Crisp sakura-pink inner ripple crest
+            drawRing(v, m, origin, rad, rad + 0.18, 255, 150, 218, crestAlpha, yOffset);
         }
     }
 
-    private static void drawRing(com.mojang.blaze3d.vertex.VertexConsumer v, org.joml.Matrix4f m, Vec3 origin, double rInner, double rOuter, int r, int g, int b, int a) {
-        int segments = 24;
+    private static void drawRing(com.mojang.blaze3d.vertex.VertexConsumer v, org.joml.Matrix4f m, Vec3 origin, double rInner, double rOuter, int r, int g, int b, int a, float yOffset) {
+        if (a <= 2) return;
+        int segments = 32;
+        float y = (float) origin.y + yOffset;
         for (int i = 0; i < segments; i++) {
             double a0 = i * (Math.PI * 2.0 / segments);
             double a1 = (i + 1) * (Math.PI * 2.0 / segments);
@@ -660,7 +771,6 @@ public final class SenbonzakuraCinematicClient {
             float x1o = (float) (origin.x + Math.cos(a1) * rOuter);
             float z1o = (float) (origin.z + Math.sin(a1) * rOuter);
 
-            float y = (float) (origin.y + 0.035);
             v.vertex(m, x0i, y, z0i).color(r, g, b, a).endVertex();
             v.vertex(m, x0o, y, z0o).color(r, g, b, a).endVertex();
             v.vertex(m, x1o, y, z1o).color(r, g, b, a).endVertex();
@@ -672,7 +782,7 @@ public final class SenbonzakuraCinematicClient {
      * Renders the monumental corridor of 20 colossal blades (10 left, 10 right),
      * standing 22 blocks tall, spanning 35 blocks along the corridor.
      */
-    private static void renderMonumentalBladeCorridor(com.mojang.blaze3d.vertex.VertexConsumer v, org.joml.Matrix4f m, Vec3 origin, Vec3 forward, Vec3 left, int age) {
+    private static void renderMonumentalBladeCorridor(com.mojang.blaze3d.vertex.VertexConsumer v, org.joml.Matrix4f m, Vec3 origin, Vec3 forward, Vec3 left, double age) {
         int bladeCountPerRow = 10;
         double corridorHalfWidth = 4.5;
         double bladeSpacingZ = 3.8;
@@ -683,22 +793,22 @@ public final class SenbonzakuraCinematicClient {
                 Vec3 bladeBase = origin.add(left.scale(side * corridorHalfWidth)).add(forward.scale(startZ + i * bladeSpacingZ));
 
                 float delay = 76.0F + (bladeCountPerRow - 1 - i) * 3.2F;
-                float rawGrow = Mth.clamp((age - delay) / 32.0F, 0.0F, 1.0F);
+                float rawGrow = (float) Mth.clamp((age - delay) / 32.0, 0.0, 1.0);
                 if (rawGrow <= 0.0F) continue;
 
                 float grow = (float) Math.sin(rawGrow * Math.PI * 0.5);
 
                 float tremor = 0.0F;
-                if (age >= 160 && age <= 228) {
-                    tremor = (float) Math.sin((age * 0.75F) + i * 0.6F) * 0.06F;
+                if (age >= 160.0 && age <= 228.0) {
+                    tremor = (float) Math.sin((age * 0.75) + i * 0.6) * 0.06F;
                 }
 
                 float dissolve = 0.0F;
                 float fade = 1.0F;
-                if (age >= 228) {
-                    float dissT = Mth.clamp((age - 228.0F) / 35.0F, 0.0F, 1.0F);
+                if (age >= 228.0) {
+                    float dissT = (float) Mth.clamp((age - 228.0) / 35.0, 0.0, 1.0);
                     dissolve = dissT;
-                    fade = Mth.clamp(1.0F - (age - 228.0F) / 38.0F, 0.0F, 1.0F);
+                    fade = (float) Mth.clamp(1.0 - (age - 228.0) / 38.0, 0.0, 1.0);
                 }
 
                 renderMonumentalBlade(v, m, bladeBase, forward, left, grow, tremor, dissolve, fade);
