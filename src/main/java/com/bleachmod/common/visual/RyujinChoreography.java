@@ -81,6 +81,22 @@ public final class RyujinChoreography {
                 key(47,v(-.25,1.2,-.03),Vec3.ZERO,Vec3.ZERO,Vec3.ZERO,Vec3.ZERO,v(.12,-.10,-.08),v(-.1,.35,-.65)),
                 key(53,v(-.25,1.2,-.03),Vec3.ZERO,Vec3.ZERO,Vec3.ZERO,Vec3.ZERO,v(.12,-.10,-.08),v(-.1,.35,-.65)),neutral(60));
     }
+
+    /**
+     * Authored 140-tick transformation stance for Ryūjin Bankai / Zanka no Tachi.
+     * Planted stance, erect chest, katana held low pointing outward on the wielding side.
+     * Fades weight smoothly to 0 between ticks 120 and 140.
+     */
+    public static Pose bankaiEntrance(float age, float sign) {
+        float breathe = (float) Math.sin(age * 0.15) * 0.015F;
+        return curve(age, sign, neutral(0),
+                key(8, v(-.25, 1.2, -.03), v(-.2, -.1, .05), v(0, 0, 0), v(.05, 0, .04), Vec3.ZERO, v(.12, -.10, -.08), v(-.1, .35, -.65)),
+                key(52, v(-.25, 1.2, -.03), v(-.2, -.1, .05), v(0, 0, 0), v(.05, 0, .04), Vec3.ZERO, v(.12, -.10, -.08), v(-.1, .35, -.65)),
+                key(60, v(-.25, 1.22, -.03), v(-.18, -.1, .05), v(0, 0, 0), v(.05, 0, .04), Vec3.ZERO, v(.12, -.10, -.08), v(-.08, .35, -.65)),
+                key(120, v(-.25, 1.22, -.03), v(-.18, -.1, .05), v(breathe, 0, 0), v(.05, 0, .04), Vec3.ZERO, v(.12, -.10, -.08), v(-.08, .35, -.65)),
+                neutral(140));
+    }
+
     private static Vec3 modelRotation(Vec3 vector,Vec3 angles){
         double x=vector.x,y=vector.y*Math.cos(angles.x)-vector.z*Math.sin(angles.x),z=vector.y*Math.sin(angles.x)+vector.z*Math.cos(angles.x);
         double xx=x*Math.cos(angles.y)+z*Math.sin(angles.y),zz=-x*Math.sin(angles.y)+z*Math.cos(angles.y);

@@ -48,6 +48,12 @@ public final class ModSounds {
     public static final RegistryObject<SoundEvent> SENBONZAKURA_THEME = SOUND_EVENTS.register("senbonzakura.theme",
             () -> SoundEvent.createVariableRangeEvent(Reference.id("senbonzakura.theme")));
 
+    // Ryujin Jakka / Zanka no Tachi Bankai transformation audio
+    public static final RegistryObject<SoundEvent> RYUJIN_VOICE_BANKAI = SOUND_EVENTS.register("voice.ryujin_bankai",
+            () -> SoundEvent.createFixedRangeEvent(Reference.id("voice.ryujin_bankai"), 64));
+    public static final RegistryObject<SoundEvent> RYUJIN_VOICE_NAME = SOUND_EVENTS.register("voice.ryujin_name",
+            () -> SoundEvent.createFixedRangeEvent(Reference.id("voice.ryujin_name"), 64));
+
     private ModSounds() {
     }
 }
