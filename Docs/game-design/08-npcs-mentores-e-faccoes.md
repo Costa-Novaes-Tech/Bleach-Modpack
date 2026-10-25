@@ -1,15 +1,21 @@
 # NPCs, mentores e facções
 
+> **Integração de Combat State — 23/10/2026:** [M06a/CS-01A/B/C/D](06a-estado-de-combate.md) decidido. Reset RAC-31A exige estado automático OFF e ausência de encontro, além de não haver perigo/dano atual incompatível com a operação. NPC protegido não torna o jogador seguro por associação. Validar antes de concluir o reset; não cancelar um compromisso de luta ao abrir atendimento ou fechar a interface. Sentidos, preço, perdas/preservações e corpo/local já escolhidos permanecem.
+
+> **Integração de presença — 23/10/2026:** [M04a/RAC-30A/B/C/D](04a-presenca-espiritual-e-interacao.md) decidido. Fontes de Bleach precisam ter sentidos/interação adequados ao público atendido; civil sem visão espiritual não vê almas por associação. Visão básica da origem precede o combate inicial que a exige, sem comprar a leitura de Reiatsu apenas para enxergar. Comércio/interação vanilla preservados; isso não concede compatibilidade espiritual de dano. O prestador de reset conserva função/local já aprovados; corpo/local após a operação foram decididos em M04/RAC-31A: recomeço no atendimento do NPC, com estado inicial próprio e validação antes de concluir, sem preservar o corpo avançado anterior.
+
 ## 1. Estado do módulo
 
 | Campo | Valor |
 |---|---|
-| Estado | `ESPECIFICADO CONCEITUALMENTE` — revisão dirigida de integração |
+| Estado | Regras gerais: `ESPECIFICADO CONCEITUALMENTE`; catálogo funcional: `EM ESPECIFICAÇÃO` |
 | Data | 22/10/2026 |
 | Responsável | Equipe do Bleach Mod; coautoria de design com decisões explícitas do usuário |
 | Herança | M01/D04–D05, M02/PRG-06/08, M03/STR-03/06, M04/RAC-12/20/28 e REV-RAC27-01, M05/REV-SP-02, M06/M07 |
-| Decisões | M08-01A/B, M08-02A, M08-03A e M08-04A–D DECIDIDOS; respostas e cobertura nas seções 8.4–8.14 |
+| Decisões | M08-01A/B, M08-02A, M08-03A e M08-04A–D DECIDIDOS; respostas e cobertura nas seções 8.4–8.14. Conteúdo: M08-05A/B a M08-12A/B no catálogo vinculado abaixo; alcance de cada aprovação nos respectivos registros |
 | Limite | Não é catálogo final, implementação, teste ou aceite |
+
+**Ampliação de conteúdo — 22/10/2026:** por solicitação do usuário, detalhar as funções do elenco e das organizações antes de seguir para M09. [Catálogo funcional de M08](08a-catalogo-funcional-de-npcs-e-faccoes.md): 41 registros conferidos, 36 entradas narrativas de trabalho, cinco contatos canônicos aprovados e prestador original de reset aprovado. Academia/Gotei elaborados no catálogo/9.1–9.5; M08-06A/B aprovados em 12.1–12.2 sobre lotação e deveres; demais conteúdos identificados como candidatos. Onmitsukidō/Corpo de Kidō/Pesquisa elaborados no catálogo/9.6–9.10; funções aprovadas em M08-07A; atividades, representantes e currículos específicos continuam candidatos. Fontes Quincy em catálogo/9.11–9.16, M08-08A/B aprovados em 12.4–12.5 sobre funções e Ryūken como referência de recuperação; procedimento e conteúdo específico pendentes. Fontes Fullbringer/Xcution em catálogo/9.17–9.21, papéis M08-09A aprovados em 12.6; repertórios, atividades e espaços ainda exigem ficha. Relações Hollow/Arrancar e regime/Espada elaborados em catálogo/9.22–9.26, funções M08-10A/B aprovadas em 12.7–12.8; demais atividades e atribuições individuais continuam candidatas. Rede Urahara/serviços em catálogo/9.27–9.30, M08-11A decidido em 12.9, sem pergunta pendente; repertórios e produtos pendentes. As regras gerais já aprovadas permanecem. “Fechado conceitualmente” não significa que cada NPC tenha ficha executável.
 
 ## 2. Objetivo
 
@@ -45,7 +51,7 @@ Separar identidade narrativa, presença no mundo, serviços e representação de
 
 **Outros responsáveis:** cálculos/skills/formas M05–M07; combate/IA/encontros M09; locais/acesso M10; itens/preços/estoque M11; objetivos/falhas/recompensas M12; enredo/diálogos completos M13; telas/comandos M14; party/PvP/catch-up M15; dados/migração/integração M16.
 
-Não inclui nesta abertura: catálogo completo de mestres, professor de cada técnica, patrulhas/rotinas de toda cidade, criação de múltiplos personagens ou campanha detalhada de Grimmjow.
+O fechamento inicial tratou das regras gerais, sem catálogo completo de mestres ou professor de cada técnica. A ampliação solicitada depois trabalha as funções e primeiras fichas no [catálogo de M08](08a-catalogo-funcional-de-npcs-e-faccoes.md). Patrulhas/rotinas de toda cidade, criação de múltiplos personagens e campanha detalhada de Grimmjow continuam fora deste bloco.
 
 ## 7. Modelo conceitual
 
@@ -78,7 +84,7 @@ A ficha terá: identificação; papel/era/local; por que atende ou recusa; requi
 4. **Poder principal:** quests podem ser associadas a um personagem canônico sem torná-lo amigo, doador literal ou combatente aliado. Uma capacidade individual não se torna técnica transferível só porque existe um professor.
 5. **Relações:** reputação, cargo, afiliação e afinidade pessoal são distintos; força/BP não concede patente. Raça não define amizade ou PvP automático. Mudança de facção não apaga aprendizados por si só.
 6. **Formas e recuperações:** respeitar provas/vínculos e custos de M07. Letzt Stil exige recuperação própria viável sem técnica suspensa ou outro jogador obrigatório; dano estrutural de Bankai precisa ter recuperação antes do risco. Reset não substitui essas recuperações mantendo a jornada.
-7. **Reset:** NPC oferece o serviço aprovado de recomeçar progressão Bleach, com confirmação fora de combate/encontro e preservação de itens comuns/XP vanilla/mundo. M08-03A fixa ausência de taxa adicional neste serviço; NPC concreto, frequência e itens vinculados permanecem abertos. Personagem único nesta etapa.
+7. **Reset:** NPC oferece o serviço aprovado de recomeçar progressão Bleach, com confirmação fora de combate/encontro e preservação de itens comuns/XP vanilla/mundo. M08-03A fixa ausência de taxa adicional neste serviço. Tipo original dedicado decidido em M08-05B; nome/apresentação, acesso, frequência e itens vinculados permanecem abertos. Personagem único nesta etapa.
 8. **Autoridade:** servidor valida requisitos, pagamentos e resultado; interfaces e NPCs solicitam, não autorizam por conta própria. Falhas não geram compra duplicada ou recompensa parcial.
 9. **Vitória jogável:** bosses adaptados são vencidos pelo jogador/party; canônicos não encerram a luta por ele, conforme STR-03.
 
@@ -183,9 +189,9 @@ Esta consolidação não escolhe nomes, lista de técnicas, minigames, quantidad
 
 | Serviço | Contrato existente | O que M08 ainda deve detalhar |
 |---|---|---|
-| Reset de jornada Bleach | M04/RAC-28: confirmação fora de combate/encontro; reiniciar progresso Bleach com nova seleção, preservar itens comuns/XP vanilla/mundo | Prestador/acesso adequado às origens/eras, frequência, diálogo e encaminhamento ao processo seguro; gratuidade em M08-03A; itens/retorno continuam M10/M11/M12/M16 |
+| Reset de jornada Bleach | M04/RAC-28: confirmação fora de combate/encontro; reiniciar progresso Bleach com nova seleção, preservar itens comuns/XP vanilla/mundo | Tipo original dedicado aprovado em M08-05B; nome/apresentação, continuidade por era, frequência, diálogo e encaminhamento seguro pendentes; local/acesso corporal em M10-12C e reset no atendimento em RAC-31A já decididos; gratuidade em M08-03A; itens/operação continuam M11/M12/M16 |
 | Recuperação de Bankai | M07: dano estrutural específico persiste até recuperação própria, sem apagar conquista/domínio | Fonte/processo compatível com o poder e acesso antes de introduzir o risco; não vendedor universal de reparo |
-| Recuperação após Letzt Stil | M07: procedimento próprio, viável sem técnicas suspensas, outro jogador ou lealdade permanente obrigatória | Fonte e passos acessíveis, reconhecimento dos marcos e disponibilidade por era; não confundir com rearmar Sanrei |
+| Recuperação após Letzt Stil | M07: procedimento próprio, viável sem técnicas suspensas, outro jogador ou lealdade permanente obrigatória | Referência Ryūken aprovada em M08-08B; passos acessíveis, reconhecimento dos marcos e alternativa por era pendentes; não confundir com rearmar Sanrei |
 | Itens/focos/reposição | M11 fecha vínculo, perda, inventário e obtenção | Prestador competente e requisitos, sem prometer entrega gratuita, recall ou reparo por conversar |
 | Reacesso/troca de Fullbring | M07-09C: contextual, um principal, histórico próprio preservado e indisponível | Fonte/encaminhamento e contexto com M11/M12/M13; não reset racial ou compra de domínio |
 
@@ -312,6 +318,8 @@ Nomes e limites de cada posição vêm da ficha de instituição/era. Ter progre
 
 Primeira rota pode aproveitar a fundação Shinigami para conferir orientação → requisito → aquisição SP → prática. As outras rotas precisam de exemplos adequados antes de declarar o sistema multirracial validado. Quantidades, nomes, falas e técnicas da amostra permanecem pendentes.
 
+**Conteúdo iniciado depois do fechamento geral:** M08-05A aprova Rukia/Renji, Uryū, Chad e Nel como primeiros contatos canônicos após fundamentos, com contexto/era; M08-05B aprova prestador original dedicado ao reset. As seis fichas iniciais estão no catálogo, seções 8.3–8.8. Isso não aprova currículo completo, quest ou seleção final de todos os NPCs da primeira entrega.
+
 ## 11. Visão completa
 
 Mestres canônicos/especializados, instituições, rivalidades, serviços e acesso por território/era; quests associadas a principais; recuperações de riscos; facções, cargos e reação contextual. Não exige simetria de cinco mestres/degraus para cada raça. Personagens adicionais e ensino avançado entram por ficha e por entrega; múltiplos personagens jogáveis permanecem expansão futura de M04.
@@ -322,11 +330,13 @@ Mestres canônicos/especializados, instituições, rivalidades, serviços e aces
 
 Nenhuma resposta geral dos blocos M08-01 a M08-04 permanece pendente. A revisão não escolhe silenciosamente detalhes de conteúdo ou de execução.
 
+As decisões de conteúdo M08-05A/B a M08-12A/B também foram respondidas; [catálogo/12](08a-catalogo-funcional-de-npcs-e-faccoes.md#12-decisões-abertas-e-entregas) registra as próximas entregas. Continuam abertas as fichas de organizações, repertórios, fontes e demais personagens, sem reabrir as regras gerais por omissão.
+
 | Entrega pendente | Responsáveis | Por que continua necessária |
 |---|---|---|
 | Fichas de NPC/fonte por origem, competência, era, local e recusa | M08/M03/M10/M13 | Skin registrada não comprova serviço; substituto precisa ser apropriado |
 | Repertório, requisitos, preços SP e confirmação de aquisição | M05–M08/M14/M16 | Compra disponível, adquirida e Mastery precisam de registros distintos |
-| Reset: prestador, frequência, itens vinculados, recompensa repetida e corpo/local seguro | M04/M08/M10–M12/M15/M16 | Gratuidade não resolve repetição, perda de itens ou transformação corporal |
+| Reset: nome/apresentação do prestador original, frequência, itens vinculados, recompensa repetida e operação íntegra | M08/M10–M12/M15/M16 | Corpo/local decididos em RAC-31A/M10-12C; validar a realização segura sem duplicar itens/recompensas |
 | Recuperações de Bankai/Letzt e reacesso Fullbring concretos | M07/M08/M10–M13 | Rota viável precisa existir antes do risco ou troca correspondente |
 | Compatibilidade de organizações, ingresso/saída, cargos, deveres e consequências | M08/M03/M12/M13/M15 | Carreira pessoal não define títulos, taxas, limites ou sucessão |
 | Critério de agressão, advertência, insistência e autoria | M08/M09/M12/M14/M15 | Um canal com vários impactos não vira vários delitos por omissão |
@@ -377,6 +387,12 @@ Revisão documental dirigida de M08, confrontando contratos herdados de M04–M0
 
 **Fechamento:** `ESPECIFICADO CONCEITUALMENTE`. Sistemas e fronteiras definidos neste nível; §12.1 conserva conteúdo e condições de execução pendentes. Nenhum cenário de gameplay foi executado nesta revisão. A atualização Git incorpora trabalho de engenharia upstream; não é implementação nova desses contratos de M08 nesta sessão.
 
-**Próximo módulo principal:** M09 — Mobs, bosses e encontros. Partir das variantes Hollow e do boss existentes, definindo papéis, comportamento e ciclo dos encontros antes de ampliar o catálogo de assets. A lista recebida permanece candidata, com análise datada no documento de reconciliação; prioridades P1/P2/P3 não foram aprovadas automaticamente. Fichas de elenco, linhagens e artes continuam em etapa própria.
+**Encaminhamento no fechamento geral:** M09 — Mobs, bosses e encontros, partindo das variantes e boss existentes. A lista recebida permanece candidata; prioridades P1/P2/P3 não foram aprovadas automaticamente.
+
+**Continuidade revista por solicitação do usuário — 22/10/2026:** antes de abrir M09, permanecer no conteúdo de M08. O [catálogo funcional](08a-catalogo-funcional-de-npcs-e-faccoes.md) cobre o elenco existente e inicia as fichas. M08-05A/B DECIDIDOS; Academia/Gotei e mapa das 13 divisões elaborados, M08-06A/B DECIDIDOS: preferência/aceitação na lotação principal e deveres sem cota diária. Fontes especializadas elaboradas no catálogo/9.6–9.10, M08-07A DECIDIDO quanto às funções. Quincy elaborados no catálogo/9.11–9.16; M08-08A/B DECIDIDOS quanto às funções e Ryūken como referência de recuperação, sem procedimento pronto. Fontes Fullbringer/Xcution elaboradas em catálogo/9.17–9.21, M08-09A DECIDIDO sobre papéis iniciais, sem pergunta pendente. Relações Hollow/Arrancar e estrutura Aizen/Las Noches/Espada elaboradas em catálogo/9.22–9.26; M08-10A/B aprovados em 12.7–12.8 quanto às funções. Rede Urahara/serviços elaborados em catálogo/9.27–9.30; M08-11A DECIDIDO em 12.9, sem pergunta pendente. Próximo: revisar as lacunas antes de M09. Demais organizações, serviços e fontes iniciais originais permanecem pendentes. Técnicas/campanhas completas e artes não são antecipadas; Grimmjow continua primeira linhagem na etapa própria. Regras gerais seguem especificadas conceitualmente; catálogo em especificação.
+
+**Revisão do conteúdo em 22/10/2026:** a [revisão de M08](08b-revisao-do-catalogo-2026-10-22.md) confronta regras gerais e catálogo com os contratos vigentes. Sem conflito impeditivo identificado no recorte; oito lacunas com responsáveis. Recomenda complementar fontes/repertório inicial das quatro origens antes de M09; recuperações, carreiras e demais conteúdos exigem suas fichas antes das respectivas entregas. Nenhuma nova aprovação de produto ou mudança de maturidade do catálogo.
+
+**Complemento após a revisão — 22/10/2026:** Complemento de [fontes e repertório inicial](08a-catalogo-funcional-de-npcs-e-faccoes.md#931-fontes-iniciais--bloco-conjunto-das-quatro-origens) elaborado em 9.31–9.37; M08-12A/B DECIDIDOS em 12.10–12.11, sem pergunta pendente. Próximo módulo de planejamento: M09; práticas concretas, itens/SP, cobertura executável por era e demais fichas continuam condições antes das respectivas entregas. Instrutor da Academia, veterano Hollow no Mundo Humano, mentor Quincy independente e orientador Fullbringer originais aprovados. Repertório: fundamentos/Shunpo; corpo/defesa/caça e Cero posterior; arco/Hirenkyaku; Bringer Light/salto. Não é currículo completo, mestre universal, pacote gratuito ou aprovação de todo exercício. Regras gerais preservadas.
 
 **Reabrir se:** fonte essencial ficar inacessível; surgir requisito circular; aquisição/serviço violar SP ou perdas do reset; representação de combate afetar indevidamente o atendimento; ou ficha de facção/cargo contrariar a carreira e a continuidade aprovadas. Resolver o conflito antes da entrega correspondente.

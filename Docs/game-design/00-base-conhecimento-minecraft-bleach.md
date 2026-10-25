@@ -1,6 +1,6 @@
 # Base de conhecimento — Bleach dentro de Minecraft
 
-> **Direção vigente REV-SP-02 — 22/10/2026:** Spiritual Points compram **skills e transformações**, conforme esclarecimento explícito do usuário, usando Dragon Mine Z como referência para a compra. **Mastery é desenvolvida pela prática e não é comprada.** Requisitos/contexto disponibilizam a aquisição; SP paga a compra/desbloqueio; usar a capacidade depois segue os custos próprios de Energia/Stamina. [Contrato comum em M05/11.2](05-atributos-e-recursos.md#112-rev-sp-02--compra-de-skills-e-transformacoes-com-spiritual-points). Preços e exceções concretas permanecem nas fichas; a compra não pode ser removida genericamente por interpretação de M05/M06.
+> **Direção vigente REV-SP-02 — 22/10/2026:** Spiritual Points compram **skills e transformações**, conforme esclarecimento explícito do usuário, usando Dragon Mine Z como referência para a compra. **Mastery é desenvolvida pela prática e não é comprada.** Requisitos/contexto disponibilizam a aquisição; SP paga a compra/desbloqueio; usar a capacidade depois segue os custos próprios de Energia/Stamina. [Contrato comum em M05/11.2](05-atributos-e-recursos.md#112-rev-sp-02--compra-de-skills-e-transformações-com-spiritual-points). Preços e exceções concretas permanecem nas fichas; a compra não pode ser removida genericamente por interpretação de M05/M06.
 
 | Campo | Valor |
 |---|---|
@@ -12,9 +12,9 @@
 | Finalidade | Orientar a continuação do game design e a adaptação das skills ao mod |
 | Autoridade | Referência de pesquisa; não aprova novas mecânicas nem substitui decisões da equipe |
 
-**Continuidade e conferência documental:** 22/10/2026. Consultas e aprovações mantêm suas datas próprias abaixo. Estados/encaminhamentos nas rodadas são históricos; os registros posteriores de cada módulo governam sua continuidade vigente.
+**Continuidade e conferência documental:** 23/10/2026. Consultas e aprovações mantêm suas datas próprias abaixo. Estados/encaminhamentos nas rodadas são históricos; os registros posteriores de cada módulo governam sua continuidade vigente.
 
-> **Continuidade vigente — 22/10/2026:** M04 e M08 consolidados conceitualmente; M08-04C/D aprovados, revisão em M08/15 e entregas em 12.1. Próximo M09. [Conferência de implementação/lista de assets](00-reconciliacao-implementacao-assets-2026-10-22.md) atualiza inventário após fast-forward para `bb26be8`, sem apagar registros históricos ou aprovar candidaturas como produção. SP compra skills/formas; Mastery pela prática. Sem teste local ou implementação nova dos contratos GDD nesta rodada.
+> **Continuidade vigente — 23/10/2026:** checkpoint de revisão M01–M10 e complementos funcionais concluído no alcance de [12.1 do parecer](00-revisao-cobertura-m01-a-m10-2026-10-23.md#121-conclusão-do-checkpoint-autorizado--23102026). RAC-30/RAC-31A, M06-CS-01A/B/C/D e M09-12C decididos; M10b/9.4.1 explicita as ligações de retorno. M08/M09/M10 continuam em especificação de conteúdo. Próximo M11 com retorno M05; publicação documental autorizada, sem implementação/teste de jogo. Registros abaixo conservam as datas e pendências de cada rodada histórica.
 
 ## 1. Entendimento do projeto
 
@@ -48,7 +48,7 @@ Ler somente o começo dos documentos ou os handoffs antigos pode recuperar model
 | Aquisição | M06-03C/03D refinados e M06-07 | Formação, Proficiência, desenvolvimento autônomo e mestres podem participar; não exigir um NPC para cada técnica. |
 | Apresentação da progressão | M06-07L e seção de decisões superadas | Repertório/lista por disciplina; skill tree foi descartada como estrutura principal. |
 | Limite de desenvolvimento | M05-P03 | A build expressa o que o jogador desenvolve primeiro. Isso não autoriza acumular todos os poderes canônicos principais. |
-| Ponto de continuidade | M08 ESPECIFICADO CONCEITUALMENTE; próximo M09 | M08/15 registra revisão, §12.1 mantém fichas/execução delegadas. Partir do checkout bb26be8 e do parecer datado de implementação/assets, sem retomar perguntas já aprovadas ou produzir o catálogo inteiro agora. |
+| Ponto de continuidade | M10 EM ESPECIFICAÇÃO; 01A/B decididos | 02A/B propostos sobre rotas/travessia, duas respostas pendentes. M09 geral especificado conceitualmente, catálogo em especificação; M08 e demais módulos mantêm entregas antes das funcionalidades. |
 
 Uma revisão explícita substitui o trecho anterior no seu escopo. Um texto mais novo ou uma implementação diferente, isoladamente, não prova nova aprovação de produto. Conflitos restantes devem ser apresentados com as referências de ambos os lados.
 
@@ -1079,3 +1079,515 @@ M08-04C/D aprovados: “Saída e reingresso contextuais (recomendado)” e “Ca
 Checkout atualizado de 8ace652 para bb26be85fc3dac703f67e79e772fca5158eecdef. Conferência de código/assets/manifest mostrou três variantes Hollow e boss em GeckoLib, 41 IDs NPC com `PlayerModel`, seis itens-base de Zanpakutō e modelos adicionais, dois mundos customizados e Mundo Humano no Overworld do preset de História. `history-maps/` possui regiões de três mapas; não foi feita inspeção visual deles. Inventário antigo permanece histórico. Lista completa recebida foi analisada por grupos no [parecer](00-reconciliacao-implementacao-assets-2026-10-22.md), incluindo armas, habitantes, props, cosméticos, cenários, VFX e dicas técnicas; candidatos e prioridades não aprovados automaticamente.
 
 Pesquisa complementar de 22/10: sinopse oficial Pierrot dos episódios 1–20, fichas licenciadas Brave Souls de Kon, Nnoitora e Orihime; fontes/trechos/limites no parecer. Contexto narrativo não vira spawn genérico; ficha resumida não resolve toda classificação/anatomia. Página TYBW retornou 403 e não foi tratada como lida. Sem nova API/dependência, implementação de mecânica, build/cliente/teste ou atualização de JAR instalado; runtime incorporado é upstream. Relatórios QA recebidos conservam seus cenários, datas e falhas próprias.
+
+## 19. Conteúdo de M08 — catálogo funcional e primeiros contatos — 22/10/2026
+
+Solicitação posterior do usuário: detalhar o que cada NPC, mentor e organização faz antes de abrir M09. O fechamento conceitual anterior permanece válido nas regras gerais; conteúdo individual em especificação no [catálogo de M08](08a-catalogo-funcional-de-npcs-e-faccoes.md). Conferidos integralmente ModEntities, NpcRoster, roster.json e o plano histórico: 41 IDs, agrupados documentalmente em 36 personagens/entradas narrativas de trabalho, sem alterar registros ou dados. Todos os IDs aparecem no catálogo; atribuições fora das respostas explícitas continuam candidatas/reservadas.
+
+**M08-05A aprovado:** Rukia e Renji para atuação Shinigami, Uryū para tradição Quincy, Chad para prática Fullbringer e Nel para orientação em Hueco Mundo, como primeiros contatos canônicos após fundamentos e com contexto/era. **M08-05B aprovado:** prestador original dedicado ao reset, acesso viável às quatro origens, mantendo M04/M08-03A. As seis fichas iniciais não aprovam automaticamente repertório, quest, localização, frequência ou solução de perda de itens/retorno corporal. Perguntas/respostas exatas preservadas no histórico vinculado pelo catálogo.
+
+Pesquisa dirigida CAT-S01–S09 em catálogo/4: fichas e sinopses oficiais Pierrot de Karakura, Gotei, Soul Society, Hueco Mundo, Espada, Visored, Fullbringers e trechos de treino/recuperação. Fontes complementares do anime, japonês interpretado, sem capítulos/episódios integrais. Site TYBW de personagens/glossário retornou 403 diretamente; entradas institucionais recuperadas pelo índice oficial de busca estão rotuladas com esse limite. Competência e papel na obra não provam disponibilidade docente universal. Saída institucional regular aprovada em M08 é adaptação de gameplay, sem alegar reprodução literal da disciplina do Gotei.
+
+Próximo bloco: fichas de organizações/deveres/acesso e fontes iniciais originais; depois repertórios, serviços e continuidade por era. Não reabrir SP/Mastery ou demais contratos gerais. Plataforma não mudou; sem APIs/dependências novas, runtime, builds, cliente ou testes nesta rodada. Documentação anterior publicada em 3a37ca7; esta ampliação ainda é trabalho local. M09 permanece próximo módulo novo após o recorte de conteúdo solicitado; não é preciso antecipar todas as falas/campanhas de M13.
+
+
+## 20. Conteúdo de M08 — Academia/Gotei e carreira aprovada — 22/10/2026
+
+Catálogo/9.1–9.5 amplia a formação já aprovada de M04/RAC-07/12: papéis de atendimento da Academia, funcionamento institucional proposto do Gotei, mapa das 13 divisões, atividades e relações com fontes especializadas. Funções comprovadas e oportunidades de gameplay estão separadas; não atribuir uma especialidade exclusiva a cada unidade ou limitar as quatro disciplinas por lotação. As seis fichas anteriores e M08-05A/B permanecem.
+
+**M08-06A DECIDIDO**, resposta “Preferência do jogador + aceitação da divisão (recomendado)”: divisão principal por vez, preferência do jogador após formação entre opções disponíveis, com requisitos/aceitação e transferência contextual. Alternativa: primeira lotação determinada pela campanha. **M08-06B DECIDIDO**, resposta “Deveres por atividades aceitas, sem cota diária (recomendado)”: carreira por atividades aceitas, sem cota diária/perda de cargo apenas por ausência. Alternativa: presença periódica obrigatória. Falhas de atividades assumidas, compromissos informados e escolhas de campanha mantêm regras próprias; não pausar o mundo no logout. Duas respostas recebidas em 22/10/2026; perguntas/opções/respostas preservadas no histórico vinculado pelo catálogo. Não estender o pacote a todas as organizações por omissão.
+
+**Pesquisa complementar dirigida:** CAT-S02/03 e CAT-S09 reconsultados; CAT-S10/11 acrescentados em catálogo/4 com URLs e trechos. Glossários Pierrot sustentam deveres Shinigami e origem do Departamento de Pesquisa e Desenvolvimento; fichas exemplificam vínculos e especialidades. Índice oficial TYBW traz estrutura/transferências do Gotei, cultura da 11ª, assistência no episódio 8 e atribuição de Ryūnosuke/Shino a Karakura. Abertura direta de glossário/episódio retornou 403; não tratar como leitura integral. Anime como complemento identificado do mangá; processos jogáveis são adaptações, sem novo currículo universal.
+
+Próximo: fontes especializadas/demais organizações; M08-06A/B consolidados. O restante das atividades/divisões/fontes candidatas não foi aprovado por associação. Ensino preciso, representantes por era, cargos, permissões, atividades, fontes das demais origens e serviços ainda precisam de fichas. Nenhuma mudança de plataforma/API, runtime, builds, testes ou nova publicação nesta continuação.
+
+
+## 21. Conteúdo de M08 — organizações especializadas — 22/10/2026
+
+Catálogo/9.6–9.10 detalha perfis propostos de Onmitsukidō, Corpo de Kidō e Pesquisa e Desenvolvimento, com fontes, entrada, atividades, resultados, limites e pendências. Ensino com especialista, colaboração delimitada e carreira formal não se confundem; antigo dirigente não concede automaticamente autorização atual. SP/requisitos/Mastery e contratos gerais anteriores preservados. M08-06A/B continuam aprovados; o escopo de deveres sem cota diária não foi estendido automaticamente a toda instituição ou compromisso.
+
+**M08-07A DECIDIDO em 22/10/2026**, resposta “Adotar essas funções como base (recomendado)”: reconhecimento/infiltração/resgate para Onmitsukidō; contenção/barreiras/ensino especializado para Corpo de Kidō; investigação/análise/projetos técnicos para Pesquisa. Resposta recebida; nenhuma pergunta pendente. Pergunta/opções/resposta preservadas no histórico vinculado pelo catálogo. A aprovação cobre funções, sem promover cada atividade, professor, técnica, risco, preço, recompensa ou regra de acesso a decidido.
+
+**Pesquisa CAT-S12/13:** Pierrot, episódios 206–212, trechos da criação da organização sob a 12ª e cargos históricos do Corpo; fichas Karakura/Tessai, Visored/Hachigen e Soul Society/Yoruichi/Akon/Rin; glossário か行, entradas Kanritai/Keigun/Pesquisa. Consulta em 22/10/2026, japonês interpretado, anime como complemento, sem obras/episódios integrais. Glossário TYBW abriu com 403; não tratado como lido integralmente. Competência em barreiras/cura não define todo currículo; Akon com Gigai não aprova sistema de fabricação. Nenhum dirigente atual do Corpo de Kidō foi confirmado para todas as eras.
+
+Elenco local continua com os mesmos IDs: Tessai, Hachigen e Akon são candidatos ausentes, sem obrigar adicionar todos. Técnica híbrida, Shunkō, poderes pessoais, prisão/PvP e sistemas universais de furtividade/pesquisa não são concedidos por essas fichas. Kidō conserva Proficiência única e Masteries por técnica; Kaidō exige formação especializada, conforme M06. Próximo: fontes Quincy independentes/Wandenreich/Sternritter; M08-07A registrado nos três perfis. Plataforma reconfirmada 1.20.1/Forge 47.4.10/Java 17; sem APIs/dependências novas, runtime, builds, testes ou publicação nesta continuação.
+
+
+## 22. Conteúdo de M08 — fontes Quincy e recuperação — 22/10/2026
+
+Catálogo/9.11–9.16 separa tradição independente, fonte avançada, aquisição de poder principal, carreira imperial, elite e serviço de recuperação. M04/Q5–Q8, M06, M07-07B/C/D e M07-08A–C preservados; não reabrir SP/Mastery, independência inicial, aprendizado de Vollständig sem filiação permanente ou as consequências de Letzt Stil.
+
+**M08-08A DECIDIDO**, resposta “Adotar essa distribuição (recomendado)”: fontes independentes preservam tradição/ensinam aplicações de Reishi; Wandenreich oferece formação militar/operações; Sternritter participam como especialistas, autoridades ou adversários nas campanhas dos poderes. **M08-08B DECIDIDO**, resposta “Ryūken como referência de recuperação (recomendado)”: primeira referência canônica após Letzt Stil, com motivo para cooperar, procedimento adaptado e continuidade por fonte qualificada quando a era exigir; recuperação solo sem capacidades suspensas. Duas respostas em 22/10/2026; perguntas/opções/respostas no histórico vinculado pelo catálogo/12.4–12.5. Currículo, ingresso, cargos, rito, método, custos e locais não aprovados por associação.
+
+**Pesquisa CAT-S14–16:** Pierrot/Karakura, entradas Sōken/Ryūken; glossário か行, hospital e Ginrei Kojaku; Aniplex/visual de 04/07/2023, elite do Wandenreich; personagens/glossário TYBW pelo índice oficial, entradas Haschwalth/Wandenreich/Sternritter/Schrift; TV Tokyo/sinopse do episódio 14. Consultados em 22/10/2026, anime complementar ao mangá, sem cenas ou obras integrais. TYBW personagens/glossário retornaram 403 diretamente. Sōken falecido não se torna mestre vivo; Ryūken ter recuperado Uryū não prova serviço público ou currículo completo. Relação de Schrift com Yhwach não decide um rito universal, concessor substituto ou acesso tardio no mod.
+
+Conferência dirigida por nomes nos registros/roster local: Uryū presente; Ryūken/Sōken/Yhwach/Haschwalth ausentes dos 41 IDs. Aprovação de papel não adiciona entidade ou impõe produzir todo o elenco imperial. Fonte avançada para Blut/Vollständig e alternativa concreta de recuperação permanecem pendentes. Não estender M08-06B a todo compromisso imperial; não criar retirada automática de poder por facção, PvP racial ou nova Proficiência. Próximo: fontes Fullbringer/Xcution; depois relações Hollow/Arrancar e rede Urahara/serviços. Plataforma confirmada 1.20.1/Forge 47.4.10; sem APIs novas, runtime, builds, testes ou publicação nesta continuação.
+
+
+## 23. Conteúdo de M08 — fontes Fullbringer e Xcution — 22/10/2026
+
+Catálogo/9.17–9.21 aplica fundamentos antes do poder principal, independência racial e aquisição/completude/troca de M04/F1–F4/F7/F12/F13, M06-10A–F e M07-09A–C. Fonte inicial concreta ainda pendente; Chad permanece contato aprovado. Xcution possui interesses e conflitos por era; não escola neutra obrigatória, nova classe ou currículo universal.
+
+**M08-09A DECIDIDO**, resposta “Adotar esses papéis (recomendado)” em 22/10/2026: Ginjō para avaliar preparo e conduzir acordos; Jackie para exercícios de combate; Riruka/Yukio para desafios de treino em espaços dos próprios poderes. Condições de cooperação/era mantidas; participar não concede seus Fullbrings. A aprovação cobre papéis, não quatro quests, todo currículo, métodos de troca ou produção imediata de quatro NPCs. Pergunta/opções/resposta no histórico vinculado por catálogo/12.6; nenhuma pergunta pendente.
+
+**Pesquisa CAT-S17/18:** Pierrot/Fullbringers e retrospectiva 343–366 reabertos, trechos de orientação/treino/conflito; TYBW personagens e sinopse THE HOLY NEWBORN pelo índice oficial. Sinopse exibe episódio 32 em URL id=33; registrar o trecho efetivamente retornado. Personagens com 403 direto; nenhuma obra/episódio/novel integral consultado. Competência/acontecimento não comprova atendimento amistoso ou currículo para toda era. Não atribuir a Ginjō/Tsukishima troca livre de poderes ou recuperação universal.
+
+Chad/Ginjō presentes nos registros/roster; demais nomes do bloco ausentes dos 41 IDs, sem novas entidades. Reacesso mantém histórico próprio e um principal por vez conforme M07, mas fonte/procedimento concretos continuam pendentes. Treino em espaço não concede seu poder ao aluno; requer saída válida, itens, participantes e interrupções antes da entrega, sem escolher instâncias/rollback/morte não letal por omissão. Próximo: relações Hollow/Arrancar e estrutura Aizen/Las Noches/Espada; depois rede Urahara/serviços. Sem novas APIs/dependências, runtime, builds, testes, commit ou publicação nesta continuação.
+
+
+## 24. Conteúdo de M08 — relações Hollow/Arrancar e regime de Aizen — 22/10/2026
+
+Catálogo/9.22–9.26 aplica sobrevivência/predação, orientação independente e relações locais, separando Las Noches, regime, elite Espada e condição racial. Evolução/Arrancarização/Resurrección mantêm M04/H1–H9, M06-08 e M07-04/05/06; não há evolução por ingresso, cópia das habilidades da presa ou nova votação de SP/Mastery.
+
+**M08-10A DECIDIDO**, resposta “Adotar essas funções (recomendado)”: fontes independentes orientam sobrevivência/caça; Nel conserva orientação local; Harribel participa de proteção/cooperação; Grimmjow atua como rival e avaliador. **M08-10B DECIDIDO**, resposta “Adotar essa organização (recomendado)”: operações/compromissos do regime e Espada como autoridades/rivais/adversários, ensino somente com competência/motivo. Respostas explícitas em 22/10/2026, catálogo/12.7–12.8 e histórico vinculado; nenhuma pergunta pendente. Não aprova todas as atribuições candidatas ou procedimentos, cargos, prazos e recompensas.
+
+**Pesquisa CAT-S19–21:** [Shōnen Jump — retrospectiva Arrancar](https://www.shonenjump.com/xmedia/bleach/story/index4-3.html), parágrafos de conflito e notas Hueco Mundo/Espada; Pierrot/fichas Aizen, Espada e Arrancars, sinopses 132–151/152–167; TYBW/personagens pelo índice oficial. Consultados em 22/10/2026. Síntese oficial da editora não equivale ao mangá integral; anime complementar com estados temporais próprios. TYBW retornou 403 diretamente. Recorte sustenta diversidade das relações e mudanças de disponibilidade, não currículos ou cooperação universal. Situações posteriores do site não antecipam automaticamente o conteúdo dessas eras no mod.
+
+Busca dirigida dos registros/roster preserva os 41 IDs e confirma os representantes já listados. Gin, Barragan, Lilynette, Pesche e Dondochakka ausentes, sem inclusão automática de assets. Predação exige classificação própria, inclusive para rival/treino/boss repetível; M08-06B não foi estendido a todo compromisso do regime. Fonte inicial e repertórios ainda pendentes. Próximo: rede Urahara/serviços e revisão de lacunas antes de M09. Linhagens/artes adiadas, Grimmjow primeiro caso depois. Sem APIs/dependências novas, runtime, builds, testes, commit ou publicação nesta continuação.
+
+
+## 25. Conteúdo de M08 — rede Urahara e serviços — 22/10/2026
+
+Catálogo/9.27–9.30 separa estabelecimento/rede, fontes de atendimento, matriz de serviços e disponibilidade por era. **M08-11A DECIDIDO**, resposta “Adotar essas funções (recomendado)” em 22/10/2026: Urahara para suprimentos/investigação/orientação, Yoruichi para mobilidade/combate corporal e Tessai para Kidō/barreiras. Pergunta/opções no histórico vinculado por catálogo/12.9. A resposta aprova as funções; currículos, produtos, procedimentos e preços não foram aprovados por associação.
+
+**Pesquisa CAT-S22 em 22/10/2026:** [Pierrot — Karakura](https://pierrot.jp/title/bleach/chara.html), Urahara/Tessai/Jinta/Ururu; [Soul Society](https://pierrot.jp/title/bleach/chara_03.html), Yoruichi; sinopses 1–20 (loja/apoio), 42–63 (orientação/confronto) e 206–212 (cargos/exílio). Anime complementar identificado, japonês interpretado, sem leitura de mangá ou episódios integrais. Comércio/invenção e competências sustentam candidatos; todo currículo corporal/barreiras e disponibilidade para ensinar ao jogador não são fatos comprovados por essas sínteses.
+
+Serviços herdados preservados: reset original gratuito, recuperação Letzt Stil com referência Ryūken, dano estrutural de Bankai por método próprio e reacesso Fullbring ainda com fonte/procedimento pendentes. A loja não recebe todos esses serviços automaticamente. SP para skills/formas não decide moeda ou estoque de produtos. Treino usa capacidades disponíveis e local com regras próprias; sem cura, instância ou recuperação de recursos presumidas. Representações Urahara/Yoruichi confirmadas; Tessai/Jinta/Ururu ausentes dos 41 IDs, sem registros novos. Plataforma continua 1.20.1/Forge 47.4.10/Java 17. Próximo: revisar lacunas M08 antes de M09; sem APIs/dependências novas, runtime, builds, testes, commit ou publicação nesta continuação.
+
+
+## 26. Revisão do catálogo de M08 — 22/10/2026
+
+[Relatório da revisão](08b-revisao-do-catalogo-2026-10-22.md): regras gerais e catálogo confrontados com contratos dirigidos de M03–M07. Sem conflito impeditivo identificado nesse recorte; não equivale a revisão exaustiva do cânone ou a rotas executáveis. M08-01–11 permanecem aprovados apenas em seus alcances; nenhum novo pacote de produto foi aprovado.
+
+Oito lacunas: fontes iniciais concretas, repertórios, procedimentos especiais, cobertura por era, ficha operacional do reset, percursos de organizações, amostra de aquisição/prática e perfil de cada presença selecionada. Recomenda-se complementar fontes e repertório inicial das quatro origens antes de M09. Recuperações especiais e reacesso continuam condições anteriores ao risco/troca correspondente; diálogos completos, locais, preços finais, campanhas e realização técnica permanecem nos módulos responsáveis.
+
+Corrigidas referências desatualizadas de status e interrupções na tabela de fontes do catálogo; histórico e respostas preservados. Não houve pesquisa externa nova nesta revisão; CAT-S01–22 conservam seus limites. Catálogo em especificação; alterações documentais locais, sem runtime, build, teste ou publicação nesta rodada.
+
+
+## 27. Fontes iniciais e pequeno repertório de M08 — 22/10/2026
+
+Catálogo/9.31–9.37 elaborado após autorização do complemento recomendado na revisão 08b. **M08-12A DECIDIDO**, resposta “Adotar essas quatro fontes iniciais (recomendado)”: instrutor original da Academia, Hollow veterano independente no Mundo Humano por interesse local, mentor Quincy independente sem parentesco obrigatório e orientador Fullbringer original. **M08-12B DECIDIDO**, resposta “Adotar o repertório inicial (recomendado)”: fundamentos/Shunpo; corpo/defesa/caça e Cero apenas a partir de Gillian por fonte qualificada; formação de arco/Hirenkyaku separados; Bringer Light e depois seu salto. Não exige comprar todo o conjunto para concluir a introdução. Perguntas/opções/respostas no histórico vinculado por catálogo/12.10–12.11; nenhuma pergunta pendente.
+
+**CAT-S23:** reconsulta em 22/10/2026 a glossários Pierrot ha (Hirenkyaku/Fullbring), ka (Cruz) e sa (deveres), e retrospectiva 343–366. Anime complementar identificado, japonês interpretado, sem capítulos/episódios integrais. Fontes não comprovam esses professores originais ou esse currículo universal; são adaptações aprovadas. A pesquisa não bastou para selecionar um primeiro Kidō nominal; manter sua ficha pendente, sem atribuir técnica apenas pela numeração.
+
+Revisão do recorte em catálogo/9.37: SP/aquisição/uso/Mastery e estágios preservados; não identificado conflito impeditivo no alcance examinado. Práticas concretas, SP/equipamento, primeira aplicação delimitada de matéria, cobertura por era, fonte avançada de Cero e execução permanecem entregas antes do conteúdo correspondente. Não presumir preço, gratuidade, segunda compra de salto ou domínio recebido. Próximo módulo de planejamento: M09, sem obrigar currículo avançado inteiro antes dos encontros. Catálogo permanece em especificação; sem runtime, build, teste, commit ou publicação nesta rodada.
+
+
+## 28. Abertura de M09 — perfis e força no mundo aberto — 23/10/2026
+
+[M09](09-mobs-bosses-e-encontros.md) criado no template de 15 seções. **M09-01A DECIDIDO**, resposta “Separar natureza, combate e papel no encontro (recomendado)”; **M09-01B DECIDIDO**, resposta “Força própria por perfil e contexto (recomendado)”. Classificação de gameplay e política do mundo aberto são adaptações aprovadas, sem criar novos estágios raciais, valores, escala cooperativa ou primeira leva de produção. Perguntas/opções/respostas no histórico vinculado por M09/1; nenhuma pergunta desta rodada pendente.
+
+**Pesquisa ENC-S01–03**, consultada em 23/10/2026: [Pierrot — glossário ha](https://pierrot.jp/title/bleach/keyword_ha.html), Hollow/Plus; [retrospectiva 1–20](https://pierrot.jp/title/bleach/playback_01.html), confrontos, fuga/afastamento e Menos; [glossário ma](https://pierrot.jp/title/bleach/keyword_ma.html), classes/evolução na descrição histórica. Anime oficial complementar, resumos e japonês interpretado; não capítulos/episódios integrais. Não fornece tiers, parâmetros de IA, política de força ou revisão dos contratos de evolução já aprovados. Mantidos IDs anteriores BL-11/13/25; ENC identifica o recorte dentro de M09, não nova autoridade canônica.
+
+**Conferência local:** lidos HollowVariant, HollowEntity, HollowFlightCombatGoal e HollowBossEntity, registros, JSON de spawn e loot. Três variantes no tipo Hollow, comportamento aéreo por circulação/aproximação/ataque/retirada e boss com golpe/investida/impacto. Vida atual 20/6/14/100 HP é evidência de código, não balanceamento aprovado. Spawn Overworld peso 80/grupo 2–6 e alvos jogador/aldeão/golem ainda não são políticas finais de design; loot examinado vazio não prova ausência de todas as recompensas por outros sistemas. Nos arquivos de perfil lidos não localizada escala por BP; não auditoria de todo modificador externo. Plataforma declarada permanece 1.20.1/Forge 47.4.10/Java 17.
+
+Próximo: detecção, escolha/perda de alvo e perseguição; depois terreno, ciclo e resultados dos encontros. Amostra de variantes/boss é candidata e dependências M08/M10–M16 seguem explícitas. Sem nova API/dependência, alteração de runtime/save, build, cliente, testes, commit ou push nesta rodada.
+
+
+## 29. M09 — detecção e perseguição propostas — 23/10/2026
+
+M09/8.4–8.7 e 12.4–12.5 elaborados: M09-02A recomenda visão/percepção por capacidade do perfil, 02B busca limitada pela última informação válida e retorno na perseguição comum. **PROPOSTOS, duas respostas pendentes**; 01A/B e M06-11F/G/I/J/K preservados. Supressão já não concede invisibilidade/perda automática de aggro; aplicação aos sentidos/reações concretas dos inimigos exige este bloco e suas fichas. Hostilidade, caminho, posição percebida e autorização de acerto são responsabilidades distintas; sem audição universal, seleção de todos os alvos ou cura/reset do encontro por associação.
+
+**ENC-S04, consulta em 23/10/2026:** [Pierrot ha](https://pierrot.jp/title/bleach/keyword_ha.html), Pesquisa como leitura de Reiatsu/características da alma; [retrospectiva 1–20](https://pierrot.jp/title/bleach/playback_01.html), atração de Hollows pela capacidade espiritual de Ichigo. Reconsulta de ENC-S01/02, anime complementar/resumos, não episódios/mangá integrais. Não comprova percepção exata, alcance, custo ou comportamento universal de perseguição; modelo proposto é adaptação.
+
+Conferência dirigida de seleção/alcance/acerto em HollowEntity/HollowBossEntity e retenção/uso de posição em HollowFlightCombatGoal: código não demonstra a oposição sensorial ou busca por pistas propostas. Leitura das classes locais, sem inspeção integral dos objetivos vanilla herdados, execução de teste ou alteração de navegação. Próximo: respostas e alvos/terreno. Tempos, sentidos concretos, parâmetros, comunicação, lifecycle e recompensas continuam pendentes; sem nova API, runtime, build ou publicação.
+
+
+### M09-02A/B aprovados — 23/10/2026
+
+Respostas explícitas “Visão e percepção conforme o perfil (recomendado)” e “Busca limitada e retorno à área (recomendado)”. M09/8.4–8.7 e 12.4–12.5 passam a contratos aprovados, com perguntas/opções/respostas no histórico próprio. Nenhuma pergunta desta rodada pendente. Detecção, pista aproximada, memória, hostilidade e autorização de ataque continuam distintos; perseguição comum recebe busca/retorno limitado, sem aprovar reset ou cura. Chefes, sentidos e parâmetros concretos, alvos e terreno exigem fichas próprias. Próximo: elegibilidade/prioridade de alvos e terreno. Conferência documental dirigida; sem nova pesquisa de cânone/API, runtime, build, testes ou publicação. M09 continua em especificação.
+
+
+## 30. M09 — hostilidade e escolha de alvos propostas — 23/10/2026
+
+[M09/8.8/8.9 e 12.6/12.7](09-mobs-bosses-e-encontros.md#88-hostilidade-dos-mobs-comuns--m09-03a-decidido) elaborado sob RAC-16/17, M08-01A/04B e M09-02A/B. **M09-03A/B PROPOSTOS**, duas respostas pendentes. A recomenda comportamentos comuns agressivo, territorial ou reativo; B recomenda alvo estável com motivos explícitos para troca. Perguntas/opções no histórico vinculado pelo módulo. Relações e percepção são entradas distintas; dados administrativos não entregam posição secreta e troca de alvo não apaga compromissos de execução.
+
+São recomendações de adaptação, sem pesquisa externa nova ou nova atribuição canônica. ENC-S01–04 conservam datas/limites. Categorias concretas de alvos, parâmetros, políticas de chefes, coordenação e dano de área continuam pendentes. Próximo: respostas e terreno/construções, depois execução/ciclo. Sem API/dependência, runtime, build, testes ou publicação; M09 em especificação e ampliações locais.
+
+
+### M09-03A/B aprovados — 23/10/2026
+
+Respostas explícitas “Hostilidade agressiva, territorial ou reativa por perfil (recomendado)” e “Alvo estável, com motivos definidos para trocar (recomendado)”. M09/8.8/8.9 e 12.6/12.7 passam a contratos aprovados, com perguntas/opções/respostas no histórico próprio. Nenhuma pergunta pendente. Cobertura: motivos variados de hostilidade e seleção estável com troca motivada para mobs comuns. Relações, percepção, alvos, execução e recompensa permanecem distintos; não aprova lista concreta de alvos, parâmetros, coordenação, barra de ameaça ou política universal de chefe. Próximo: terreno/construções e falta de caminho. Sem pesquisa externa/API nova, runtime, build, teste ou publicação; M09 permanece em especificação.
+
+
+## 31. M09 — terreno e construções propostos — 23/10/2026
+
+[M09/8.10–8.12 e 12.8/12.9](09-mobs-bosses-e-encontros.md#810-construções-e-alteração-de-blocos--m09-04a-decidido) elaborado: **M09-04A/B PROPOSTOS**, duas respostas pendentes. A recomenda não alterar blocos por padrão nos mobs comuns, com exceções em técnicas/encontros definidos; B recomenda tentativas limitadas e recuo sem solução, mesmo com percepção do alvo. Preservados 01–03, construção/grind ativo, colisão e separação entre informação/caminho/acerto. Não aprova técnica destrutiva, proteção de terreno, parâmetros, cura, invulnerabilidade ou boss universal.
+
+Relidos trechos locais de aproximação/circulação/segmento do voador, correção terrestre e investida do boss: checagens de colisão/espaço/apoio não demonstram política completa de terreno/retorno. Sem API ou pesquisa canônica nova; fontes anteriores preservadas. Sem runtime, build, testes ou publicação. Orientação do usuário: registrar respostas e continuar com próximas perguntas sem aguardar novo “prossiga”; escolhas novas não são aprovadas por essa autorização. Próximo: respostas, execução/contrajogo e ciclo, preservando fichas de meios/retorno bloqueado e demais dependências.
+
+
+### M09-04A/B aprovados — 23/10/2026
+
+Respostas explícitas “Sem alteração de blocos por padrão; exceções definidas (recomendado)” e “Tentativas limitadas e recuo sem solução (recomendado)”. Contratos aprovados em M09/8.10–8.12 e 12.8/12.9; perguntas/opções/respostas preservadas no histórico. Nenhuma pergunta pendente do bloco. Cobertura comum, sem técnica destrutiva, parâmetros, recuperação automática ou política universal de boss. Próximo execução/contrajogo, com perguntas após respostas sem novo pedido de avanço. Sem pesquisa externa/API nova, runtime, build, testes ou publicação; módulo em especificação.
+
+
+## 32. M09 — execução e compromisso direcional propostos — 23/10/2026
+
+[M09/8.13/8.14 e 12.10](09-mobs-bosses-e-encontros.md#814-momento-de-fixação-da-direção--m09-05a-decidido): herança de execução consolidada, **M09-05A PROPOSTO**, uma resposta pendente. Recomenda ajuste limitado no início do preparo e fixação na parte final antes da fase ativa; alternativa fixa desde o início. Sem nova votação de dano/controle, Recovery ou troca de alvo, sem parâmetros ou poder concreto. Proposta de adaptação, não afirmação canônica universal.
+
+Conferência dirigida: golpe comum guarda/revalida alvo, alcance e visão; boss registra direção/ponto no início. Mecanismos locais distintos não comprovam uma política comum. Nenhuma implementação/teste/aceite da proposta, pesquisa externa/API nova, build ou publicação. M09-01–04 preservados. Próximo: resposta e perguntas de ciclo dos encontros sem novo pedido de continuação; fichas concretas continuam pendentes.
+
+
+### M09-05A aprovado — 23/10/2026
+
+Resposta explícita “Ajustar no início e fixar antes do golpe (recomendado)”. Contrato aprovado em M09/8.14 e 12.10; pergunta/opções/resposta no histórico. Nenhuma pergunta pendente do bloco. Direção com ajuste inicial limitado e fixação antes da fase ativa, sem parâmetros, geometria ou técnica concreta por associação. M09-01–04 preservados; próximo ciclo dos encontros com perguntas contínuas. Sem nova pesquisa externa/API, runtime, build, testes ou publicação.
+
+
+## 33. M09 — início e falha coletiva propostos — 23/10/2026
+
+[M09/8.15–8.18 e 12.11/12.12](09-mobs-bosses-e-encontros.md#815-ciclo-do-encontro--organização-conceitual): **M09-06A/B PROPOSTOS**, duas respostas pendentes. A recomenda início deliberado de provas/confrontos preparados; B continuidade com participante apto, falha coletiva e prazo para abandono completo. Não generaliza a emboscadas/eventos nem a toda agressão comum; objetivos especiais podem declarar outra condição. Reentrada, party/terceiros, parâmetros, relógio, resultado simultâneo, recursos/retomada e lifecycle continuam pendentes.
+
+Herança de M03/STR-03: vitória jogável sem aliado canônico e representação de combate distinta do prestador; conquistas e despesas continuam com seus contratos, sem recompensa ou reset presumido. Leitura dirigida documental; sem nova pesquisa externa/API, runtime, build, testes ou publicação. M09-01–05 preservados; perguntas continuam automaticamente após respostas, com próximas escolhas ainda pendentes.
+
+
+### M09-06A/B aprovados — 23/10/2026
+
+Respostas explícitas “Confirmar o início das provas e confrontos preparados (recomendado)” e “Continuar com participantes aptos; falha coletiva (recomendado)”. Contratos aprovados em M09/8.16/8.17 e 12.11/12.12; perguntas/opções/respostas no histórico. Nenhuma pergunta pendente deste bloco. Início deliberado para confronto preparado e continuidade/falha coletiva no seu alcance; sem reentrada, parâmetros, escala, reset de recursos ou resultado individual presumidos. M09-01–05 preservados; próximas perguntas de recursos/retomada. Sem pesquisa externa/API nova, runtime, build, testes ou publicação.
+
+
+## 34. M09 — recuperação e nova tentativa aprovadas — 23/10/2026
+
+Duas perguntas enviadas e respostas explícitas recebidas antes do registro documental: “Recuperação gradual após período sem combate (recomendado)” e “Nova tentativa com estado inicial; checkpoints explícitos (recomendado)”. **M09-07A/B DECIDIDOS**, em 8.19/8.20 e 12.13/12.14; histórico próprio preserva os textos. Recuperação natural de inimigos comuns é ampliação de gameplay sob M05/17/24; não importa números ou cura especial. Estado inicial da nova tentativa não redefine confronto ativo, cura jogador ou restaura terreno. Parâmetros, recursos concretos e lifecycle/relógios continuam pendentes. Próximas perguntas: descarregamento/reinício e relógios. Sem nova pesquisa externa/API, runtime, build, testes ou publicação; M09 em especificação e 01–06 preservados.
+
+
+## 35. M09 — interrupção e relógios propostos — 23/10/2026
+
+[M09/8.21/8.22 e 12.15/12.16](09-mobs-bosses-e-encontros.md#821-interrupção-da-prova-por-descarregamentoreinício--m09-08a-decidido): **M09-08A/B PROPOSTOS**, duas respostas pendentes. A recomenda encerrar prova ainda não resolvida ao descarregar/reiniciar e iniciar outra manualmente por 06A/07B; B recomenda tempo de simulação para mobs comuns salvos, sem cura offline/retomada de golpe. Relógios de personagem M06 preservados; não presumir persistência eterna, despawn, limpeza de terceiros, reentrada ou carregamento forçado. Recortes de gameplay, sem nova alegação canônica/API ou auditoria técnica integral. Sem runtime, build, testes ou publicação; M09-01–07 preservados. Próximo: respostas, consolidação estrutural e autoria/recompensas/consumo.
+
+
+### M09-08A/B aprovados — 23/10/2026
+
+Respostas explícitas “Encerrar como interrompida; nova tentativa manual (recomendado)” e “Pausar tempos fora de simulação (recomendado)”. Contratos aprovados em M09/8.21/8.22 e 12.15/12.16; perguntas/opções/respostas no histórico. Nenhuma pergunta pendente deste bloco. Interrupção da tentativa dirigida ainda não resolvida exige novo início; tempos do mob comum salvo pausam fora de simulação, sem alterar relógio do personagem. Ciclo estrutural não resolve despawn, retorno bloqueado, resultados simultâneos ou reentrada/terceiros. Próximo autoria/recompensas/consumo. Sem nova pesquisa externa/API, runtime, build, testes ou publicação; M09-01–07 preservados.
+
+
+## 36. M09 — contribuição e prêmios propostos — 23/10/2026
+
+[M09/8.23–8.26 e 12.17/12.18](09-mobs-bosses-e-encontros.md#823-revisão-estrutural-do-ciclo--alcance-e-entregas): revisão estrutural do ciclo preserva entregas; **M09-09A/B PROPOSTOS**, duas respostas pendentes. A recomenda reconhecimento de contribuição útil fora da party em encontro comum aberto; B prêmio principal único por personagem e fontes repetíveis separadas/configuradas. Não redefine último golpe, compra por SP, Mastery prática ou grind ativo; valores/distribuição e oportunidade/destino de alma não estão aprovados. Reset de jornada e flags de prêmio exigem integração M04/M11/M12 para preservar viabilidade e evitar multiplicação de itens comuns.
+
+Leitura dirigida de M02, M05 e M07-04A/B; referências de produto e revisões posteriores prevalecem, sem importar políticas antigas de grind ainda não aprovadas. Nenhuma pesquisa externa/API nova ou mudança de runtime, build, testes/publicação. M09-01–08 preservados; próximas respostas seguidas de resultado/consumo e amostra/fichas, sem novo pedido de avanço.
+
+
+### M09-09A/B aprovados — 23/10/2026
+
+Respostas explícitas “Reconhecer contribuição útil mesmo fora da party (recomendado)” e “Prêmio principal único; recompensas repetíveis separadas (recomendado)”. Contratos aprovados em M09/8.24/8.25 e 12.17/12.18; perguntas/opções/respostas no histórico. Nenhuma pergunta pendente do bloco. Reconhecimento aberto não distribui prêmio ou alma; prêmio principal único e repetível separado mantém fontes de grind, com economia e reset da jornada pendentes de integração. Próximo resultado/consumo e amostra/fichas. Sem pesquisa externa/API nova ao registrar respostas, runtime, build, testes ou publicação; M09-01–08 preservados.
+
+
+## 37. M09 — uma devoração por presa aprovada — 23/10/2026
+
+Resposta explícita “Uma devoração por presa, com revezamento (recomendado)”, recebida antes do registro documental, aprova M09-10A em 8.28/12.19. Pergunta/opções/resposta no histórico; uma conclusão de consumo por presa elegível, prioridade ainda pendente. Reconhecimento/recompensa dos demais não duplica predação. M09/8.27 confere RAC-19: diferença sistêmica entre derrota por Shinigami e Quincy continua em backlog, sem revisão por associação. M09/8.26 conciliado com a herança.
+
+**ENC-S05, consulta em 23/10/2026:** [Pierrot ha](https://pierrot.jp/title/bleach/keyword_ha.html), Hollow/alimentação; [ka](https://pierrot.jp/title/bleach/keyword_ka.html), eliminação Quincy; [sa](https://pierrot.jp/title/bleach/keyword_sa.html), funções Shinigami. Fontes oficiais do anime complementar/arquivo da época, não capítulos/episódios integrais. Não sustentam prioridade, cópia de oportunidade, divisão de progresso ou representação consumível do mod. A escolha é de gameplay. Próximo: prioridade de consumo e amostra/fichas; M09 em especificação, sem runtime/build/testes/publicação.
+
+
+## 38. M09 — prioridade de consumo proposta — 23/10/2026
+
+[M09/8.29 e 12.20](09-mobs-bosses-e-encontros.md#829-primeiro-elegível-a-concluir-consome--m09-10b-decidido): **M09-10B PROPOSTO**, uma resposta pendente. Recomenda prioridade temporária comunicada, com passagem a outro elegível por recusa, inelegibilidade ou prazo, enquanto a oportunidade geral ainda for válida. Critérios de participação/revezamento e parâmetros exigem ficha M09/M15; alternativa é primeiro elegível a concluir. Consumo único de 10A e RAC-19 preservados. Sem nova pesquisa externa/API nesta proposta, runtime, build, testes ou publicação. Próximo: resposta e amostra/fichas/revisão, com perguntas contínuas.
+
+
+### M09-10B decidido — primeira conclusão elegível — 23/10/2026
+
+Resposta explícita “Primeiro elegível a concluir consome”. Segunda opção escolhida, diferente da recomendação inicial; contrato em M09/8.29/12.20 e pergunta/opções/resposta no histórico. Não há vez reservada, fila ou rodízio automático; uma conclusão válida encerra a presa. 10A conciliado para alternância voluntária, sem reabrir o consumidor único. Participação, parâmetros, expiração, concorrência e feedback exigem ficha. Nenhuma pergunta pendente do bloco; próximo amostra/fichas/revisão. Sem nova pesquisa externa/API, runtime, build, testes ou publicação; RAC-19 preservado.
+
+
+## 39. M09 — amostra aprovada e funções/papel propostos — 23/10/2026
+
+M09-11A aprovado por “Detalhar bruto, ágil, voador e chefe existentes (recomendado)”, resposta recebida antes do registro documental. [M09a](09a-catalogo-funcional-de-adversarios-e-encontros.md) criado com quatro fichas em elaboração e 15 seções. 11A seleciona conteúdo para detalhar, sem aprovar produção, região/era ou valores. **11B/C PROPOSTOS**, duas respostas pendentes em M09/12.22/12.23: funções distintas dos comuns e papel opcional preparado do chefe. Demais campos permanecem explícitos como pendentes.
+
+Reconsulta local de HollowVariant, mecanismos do voador e boss confirma pontos de partida diferentes, sem demonstrar todos os contratos/funções propostos. Não classificar boss como Gillian pelo tamanho; não declarar combate calibrado. M09-01–10 preservados; perguntas/opções/respostas nos históricos próprios. Próximo: respostas e revisão de alcance/entregas do módulo. Sem pesquisa externa/API nova, runtime, build, testes ou publicação.
+
+
+### M09-11B/C aprovados — 23/10/2026
+
+Respostas explícitas “Funções distintas para bruto, ágil e voador (recomendado)” e “Confronto opcional preparado (recomendado)”. Funções/papel aprovados em M09/12.22/12.23 e M09a/9.1–9.4; histórico preservado. Nenhuma pergunta pendente. Seleção e funções da amostra não definem sensores/alvos/valores ou localização, quest e prêmios. Próximo revisão de alcance/entregas do módulo. M09-01–10 preservados; sem pesquisa externa/API nova, runtime, build, testes ou publicação.
+
+
+## 40. M09 revisado e M10 aberto — 23/10/2026
+
+[09b](09b-revisao-m09-2026-10-23.md) registra revisão documental dirigida de M09-01–11: regras gerais especificadas conceitualmente, catálogo M09a ainda em especificação. Não é auditoria exaustiva ou aceite; sensores/alvos, parâmetros, lugares, lifecycle específico, concorrência/multiplayer/economia e dados/validação continuam entregas antes da funcionalidade. Nenhuma nova escolha nessa revisão.
+
+[M10](10-dimensoes-locais-e-estruturas.md) criado nas 15 seções; M10-01A/B aprovados por respostas explícitas recebidas antes do registro: núcleos planejados com áreas geradas e proteção localizada/sinalizada. 02A/B propostos sobre rotas/serviços e fuga em travessia comum; duas respostas pendentes. Overworld como nascimento físico já era decisão de M04, não repetida.
+
+WORLD-S01/02: reconsulta em 23/10 a [Pierrot sa](https://pierrot.jp/title/bleach/keyword_sa.html), Seireitei/Senkaimon, e [ra](https://pierrot.jp/title/bleach/keyword_ra.html), Rukongai/Las Noches. WORLD-S03 usa recorte [ka](https://pierrot.jp/title/bleach/keyword_ka.html), Garganta, já consultado nesta sequência. Anime oficial complementar/arquivo da época, sem obra integral; não sustenta geração, escala, proteções ou permissões de viagem do mod.
+
+Leitura integral local de HistoryWorld, HistoryMapInstaller, WorldTravelItem, manifesto/README/preset identifica instalação inicial de mapas de terceiros, destinos e transporte provisório. Não demonstra geração mista, mapa canonicamente fiel, proteção de trechos ou travessia futura. Não foram inspecionados visualmente mapas, executados instalador/cliente, migrados saves ou alterados código/assets. Sem API/dependência nova, runtime/build/testes/publicação. Próximo respostas e funções dos núcleos/chegada/retorno/implantação, com perguntas contínuas.
+
+
+## 41. M10 — Rotas, autonomia de abertura e restrição de combate — 23/10/2026
+
+02A decidido com resposta própria: rotas/serviços inicialmente no contexto de cada era e skills posteriores para abrir Senkaimon/Garganta, sem exclusividade racial absoluta. 02B segunda opção: passagens comuns somente fora de combate; fuga arriscada/preparo da recomendação anterior não aprovados. 02C complemento espontâneo do usuário admite técnica como a de Urahara e dispositivo como o de Mayuri. [Perguntas e respostas integrais](historico/2026-10-23-propostas-m10-02ab-rotas-e-travessia.md); contratos em M10/8.3/8.4/8.6.
+
+WORLD-S04 — [glossário oficial TYBW, verbete 黒腔](https://bleach-anime.com/keyword/): resultado indexado consultado em 23/10/2026 descreve técnica com encantamento de Urahara e dispositivo de Mayuri; abertura integral retornou HTTP 403. WORLD-S05 — [TV Tokyo, sinopse ep.196](https://www.tv-tokyo.co.jp/anime/bleach_2012/episodes/episodes17/index.html) confirma estabilização para passagem dos capitães. Anime oficial complementar; sem capítulos/episódios integrais. Não prova habilidade universal, número de Kidō, currículo, receita ou consumo. Não se estabeleceu um Hollow abrindo Senkaimon naturalmente.
+
+M10-03A PROPOSTO, uma resposta pendente: chegada em pontos estabelecidos ou também pontos próprios registrados para as skills básicas. A restrição fora de combate acompanha a passagem comum, independentemente da fonte; exceção especial exige ficha e decisão próprias, sem repetir a aprovação geral. Acesso de passageiro e competência de abrir permanecem distintos; cada via exige ficha. Mudança de era não foi autorizada a apagar aprendizados. Sem código/assets/save, runtime, build, testes ou publicação. Próximo resposta e destinos/chegada/retorno/funções dos núcleos.
+
+
+## 42. M10 — Pontos de chegada aprovados — 23/10/2026
+
+M10-03A decidido por resposta explícita “Chegada em pontos estabelecidos (recomendado)”. Skills básicas abrem em local válido e chegam a pontos estabelecidos nos destinos habilitados; marcação de pontos próprios não escolhida. Contrato em M10/8.7/12.6, pergunta/opções/resposta no histórico. Coordenadas, critérios de habilitação e expansão posterior continuam com fichas.
+
+M10-03B PROPOSTO, uma resposta pendente: validar chegada antes da travessia e no momento de transferir; se inválida dentro da área, recusar mantendo na origem. Alternativa busca posição próxima fora da área. Corpo efetivo de chegada respeita a limpeza de formas em M06/M07; validação não implica invulnerabilidade. Carregamento, perigos, concorrência, recursos e retorno exigem ficha M10/M16. Contrato comum evita repetir decisões por raça/fonte. Sem pesquisa canônica/API nova, código, mapas, saves, build, testes ou publicação. Próximo resposta, retorno e funções dos núcleos.
+
+
+## 43. M10 — Busca próxima fora da área aprovada — 23/10/2026
+
+M10-03B decidido por resposta explícita “Buscar posição próxima fora da área”. Segunda opção, diferente da recomendação inicial; contrato em M10/8.8/12.7 e resposta no histórico. Busca próxima substitui recusa imediata quando falta posição válida dentro da área, preservando ponto estabelecido como referência e validação da posição encontrada. Não aprova raio, varredura ilimitada, destino alternativo ou acesso através de barreira/permissão.
+
+03C/04A PROPOSTOS, duas respostas pendentes: limites/falha da busca e retorno viável em viagens comuns de exploração. [Perguntas/opções](historico/2026-10-23-propostas-m10-03c-04a-busca-e-retorno.md). Custos, perigos, concorrência, carregamento e meios de retorno/resgate concretos exigem ficha. Sem pesquisa canônica/API nova, código, mapas, saves, build, testes ou publicação. Próximo respostas e funções dos núcleos/condições concretas de viagem, com perguntas contínuas.
+
+
+## 44. M10 — Retorno aprovado e alcance dos destinos esclarecido — 23/10/2026
+
+M10-04A decidido por “Retorno viável nas viagens comuns (recomendado)”, contrato em M10/8.10/12.9. 03C recebeu pergunta sobre destinos canônicos de Senkaimon/Garganta e adaptação ao mod, sem escolha de fallback; pergunta reformulada em 12.8 e histórico. 03A/B preservados; uma decisão pendente.
+
+WORLD-S06: [Pierrot, arco 21–41](https://pierrot.jp/title/bleach/playback_02.html), abertura do resumo, confirma chegada inicial do grupo ao Rukongai, fora da Seireitei. [Sinopse licenciada Hulu, ep.21](https://www.hulu.jp/watch/100044758?t=0), resultado indexado (abertura integral indisponível), identifica entrada pelo Senkaimon. WORLD-S04, glossário oficial TYBW/黒腔, descreve conexões Mundo Humano/Hueco Mundo e Soul Society/Hueco Mundo pelo dispositivo de Mayuri. Nenhuma fonte consultada nesta rodada estabelece qualquer coordenada para qualquer usuário; sem capítulos/episódios integrais.
+
+M10/8.11 distingue entradas habilitadas por mundo de busca espacial no entorno de uma entrada. Múltiplas entradas são recomendação de catálogo coerente com 03A, não locais/quantidades já aprovados. Precisão livre futura exigiria expansão explícita. Sem mudança de código, mapas/saves, API, build, testes ou publicação. Próximo decisão de 03C e funções dos núcleos/condições concretas de viagem, com perguntas contínuas.
+
+## 45. M10 — Falha de chegada aprovada e seleção de destino em revisão — 23/10/2026
+
+03C decidido pela resposta “Sem espaço próximo, permanecer na origem (recomendado)”. Sem solução próxima válida, recusar viagem e avisar; não tentar automaticamente outra entrada. Custos e parâmetros continuam por ficha.
+
+Manifestação posterior: “A ideia é ser a mesma do nether do minecraft por exemplo e a mesma da obra pelo o que entendi, já que também não parece ter um lugar fixo para chegar pelo senkaimon ou garganta”. Reabre a restrição de 03A, sem escolher ainda correspondência geográfica ou seleção deliberada de local. Fontes WORLD-S04/S06 não comprovam conversão universal entre coordenadas dos mundos de Bleach. A referência ao Nether não aprova escala, moldura de portal ou alteração de terreno.
+
+03D proposto em M10/8.12/12.10 e [histórico](historico/2026-10-23-revisao-m10-03a-e-proposta-03d-destinos.md): recomendar seleção de local conhecido/acessível, inclusive local do jogador; alternativa região correspondente à posição de abertura. Uma resposta pendente. 02B, 03B/C e 04A preservados. Sem mudança de runtime, mapas/saves, testes, build ou publicação.
+
+## 46. M10 — Destinos próprios aprovados — 23/10/2026
+
+03D decidido por “Escolher local conhecido e acessível (recomendado)”. Skills próprias de Senkaimon/Garganta podem escolher local conhecido/acessível no outro mundo, inclusive local do jogador, revisando a restrição anterior de 03A às entradas cadastradas pelo mod. Correspondência geográfica pela posição de abertura não foi escolhida. Pergunta e resposta exatas no histórico de 03D; contrato vigente em M10/8.12/12.10. Rotas/serviços iniciais de 02A e contratos 02B, 03B/C e 04A preservados.
+
+03E proposto em M10/8.13/12.11 e [histórico](historico/2026-10-23-proposta-m10-03e-registro-de-destinos.md): visita e registro deliberado com nome, sem portal permanente, ou registro automático ao explorar. Serviços/fontes apropriadas possibilitam primeira viagem a lugares desconhecidos; não criar exigência circular. Uma resposta pendente. Registro não concede acesso/propriedade ou compra de skill; limites, custos, UI e compartilhamento continuam por especificar. Sem nova pesquisa canônica/API, código, mapas/saves, build, testes ou publicação.
+
+## 47. M10 — Registro manual aprovado e funções dos lugares — 23/10/2026
+
+03E decidido por “Visitar e registrar manualmente (recomendado)”. Destino próprio exige visita e registro com nome; não exige portal permanente. Primeiras viagens mantêm serviços/fontes apropriadas. Contrato M10/8.13/12.11 e histórico preservam pergunta/resposta; 03D e demais contratos de acesso, combate, chegada e retorno permanecem. Registro não concede acesso ou propriedade; parâmetros, UI, quantidade e compartilhamento ainda exigem ficha.
+
+M10/8.14 organiza necessidades dos lugares herdadas de M04/M08/M09, sem votar novamente papéis de NPCs. 05A proposto: Rukongai como região de povoados, atividades locais e exploração junto dos espaços institucionais da Soul Society; alternativa principalmente cenário de passagem. [Pergunta/opções](historico/2026-10-23-proposta-m10-05a-funcoes-rukongai-seireitei.md); uma resposta pendente. Não cria etapa obrigatória antes da Academia, acesso permanente ou proteção de toda cidade. Sem nova pesquisa canônica/API ou mudança de runtime, mapas/saves, build, testes ou publicação.
+
+## 48. M10 — Rukongai aprovado; distribuição do apoio em Hueco Mundo — 23/10/2026
+
+05A decidido por “Rukongai com atividades próprias (recomendado)”. Rukongai recebe função jogável com povoados, atividades locais e exploração, articulada aos espaços institucionais da Soul Society e aos requisitos de acesso/era. Contrato M10/8.14/12.12; pergunta/resposta preservadas no histórico. Não acrescenta etapa obrigatória antes da Academia ou catálogo completo de atividades.
+
+05B proposto em M10/8.15/12.13 e [histórico](historico/2026-10-23-proposta-m10-05b-apoio-em-hueco-mundo.md): pequenos refúgios distribuídos ou um povoado independente principal para apoio em Hueco Mundo. Proposta de adaptação espacial; autonomia e papéis de M07/M08 não são votados novamente. Uma resposta pendente; locais, fontes, serviços e condições de cada apoio ainda exigem ficha. Sem nova pesquisa canônica/API ou mudança de runtime, mapas/saves, build, testes ou publicação.
+
+## 49. M10 — Refúgios distribuídos aprovados e identidade urbana humana — 23/10/2026
+
+05B decidido por “Pequenos refúgios distribuídos (recomendado)”. Apoio independente em Hueco Mundo por lugares ligados a fontes/grupos e com funções/acesso próprios, mantendo contexto de Las Noches. Rede é adaptação aprovada; locais, serviços, currículo, perigos e corpos exigem fichas. Contrato M10/8.15/12.13 e histórico preservam resposta.
+
+05C proposto em M10/8.16/12.14 e [histórico](historico/2026-10-23-proposta-m10-05c-nucleo-urbano-humano.md): Karakura adaptada ao Minecraft ou cidade original com locais canônicos. Uma resposta pendente; não aprova mapa local, escala ou prédios individuais. WORLD-S07: [Pierrot, resumo do arco 1–20](https://pierrot.jp/title/bleach/playback_01.html), página lida integralmente, situa Rukia, ameaças Hollow e loja Urahara no contexto de Karakura; [apresentação TYBW](https://bleach-anime.com/story/story-1st.html), resultado indexado, abertura integral HTTP 403, situa Ichigo/novas ocorrências na cidade. Fontes complementares do anime consultadas em 23/10/2026, sem capítulos/episódios integrais ou planta completa. Sem mudança de runtime, mapas/saves, build, testes ou publicação.
+
+## 50. M10 — Karakura aprovada e abastecimento de bases em discussão — 23/10/2026
+
+05C decidido por “Karakura adaptada ao Minecraft (recomendado)”. Identidade do núcleo urbano humano articulada ao Overworld explorável/construível; recorte e avaliação do mapa ainda necessários, sem aprovação de escala, prédio ou implantação. Contrato M10/8.16/12.14 e histórico preservam resposta; WORLD-S07 sustenta contexto narrativo, não planta completa.
+
+06A proposto em M10/8.17/12.15 e [histórico](historico/2026-10-23-proposta-m10-06a-recursos-e-bases.md): fontes locais para sustentar rotina básica de bases espirituais ou dependência principal do Mundo Humano. Uma resposta pendente. M01/M10 preservam exploração/preparação/construção; não duplicar todos os recursos por omissão. M11 completa catálogo/produção/economia; M05/M06 e M04/H2 mantêm recursos e limites de fome. Sem nova pesquisa canônica/API, mudança de runtime, mapas/saves, build, testes ou publicação.
+
+## 51. M10 — Bases com abastecimento local aprovadas — 23/10/2026
+
+06A decidido por “Base viável com abastecimento local (recomendado)”. Soul Society/Hueco Mundo permitem sustentar rotina básica por fontes locais, sem replicar obrigatoriamente todos os recursos do Overworld ou definir oferta gratuita. Contrato M10/8.17/12.15 e histórico preservam resposta; M11 completa itens/produção/economia, M05/M06 mantêm alimentação/regeneração e M04/H2 não cria segunda barra Hollow.
+
+07A proposto em M10/8.18/12.16 e [histórico](historico/2026-10-23-proposta-m10-07a-experiencia-de-travessia.md): transição breve nas viagens comuns e percursos intermediários em situações próprias, ou percurso jogável também no uso habitual. Uma resposta pendente. Preservar passagens comuns fora de combate, validação/retorno e lifecycle; não aprovar custos, duração, passageiros, dimensão ou riscos novos por omissão. Revisão ambiental/espacial/implantação segue pendente. Sem nova pesquisa canônica/API, mudança de runtime, mapas/saves, build, testes ou publicação.
+
+## 52. M10 — Transição breve aprovada; convidados nas passagens — 23/10/2026
+
+07A decidido por “Transição breve; percursos em situações próprias (recomendado)”. Viagem comum tem apresentação/transição breve, sem corredor jogável obrigatório a cada uso; percursos de Dangai/Garganta ficam para conteúdos próprios. Contrato M10/8.18/12.16 e histórico preservam resposta. Custos, preparo, duração, dimensão intermediária e imunidade não foram definidos por essa escolha.
+
+07B proposto em M10/8.19/12.17 e [histórico](historico/2026-10-23-proposta-m10-07b-convidados-nas-passagens.md): convidados autorizados em passagens próprias ou uso pessoal por padrão. Uma resposta pendente. Passageiro escolhe atravessar sem aprender abertura ou registrar previamente o destino, mantendo acesso individual, fora de combate e validação do corpo; registro manual e retorno viável preservados. Sem novo cânone/API, convite real, mudança de runtime, mapas/saves, build, testes ou publicação.
+
+## 53. M10 — Passagens com convidados da mesma party — 23/10/2026
+
+07B decidido pela resposta própria “Compartilhar com convidados da mesma party”. Restringe compartilhamento a convidados do mesmo grupo de quem abre, com autorização e decisão individual de atravessar. Não aprova convidados externos ou ingresso automático de todos os membros. Contrato M10/8.19/12.17 e histórico preservam resposta; acesso, combate, validação do corpo, registro manual e retorno viável permanecem.
+
+07C proposto em M10/8.20/12.18 e [histórico](historico/2026-10-23-proposta-m10-07c-custo-e-janela-de-abertura.md): custo em Energia ao formar e janela curta sem manutenção, com travessia normal do abridor permitida, ou consumo contínuo. Uma resposta pendente. Não aprova valores, tarifa por passageiro, preparo ou ciclo de vida; serviços/dispositivos/rotas especiais exigem ficha própria e aquisição de skill mantém SP. Sem nova pesquisa canônica/API, convite real, mudança de runtime, mapas/saves, build, testes ou publicação.
+
+## 54. M10 — Custo e janela aprovados; preparo e ciclo propostos — 23/10/2026
+
+07C decidido por “Custo ao abrir + janela sem manutenção (recomendado)”. Energia ao formar, janela curta sem manutenção, sem reembolso por não utilizar passagem formada. Abridor pode atravessar preservando janela para convidados da mesma party. Contrato M10/8.20/12.18 e histórico preservam resposta; valores/limites e serviços/dispositivos continuam por ficha.
+
+07D/E propostos em M10/8.21/8.22 e 12.19/12.20 e [histórico](historico/2026-10-23-propostas-m10-07de-preparo-e-ciclo-da-passagem.md): preparo parado/cancelável ou imediato; objeto formado/pago autônomo até prazo em regiões ativas, encerrando na descarga/reinício, ou término adicional por morte/desconexão. Duas respostas pendentes. Preservar estado pessoal de M06/M07, acesso/party e resultado válido da travessia; não aprovar chunk forçado, imunidade ou reembolso por omissão. Sem nova pesquisa canônica/API, mudança de runtime, mapas/saves, build, testes ou publicação.
+
+## 55. M10 — Preparo e autonomia aprovados; limite e sentido — 23/10/2026
+
+07D/E decididos pelas respostas “Preparo breve parado e cancelável (recomendado)” e “Cumprir a janela já paga (recomendado)”. Preparo cancelável sem débito/recuperação extra, pedido indisponível mantém válido; passagem paga cumpre tempo com morte/desconexão em regiões ativas, encerrando na descarga/reinício sem restaurar. Contratos M10/8.21/8.22 e 12.19/12.20; respostas no histórico. Autonomia do objeto não restaura estados pessoais de M06/M07.
+
+07F/G propostos em M10/8.23/8.24 e 12.21/12.22 e [histórico](historico/2026-10-23-propostas-m10-07fg-limite-fechamento-e-sentido.md): uma passagem ativa com fechamento manual ou várias; ida/volta durante prazo ou apenas ida. Duas respostas pendentes. Preservar tempo pago sem renovação, acesso/combate/espaço/party por viajante e retorno viável; não criar rede persistente ou substituir portal anterior por omissão. Depois revisão/consolidação das passagens e lacunas ambientais/espaciais/implantação. Sem nova pesquisa canônica/API, mudança de runtime, mapas/saves, build, testes ou publicação.
+
+## 56. M10 — Limite/ida e volta aprovados e revisão dirigida — 23/10/2026
+
+07F/G decididos por “Uma passagem ativa, com fechamento manual (recomendado)” e “Ida e volta enquanto aberta (recomendado)”. Bloco comum de passagens consolidado conceitualmente em M10/8.25 e [revisão](10a-revisao-m10-2026-10-23.md); módulo permanece em especificação. Estados correntes obsoletos conciliados sem apagar perguntas/histórico. Entregas de retorno de convidados após fechar, corpos grandes, carregamento/transferência e implantação estão identificadas antes de implementar.
+
+08A proposto em M10/8.26/12.23 e [histórico](historico/2026-10-23-proposta-m10-08a-ambiente-e-agua-hueco-mundo.md): perfil noturno/areia branca sem rios/lagos naturais, permitindo água transportada funcional como adaptação, ou impedindo água estável também trazida. WORLD-S08: [Pierrot, verbete 虚圏/ウェコムンド](https://pierrot.jp/title/bleach/keyword_a.html), trecho integral consultado em 23/10/2026, descreve noite permanente, solo semelhante a areia branca, árvores de aspecto de quartzo e ausência de água. Fonte oficial histórica do anime complementar, sem capítulo/episódio integral. Não demonstra evaporação, física de balde, agricultura ou regras de nutrição do jogador. Uma resposta pendente. Sem mudança de runtime, mapas/saves, build, testes ou publicação.
+
+## 57. M10 — Água conforme evidência disponível; proposta de renascimento — 23/10/2026
+
+08A decidido por resposta condicionada à pesquisa: “Se na obra tiver alguma referência a isso e for impedir água no Hueco Mundo então que assim seja, mas se não vamos com sua recomendação”. WORLD-S08 reaberto; descreve noite/areia branca/ausência de água, sem abordar transporte, evaporação ou baldes. Pesquisa dirigida não localizou proibição primária explícita verificável. Recomendação adotada como adaptação: água trazida funcional, paisagem sem rios/lagos naturais. Não se afirma autorização canônica universal nem investigação exaustiva; fonte primária contrária exige revisão registrada. Referência: [Pierrot](https://pierrot.jp/title/bleach/keyword_a.html), verbete integral, complemento histórico oficial do anime; nenhum capítulo/episódio integral. Fanfic, especulação e espelhos não autorizados não fundamentam a decisão. Contrato/resposta em M10/8.26/12.23 e histórico.
+
+08B proposto em M10/8.27/12.24 e [histórico](historico/2026-10-23-proposta-m10-08b-local-de-renascimento.md): ponto escolhido nas três dimensões, cama compatível ou abrigo para corpos grandes, ou concentração no Mundo Humano. Uma resposta pendente. Adaptação nova, sem repetir nascimento inicial no Overworld nem alterar raça/estados/penalidades de morte. Fallback, primeiro spawn/reconexão de corpo grande e dormir/explosão continuam sem aprovação. M10 em especificação; 10a recebeu complemento datado preservando escopo da revisão anterior. Sem runtime, mapas/saves, build, testes ou publicação.
+
+## 58. M10 — Renascimento no mundo escolhido; recuperação em proposta — 23/10/2026
+
+08B decidido por “Ponto de renascimento no mundo escolhido (recomendado)”. M10/8.27/12.24 e histórico registram aprovação: cama para corpo compatível ou abrigo para corpo grande, com acesso/espaço válidos, mantendo nascimento inicial, identidade e contratos de morte. Não decide quantidade de registros, interface, construção/serviço concreto, dormir/explosão de cama ou recursos após morte.
+
+08C proposto em M10/8.28/12.25 e [histórico](historico/2026-10-23-proposta-m10-08c-recuperacao-do-renascimento.md): na falha de ponto pessoal, busca próxima se referência/acesso válidos, recuperação preparada no mesmo mundo e alternativa no Mundo Humano se necessário; alternativa concentra a recuperação no Mundo Humano. Uma resposta pendente. Áreas devem comportar o corpo-base permanente e respeitar acesso, sem escavar, reduzir estágio ou exigir skill/jogador para renascer. Segurança final e carregamento são entregas M10/M15/M16 antes da funcionalidade; primeiro spawn, ausência de seleção e reconexão não ganham teleporte automático por esta proposta. Adaptação de produto, sem nova pesquisa canônica/API. M10 em especificação; somente documentação, sem runtime, mapas/saves, build, testes ou publicação.
+
+## 59. M10 — Recuperação aprovada; posicionamento restante em pacote — 23/10/2026
+
+08C decidido por “Busca próxima → recuperação local → Mundo Humano (recomendado)”. M10/8.28/12.25 e histórico registram busca próxima válida, área de recuperação no mesmo mundo e alternativa no Mundo Humano. Todas comportam o corpo-base permanente, preservam permissões e não exigem nova skill/outro jogador. Não há redução automática de estágio, remoção de terreno ou garantia de área final já implementada; fichas/carregamento continuam entregas antes da funcionalidade.
+
+08D proposto em M10/8.29/12.26 e [histórico](historico/2026-10-23-proposta-m10-08d-posicionamento-inicial-e-retorno.md): sem ponto pessoal escolhido, renascer na área segura inicial do Mundo Humano; ao retornar, manter posição válida e corrigir apenas impedimento por busca próxima/recuperação. Ampliação explícita de escopo para os casos restantes em um pacote. Nascimento inicial de M04 permanece; posição no ar/água não é automaticamente inválida e ameaça/queda não ativam resgate gratuito. Inventário, recursos, conquistas e tempos não são resetados pela correção. Uma resposta pendente; sem nova pesquisa canônica/API, runtime, mapas/saves, build, testes ou publicação. M10 em especificação.
+
+## 60. M10 — Posicionamento consolidado; descanso espiritual em proposta — 23/10/2026
+
+08D decidido por “Manter local válido e recuperar bloqueios (recomendado)”. M10/8.29/12.26 e histórico registram aprovação. 8.30 consolida primeiro nascimento herdado de M04, ponto escolhido, falha/ausência de ponto e retorno válido/bloqueado, com corpo-base permanente, permissões e recursos preservados. Sem nova aprovação de números, local físico, UI, salvamento ou carregamento; essas fichas continuam condições de entrega. Não repetir decisões gerais por raça ou região.
+
+08E proposto em M10/8.31/12.27 e [histórico](historico/2026-10-23-proposta-m10-08e-descanso-nas-dimensoes-espirituais.md): descanso em cama nas dimensões espirituais ou somente registro de renascimento. Recomendação separa registrar de conseguir dormir, preserva noite permanente de Hueco Mundo e relógios de simulação, sem cura espiritual extra. Uma resposta pendente. Alternativa mantém o renascimento já aprovado; não reabre 08B. Condições/efeitos/tempos de descanso por ficha M10/M11/M14/M15/M16; nenhuma alegação canônica/API nova. M10 em especificação; apenas documentação, sem runtime, mapas/saves, build, testes ou publicação.
+
+## 61. M10 — Esclarecimento de cama/spawn e recuperação — 23/10/2026
+
+Resposta integral registrada em 08E/12.27 e histórico. Usuário reafirma cama marcando spawn, mas pede clareza e comparação com Nether; não escolheu a opção de descanso. Estado de 08E atualizado para EM ESCLARECIMENTO, mantendo o que 08B/C/D já aprovou. M10/8.27/8.30 explica cama = ponto pessoal de retorno após morte; portal/destino registrado é outra função; recuperação automática não exige atendimento para marcar cama. Abrigo de Gillian é alternativa conceitual com objeto/interação ainda pendentes, não spawn automático em construção arbitrária.
+
+Fonte oficial Minecraft consultada em 23/10/2026: [Spawning and dying](https://www.minecraft.net/en-us/article/spawning-and-dying), seção de alterar respawn: cama no Overworld e âncora no Nether. É descrição vanilla, sem alegar compatibilidade técnica já implementada; camas nos mundos Bleach são adaptação aprovada para marcar spawn, com descanso ainda pendente. Não altera Nether/End por associação. Próximo explicar o fluxo com exemplo e retomar depois a escolha de sono; sem nova aprovação inferida, runtime, build, testes ou publicação.
+
+## 62. M10 — Sono em Hueco Mundo aprovado; passagem da noite em proposta — 23/10/2026
+
+08E decidido no recorte Hueco Mundo pela resposta “Então se é sempre noite no Hueco Mundo pode dormir a qualquer momento possivel”. Sem restrição de horário para dormir em cama compatível, mantendo segurança/espaço/fase; cama marca spawn e descanso não cria amanhecer. Não acrescenta cura espiritual/treino/atalho artificial de cooldown nem desliga regenerações usuais elegíveis. Duração, saída e efeitos vanilla compatíveis exigem ficha. Demais perfis, como céu/sono de Soul Society, não aprovados por associação. Histórico preserva o esclarecimento anterior e a resposta complementar; M10/8.31/12.27.
+
+08F proposto em M10/8.32/12.28 e [histórico](historico/2026-10-23-proposta-m10-08f-passagem-da-noite-por-mundo.md): passagem da noite independente por mundo com ciclo ou compartilhada. Uma decisão pendente. Não aprova ciclo em toda dimensão nem independência técnica existente; M10/M15/M16 detalham condições/multiplayer/relógio/salvamento. Sem nova pesquisa canônica/API, runtime, build, testes ou publicação.
+
+## 63. M10 — Passagem da noite por mundo aprovada; população regional proposta — 23/10/2026
+
+08F decidido por “Passagem da noite por mundo (recomendado)”. M10/8.32/12.28 e histórico registram avanço local do ciclo, participação do mundo conforme regra do servidor, Hueco Mundo permanentemente noturno e relógios de combate por simulação. Não fixa percentual, perfil de céu em toda dimensão ou implementação de independência temporal. 08E e renascimento/retorno preservados.
+
+08G proposto em M10/8.33/12.29 e [histórico](historico/2026-10-23-proposta-m10-08g-criaturas-por-regiao.md): geração natural regional em Soul Society/Hueco Mundo com monstros vanilla só por ficha, ou geração comum desses monstros também nas dimensões espirituais. Mundo Humano mantém base vanilla com aparições Hollow regionais. Uma decisão pendente. Política de produto, sem alegação canônica/API nova; não apaga entidades, decide transporte/pets ou fixa taxas/despawn/recompensas. M09 mantém seus perfis; M11/06A exigem abastecimento compatível. M10 em especificação; sem runtime, build, testes ou publicação.
+
+## 64. M10 — Criaturas regionais aprovadas; catálogo funcional de lugares — 23/10/2026
+
+08G decidido por “Criaturas por região e identidade do mundo (recomendado)”. M10/8.33/12.29 e histórico registram geração natural regional em Soul Society/Hueco Mundo, monstros vanilla somente por ficha e base vanilla humana com aparições Hollow regionais. Não resolve taxas/despawn/loot, entidades existentes ou transporte. M09 e abastecimento 06A/M11 preservados.
+
+Aberto [M10b](10b-catalogo-funcional-de-lugares-e-rotas.md), em especificação, com seis fichas de necessidade e matriz de percursos/entregas. Leitura dirigida de M08a/9.31–9.37 e fronteiras M09/M10; sem nova pesquisa canônica/API. Funções herdadas distinguidas de geografia nova. 09A proposto em M10/8.34/12.30 e M10b/12: proximidade dos percursos humanos em Karakura, com fontes distintas/coerentes, ou regiões iniciais afastadas. Uma decisão pendente; Academia permanece na Soul Society, quatro origens começam fisicamente no Mundo Humano conforme M04. Sem novas skills/fontes concedidas, coordenadas, ordem de produção ou aceite de mapas. M10 permanece em especificação; perfis ambientais restantes, retorno, abrigos/áreas concretas e implantação continuam condições de entrega. Sem runtime, build, testes ou publicação.
+
+## 65. M10 — Percursos iniciais próximos aprovados; fonte da rota a Hueco Mundo — 23/10/2026
+
+09A decidido por “Primeiros percursos próximos de Karakura (recomendado)”. M10/8.34/12.30 e M10b/8.1/12.1 aplicam proximidade com fontes distintas/coerentes, sem fixar distâncias/coords ou levar Academia ao Mundo Humano. Releitura dirigida de M04/RAC-07 e catálogo M10b: ingresso institucional já aprovado; Plus/Konsō/estado narrativo continuam para prólogo, e passagem por Rukongai era exemplo, não nova obrigação.
+
+M10b/9 elabora perfis funcionais de encaminhamento Shinigami e primeira rota comum a Hueco Mundo. 09B proposto em M10/8.35/12.31 e M10b/9.2/12.2: operadores Arrancar originais independentes nas duas pontas ou passagem fixa mantida por dispositivo. Uma decisão pendente. Veterano pode indicar fonte sem ganhar abertura/Cero; serviço de volta independe da janela de ida; acesso/era, fontes qualificadas, corpos, preço e continuidade exigem ficha antes da entrega. Adaptação de produto, sem nova pesquisa canônica/API; nenhuma via de 02C excluída do catálogo completo. M10 em especificação; sem runtime, build, testes ou publicação.
+
+## 66. M10 — Operadores aprovados e primeiro acesso Hollow em proposta — 23/10/2026
+
+09B decidido por “Operadores independentes nos dois lados (recomendado)”. M10/8.35/12.31 e M10b/9.2/12.2 registram serviço com operadores Arrancar originais nas duas pontas. M08a/9.38 acrescenta funções documentais individuais, atendimento essencial/continuidade herdados, com nomes, motivos, origem do conhecimento, acesso/era, preço e execução pendentes. Não atribui abertura ao veterano, ensino de técnica ao passageiro ou serviço irrestrito a toda origem. Dispositivo continua possível no catálogo completo.
+
+09C proposto em M10/8.36/12.32 e M10b/9.3/12.3 e [histórico](historico/2026-10-23-proposta-m10-09c-momento-do-acesso-hollow.md): primeiro acesso após fundamentos iniciais ainda como Hollow comum, ou somente após Gillian. Uma decisão pendente. Preparo reconhecido pode integrar a introdução sem duplicar prova; proposta não exige Cero, todo repertório ou chefe opcional e não cria escala automática dos inimigos. Acesso de outras origens, pagamento, disponibilidade por era e etapas concretas continuam com responsáveis. Adaptação de produto, sem nova pesquisa canônica/API, runtime, build, testes ou publicação.
+
+## 67. M10 — Abertura própria versus viagem assistida; pesquisa dirigida — 23/10/2026
+
+09C recebeu pedido de fidelidade à obra e esclarecimento de estágio de Garganta/Senkaimon, com reafirmação de primeiras viagens assistidas. Resposta integral em histórico/M10/12.32/M10b/12.3. NPC da rota 09B abre e jogador atravessa; chegada permite volta por operador local. Não há skill pessoal concedida por serviço. Primeiro acesso assistido ainda como Hollow comum versus após Gillian não foi escolhido; 09C EM ESCLARECIMENTO.
+
+WORLD-S09: verbetes oficiais [Garganta](https://pierrot.jp/title/bleach/keyword_ka.html) e [Senkaimon](https://pierrot.jp/title/bleach/keyword_sa.html) reabertos, sem marco universal de desbloqueio. Referências secundárias indexadas [Kūmon](https://bleach.fandom.com/wiki/K%C5%ABmon) (mangá 45/p.2, anime 14; Menos/Gillian) e [Senkaimon](https://bleach.fandom.com/wiki/Senkaimon) (mangá 56/pp.17–18; Renji/Zanpakutō, antes de sua conquista de Bankai). Aberturas integrais das páginas gerais da wiki: HTTP 402. Índice oficial VIZ do capítulo 56 exige assinatura; nenhum capítulo/episódio integral conferido nem scans não autorizados utilizados. Gillian é exemplo localizado, não mínimo universal comprovado; Renji não prova que todo aluno abra. Requisitos pessoais seguem por ficha/pesquisa primária e adaptações identificadas, preservando compra SP/Mastery pela prática. Não criar regra automática só de raça, Shikai, Bankai ou formatura. Sem runtime/build/testes/publicação.
+
+## 68. M10 — Primeiro acesso determinado pela campanha — 23/10/2026
+
+**Resposta complementar em 23/10/2026:** “Vai ser com base nas missões mesmo, ele vai para lá quando necessário e quando fizer sentido no arco da obra que reflete diretamente na campanha do mod”. **09C DECIDIDO — acesso por missão e contexto da campanha.** A primeira ida a Hueco Mundo acontece quando uma missão pertinente a exigir ou a disponibilizar no arco/era adequado. Não se adota um estágio racial universal para essa viagem: o roteiro da missão define os requisitos coerentes, inclusive estágio se for necessário naquele caso. A escolha não aprova automaticamente o acesso como Hollow comum nem uma trava geral em Gillian. Viajar como passageiro continua separado de adquirir a skill de abertura própria. Missão, marco, fonte e condições concretas serão especificados em M12/M13 com M08/M10; não são uma decisão binária ainda pendente entre Hollow comum e Gillian.
+
+Aplicado em M10/8.36/12.32, M10b/9.3/12.3, M08a/9.38, revisão e continuidade. M03 preserva cronologia, campanha pessoal e mundo aberto entre capítulos; a decisão não exige missão ativa para toda visita futura nem antecipa catch-up de M15. 09B mantém operadores da rota comum quando pertinente, sem substituir automaticamente os transportes de missões. M13 define missão/arco/motivo e fonte; M12 registra condições/marcos; M08/M10 oferecem operação, corpo, chegada e retorno. Primeira viagem e abertura própria continuam separadas, com SP na aquisição e Mastery pela prática. Proposta anterior de acesso após fundamentos e alternativa somente Gillian não foram adotadas. Registros anteriores de pendência são históricos, superados por esta resposta. Pesquisa WORLD-S09 preservada com seus limites; sem nova pesquisa, implementação, build, testes, commit ou publicação nesta atualização.
+
+## 69. Revisão de cobertura e profundidade — M01–M10 — 23/10/2026
+
+**Pedido do usuário:** “Perfeito, vamos revisar a M10 então, uma coisa que precisa de atenção também é a generalização excessiva ou a especificação excessiva, pois como no módulo 8 que ainda você não ia falar de cada NPC ou dar designação se eu não tivesse falado nada. então vamos tomar cuidado e também tentar identificar casos como esse de decisões em outros módulos que eram para ter sido tomadas, desde o primeiro”.
+
+[Relatório de cobertura](00-revisao-cobertura-m01-a-m10-2026-10-23.md) registra o alcance das leituras dirigidas, achados, responsáveis principais e momentos de retorno. Regras comuns, cobertura do horizonte, fichas de conteúdo e execução são níveis diferentes. Uma amostra mínima não certifica o jogo completo; coordenadas/falas/números podem esperar, enquanto função e escolhas de funcionamento precisam de dono e entrega.
+
+Corrigida orientação do mapa que restringia M08 quanto ao repertório oferecido; selecioná-lo pertence a M08 em integração com execução M06 e quests M13. Conciliadas duas sínteses de M01/M05 com a compra de skills/formas/atributos por SP e Mastery pela prática, sem alterar respostas históricas. M10b/7.1 amplia a cobertura dos lugares requeridos por contratos anteriores, distinguindo necessidade, candidato e decisão aprovada.
+
+M10 permanece em especificação: próximo foco em lugares/atividades, ambiente, acesso, circulação/retorno, recuperação e modos de mundo. Retornos dirigidos prioritários a M04/presença espiritual e M06/Combat State; M02/M03/M08/M09 mantêm entregas concretas de integração/conteúdo. Missões e marco exatos de 09C continuam em M12/M13, sem nova regra de estágio racial. Não reabrir adiamentos explícitos para preencher tabelas. Nenhuma nova escolha de gameplay foi aprovada pelo relatório. Somente documentação; sem nova pesquisa externa, inspeção de mapas, código, build, teste de jogo, commit ou push.
+
+## 70. M10 — Conteúdo local e composição institucional — 23/10/2026
+
+Após pedido de continuidade, desenvolvidos perfis de atividade em M10b/8.3.1 e 8.5.1: M10-10A propõe abastecimento, proteção e apuração junto a moradores/responsáveis do Rukongai; M10-10B propõe reconhecimento, provisões/trocas e acordos locais nos refúgios independentes. Alternativas e perguntas integrais no [registro do bloco](historico/2026-10-23-propostas-m10-10ab-atividades-locais.md). **Ambos PROPOSTOS, duas respostas pendentes.** Não reaprovam função/distribuição de 05A/B nem mudam operadores 09B ou acesso narrativo 09C. Missões, indivíduos e recompensas concretos continuam com os responsáveis; fichas mostram ações e percursos, sem declarar sua execução pronta.
+
+M10b/8.7 organiza requisitos espaciais da entrada, formação, divisões, prática, atendimento especializado e saída em Seireitei, a partir de M04/M08. Não concede credencial global, nova chefia ou poder por filiação. WORLD-S10: reconsultados [Rukongai/Las Noches](https://pierrot.jp/title/bleach/keyword_ra.html), [Seireitei/Soul Society](https://pierrot.jp/title/bleach/keyword_sa.html) e [resumo oficial do arco 21–41](https://pierrot.jp/title/bleach/playback_02.html); contexto histórico do anime complementar, sem capítulos/episódios integrais. Atividades propostas e refúgios originais são adaptações do mod, não instituições canônicas demonstradas por essas fontes.
+
+Publicação autorizada pelo usuário após concluir o bloco da revisão: M10, retornos dirigidos a M04/M06 e complementos necessários; condição e texto integral no handoff. Não houve commit/push antecipado. M10 permanece em especificação; sem código, mapa/save, build ou teste de jogo.
+
+## 71. M10 — Atividades locais aprovadas; ambiente e abrigo propostos — 23/10/2026
+
+M10-10A/B decididos por “Atividades com moradores e responsáveis locais (recomendado)” e “Sobrevivência e acordos locais (recomendado)”. Aplicados em M10/8.38/12.33–12.34 e M10b/8.3.1/8.5.1/12.4–12.5, com perguntas/alternativas no histórico. Resultado é seleção de frentes de atividade e interlocutores por função; povoado/refúgio individual, pessoas, missões e recompensas concretos continuam por ficha, sem conceder compra, Mastery ou evolução automaticamente. Seireitei e demais atendimentos em M10b/8.7/8.8 articulam os contratos de M08 sem aprovar novos currículos ou permissões globais.
+
+M10-11A/B propostos em M10/8.39–8.40/12.35–12.36 e [histórico](historico/2026-10-23-propostas-m10-11ab-ambiente-e-abrigo.md): ambiente com dia/noite/clima regional em Soul Society, ou iluminação diurna permanente; marco de abrigo em bloco próprio para corpo grande, ou estrutura mínima. **Duas respostas pendentes.** Propostas de adaptação para Minecraft, sem nova afirmação de clima canônico ou verificação de API. Heranças 08B/C/D/E/F preservadas: mesmo ponto da cama, recuperação, noite permanente de Hueco Mundo e passagem da noite por mundo. Obtenção/receita, dimensões e realização permanecem com responsáveis. M10 em especificação; sem código, mapa/save, build, testes ou publicação.
+
+## 72. M10 — Noite/chuva conferidas, ambiente e marco aprovados; perfil de mundo proposto — 23/10/2026
+
+**11A, resposta integral:** “Como é na obra mesmo? eu lembro de chover e ficar de noite lá também, se for isso mesmo podemos seguir com o recomendado por você”. **WORLD-S11:** a [sinopse oficial TV Tokyo do episódio 23](https://www.tv-tokyo.co.jp/anime/bleach_2012/episodes/episodes02/index.html), no contexto do Rukongai, menciona noite anterior e manhã seguinte; a [galeria oficial TYBW episódio 7](https://bleach-anime.com/story/1st/?id=07), inspecionada visualmente no navegador, mostra quadro de Byakuya sob chuva em Seireitei. Extrator retornou 403 nessa página; navegador acessou a página pública normalmente. Não houve capítulo/episódio integral lido/assistido. Condição da resposta atendida; **11A DECIDIDO**, perfil recomendado adotado. Duração do ciclo, probabilidade de clima e regras de cama são adaptações para Minecraft, não medições canônicas. **11B DECIDIDO** por “Marco de abrigo em bloco próprio (recomendado)”. Respostas/perfis em M10/8.39–8.40/12.35–12.36 e histórico; tempos, obtenção/receita, geometria e realização mantêm seus responsáveis.
+
+**M10-12A PROPOSTO:** campanha em mundos novos/existentes compatíveis por integração própria, ou completa somente em novo mundo História. Pergunta em M10/8.41/12.37 e [histórico](historico/2026-10-23-proposta-m10-12a-perfis-de-mundo.md); uma resposta pendente. README de mapas relido e leitura dirigida de HistoryWorld/HistoryMapInstaller: fluxo atual de História e recusa a sobrescrever regiões não comprovam integração de núcleos em saves usados. Proposta escolhe horizonte de produto; implantação/validação em M16. M10 em especificação; lugares/serviços e retorno ainda precisam de fichas, seguidos dos retornos M04/M06 e dependências do bloco autorizado para publicação. Sem código, mapa/save, build, teste, commit ou push.
+
+## 73. M10 — Perfis de mundo aprovados; operadores e áreas em proposta — 23/10/2026
+
+12A decidido por “Campanha em mundos novos e existentes compatíveis (recomendado)”. Aplicado em M10/8.41/12.37 e histórico, com pergunta/alternativa preservadas. Aprova o horizonte de experiência; integração e validação próprias em M16, sem promover o instalador atual a suporte comprovado de saves usados. Nenhuma região, construção ou save alterado.
+
+M10b/9.4 organiza retorno viável conforme 04A: fonte/meio efetivo após fechar a passagem, convidado sem skill, corpo permanente novo e fonte indisponível. Área de recuperação de renascimento é outro contrato, sem teleporte de resgate. Contingências concretas ainda precisam de ficha. 12B/C propostos em M10/8.42/12.38–12.39, M10b/9.5–9.6/12.6–12.7 e [histórico](historico/2026-10-23-propostas-m10-12bc-operadores-e-recuperacao.md); **duas respostas pendentes**. 12B propõe operadores institucionais Shinigami originais nos dois lados da rota comum Humano/Soul Society; alternativa concentra a operação na rede Urahara. 12C propõe áreas abertas conectadas à periferia de Karakura, povoado do Rukongai e refúgio inicial de Hueco Mundo, com reset perto do ponto humano; alternativa instala nos centros dos núcleos. Papéis individuais candidatos em M08a/9.39 e nota de localização do reset em 8.8.
+
+Propostas de adaptação e localização do mod, sem nova pesquisa externa/API ou alegação de postos canônicos. Não alteram transporte das primeiras missões, papéis canônicos, raça, gratuidade/perdas do reset ou regras de cama/marco. M10/M08 especificam lugares/fontes; retornos dirigidos M04/M06 precisam completar presença/interação/reset e Combat State. M10 em especificação; sem código, mapa/save, build, testes, commit ou push.
+
+## 74. M10 — Operadores e recuperação aprovados; retorno dirigido à presença espiritual — 23/10/2026
+
+12B/C decididos por “Operadores institucionais nas duas pontas (recomendado)” e “Áreas abertas conectadas aos núcleos (recomendado)”. Respostas/perfis aplicados em M10/8.42/12.38–12.39, M10b/9.5–9.6/12.6–12.7, M08a/8.8/9.39 e histórico. Operadores Shinigami originais autorizados perto de Karakura e na entrada externa de Seireitei pelo lado do Rukongai. Áreas de recuperação abertas na periferia humana, junto a povoado do Rukongai e junto ao refúgio inicial de Hueco Mundo, todas compatíveis com Gillian; reset próximo à área humana. Não são postos canônicos comprovados nem destinos livres de teleporte. Nomes, arquitetura, coordenadas e implantação continuam por ficha.
+
+M10/8.43 confere os percursos e responsáveis. Escolhas do complemento atual consolidadas; conteúdo e execução de M10 continuam em especificação. Convidado numa base distante após fechar o portal precisa de retorno efetivo, sem substituir esse requisito por renascimento ou resgate gratuito. Missão do primeiro acesso segue M12/M13 e não é decidida pelo operador comum.
+
+Aberto [M04a](04a-presenca-espiritual-e-interacao.md) para COV-05. PRES-S01: [VIZ, sinopse do volume 1](https://www.viz.com/manga-books/manga/bleach-volume-1/product/167/paperback), Ichigo já vê espíritos antes da transferência de Rukia. PRES-S02: [Pierrot, resumo oficial dos episódios 1–20](https://pierrot.jp/title/bleach/playback_01.html), surpresa de Rukia por ser vista e distinção da visão humana comum. PRES-S03: [TV Tokyo, sinopse do episódio 5](https://www.tv-tokyo.co.jp/anime/bleach_2012/episodes/episodes01/index.html), Chad combate Shrieker com Rukia sem enxergá-lo. Consultadas apresentações/sinopses oficiais, não capítulos ou episódios integrais. A distinção entre ver e conseguir participar do combate não demonstra que toda pessoa ou arma comum fira todo espírito; comportamento de criaturas vanilla é adaptação.
+
+RAC-30A/B/C **PROPOSTOS**, [perguntas enviadas](historico/2026-10-23-propostas-m04-rac30abc-presenca.md), três respostas pendentes: visão espiritual ordinária no prólogo antes do combate exigido; compatibilidade comum de dano/interação com exceções específicas; comportamento vanilla preservado com perfis sensoriais próprios em Bleach. Separar visão, leitura de Reiatsu, informação do alvo e compatibilidade de efeito; não criar visão por leitura através de parede. Não promover a matriz a aprovada. Próximos: aplicar respostas, completar corpo/posição do reset e seguir M06/Combat State e dependências. Publicação autorizada somente ao concluir o bloco completo; sem alteração de código/mapas/saves, build, testes, commit ou push.
+
+## 75. M04 — Visão/interação aprovadas, dano reformulado e conciliação escolhida — 23/10/2026
+
+**Respostas iniciais:** RAC-30A — “Visão no prólogo antes do combate exigido (recomendado)”; RAC-30B — “mas no anime não é assim como você recomendou”; RAC-30C — “Preservar interação vanilla (recomendado)”. A/C aprovados. B permaneceu em esclarecimento naquela resposta, sem assumir uma alternativa; recomendação de dano comum liberado por padrão retirada. A ressalva anterior de que isso era adaptação não bastava para sustentar essa recomendação diante da prioridade de fidelidade do usuário.
+
+**Pesquisa PRES-S04:** [Shueisha/Shonen Jump, resumo oficial do arco Fullbring](https://www.shonenjump.com/xmedia/bleach/story/index5.html), verbete 完現術, identifica o poder do braço de Chad como Fullbring e define manipulação da alma da matéria. Reconsulta da [sinopse TV Tokyo do episódio 5](https://www.tv-tokyo.co.jp/anime/bleach_2012/episodes/episodes01/index.html) confirma combate sem visão, sem explicar uma regra universal de dano ou a causa daquele golpe específico. Chad não é base adequada para generalizar uma pessoa/arma ordinária. Não afirmar que se verificou imbuimento consciente nessa cena. Leitor VIZ do [capítulo 1](https://www.viz.com/shonenjump/bleach-chapter-1/chapter/5829) redirecionou no navegador ao índice da série, que encaminha capítulos disponíveis na localização ao MANGA Plus; extrator retornou interface sem quadros. Nenhum capítulo/episódio integral conferido nem fala não lida de Rukia registrada como prova.
+
+**RAC-30B DECIDIDO após reformulação:** “Exigir capacidade espiritual do ataque (recomendado)”. Para ferir um corpo espiritual, o ataque/arma precisa de capacidade compatível; Zanpakutō, técnicas e golpes corporais espirituais próprios podem atender. Ver o alvo, possuir Energia ou escolher uma origem não espiritualiza automaticamente uma espada de ferro/flecha vanilla. Preparação de item requer capacidade/ficha apropriada; nenhuma skill universal de imbuimento concedida. Elegibilidade não garante acerto, dano suficiente ou ignorar proteções vanilla; estas seguem M06.
+
+**RAC-30D DECIDIDO:** “Mesmo requisito espiritual para NPC e jogador (recomendado)”. O mesmo requisito vale para dano de mobs vanilla contra corpos espirituais jogáveis; exceção de dano normal contra o jogador não adotada. C preserva percepção, tentativa de ataque e serviços, sem garantir que um golpe incompatível cause dano. Corpos humanos materiais continuam vulneráveis ao dano comum; estado corporal atual rege a distinção. Isso reduz o perigo ofensivo de mobs comuns contra corpos espirituais, exigindo perfis de ameaça coerentes; não significa apagar gravidade/queda ou declarar imunidade a todo ambiente. Meios de treino, componentes mistos e riscos pertinentes precisam de ficha M06/M08/M09/M11 antes da entrega.
+
+Respostas, perguntas originais, objeção, reformulação e D preservados em [histórico](historico/2026-10-23-propostas-m04-rac30abc-presenca.md); matriz aprovada em M04a/8/10 e referências aplicadas em M04/M06/M08/M09. Nenhuma pergunta pendente de RAC-30A/B/C/D. Regras do mod identificadas como produto aprovado, sem declarar todos os limites/exceções uma lei universal comprovada do cânone.
+
+**Atual: RAC-31A PROPOSTO**, [pergunta enviada](historico/2026-10-23-proposta-m04-rac31a-corpo-e-local-reset.md): recomeçar no atendimento do NPC, usando estado inicial do novo prólogo e recusando integralmente se não couber, ou ir à área inicial humana. Uma resposta pendente. Heranças relidas em M04/criação/RAC-26–29/fechamento e perfis RAC-03/07–10, M08a/8.8 e M10b/9.6. Todas as origens iniciam no Mundo Humano em estados próprios; isso não cria um corpo humano inicial universal nem preserva o corpo avançado antigo. Gratuidade, confirmação, perdas/preservações, era e recompensas/itens por responsáveis mantidos; não aprovar cura ou teleporte por omissão. Próximo: aplicar corpo/local e seguir M06/Combat State e complementos necessários. Apenas documentação e pesquisa pública; sem código, mapas/saves, build, teste de jogo, commit ou push.
+
+
+## 76. M04 — Reset no atendimento aprovado; retorno M06/Combat State aberto — 23/10/2026
+
+**RAC-31A DECIDIDO** por “No atendimento do NPC (recomendado)”. Aplicado em M04/retorno dirigido, histórico, prestador M08a/8.8 e lugar M10b/9.6. Após informar perdas e confirmar a nova origem, concluir reset no atendimento no Mundo Humano, com estado inicial próprio do novo prólogo, conservando pés/direção se válidos. Validar espaço/acesso antes de apagar a jornada; se inválidos, recusar integralmente e preservar estado anterior. Não manter corpo avançado, teleportar à área inicial/Academia/Hueco Mundo ou remover blocos por omissão. Seleção antes do prólogo, serviço gratuito, perdas/preservações e era compartilhada continuam como aprovados. Recursos/itens vinculados, recompensas e operação íntegra continuam por ficha nos responsáveis, sem aprovar cura ou cópia de itens. Nenhuma pergunta pendente deste retorno M04; RAC-30A/B/C/D preservados.
+
+Aberto [M06a — Estado automático de combate](06a-estado-de-combate.md) para COV-06, a partir de leituras dirigidas de M05/24, M06/5, M09/8.4–8.5/8.11 e consumidores de viagem/reset/evolução. O estado automático já é aprovado e separado da interface manual; faltam seus eventos funcionais, não apenas um número de duração. Herança RAC-30B/D exige compatibilidade do ataque contra corpo espiritual; detecção/tentativa da IA não prova dano ou ameaça efetiva.
+
+**M06-CS-01A/B/C PROPOSTOS**, [perguntas integrais enviadas](historico/2026-10-23-propostas-m06-cs01abc-estado-de-combate.md), três respostas pendentes. A: envolvimento real, incluindo ataque evitado e apoio efetivo; não tag automática da party ou tentativa incapaz de afetar. B: ambiente sem origem hostil separado do combate, mas perigo incompatível impede operações pertinentes mesmo em estado OFF. C: janela sem conflito e sem ameaça efetiva, com compromisso de encontro preparado; mob sem rota/ataque viável não trava indefinidamente. Alternativas em M06a/8; nenhuma regra nova de entrada/ambiente/saída aprovada pela abertura, nenhum número final escolhido. Ciclo de vida/efeitos relevantes ainda precisa de integração funcional depois das respostas. M05 mantém regeneração, M09 perfis/encontros, M10 condições de viagem, M15/M16 autoridade/abuso/execução.
+
+Regras de produto do mod, sem nova afirmação canônica, pesquisa externa ou escolha de API. Não foram auditados eventos de runtime, não alterados código, mapa ou save e não executados build/teste de jogo. M10 mantém fichas de conteúdo/implantação pendentes; publicação autorizada somente depois de concluir o bloco completo, sem commit/push antecipado.
+
+
+## 77. M06 — Estado automático e continuidade aprovados — 23/10/2026
+
+M06-CS-01A/B/C decididos por “Envolvimento real, mesmo sem perder Vida (recomendado)”, “Perigo separado do estado de combate (recomendado)” e “Cessar conflito e ameaça; respeitar encontro (recomendado)”. Aplicados em M06a/8.1–8.3/10 e histórico, preservando as perguntas. Referências nos consumidores M04/M05/M06/M07/M08/M09/M10: interface/party/presença não bastam; ataque/tentativa real compatível e apoio efetivo envolvem; ambiente sem origem hostil não ativa combate por si, mas perigo incompatível impede a operação; saída respeita janela sem conflito/ameaça e compromisso de encontro. Não alterar taxas de regen, proteção do corpo ou punições por essas escolhas.
+
+M06-CS-01D decidido por “Preservar janela e reavaliar o contexto (recomendado)”. Janela restante preservada após morte/logout/transição válida/reinício pelo tempo de simulação, com reavaliação atual e sem rastrear agressor por memória ou restaurar tentativa interrompida. Sem portal comum em luta, reentrada presumida, multa adicional, comando restaurado, regen/treino offline ou reembolso de recursos. U/V/W e M09-06/08 preservados. Efeitos reais/autoria tratados em M06a/8.5, sem copiar resultados de jornada apagada, dar crédito ou inventar dano. O relógio dos mobs descarregados continua próprio de M09.
+
+Fechamento funcional COV-06 em M06a/8.6: especificado conceitualmente no recorte, nenhuma pergunta pendente; números, classificação das fichas, UI, dados e implementação continuam entregas antes das funcionalidades. M08a/9.40 integra papéis/competências já escolhidos com presença e combate, sem inventar currículo ou eliminar dependências de SP/equipamento/era. Somente documentação; nenhuma nova pesquisa externa/API, auditoria de código, mundo/save, build ou teste de jogo para estas decisões. Publicação ainda não realizada.
+
+## 78. M09 — Direção de fidelidade à obra e revisão das propostas — 23/10/2026
+
+M09-12A recebeu “Quero que siga como a obra”; M09-12B recebeu “Quero que seja como na obra”. Não foi escolhida uma alternativa original. Registrada a direção de fidelidade e retiradas recomendações baseadas no formato do corpo ou na exclusão automática de aldeões. Texto integral dos rascunhos, perguntas e respostas preservados no histórico; perfis corrigidos em M09a/9.5–9.6. Funções de ataque de 11B e chefe opcional preparado de 11C permanecem aprovados, sem reinterpretar o pedido como revogação de toda adaptação anterior.
+
+Pesquisa oficial ENC-S06–09 registrada em M09a/4: [Shueisha/Shonen Jump, arco inicial](https://www.shonenjump.com/xmedia/bleach/story/), verbete Hollow; [Pierrot, Hollow](https://pierrot.jp/title/bleach/keyword_ha.html); [TV Tokyo, episódio 12](https://www.tv-tokyo.co.jp/anime/bleach_2012/episodes/episodes01/index.html); [Pierrot, Menos Grande](https://pierrot.jp/title/bleach/keyword_ma.html). Limites de resumo editorial/glossário/sinopse; nenhum capítulo/episódio integral conferido. Referência predatória, interesse espiritual e variação individual não determinam temperamento pela anatomia, precisão numérica ou canibalismo obrigatório. Demais regras históricas dos verbetes não revisam M07 automaticamente.
+
+Atual M09-12C proposto em M09a/9.7 e M09/12.26: aldeões como civis vivos caçáveis, ou restringir a caça a civis/Plus próprios de Bleach. Uma resposta pendente, pergunta enviada. É associação necessária entre universos, sem dizer que aldeões existem na obra. Consequências sobre vilas expostas explicitadas; proteção de atendimento essencial e padrão sem destruição de blocos preservados. Não aprova dieta de fauna/pets/golems, dano incidental, imunidade de observadores, entrada tardia ou instância privada por associação. Após a resposta, conferir perfis, fontes, circulação/retorno e o checkpoint autorizado antes da publicação. Nenhum código, mapa/save, build, teste de jogo, commit ou push nesta revisão.
+
+## 79. M09-12C aprovado e conclusão do checkpoint de revisão — 23/10/2026
+
+Resposta explícita: “Aldeões como civis vivos caçáveis (recomendado)”. Aplicada em M09/12.26, M09a/9.7 e fichas comuns, com pergunta/opções/rascunhos preservados no histórico. Aldeões representam civis vivos para a caça Hollow, adaptação aprovada; não é fato canônico sobre entidades Minecraft. Vilas expostas podem sofrer perdas. Permanecem proteção de prestadores essenciais, sentidos legítimos, padrão sem alteração de blocos e requisito espiritual de dano. Ser presa não concede visão/arma espiritual; fauna, pets e golems não recebem a mesma classificação por associação.
+
+M10b/9.4.1 explicita o retorno pelos operadores já aprovados em 09B/12B: estadia na Soul Society → acesso externo pelo Rukongai → operador institucional → Karakura; estadia em Hueco Mundo → refúgio da rota comum → operador independente → Karakura. Corpo, acesso e contrapartida precisam ser demonstrados em cada ficha, inclusive convidado sem skill após encerrar a janela. Não há novo resgate, teleporte ou declaração de que qualquer base arbitrária já satisfaça o percurso. Substituto por era e implantação física precisam existir antes da oferta dependente.
+
+O parecer M01–M10/12.1 conclui o checkpoint autorizado de revisão/complementos, preservando os catálogos em especificação e suas entregas. Próximo bloco principal M11, integrado ao retorno M05 sobre sobrevivência/recursos/itens; COV-03 e COV-04 mantêm responsáveis M02/M03 antes dos percursos/campanhas M12/M13. Publicação documental segue a autorização já registrada; nenhuma funcionalidade, mapa, save, asset, build ou teste de jogo foi produzido nesta conclusão.
+
+### 79.1. Sincronização anterior à publicação — 23/10/2026
+
+`git fetch origin main` encontrou 25 commits após a base documental `3a37ca7`; `git merge --ff-only --no-stat origin/main` avançou o checkout para `18786a622fd4ebf2ca3fb42c54986b8858fdabb4`, preservando os 76 arquivos locais de documentação. A diferença upstream não alterava `Docs/game-design/`. Os avanços existentes de código/assets/poderes foram incorporados do repositório, sem autoria nova de runtime nesta rodada ou revalidação de suas evidências. Minecraft 1.20.1, Forge 47.4.10 e Java 17 reconferidos em `gradle.properties`/`build.gradle`. Não houve build, teste ou atualização do JAR do launcher. O commit desta publicação acrescenta somente o lote explícito de game design sobre essa base; o histórico Git identifica o resultado.
