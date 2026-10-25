@@ -95,6 +95,21 @@ A sequência abaixo foi reafirmada pelo usuário como **lista obrigatória de tr
 6. **Mentor e Proficiências**, após confirmação da equipe; harmonizar com M05/M06/M07, sem duplicar níveis ou converter o NPC de quests em loja de habilidades por conveniência.
 7. **Hyōrinmaru — revisão com Blockbench.** Incluir autoria de modelos, rig e animações dos dragões de gelo, além da transformação e animações do personagem. Planejar mandíbula/cabeça, corpo e movimento dos dragões com fontes editáveis; preservar os três dragões da Bankai e os alcances/regras aprovados salvo novo pedido. Blockbench serve à autoria; avaliar GeckoLib para animar os dragões no jogo e manter as animações do jogador na integração compatível com PlayerAnimator, sem substituir globalmente seu renderizador. Validar modelo, percurso, legibilidade, contato e desempenho no Minecraft real. O estado atual foi considerado bom: esta melhoria planejada permanece na etapa posterior, sem reabrir o kit imediatamente.
 
+### Etapa 8 adicionada — eficiência e limpeza do projeto (25/10/2026)
+
+Solicitação explícita do usuário após a integração das três branches: acrescentar **eficiência, velocidade de desenvolvimento e controle de espaço em disco** ao roadmap. Os sete itens anteriores permanecem; esta é uma frente técnica adicional, antes da expansão posterior para NPCs de combate e quests. Não autoriza apagar arquivos nesta rodada de integração.
+
+Manter o trabalho paralelo das IAs em worktrees separados, conforme decisão posterior do usuário. Branches em um único checkout não isolam edições simultâneas. Não remover `Bleach-Modpack-design` nem migrar conversas por inferência.
+
+- Inventariar tamanho lógico e, quando possível, espaço alocado de cada checkout, Git compartilhado, caches, mapas, saves QA, vídeos, screenshots, builds e fontes de autoria. Identificar duplicatas por hash e procedência; duplicação não prova inutilidade.
+- Separar fontes/ativos necessários, evidências de homologação, arquivos pessoais, dependências reconstruíveis e resíduos realmente dispensáveis. Preservar fontes Blockbench, áudios originais, mapas autorizados e saves pessoais; não retirar documentação vigente para reduzir volume.
+- Propor retenção/arquivamento dos testes e capturas antigos com índices, hashes e caminhos recuperáveis. Conferir se assets de produção ou documentação dependem deles antes de qualquer remoção.
+- Medir tempo de build incremental, preparação de cliente, testes e autoria. Priorizar gargalos medidos, evitando `clean` indiscriminado e recompilações simultâneas competindo pelo mesmo cache/hardware. Manter coordenação de Minecraft/Blockbench entre agentes.
+- Revisar arquivos rastreados/ignorados, logs e scripts com caminhos rígidos, sem alterar bibliotecas/modelos por conveniência ou quebrar reprodução em clone limpo.
+- Entregar proposta concreta de limpeza, estimativa de economia e procedimento de recuperação; executar apenas o escopo aprovado e conferir build/QA pertinentes depois. Não usar remoção forçada de worktree para contornar arquivos não salvos.
+
+Medição preliminar de25/10, antes da integração: checkout design com aproximadamente6,32GiB de tamanho lógico; run-benihime-qa3,72GiB, Docs1,84GiB. Não é medição de espaço físico recuperável nem autorização para apagar esses diretórios.
+
 ### Controle obrigatório de fechamento
 
 **Revisão de21/10 — [ciclo88](88-revisao-kit-hyorinmaru-hidra-erupcao-storyboards-2026-10-21.md):** usuário reorganiza o repertório do item7: Ryūsenka em Bankai H; nova hidra ofensiva em N; Erupção Glacial em B; Sennen ampliada transferida para Shikai B. C Bankai permanece Hyōten. Dois vídeos analisados e três storyboards criados, sem implementar mudanças. Atualizar migração/maestrias junto dos slots quando houver código; os demais itens obrigatórios permanecem.
@@ -129,6 +144,9 @@ A sequência abaixo foi reafirmada pelo usuário como **lista obrigatória de tr
 - [ ] 5. Contrato e implementação do kit Uryū Ishida.
 - [ ] 6. Mentor e Proficiências, após confirmação da equipe.
 - [ ] 7. Hyōrinmaru: dragões, animações e transformação com apoio do Blockbench.
+- [ ] 8. Eficiência e limpeza: inventário, retenção de evidências, gargalos de build/QA e limpeza revisada; preservar worktrees para colaboração paralela.
+
+**Aceites posteriores de25/10:** entrada Benihime validada pelo usuário, incluindo o refinamento102; Investida/Rajada aprovadas. Higashi será validada depois. A substituição da boneca do kit selado Benihime foi solicitada, mas a alternativa ainda não foi fechada. Esses aceites atualizam os registros históricos acima; não significam homologação de todas as técnicas, áudio em observadores ou multiplayer. Integração e validações combinadas serão registradas no105.
 
 Itens abertos representam o trabalho restante desta rodada de melhorias, não ausência de toda a implementação anterior. Dar baixa apenas com evidência da entrega pertinente e aceite correspondente, registrando dependências ainda abertas.
 
