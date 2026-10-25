@@ -222,16 +222,35 @@ public final class RyujinBankaiGameTests {
         h.assertTrue(RyujinBankaiTimeline.carbonization(54) == 1.0F, "Carbonization at tick 54 must reach 1.0");
         h.assertTrue(RyujinBankaiTimeline.carbonization(120) == 1.0F, "Carbonization must remain sustained until return");
 
+        // Subtitle timing (cue 60, signal starts ~65, ends ~105)
+        h.assertTrue(RyujinBankaiTimeline.nameSubtitleAlpha(60) == 0.0F, "Subtitle at tick 60 must be 0");
+        h.assertTrue(RyujinBankaiTimeline.nameSubtitleAlpha(80) == 1.0F, "Subtitle at tick 80 must be fully visible");
+        h.assertTrue(RyujinBankaiTimeline.nameSubtitleAlpha(108) == 0.0F, "Subtitle after tick 106 must be 0");
+
         // Camera shots
         Vec3 anchor = new Vec3(10, 64, 10);
         Vec3 forward = new Vec3(0, 0, 1);
         RyujinBankaiCamera.Frame frameWide = RyujinBankaiCamera.sample(anchor, forward, 10);
-        h.assertTrue(frameWide.fov() == 70.0F, "Wide shot FOV must be 70");
-        h.assertTrue(frameWide.eye().distanceTo(anchor) > 12.0, "Wide shot distance must be > 12 blocks for monumental framing");
+        h.assertTrue(frameWide.fov() == 68.0F, "Wide shot FOV must be 68");
+        h.assertTrue(frameWide.eye().distanceTo(anchor) > 10.0, "Wide shot distance must be > 10 blocks for full body silhouette");
 
-        RyujinBankaiCamera.Frame frameMed = RyujinBankaiCamera.sample(anchor, forward, 70);
-        h.assertTrue(frameMed.fov() == 52.0F, "Medium shot FOV must be 52");
-        h.assertTrue(frameMed.eye().distanceTo(anchor) < 6.0, "Medium shot distance must be < 6 blocks for chest/blade framing");
+        RyujinBankaiCamera.Frame frameDetail = RyujinBankaiCamera.sample(anchor, forward, 60);
+        h.assertTrue(frameDetail.fov() == 48.0F, "Detail shot FOV must be 48");
+        h.assertTrue(frameDetail.eye().distanceTo(anchor) < 3.5, "Detail shot distance must be < 3.5 blocks for hand/blade close-up");
+
+        RyujinBankaiCamera.Frame frameMed = RyujinBankaiCamera.sample(anchor, forward, 80);
+        h.assertTrue(frameMed.fov() == 56.0F, "Medium shot FOV must be 56");
+        h.assertTrue(frameMed.eye().distanceTo(anchor) < 6.0 && frameMed.eye().distanceTo(anchor) > 4.0, "Medium shot distance must be ~4.8 blocks");
+
+        // Left-handed mirroring
+        RyujinBankaiCamera.Frame frameDetailLeft = RyujinBankaiCamera.sample(anchor, forward, 60, -1.0F);
+        h.assertTrue(frameDetailLeft.fov() == 48.0F, "Left-handed detail FOV must be 48");
+        h.assertTrue(frameDetailLeft.eye().distanceTo(anchor) < 3.5, "Left-handed detail distance must be < 3.5 blocks");
+
+        // Return transition at tick 140
+        RyujinBankaiCamera.Frame frameReturn = RyujinBankaiCamera.sample(anchor, forward, 140, 1.0F);
+        h.assertTrue(frameReturn.fov() == 70.0F, "Return FOV at tick 140 must be 70");
+        h.assertTrue(frameReturn.eye().z < anchor.z, "Return eye must be positioned behind the player");
 
         // Yamamoto bankai entrance pose
         var pose0 = RyujinChoreography.bankaiEntrance(0, 1.0F);

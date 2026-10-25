@@ -212,7 +212,8 @@ public final class RyujinBankaiEntranceClient {
             return;
         }
 
-        RyujinBankaiCamera.Frame frame = RyujinBankaiCamera.sample(s.anchor, s.forward, age);
+        float sign = (mc.player != null && mc.player.getMainArm() == HumanoidArm.LEFT) ? -1.0F : 1.0F;
+        RyujinBankaiCamera.Frame frame = RyujinBankaiCamera.sample(s.anchor, s.forward, age, sign);
         Vec3 eye = frame.eye();
         Vec3 safeOrigin = mc.player != null ? mc.player.getEyePosition() : s.anchor.add(0, 1.6, 0);
 
@@ -250,7 +251,8 @@ public final class RyujinBankaiEntranceClient {
         if (s == null) return;
         double age = age(s, (float) event.getPartialTick());
         if (age < DURATION && age >= 0 && event.usedConfiguredFov()) {
-            event.setFOV(RyujinBankaiCamera.sample(s.anchor, s.forward, age).fov());
+            float sign = (Minecraft.getInstance().player != null && Minecraft.getInstance().player.getMainArm() == HumanoidArm.LEFT) ? -1.0F : 1.0F;
+            event.setFOV(RyujinBankaiCamera.sample(s.anchor, s.forward, age, sign).fov());
         }
     }
 
