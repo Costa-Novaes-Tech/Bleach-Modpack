@@ -33,7 +33,7 @@ public final class RyujinBankaiQaSequence {
     private static volatile Trial trial;
     private static int stage,wait,lastFrame=-1;
     private static Path root,folder;
-    private static int endTick(int index){return index==0?820:index>=8?220:380;}
+    private static int endTick(int index){return index>=8?220:260;}
     private RyujinBankaiQaSequence() { }
     private static boolean enabled() {
         var mc=Minecraft.getInstance();
@@ -57,7 +57,7 @@ public final class RyujinBankaiQaSequence {
             mc.options.setCameraType(stage==1 || stage==3 || stage==4 || stage==8 || stage==9?CameraType.THIRD_PERSON_FRONT:stage==2?CameraType.FIRST_PERSON:CameraType.THIRD_PERSON_BACK);
             com.bleachmod.client.ClientVisualConfig.RYUJIN_LONG.set(stage==0);
             mc.options.mainHand().set(stage==3 || stage==11?HumanoidArm.LEFT:HumanoidArm.RIGHT);mc.options.broadcastOptions();
-            if(root==null)root=mc.gameDirectory.toPath().resolve("ryujin-bankai-qa/cycle111-"+System.currentTimeMillis());
+            if(root==null)root=mc.gameDirectory.toPath().resolve("ryujin-bankai-qa/cycle118-"+System.currentTimeMillis());
             folder=root.resolve(String.format(Locale.ROOT,"%02d_%s",stage+1,CASES[stage]));lastFrame=-1;
             var uuid=mc.player.getUUID();int index=stage;
             mc.getSingleplayerServer().execute(()->prepare(uuid,index));
@@ -82,7 +82,9 @@ public final class RyujinBankaiQaSequence {
         d.getSkills().get("zanpakuto").setLevel(2);
         for(String form:List.of("sealed","shikai","bankai")) {d.getCharacter().unlockForm(form);d.getCharacter().setMastery("zanpakuto",form,100);}
         d.getCharacter().preserveLegacyTechniques();d.getCharacter().setActiveForm("zanpakuto","shikai");d.getCharacter().setSelectedForm("zanpakuto","bankai");
-        d.getResources().setCostsDisabled(index==0 || index>=8);d.getStatus().clearCooldowns();d.getGuard().interrupt();d.getResources().setCurrentReiatsu(d.getResources().getMaxReiatsu());
+        // Presentation matrix must not be truncated by passive Reiatsu drain.
+        // Normal costs and cancellation are covered separately by the server GameTests.
+        d.getResources().setCostsDisabled(true);d.getStatus().clearCooldowns();d.getGuard().interrupt();d.getResources().setCurrentReiatsu(d.getResources().getMaxReiatsu());
         p.setItemSlot(EquipmentSlot.MAINHAND,new ItemStack(ModItems.RYUJIN_JAKKA.get()));p.setItemSlot(EquipmentSlot.OFFHAND,ItemStack.EMPTY);
         if(index>=8)server.setDifficulty(net.minecraft.world.Difficulty.NORMAL,true);
         if(index==4)for(int x=-3;x<=3;x++)for(int y=0;y<6;y++)p.serverLevel().setBlock(p.blockPosition().offset(x,y,6),Blocks.STONE.defaultBlockState(),3);
@@ -128,7 +130,7 @@ public final class RyujinBankaiQaSequence {
     @SubscribeEvent public static void capture(TickEvent.RenderTickEvent e) {
         var t=trial;if(e.phase!=TickEvent.Phase.END || t==null || folder==null || !enabled())return;
         var mc=Minecraft.getInstance();int age=(int)(mc.level.getGameTime()-t.start);
-        int duration=t.index==0?800:360;
+        int duration=com.bleachmod.common.visual.RyujinBankaiTimeline.DURATION;
         boolean detail=t.index>=8 && age>=140 && age<=198 && age%2==0;
         boolean ending=age>=duration-10 && age<=duration+2 && age%2==0;
         if(t.index>=8)mc.options.hideGui=age>=140 && age<=198;

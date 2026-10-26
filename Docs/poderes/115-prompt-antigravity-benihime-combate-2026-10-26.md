@@ -1,5 +1,7 @@
 # Prompt — Antigravity 2: Benihime, identidade de combate
 
+**Contrato de integração após a retomada Codex:** leia também `C:/Users/joaop/Downloads/Projeto_Programacao_BleachMod/Bleach-Modpack/Docs/poderes/118-contrato-comum-arma-maos-efeitos-2026-10-26.md`. Os canais de item são locais, POSITION passa por escala1/16 no renderer e o bend/display participam do resultado. Não adicionar um segundo controlador de melee nem transportar as âncoras aproximadas da Ryūjin para Benihime sem prova. O118 pode estar local no checkout principal até o próximo commit; consulte esse arquivo existente antes de redefinir a interface comum.
+
 ## Atribuição atualizada pelo coordenador
 
 A segunda branch existente do Antigravity é `codex/ryujin-bankai-sol-selamento`; o nome é histórico, e nesta divisão sua responsabilidade passa a ser Benihime. Ela recebe a mesma base atualizada de poderes e estes prompts. Não retome mudanças de Ryūjin: essa frente pertence ao Codex. Esta atribuição substitui a sugestão anterior de criar outra branch. Confirme um checkout isolado disponível antes de editar; atualmente o checkout principal pertence ao Codex e o checkout `Bleach-Modpack-design` pertence à frente Senbon. Se não houver um terceiro checkout atribuído, alinhe seu uso antes de executar: não troque branches em diretório ocupado e não trabalhe simultaneamente no checkout Senbon. Pode ler e planejar enquanto essa atribuição física é resolvida.

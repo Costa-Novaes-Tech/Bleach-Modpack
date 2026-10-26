@@ -1,5 +1,7 @@
 # Prompt — Antigravity 1: Senbonzakura, arma e combate
 
+**Contrato de integração após a retomada Codex:** leia também `C:/Users/joaop/Downloads/Projeto_Programacao_BleachMod/Bleach-Modpack/Docs/poderes/118-contrato-comum-arma-maos-efeitos-2026-10-26.md`. O emissor básico atual nasce como ARC fixo no servidor; entregue sua substituição junto da prova de âncora e solicite ao Codex remover o emissor comum na integração. Não duplique o rastro nem use as âncoras aproximadas da Ryūjin como API universal. O118 pode estar local no checkout principal até o próximo commit; ausência dele na branch de design não significa que deva inventar outro contrato.
+
 ## Atribuição atualizada pelo coordenador
 
 Trabalhe na branch existente `codex/design-poderes-criaturas`, no checkout `C:/Users/joaop/Downloads/Projeto_Programacao_BleachMod/Bleach-Modpack-design`. A sincronização desta entrega leva a base de poderes e estes prompts para essa branch. Confira HEAD e status antes de começar. A sugestão anterior de criar outra branch fica substituída por esta atribuição. Não alterne para a branch da outra conversa. O Codex mantém a infraestrutura comum; solicite o contrato de âncoras antes de depender de mudanças ainda não integradas. Pode iniciar diagnóstico e autoria exclusiva do primeiro golpe em paralelo.

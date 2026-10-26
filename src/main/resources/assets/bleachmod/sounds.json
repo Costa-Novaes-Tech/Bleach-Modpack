@@ -158,6 +158,9 @@
       }
     ]
   },
+  "effect.ryujin_solar_fire": {
+    "sounds": [{"name": "bleachmod:ryujin_solar_fire", "stream": true}]
+  },
   "music.ryujin_entrance": {
     "sounds": [
       {
