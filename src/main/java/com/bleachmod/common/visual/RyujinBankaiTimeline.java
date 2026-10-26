@@ -4,18 +4,46 @@ import net.minecraft.util.Mth;
 
 /**
  * Authored presentation timeline for Ryūjin Jakka / Zanka no Tachi Bankai transformation.
- * Total presentation duration: 140 ticks (7.0 seconds nominal).
+ * Real presentation: 800 ticks (40 seconds), compact client option 360 ticks (18 seconds).
+ * Curves below use a separate 0..140 authored beat clock.
  *
  * Preserves the existing 60/40 gameplay contract (release 60, commit 40).
  * Presentation is a separate visual/camera layer.
  */
 public final class RyujinBankaiTimeline {
-    public static final int DURATION = 140;
+    public static final int DURATION = 800;
+    public static final int COMPACT_DURATION = 360;
+    public static final int AUTHORED_END = 140;
+    private static final double[] REAL_BEATS={0,100,280,400,580,680,740,800};
+    private static final double[] STORY_BEATS={0,4,12,30,52,60,112,140};
+
+    /** Real scene ticks -> authored beats. Linear intervals preserve continuous motion;
+     * the individual pose/camera curves apply their own easing. Never used for gameplay. */
+    public static double storyAge(double elapsed, int duration) {
+        if (!Double.isFinite(elapsed)) return 0;
+        double t = Math.max(0, Math.min(1, elapsed / duration)) * 800;
+        double[] real=REAL_BEATS, beat=STORY_BEATS;
+        for (int i=1;i<real.length;i++) if(t<=real[i])
+            return beat[i-1]+(beat[i]-beat[i-1])*(t-real[i-1])/(real[i]-real[i-1]);
+        return AUTHORED_END;
+    }
+    public static double realAge(double beat, int duration) {
+        double[] real=REAL_BEATS, beats=STORY_BEATS;
+        for(int i=1;i<beats.length;i++) if(beat<=beats[i])
+            return (real[i-1]+(real[i]-real[i-1])*(beat-beats[i-1])/(beats[i]-beats[i-1]))*duration/800.0;
+        return duration;
+    }
     public static final int CUE_BANKAI = 12;
     public static final int CUE_NAME = 60;
     public static final int ABSORPTION_START = 30;
     public static final int ABSORPTION_END = 52;
     public static final int RETURN_START = 124;
+
+    /** Speech windows are real ticks, so slow scenic beats cannot stretch subtitles. */
+    public static float speechAlpha(double elapsed,int duration,int cue,int length){
+        double since=elapsed-realAge(cue,duration);
+        return (float)(smooth(since/4)*(1-smooth((since-length+6)/6)));
+    }
 
     public enum Phase {
         GROWTH(0),
@@ -33,7 +61,7 @@ public final class RyujinBankaiTimeline {
     private RyujinBankaiTimeline() { }
 
     public static double clamp(double ticks) {
-        return Double.isFinite(ticks) ? Math.max(0, Math.min(DURATION, ticks)) : 0;
+        return Double.isFinite(ticks) ? Math.max(0, Math.min(AUTHORED_END, ticks)) : 0;
     }
 
     public static Phase phase(double ticks) {

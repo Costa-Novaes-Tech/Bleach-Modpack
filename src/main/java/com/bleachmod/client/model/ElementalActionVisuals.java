@@ -40,7 +40,7 @@ public final class ElementalActionVisuals {
                     || !Double.isFinite(origin.x+origin.y+origin.z) || !Double.isFinite(forward.x+forward.z) || Math.abs(origin.x)>3e7 || Math.abs(origin.z)>3e7 || Math.abs(origin.y)>4096 || forward.lengthSqr()<.9 || forward.lengthSqr()>1.1)continue;
             var crystals=new ArrayList<Vec3>();var points=t.getList("crystals",Tag.TAG_COMPOUND);
             for(int j=0;j<Math.min(40,points.size());j++){var q=points.getCompound(j);var at=new Vec3(q.getDouble("x"),q.getDouble("y"),q.getDouble("z"));if(Double.isFinite(at.lengthSqr()) && at.distanceToSqr(origin)<40*40)crystals.add(at);}
-            result.add(new View(kind,origin,forward.normalize(),radius,duration,gesture,level.getGameTime()-age,t.getBoolean("ice"),Arrays.stream(t.getIntArray("soldiers")).limit(6).filter(id->id>0).distinct().boxed().toList(),Arrays.stream(t.getIntArray("targets")).limit(16).filter(id->id>0).distinct().boxed().toList(),crystals));
+            result.add(new View(kind,origin,forward.normalize(),radius,duration,gesture,level.getGameTime()-age,t.getBoolean("ice"),Arrays.stream(t.getIntArray("soldiers")).limit(10).filter(id->id>0).distinct().boxed().toList(),Arrays.stream(t.getIntArray("targets")).limit(16).filter(id->id>0).distinct().boxed().toList(),crystals));
         }
         if(result.isEmpty())VIEWS.remove(owner);else{if(VIEWS.size()>=24 && !VIEWS.containsKey(owner))VIEWS.remove(VIEWS.keySet().iterator().next());VIEWS.put(owner,result);}
     }

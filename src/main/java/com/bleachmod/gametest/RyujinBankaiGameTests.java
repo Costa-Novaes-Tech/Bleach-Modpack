@@ -28,7 +28,7 @@ import java.util.UUID;
 
 /**
  * Server-authoritative contract and numerical validation for Ryūjin Jakka / Zanka no Tachi Bankai transformation.
- * Verifies the 60/40 gameplay contract, 140-tick presentation lifecycle, Reiatsu expenditure,
+ * Verifies the 60/40 gameplay contract, 800-tick presentation lifecycle, Reiatsu expenditure,
  * movement decoupling, pre- and post-commit cancellation semantics, and camera/timeline curves.
  */
 @GameTestHolder("bleachmod")
@@ -75,8 +75,8 @@ public final class RyujinBankaiGameTests {
         ReleaseAnimationService.begin(p, d, "zanpakuto", "bankai", 12.0F);
 
         h.assertTrue(ReleaseAnimationService.snapshot(p).getInt("duration") == 60
-                && RyujinBankaiEntranceService.snapshot(p).getInt("duration") == 140,
-                "Gameplay release (60 ticks) and presentation (140 ticks) clocks conflated");
+                && RyujinBankaiEntranceService.snapshot(p).getInt("duration") == RyujinBankaiTimeline.DURATION,
+                "Gameplay release (60 ticks) and presentation (800 ticks) clocks conflated");
 
         h.onEachTick(() -> {
             tickScene(p);
@@ -94,12 +94,12 @@ public final class RyujinBankaiGameTests {
                     && d.getResources().getCurrentReiatsu() == 88, "Tick-40 commit failed or incorrect Reiatsu cost");
         });
 
-        // Tick 65: Gameplay lock ended (busy == false), but 140-tick presentation is still active!
+        // Tick 65: Gameplay lock ended (busy == false), but 800-tick presentation is still active!
         h.runAfterDelay(65, () -> {
             try {
                 h.assertTrue(!ReleaseAnimationService.busy(p), "Presentation prolonged gameplay busy state beyond tick 60");
                 var snap = RyujinBankaiEntranceService.snapshot(p);
-                h.assertTrue(!snap.isEmpty() && snap.getInt("duration") == 140, "Entrance ended prematurely with short release");
+                h.assertTrue(!snap.isEmpty() && snap.getInt("duration") == RyujinBankaiTimeline.DURATION, "Entrance ended prematurely with short release");
                 h.assertTrue(d.getResources().getCurrentReiatsu() == 88, "Presentation charged additional Reiatsu");
                 h.assertTrue(d.getCharacter().getActiveForm().equals("bankai"), "Active form lost after gameplay release");
             } finally {
@@ -126,7 +126,7 @@ public final class RyujinBankaiGameTests {
                 p.setPos(anchor.add(5, 0, 0));
                 tickScene(p);
                 var snap = RyujinBankaiEntranceService.snapshot(p);
-                h.assertTrue(snap.getInt("duration") == 140 && snap.getInt("elapsed") >= 70, "Walking cancelled presentation");
+                h.assertTrue(snap.getInt("duration") == RyujinBankaiTimeline.DURATION && snap.getInt("elapsed") >= 70, "Walking cancelled presentation");
                 h.assertTrue(snap.getDouble("x") == anchor.x, "Walking moved scenic sun anchor point");
                 h.assertTrue(d.getCharacter().getActiveForm().equals("bankai"), "Walking reverted Bankai form");
                 h.assertTrue(d.getResources().getCurrentReiatsu() == 88, "Walking double charged Reiatsu");
@@ -291,6 +291,25 @@ public final class RyujinBankaiGameTests {
                     h.assertTrue(RyujinBankaiCamera.returnEye(start,center,target,f,t,false).distanceTo(center)>3,"Rear return crossed actor");
             }
         }
+        h.succeed();
+    }
+
+    @GameTest(template="empty",batch="ryujin_long_story")
+    public static void realClocksPreserveOrderedBeatsInBothPresentationModes(GameTestHelper h){
+        for(int duration:new int[]{800,360}){
+            double previous=-1;
+            for(int tick=0;tick<=duration;tick++){
+                double age=RyujinBankaiTimeline.storyAge(tick,duration);
+                h.assertTrue(age>=previous && Double.isFinite(age),"Story clock reversed or became nonfinite");previous=age;
+            }
+            for(double beat:new double[]{0,4,12,30,52,60,112,138,140}){
+                double actual=RyujinBankaiTimeline.realAge(beat,duration);
+                h.assertTrue(Math.abs(RyujinBankaiTimeline.storyAge(actual,duration)-beat)<.0001,"Cue drift in presentation clock");
+            }
+            h.assertTrue(RyujinBankaiTimeline.storyAge(duration,duration)==140,"Presentation failed to settle");
+            h.assertTrue(duration-RyujinBankaiTimeline.realAge(60,duration)>=50,"Name voice would be cut at the end");
+        }
+        h.assertTrue(RyujinBankaiTimeline.DURATION==800 && RyujinBankaiTimeline.COMPACT_DURATION==360,"Wrong long/compact real durations");
         h.succeed();
     }
 

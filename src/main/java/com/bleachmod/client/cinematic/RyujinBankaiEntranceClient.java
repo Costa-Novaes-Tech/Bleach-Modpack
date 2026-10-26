@@ -35,13 +35,13 @@ import java.util.*;
 
 /**
  * Client-side cinematic director, camera controller, on-screen subtitles,
- * and audio manager for Ryūjin Jakka / Zanka no Tachi Bankai transformation (140 ticks).
+ * and audio manager for Ryūjin Jakka / Zanka no Tachi Bankai transformation (800 real ticks; authored beat clock 0..140).
  */
 @Mod.EventBusSubscriber(modid = Reference.MOD_ID, value = Dist.CLIENT)
 public final class RyujinBankaiEntranceClient {
     public static final int DURATION = RyujinBankaiTimeline.DURATION;
 
-    private record Scene(long start, Vec3 anchor, Vec3 forward, float yaw) { }
+    private record Scene(long start, Vec3 anchor, Vec3 forward, float yaw, int viewTicks) { }
 
     private static final Map<Integer, Scene> SCENES = new HashMap<>();
     private static net.minecraft.client.multiplayer.ClientLevel world;
@@ -90,7 +90,7 @@ public final class RyujinBankaiEntranceClient {
         }
 
         boolean fresh = !SCENES.containsKey(id);
-        SCENES.put(id, new Scene(mc.level.getGameTime() - elapsed, anchor, Vec3.directionFromRotation(0, yaw), yaw));
+        SCENES.put(id, new Scene(mc.level.getGameTime() - elapsed, anchor, Vec3.directionFromRotation(0, yaw), yaw, fresh ? (com.bleachmod.client.ClientVisualConfig.RYUJIN_LONG.get() ? DURATION : RyujinBankaiTimeline.COMPACT_DURATION) : SCENES.get(id).viewTicks));
 
         if (fresh && mc.player != null && mc.player.getId() == id && elapsed < 20) {
             cameraEnabled = true;
@@ -98,8 +98,10 @@ public final class RyujinBankaiEntranceClient {
     }
 
     private static double age(Scene s, float partial) {
-        return world.getGameTime() - s.start + partial;
+        return RyujinBankaiTimeline.storyAge(rawAge(s, partial), s.viewTicks);
     }
+
+    private static double rawAge(Scene s, float partial) { return world.getGameTime()-s.start+partial; }
 
     private static void finish(int id) {
         SCENES.remove(id);
@@ -170,7 +172,7 @@ public final class RyujinBankaiEntranceClient {
         for (var id : List.copyOf(SCENES.keySet())) {
             var p = mc.level.getEntity(id);
             var s = SCENES.get(id);
-            if (p == null || !p.isAlive() || age(s, 0) >= DURATION || p.position().distanceToSqr(s.anchor) > 512 * 512) {
+            if (p == null || !p.isAlive() || rawAge(s, 0) >= DURATION || p.position().distanceToSqr(s.anchor) > 512 * 512) {
                 finish(id);
             }
         }
@@ -192,7 +194,7 @@ public final class RyujinBankaiEntranceClient {
             var scene = entry.getValue();
             var actor = mc.level.getEntity(entry.getKey());
             Vec3 voicePos = actor == null ? scene.anchor.add(0, 1.3, 0) : actor.position().add(0, 1.3, 0);
-            RyujinBankaiAudio.update(entry.getKey(), age(scene, 0), voicePos, owner,
+            RyujinBankaiAudio.update(entry.getKey(), rawAge(scene, 0), scene.viewTicks, voicePos, owner,
                     !owner || (cameraEnabled && mc.screen == null && !CinematicDirector.localActive()));
         }
 
@@ -210,7 +212,7 @@ public final class RyujinBankaiEntranceClient {
         }
 
         // After commit and initial sequence (tick 60+), player movement releases camera smoothly
-        if (age >= 60 && (mc.options.keyUp.isDown() || mc.options.keyDown.isDown() || mc.options.keyLeft.isDown()
+        if (rawAge(s, 0) >= 60 && (mc.options.keyUp.isDown() || mc.options.keyDown.isDown() || mc.options.keyLeft.isDown()
                 || mc.options.keyRight.isDown() || mc.options.keyJump.isDown() || mc.options.keyAttack.isDown())) {
             cameraEnabled = false;
         }
@@ -334,8 +336,8 @@ public final class RyujinBankaiEntranceClient {
         int bars = ((int)(255 * (1 - RyujinBankaiTimeline.progress(age,112,138))) << 24);
         g.fill(0, 0, width, barHeight, bars);
         g.fill(0, height - barHeight, width, height, bars);
-        subtitle(g, "Bankai", RyujinBankaiTimeline.bankaiSubtitleAlpha(age), width, height-barHeight-20);
-        subtitle(g, "Zanka no Tachi", RyujinBankaiTimeline.nameSubtitleAlpha(age), width, height-barHeight-20);
+        subtitle(g, "Bankai", RyujinBankaiTimeline.speechAlpha(rawAge(s,0),s.viewTicks,12,52), width, height-barHeight-20);
+        subtitle(g, "Zanka no Tachi", RyujinBankaiTimeline.speechAlpha(rawAge(s,0),s.viewTicks,60,65), width, height-barHeight-20);
     }
     private static void subtitle(GuiGraphics g, String text, float alpha, int width, int y) {
         if(alpha <= .01F)return;
@@ -387,7 +389,7 @@ public final class RyujinBankaiEntranceClient {
     }
 
     /**
-     * PlayerAnimator stance layer during the 140 ticks of transformation.
+     * PlayerAnimator stance layer over the independent authored beat clock of the transformation.
      */
     private static final class Body implements IAnimation {
         final AbstractClientPlayer player;

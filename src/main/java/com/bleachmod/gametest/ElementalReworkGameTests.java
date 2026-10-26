@@ -102,13 +102,16 @@ public final class ElementalReworkGameTests {
     @GameTest(template="empty",batch="new_ash",timeoutTicks=100)
     public static void ashArmyMovesAttacksAndCleansWithoutVanillaExperience(GameTestHelper h){var p=player(h,"ryujin_jakka","bankai");var t=target(h,p,0,5);
         var floor=new ArrayList<BlockPos>();for(int x=-4;x<=4;x++)for(int z=-4;z<=7;z++){var pos=p.blockPosition().offset(x,-1,z);floor.add(pos);h.getLevel().setBlock(pos,net.minecraft.world.level.block.Blocks.STONE.defaultBlockState(),3);}
+        // Saved GameTest weather may be rainy; cover the target without changing global weather.
+        for(int x=-2;x<=2;x++)for(int z=3;z<=7;z++){var roof=p.blockPosition().offset(x,4,z);floor.add(roof);h.getLevel().setBlock(roof,net.minecraft.world.level.block.Blocks.STONE.defaultBlockState(),3);}
         TechniqueService.executeSlot(p,d(p),3);final List<net.minecraft.world.entity.monster.WitherSkeleton> soldiers=new ArrayList<>();
         h.runAfterDelay(20,()->{soldiers.addAll(h.getLevel().getEntitiesOfClass(net.minecraft.world.entity.monster.WitherSkeleton.class,p.getBoundingBox().inflate(8),e->e.getPersistentData().hasUUID("ashOwner") && e.getPersistentData().getUUID("ashOwner").equals(p.getUUID())));
-            h.assertTrue(soldiers.size()==6,"Minami did not create six owned soldiers");
+            h.assertTrue(soldiers.size()==10,"Minami did not create ten owned soldiers");
+            h.assertTrue(soldiers.stream().allMatch(e->e.getMaxHealth()==6 && e.getHealth()<=6),"Ash soldiers did not retain fragile six-HP profile");
             var view=ElementalTechniqueService.snapshot(p).getList("casts",10).getCompound(0);var ids=view.getIntArray("soldiers");
-            h.assertTrue(ids.length==6 && Arrays.stream(ids).allMatch(id->soldiers.stream().anyMatch(s->s.getId()==id)),"Late observer snapshot has missing or foreign ash soldiers");
+            h.assertTrue(ids.length==10 && Arrays.stream(ids).allMatch(id->soldiers.stream().anyMatch(s->s.getId()==id)),"Late observer snapshot has missing or foreign ash soldiers");
             var xp=new net.minecraftforge.event.entity.living.LivingExperienceDropEvent(soldiers.get(0),p,20);ElementalTechniqueService.xp(xp);h.assertTrue(xp.getDroppedExperience()==0,"Soldier leaked vanilla XP");});
-        h.runAfterDelay(70,()->{try{h.assertTrue(t.getHealth()<80,"Army never attacked its hostile target");clean(p);h.assertTrue(soldiers.stream().allMatch(Entity::isRemoved),"Army survived cancellation");}finally{clean(p,t);for(var pos:floor)h.getLevel().setBlock(pos,net.minecraft.world.level.block.Blocks.AIR.defaultBlockState(),3);}h.succeed();});}
+        h.runAfterDelay(70,()->{try{h.assertTrue(t.getHealth()<80 && t.isOnFire(),"Army never attacked/ignited its hostile target: health="+t.getHealth()+" fire="+t.getRemainingFireTicks()+" positions="+soldiers.stream().map(m->m.position()+" alive="+m.isAlive()).toList());clean(p);h.assertTrue(soldiers.stream().allMatch(Entity::isRemoved),"Army survived cancellation");}finally{clean(p,t);for(var pos:floor)h.getLevel().setBlock(pos,net.minecraft.world.level.block.Blocks.AIR.defaultBlockState(),3);}h.succeed();});}
     @GameTest(template="empty",batch="new_freecast",timeoutTicks=60)
     public static void freeTestModeDoesNotBypassGestureButAllowsNextCast(GameTestHelper h){var p=player(h,"ryujin_jakka","shikai");var d=d(p);d.getResources().setCostsDisabled(true);d.getResources().setCurrentReiatsu(0);d.getStatus().setCooldownsDisabled(true);
         TechniqueService.executeSlot(p,d,1);TechniqueService.executeSlot(p,d,2);h.assertTrue(ElementalTechniqueService.snapshot(p).getList("casts",10).size()==1,"Free mode bypassed action lock");
@@ -145,7 +148,8 @@ public final class ElementalReworkGameTests {
         h.getLevel().setBlock(bedrock,net.minecraft.world.level.block.Blocks.BEDROCK.defaultBlockState(),3);
         TechniqueService.executeSlot(p,d(p),4);
         h.runAfterDelay(8,()->h.assertTrue(target.getHealth()==80 && h.getLevel().getBlockState(stone).is(net.minecraft.world.level.block.Blocks.STONE),"Steam cut executed during preparation"));
-        h.runAfterDelay(24,()->{try{
+        h.runAfterDelay(35,()->h.assertTrue(target.getHealth()==80 && !h.getLevel().getBlockState(stone).isAir(),"Supreme cut struck before the release beat"));
+        h.runAfterDelay(44,()->{try{
             h.assertTrue(target.getHealth()<80 && h.getLevel().getBlockState(stone).isAir() && h.getLevel().getBlockState(bedrock).is(net.minecraft.world.level.block.Blocks.BEDROCK),"Steam impact lost its terrain/damage contract");
             h.assertTrue(d(p).getResources().getCurrentReiatsu()==55 && d(p).getStatus().getTechniqueSlot4CooldownTicks()==1200,"Steam cut charged incorrectly");
         }finally{clean(p,target);h.getLevel().setBlock(stone,net.minecraft.world.level.block.Blocks.AIR.defaultBlockState(),3);h.getLevel().setBlock(bedrock,net.minecraft.world.level.block.Blocks.AIR.defaultBlockState(),3);}h.succeed();});

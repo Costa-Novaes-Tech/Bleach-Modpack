@@ -1156,7 +1156,7 @@ public final class MvpRegressionTest {
             }
         });
         test("All ten fire gestures have finite continuous curves and return to the base animation", () -> {
-            int[] ends={16,16,16,22,18,20,16,22,22,32};int n=0;
+            int[] ends={16,16,16,22,18,20,16,22,22,56};int n=0;
             for(var kind:com.bleachmod.common.visual.RyujinChoreography.ATTACKS){
                 int end=ends[n++];var previous=com.bleachmod.common.visual.RyujinChoreography.attack(kind,0,1);
                 for(float age=.25F;age<end;age+=.25F){

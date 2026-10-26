@@ -176,7 +176,7 @@ public final class TechniqueService {
                     MasteryPracticeService.hurt(player, target, source, STEAM_CUT_DAMAGE, 4);
                 }
             }
-            spawnSteamCutLine(level, center, direction);
+            if(step>=4)spawnSteamCutLine(level, center, direction);
         }
 
         Vec3 impact = origin.add(direction.scale(STEAM_CUT_RANGE));

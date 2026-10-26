@@ -112,7 +112,10 @@ Medição preliminar de25/10, antes da integração: checkout design com aproxim
 
 ### Controle obrigatório de fechamento
 
-**26/10 — [109: transformação Ryūjin](109-ryujin-frontal-fogo-texturizado-calor-2026-10-26.md):** nova apresentação frontal e sol texturizado implementados pelo Codex na Feature, para playtest. Preservados Investida/Rajada aprovados, Higashi pendente e itens8/de eficiência. Senbonzakura combate/Hakuteiken continua na frente paralela. Nenhum aceite artístico automático.
+**26/10 — [110: Ryūjin40s/18s, Minami10 e C](110-ryujin-roteiro-longo-minami-corte-supremo-2026-10-26.md):** implementados roteiro em relógio de apresentação independente, trilha original com ducking, dez soldados de6HP com carvão/magma e persistência temporária no Pacífico, e preparação do C56ticks/impacto40. Mecânica release60/commit40, dano/custos/passivas preservados. Check/build147 regressões,231 GameTests e nove cenários reais amostrados. Aceite artístico/auditivo pendente; fontes locais sem commit/push. Demais itens obrigatórios e Senbonzakura paralela preservados.
+
+
+**26/10 — [109: transformação Ryūjin](109-ryujin-frontal-fogo-texturizado-calor-2026-10-26.md):** nova apresentação frontal e sol texturizado implementados pelo Codex na Feature, para playtest. Preservados Investida/Rajada aprovados, Higashi pendente e item8 de eficiência. Senbonzakura combate/Hakuteiken continua na frente paralela. Nenhum aceite artístico automático.
 
 **Revisão de21/10 — [ciclo88](88-revisao-kit-hyorinmaru-hidra-erupcao-storyboards-2026-10-21.md):** usuário reorganiza o repertório do item7: Ryūsenka em Bankai H; nova hidra ofensiva em N; Erupção Glacial em B; Sennen ampliada transferida para Shikai B. C Bankai permanece Hyōten. Dois vídeos analisados e três storyboards criados, sem implementar mudanças. Atualizar migração/maestrias junto dos slots quando houver código; os demais itens obrigatórios permanecem.
 

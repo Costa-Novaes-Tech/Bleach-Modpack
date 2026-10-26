@@ -157,5 +157,21 @@
         "attenuation_distance": 64
       }
     ]
+  },
+  "music.ryujin_entrance": {
+    "sounds": [
+      {
+        "name": "bleachmod:ryujin_entrance_score",
+        "stream": true
+      }
+    ]
+  },
+  "music.ryujin_compact": {
+    "sounds": [
+      {
+        "name": "bleachmod:ryujin_compact_score",
+        "stream": true
+      }
+    ]
   }
 }

@@ -33,6 +33,8 @@ public final class RyujinActionVisuals {
     private static int budget;
     private static final Map<Integer,Long> RELEASE_TICKS=new HashMap<>();
     private RyujinActionVisuals(){ }
+    public static boolean ashSoldier(int id){return ElementalActionVisuals.VIEWS.values().stream().flatMap(List::stream)
+        .anyMatch(v->v.kind().equals("minami") && v.soldiers().contains(id));}
     public static void clear(){SPINS.clear();EMERGENCE.clear();RELEASE_TICKS.clear();TRAILS.clear();budgetTick=Long.MIN_VALUE;budget=0;}
     private static void budget(){var mc=Minecraft.getInstance();if(mc.level!=null && budgetTick!=mc.level.getGameTime()){budgetTick=mc.level.getGameTime();budget=640;}}
     private static Vec3f mix(Vec3f from,Vec3 to,float w){return new Vec3f(Mth.lerp(w,from.getX(),(float)to.x),Mth.lerp(w,from.getY(),(float)to.y),Mth.lerp(w,from.getZ(),(float)to.z));}
@@ -111,9 +113,27 @@ public final class RyujinActionVisuals {
                     }
                 }
             }
+            case "steam_cut"->{
+                if(age<36){
+                    // Embers converge on the actual weapon; avoid a flame wall at the camera.
+                    float sign=p.getMainArm()==HumanoidArm.RIGHT?1:-1;
+                    Vec3 hand=world(p.position(),f,RyujinChoreography.bladeHand(pose,sign));
+                    Vec3 dir=world(Vec3.ZERO,f,RyujinChoreography.bladeDirection(pose));
+                    for(int i=0;i<12;i++){
+                        double a=i*Math.PI/6+age*.12;Vec3 q=hand.add(dir.scale(.3+i*.075));
+                        Vec3 from=q.add(Math.cos(a)*.65,.15,Math.sin(a)*.65);
+                        e.particle(ParticleTypes.SMALL_FLAME,from,q.subtract(from).scale(.15));
+                    }
+                }else if(age<=43){
+                    for(int trail=0;trail<3;trail++){
+                        var cut=RyujinChoreography.attack("steam_cut",age-trail*.4F,p.getMainArm()==HumanoidArm.RIGHT?1:-1);
+                        blade(e,p,f,cut,age,true);
+                    }
+                }
+            }
             case "minami"->{if(age<10 || age>46)return;
-                for(int j=0;j<6;j++){var entity=j<v.soldiers().size()?e.mc.level.getEntity(v.soldiers().get(j)):null;
-                    double a=j*Math.PI/3;var at=entity!=null?entity.position():origin.add(Math.cos(a)*2,0,Math.sin(a)*2);
+                for(int j=0;j<10;j++){var entity=j<v.soldiers().size()?e.mc.level.getEntity(v.soldiers().get(j)):null;
+                    var at=entity!=null?entity.position():origin.subtract(f.scale(1.5+j/5*1.5)).add(right.scale((j%5-2)*1.25));
                     for(int i=0;i<9;i++){double q=i*Math.PI*2/9+age*.08;e.fire(at.add(Math.cos(q)*.45,.08,Math.sin(q)*.45),i);}
                     if(age%3==0)e.particle(ParticleTypes.ASH,at.add(0,.8,0),new Vec3(0,.035,0));
                 }

@@ -1,5 +1,7 @@
 # Continuidade do projeto — leia primeiro
 
+**26/10 — [110: Ryūjin40s/18s, Minami10 e C](110-ryujin-roteiro-longo-minami-corte-supremo-2026-10-26.md):** implementados roteiro em relógio de apresentação independente, trilha original com ducking, dez soldados de6HP com carvão/magma e persistência temporária no Pacífico, e preparação do C56ticks/impacto40. Mecânica release60/commit40, dano/custos/passivas preservados. Check/build147 regressões,231 GameTests e nove cenários reais amostrados. Aceite artístico/auditivo pendente; fontes locais sem commit/push. Demais itens obrigatórios e Senbonzakura paralela preservados.
+
 **26/10 — [109: Ryūjin frontal e fogo texturizado](109-ryujin-frontal-fogo-texturizado-calor-2026-10-26.md):** Codex implementou diretamente na Feature a câmera frontal, sol com fogo animado do atlas vanilla, absorção curva, âncoras de pose compartilhadas, fumaça/cinzas por tick e apresentação quente local. Detalhe inclui rosto/lâmina; retorno às perspectivas reais e frame da cabeça corrigidos. Check/build147 regressões e230 GameTests; cliente8cenários/616capturas. Falha isolada anterior na cadência do Brute preservada, sem alterações de Hollow; suíte final aprovada. Áudios e contrato140/60/40 e demais poderes preservados. Playtest artístico/escuta, Photon e multiplayer pendentes; sem commit/push nesta rodada.
 
 

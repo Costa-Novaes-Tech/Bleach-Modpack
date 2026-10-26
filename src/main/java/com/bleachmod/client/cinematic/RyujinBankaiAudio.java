@@ -1,130 +1,66 @@
 package com.bleachmod.client.cinematic;
 
+import com.bleachmod.Reference;
+import com.bleachmod.client.ClientVisualConfig;
 import com.bleachmod.common.visual.RyujinBankaiTimeline;
 import com.bleachmod.init.ModSounds;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.resources.sounds.SimpleSoundInstance;
-import net.minecraft.client.resources.sounds.SoundInstance;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
+import net.minecraft.client.resources.sounds.*;
+import net.minecraft.sounds.*;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.phys.Vec3;
-
 import java.util.*;
 
-/**
- * Audio coordinator for Ryūjin Jakka / Zanka no Tachi Bankai cinematic.
- * Handles cues for "Bankai" (tick 12) and "Zanka no Tachi" (tick 60),
- * flame ambiance with ducking during voice lines, and sizzle/smoke extinguish at tick 52.
- */
+/** Real-time score and authored-beat voice cues. No repeated bursts on a paused tick. */
 final class RyujinBankaiAudio {
     private static final class State {
-        double lastAge;
-        boolean firedBankai;
-        boolean firedName;
-        boolean firedExtinguish;
-        final List<SoundInstance> playing = new ArrayList<>();
-        State(double age) { lastAge = age - 1; }
+        double lastAge=-1;
+        boolean bankai,name,extinguished,musicStarted;
+        Score score;
+        final List<SoundInstance> playing=new ArrayList<>();
     }
-
-    private static final Map<Integer, State> STATES = new HashMap<>();
-
+    private static final Map<Integer,State> STATES=new HashMap<>();
     private RyujinBankaiAudio() { }
-
-    static void stop(int owner) {
-        var state = STATES.remove(owner);
-        if (state != null) stopSounds(state);
+    private static final class Score extends AbstractTickableSoundInstance {
+        float gain;
+        Score(boolean compact) {
+            super(SoundEvent.createVariableRangeEvent(Reference.id(compact?"music.ryujin_compact":"music.ryujin_entrance")),SoundSource.MUSIC,RandomSource.create());
+            relative=true;attenuation=Attenuation.NONE;volume=0;looping=false;
+        }
+        @Override public boolean canStartSilent(){return true;}
+        @Override public void tick(){volume=gain;}
     }
-
-    private static void stopSounds(State state) {
-        var manager = Minecraft.getInstance().getSoundManager();
-        for (var s : state.playing) manager.stop(s);
-        state.playing.clear();
+    static void stop(int owner){var s=STATES.remove(owner);if(s!=null)stopSounds(s);}
+    private static void stopSounds(State s){var m=Minecraft.getInstance().getSoundManager();s.playing.forEach(m::stop);if(s.score!=null)m.stop(s.score);s.playing.clear();s.score=null;}
+    static void clear(){STATES.values().forEach(RyujinBankaiAudio::stopSounds);STATES.clear();}
+    static void retain(Set<Integer> owners){for(int id:List.copyOf(STATES.keySet()))if(!owners.contains(id))stop(id);}
+    private static void play(State s,SoundEvent event,SoundSource source,float volume,float pitch,Vec3 p,boolean local){
+        var sound=new SimpleSoundInstance(event.getLocation(),source,volume,pitch,RandomSource.create(),false,0,
+                local?SoundInstance.Attenuation.NONE:SoundInstance.Attenuation.LINEAR,local?0:p.x,local?0:p.y,local?0:p.z,local);
+        s.playing.add(sound);Minecraft.getInstance().getSoundManager().play(sound);
     }
-
-    static void clear() {
-        for (var state : STATES.values()) stopSounds(state);
-        STATES.clear();
-    }
-
-    static void retain(Set<Integer> owners) {
-        for (int id : List.copyOf(STATES.keySet())) {
-            if (!owners.contains(id)) stop(id);
+    static void update(int owner,double raw,int duration,Vec3 p,boolean local,boolean allowed){
+        var mc=Minecraft.getInstance();var s=STATES.computeIfAbsent(owner,id->new State());
+        if(raw<s.lastAge-2){stop(owner);s=new State();STATES.put(owner,s);}
+        double age=RyujinBankaiTimeline.storyAge(raw,duration),previous=RyujinBankaiTimeline.storyAge(Math.max(0,s.lastAge),duration);
+        if(!allowed || raw>=duration){stopSounds(s);s.lastAge=raw;return;}
+        if(raw==s.lastAge)return;
+        s.playing.removeIf(sound->!mc.getSoundManager().isActive(sound));
+        if(local && !s.musicStarted && raw<10 && ClientVisualConfig.RYUJIN_MUSIC.get()){
+            s.musicStarted=true;s.score=new Score(duration==RyujinBankaiTimeline.COMPACT_DURATION);s.playing.add(s.score);mc.getSoundManager().play(s.score);
         }
-    }
-
-    static void update(int owner, double age, Vec3 position, boolean local, boolean allowed) {
-        var mc = Minecraft.getInstance();
-        var state = STATES.computeIfAbsent(owner, id -> new State(age));
-
-        if (age < state.lastAge - 2) {
-            stop(owner);
-            state = new State(age);
-            STATES.put(owner, state);
+        boolean speaking=(age>=11.8 && raw<RyujinBankaiTimeline.realAge(12,duration)+58)
+                || (age>=59.8 && raw<RyujinBankaiTimeline.realAge(60,duration)+90);
+        if(s.score!=null){
+            double fade=Math.min(1,raw/30)*Math.min(1,(duration-raw)/40.0);
+            s.score.gain=ClientVisualConfig.RYUJIN_MUSIC.get()?(float)(.48*fade*(speaking?.16:1)):0;
         }
-
-        if (!allowed) {
-            stopSounds(state);
-            state.lastAge = age;
-            return;
-        }
-
-        // Cue 1: "Bankai" at tick 12
-        if (age >= RyujinBankaiTimeline.CUE_BANKAI && !state.firedBankai && age < 40) {
-            state.firedBankai = true;
-            var sound = new SimpleSoundInstance(
-                    ModSounds.RYUJIN_VOICE_BANKAI.get().getLocation(),
-                    SoundSource.VOICE,
-                    local ? 1.0F : 1.6F, 1.0F, RandomSource.create(), false, 0,
-                    local ? SoundInstance.Attenuation.NONE : SoundInstance.Attenuation.LINEAR,
-                    local ? 0 : position.x, local ? 0 : position.y, local ? 0 : position.z, local
-            );
-            state.playing.add(sound);
-            mc.getSoundManager().play(sound);
-        }
-
-        // Flame roar / sun ambiance (blaze shoot / fire ambient burst during swell and absorption)
-        if (age >= 1 && age < 50 && (int) age % 16 == 0) {
-            float duck = (age >= 12 && age <= 35) ? 0.35F : 0.85F;
-            var roar = new SimpleSoundInstance(
-                    SoundEvents.BLAZE_SHOOT.getLocation(),
-                    SoundSource.PLAYERS,
-                    duck * 0.7F, 0.65F, RandomSource.create(), false, 0,
-                    local ? SoundInstance.Attenuation.NONE : SoundInstance.Attenuation.LINEAR,
-                    local ? 0 : position.x, local ? 0 : position.y, local ? 0 : position.z, local
-            );
-            state.playing.add(roar);
-            mc.getSoundManager().play(roar);
-        }
-
-        // Sizzle / extinguish at tick 52 when all fire has been absorbed into the blade
-        if (age >= 52 && !state.firedExtinguish && age < 60) {
-            state.firedExtinguish = true;
-            var ext = new SimpleSoundInstance(
-                    SoundEvents.FIRE_EXTINGUISH.getLocation(),
-                    SoundSource.PLAYERS,
-                    local ? 0.7F : 1.0F, 0.75F, RandomSource.create(), false, 0,
-                    local ? SoundInstance.Attenuation.NONE : SoundInstance.Attenuation.LINEAR,
-                    local ? 0 : position.x, local ? 0 : position.y, local ? 0 : position.z, local
-            );
-            state.playing.add(ext);
-            mc.getSoundManager().play(ext);
-        }
-
-        // Cue 2: "Zanka no Tachi" at tick 60
-        if (age >= RyujinBankaiTimeline.CUE_NAME && !state.firedName && age < 105) {
-            state.firedName = true;
-            var sound = new SimpleSoundInstance(
-                    ModSounds.RYUJIN_VOICE_NAME.get().getLocation(),
-                    SoundSource.VOICE,
-                    local ? 1.0F : 1.6F, 1.0F, RandomSource.create(), false, 0,
-                    local ? SoundInstance.Attenuation.NONE : SoundInstance.Attenuation.LINEAR,
-                    local ? 0 : position.x, local ? 0 : position.y, local ? 0 : position.z, local
-            );
-            state.playing.add(sound);
-            mc.getSoundManager().play(sound);
-        }
-
-        state.lastAge = age;
+        // Skip expired lines for late observers; never replay a voice after a menu interruption.
+        if(!s.bankai && age>=12){s.bankai=true;if(raw<RyujinBankaiTimeline.realAge(12,duration)+8)play(s,ModSounds.RYUJIN_VOICE_BANKAI.get(),SoundSource.VOICE,local?1:1.6F,1,p,local);}
+        if(!s.name && age>=60){s.name=true;if(raw<RyujinBankaiTimeline.realAge(60,duration)+8)play(s,ModSounds.RYUJIN_VOICE_NAME.get(),SoundSource.VOICE,local?1:1.6F,1,p,local);}
+        if(age<52 && (int)raw/35!=(int)Math.max(0,s.lastAge)/35)
+            play(s,SoundEvents.FIRE_AMBIENT,SoundSource.PLAYERS,speaking?.06F:.20F,.65F,p,local);
+        if(!s.extinguished && age>=52){s.extinguished=true;if(previous<52)play(s,SoundEvents.FIRE_EXTINGUISH,SoundSource.PLAYERS,.55F,.7F,p,local);}
+        s.lastAge=raw;
     }
 }
