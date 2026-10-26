@@ -1,0 +1,48 @@
+{
+  "date": "2026-10-26",
+  "branch": "Feature-Poderes-bankais",
+  "base": "fe5a63e",
+  "jar": {
+    "path": "build/libs/bleachmod-0.2.0.jar",
+    "sha256": "1d27fa146bf78cd4e119ffb508e6068c34f612911e91021657392dcef1a76577"
+  },
+  "checkBuild": {
+    "exit": 0,
+    "regressions": 147,
+    "seconds": 26
+  },
+  "gameTests": {
+    "exit": 0,
+    "requiredPassed": 230,
+    "seconds": 76
+  },
+  "client": {
+    "exit": 0,
+    "cases": 8,
+    "sampledFrames": 616,
+    "run": "cycle109-1793011873703",
+    "seconds": 151,
+    "scope": "actual Minecraft framebuffer, every2ticks, integrated disposable world"
+  },
+  "audio": {
+    "ryujin_voice_bankai.ogg": {
+      "unchanged": true,
+      "sha256": "9fa34cbfcbd98c8920aca417a389e06add88531c82f0f8b895da30dec1c625bb"
+    },
+    "ryujin_voice_name.ogg": {
+      "unchanged": true,
+      "sha256": "4c4b8fbbc8dd20c63517e39a23166c3365d7a971f8477c6501eada18736443d9"
+    }
+  },
+  "initialFailures": [
+    "Old detail distance assertion revised for deliberate frontal framing.",
+    "Hollow BRUTE natural cadence failed in one run; no Hollow code/test changed; all230 passed on final run."
+  ],
+  "limits": [
+    "No subjective audition.",
+    "Preview is sampled screenshots at original wallMs intervals, no audio or interpolation.",
+    "No Photon, two-client or arbitrary irregular-terrain test.",
+    "User artistic playtest pending."
+  ],
+  "commitOrPush": false
+}

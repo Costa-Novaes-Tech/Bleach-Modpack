@@ -231,26 +231,26 @@ public final class RyujinBankaiGameTests {
         Vec3 anchor = new Vec3(10, 64, 10);
         Vec3 forward = new Vec3(0, 0, 1);
         RyujinBankaiCamera.Frame frameWide = RyujinBankaiCamera.sample(anchor, forward, 10);
-        h.assertTrue(frameWide.fov() == 68.0F, "Wide shot FOV must be 68");
+        h.assertTrue(frameWide.fov() == 72.0F, "Wide shot FOV must include the complete sun inside letterbox bars");
         h.assertTrue(frameWide.eye().distanceTo(anchor) > 10.0, "Wide shot distance must be > 10 blocks for full body silhouette");
 
-        RyujinBankaiCamera.Frame frameDetail = RyujinBankaiCamera.sample(anchor, forward, 60);
+        RyujinBankaiCamera.Frame frameDetail = RyujinBankaiCamera.sample(anchor, forward, 68);
         h.assertTrue(frameDetail.fov() == 48.0F, "Detail shot FOV must be 48");
-        h.assertTrue(frameDetail.eye().distanceTo(anchor) < 3.5, "Detail shot distance must be < 3.5 blocks for hand/blade close-up");
+        h.assertTrue(frameDetail.eye().distanceTo(anchor) > 3.5 && frameDetail.eye().distanceTo(anchor) < 4.2, "Frontal detail must include face and blade without an extreme close-up");
 
-        RyujinBankaiCamera.Frame frameMed = RyujinBankaiCamera.sample(anchor, forward, 80);
-        h.assertTrue(frameMed.fov() == 56.0F, "Medium shot FOV must be 56");
+        RyujinBankaiCamera.Frame frameMed = RyujinBankaiCamera.sample(anchor, forward, 100);
+        h.assertTrue(frameMed.fov() == 54.0F, "Medium shot FOV must be 54");
         h.assertTrue(frameMed.eye().distanceTo(anchor) < 6.0 && frameMed.eye().distanceTo(anchor) > 4.0, "Medium shot distance must be ~4.8 blocks");
 
         // Left-handed mirroring
-        RyujinBankaiCamera.Frame frameDetailLeft = RyujinBankaiCamera.sample(anchor, forward, 60, -1.0F);
+        RyujinBankaiCamera.Frame frameDetailLeft = RyujinBankaiCamera.sample(anchor, forward, 68, -1.0F);
         h.assertTrue(frameDetailLeft.fov() == 48.0F, "Left-handed detail FOV must be 48");
-        h.assertTrue(frameDetailLeft.eye().distanceTo(anchor) < 3.5, "Left-handed detail distance must be < 3.5 blocks");
+        h.assertTrue(frameDetailLeft.eye().distanceTo(anchor) > 3.5 && frameDetailLeft.eye().distanceTo(anchor) < 4.2, "Left-handed detail must retain the same frontal framing");
 
         // Return transition at tick 140
-        RyujinBankaiCamera.Frame frameReturn = RyujinBankaiCamera.sample(anchor, forward, 140, 1.0F);
-        h.assertTrue(frameReturn.fov() == 70.0F, "Return FOV at tick 140 must be 70");
-        h.assertTrue(frameReturn.eye().z < anchor.z, "Return eye must be positioned behind the player");
+        Vec3 nativeEye=anchor.add(0,1.62,-4);
+        Vec3 returned=RyujinBankaiCamera.returnEye(frameMed.eye(),anchor.add(0,1.62,0),nativeEye,forward,1,false);
+        h.assertTrue(returned.distanceTo(nativeEye)<1e-9,"Return must reach actual perspective endpoint");
 
         // Yamamoto bankai entrance pose
         var pose0 = RyujinChoreography.bankaiEntrance(0, 1.0F);
@@ -264,4 +264,34 @@ public final class RyujinBankaiGameTests {
 
         h.succeed();
     }
+    @GameTest(template="empty",batch="ryujin_frontal_presentation",timeoutTicks=20)
+    public static void frontalPresentationTracksPoseAndReturnsWithoutCrossingActor(GameTestHelper h) {
+        Vec3 origin=new Vec3(4,70,-8);
+        for(float yaw:new float[]{0,73,180}) {
+            Vec3 f=Vec3.directionFromRotation(0,yaw),right=new Vec3(-f.z,0,f.x);
+            var prev=RyujinBankaiCamera.sample(origin,f,0);
+            for(double age=.25;age<=140;age+=.25) {
+                var frame=RyujinBankaiCamera.sample(origin,f,age);
+                h.assertTrue(Math.abs(frame.eye().subtract(origin).dot(right))<1e-6,"Frontal camera drifted laterally");
+                h.assertTrue(frame.eye().subtract(origin).dot(f)>3,"Camera crossed the caster before return");
+                h.assertTrue(frame.eye().distanceTo(prev.eye())<.3 && frame.focus().distanceTo(prev.focus())<.3,"Discontinuous dolly boundary");
+                prev=frame;
+            }
+            for(float sign:new float[]{-1,1}) {
+                var blade=com.bleachmod.common.visual.RyujinBankaiPresentation.blade(origin,f,68,sign);
+                h.assertTrue(blade.tip().subtract(blade.hand()).dot(right)*sign>.8,"Blade must point outwards in either hand");
+                h.assertTrue(Math.abs(blade.tip().distanceTo(blade.hand())-1.35)<1e-6,"VFX blade anchor length changed");
+            }
+            Vec3 center=origin.add(0,1.62,0),start=RyujinBankaiCamera.sample(origin,f,112).eye();
+            for(int mode=0;mode<3;mode++) {
+                Vec3 target=mode==0?center:center.add(f.scale(mode==1?-4:4));
+                h.assertTrue(RyujinBankaiCamera.returnEye(start,center,target,f,0,mode==2).equals(start),"Return changed initial eye");
+                h.assertTrue(RyujinBankaiCamera.returnEye(start,center,target,f,1,mode==2).equals(target),"Return missed native eye");
+                if(mode==1)for(double t=0;t<1;t+=.05)
+                    h.assertTrue(RyujinBankaiCamera.returnEye(start,center,target,f,t,false).distanceTo(center)>3,"Rear return crossed actor");
+            }
+        }
+        h.succeed();
+    }
+
 }

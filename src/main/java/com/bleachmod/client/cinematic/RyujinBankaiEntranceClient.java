@@ -4,6 +4,9 @@ import com.bleachmod.Reference;
 import com.bleachmod.client.model.RyujinActionVisuals;
 import com.bleachmod.client.model.RyujinSunVisual;
 import com.bleachmod.common.visual.RyujinBankaiCamera;
+import com.bleachmod.common.visual.RyujinBankaiPresentation;
+import net.minecraft.client.renderer.LightTexture;
+import net.minecraft.util.Mth;
 import com.bleachmod.common.visual.RyujinBankaiTimeline;
 import com.bleachmod.common.visual.RyujinChoreography;
 import dev.kosmx.playerAnim.api.TransformType;
@@ -45,6 +48,9 @@ public final class RyujinBankaiEntranceClient {
     private static CameraType previousCamera;
     private static Method cameraPositionMethod;
     private static boolean cameraEnabled = true;
+    private static long lastEmissionTick = Long.MIN_VALUE;
+    private static boolean reenteringPlayerRender;
+    private static long hidePlayerUntil = Long.MIN_VALUE;
 
     private RyujinBankaiEntranceClient() { }
 
@@ -98,7 +104,7 @@ public final class RyujinBankaiEntranceClient {
     private static void finish(int id) {
         SCENES.remove(id);
         RyujinBankaiAudio.stop(id);
-        restore();
+        if (Minecraft.getInstance().player != null && Minecraft.getInstance().player.getId() == id) restore();
     }
 
     private static Scene local() {
@@ -118,16 +124,29 @@ public final class RyujinBankaiEntranceClient {
 
     private static void restore() {
         var mc = Minecraft.getInstance();
-        if (previousCamera != null && mc.options.getCameraType() == CameraType.THIRD_PERSON_BACK) {
+        if (previousCamera != null && mc.options.getCameraType() == sceneCameraType()) {
             mc.options.setCameraType(previousCamera);
+            if(previousCamera == CameraType.FIRST_PERSON && mc.level != null) hidePlayerUntil = mc.level.getGameTime()+1;
         }
         previousCamera = null;
     }
 
+    private static CameraType sceneCameraType() {
+        return previousCamera == CameraType.THIRD_PERSON_FRONT ? CameraType.THIRD_PERSON_FRONT : CameraType.THIRD_PERSON_BACK;
+    }
+    private static RyujinBankaiPresentation.Blade blade(Scene s, int id, float partial) {
+        var actor = world.getEntity(id);
+        Vec3 position = actor == null ? s.anchor : actor.getPosition(partial);
+        Vec3 forward = actor == null ? s.forward : Vec3.directionFromRotation(0, actor.getYRot());
+        float sign = actor instanceof AbstractClientPlayer p && p.getMainArm() == HumanoidArm.LEFT ? -1 : 1;
+        return RyujinBankaiPresentation.blade(position, forward, age(s, partial), sign);
+    }
     public static void clear() {
         restore();
         RyujinBankaiAudio.clear();
         SCENES.clear();
+        lastEmissionTick = Long.MIN_VALUE;
+        hidePlayerUntil = Long.MIN_VALUE;
         world = null;
         cameraEnabled = true;
     }
@@ -156,6 +175,16 @@ public final class RyujinBankaiEntranceClient {
             }
         }
 
+        // Particle budget is per game tick and shared by all casters, independent of render FPS.
+        if (!mc.isPaused() && lastEmissionTick != world.getGameTime()) {
+            lastEmissionTick = world.getGameTime();
+            int budget = 48;
+            for (var entry : SCENES.entrySet()) {
+                var scene = entry.getValue();
+                budget -= RyujinSunVisual.emit(scene.anchor, scene.forward, age(scene, 0), blade(scene, entry.getKey(), 0), budget);
+                if (budget <= 0) break;
+            }
+        }
         // Update audio
         RyujinBankaiAudio.retain(SCENES.keySet());
         for (var entry : SCENES.entrySet()) {
@@ -189,8 +218,8 @@ public final class RyujinBankaiEntranceClient {
         if (cameraActive()) {
             if (previousCamera == null) {
                 previousCamera = mc.options.getCameraType();
-                mc.options.setCameraType(CameraType.THIRD_PERSON_BACK);
-            } else if (mc.options.getCameraType() != CameraType.THIRD_PERSON_BACK) {
+                mc.options.setCameraType(sceneCameraType());
+            } else if (mc.options.getCameraType() != sceneCameraType()) {
                 cameraEnabled = false;
                 restore();
             }
@@ -214,7 +243,17 @@ public final class RyujinBankaiEntranceClient {
 
         float sign = (mc.player != null && mc.player.getMainArm() == HumanoidArm.LEFT) ? -1.0F : 1.0F;
         RyujinBankaiCamera.Frame frame = RyujinBankaiCamera.sample(s.anchor, s.forward, age, sign);
-        Vec3 eye = frame.eye();
+        Vec3 eye = frame.eye(), focus = frame.focus();
+        if (age >= RyujinBankaiCamera.RETURN_START && mc.player != null) {
+            double t = RyujinBankaiTimeline.progress(age, RyujinBankaiCamera.RETURN_START, RyujinBankaiCamera.RETURN_SETTLE);
+            Vec3 center = mc.player.getEyePosition((float) event.getPartialTick());
+            Vec3 look = mc.player.getViewVector((float) event.getPartialTick());
+            boolean first = previousCamera == CameraType.FIRST_PERSON;
+            Vec3 end = first ? center : event.getCamera().getPosition();
+            Vec3 direction = first ? look : Vec3.directionFromRotation(event.getPitch(), event.getYaw());
+            eye = RyujinBankaiCamera.returnEye(eye, center, end, look, t, previousCamera == CameraType.THIRD_PERSON_FRONT);
+            focus = eye.add(RyujinBankaiCamera.blendDirection(frame.focus().subtract(frame.eye()), direction, t).scale(8));
+        }
         Vec3 safeOrigin = mc.player != null ? mc.player.getEyePosition() : s.anchor.add(0, 1.6, 0);
 
         // Clip terrain to avoid camera clipping inside blocks
@@ -223,7 +262,7 @@ public final class RyujinBankaiEntranceClient {
             eye = hit.getLocation().add(safeOrigin.subtract(eye).normalize().scale(0.25));
         }
 
-        if (eye.distanceToSqr(frame.focus()) < 0.25) {
+        if (eye.distanceToSqr(focus) < 0.25) {
             restore();
             return;
         }
@@ -238,10 +277,14 @@ public final class RyujinBankaiEntranceClient {
             return;
         }
 
-        Vec3 d = frame.focus().subtract(eye);
+        Vec3 d = focus.subtract(eye);
         event.setYaw((float) Math.toDegrees(Math.atan2(-d.x, d.z)));
         event.setPitch((float) -Math.toDegrees(Math.atan2(d.y, Math.sqrt(d.x * d.x + d.z * d.z))));
         event.setRoll(0);
+        if (age >= RyujinBankaiCamera.RETURN_SETTLE) {
+            cameraEnabled = false;
+            restore();
+        }
     }
 
     @SubscribeEvent
@@ -252,10 +295,19 @@ public final class RyujinBankaiEntranceClient {
         double age = age(s, (float) event.getPartialTick());
         if (age < DURATION && age >= 0 && event.usedConfiguredFov()) {
             float sign = (Minecraft.getInstance().player != null && Minecraft.getInstance().player.getMainArm() == HumanoidArm.LEFT) ? -1.0F : 1.0F;
-            event.setFOV(RyujinBankaiCamera.sample(s.anchor, s.forward, age, sign).fov());
+            double t = RyujinBankaiTimeline.progress(age, RyujinBankaiCamera.RETURN_START, RyujinBankaiCamera.RETURN_SETTLE);
+            event.setFOV(Mth.lerp(t, RyujinBankaiCamera.sample(s.anchor, s.forward, age, sign).fov(), event.getFOV()));
         }
     }
 
+    @SubscribeEvent
+    public static void warmAir(ViewportEvent.ComputeFogColor e) {
+        var s=local();if(s==null || !cameraActive())return;
+        float w=(float)RyujinBankaiPresentation.heat(age(s,(float)e.getPartialTick()))*.22F;
+        e.setRed(Mth.lerp(w,e.getRed(),.72F));
+        e.setGreen(Mth.lerp(w,e.getGreen(),.33F));
+        e.setBlue(Mth.lerp(w,e.getBlue(),.10F));
+    }
     @SubscribeEvent
     public static void onHudOverlay(RenderGuiOverlayEvent.Pre event) {
         if (cameraActive() && local() != null) {
@@ -275,27 +327,45 @@ public final class RyujinBankaiEntranceClient {
         int height = g.guiHeight();
         int barHeight = Math.max(16, height / 10);
 
-        // Letterbox bars
-        g.fill(0, 0, width, barHeight, 0xFF000000);
-        g.fill(0, height - barHeight, width, height, 0xFF000000);
-
-        var font = Minecraft.getInstance().font;
-
-        // Subtitle 1: "Bankai" (ticks 15..42)
-        float bankaiAlpha = RyujinBankaiTimeline.bankaiSubtitleAlpha(age);
-        if (bankaiAlpha > 0.01F) {
-            int alphaInt = Math.min(255, (int) (bankaiAlpha * 255));
-            int color = (alphaInt << 24) | 0xFFD700; // Fiery Gold
-            g.drawCenteredString(font, "Bankai", width / 2, height - barHeight - 20, color);
+        double heat = RyujinBankaiPresentation.heat(age);
+        int warm = ((int)(heat * 22) << 24) | 0xEC5819;
+        g.fillGradient(0, barHeight, width, height / 3, warm, 0x00EC5819);
+        g.fillGradient(0, height * 2 / 3, width, height - barHeight, 0x00EC5819, warm);
+        int bars = ((int)(255 * (1 - RyujinBankaiTimeline.progress(age,112,138))) << 24);
+        g.fill(0, 0, width, barHeight, bars);
+        g.fill(0, height - barHeight, width, height, bars);
+        subtitle(g, "Bankai", RyujinBankaiTimeline.bankaiSubtitleAlpha(age), width, height-barHeight-20);
+        subtitle(g, "Zanka no Tachi", RyujinBankaiTimeline.nameSubtitleAlpha(age), width, height-barHeight-20);
+    }
+    private static void subtitle(GuiGraphics g, String text, float alpha, int width, int y) {
+        if(alpha <= .01F)return;
+        var font=Minecraft.getInstance().font;
+        int half=font.width(text)/2+6;
+        g.fill(width/2-half,y-4,width/2+half,y+font.lineHeight+4,((int)(alpha*155)<<24)|0x140E0B);
+        g.drawCenteredString(font,text,width/2,y,((int)(alpha*255)<<24)|0xFFF1D5);
+    }
+    @SubscribeEvent
+    public static void onPlayerRender(RenderPlayerEvent.Pre e) {
+        var mc=Minecraft.getInstance();
+        if(world!=mc.level)return;
+        var s=SCENES.get(e.getEntity().getId());
+        double age=s==null ? -1 : age(s,e.getPartialTick());
+        // Camera.detached is computed before the angle event. Hide the actor on the restore frame too.
+        if(e.getEntity()==mc.player && (previousCamera==CameraType.FIRST_PERSON || mc.options.getCameraType()==CameraType.FIRST_PERSON)
+                && (world.getGameTime()<=hidePlayerUntil || age>=RyujinBankaiCamera.RETURN_START)
+                && mc.gameRenderer.getMainCamera().getPosition().distanceToSqr(mc.player.getEyePosition(e.getPartialTick()))<1.4) {
+            e.setCanceled(true);return;
         }
-
-        // Subtitle 2: "Zanka no Tachi" (ticks 65..124)
-        float nameAlpha = RyujinBankaiTimeline.nameSubtitleAlpha(age);
-        if (nameAlpha > 0.01F) {
-            int alphaInt = Math.min(255, (int) (nameAlpha * 255));
-            int color = (alphaInt << 24) | 0xFF6F00; // Deep Fiery Orange
-            g.drawCenteredString(font, "Zanka no Tachi", width / 2, height - barHeight - 20, color);
-        }
+        if(s==null || reenteringPlayerRender)return;
+        double weight=RyujinBankaiTimeline.progress(age,0,10)*(1-RyujinBankaiTimeline.progress(age,110,138));
+        int old=e.getPackedLight(),block=LightTexture.block(old),target=Math.max(block,(int)(11*weight));
+        if(target<=block || !(e.getEntity() instanceof AbstractClientPlayer actor))return;
+        reenteringPlayerRender=true;
+        try {
+            e.getRenderer().render(actor,Mth.lerp(e.getPartialTick(),actor.yRotO,actor.getYRot()),
+                    e.getPartialTick(),e.getPoseStack(),e.getMultiBufferSource(),LightTexture.pack(target,LightTexture.sky(old)));
+            e.setCanceled(true);
+        } finally { reenteringPlayerRender=false; }
     }
 
     @SubscribeEvent
@@ -304,13 +374,14 @@ public final class RyujinBankaiEntranceClient {
         var mc = Minecraft.getInstance();
         Vec3 cameraPos = e.getCamera().getPosition();
 
-        for (var entry : SCENES.entrySet()) {
+        for (var entry : SCENES.entrySet().stream().sorted(Comparator.comparingDouble(
+                (Map.Entry<Integer, Scene> entry) -> entry.getValue().anchor.distanceToSqr(cameraPos))).limit(4).toList()) {
             var scene = entry.getValue();
             var entity = world.getEntity(entry.getKey());
             float sign = (entity instanceof AbstractClientPlayer p && p.getMainArm() == HumanoidArm.LEFT) ? -1.0F : 1.0F;
             double age = age(scene, e.getPartialTick());
             if (age >= 0 && age < DURATION) {
-                RyujinSunVisual.render(e.getPoseStack(), cameraPos, scene.anchor, scene.forward, age, sign);
+                RyujinSunVisual.render(e.getPoseStack(), cameraPos, scene.anchor, scene.forward, age, blade(scene,entry.getKey(),e.getPartialTick()));
             }
         }
     }

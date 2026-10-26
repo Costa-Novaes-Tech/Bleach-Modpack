@@ -109,6 +109,7 @@ minecraft {
                 property 'bleachmod.benihimeMeleeQa', providers.gradleProperty('benihimeMeleeQa').getOrElse('false')
                 property 'bleachmod.benihimeCombatQa', providers.gradleProperty('benihimeCombatQa').getOrElse('false')
                 property 'bleachmod.ryujinQa', providers.gradleProperty('ryujinQa').getOrElse('false')
+                property 'bleachmod.ryujinBankaiQa', providers.gradleProperty('ryujinBankaiQa').getOrElse('false')
                 property 'bleachmod.hyorinmaruQa', providers.gradleProperty('hyorinmaruQa').getOrElse('false')
                 property 'bleachmod.senbonzakuraQa', providers.gradleProperty('senbonzakuraQa').getOrElse('false')
                 property 'bleachmod.qaAutoExit', providers.gradleProperty('qaAutoExit').getOrElse('false')

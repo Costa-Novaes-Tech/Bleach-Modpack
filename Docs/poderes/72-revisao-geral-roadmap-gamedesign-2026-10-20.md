@@ -112,6 +112,8 @@ Medição preliminar de25/10, antes da integração: checkout design com aproxim
 
 ### Controle obrigatório de fechamento
 
+**26/10 — [109: transformação Ryūjin](109-ryujin-frontal-fogo-texturizado-calor-2026-10-26.md):** nova apresentação frontal e sol texturizado implementados pelo Codex na Feature, para playtest. Preservados Investida/Rajada aprovados, Higashi pendente e itens8/de eficiência. Senbonzakura combate/Hakuteiken continua na frente paralela. Nenhum aceite artístico automático.
+
 **Revisão de21/10 — [ciclo88](88-revisao-kit-hyorinmaru-hidra-erupcao-storyboards-2026-10-21.md):** usuário reorganiza o repertório do item7: Ryūsenka em Bankai H; nova hidra ofensiva em N; Erupção Glacial em B; Sennen ampliada transferida para Shikai B. C Bankai permanece Hyōten. Dois vídeos analisados e três storyboards criados, sem implementar mudanças. Atualizar migração/maestrias junto dos slots quando houver código; os demais itens obrigatórios permanecem.
 
 **Plano de21/10 — [ciclo87](87-plano-implementacao-hyorinmaru-transformacao-kit-2026-10-21.md):** detalhada a implementação futura do item7 e do repertório de quatro ações por forma, a partir da direção visual86 aceita. Ordem: contratos → pescoço/rig → transformação/aparência → baforada/estados → Bankai H/N/B/C → Shikai/selada → acabamento, perfis e observador. Documento distingue código atual e mudanças propostas; nada implementado nesta rodada e nenhum outro item eliminado.
