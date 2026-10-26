@@ -26,35 +26,49 @@ public final class SenbonConstructGeometry {
                 sword(out,base,pattern==2?radial.scale(-1):up,pattern==2?up:new Vec3(-radial.z,0,radial.x),2.5,false);
             }
         } else if(shape==WINGS) {
-            double unfold=.25+.75*progress;
-            for(int side:new int[]{-1,1}) for(int i=0;i<12;i++) {
-                double t=i/12.0,next=(i+1)/12.0;Vec3 shoulder=origin.add(0,1.45,0).add(forward.scale(-.35));
-                Vec3 top=wingTop(shoulder,left,forward,side,t,unfold),edge=wingTop(shoulder,left,forward,side,next,unfold);
-                Vec3 tip=top.add(edge).scale(.5).add(left.scale(side*(.3+.35*t))).add(0,-(.45+1.15*t)*unfold,0);
-                out.add(new Quad(top,edge,tip,tip,255,248,255,175));
-                Vec3 middle=top.add(edge).scale(.5);
-                ribbon(out,middle,tip,left.scale(.025),255,255,255,245);
+            boolean dash=pattern==1;
+            double unfold=dash?.45:(.2+.8*progress),sweep=dash?.8:.15;
+            for(int side:new int[]{-1,1}) {
+                Vec3 scapula=origin.add(0,1.35,0).add(forward.scale(-.25)).add(left.scale(side*.22));
+                // Tier 1: Coverts (upper tier, 5 layered feathers)
+                for(int i=0;i<5;i++) {
+                    double t=i/5.0,next=(i+1)/5.0;
+                    Vec3 root=scapula.add(left.scale(side*t*.8*unfold)).add(0,.15*Math.sin(t*Math.PI),0).add(forward.scale(.04));
+                    Vec3 edge=scapula.add(left.scale(side*next*.8*unfold)).add(0,.15*Math.sin(next*Math.PI),0).add(forward.scale(.04));
+                    Vec3 tipPos=root.add(edge).scale(.5).add(left.scale(side*(.3+.8*t)*unfold)).add(0,.45+.5*Math.sin(t*Math.PI),0).add(forward.scale(-sweep*(.3+.4*t)));
+                    Vec3 tipW=left.scale(side*.08);
+                    out.add(new Quad(root,edge,tipPos.add(tipW),tipPos.subtract(tipW),255,250,255,215));
+                    ribbon(out,root.add(edge).scale(.5),tipPos,left.scale(.02),255,255,255,250);
+                }
+                // Tier 2: Primaries (main flight feathers, 8 layered feathers)
+                for(int i=0;i<8;i++) {
+                    double t=i/8.0,next=(i+1)/8.0;
+                    Vec3 root=scapula.add(left.scale(side*(.2+3.2*t)*unfold)).add(0,.3*Math.sin(t*Math.PI),0).add(forward.scale(-.04));
+                    Vec3 edge=scapula.add(left.scale(side*(.2+3.2*next)*unfold)).add(0,.3*Math.sin(next*Math.PI),0).add(forward.scale(-.04));
+                    double span=(.5+3.6*t)*unfold,arch=Math.sin(t*Math.PI)*1.5+.3*t,drop=-(.35+.95*t)*(dash?.4:1.2);
+                    Vec3 tipPos=scapula.add(left.scale(side*span)).add(0,arch+drop,0).add(forward.scale(-sweep*(.5+1.2*t)));
+                    Vec3 tipW=left.scale(side*.12*(1.0-.4*t));
+                    out.add(new Quad(root,edge,tipPos.add(tipW),tipPos.subtract(tipW),255,248,255,195));
+                    ribbon(out,root.add(edge).scale(.5),tipPos,left.scale(.025),255,255,255,245);
+                }
             }
-            Vec3 center=origin.add(0,1.9,0).add(forward.scale(-.7));
-            for(int i=0;i<40;i++) {
-                double a=i*Math.PI/20,b=(i+1)*Math.PI/20;
-                Vec3 start=center.add(left.scale(Math.cos(a)*1.25)).add(up.scale(Math.sin(a)*1.25));
-                Vec3 end=center.add(left.scale(Math.cos(b)*1.25)).add(up.scale(Math.sin(b)*1.25));
-                ribbon(out,start,end,start.subtract(center).normalize().scale(.025),255,240,255,195);
+            Vec3 center=origin.add(0,1.8,0).add(forward.scale(-.5));
+            for(int i=0;i<24;i++) {
+                double a=i*Math.PI/12,b=(i+1)*Math.PI/12;
+                Vec3 p1=center.add(left.scale(Math.cos(a)*1.15)).add(up.scale(Math.sin(a)*1.15));
+                Vec3 p2=center.add(left.scale(Math.cos(b)*1.15)).add(up.scale(Math.sin(b)*1.15));
+                ribbon(out,p1,p2,p1.subtract(center).normalize().scale(.025),255,242,255,205);
             }
             // The bright sword silhouette indicates exactly where the final thrust will travel.
-            sword(out,origin.add(0,.9,0).add(forward.scale(.7)),forward,left,2.6,true);
+            sword(out,origin.add(0,.95,0).add(forward.scale(.6)),forward,left,2.7,true);
         } else if(shape==LANCE) {
-            Vec3 end=origin.add(forward.scale(radius));int green=pattern==1 ? 155 : 245;
-            ribbon(out,origin,end,left.scale(.2),255,green,255,100);
-            ribbon(out,origin,end,up.scale(.2),255,green,255,100);
-            ribbon(out,origin,end,left.scale(.045),255,255,255,235);
-            ribbon(out,origin,end,up.scale(.045),255,255,255,235);
+            Vec3 end=origin.add(forward.scale(radius));
+            ribbon(out,origin,end,left.scale(.12),255,245,255,70);
+            ribbon(out,origin,end,up.scale(.12),255,245,255,70);
+            ribbon(out,origin,end,left.scale(.03),255,255,255,200);
+            ribbon(out,origin,end,up.scale(.03),255,255,255,200);
         }
         return List.copyOf(out);
-    }
-    private static Vec3 wingTop(Vec3 shoulder,Vec3 left,Vec3 forward,int side,double t,double unfold) {
-        return shoulder.add(left.scale(side*(.35+3.8*t)*unfold)).add(0,Math.sin(t*Math.PI)*1.5+.4*t,0).add(forward.scale(-t*.65));
     }
     private static void sword(List<Quad> out,Vec3 base,Vec3 axis,Vec3 side,double height,boolean white) {
         // Hilt, square crossguard, luminous pink blade with a thin white core and pointed tip.

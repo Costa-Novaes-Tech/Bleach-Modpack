@@ -27,8 +27,10 @@ public final class BetterCombatGameTests {
     public static void pilotProfileLoadsWithoutEnablingOtherKitsOrDualWield(GameTestHelper h){var p=player(h);
         var profile=WeaponRegistry.getAttributes(p.getMainHandItem());h.assertTrue(profile!=null && profile.attacks().length==3 && profile.attackRange()==3,"Pilot profile missing");
         for(var attack:profile.attacks())h.assertTrue(attack.damageMultiplier()==1,"Pilot unexpectedly changes damage multiplier");
-        for(var item:new net.minecraft.world.item.Item[]{ModItems.SENBONZAKURA.get()})
-            h.assertTrue(WeaponRegistry.getAttributes(new ItemStack(item))==null,"Automatic fallback enabled an unreviewed kit");
+        h.assertTrue(WeaponRegistry.getAttributes(new ItemStack(ModItems.NOZARASHI.get()))==null,"Automatic fallback enabled an unreviewed kit");
+        var senbon=WeaponRegistry.getAttributes(new ItemStack(ModItems.SENBONZAKURA.get()));h.assertTrue(senbon!=null&&senbon.attacks().length==3&&senbon.attackRange()==3,"Senbonzakura fencing profile missing");
+        for(var attack:senbon.attacks())h.assertTrue(attack.animation().startsWith("bleachmod:senbonzakura_")&&attack.damageMultiplier()==1,"Senbonzakura did not use its own animation or changed basic damage");
+
         var beni=WeaponRegistry.getAttributes(new ItemStack(ModItems.BENIHIME.get()));h.assertTrue(beni!=null&&beni.attacks().length==3&&beni.attackRange()==3,"Benihime fencing profile missing");
         for(var attack:beni.attacks())h.assertTrue(attack.animation().startsWith("bleachmod:benihime_")&&attack.damageMultiplier()==1,"Benihime did not use its own animation or changed basic damage");
         p.setItemSlot(EquipmentSlot.OFFHAND,new ItemStack(Items.DIAMOND_SWORD));h.assertTrue(!PlayerAttackHelper.isDualWielding(p),"Pilot enabled unapproved dual wield");h.succeed();}
