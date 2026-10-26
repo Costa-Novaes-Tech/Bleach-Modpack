@@ -288,7 +288,7 @@ public final class SenbonzakuraCombatQaSequence {
         boolean captureThisTick = false;
         if (t.index() < 3) {
             // Combo: Strike 1 windup & cut (32, 38), Strike 2 return + petal ribbon (46, 52), Strike 3 thrust (60, 68), Recovery (76)
-            captureThisTick = (age == 32 || age == 38 || age == 46 || age == 52 || age == 60 || age == 68 || age == 76);
+            captureThisTick = (age == 38 || age == 42 || age == 44 || age == 50 || age == 56 || age == 64 || age == 70 || age == 76);
         } else {
             // Hakuteiken: Preparation (44, 50), Full wings/zenith (56), Launch/dash (60, 64), Impact/contact (68), Recovery/dissipation (78, 88)
             captureThisTick = (age == 44 || age == 50 || age == 56 || age == 60 || age == 64 || age == 68 || age == 78 || age == 88);
