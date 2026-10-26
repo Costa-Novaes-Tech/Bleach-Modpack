@@ -1,0 +1,36 @@
+{
+  "branch": "Feature-Poderes-bankais",
+  "base": "a12b4d1",
+  "checkBuild": {
+    "exitCode": 0,
+    "regressions": 147,
+    "log": "final-check.log"
+  },
+  "client": {
+    "exitCode": 0,
+    "day": "1792799655443",
+    "dayFrames": 282,
+    "night": "1792799687599",
+    "nightFrames": 284,
+    "nightSync": "first 10 frames at6000; subsequent274 at18000",
+    "following": "translation and turn captured in both runs",
+    "hyorinmaruSmokeScenarios": 10
+  },
+  "jar": {
+    "path": "build/libs/bleachmod-0.2.0.jar",
+    "sha256": "4c70c5f8eaf89a69264000212dfb6145a6e560a99c7250246b9bd59c2f9538b0"
+  },
+  "limitations": [
+    "Screenshots and montage are sampled, without audio; no continuous-frame fluency or auditory claim.",
+    "Manual perspectives, walls, irregular terrain and artistic playtest pending.",
+    "No new gameplay GameTests or Photon/multiplayer validation."
+  ],
+  "preserved": [
+    "duration560ticks",
+    "geometry",
+    "audio",
+    "gameplay",
+    "following"
+  ],
+  "committed": false
+}

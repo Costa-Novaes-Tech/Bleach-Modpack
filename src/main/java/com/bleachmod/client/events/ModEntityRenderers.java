@@ -53,6 +53,8 @@ public class ModEntityRenderers {
     }
 
     @SubscribeEvent public static void playerLayers(EntityRenderersEvent.AddLayers event) {
+        net.minecraft.client.renderer.entity.LivingEntityRenderer<net.minecraft.world.entity.monster.AbstractSkeleton, net.minecraft.client.model.SkeletonModel<net.minecraft.world.entity.monster.AbstractSkeleton>> ashRenderer = event.getRenderer(net.minecraft.world.entity.EntityType.WITHER_SKELETON);
+        if(ashRenderer!=null)ashRenderer.addLayer(new com.bleachmod.client.model.AshSoldierLayer(ashRenderer));
         for (String skin : event.getSkins()) {
             var renderer = event.getSkin(skin);
             if (renderer instanceof net.minecraft.client.renderer.entity.player.PlayerRenderer playerRenderer) {

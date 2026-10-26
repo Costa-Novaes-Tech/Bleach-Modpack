@@ -1,0 +1,47 @@
+{
+  "date": "2026-10-26",
+  "branch": "Feature-Poderes-bankais",
+  "preservedRyujinCommit": "6d3c9b3",
+  "antigravitySourceCommit": "08105c2",
+  "mergeCommit": "db0f764",
+  "mergeConflicts": false,
+  "checkBuild": {
+    "exit": 0,
+    "regressions": 147,
+    "seconds": 28
+  },
+  "gameTests": {
+    "exit": 0,
+    "requiredPassed": 233,
+    "seconds": 110
+  },
+  "client": {
+    "scenarios": 10,
+    "sampledSourceFrames": 218,
+    "sources": "captures.json",
+    "realFramebuffer": true,
+    "continuousVideo": false,
+    "audioInPreview": false,
+    "rightAndLeftGroundPoseInspected": true
+  },
+  "jar": {
+    "path": "build/libs/bleachmod-0.2.0.jar",
+    "sha256": "6ab40297cc28b1200d39a3e6e8682aeb6ee8019a33502bf6159140aeeef9ee4e"
+  },
+  "limits": [
+    "Human artistic approval pending.",
+    "Offhand empty in QA; existing occupied-offhand policy preserved.",
+    "Destructive flat-ground impact can stall rendering; platform isolates pose inspection.",
+    "No new multiplayer or Photon validation."
+  ],
+  "push": false,
+  "mainModified": false,
+  "originalQaJarSha256": "9125919121775634a258d4e18c83c1f1b381f56622187d0d21feccd3829fe1be",
+  "deliveryRebuild": {
+    "date": "2026-10-26",
+    "exit": 0,
+    "seconds": 25,
+    "regressions": 147,
+    "reason": "Regenerate missing build artifact; runtime code unchanged after visual validation."
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "source": "d20cc3d",
+  "merge": "af090b1",
+  "branch": "Feature-Poderes-bankais",
+  "checkBuildExit": 0,
+  "regressions": 147,
+  "gameTestExit": 0,
+  "requiredPassed": 229,
+  "jarSha256": "a9514a6172bc393348a2e74d9b097dba0285d4eadc49247c7ece8e67f82e3c01",
+  "integratedClientRerun": false,
+  "sourceEvidence": "source-captures.json",
+  "photonRerun": false,
+  "multiplayerRerun": false
+}

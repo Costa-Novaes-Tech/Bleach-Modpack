@@ -27,8 +27,10 @@ public final class BetterCombatGameTests {
     public static void pilotProfileLoadsWithoutEnablingOtherKitsOrDualWield(GameTestHelper h){var p=player(h);
         var profile=WeaponRegistry.getAttributes(p.getMainHandItem());h.assertTrue(profile!=null && profile.attacks().length==3 && profile.attackRange()==3,"Pilot profile missing");
         for(var attack:profile.attacks())h.assertTrue(attack.damageMultiplier()==1,"Pilot unexpectedly changes damage multiplier");
-        for(var item:new net.minecraft.world.item.Item[]{ModItems.SENBONZAKURA.get()})
-            h.assertTrue(WeaponRegistry.getAttributes(new ItemStack(item))==null,"Automatic fallback enabled an unreviewed kit");
+        h.assertTrue(WeaponRegistry.getAttributes(new ItemStack(ModItems.NOZARASHI.get()))==null,"Automatic fallback enabled an unreviewed kit");
+        var senbon=WeaponRegistry.getAttributes(new ItemStack(ModItems.SENBONZAKURA.get()));h.assertTrue(senbon!=null&&senbon.attacks().length==3&&senbon.attackRange()==3,"Senbonzakura fencing profile missing");
+        for(var attack:senbon.attacks())h.assertTrue(attack.animation().startsWith("bleachmod:senbonzakura_")&&attack.damageMultiplier()==1,"Senbonzakura did not use its own animation or changed basic damage");
+
         var beni=WeaponRegistry.getAttributes(new ItemStack(ModItems.BENIHIME.get()));h.assertTrue(beni!=null&&beni.attacks().length==3&&beni.attackRange()==3,"Benihime fencing profile missing");
         for(var attack:beni.attacks())h.assertTrue(attack.animation().startsWith("bleachmod:benihime_")&&attack.damageMultiplier()==1,"Benihime did not use its own animation or changed basic damage");
         p.setItemSlot(EquipmentSlot.OFFHAND,new ItemStack(Items.DIAMOND_SWORD));h.assertTrue(!PlayerAttackHelper.isDualWielding(p),"Pilot enabled unapproved dual wield");h.succeed();}
@@ -55,4 +57,20 @@ public final class BetterCombatGameTests {
     public static void stateChangeAfterAttackStartStillCancelsHit(GameTestHelper h){var p=player(h);var t=target(h,p,0,2);
         try {begin(p,0);data(p).getStatus().setActionCharging(true);p.attack(t);h.assertTrue(t.getHealth()==20 && data(p).getResources().getStamina()==100,"Late state change bypassed hit validation");}
         finally{data(p).getStatus().setActionCharging(false);end(p);t.discard();}h.succeed();}
+    @GameTest(template="empty",batch="bc_senbon_reach")
+    public static void senbonReachBonusIsSingleAndCannotLeakToAnotherWeaponOrForm(GameTestHelper h){
+        var p=player(h);var d=data(p);d.getCharacter().bindZanpakuto("senbonzakura");d.getCharacter().unlockForm("bankai");d.getCharacter().unlockForm("shikai");
+        p.setItemSlot(EquipmentSlot.MAINHAND,new ItemStack(ModItems.SENBONZAKURA.get()));d.getCharacter().setActiveForm("zanpakuto","bankai");
+        var reach=p.getAttribute(net.minecraftforge.common.ForgeMod.ENTITY_REACH.get());
+        reach.addTransientModifier(new net.minecraft.world.entity.ai.attributes.AttributeModifier(com.bleachmod.common.technique.SenbonzakuraTechniqueService.REACH_ID,"QA Senbon",1.5,net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation.ADDITION));
+        var near=target(h,p,0,4.3);var far=target(h,p,0,5.2);
+        try{
+            h.assertTrue(Math.abs(BetterCombatCompat.reachLimit(p)-4.55)<.001 && BetterCombatCompat.withinPilotReach(p,near) && !BetterCombatCompat.withinPilotReach(p,far),"Bankai reach missing or doubled");
+            d.getCharacter().setActiveForm("zanpakuto","shikai");h.assertTrue(BetterCombatCompat.reachLimit(p)==3.05,"Reach leaked into Shikai");
+            d.getCharacter().setActiveForm("zanpakuto","bankai");p.setItemSlot(EquipmentSlot.MAINHAND,new ItemStack(ModItems.ASAUCHI.get()));
+            h.assertTrue(BetterCombatCompat.reachLimit(p)==3.05,"Stale Senbon modifier enlarged another weapon");
+        }finally{reach.removeModifier(com.bleachmod.common.technique.SenbonzakuraTechniqueService.REACH_ID);end(p);near.discard();far.discard();}
+        h.succeed();
+    }
+
 }

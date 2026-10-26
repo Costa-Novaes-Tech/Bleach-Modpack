@@ -16,6 +16,54 @@ import java.util.*;
 public final class MvpRegressionTest {
     private static int count;
     public static void main(String[] args) {
+        test("Ryujin short scene aligns dialogue, absorption and safe first-person handoff",()->{
+            eq(240,com.bleachmod.common.visual.RyujinBankaiTimeline.DURATION);
+            eq(240,com.bleachmod.common.visual.RyujinBankaiTimeline.COMPACT_DURATION);
+            eq(40D,com.bleachmod.common.visual.RyujinBankaiTimeline.realAge(12,240));
+            eq(160D,com.bleachmod.common.visual.RyujinBankaiTimeline.realAge(60,240));
+            eq(90D,com.bleachmod.common.visual.RyujinBankaiTimeline.realAge(30,240));
+            eq(140D,com.bleachmod.common.visual.RyujinBankaiTimeline.realAge(52,240));
+            double previous=-1;
+            for(int t=0;t<=240;t++){
+                double beat=com.bleachmod.common.visual.RyujinBankaiTimeline.storyAge(t,240);
+                yes(beat>=previous);previous=beat;
+                yes(Math.abs(com.bleachmod.common.visual.RyujinBankaiTimeline.realAge(beat,240)-t)<.0001);
+            }
+            var center=net.minecraft.world.phys.Vec3.ZERO;
+            var look=new net.minecraft.world.phys.Vec3(0,0,1);
+            var start=new net.minecraft.world.phys.Vec3(0,-.12,5.2);
+            for(int i=1;i<100;i++){
+                double t=i/100.0;
+                var eye=com.bleachmod.common.visual.RyujinBankaiCamera.returnEye(start,center,center,look,t,false);
+                yes(Double.isFinite(eye.lengthSqr()));
+                if(t<.65)yes(eye.horizontalDistance()>5);
+                else yes(eye.dot(look)<0); // Final approach from behind, not through the face.
+            }
+        });
+        test("Benihime camera follows the grasp and opens before floor supports without moving the rig clock",()->{
+            var previous=com.bleachmod.common.visual.BenihimeEntranceCamera.sample(108);
+            for(int i=433;i<=2112;i++){
+                double age=i/4.0;
+                var frame=com.bleachmod.common.visual.BenihimeEntranceCamera.sample(age);
+                yes(Double.isFinite(frame.eye().lengthSqr()));
+                yes(frame.eye().distanceTo(frame.focus())>2);
+                yes(frame.eye().distanceTo(previous.eye())<.5);
+                yes(frame.focus().distanceTo(previous.focus())<.5);
+                yes(frame.fov()>=40 && frame.fov()<=60);
+                if(age>=138 && age<=176){
+                    yes(frame.focus().distanceTo(com.bleachmod.common.visual.BenihimeEntranceGeometry.hemAnchor(age))<1);
+                    yes(frame.eye().z<11);
+                }
+                previous=frame;
+            }
+            for(int t:new int[]{280,340,450,528}){
+                var frame=com.bleachmod.common.visual.BenihimeEntranceCamera.sample(t);
+                var wide=com.bleachmod.common.visual.BenihimeEntranceCamera.wide(t);
+                yes(frame.eye().distanceTo(wide.eye())<.00001);
+            }
+            eq(560,com.bleachmod.common.visual.BenihimeEntranceTimeline.DURATION);
+            eq(176,com.bleachmod.common.visual.BenihimeEntranceTimeline.Phase.PULL.start());
+        });
         test("Hyorinmaru camera stays continuous and opposing return directions never collapse",()->{
             var previous=com.bleachmod.common.visual.HyorinmaruCameraPath.sample(0);
             for(int i=1;i<=1840;i++){
@@ -236,10 +284,14 @@ public final class MvpRegressionTest {
             }
         });
         test("Benihime Better Combat animations parse as finite original fencing motions",()->{
-            for(String name:List.of("benihime_diagonal","benihime_return","benihime_thrust")){
+            for(String name:List.of("benihime_thrust","benihime_thrust_2","benihime_slash")){
                 try(var reader=java.nio.file.Files.newBufferedReader(java.nio.file.Path.of("src/main/resources/assets/bleachmod/attack_animations/"+name+".json"))){
                     var animations=dev.kosmx.playerAnim.core.data.gson.AnimationSerializing.deserializeAnimation(reader);
-                    eq(1,animations.size());var animation=animations.get(0);yes(animation.getPart("rightArm").isEnabled());yes(animation.getPart("body").isEnabled());yes(!animation.isInfinite());eq(12,animation.endTick);
+                    eq(1,animations.size());var animation=animations.get(0);yes(animation.getPart("rightArm").isEnabled());yes(animation.getPart("rightItem").isEnabled());yes(animation.getPart("body").isEnabled());yes(!animation.isInfinite());eq(20,animation.endTick);
+                }catch(java.io.IOException e){throw new AssertionError(e);}
+                try(var reader=java.nio.file.Files.newBufferedReader(java.nio.file.Path.of("src/main/resources/assets/bleachmod/player_animation/"+name+".json"))){
+                    var animations=dev.kosmx.playerAnim.core.data.gson.AnimationSerializing.deserializeAnimation(reader);
+                    eq(1,animations.size());var animation=animations.get(0);yes(animation.getPart("rightArm").isEnabled());yes(animation.getPart("rightItem").isEnabled());
                 }catch(java.io.IOException e){throw new AssertionError(e);}
             }
         });
@@ -1132,7 +1184,7 @@ public final class MvpRegressionTest {
             }
         });
         test("All ten fire gestures have finite continuous curves and return to the base animation", () -> {
-            int[] ends={16,16,16,22,18,20,16,22,22,32};int n=0;
+            int[] ends={16,16,16,22,18,20,16,22,22,56};int n=0;
             for(var kind:com.bleachmod.common.visual.RyujinChoreography.ATTACKS){
                 int end=ends[n++];var previous=com.bleachmod.common.visual.RyujinChoreography.attack(kind,0,1);
                 for(float age=.25F;age<end;age+=.25F){

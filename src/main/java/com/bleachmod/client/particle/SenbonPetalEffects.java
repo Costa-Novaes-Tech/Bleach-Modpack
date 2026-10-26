@@ -62,7 +62,7 @@ public final class SenbonPetalEffects {
             }
             if (!level.hasChunkAt(BlockPos.containing(p))) continue;
             v=v.add(wind);
-            if (m.shape()==LANCE && m.pattern()==0) level.addParticle(ParticleTypes.END_ROD,p.x,p.y,p.z,v.x,v.y,v.z);
+            if (m.shape()==LANCE && m.pattern()==0 && i%3==0) level.addParticle(ParticleTypes.END_ROD,p.x,p.y,p.z,v.x,v.y,v.z);
             else level.addParticle(ModParticles.SENBON_PETAL.get(),p.x,p.y,p.z,v.x,v.y,v.z);
             emitted++;
         }

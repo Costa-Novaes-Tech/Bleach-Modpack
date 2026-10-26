@@ -3,6 +3,10 @@ package com.bleachmod.common.compat;
 import com.bleachmod.Reference;
 import com.bleachmod.common.data.*;
 import com.bleachmod.common.technique.*;
+import com.bleachmod.common.network.NetworkHandler;
+import com.bleachmod.common.network.s2c.SenbonPetalsS2C;
+import com.bleachmod.common.visual.SenbonGeometry;
+import net.minecraftforge.common.ForgeMod;
 import com.bleachmod.init.ModItems;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.server.level.ServerPlayer;
@@ -26,7 +30,7 @@ public final class BetterCombatCompat {
     }
     private BetterCombatCompat(){ }
     public static boolean managed(ItemStack stack){return BuiltInRegistries.ITEM.getKey(stack.getItem()).getNamespace().equals(Reference.MOD_ID);}
-    public static boolean pilot(ItemStack stack){return stack.is(ModItems.ASAUCHI.get()) || stack.is(ModItems.RYUJIN_JAKKA.get()) || stack.is(ModItems.HYORINMARU.get()) || stack.is(ModItems.BENIHIME.get());}
+    public static boolean pilot(ItemStack stack){return stack.is(ModItems.ASAUCHI.get()) || stack.is(ModItems.RYUJIN_JAKKA.get()) || stack.is(ModItems.HYORINMARU.get()) || stack.is(ModItems.BENIHIME.get()) || stack.is(ModItems.SENBONZAKURA.get());}
     public static boolean excluded(ItemStack stack){return managed(stack) && !pilot(stack);}
     public static boolean stateAllows(PlayerData d){return !d.getGuard().active() && !d.getGuard().broken()
             && !d.getStatus().isDodging() && !d.getStatus().isActionCharging() && d.getStatus().getFlameDashTicks()==0;}
@@ -34,7 +38,14 @@ public final class BetterCombatCompat {
             && PlayerCapability.get(p).map(BetterCombatCompat::stateAllows).orElse(true)
             && (!(p instanceof ServerPlayer server) || !ReleaseAnimationService.busy(server) && !ElementalTechniqueService.busy(server) && !SenbonzakuraTechniqueService.busy(server) && !BenihimeTechniqueService.busy(server));}
     public static void comboChanged(Player player,int combo){
-        if(player instanceof ServerPlayer p && combo>=0 && pilot(p.getMainHandItem()))CURRENT.set(new Swing(p));
+        if(player instanceof ServerPlayer p && combo>=0 && pilot(p.getMainHandItem())){
+            CURRENT.set(new Swing(p));
+            if(CURRENT.get().allowed && combo==1 && p.getMainHandItem().is(ModItems.SENBONZAKURA.get())){
+                Vec3 f=SenbonGeometry.forward(p.getYRot()),o=p.position().add(0,1.2,0);
+                var packet=new SenbonPetalsS2C(SenbonPetalsS2C.ARC,o,f,2.8F,1F,1,(int)(p.level().getGameTime()*31+p.getId()),p.getId());
+                for(ServerPlayer receiver:p.serverLevel().players())if(receiver.position().distanceToSqr(o)<=64*64)NetworkHandler.sendToPlayer(packet,receiver);
+            }
+        }
         else CURRENT.remove();
     }
     private static Swing current(ServerPlayer p){var s=CURRENT.get();return s!=null && s.owner==p && s.tick==p.level().getGameTime()?s:null;}
@@ -52,11 +63,19 @@ public final class BetterCombatCompat {
                 || !withinPilotReach(p,target)) {event.setCanceled(true);return;}
         swing.targets.add(target.getId());
     }
+    public static double reachLimit(ServerPlayer p){
+        double r=3.05;
+        var reach=p.getAttribute(ForgeMod.ENTITY_REACH.get());
+        if(p.getMainHandItem().is(ModItems.SENBONZAKURA.get()) && PlayerCapability.get(p).map(d->d.getCharacter().getZanpakutoIdentity().equals(CharacterData.SENBONZAKURA) && d.getCharacter().getActiveForm().equals("bankai")).orElse(false)
+                && reach!=null && reach.getModifier(SenbonzakuraTechniqueService.REACH_ID)!=null)r+=SenbonPolicy.REACH_BONUS;
+        return r;
+    }
     public static boolean withinPilotReach(ServerPlayer p,Entity target){
         var box=target.getBoundingBox();Vec3 eye=p.getEyePosition();
         Vec3 closest=new Vec3(Math.max(box.minX,Math.min(box.maxX,eye.x)),Math.max(box.minY,Math.min(box.maxY,eye.y)),Math.max(box.minZ,Math.min(box.maxZ,eye.z)));
         Vec3 direction=box.getCenter().subtract(eye);
-        return closest.distanceToSqr(eye)<=3.05*3.05 && (direction.lengthSqr()<1 || p.getLookAngle().dot(direction.normalize())>=-.15)
+        double maxR=reachLimit(p);
+        return closest.distanceToSqr(eye)<=maxR*maxR && (direction.lengthSqr()<1 || p.getLookAngle().dot(direction.normalize())>=-.15)
                 && p.hasLineOfSight(target);
     }
 }

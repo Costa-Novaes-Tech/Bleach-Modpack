@@ -40,6 +40,22 @@ public final class ModSounds {
     public static final RegistryObject<SoundEvent> HYORINMARU_THEME = SOUND_EVENTS.register("hyorinmaru.theme",
             () -> SoundEvent.createVariableRangeEvent(Reference.id("hyorinmaru.theme")));
 
+    // Senbonzakura Kageyoshi Bankai transformation audio and orchestral theme
+    public static final RegistryObject<SoundEvent> SENBONZAKURA_VOICE_BANKAI = SOUND_EVENTS.register("voice.senbonzakura_bankai",
+            () -> SoundEvent.createFixedRangeEvent(Reference.id("voice.senbonzakura_bankai"), 64));
+    public static final RegistryObject<SoundEvent> SENBONZAKURA_VOICE_NAME = SOUND_EVENTS.register("voice.senbonzakura_name",
+            () -> SoundEvent.createFixedRangeEvent(Reference.id("voice.senbonzakura_name"), 64));
+    public static final RegistryObject<SoundEvent> SENBONZAKURA_THEME = SOUND_EVENTS.register("senbonzakura.theme",
+            () -> SoundEvent.createVariableRangeEvent(Reference.id("senbonzakura.theme")));
+
+    // Ryujin Jakka / Zanka no Tachi Bankai transformation audio
+    public static final RegistryObject<SoundEvent> RYUJIN_SCORE = SOUND_EVENTS.register("music.ryujin_entrance", () -> SoundEvent.createVariableRangeEvent(Reference.id("music.ryujin_entrance")));
+    public static final RegistryObject<SoundEvent> RYUJIN_SCORE_COMPACT = SOUND_EVENTS.register("music.ryujin_compact", () -> SoundEvent.createVariableRangeEvent(Reference.id("music.ryujin_compact")));
+    public static final RegistryObject<SoundEvent> RYUJIN_VOICE_BANKAI = SOUND_EVENTS.register("voice.ryujin_bankai",
+            () -> SoundEvent.createFixedRangeEvent(Reference.id("voice.ryujin_bankai"), 64));
+    public static final RegistryObject<SoundEvent> RYUJIN_VOICE_NAME = SOUND_EVENTS.register("voice.ryujin_name",
+            () -> SoundEvent.createFixedRangeEvent(Reference.id("voice.ryujin_name"), 64));
+
     private ModSounds() {
     }
 }

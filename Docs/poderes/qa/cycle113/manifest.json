@@ -1,0 +1,42 @@
+{
+  "date": "2026-10-26",
+  "branch": "Feature-Poderes-bankais",
+  "base": "23b80e0",
+  "source": "C:\\Users\\joaop\\Downloads\\Áudios e vídeos para revisão\\Gravando 2026-10-26 131228.mp4",
+  "source_bytes": 277279627,
+  "source_sha256": "604688a08539e766c15437a1eb4f629fb0ffe29cfa9d75343335e9009fedd38b",
+  "duration_s": 263.3,
+  "source_fps": 30,
+  "inspection": "Overview at exact 8s steps; selected critical windows extracted at all 30fps. Not every frame of entire recording inspected.",
+  "frame_number": "zero-based, time_seconds * 30",
+  "audio": "Original procedural draft, not integrated. Technical amplitude checks only; subjective listening pending. Existing supplied voice assets reused without new imitation.",
+  "voices": [
+    {
+      "file": "ryujin_voice_bankai.ogg",
+      "start_s": 2,
+      "decoded_duration_s": 1.35
+    },
+    {
+      "file": "ryujin_voice_name.ogg",
+      "start_s": 8,
+      "decoded_duration_s": 2.24
+    }
+  ],
+  "mix_peak_linear": 0.5814192195437299,
+  "mix_rms_dbfs": -22.55538720844418,
+  "evidence": [
+    "exact-overview-1.jpg",
+    "exact-overview-2.jpg",
+    "exact-overview-3.jpg",
+    "transformation-2.jpg",
+    "transformation-3.jpg",
+    "transformation-4.jpg",
+    "senbon_melee-frames-1.jpg",
+    "senbon_melee-frames-2.jpg",
+    "benihime_compare-frames-1.jpg",
+    "benihime_compare-frames-2.jpg",
+    "ryujin_supreme-frames-2.jpg",
+    "ryujin_supreme-frames-3.jpg",
+    "ryujin_supreme-frames-4.jpg"
+  ]
+}

@@ -6,23 +6,23 @@
     "two_handed": false,
     "attacks": [
       {
-        "hitbox": "VERTICAL_PLANE",
-        "angle": 75,
-        "animation": "bleachmod:benihime_diagonal",
-        "upswing": 0.45,
-        "damage_multiplier": 1.0
-      },
-      {
-        "hitbox": "HORIZONTAL_PLANE",
-        "angle": 95,
-        "animation": "bleachmod:benihime_return",
+        "hitbox": "FORWARD_BOX",
+        "angle": 0,
+        "animation": "bleachmod:benihime_thrust",
         "upswing": 0.45,
         "damage_multiplier": 1.0
       },
       {
         "hitbox": "FORWARD_BOX",
         "angle": 0,
-        "animation": "bleachmod:benihime_thrust",
+        "animation": "bleachmod:benihime_thrust_2",
+        "upswing": 0.45,
+        "damage_multiplier": 1.0
+      },
+      {
+        "hitbox": "HORIZONTAL_PLANE",
+        "angle": 100,
+        "animation": "bleachmod:benihime_slash",
         "upswing": 0.45,
         "damage_multiplier": 1.0
       }

@@ -1,0 +1,854 @@
+file 'screenshots/frame-000000.png'
+option framerate 1000
+duration 0.065000
+file 'screenshots/frame-000001.png'
+option framerate 1000
+duration 0.087000
+file 'screenshots/frame-000002.png'
+option framerate 1000
+duration 0.109000
+file 'screenshots/frame-000003.png'
+option framerate 1000
+duration 0.104000
+file 'screenshots/frame-000004.png'
+option framerate 1000
+duration 0.095000
+file 'screenshots/frame-000005.png'
+option framerate 1000
+duration 0.103000
+file 'screenshots/frame-000006.png'
+option framerate 1000
+duration 0.099000
+file 'screenshots/frame-000007.png'
+option framerate 1000
+duration 0.098000
+file 'screenshots/frame-000008.png'
+option framerate 1000
+duration 0.101000
+file 'screenshots/frame-000009.png'
+option framerate 1000
+duration 0.102000
+file 'screenshots/frame-000010.png'
+option framerate 1000
+duration 0.099000
+file 'screenshots/frame-000011.png'
+option framerate 1000
+duration 0.098000
+file 'screenshots/frame-000012.png'
+option framerate 1000
+duration 0.105000
+file 'screenshots/frame-000013.png'
+option framerate 1000
+duration 0.093000
+file 'screenshots/frame-000014.png'
+option framerate 1000
+duration 0.109000
+file 'screenshots/frame-000015.png'
+option framerate 1000
+duration 0.097000
+file 'screenshots/frame-000016.png'
+option framerate 1000
+duration 0.102000
+file 'screenshots/frame-000017.png'
+option framerate 1000
+duration 0.099000
+file 'screenshots/frame-000018.png'
+option framerate 1000
+duration 0.100000
+file 'screenshots/frame-000019.png'
+option framerate 1000
+duration 0.060000
+file 'screenshots/frame-000020.png'
+option framerate 1000
+duration 0.099000
+file 'screenshots/frame-000021.png'
+option framerate 1000
+duration 0.094000
+file 'screenshots/frame-000022.png'
+option framerate 1000
+duration 0.098000
+file 'screenshots/frame-000023.png'
+option framerate 1000
+duration 0.101000
+file 'screenshots/frame-000024.png'
+option framerate 1000
+duration 0.099000
+file 'screenshots/frame-000025.png'
+option framerate 1000
+duration 0.098000
+file 'screenshots/frame-000026.png'
+option framerate 1000
+duration 0.102000
+file 'screenshots/frame-000027.png'
+option framerate 1000
+duration 0.098000
+file 'screenshots/frame-000028.png'
+option framerate 1000
+duration 0.102000
+file 'screenshots/frame-000029.png'
+option framerate 1000
+duration 0.101000
+file 'screenshots/frame-000030.png'
+option framerate 1000
+duration 0.097000
+file 'screenshots/frame-000031.png'
+option framerate 1000
+duration 0.101000
+file 'screenshots/frame-000032.png'
+option framerate 1000
+duration 0.108000
+file 'screenshots/frame-000033.png'
+option framerate 1000
+duration 0.101000
+file 'screenshots/frame-000034.png'
+option framerate 1000
+duration 0.100000
+file 'screenshots/frame-000035.png'
+option framerate 1000
+duration 0.104000
+file 'screenshots/frame-000036.png'
+option framerate 1000
+duration 0.098000
+file 'screenshots/frame-000037.png'
+option framerate 1000
+duration 0.090000
+file 'screenshots/frame-000038.png'
+option framerate 1000
+duration 0.100000
+file 'screenshots/frame-000039.png'
+option framerate 1000
+duration 0.099000
+file 'screenshots/frame-000040.png'
+option framerate 1000
+duration 0.101000
+file 'screenshots/frame-000041.png'
+option framerate 1000
+duration 0.099000
+file 'screenshots/frame-000042.png'
+option framerate 1000
+duration 0.100000
+file 'screenshots/frame-000043.png'
+option framerate 1000
+duration 0.100000
+file 'screenshots/frame-000044.png'
+option framerate 1000
+duration 0.101000
+file 'screenshots/frame-000045.png'
+option framerate 1000
+duration 0.099000
+file 'screenshots/frame-000046.png'
+option framerate 1000
+duration 0.099000
+file 'screenshots/frame-000047.png'
+option framerate 1000
+duration 0.106000
+file 'screenshots/frame-000048.png'
+option framerate 1000
+duration 0.096000
+file 'screenshots/frame-000049.png'
+option framerate 1000
+duration 0.101000
+file 'screenshots/frame-000050.png'
+option framerate 1000
+duration 0.102000
+file 'screenshots/frame-000051.png'
+option framerate 1000
+duration 0.105000
+file 'screenshots/frame-000052.png'
+option framerate 1000
+duration 0.098000
+file 'screenshots/frame-000053.png'
+option framerate 1000
+duration 0.095000
+file 'screenshots/frame-000054.png'
+option framerate 1000
+duration 0.103000
+file 'screenshots/frame-000055.png'
+option framerate 1000
+duration 0.097000
+file 'screenshots/frame-000056.png'
+option framerate 1000
+duration 0.102000
+file 'screenshots/frame-000057.png'
+option framerate 1000
+duration 0.101000
+file 'screenshots/frame-000058.png'
+option framerate 1000
+duration 0.095000
+file 'screenshots/frame-000059.png'
+option framerate 1000
+duration 0.106000
+file 'screenshots/frame-000060.png'
+option framerate 1000
+duration 0.102000
+file 'screenshots/frame-000061.png'
+option framerate 1000
+duration 0.102000
+file 'screenshots/frame-000062.png'
+option framerate 1000
+duration 0.097000
+file 'screenshots/frame-000063.png'
+option framerate 1000
+duration 0.099000
+file 'screenshots/frame-000064.png'
+option framerate 1000
+duration 0.109000
+file 'screenshots/frame-000065.png'
+option framerate 1000
+duration 0.099000
+file 'screenshots/frame-000066.png'
+option framerate 1000
+duration 0.107000
+file 'screenshots/frame-000067.png'
+option framerate 1000
+duration 0.091000
+file 'screenshots/frame-000068.png'
+option framerate 1000
+duration 0.090000
+file 'screenshots/frame-000069.png'
+option framerate 1000
+duration 0.115000
+file 'screenshots/frame-000070.png'
+option framerate 1000
+duration 0.087000
+file 'screenshots/frame-000071.png'
+option framerate 1000
+duration 0.107000
+file 'screenshots/frame-000072.png'
+option framerate 1000
+duration 0.100000
+file 'screenshots/frame-000073.png'
+option framerate 1000
+duration 0.098000
+file 'screenshots/frame-000074.png'
+option framerate 1000
+duration 0.095000
+file 'screenshots/frame-000075.png'
+option framerate 1000
+duration 0.098000
+file 'screenshots/frame-000076.png'
+option framerate 1000
+duration 0.100000
+file 'screenshots/frame-000077.png'
+option framerate 1000
+duration 0.106000
+file 'screenshots/frame-000078.png'
+option framerate 1000
+duration 0.092000
+file 'screenshots/frame-000079.png'
+option framerate 1000
+duration 0.067000
+file 'screenshots/frame-000080.png'
+option framerate 1000
+duration 0.092000
+file 'screenshots/frame-000081.png'
+option framerate 1000
+duration 0.100000
+file 'screenshots/frame-000082.png'
+option framerate 1000
+duration 0.102000
+file 'screenshots/frame-000083.png'
+option framerate 1000
+duration 0.101000
+file 'screenshots/frame-000084.png'
+option framerate 1000
+duration 0.091000
+file 'screenshots/frame-000085.png'
+option framerate 1000
+duration 0.106000
+file 'screenshots/frame-000086.png'
+option framerate 1000
+duration 0.094000
+file 'screenshots/frame-000087.png'
+option framerate 1000
+duration 0.130000
+file 'screenshots/frame-000088.png'
+option framerate 1000
+duration 0.066000
+file 'screenshots/frame-000089.png'
+option framerate 1000
+duration 0.106000
+file 'screenshots/frame-000090.png'
+option framerate 1000
+duration 0.020000
+file 'screenshots/frame-000091.png'
+option framerate 1000
+duration 0.038000
+file 'screenshots/frame-000092.png'
+option framerate 1000
+duration 0.105000
+file 'screenshots/frame-000093.png'
+option framerate 1000
+duration 0.088000
+file 'screenshots/frame-000094.png'
+option framerate 1000
+duration 0.100000
+file 'screenshots/frame-000095.png'
+option framerate 1000
+duration 0.094000
+file 'screenshots/frame-000096.png'
+option framerate 1000
+duration 0.102000
+file 'screenshots/frame-000097.png'
+option framerate 1000
+duration 0.104000
+file 'screenshots/frame-000098.png'
+option framerate 1000
+duration 0.098000
+file 'screenshots/frame-000099.png'
+option framerate 1000
+duration 0.106000
+file 'screenshots/frame-000100.png'
+option framerate 1000
+duration 0.101000
+file 'screenshots/frame-000101.png'
+option framerate 1000
+duration 0.091000
+file 'screenshots/frame-000102.png'
+option framerate 1000
+duration 0.100000
+file 'screenshots/frame-000103.png'
+option framerate 1000
+duration 0.097000
+file 'screenshots/frame-000104.png'
+option framerate 1000
+duration 0.104000
+file 'screenshots/frame-000105.png'
+option framerate 1000
+duration 0.099000
+file 'screenshots/frame-000106.png'
+option framerate 1000
+duration 0.098000
+file 'screenshots/frame-000107.png'
+option framerate 1000
+duration 0.099000
+file 'screenshots/frame-000108.png'
+option framerate 1000
+duration 0.102000
+file 'screenshots/frame-000109.png'
+option framerate 1000
+duration 0.098000
+file 'screenshots/frame-000110.png'
+option framerate 1000
+duration 0.105000
+file 'screenshots/frame-000111.png'
+option framerate 1000
+duration 0.102000
+file 'screenshots/frame-000112.png'
+option framerate 1000
+duration 0.101000
+file 'screenshots/frame-000113.png'
+option framerate 1000
+duration 0.102000
+file 'screenshots/frame-000114.png'
+option framerate 1000
+duration 0.095000
+file 'screenshots/frame-000115.png'
+option framerate 1000
+duration 0.110000
+file 'screenshots/frame-000116.png'
+option framerate 1000
+duration 0.094000
+file 'screenshots/frame-000117.png'
+option framerate 1000
+duration 0.107000
+file 'screenshots/frame-000118.png'
+option framerate 1000
+duration 0.094000
+file 'screenshots/frame-000119.png'
+option framerate 1000
+duration 0.153000
+file 'screenshots/frame-000120.png'
+option framerate 1000
+duration 0.050000
+file 'screenshots/frame-000121.png'
+option framerate 1000
+duration 0.106000
+file 'screenshots/frame-000122.png'
+option framerate 1000
+duration 0.103000
+file 'screenshots/frame-000123.png'
+option framerate 1000
+duration 0.105000
+file 'screenshots/frame-000124.png'
+option framerate 1000
+duration 0.140000
+file 'screenshots/frame-000125.png'
+option framerate 1000
+duration 0.065000
+file 'screenshots/frame-000126.png'
+option framerate 1000
+duration 0.079000
+file 'screenshots/frame-000127.png'
+option framerate 1000
+duration 0.106000
+file 'screenshots/frame-000128.png'
+option framerate 1000
+duration 0.114000
+file 'screenshots/frame-000129.png'
+option framerate 1000
+duration 0.081000
+file 'screenshots/frame-000130.png'
+option framerate 1000
+duration 0.113000
+file 'screenshots/frame-000131.png'
+option framerate 1000
+duration 0.105000
+file 'screenshots/frame-000132.png'
+option framerate 1000
+duration 0.081000
+file 'screenshots/frame-000133.png'
+option framerate 1000
+duration 0.099000
+file 'screenshots/frame-000134.png'
+option framerate 1000
+duration 0.093000
+file 'screenshots/frame-000135.png'
+option framerate 1000
+duration 0.102000
+file 'screenshots/frame-000136.png'
+option framerate 1000
+duration 0.108000
+file 'screenshots/frame-000137.png'
+option framerate 1000
+duration 0.093000
+file 'screenshots/frame-000138.png'
+option framerate 1000
+duration 0.096000
+file 'screenshots/frame-000139.png'
+option framerate 1000
+duration 0.109000
+file 'screenshots/frame-000140.png'
+option framerate 1000
+duration 0.091000
+file 'screenshots/frame-000141.png'
+option framerate 1000
+duration 0.110000
+file 'screenshots/frame-000142.png'
+option framerate 1000
+duration 0.103000
+file 'screenshots/frame-000143.png'
+option framerate 1000
+duration 0.089000
+file 'screenshots/frame-000144.png'
+option framerate 1000
+duration 0.101000
+file 'screenshots/frame-000145.png'
+option framerate 1000
+duration 0.102000
+file 'screenshots/frame-000146.png'
+option framerate 1000
+duration 0.102000
+file 'screenshots/frame-000147.png'
+option framerate 1000
+duration 0.106000
+file 'screenshots/frame-000148.png'
+option framerate 1000
+duration 0.097000
+file 'screenshots/frame-000149.png'
+option framerate 1000
+duration 0.089000
+file 'screenshots/frame-000150.png'
+option framerate 1000
+duration 0.108000
+file 'screenshots/frame-000151.png'
+option framerate 1000
+duration 0.094000
+file 'screenshots/frame-000152.png'
+option framerate 1000
+duration 0.097000
+file 'screenshots/frame-000153.png'
+option framerate 1000
+duration 0.104000
+file 'screenshots/frame-000154.png'
+option framerate 1000
+duration 0.098000
+file 'screenshots/frame-000155.png'
+option framerate 1000
+duration 0.108000
+file 'screenshots/frame-000156.png'
+option framerate 1000
+duration 0.099000
+file 'screenshots/frame-000157.png'
+option framerate 1000
+duration 0.103000
+file 'screenshots/frame-000158.png'
+option framerate 1000
+duration 0.122000
+file 'screenshots/frame-000159.png'
+option framerate 1000
+duration 0.093000
+file 'screenshots/frame-000160.png'
+option framerate 1000
+duration 0.096000
+file 'screenshots/frame-000161.png'
+option framerate 1000
+duration 0.107000
+file 'screenshots/frame-000162.png'
+option framerate 1000
+duration 0.086000
+file 'screenshots/frame-000163.png'
+option framerate 1000
+duration 0.089000
+file 'screenshots/frame-000164.png'
+option framerate 1000
+duration 0.098000
+file 'screenshots/frame-000165.png'
+option framerate 1000
+duration 0.109000
+file 'screenshots/frame-000166.png'
+option framerate 1000
+duration 0.091000
+file 'screenshots/frame-000167.png'
+option framerate 1000
+duration 0.101000
+file 'screenshots/frame-000168.png'
+option framerate 1000
+duration 0.109000
+file 'screenshots/frame-000169.png'
+option framerate 1000
+duration 0.097000
+file 'screenshots/frame-000170.png'
+option framerate 1000
+duration 0.094000
+file 'screenshots/frame-000171.png'
+option framerate 1000
+duration 0.105000
+file 'screenshots/frame-000172.png'
+option framerate 1000
+duration 0.091000
+file 'screenshots/frame-000173.png'
+option framerate 1000
+duration 0.102000
+file 'screenshots/frame-000174.png'
+option framerate 1000
+duration 0.099000
+file 'screenshots/frame-000175.png'
+option framerate 1000
+duration 0.100000
+file 'screenshots/frame-000176.png'
+option framerate 1000
+duration 0.100000
+file 'screenshots/frame-000177.png'
+option framerate 1000
+duration 0.110000
+file 'screenshots/frame-000178.png'
+option framerate 1000
+duration 0.093000
+file 'screenshots/frame-000179.png'
+option framerate 1000
+duration 0.100000
+file 'screenshots/frame-000180.png'
+option framerate 1000
+duration 0.102000
+file 'screenshots/frame-000181.png'
+option framerate 1000
+duration 0.101000
+file 'screenshots/frame-000182.png'
+option framerate 1000
+duration 0.096000
+file 'screenshots/frame-000183.png'
+option framerate 1000
+duration 0.100000
+file 'screenshots/frame-000184.png'
+option framerate 1000
+duration 0.102000
+file 'screenshots/frame-000185.png'
+option framerate 1000
+duration 0.100000
+file 'screenshots/frame-000186.png'
+option framerate 1000
+duration 0.095000
+file 'screenshots/frame-000187.png'
+option framerate 1000
+duration 0.108000
+file 'screenshots/frame-000188.png'
+option framerate 1000
+duration 0.101000
+file 'screenshots/frame-000189.png'
+option framerate 1000
+duration 0.095000
+file 'screenshots/frame-000190.png'
+option framerate 1000
+duration 0.103000
+file 'screenshots/frame-000191.png'
+option framerate 1000
+duration 0.094000
+file 'screenshots/frame-000192.png'
+option framerate 1000
+duration 0.102000
+file 'screenshots/frame-000193.png'
+option framerate 1000
+duration 0.096000
+file 'screenshots/frame-000194.png'
+option framerate 1000
+duration 0.104000
+file 'screenshots/frame-000195.png'
+option framerate 1000
+duration 0.100000
+file 'screenshots/frame-000196.png'
+option framerate 1000
+duration 0.112000
+file 'screenshots/frame-000197.png'
+option framerate 1000
+duration 0.108000
+file 'screenshots/frame-000198.png'
+option framerate 1000
+duration 0.104000
+file 'screenshots/frame-000199.png'
+option framerate 1000
+duration 0.078000
+file 'screenshots/frame-000200.png'
+option framerate 1000
+duration 0.106000
+file 'screenshots/frame-000201.png'
+option framerate 1000
+duration 0.104000
+file 'screenshots/frame-000202.png'
+option framerate 1000
+duration 0.123000
+file 'screenshots/frame-000203.png'
+option framerate 1000
+duration 0.073000
+file 'screenshots/frame-000204.png'
+option framerate 1000
+duration 0.099000
+file 'screenshots/frame-000205.png'
+option framerate 1000
+duration 0.101000
+file 'screenshots/frame-000206.png'
+option framerate 1000
+duration 0.092000
+file 'screenshots/frame-000207.png'
+option framerate 1000
+duration 0.104000
+file 'screenshots/frame-000208.png'
+option framerate 1000
+duration 0.100000
+file 'screenshots/frame-000209.png'
+option framerate 1000
+duration 0.100000
+file 'screenshots/frame-000210.png'
+option framerate 1000
+duration 0.097000
+file 'screenshots/frame-000211.png'
+option framerate 1000
+duration 0.113000
+file 'screenshots/frame-000212.png'
+option framerate 1000
+duration 0.105000
+file 'screenshots/frame-000213.png'
+option framerate 1000
+duration 0.096000
+file 'screenshots/frame-000214.png'
+option framerate 1000
+duration 0.086000
+file 'screenshots/frame-000215.png'
+option framerate 1000
+duration 0.113000
+file 'screenshots/frame-000216.png'
+option framerate 1000
+duration 0.099000
+file 'screenshots/frame-000217.png'
+option framerate 1000
+duration 0.094000
+file 'screenshots/frame-000218.png'
+option framerate 1000
+duration 0.103000
+file 'screenshots/frame-000219.png'
+option framerate 1000
+duration 0.101000
+file 'screenshots/frame-000220.png'
+option framerate 1000
+duration 0.090000
+file 'screenshots/frame-000221.png'
+option framerate 1000
+duration 0.100000
+file 'screenshots/frame-000222.png'
+option framerate 1000
+duration 0.096000
+file 'screenshots/frame-000223.png'
+option framerate 1000
+duration 0.109000
+file 'screenshots/frame-000224.png'
+option framerate 1000
+duration 0.094000
+file 'screenshots/frame-000225.png'
+option framerate 1000
+duration 0.100000
+file 'screenshots/frame-000226.png'
+option framerate 1000
+duration 0.098000
+file 'screenshots/frame-000227.png'
+option framerate 1000
+duration 0.106000
+file 'screenshots/frame-000228.png'
+option framerate 1000
+duration 0.125000
+file 'screenshots/frame-000229.png'
+option framerate 1000
+duration 0.085000
+file 'screenshots/frame-000230.png'
+option framerate 1000
+duration 0.098000
+file 'screenshots/frame-000231.png'
+option framerate 1000
+duration 0.101000
+file 'screenshots/frame-000232.png'
+option framerate 1000
+duration 0.098000
+file 'screenshots/frame-000233.png'
+option framerate 1000
+duration 0.135000
+file 'screenshots/frame-000234.png'
+option framerate 1000
+duration 0.067000
+file 'screenshots/frame-000235.png'
+option framerate 1000
+duration 0.093000
+file 'screenshots/frame-000236.png'
+option framerate 1000
+duration 0.113000
+file 'screenshots/frame-000237.png'
+option framerate 1000
+duration 0.097000
+file 'screenshots/frame-000238.png'
+option framerate 1000
+duration 0.094000
+file 'screenshots/frame-000239.png'
+option framerate 1000
+duration 0.090000
+file 'screenshots/frame-000240.png'
+option framerate 1000
+duration 0.097000
+file 'screenshots/frame-000241.png'
+option framerate 1000
+duration 0.106000
+file 'screenshots/frame-000242.png'
+option framerate 1000
+duration 0.109000
+file 'screenshots/frame-000243.png'
+option framerate 1000
+duration 0.086000
+file 'screenshots/frame-000244.png'
+option framerate 1000
+duration 0.100000
+file 'screenshots/frame-000245.png'
+option framerate 1000
+duration 0.101000
+file 'screenshots/frame-000246.png'
+option framerate 1000
+duration 0.100000
+file 'screenshots/frame-000247.png'
+option framerate 1000
+duration 0.099000
+file 'screenshots/frame-000248.png'
+option framerate 1000
+duration 0.102000
+file 'screenshots/frame-000249.png'
+option framerate 1000
+duration 0.097000
+file 'screenshots/frame-000250.png'
+option framerate 1000
+duration 0.100000
+file 'screenshots/frame-000251.png'
+option framerate 1000
+duration 0.101000
+file 'screenshots/frame-000252.png'
+option framerate 1000
+duration 0.103000
+file 'screenshots/frame-000253.png'
+option framerate 1000
+duration 0.096000
+file 'screenshots/frame-000254.png'
+option framerate 1000
+duration 0.105000
+file 'screenshots/frame-000255.png'
+option framerate 1000
+duration 0.096000
+file 'screenshots/frame-000256.png'
+option framerate 1000
+duration 0.099000
+file 'screenshots/frame-000257.png'
+option framerate 1000
+duration 0.101000
+file 'screenshots/frame-000258.png'
+option framerate 1000
+duration 0.099000
+file 'screenshots/frame-000259.png'
+option framerate 1000
+duration 0.101000
+file 'screenshots/frame-000260.png'
+option framerate 1000
+duration 0.102000
+file 'screenshots/frame-000261.png'
+option framerate 1000
+duration 0.097000
+file 'screenshots/frame-000262.png'
+option framerate 1000
+duration 0.109000
+file 'screenshots/frame-000263.png'
+option framerate 1000
+duration 0.098000
+file 'screenshots/frame-000264.png'
+option framerate 1000
+duration 0.093000
+file 'screenshots/frame-000265.png'
+option framerate 1000
+duration 0.100000
+file 'screenshots/frame-000266.png'
+option framerate 1000
+duration 0.100000
+file 'screenshots/frame-000267.png'
+option framerate 1000
+duration 0.102000
+file 'screenshots/frame-000268.png'
+option framerate 1000
+duration 0.106000
+file 'screenshots/frame-000269.png'
+option framerate 1000
+duration 0.101000
+file 'screenshots/frame-000270.png'
+option framerate 1000
+duration 0.092000
+file 'screenshots/frame-000271.png'
+option framerate 1000
+duration 0.101000
+file 'screenshots/frame-000272.png'
+option framerate 1000
+duration 0.101000
+file 'screenshots/frame-000273.png'
+option framerate 1000
+duration 0.096000
+file 'screenshots/frame-000274.png'
+option framerate 1000
+duration 0.107000
+file 'screenshots/frame-000275.png'
+option framerate 1000
+duration 0.096000
+file 'screenshots/frame-000276.png'
+option framerate 1000
+duration 0.114000
+file 'screenshots/frame-000277.png'
+option framerate 1000
+duration 0.084000
+file 'screenshots/frame-000278.png'
+option framerate 1000
+duration 0.100000
+file 'screenshots/frame-000279.png'
+option framerate 1000
+duration 0.099000
+file 'screenshots/frame-000280.png'
+option framerate 1000
+duration 0.103000
+file 'screenshots/frame-000281.png'
+option framerate 1000
+duration 1.069000
+file 'screenshots/frame-000282.png'
+option framerate 1000
+duration 2.479000
+file 'screenshots/frame-000283.png'
+option framerate 1000
+duration 0.100000
+file 'screenshots/frame-000283.png'
+option framerate 1000

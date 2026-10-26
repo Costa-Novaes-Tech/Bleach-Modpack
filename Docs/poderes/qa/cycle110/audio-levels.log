@@ -1,0 +1,24 @@
+Input #0, ogg, from 'src/main/resources/assets/bleachmod/sounds/ryujin_entrance_score.ogg':
+  Duration: 00:00:40.00, start: 0.000000, bitrate: 72 kb/s
+  Stream #0:0: Audio: vorbis, 32000 Hz, stereo, fltp, 120 kb/s
+      Metadata:
+        encoder         : Lavc61.19.100 libvorbis
+[Parsed_volumedetect_0 @ 000001d050bf8180] n_samples: 0
+Stream mapping:
+  Stream #0:0 -> #0:0 (vorbis (native) -> pcm_s16le (native))
+Press [q] to stop, [?] for help
+Output #0, null, to 'NUL':
+  Metadata:
+    encoder         : Lavf61.7.100
+  Stream #0:0: Audio: pcm_s16le, 32000 Hz, stereo, s16, 1024 kb/s
+      Metadata:
+        encoder         : Lavc61.19.100 pcm_s16le
+[Parsed_volumedetect_0 @ 000001d050c4e400] n_samples: 2560000
+[Parsed_volumedetect_0 @ 000001d050c4e400] mean_volume: -24.2 dB
+[Parsed_volumedetect_0 @ 000001d050c4e400] max_volume: -9.0 dB
+[Parsed_volumedetect_0 @ 000001d050c4e400] histogram_8db: 2
+[Parsed_volumedetect_0 @ 000001d050c4e400] histogram_9db: 50
+[Parsed_volumedetect_0 @ 000001d050c4e400] histogram_10db: 532
+[Parsed_volumedetect_0 @ 000001d050c4e400] histogram_11db: 2100
+[out#0/null @ 000001d050bf6800] video:0KiB audio:5000KiB subtitle:0KiB other streams:0KiB global headers:0KiB muxing overhead: unknown
+size=N/A time=00:00:40.00 bitrate=N/A speed= 824x    

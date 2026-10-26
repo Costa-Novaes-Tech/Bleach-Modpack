@@ -24,6 +24,11 @@ import java.util.*;
 @Mod.EventBusSubscriber(modid=Reference.MOD_ID)
 public final class ElementalTechniqueService {
     private static final String ASH="bleachmod_ash_soldier";
+    /** Ephemeral owned summon, vanilla entity type/packet/rig. Reloads are rejected by orphan(). */
+    private static final class AshSoldier extends WitherSkeleton {
+        AshSoldier(net.minecraft.server.level.ServerLevel level){super(EntityType.WITHER_SKELETON,level);}
+        @Override protected boolean shouldDespawnInPeaceful(){return false;}
+    }
     private static final Map<UUID,List<Cast>> CASTS=new HashMap<>();
     private static final Map<UUID,Long> CONTROL_RECOVERY=new HashMap<>();
     private static final class Cast {
@@ -68,7 +73,7 @@ public final class ElementalTechniqueService {
             t.putDouble("x",c.origin.x);t.putDouble("y",c.origin.y);t.putDouble("z",c.origin.z);t.putDouble("dx",c.forward.x);t.putDouble("dz",c.forward.z);t.putDouble("radius",c.radius);t.putBoolean("ice",c.identity.equals(CharacterData.HYORINMARU));
             t.putIntArray("targets",c.cocoons.values().stream().filter(tgt->tgt.isAlive() && !c.ruptured.contains(tgt.getUUID())).limit(16).mapToInt(Entity::getId).toArray());
             var crystals=new ListTag();for(var point:c.crystals){var q=new CompoundTag();q.putDouble("x",point.x);q.putDouble("y",point.y);q.putDouble("z",point.z);crystals.add(q);}t.put("crystals",crystals);
-            if(c.kind.equals("minami"))t.putIntArray("soldiers",c.soldiers.stream().filter(Entity::isAlive).limit(6).mapToInt(Entity::getId).toArray());list.add(t);}
+            if(c.kind.equals("minami"))t.putIntArray("soldiers",c.soldiers.stream().filter(Entity::isAlive).limit(10).mapToInt(Entity::getId).toArray());list.add(t);}
         out.put("casts",list);return out;
     }
     public static void cancel(ServerPlayer p){var list=CASTS.remove(p.getUUID());if(list!=null){list.forEach(c->c.cleanup());SyncHelper.appearance(p);}}
@@ -100,7 +105,7 @@ public final class ElementalTechniqueService {
             case "jokaku"->{origin=surfaceAim(p,10);duration=120;gesture=20;radius=6;}
             case "higashi"->{duration=22;gesture=22;radius=4;}
             case "minami"->{duration=180;gesture=22;radius=16;}
-            case "steam_cut"->{duration=32;gesture=32;radius=100;}
+            case "steam_cut"->{duration=56;gesture=56;radius=100;}
             case "crescent_chain"->{duration=60;gesture=18;radius=12;}
             case "ryusenka"->{duration=64;gesture=22;radius=14;}
             case "hydra_assault"->{duration=156;gesture=18;radius=32;}
@@ -223,7 +228,10 @@ public final class ElementalTechniqueService {
             case "jokaku"->{if(age<20 || age%20!=0)break;
                 for(var t:targets(c,c.origin,6))if(TechniqueGeometry.intersectsCylinder(c.origin,6,1,5,t.getBoundingBox()) && visible(c,t,c.origin))hit(c,t,4,false);
             }
-            case "steam_cut"->{if(age==18)TechniqueService.applyConcentratedSteamCut(p);}
+            case "steam_cut"->{
+                if(age==10 || age==30)p.serverLevel().playSound(null,p.blockPosition(),net.minecraft.sounds.SoundEvents.FIRE_AMBIENT,p.getSoundSource(),.35F,age==10?.65F:.85F);
+                if(age==40)TechniqueService.applyConcentratedSteamCut(p);
+            }
             case "minami"->army(c);
         }
     }
@@ -238,17 +246,24 @@ public final class ElementalTechniqueService {
         return true;
     }
     private static void army(Cast c){var p=c.owner;int age=c.age();
-        if(age==16)for(int i=0;i<6;i++){var mob=EntityType.WITHER_SKELETON.create(p.serverLevel());if(mob==null)continue;
-            double a=i*Math.PI/3;mob.setPos(p.position().add(Math.cos(a)*2,0,Math.sin(a)*2));
+        if(age==16)for(int i=0;i<10;i++){var mob=new AshSoldier(p.serverLevel());
+            Vec3 side=new Vec3(-c.forward.z,0,c.forward.x);
+            Vec3 at=p.position().add(side.scale((i%5-2)*1.25+(i/5)*.35)).subtract(c.forward.scale(1.5+(i/5)*1.5));
+            var ground=p.level().clip(new ClipContext(at.add(0,2,0),at.add(0,-3,0),ClipContext.Block.COLLIDER,ClipContext.Fluid.NONE,p));
+            if(ground.getType()==HitResult.Type.MISS)continue;
+            mob.setPos(ground.getLocation());
             if(!p.level().hasChunkAt(mob.blockPosition()) || !p.level().noCollision(mob,mob.getBoundingBox()))continue;
-            mob.setNoAi(true);mob.getPersistentData().putBoolean(ASH,true);mob.getPersistentData().putUUID("ashOwner",p.getUUID());mob.setItemSlot(EquipmentSlot.MAINHAND,ItemStack.EMPTY);
-            for(var slot:EquipmentSlot.values())mob.setDropChance(slot,0);mob.setHealth(6);c.soldiers.add(mob);p.serverLevel().addFreshEntity(mob);
+            mob.setNoAi(true);mob.setAggressive(true);mob.setYRot(p.getYRot());mob.yBodyRot=p.getYRot();mob.getPersistentData().putBoolean(ASH,true);mob.getPersistentData().putUUID("ashOwner",p.getUUID());mob.setItemSlot(EquipmentSlot.MAINHAND,ItemStack.EMPTY);
+            for(var slot:EquipmentSlot.values())mob.setDropChance(slot,0);mob.getAttribute(net.minecraft.world.entity.ai.attributes.Attributes.MAX_HEALTH).setBaseValue(6);mob.setHealth(6);c.soldiers.add(mob);p.serverLevel().addFreshEntity(mob);
         }
         if(age==16)SyncHelper.appearance(p); // Publish IDs once, for emergence and late observers.
         c.soldiers.removeIf(e->!e.isAlive() || e.isRemoved());
         for(var mob:c.soldiers){
             var t=targets(c,p.position(),16).stream().filter(e->!e.getPersistentData().getBoolean(ASH) && (e instanceof Enemy || e instanceof ServerPlayer) && mob.hasLineOfSight(e)).min(Comparator.comparingDouble(mob::distanceToSqr)).orElse(null);
-            Vec3 goal=t==null?p.position():t.position(),delta=goal.subtract(mob.position());
+            int index=c.soldiers.indexOf(mob);
+            Vec3 formation=p.position().subtract(c.forward.scale(2+(index/5)*1.4)).add(new Vec3(-c.forward.z,0,c.forward.x).scale((index%5-2)*1.25));
+            Vec3 goal=t==null?formation:t.position(),delta=goal.subtract(mob.position());
+            if(delta.horizontalDistance()>.1){float yaw=(float)Math.toDegrees(Math.atan2(-delta.x,delta.z));mob.setYRot(yaw);mob.yBodyRot=yaw;mob.setYHeadRot(yaw);}
             if(delta.horizontalDistance()>1){var step=new Vec3(delta.x,0,delta.z).normalize().scale(.22);if(p.level().hasChunkAt(BlockPos.containing(mob.position().add(step))))mob.move(MoverType.SELF,step);}
             if(t!=null && mob.distanceToSqr(t)<3 && c.nextHit.getOrDefault(t.getUUID(),0L)<=p.level().getGameTime()){
                 c.nextHit.put(t.getUUID(),p.level().getGameTime()+20);hit(c,t,3,false);mob.swing(net.minecraft.world.InteractionHand.MAIN_HAND);
@@ -268,6 +283,12 @@ public final class ElementalTechniqueService {
     }
     @SubscribeEvent public static void tick(TickEvent.ServerTickEvent e){if(e.phase==TickEvent.Phase.END)for(var list:new ArrayList<>(CASTS.values()))if(!list.isEmpty())tick(list.get(0).owner);}
     @SubscribeEvent public static void logout(net.minecraftforge.event.entity.player.PlayerEvent.PlayerLoggedOutEvent e){if(e.getEntity() instanceof ServerPlayer p)cancel(p);}
+    @SubscribeEvent public static void ashDeath(LivingDeathEvent e){
+        if(e.getEntity().getPersistentData().getBoolean(ASH) && e.getEntity().level() instanceof net.minecraft.server.level.ServerLevel level){
+            var mob=e.getEntity();level.sendParticles(ParticleTypes.ASH,mob.getX(),mob.getY()+1,mob.getZ(),14,.25,.6,.25,.025);
+            level.sendParticles(ParticleTypes.SMOKE,mob.getX(),mob.getY()+1,mob.getZ(),6,.2,.5,.2,.02);
+        }
+    }
     @SubscribeEvent public static void drops(LivingDropsEvent e){if(e.getEntity().getPersistentData().getBoolean(ASH))e.getDrops().clear();}
     @SubscribeEvent public static void xp(LivingExperienceDropEvent e){if(e.getEntity().getPersistentData().getBoolean(ASH))e.setDroppedExperience(0);}
     @SubscribeEvent public static void orphan(EntityJoinLevelEvent e){if(!e.getLevel().isClientSide() && e.getEntity().getPersistentData().getBoolean(ASH) && CASTS.values().stream().flatMap(List::stream).noneMatch(c->c.soldiers.contains(e.getEntity())))e.setCanceled(true);}

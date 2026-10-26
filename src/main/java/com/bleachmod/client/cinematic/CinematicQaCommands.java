@@ -56,6 +56,7 @@ public final class CinematicQaCommands {
                         .then(literal("survive").executes(c->request("survive")))
                         .then(literal("miss").executes(c->request("miss"))))
                 .then(literal("benihime").executes(c->request("benihime")))
+                .then(literal("ryujin_bankai").executes(c->request("ryujin_bankai")))
                 .then(literal("terrain").executes(c->request("terrain"))));
     }
     private static int request(String scenario) {
@@ -67,6 +68,7 @@ public final class CinematicQaCommands {
             var p=server.getPlayerList().getPlayer(uuid);if(!safe(p))return;
             if(scenario.equals("terrain"))terrain(p);
             else if(scenario.equals("benihime"))benihime(p);
+            else if(scenario.equals("ryujin_bankai"))ryujinBankai(p);
             else higashi(p,scenario);
         });
         return 1;
@@ -148,6 +150,23 @@ public final class CinematicQaCommands {
         SyncHelper.full(p);SyncHelper.appearance(p);
         com.bleachmod.server.events.FormModeHandler.instantTransform(p,d);
         p.sendSystemMessage(Component.literal("QA Benihime: invocação real preparada. Para repetir: /cinematicqa benihime"));
+    }
+    private static void ryujinBankai(ServerPlayer p) {
+        cleanTargets(p);ReleaseAnimationService.cancel(p);BenihimeEntranceService.cancel(p);RyujinTechniqueService.cancel(p);
+        RyujinBankaiEntranceService.cancel(p);
+        var d=PlayerCapability.get(p).orElse(null);if(d==null)return;
+        d.getCharacter().bindZanpakuto("ryujin_jakka");d.getSkills().get("zanpakuto").setLevel(2);
+        for(String form:List.of("sealed","shikai","bankai")){
+            d.getCharacter().unlockForm(form);d.getCharacter().setMastery("zanpakuto",form,100);
+        }
+        d.getCharacter().preserveLegacyTechniques();d.getCharacter().setActiveForm("zanpakuto","shikai");
+        d.getCharacter().setSelectedForm("zanpakuto","bankai");d.getGuard().interrupt();d.getStatus().clearCooldowns();
+        d.getResources().setCurrentReiatsu(d.getResources().getMaxReiatsu());
+        p.setItemSlot(EquipmentSlot.MAINHAND,new ItemStack(ModItems.RYUJIN_JAKKA.get()));
+        p.setItemSlot(EquipmentSlot.OFFHAND,ItemStack.EMPTY);
+        SyncHelper.full(p);SyncHelper.appearance(p);
+        com.bleachmod.server.events.FormModeHandler.instantTransform(p,d);
+        p.sendSystemMessage(Component.literal("QA Ryujin Bankai: invocacao real preparada. Para repetir: /cinematicqa ryujin_bankai"));
     }
     private static void terrain(ServerPlayer p) {
         // Three local pads, with an unchanged reference at the pelvis. QA save only.

@@ -43,6 +43,8 @@ public final class ReleaseAnimationService {
         ACTIVE.put(p.getUUID(),new Release(p,d,group,form,cost));
         if(d.getCharacter().getZanpakutoIdentity().equals("benihime")&&form.equals("bankai"))BenihimeEntranceService.begin(p);
         if(d.getCharacter().getZanpakutoIdentity().equals("hyorinmaru")&&form.equals("bankai"))HyorinmaruCinematicService.begin(p);
+        if(d.getCharacter().getZanpakutoIdentity().equals(CharacterData.SENBONZAKURA)&&form.equals("bankai"))SenbonzakuraCinematicService.begin(p);
+        if(d.getCharacter().getZanpakutoIdentity().equals(CharacterData.RYUJIN)&&form.equals("bankai"))RyujinBankaiEntranceService.begin(p);
         d.getStatus().setIgnitionActive(false);d.getGuard().interrupt();
         SyncHelper.appearance(p);
     }
@@ -55,6 +57,8 @@ public final class ReleaseAnimationService {
         var removed=ACTIVE.remove(p.getUUID());
         if(removed!=null) {
             if(removed.identity.equals(CharacterData.HYORINMARU))HyorinmaruCinematicService.cancel(p);
+            if(removed.identity.equals(CharacterData.SENBONZAKURA))SenbonzakuraCinematicService.cancel(p);
+            if(removed.identity.equals(CharacterData.RYUJIN))RyujinBankaiEntranceService.cancel(p);
             SyncHelper.appearance(p);
         }
     }
@@ -74,7 +78,14 @@ public final class ReleaseAnimationService {
             if(!completed) {cancel(p);return;}
             r.committed=true;SyncHelper.appearance(p);
         }
-        if(age>=r.duration)cancel(p);
+        if(age>=r.duration) {
+            if((r.identity.equals(CharacterData.SENBONZAKURA) || r.identity.equals(CharacterData.RYUJIN)) && r.form.equals("bankai")) {
+                ACTIVE.remove(p.getUUID());
+                SyncHelper.appearance(p);
+                return;
+            }
+            cancel(p);
+        }
     }
     @SubscribeEvent public static void tick(TickEvent.PlayerTickEvent e) {
         if(e.phase==TickEvent.Phase.END && e.player instanceof ServerPlayer p)tick(p);
