@@ -1,0 +1,31 @@
+{
+  "parent": "bettercombat:sword",
+  "attributes": {
+    "attack_range": 3.0,
+    "category": "bleach_senbonzakura_fencing",
+    "two_handed": false,
+    "attacks": [
+      {
+        "hitbox": "VERTICAL_PLANE",
+        "angle": 70,
+        "animation": "bleachmod:senbonzakura_diagonal",
+        "upswing": 0.40,
+        "damage_multiplier": 1.0
+      },
+      {
+        "hitbox": "HORIZONTAL_PLANE",
+        "angle": 85,
+        "animation": "bleachmod:senbonzakura_return",
+        "upswing": 0.40,
+        "damage_multiplier": 1.0
+      },
+      {
+        "hitbox": "FORWARD_BOX",
+        "angle": 0,
+        "animation": "bleachmod:senbonzakura_thrust",
+        "upswing": 0.45,
+        "damage_multiplier": 1.0
+      }
+    ]
+  }
+}

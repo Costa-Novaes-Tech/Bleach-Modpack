@@ -28,7 +28,7 @@ public final class SignatureChoreography {
             case "floral_garden"->{arm=v(-1.9+1.5*smooth(t),.25,-.2);support=v(-1.2,.6,.35);body=v(.18*roll,-.2,0);leg=v(.2*roll,0,.08);handRot=v(-.5+1.0*t,0,-.2);}
             case "floral_bloom","ikka_senjinka","hiasobi"->{arm=v(-1.1+.7*t,.5-.8*t,-.15);support=v(-1.1+.8*t,-.5+.8*t,.2);body=v(.12*roll,.25*roll,0);handRot=v(.15,.4-.8*t,-.3*roll);}
             case "senkei"->{arm=v(-.65,.8,-.5);support=v(-1.15,.45,.6);body=v(0,-.3,0);handRot=v(0,-.4,.65*roll);}
-            case "hakuteiken"->{double dash=smooth((age-14)/2);arm=v(-.75-.9*dash,.2,-.1);support=v(-.8,.3,.5);body=v(.05+.3*dash,-.12,0);leg=v(.4*Math.sin(age*.8)*dash,0,.05);handRot=v(-.25-.15*dash,.15,0);}
+            case "hakuteiken"->{double prep=smooth(age/14.0),dash=smooth((age-14)/2.0);arm=v(-1.1-.55*dash,.15-.15*dash,-.1);support=v(-.9-.2*dash,.3-.1*dash,.4);body=v(.08+.32*dash,-.08-.06*dash,0);leg=v(.15+.25*dash,0,.05);handRot=v(-.2-.2*dash,.1-.1*dash,0);}
             case "dissection"->{double cut=smooth(t);arm=v(-.6-.65*cut,.85-1.5*cut,-.3);body=v(.08,-.35+.65*cut,0);handRot=v(.1,-.6+1.1*cut,.4-.8*cut);}
             case "reconstruction"->{arm=v(-1.1,.18,-.25);support=v(-1.3,-.2,.25);body=v(.08,0,0);handRot=v(-.15,.15,.15*Math.sin(age*Math.PI/5));}
             case "restructure"->{arm=v(-.8,.5,-.2);support=v(-1.2,-.4,.35);body=v(-.08*roll,.2*roll,0);leg=v(.12*roll,0,.06);handRot=v(-.1,.3,-.3*roll);}

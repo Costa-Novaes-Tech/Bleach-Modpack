@@ -248,6 +248,7 @@ public final class SenbonzakuraTechniqueService {
             case HAKU -> {
                 a.origin=s.owner.position().add(0,1.2,0);
                 if(age<SenbonPolicy.HAKU_WINDUP) {
+                    a.forward=SenbonGeometry.forward(s.owner.getYRot());
                     if(age%3==0)s.draw(WINGS,s.owner.position(),a.forward,4,age/(double)SenbonPolicy.HAKU_WINDUP,0);
                 } else tickHakuDash(s,a);
             }
@@ -260,7 +261,7 @@ public final class SenbonzakuraTechniqueService {
         if(p.isPassenger() || p.isSleeping() || p.isFallFlying()
                 || (a.lastPosition!=null && p.position().distanceToSqr(a.lastPosition)>9)) { stopAttack(s);return; }
         if(a.dashOrigin==null) {
-            a.dashOrigin=p.position();
+            a.dashOrigin=p.position();a.forward=SenbonGeometry.forward(p.getYRot());
             s.level.playSound(null,p.blockPosition(),SoundEvents.PLAYER_ATTACK_STRONG,p.getSoundSource(),1,.6F);
         }
         boolean blocked=false;int steps=(int)Math.ceil(SenbonPolicy.HAKU_STEP/SenbonPolicy.HAKU_SUBSTEP);
@@ -280,7 +281,7 @@ public final class SenbonzakuraTechniqueService {
         // Vanilla owner correction also updates the connection's accepted position; clients never supply the endpoint.
         p.connection.teleport(p.getX(),p.getY(),p.getZ(),p.getYRot(),p.getXRot());
         if(a.travelled>.01) {
-            if(a.dashTicks%2==1)s.draw(WINGS,p.position(),a.forward,4,1,0);
+            if(a.dashTicks%2==1)s.draw(WINGS,p.position(),a.forward,4,1,1);
             s.draw(LANCE,a.dashOrigin.add(0,1.2,0),a.forward,a.travelled,1,0);
         }
         if(blocked || a.dashTicks>=SenbonPolicy.HAKU_DASH_TICKS || a.travelled>=SenbonPolicy.HAKU_RANGE-.001)stopAttack(s);
@@ -301,7 +302,7 @@ public final class SenbonzakuraTechniqueService {
         p.setDeltaMovement(0,p.getDeltaMovement().y,0);p.hurtMarked=true;
     }
     private static void stopAttack(State s) {
-        if(s.attack!=null && s.attack.kind==Kind.HAKU && s.attack.dashOrigin!=null)stopHorizontal(s.owner);
+        if(s.attack!=null && s.attack.kind==Kind.HAKU && s.attack.dashOrigin!=null){stopHorizontal(s.owner);s.draw(RADIAL,s.owner.position().add(0,1,0),s.attack.forward,SenbonPolicy.CUT_RANGE,1.0,2);}
         s.attack=null;
     }
     private static boolean clearLine(State s,Vec3 center,LivingEntity target) {
