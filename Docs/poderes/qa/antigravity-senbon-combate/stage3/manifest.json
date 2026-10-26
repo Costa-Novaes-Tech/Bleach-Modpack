@@ -1,0 +1,150 @@
+{
+  "stage": 3,
+  "scenario": "Senbonzakura Sh\u016bkei: Hakuteiken 5 Moments",
+  "frames": [
+    {
+      "file": "04_hakuteiken_front_frame-t044.png",
+      "scenario": "04_hakuteiken_front",
+      "tick_frame": "frame-t044.png",
+      "bytes": 251491
+    },
+    {
+      "file": "04_hakuteiken_front_frame-t050.png",
+      "scenario": "04_hakuteiken_front",
+      "tick_frame": "frame-t050.png",
+      "bytes": 259993
+    },
+    {
+      "file": "04_hakuteiken_front_frame-t056.png",
+      "scenario": "04_hakuteiken_front",
+      "tick_frame": "frame-t056.png",
+      "bytes": 224018
+    },
+    {
+      "file": "04_hakuteiken_front_frame-t060.png",
+      "scenario": "04_hakuteiken_front",
+      "tick_frame": "frame-t060.png",
+      "bytes": 191854
+    },
+    {
+      "file": "04_hakuteiken_front_frame-t064.png",
+      "scenario": "04_hakuteiken_front",
+      "tick_frame": "frame-t064.png",
+      "bytes": 212445
+    },
+    {
+      "file": "04_hakuteiken_front_frame-t068.png",
+      "scenario": "04_hakuteiken_front",
+      "tick_frame": "frame-t068.png",
+      "bytes": 219761
+    },
+    {
+      "file": "04_hakuteiken_front_frame-t078.png",
+      "scenario": "04_hakuteiken_front",
+      "tick_frame": "frame-t078.png",
+      "bytes": 203733
+    },
+    {
+      "file": "04_hakuteiken_front_frame-t088.png",
+      "scenario": "04_hakuteiken_front",
+      "tick_frame": "frame-t088.png",
+      "bytes": 211762
+    },
+    {
+      "file": "05_hakuteiken_profile_frame-t044.png",
+      "scenario": "05_hakuteiken_profile",
+      "tick_frame": "frame-t044.png",
+      "bytes": 265103
+    },
+    {
+      "file": "05_hakuteiken_profile_frame-t050.png",
+      "scenario": "05_hakuteiken_profile",
+      "tick_frame": "frame-t050.png",
+      "bytes": 270190
+    },
+    {
+      "file": "05_hakuteiken_profile_frame-t056.png",
+      "scenario": "05_hakuteiken_profile",
+      "tick_frame": "frame-t056.png",
+      "bytes": 260280
+    },
+    {
+      "file": "05_hakuteiken_profile_frame-t060.png",
+      "scenario": "05_hakuteiken_profile",
+      "tick_frame": "frame-t060.png",
+      "bytes": 265979
+    },
+    {
+      "file": "05_hakuteiken_profile_frame-t064.png",
+      "scenario": "05_hakuteiken_profile",
+      "tick_frame": "frame-t064.png",
+      "bytes": 265177
+    },
+    {
+      "file": "05_hakuteiken_profile_frame-t068.png",
+      "scenario": "05_hakuteiken_profile",
+      "tick_frame": "frame-t068.png",
+      "bytes": 276603
+    },
+    {
+      "file": "05_hakuteiken_profile_frame-t078.png",
+      "scenario": "05_hakuteiken_profile",
+      "tick_frame": "frame-t078.png",
+      "bytes": 250875
+    },
+    {
+      "file": "05_hakuteiken_profile_frame-t088.png",
+      "scenario": "05_hakuteiken_profile",
+      "tick_frame": "frame-t088.png",
+      "bytes": 252106
+    },
+    {
+      "file": "06_hakuteiken_back_frame-t044.png",
+      "scenario": "06_hakuteiken_back",
+      "tick_frame": "frame-t044.png",
+      "bytes": 209939
+    },
+    {
+      "file": "06_hakuteiken_back_frame-t050.png",
+      "scenario": "06_hakuteiken_back",
+      "tick_frame": "frame-t050.png",
+      "bytes": 214902
+    },
+    {
+      "file": "06_hakuteiken_back_frame-t056.png",
+      "scenario": "06_hakuteiken_back",
+      "tick_frame": "frame-t056.png",
+      "bytes": 235370
+    },
+    {
+      "file": "06_hakuteiken_back_frame-t060.png",
+      "scenario": "06_hakuteiken_back",
+      "tick_frame": "frame-t060.png",
+      "bytes": 225830
+    },
+    {
+      "file": "06_hakuteiken_back_frame-t064.png",
+      "scenario": "06_hakuteiken_back",
+      "tick_frame": "frame-t064.png",
+      "bytes": 223995
+    },
+    {
+      "file": "06_hakuteiken_back_frame-t068.png",
+      "scenario": "06_hakuteiken_back",
+      "tick_frame": "frame-t068.png",
+      "bytes": 249506
+    },
+    {
+      "file": "06_hakuteiken_back_frame-t078.png",
+      "scenario": "06_hakuteiken_back",
+      "tick_frame": "frame-t078.png",
+      "bytes": 213413
+    },
+    {
+      "file": "06_hakuteiken_back_frame-t088.png",
+      "scenario": "06_hakuteiken_back",
+      "tick_frame": "frame-t088.png",
+      "bytes": 221421
+    }
+  ]
+}

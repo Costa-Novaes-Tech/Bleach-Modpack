@@ -14,7 +14,17 @@ import net.minecraftforge.fml.common.Mod;
 @Mod.EventBusSubscriber(modid=Reference.MOD_ID,value=Dist.CLIENT)
 public final class BetterCombatClientCompat {
     private BetterCombatClientCompat(){ }
-    public static void init(){BetterCombatClientEvents.ATTACK_START.register((p,hand)->cancelIfBlocked());}
+    public static void init(){
+        BetterCombatClientEvents.ATTACK_START.register((p,hand)->{
+            cancelIfBlocked();
+            if(p!=null && p.getMainHandItem().is(com.bleachmod.init.ModItems.SENBONZAKURA.get())){
+                int combo=((net.bettercombat.logic.PlayerAttackProperties)p).getComboCount();
+                if(combo>=0 && combo<=2){
+                    com.bleachmod.client.model.SenbonCombatVisuals.startMelee(p.getId(),combo);
+                }
+            }
+        });
+    }
     private static void cancelIfBlocked(){var mc=Minecraft.getInstance();var p=mc.player;
         if(p!=null && BetterCombatCompat.pilot(p.getMainHandItem()) && (!BetterCombatCompat.canAttack(p) || com.bleachmod.client.model.ElementalActionVisuals.busy(p) || com.bleachmod.client.model.SignatureActionVisuals.active(p) || com.bleachmod.client.model.ZanpakutoReleaseAnimation.active(p) || ModKeybinds.GUARD.isDown() || com.bleachmod.common.data.PlayerCapability.get(p).map(d->d.getGuard().shownActive() || d.getGuard().shownBroken()).orElse(false)))
             ((MinecraftClient_BetterCombat)mc).cancelUpswing();
