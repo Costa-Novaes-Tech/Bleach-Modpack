@@ -284,10 +284,14 @@ public final class MvpRegressionTest {
             }
         });
         test("Benihime Better Combat animations parse as finite original fencing motions",()->{
-            for(String name:List.of("benihime_diagonal","benihime_return","benihime_thrust")){
+            for(String name:List.of("benihime_thrust","benihime_thrust_2","benihime_slash")){
                 try(var reader=java.nio.file.Files.newBufferedReader(java.nio.file.Path.of("src/main/resources/assets/bleachmod/attack_animations/"+name+".json"))){
                     var animations=dev.kosmx.playerAnim.core.data.gson.AnimationSerializing.deserializeAnimation(reader);
-                    eq(1,animations.size());var animation=animations.get(0);yes(animation.getPart("rightArm").isEnabled());yes(animation.getPart("body").isEnabled());yes(!animation.isInfinite());eq(12,animation.endTick);
+                    eq(1,animations.size());var animation=animations.get(0);yes(animation.getPart("rightArm").isEnabled());yes(animation.getPart("rightItem").isEnabled());yes(animation.getPart("body").isEnabled());yes(!animation.isInfinite());eq(20,animation.endTick);
+                }catch(java.io.IOException e){throw new AssertionError(e);}
+                try(var reader=java.nio.file.Files.newBufferedReader(java.nio.file.Path.of("src/main/resources/assets/bleachmod/player_animation/"+name+".json"))){
+                    var animations=dev.kosmx.playerAnim.core.data.gson.AnimationSerializing.deserializeAnimation(reader);
+                    eq(1,animations.size());var animation=animations.get(0);yes(animation.getPart("rightArm").isEnabled());yes(animation.getPart("rightItem").isEnabled());
                 }catch(java.io.IOException e){throw new AssertionError(e);}
             }
         });
