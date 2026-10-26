@@ -214,3 +214,7 @@ Homologação final recebida do usuário para bainha, proporção e inclinação
 # Integração26/10 — ciclo120
 
 [Benihime e Senbon integrados com a Ryūjin curta](120-integracao-antigravity-combates-benihime-senbon-2026-10-26.md): commits e merges locais sem conflitos,148 regressões,233 GameTests e10cenários reais amostrados. JAR e roteiro de playtest no relatório. Rastro fixo Senbon, fluidez do C em terreno e aceite artístico continuam pendentes.
+
+# Revisão26/10 — ciclo121
+
+[Main, planejamento futuro e impactos no roadmap](121-revisao-main-planejamento-futuro-2026-10-26.md): inventário completo dos textos e revisão funcional do GDD vigente, distinguindo decisões de implementação. Próximo bloco documentalM11/M05; lista obrigatória de poderes preservada. Sem merge ou alteração de runtime.

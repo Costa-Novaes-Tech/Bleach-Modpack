@@ -220,3 +220,7 @@ A transformação longa da Ryūjin foi rejeitada por duração após teste do us
 # Adendo26/10 — integração120
 
 [Entregas Antigravity integradas](120-integracao-antigravity-combates-benihime-senbon-2026-10-26.md) em9713af1, após preservar a Ryūjin curta emfdca0de. Benihime: duas estocadas+corte horizontal; Senbon: canais do item e combo refinado.148 regressões,233 GameTests e10cenários reais amostrados. A revisão112 continua aberta para aceite de movimento/empunhadura, emissor Senbon ligado à lâmina e demais perspectivas. Pausa do C segue no item8 de eficiência. Nenhuma etapa obrigatória removida; main/Zaraki preservadas. Commits/merges locais, sem push nesta rodada.
+
+# Adendo26/10 — revisão documental121
+
+[Revisão do horizonte na main](121-revisao-main-planejamento-futuro-2026-10-26.md): próximo módulo documentalM11 com retornoM05, sem antecipar a produção NPC/quests à nossa lista obrigatória. M08–M10 têm conteúdo em especificação; NPCs-fontes, adversários e rotas precisam compor percursos jogáveis. Usuário aprovou o movimento Benihime e a base Ryūjin12s; Antigravity continua Senbon e VFX Ryūjin em paralelo. Mantidas revisão112, kit selado pendente, Uryū/contrato Quincy, Mentor/Proficiências adiados, Hyorin/Blockbench e eficiência/limpeza. Aizen poder adiado, Gin fora e Zaraki preservada. Somente documentação nesta rodada.
