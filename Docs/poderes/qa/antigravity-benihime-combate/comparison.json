@@ -3,125 +3,130 @@
   "branch": "codex/ryujin-bankai-sol-selamento",
   "checkout": "Bleach-Modpack-benihime",
   "status": "VERIFIED_CALIBRATED",
+  "combat_cycle": [
+    {
+      "step": 0,
+      "name": "Estocada 1",
+      "animation": "bleachmod:benihime_thrust",
+      "hitbox": "FORWARD_BOX",
+      "angle": 0,
+      "upswing": 0.45
+    },
+    {
+      "step": 1,
+      "name": "Estocada 2",
+      "animation": "bleachmod:benihime_thrust_2",
+      "hitbox": "FORWARD_BOX",
+      "angle": 0,
+      "upswing": 0.45
+    },
+    {
+      "step": 2,
+      "name": "Corte Horizontal",
+      "animation": "bleachmod:benihime_slash",
+      "hitbox": "HORIZONTAL_PLANE",
+      "angle": 100,
+      "upswing": 0.45
+    }
+  ],
   "custom_attack_animations": [
     {
-      "path": "src\\main\\resources\\assets\\bleachmod\\attack_animations\\benihime_diagonal.json",
-      "sha256": "1e256385968ff8d8f2d7912e54dd52ceab9ddc0cb15359a8769f430d59265366",
-      "boneKeyframeCounts": {
-        "rightArm": 9,
-        "rightItem": 9,
-        "leftArm": 9,
-        "torso": 9,
-        "head": 9,
-        "rightLeg": 9,
-        "leftLeg": 9
-      }
-    },
-    {
-      "path": "src\\main\\resources\\assets\\bleachmod\\attack_animations\\benihime_return.json",
-      "sha256": "0648da24b0378fab8c19d845026972992b220631e0e13e35e5e96e2c5e026e08",
-      "boneKeyframeCounts": {
-        "rightArm": 9,
-        "rightItem": 9,
-        "leftArm": 9,
-        "torso": 9,
-        "head": 9,
-        "rightLeg": 9,
-        "leftLeg": 9
-      }
-    },
-    {
       "path": "src\\main\\resources\\assets\\bleachmod\\attack_animations\\benihime_thrust.json",
-      "sha256": "7c8ad8169769d21e3bb7d22f182f108c47cfd636516a4db34161476b3efa3077",
+      "sha256": "599490fd8647a96de5ccd8275c1a5bfff0e02812f070418ba97f522ad8f5f274",
       "boneKeyframeCounts": {
-        "rightArm": 9,
-        "rightItem": 9,
-        "leftArm": 9,
-        "torso": 9,
-        "head": 9,
-        "rightLeg": 9,
-        "leftLeg": 9
+        "head": 4,
+        "torso": 5,
+        "rightArm": 4,
+        "leftArm": 4,
+        "rightLeg": 4,
+        "leftLeg": 4,
+        "rightItem": 4
+      },
+      "metadata": {
+        "beginTick": 8,
+        "endTick": 20,
+        "stopTick": 30,
+        "returnTick": 2
+      }
+    },
+    {
+      "path": "src\\main\\resources\\assets\\bleachmod\\attack_animations\\benihime_thrust_2.json",
+      "sha256": "f95ccef5dfe143dbf64152de4d4e51daf0708d694f0af1e8f9e50c4ce8794050",
+      "boneKeyframeCounts": {
+        "head": 4,
+        "torso": 5,
+        "rightArm": 4,
+        "leftArm": 4,
+        "rightLeg": 4,
+        "leftLeg": 4,
+        "rightItem": 4
+      },
+      "metadata": {
+        "beginTick": 8,
+        "endTick": 20,
+        "stopTick": 30,
+        "returnTick": 2
+      }
+    },
+    {
+      "path": "src\\main\\resources\\assets\\bleachmod\\attack_animations\\benihime_slash.json",
+      "sha256": "cf67ddf04e040166c196610834dfbaf28dc2f3c7c85cf599dea6155928d03531",
+      "boneKeyframeCounts": {
+        "head": 6,
+        "torso": 6,
+        "rightArm": 5,
+        "leftArm": 5,
+        "rightLeg": 5,
+        "leftLeg": 5,
+        "rightItem": 5
+      },
+      "metadata": {
+        "beginTick": 8,
+        "endTick": 20,
+        "stopTick": 30,
+        "returnTick": 2
       }
     }
   ],
   "custom_player_animations": [
     {
-      "path": "src\\main\\resources\\assets\\bleachmod\\player_animation\\benihime_diagonal.json",
-      "sha256": "573691fe9c6aa705f2d3a08aab09e8d04c9f50320b85a8b9d232ecef43fda79d",
-      "boneKeyframeCounts": {
-        "right_arm": 9,
-        "left_arm": 9,
-        "body": 9,
-        "head": 9,
-        "right_leg": 9,
-        "left_leg": 9,
-        "right_item": 9
-      }
-    },
-    {
-      "path": "src\\main\\resources\\assets\\bleachmod\\player_animation\\benihime_return.json",
-      "sha256": "fa606800314a8347b9be9edfe9ae2bc5119389b5bf994e77cc528661e6ec8890",
-      "boneKeyframeCounts": {
-        "right_arm": 9,
-        "left_arm": 9,
-        "body": 9,
-        "head": 9,
-        "right_leg": 9,
-        "left_leg": 9,
-        "right_item": 9
-      }
-    },
-    {
       "path": "src\\main\\resources\\assets\\bleachmod\\player_animation\\benihime_thrust.json",
-      "sha256": "6e9281571d02c17c33836d51a6bf461bb45ffbd7027d6e437d9bfea5d858dc2b",
+      "sha256": "6738ece0e6df2837d81c204ae7c1fc400f89050b18d7266214a881b38d75e772",
       "boneKeyframeCounts": {
-        "right_arm": 9,
-        "left_arm": 9,
-        "body": 9,
-        "head": 9,
-        "right_leg": 9,
-        "left_leg": 9,
-        "right_item": 9
-      }
-    }
-  ],
-  "native_better_combat_references": [
-    {
-      "resource": "assets/bettercombat/attack_animations/one_handed_slash_horizontal_right.json",
-      "boneKeyframeCounts": {
-        "head": 24,
-        "torso": 24,
-        "rightArm": 18,
-        "leftArm": 18,
-        "rightLeg": 18,
-        "leftLeg": 18,
-        "rightItem": 12
+        "head": 4,
+        "body": 5,
+        "right_arm": 4,
+        "left_arm": 4,
+        "right_leg": 4,
+        "left_leg": 4,
+        "right_item": 4
       }
     },
     {
-      "resource": "assets/bettercombat/attack_animations/one_handed_slash_horizontal_left.json",
+      "path": "src\\main\\resources\\assets\\bleachmod\\player_animation\\benihime_thrust_2.json",
+      "sha256": "cddad8b2ab3bb7b019a3e3272c35a4e7d3540ec43085f53cd488cfc7f0aae60a",
       "boneKeyframeCounts": {
-        "head": 18,
-        "torso": 18,
-        "rightArm": 24,
-        "leftArm": 24,
-        "rightLeg": 18,
-        "leftLeg": 18,
-        "rightItem": 12
+        "head": 4,
+        "body": 5,
+        "right_arm": 4,
+        "left_arm": 4,
+        "right_leg": 4,
+        "left_leg": 4,
+        "right_item": 4
       }
     },
     {
-      "resource": "assets/bettercombat/attack_animations/one_handed_stab.json",
+      "path": "src\\main\\resources\\assets\\bleachmod\\player_animation\\benihime_slash.json",
+      "sha256": "298e5b589645605e8190b5f81fa5d33be0405c04e5cdf02ac0742aef570c4cb2",
       "boneKeyframeCounts": {
-        "head": 12,
-        "torso": 24,
-        "rightArm": 18,
-        "leftArm": 18,
-        "rightLeg": 18,
-        "leftLeg": 18,
-        "rightItem": 18
+        "head": 6,
+        "body": 6,
+        "right_arm": 5,
+        "left_arm": 5,
+        "right_leg": 5,
+        "left_leg": 5,
+        "right_item": 5
       }
     }
-  ],
-  "conclusion": "All Benihime attack animations now include full rightItem / right_item channels (9 keyframes each) covering position (x, y, z) and rotation (pitch, yaw, roll). Parsed and verified with PlayerAnimator KeyframeAnimation and 147 regression scenarios."
+  ]
 }
