@@ -51,7 +51,7 @@ public final class ZanpakutoSheathLayer extends RenderLayer<AbstractClientPlayer
     }
     @Override public void render(PoseStack pose, MultiBufferSource buffers, int light, AbstractClientPlayer player,
                                  float swing, float amount, float partial, float age, float yaw, float pitch) {
-        if (player.isInvisible() || player.isSpectator() || !player.isAlive()) return;
+        if (player.isInvisible() || player.isSpectator() || !player.isAlive() || com.bleachmod.client.cinematic.SenbonzakuraCinematicClient.hideHeldWeapon(player.getId(), partial)) return;
         var motion = ZanpakutoMotion.motion(player); if (motion.previous == 0 || motion.previous < 0) return;
         PlayerCapability.get(player).ifPresent(data -> {
             String id = data.getCharacter().getZanpakutoIdentity();

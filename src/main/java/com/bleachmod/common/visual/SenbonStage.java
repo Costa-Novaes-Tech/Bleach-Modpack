@@ -18,9 +18,12 @@ import java.util.List;
  */
 public final class SenbonStage {
     public static final int ENTRY_END = 35;
-    public static final int SUSTAIN_END = 228;
+    public static final int SUSTAIN_END = 224;
+    public static final int STAGE_END = 280;
     public static final int DURATION = 290;
 
+    public static final double DROP_X = -0.26;
+    public static final double DROP_Z = 0.44;
     private static final int FLOOR_MIN_X = -15, FLOOR_MAX_X = 15;
     private static final int FLOOR_MIN_Z = -32, FLOOR_MAX_Z = 22;
 
@@ -35,26 +38,41 @@ public final class SenbonStage {
     /**
      * Master stage envelope:
      *   0..35:    Progressive entry (0.0 -> 1.0), fully formed at tick 35 when katana touches surface.
-     *   35..228:  Sustained full presence (1.0).
-     *   228..290: Gradual dissolution (1.0 -> 0.0) coordinated with camera return to the world.
+     *   35..224:  Sustained full presence (1.0).
+     *   224..280: Coordinated dissolution (1.0 -> 0.0), revealing the surrounding world before tick 290.
      */
     public static double stageWeight(double age) {
-        if (!Double.isFinite(age) || age <= 0.0 || age >= DURATION) return 0.0;
+        if (!Double.isFinite(age) || age <= 0.0 || age >= STAGE_END) return 0.0;
         if (age < ENTRY_END) {
             return smoothstep(0.0, ENTRY_END, age);
         } else if (age <= SUSTAIN_END) {
             return 1.0;
         } else {
-            return 1.0 - smoothstep(SUSTAIN_END, DURATION, age);
+            return 1.0 - smoothstep(SUSTAIN_END, STAGE_END, age);
         }
     }
 
     /**
-     * Subtle intensification of background and surface petal motion during blade dispersion (228..290).
+     * Backdrop envelope dissolves slightly ahead of the floor (220..276) so the horizon opens first.
+     */
+    public static double backdropWeight(double age) {
+        if (!Double.isFinite(age) || age <= 0.0 || age >= 276.0) return 0.0;
+        if (age < ENTRY_END) {
+            return smoothstep(0.0, ENTRY_END, age);
+        } else if (age <= 220.0) {
+            return 1.0;
+        } else {
+            return 1.0 - smoothstep(220.0, 276.0, age);
+        }
+    }
+
+    /**
+     * Subtle intensification of background and surface petal motion during blade dispersion (224..276),
+     * tapering off as petals lose density during the final camera settle.
      */
     public static double dispersionBoost(double age) {
-        if (!Double.isFinite(age) || age <= SUSTAIN_END || age >= DURATION) return 0.0;
-        return smoothstep(SUSTAIN_END, 254.0, age) * (1.0 - 0.35 * smoothstep(266.0, DURATION, age));
+        if (!Double.isFinite(age) || age <= SUSTAIN_END || age >= STAGE_END) return 0.0;
+        return smoothstep(SUSTAIN_END, 248.0, age) * (1.0 - smoothstep(258.0, STAGE_END, age));
     }
 
     /**
@@ -92,8 +110,8 @@ public final class SenbonStage {
 
         // Katana contact & sinking reflection intensity (peaks around ticks 32..90)
         double contactGlow = smoothstep(18.0, 35.0, age) * (1.0 - 0.55 * smoothstep(95.0, 175.0, age));
-        // Monumental blade row reflection intensity (ticks 76..266)
-        double corridorGlow = smoothstep(76.0, 115.0, age) * (1.0 - smoothstep(228.0, 266.0, age));
+        // Monumental blade row reflection intensity (ticks 76..264)
+        double corridorGlow = smoothstep(76.0, 115.0, age) * (1.0 - smoothstep(224.0, 264.0, age));
 
         int cols = FLOOR_MAX_X - FLOOR_MIN_X;
         int rows = FLOOR_MAX_Z - FLOOR_MIN_Z;
@@ -106,8 +124,8 @@ public final class SenbonStage {
                 int z = FLOOR_MIN_Z + iz;
                 double cz = z + 0.5;
 
-                double dxDrop = cx - 0.32;
-                double dzDrop = cz - 0.35;
+                double dxDrop = cx - DROP_X;
+                double dzDrop = cz - DROP_Z;
                 double distDrop = Math.sqrt(dxDrop * dxDrop + dzDrop * dzDrop);
                 if (distDrop > maxReach + 1.5) continue;
 
@@ -125,7 +143,7 @@ public final class SenbonStage {
                 double edge = Math.min(edgeFeather, Mth.clamp(boxEdge, 0.0, 1.0));
                 if (edge <= 0.005) continue;
 
-                // Subtle indigo undertow + rose reflections
+                // Subtle indigo undertow + toned-down rose reflections
                 double undertow = 0.5 + 0.5 * Math.sin(cx * 0.42 + cz * 0.28 - age * 0.055);
                 double spot = Math.exp(-(cx * cx + cz * cz) / 5.2);
                 double dropWell = Math.exp(-(dxDrop * dxDrop + dzDrop * dzDrop) / 4.8) * contactGlow;
@@ -142,9 +160,9 @@ public final class SenbonStage {
                 double bladeZMask = (cz >= -17.0 && cz <= 19.0) ? 1.0 : 0.0;
                 double bladeReflection = Math.exp(-(bladeRowDist * bladeRowDist) / 1.65) * bladeZMask * corridorGlow;
 
-                int r = (int) Mth.clamp(7 + undertow * 7 + spot * 18 + dropWell * 54 + rippleReflection * 78 + bladeReflection * 38, 0, 255);
-                int g = (int) Mth.clamp(5 + undertow * 5 + spot * 12 + dropWell * 22 + rippleReflection * 34 + bladeReflection * 18, 0, 255);
-                int b = (int) Mth.clamp(14 + undertow * 18 + spot * 28 + dropWell * 48 + rippleReflection * 64 + bladeReflection * 36, 0, 255);
+                int r = (int) Mth.clamp(7 + undertow * 7 + spot * 22 + dropWell * 36 + rippleReflection * 52 + bladeReflection * 34, 0, 255);
+                int g = (int) Mth.clamp(5 + undertow * 5 + spot * 16 + dropWell * 15 + rippleReflection * 22 + bladeReflection * 16, 0, 255);
+                int b = (int) Mth.clamp(14 + undertow * 18 + spot * 34 + dropWell * 34 + rippleReflection * 44 + bladeReflection * 32, 0, 255);
                 int alpha = (int) Mth.clamp(242.0 * weight * edge * radialReveal, 0.0, 245.0);
                 if (alpha <= 2) continue;
 
@@ -233,9 +251,9 @@ public final class SenbonStage {
             double x = Math.cos(angle) * radius * 0.92;
             double z = Math.sin(angle) * radius * 1.35 - 2.0;
 
-            // Keep center around player (0,0) and katana drop (0.32, 0.35) completely clear
+            // Keep center around player (0,0) and katana drop (DROP_X, DROP_Z) completely clear
             double distCenterSq = x * x + z * z;
-            double distDropSq = (x - 0.32) * (x - 0.32) + (z - 0.35) * (z - 0.35);
+            double distDropSq = (x - DROP_X) * (x - DROP_X) + (z - DROP_Z) * (z - DROP_Z);
             if (distCenterSq < 3.4 || distDropSq < 2.8) continue;
 
             double bob = 0.065 + 0.045 * Math.sin(phase * 2.2 + i * 0.9) + boost * (0.12 + (i % 4) * 0.08);
@@ -263,7 +281,7 @@ public final class SenbonStage {
      * with feathered outer edges and preserved negative space behind the player and subtitles.
      */
     public static List<BenihimeGeometry.Quad> backdrop(Vec3 origin, Vec3 forward, double age) {
-        double weight = stageWeight(age);
+        double weight = backdropWeight(age);
         if (weight <= 0.001) return List.of();
 
         Vec3 f = flatForward(forward);
@@ -321,10 +339,12 @@ public final class SenbonStage {
                 double centerFocus = Math.exp(-(uMid * uMid) / 0.06) * (1.0 - smoothstep(0.05, 0.32, vMid));
                 double aurora = (0.5 + 0.5 * Math.sin(uMid * 4.5 + vMid * 3.2 - phase * 0.6)) * (1.0 - centerFocus);
                 double roseMist = Math.exp(-Math.pow(vMid - 0.34, 2) / 0.08) * (1.0 - 0.75 * centerFocus);
+                // Subtle indigo-violet silhouette backlight directly behind player's head & torso for crisp contrast
+                double silhouetteGlow = Math.exp(-(uMid * uMid) / 0.024) * Math.exp(-Math.pow(vMid - 0.11, 2) / 0.0055);
 
-                int r = (int) Mth.clamp(5 + aurora * 10 + roseMist * (16 + boost * 10), 0, 255);
-                int g = (int) Mth.clamp(4 + aurora * 6 + roseMist * 6, 0, 255);
-                int b = (int) Mth.clamp(11 + aurora * 22 + roseMist * (26 + boost * 8), 0, 255);
+                int r = (int) Mth.clamp(5 + aurora * 10 + roseMist * (16 + boost * 10) + silhouetteGlow * 22, 0, 255);
+                int g = (int) Mth.clamp(4 + aurora * 6 + roseMist * 6 + silhouetteGlow * 16, 0, 255);
+                int b = (int) Mth.clamp(11 + aurora * 22 + roseMist * (26 + boost * 8) + silhouetteGlow * 38, 0, 255);
                 int alpha = (int) Mth.clamp(238.0 * cellWeight, 0.0, 244.0);
                 if (alpha <= 2) continue;
 
@@ -556,9 +576,9 @@ public final class SenbonStage {
                 }
                 terrainH = Math.max(terrainH, maxCellCorner);
 
-                // Keep the immediate katana sinking locus (0.32, 0.35) level so the sinking blade & ripples stay crisp
-                double dxDrop = x - 0.32;
-                double dzDrop = z - 0.35;
+                // Keep the immediate katana sinking locus (DROP_X, DROP_Z) level so the sinking blade & ripples stay crisp
+                double dxDrop = x - DROP_X;
+                double dzDrop = z - DROP_Z;
                 double dropFlatten = smoothstep(0.8, 2.4, Math.sqrt(dxDrop * dxDrop + dzDrop * dzDrop));
 
                 // Small vertical offset above block collider to eliminate z-fighting

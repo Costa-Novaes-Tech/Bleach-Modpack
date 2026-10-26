@@ -138,11 +138,11 @@ public final class SenbonzakuraQaSequence {
                 trial = null;
                 lastFrame = -1;
 
-                // Adjust initial client camera based on scenario
+                // Adjust initial client camera based on scenario (covers 1st person, 3rd person back, and 3rd person front)
                 if (name.contains("first_person")) {
                     mc.options.setCameraType(CameraType.FIRST_PERSON);
                 } else if (name.contains("night")) {
-                    mc.options.setCameraType(CameraType.THIRD_PERSON_BACK);
+                    mc.options.setCameraType(CameraType.THIRD_PERSON_FRONT);
                 } else {
                     mc.options.setCameraType(CameraType.THIRD_PERSON_BACK);
                 }
@@ -185,7 +185,12 @@ public final class SenbonzakuraQaSequence {
         int x = 120 + 70 * index;
         int y = p.serverLevel().getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, x, 0);
         var origin = new Vec3(x + 0.5, y, 0.5);
+        p.setDeltaMovement(Vec3.ZERO);
         p.teleportTo(p.serverLevel(), origin.x, origin.y, origin.z, 0, 0);
+        p.setYRot(0.0F);
+        p.setXRot(0.0F);
+        p.setYHeadRot(0.0F);
+        p.setYBodyRot(0.0F);
 
         d.getCharacter().bindZanpakuto("senbonzakura");
         d.getSkills().get("zanpakuto").setLevel(2);
@@ -205,24 +210,24 @@ public final class SenbonzakuraQaSequence {
 
         var targets = new ArrayList<UUID>();
         var placedBlocks = new ArrayList<BlockPos>();
-        int maxTicks = SenbonzakuraCinematicService.DURATION + 15;
+        int maxTicks = SenbonzakuraCinematicService.DURATION + 40;
         long timeOfDay = 6000;
 
         switch (index) {
             case 0 -> {
-                // Scenario 1: Bankai Day Transformation (Full 290-tick timeline)
+                // Scenario 1: Bankai Day Transformation + Third-Person Back Return (290 ticks + 40 ticks post-return)
                 timeOfDay = 6000;
-                LogUtils.getLogger().info("Senbonzakura QA: [Scenario 1] Day Transformation");
+                LogUtils.getLogger().info("Senbonzakura QA: [Scenario 1] Day Transformation (THIRD_PERSON_BACK)");
             }
             case 1 -> {
-                // Scenario 2: Bankai Night Transformation
+                // Scenario 2: Bankai Night Transformation + Third-Person Front Return (290 ticks + 40 ticks post-return)
                 timeOfDay = 18000;
-                LogUtils.getLogger().info("Senbonzakura QA: [Scenario 2] Night Transformation");
+                LogUtils.getLogger().info("Senbonzakura QA: [Scenario 2] Night Transformation (THIRD_PERSON_FRONT)");
             }
             case 2 -> {
-                // Scenario 3: Bankai First Person Return
+                // Scenario 3: Bankai First Person Return (290 ticks + 40 ticks post-return)
                 timeOfDay = 6000;
-                LogUtils.getLogger().info("Senbonzakura QA: [Scenario 3] First-Person Return");
+                LogUtils.getLogger().info("Senbonzakura QA: [Scenario 3] First-Person Return (FIRST_PERSON)");
             }
             case 3 -> {
                 // Scenario 4: Near Wall Collision Test
@@ -247,7 +252,7 @@ public final class SenbonzakuraQaSequence {
             case 5 -> {
                 // Scenario 6: Consecutive activation test
                 timeOfDay = 6000;
-                maxTicks = 135;
+                maxTicks = 175;
                 LogUtils.getLogger().info("Senbonzakura QA: [Scenario 6] Consecutive Activation");
             }
             case 6 -> {
@@ -348,17 +353,28 @@ public final class SenbonzakuraQaSequence {
         int age = serverAge;
         if (age < 0 || age > t.maxTicks()) return;
 
-        // Capture milestones and key transitions
-        boolean keyTick = (age == 0 || age == 10 || age == 24 || age == 35 || age == 48 || age == 72 || age == 76 || age == 96 || age == 112 || age == 120 || age == 144 || age == 160 || age == 168 || age == 200 || age == 228 || age == 240 || age == 266 || age == 288 || age == 290 || (age % 24 == 0));
+        // Capture dense katana handoff/release/drop (0..40), core milestones, and dense continuous exit + post-return (220..330)
+        boolean handoffSample = (age <= 14 && age % 2 == 0) || (age > 14 && age <= 40 && age % 4 == 0);
+        boolean exitSample = (age >= 220 && age <= 296 && age % 2 == 0) || (age > 296 && age <= 330 && age % 6 == 0);
+        boolean keyTick = handoffSample || exitSample
+                || (age == 0 || age == 10 || age == 24 || age == 35 || age == 48 || age == 72 || age == 76 || age == 96
+                || age == 112 || age == 120 || age == 144 || age == 160 || age == 168 || age == 200 || age == 228
+                || age == 244 || age == 264 || age == 266 || age == 278 || age == 286 || age == 288 || age == 290 || (age % 24 == 0));
         if (!keyTick || lastFrame == age) return;
         lastFrame = age;
 
         String file = String.format(Locale.ROOT, "frame-t%03d.png", age);
         try {
             Screenshot.grab(evidence.toFile(), file, mc.getMainRenderTarget(), msg -> { });
+            var cam = mc.gameRenderer.getMainCamera();
+            Vec3 camPos = cam.getPosition();
             String line = String.format(Locale.ROOT,
-                    "{\"file\":\"%s\",\"scenario\":\"%s\",\"tick\":%d,\"fps\":%d,\"playerPos\":[%.2f,%.2f,%.2f]}%n",
-                    file, t.name(), age, mc.getFps(), mc.player.getX(), mc.player.getY(), mc.player.getZ());
+                    "{\"file\":\"%s\",\"scenario\":\"%s\",\"tick\":%d,\"fps\":%d,\"cameraType\":\"%s\",\"cinematicActive\":%b,\"hideWeapon\":%b,\"camPos\":[%.3f,%.3f,%.3f],\"camYaw\":%.2f,\"camPitch\":%.2f,\"playerPos\":[%.2f,%.2f,%.2f]}%n",
+                    file, t.name(), age, mc.getFps(), mc.options.getCameraType().name(),
+                    SenbonzakuraCinematicClient.isCameraActive(),
+                    SenbonzakuraCinematicClient.hideHeldWeapon(mc.player.getId(), e.renderTickTime),
+                    camPos.x, camPos.y, camPos.z, cam.getYRot(), cam.getXRot(),
+                    mc.player.getX(), mc.player.getY(), mc.player.getZ());
             Files.writeString(evidence.resolve("frames.jsonl"), line, StandardOpenOption.CREATE, StandardOpenOption.APPEND);
         } catch (Exception failure) {
             LogUtils.getLogger().warn("Senbonzakura QA screenshot capture failed: {}", failure.getMessage());

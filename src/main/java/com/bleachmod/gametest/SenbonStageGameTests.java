@@ -2,7 +2,9 @@ package com.bleachmod.gametest;
 
 import com.bleachmod.common.visual.BenihimeEntranceGeometry;
 import com.bleachmod.common.visual.SenbonAtmosphere;
+import com.bleachmod.common.visual.SenbonCameraPath;
 import com.bleachmod.common.visual.SenbonStage;
+import com.bleachmod.common.visual.SenbonzakuraPlayerPose;
 import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.world.phys.Vec3;
@@ -21,16 +23,30 @@ public final class SenbonStageGameTests {
 
         h.assertTrue(SenbonStage.stageWeight(0) == 0.0
                 && SenbonStage.stageWeight(35) == 1.0
-                && SenbonStage.stageWeight(228) == 1.0
+                && SenbonStage.stageWeight(224) == 1.0
+                && SenbonStage.stageWeight(280) == 0.0
                 && SenbonStage.stageWeight(290) == 0.0, "SenbonStage weight envelope violated");
+        h.assertTrue(SenbonStage.backdropWeight(220) == 1.0
+                && SenbonStage.backdropWeight(276) == 0.0
+                && SenbonStage.backdropWeight(290) == 0.0, "SenbonStage backdrop weight envelope violated");
         h.assertTrue(SenbonAtmosphere.darkness(0) == 0.0
                 && SenbonAtmosphere.darkness(35) == 1.0
-                && SenbonAtmosphere.darkness(228) == 1.0
+                && SenbonAtmosphere.darkness(220) == 1.0
+                && SenbonAtmosphere.darkness(278) == 0.0
                 && SenbonAtmosphere.darkness(290) == 0.0, "SenbonAtmosphere darkness envelope violated");
+        h.assertTrue(SenbonzakuraPlayerPose.hideHeldWeapon(0.0)
+                && SenbonzakuraPlayerPose.hideHeldWeapon(10.0)
+                && SenbonzakuraPlayerPose.hideHeldWeapon(263.5)
+                && !SenbonzakuraPlayerPose.hideHeldWeapon(264.0)
+                && !SenbonzakuraPlayerPose.hideHeldWeapon(290.0), "SenbonzakuraPlayerPose single-weapon visibility window violated");
+        h.assertTrue(SenbonCameraPath.RETURN_START == 244.0
+                && SenbonCameraPath.RETURN_SETTLE == 286.0, "SenbonCameraPath return window violated");
 
         h.assertTrue(SenbonStage.floor(origin, forward, 0).isEmpty()
+                && SenbonStage.floor(origin, forward, 280).isEmpty()
                 && SenbonStage.floor(origin, forward, 290).isEmpty()
                 && SenbonStage.backdrop(origin, forward, 0).isEmpty()
+                && SenbonStage.backdrop(origin, forward, 276).isEmpty()
                 && SenbonStage.backdrop(origin, forward, 290).isEmpty(), "SenbonStage geometry persists outside scene boundaries");
 
         var earlyFloor = SenbonStage.floor(origin, forward, 12);

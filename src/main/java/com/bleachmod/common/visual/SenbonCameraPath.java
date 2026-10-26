@@ -11,7 +11,8 @@ import net.minecraft.world.phys.Vec3;
  * and C1 smooth velocity curve (ease without angular or positional jumps).
  */
 public final class SenbonCameraPath {
-    public static final double RETURN_START = 266.0;
+    public static final double RETURN_START = 244.0;
+    public static final double RETURN_SETTLE = 286.0;
 
     public record Frame(Vec3 eye, Vec3 focus, float fov) { }
 
@@ -22,28 +23,28 @@ public final class SenbonCameraPath {
     }
 
     private static final Key[] KEYS = {
-            // 0..10: Plano médio frontal mostrando rosto, mão e katana invertida
-            key(0.0,   0.40, 1.45, 2.20,   0.18, 1.10, 0.20,   48.0F),
-            key(10.0,  0.40, 1.45, 2.20,   0.18, 1.10, 0.20,   48.0F),
+            // 0..10: Plano médio frontal mostrando rosto, tronco, mão principal e katana vertical única
+            key(0.0,   -0.32, 1.48, 2.35,   -0.10, 1.16, 0.22,   48.0F),
+            key(10.0,  -0.32, 1.48, 2.35,   -0.10, 1.16, 0.22,   48.0F),
 
-            // 10..35: Acompanhamento controlado da queda preservando conexão mão-espada-solo
-            key(35.0,  0.75, 1.20, 2.40,   0.32, 0.30, 0.35,   50.0F),
+            // 10..35: Acompanhamento controlado da soltura e queda preservando rosto/tronco e conexão mão-espada-solo
+            key(35.0,  -0.56, 1.40, 2.70,   -0.14, 0.86, 0.26,   50.0F),
 
-            // 35..76: Tomada superior oblíqua da espada afundando e das ondulações concêntricas de Reishi
-            key(76.0,  1.25, 1.65, 3.60,   0.25, 0.35, 0.25,   54.0F),
+            // 35..76: Tomada oblíqua da espada afundando e das ondulações concêntricas de Reishi
+            key(76.0,  -0.92, 1.62, 3.45,   -0.12, 0.82, 0.24,   54.0F),
 
             // 76..112: Contrapicado acompanhando a ascensão das 20 lâminas gigantescas emergindo do solo
-            key(112.0, 0.20, 0.75, 5.20,   0.00, 9.50, -2.00,  62.0F),
+            key(112.0,  0.00, 0.78, 5.20,    0.00, 9.50, -2.00,  62.0F),
 
             // 112..160: Revelação do corredor simétrico e profundidade, descendo suavemente até Byakuya
-            key(136.0, 0.10, 1.10, 5.20,   0.00, 6.50, -1.00,  58.0F),
-            key(160.0, 0.00, 1.45, 5.20,   0.00, 1.35, 0.00,   50.0F),
+            key(136.0,  0.00, 1.12, 5.20,    0.00, 6.20, -1.00,  58.0F),
+            key(160.0,  0.00, 1.45, 5.10,    0.00, 1.35, 0.00,   50.0F),
 
-            // 160..228: Composição frontal nobre e estável com aproximação discreta durante o nome
-            key(228.0, 0.00, 1.42, 4.40,   0.00, 1.35, 0.00,   46.0F),
+            // 160..216: Composição frontal nobre e estável durante a invocação do nome
+            key(216.0,  0.00, 1.42, 4.45,    0.00, 1.35, 0.00,   46.5F),
 
-            // 228..266: Recuo moderado acompanhando a conversão das lâminas em tufões ciclônicos de pétalas
-            key(RETURN_START, 0.00, 2.20, 7.60, 0.00, 1.35, 0.00, 58.0F)
+            // 216..244: Abertura antecipada do enquadramento enquanto ainda existe palco, preparando o destino da câmera
+            key(RETURN_START, 0.00, 1.82, 5.65, 0.00, 1.35, -0.35, 54.0F)
     };
 
     private SenbonCameraPath() { }
