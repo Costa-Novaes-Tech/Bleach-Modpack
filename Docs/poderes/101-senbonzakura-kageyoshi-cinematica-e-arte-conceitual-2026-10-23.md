@@ -405,3 +405,54 @@ Inspirado na arquitetura de palco cenográfico da **Benihime** (`BenihimeStage`,
      - `06_bankai_consecutive_activation` (reativação no tick 55 sem duplicação de geometria);
      - `07_bankai_uneven_terrain` (relevo em degraus de lajes de pedra acompanhado suavemente pelo piso, sem placa flutuante).
    - **Nota Metodológica sobre as Evidências**: As capturas de tela em `cycle101-1792954021666` são quadros amostrados do framebuffer real do cliente Forge (`Screenshot.grab`), comprovando geometria, oclusão, enquadramento, conformação ao relevo e limpeza nos marcos de tick; quadros amostrados não substituem gravação contínua de vídeo para aferir fluidez inter-frame nem substituem escuta humana para qualidade acústica.
+
+---
+
+## 10. Continuidade de Arma Única, Leitura de Rosto/Tronco e Encerramento Contínuo Sem Salto Residual (Ciclo 101.3 — 25/10/2026)
+
+A partir da inspeção quadro a quadro do vídeo gravado pelo usuário (`C:\Users\joaop\Downloads\Gravando 2026-10-25 164851.mp4`), foram diagnosticadas e corrigidas três causas-raiz visuais dentro dos **290 ticks** (preservando `COMMIT = 40`, trava de combate = `60`, cues de áudio, legendas e demais Zanpakutōs):
+
+### 10.1. Diagnóstico no Vídeo do Usuário (`Gravando 2026-10-25 164851.mp4`)
+1. **Duplicação de Lâmina (~51.8s a 53.5s no vídeo / ticks `0..35`)**:
+   - Nos ticks `0..10`, `SenbonzakuraPlayerPose.itemPosition` retornava `Vec3.ZERO`, exibindo o item vanilla `SENBONZAKURA` apontado diagonalmente na mão direita, enquanto `ZanpakutoSheathLayer` desenhava a bainha curva na cintura esquerda.
+   - No tick `10`, o item da mão direita sumia e `renderFallingSinkingKatana` instanciava a katana vertical em `left.scale(+0.32)` (lado da mão esquerda!), exatamente sobreposta à bainha curva de `ZanpakutoSheathLayer`.
+2. **Encerramento Brusco e Salto Residual (~64.0s a 66.2s no vídeo / ticks `228..290`)**:
+   - O vídeo foi gravado à noite (`timeOfDay = 18000`) em `CameraType.THIRD_PERSON_FRONT`.
+   - As lâminas desapareciam no tick `260` enquanto o palco ainda estava totalmente preto (`228..266`) e a câmera recuava para `7.60` blocos; depois `RETURN_START = 266.0` comprimia o retorno em apenas 24 ticks (`266..290`), usando `returnEye` (desvio lateral desnecessário quando início e fim já estão à frente do jogador em `THIRD_PERSON_FRONT`) e interpolando o FOV para `mc.options.fov().get()` (`70`) em vez de `e.getFOV()` (que inclui o modificador de velocidade da Bankai). No tick `290`, HUD, espada empunhada, FOV e partículas reapareciam no mesmo frame.
+3. **Leitura de Rosto/Tronco e Intensidade dos Anéis Rosa**:
+   - `renderSpotlightPenumbra` centrava o recorte elíptico na cintura (`y = 0.95`) com opacidade periférica `225`, escurecendo o tronco superior e o rosto durante o enquadramento de queda da espada (`t = 10..48`), enquanto à noite (`18000`) a luz de bloco `0` deixava o rosto escuro contra o fundo negativo. Os anéis concêntricos rosa (`crestAlpha = 218`, `rippleReflection * 85`) também competiam visualmente com a lâmina.
+
+### 10.2. Soluções Implementadas
+1. **Continuidade de Arma Única (`SenbonzakuraPlayerPose.java`, `ZanpakutoSheathLayer.java`, `SenbonzakuraCinematicClient.java`)**:
+   - `SenbonzakuraPlayerPose.hideHeldWeapon(age)` (`0.0 <= age < 264.0`) oculta imediatamente o item vanilla empunhado em 3ª pessoa (`Body.get3DTransform` retorna `(0, -999, 0)` sem *lerp* parcial), em 1ª pessoa (`RenderHandEvent`) e suprime a bainha curva (`ZanpakutoSheathLayer.render`).
+   - `renderFallingSinkingKatana` passa a renderizar desde `age = 0.0` até `76.0` alinhada à mão principal (`dropPoint` em `forward = 0.44`, `side = -0.26` para destros):
+     - `t = 0..10`: katana vertical única firme na mão fechada (`mainArm` em `(-0.88, -0.08, 0.04)`, empunhadura `y = 0.92..1.16`, lâmina `y = 0.24..0.92`);
+     - `t = 10..35`: abertura/soltura da mão e queda acelerada contínua sob gravidade até tocar o piso escuro formado em `t = 35.0` (`y = 0.024`);
+     - `t = 35..76`: afundamento contínuo com recorte geométrico na superfície e colar luminoso discreto.
+   - Em `t = 264.0` (durante a recuperação final da postura de combate `224..284`) ou imediatamente em qualquer interrupção/término, o item empunhado e a bainha voltam de forma limpa.
+2. **Encerramento Coordenado e Retorno Sem Salto Residual (`SenbonStage.java`, `SenbonAtmosphere.java`, `SenbonCameraPath.java`, `SenbonzakuraCinematicClient.java`)**:
+   - **Dissolução Progressiva das Lâminas com Trajetórias Legíveis de Pétalas (`t = 224..272`)**: As 20 lâminas desfazem-se em onda escalonada ao longo do corredor (`dissStart = 224 + i * 1.6`), emitindo feixes tridimensionais de pétalas (`renderBladeDissolutionPetals`) que se desprendem de cada lâmina e espiralam para dentro/cima, enquanto o vórtice de partículas reduz progressivamente sua densidade entre `t = 248..282`.
+   - **Abertura Antecipada do Enquadramento (`t = 216..244`)**: A câmera abre suavemente o plano (`eye: (0.00, 1.82, 5.65), focus: (0.00, 1.35, -0.35), fov: 54°`) enquanto o palco e as lâminas em dissolução ainda estão presentes, preparando o destino visual da câmera sem recuar para um vazio escuro.
+   - **Dissolução Coordenada do Palco (`t = 220..280`)**: O fundo 3D dissolve-se em `220..276` (`backdropWeight`), a penumbra espiritual em `220..278` (`SenbonAtmosphere.darkness`) e o piso escuro em `224..280` (`stageWeight`), revelando o mundo ao redor antes dos instantes finais da cena.
+   - **Retorno de Câmera e FOV Sem Salto Residual (`t = 244..286`)**:
+     - Interpolação suave entre `RETURN_START = 244.0` e `RETURN_SETTLE = 286.0` usando posição e direção interpoladas do jogador (`getEyePosition(partial)`, `getViewVector(partial)`) e colisão prévia do braço de 3ª pessoa (`4.0` blocos).
+     - Em `THIRD_PERSON_FRONT`, usa `eye.lerp(end, t)` direto (sem desvio lateral desnecessário); em `THIRD_PERSON_BACK` e `FIRST_PERSON`, usa `SenbonCameraPath.returnEye` contornando o tronco.
+     - Em `ViewportEvent.ComputeFov`, interpola `pathFov` diretamente até `e.getFOV()` (incluindo modificadores dinâmicos de velocidade da Bankai), atingindo `100%` da posição, orientação e FOV da perspectiva original em `t = 286.0`, momento em que `restoreCamera` devolve a perspectiva nativa sem qualquer salto residual em `t = 290`.
+     - As barras *letterbox* retraem-se entre `252..278` e o HUD é restaurado em `t = 278`.
+3. **Leitura de Rosto/Tronco e Redução Discreta dos Anéis Rosa**:
+   - Anéis concêntricos de Reishi suavizados (`crestAlpha: 218 -> 136`, `haloAlpha: 96 -> 56`, reflexos do piso `85 -> 52` e `64 -> 36`).
+   - Enquadramento de queda (`t = 10..76`) ajustado (`focus.y = 0.86`) para manter o rosto, o tronco, a mão e o ponto de contato da katana simultaneamente visíveis em tela.
+   - Janela limpa da vinheta (`renderSpotlightPenumbra`) elevada para o tronco/rosto (`y = 1.30`, `rx = 1.70 * scale`, `ry = 2.60 * scale`, opacidade periférica reduzida `225 -> 145`), halo sutil de separação de silhueta no fundo negativo (`silhouetteGlow`) e luz espiritual mínima de preenchimento no conjurador (`LightTexture.pack` até nível `12` proporcional a `stageWeight`) para preservar a leitura facial mesmo à meia-noite (`18000`) sem clarear o palco.
+
+### 10.3. Verificação, Telemetria Quantitativa e Limitações Metodológicas
+- **Compilação**: `.\gradlew.bat compileJava --offline --console=plain` -> **BUILD SUCCESSFUL (Exit 0)** em 42s.
+- **GameTests**: `powershell.exe -ExecutionPolicy Bypass -File tools/antigravity/Invoke-Design.ps1 -Mode GameTests` -> **BUILD SUCCESSFUL (Exit 0)** em 1m 49s (Log: `Docs/poderes/qa/antigravity/GameTests-20261025-204327.log`).
+- **ClientQa (7 Cenários com Captura Contínua de Saída até `t = 330`, 2.0s após devolução do controle)**:
+  - Comando: `powershell.exe -ExecutionPolicy Bypass -File tools/antigravity/Invoke-Design.ps1 -Mode ClientQa`
+  - Log: `Docs/poderes/qa/antigravity/ClientQa-20261025-210105.log` -> **BUILD SUCCESSFUL (Exit 0)** em 5m 38s.
+  - Pasta de evidências: `run-benihime-qa/base/senbonzakura-qa/cycle101-1792972919745/`.
+  - **Telemetria de Continuidade no Handoff Final (`t = 286 -> 288 -> 290 -> 330` extraída de `frames.jsonl`)**:
+    - `01_bankai_day_transformation` (`THIRD_PERSON_BACK`): `t=286..330` -> `camPos = [120.500, -58.380, -3.500]`, `camYaw = 0.00°`, `camPitch = 0.00°` ($\Delta\text{pos} = 0.000\text{ blocos}$, $\Delta\text{ang} = 0.00^\circ$).
+    - `02_bankai_night_transformation` (`THIRD_PERSON_FRONT`, `timeOfDay = 18000`): `t=286..330` -> `camPos = [190.500, -58.380, 4.500]`, `camYaw = 180.00°`, `camPitch = 0.00°` ($\Delta\text{pos} = 0.000\text{ blocos}$, $\Delta\text{ang} = 0.00^\circ$).
+    - `03_bankai_first_person_return` (`FIRST_PERSON`): `t=286..330` -> `camPos = [260.500, -58.380, 0.500]`, `camYaw = 0.00°`, `camPitch = 0.00°`, mão em 1ª pessoa e mira já presentes desde `t = 286` ($\Delta\text{pos} = 0.000\text{ blocos}$, $\Delta\text{ang} = 0.00^\circ$).
+  - **Distinção Metodológica**: Embora a amostragem densa de 2 em 2 ticks (`t = 0..40` e `t = 220..330`) aliada à telemetria de posição/ângulo/FOV comprove ausência matemática de saltos nos contornos, capturas sequenciais amostradas (`Screenshot.grab`) não substituem a percepção de fluidez de uma gravação de vídeo contínua a 60 FPS nem a validação humana em playtest interativo com movimentação livre do mouse.

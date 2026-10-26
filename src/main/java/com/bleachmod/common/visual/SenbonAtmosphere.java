@@ -11,26 +11,26 @@ public final class SenbonAtmosphere {
 
     /**
      * Atmospheric darkness curve:
-     *   0..35:   Gradual entry of twilight/darkness (0.0 -> 1.0)
-     *   35..228: Sustained dark spiritual atmosphere (1.0)
-     *   228..266: Partial recovery during petal dispersion (1.0 -> 0.28)
-     *   266..290: Complete return to normal appearance (0.28 -> 0.0)
+     *   0..35:    Gradual entry of twilight/darkness (0.0 -> 1.0)
+     *   35..220:  Sustained dark spiritual atmosphere (1.0)
+     *   220..256: Progressive world reveal during petal dispersion (1.0 -> 0.25)
+     *   256..278: Complete restoration of natural world lighting before scene end (0.25 -> 0.0)
      */
     public static double darkness(double age) {
-        if (!Double.isFinite(age) || age <= 0.0 || age >= 290.0) return 0.0;
+        if (!Double.isFinite(age) || age <= 0.0 || age >= 278.0) return 0.0;
         if (age < 35.0) {
             double t = age / 35.0;
             return t * t * (3.0 - 2.0 * t);
-        } else if (age < 228.0) {
+        } else if (age < 220.0) {
             return 1.0;
-        } else if (age < 266.0) {
-            double t = (age - 228.0) / 38.0;
+        } else if (age < 256.0) {
+            double t = (age - 220.0) / 36.0;
             double smooth = t * t * (3.0 - 2.0 * t);
-            return Mth.lerp(smooth, 1.0, 0.28);
+            return Mth.lerp(smooth, 1.0, 0.25);
         } else {
-            double t = (age - 266.0) / 24.0;
+            double t = (age - 256.0) / 22.0;
             double smooth = t * t * (3.0 - 2.0 * t);
-            return Mth.lerp(smooth, 0.28, 0.0);
+            return Mth.lerp(smooth, 0.25, 0.0);
         }
     }
 
@@ -76,7 +76,7 @@ public final class SenbonAtmosphere {
         double dx = (x - cx) / Math.max(1.0, rx);
         double dy = (y - cy) / Math.max(1.0, ry);
         double r = Math.sqrt(dx * dx + dy * dy);
-        double t = Mth.clamp((r - 0.75) / 0.85, 0.0, 1.0);
+        double t = Mth.clamp((r - 0.95) / 0.90, 0.0, 1.0);
         return t * t * (3.0 - 2.0 * t);
     }
 }
