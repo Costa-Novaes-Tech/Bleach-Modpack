@@ -9,3 +9,8 @@ A origem autoral e a licença de redistribuição dessas gravações não foram 
 O instrumental `benihime_entrance.ogg` e os efeitos procedurais anteriores continuam disponíveis; a faixa `benihime_invocation_mix.ogg` contém música e falas já combinadas pelo usuário. Sem música, usam-se as falas limpas. Sem voz, usa-se o instrumental anterior. O volume da faixa combinada acompanha MUSIC; não há separação artificial de stems nem reprodução duplicada das falas.
 
 Conversão reproduzível: `tools/audio/import_benihime_user_audio.py`. Manifesto de hashes e filtros arquivado no relatório de QA do ciclo 71.
+
+
+## Localização das fontes em 26/10/2026
+
+Os três WAVs utilizados estão versionados em tools/audio/source na raiz do repositório; os importadores usam essa pasta por padrão. O registro acima descreve o recebimento histórico e não é um caminho obrigatório atual. Ver [migração e manifesto](../audios-fontes-versionadas-2026-10-26.md). Nenhuma alteração de licença, conteúdo ou mixagem nesta migração.

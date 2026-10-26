@@ -1,3 +1,5 @@
+> **26/10/2026 — fontes de áudio na main:** [originais WAV versionados e caminhos de importação](audios-fontes-versionadas-2026-10-26.md). Pasta tools/audio/source; manifesto com SHA-256 e verificador somente de leitura. Migração autorizada pelo usuário; não altera OGGs/runtime nem encerra pendências artísticas.
+
 # Continuidade do projeto — leia primeiro
 
 **Integração 23/10 — [ciclo 100: poderes + design + main](100-integracao-branches-poderes-design-main-2026-10-23.md):** resolvidos os conflitos de continuidade e remoção de logs; preservados câmera/fala do ciclo 99, hidra/pose da frente de design e correções/Hollows da equipe. Fonte Blockbench com caminho relativo entre checkouts. Check/build: 146 regressões; 223 GameTests obrigatórios aprovados. Cliente Forge integrado: 10 cenários/exit 0; branches de trabalho destinadas à mesma integração, sem force-push. Sem commit direto na main.

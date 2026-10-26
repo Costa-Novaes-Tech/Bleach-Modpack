@@ -1,0 +1,219 @@
+{
+  "date": "2026-10-26",
+  "base_commit": "26b73b3742681bfeee694c23a6e92007fd7f44ba",
+  "note": "Original authoring sources, outside Minecraft runtime resources. User supplied; migration does not grant additional redistribution rights. Gameplay audio is unchanged.",
+  "files": [
+    {
+      "name": "bankai_final_ordered_30s.wav",
+      "group": "benihime",
+      "path": "tools/audio/source/bankai_final_ordered_30s.wav",
+      "sha256": "37eef641ef61bc3be64f12ff74211757a1a1bc51268a3e1f8e668dd15b29dfa2",
+      "bytes": 23040102,
+      "audio": {
+        "sample_rate": 192000,
+        "channels": 2,
+        "sample_width_bytes": 2,
+        "frames": 5760000
+      },
+      "previous_path": "C:\\Users\\joaop\\Downloads\\Áudios e vídeos para revisão\\bankai_final_ordered_30s.wav",
+      "runtime_assets": [
+        "benihime_invocation_mix.ogg"
+      ],
+      "runtime_assets_present_in_this_main": [
+        "benihime_invocation_mix.ogg"
+      ]
+    },
+    {
+      "name": "Bankai_voice_clean.wav",
+      "group": "benihime",
+      "path": "tools/audio/source/Bankai_voice_clean.wav",
+      "sha256": "25eda3b0caec2da82b85d8afe55664db5e99493b5478864b7b58f9021aea68f6",
+      "bytes": 345702,
+      "audio": {
+        "sample_rate": 192000,
+        "channels": 1,
+        "sample_width_bytes": 2,
+        "frames": 172800
+      },
+      "previous_path": "C:\\Users\\joaop\\Downloads\\Áudios e vídeos para revisão\\Bankai_voice_clean.wav",
+      "runtime_assets": [
+        "benihime_voice_bankai.ogg"
+      ],
+      "runtime_assets_present_in_this_main": [
+        "benihime_voice_bankai.ogg"
+      ]
+    },
+    {
+      "name": "Daiguren_Bankai_voice_clean.wav",
+      "group": "hyorinmaru",
+      "path": "tools/audio/source/Daiguren_Bankai_voice_clean.wav",
+      "sha256": "0703c3834add12358156e06e1668fb02b4aa9d2c9527f08e1fb4dde7772cea87",
+      "bytes": 403302,
+      "audio": {
+        "sample_rate": 192000,
+        "channels": 1,
+        "sample_width_bytes": 2,
+        "frames": 201600
+      },
+      "previous_path": "C:\\Users\\joaop\\Downloads\\Áudios e vídeos para revisão\\Daiguren_Bankai_voice_clean.wav",
+      "runtime_assets": [
+        "hyorinmaru_voice_bankai.ogg"
+      ],
+      "runtime_assets_present_in_this_main": [
+        "hyorinmaru_voice_bankai.ogg"
+      ]
+    },
+    {
+      "name": "daiguren_hyorinmaru_ice_theme_adapted_20s.wav",
+      "group": "hyorinmaru",
+      "path": "tools/audio/source/daiguren_hyorinmaru_ice_theme_adapted_20s.wav",
+      "sha256": "2a2070a5c4de34cf55b35290fb34b2f9d95859ecdef31c7e5e688a0b04e13e69",
+      "bytes": 15360102,
+      "audio": {
+        "sample_rate": 192000,
+        "channels": 2,
+        "sample_width_bytes": 2,
+        "frames": 3840000
+      },
+      "previous_path": "C:\\Users\\joaop\\Downloads\\Áudios e vídeos para revisão\\daiguren_hyorinmaru_ice_theme_adapted_20s.wav",
+      "runtime_assets": [
+        "hyorinmaru_theme.ogg"
+      ],
+      "runtime_assets_present_in_this_main": [
+        "hyorinmaru_theme.ogg"
+      ]
+    },
+    {
+      "name": "Daiguren_Hyorinmaru_voice_clean.wav",
+      "group": "hyorinmaru",
+      "path": "tools/audio/source/Daiguren_Hyorinmaru_voice_clean.wav",
+      "sha256": "aeddb880c5295e32d3043588929f5aa5e4db9fc7b0d0e54de2a3e4910f5fc4f6",
+      "bytes": 960102,
+      "audio": {
+        "sample_rate": 192000,
+        "channels": 1,
+        "sample_width_bytes": 2,
+        "frames": 480000
+      },
+      "previous_path": "C:\\Users\\joaop\\Downloads\\Áudios e vídeos para revisão\\Daiguren_Hyorinmaru_voice_clean.wav",
+      "runtime_assets": [
+        "hyorinmaru_voice_name.ogg"
+      ],
+      "runtime_assets_present_in_this_main": [
+        "hyorinmaru_voice_name.ogg"
+      ]
+    },
+    {
+      "name": "Kannonbiraki_Benihime_Aratame_voice_clean.wav",
+      "group": "benihime",
+      "path": "tools/audio/source/Kannonbiraki_Benihime_Aratame_voice_clean.wav",
+      "sha256": "2d58dcc25995546c60eee157bdc2c0a9bdb114db03a168cd6412b6c0ed46cdd5",
+      "bytes": 1583686,
+      "audio": {
+        "sample_rate": 192000,
+        "channels": 1,
+        "sample_width_bytes": 2,
+        "frames": 791792
+      },
+      "previous_path": "C:\\Users\\joaop\\Downloads\\Áudios e vídeos para revisão\\Kannonbiraki_Benihime_Aratame_voice_clean.wav",
+      "runtime_assets": [
+        "benihime_voice_name.ogg",
+        "benihime_invocation_mix.ogg"
+      ],
+      "runtime_assets_present_in_this_main": [
+        "benihime_voice_name.ogg",
+        "benihime_invocation_mix.ogg"
+      ]
+    },
+    {
+      "name": "Senbonzakura_Bankai_complete_voice.wav",
+      "group": "senbonzakura",
+      "path": "tools/audio/source/Senbonzakura_Bankai_complete_voice.wav",
+      "sha256": "58e26b4dc8225069c862f48462b8b4ef56c2e849af46ed4ec32d6329728c4f2e",
+      "bytes": 1267302,
+      "audio": {
+        "sample_rate": 192000,
+        "channels": 1,
+        "sample_width_bytes": 2,
+        "frames": 633600
+      },
+      "previous_path": "C:\\Users\\joaop\\Downloads\\Áudios e vídeos para revisão\\Senbonzakura_Bankai_complete_voice.wav",
+      "runtime_assets": [
+        "senbonzakura_voice_bankai.ogg"
+      ],
+      "runtime_assets_present_in_this_main": []
+    },
+    {
+      "name": "Senbonzakura_Kageyoshi_best_voice.wav",
+      "group": "senbonzakura",
+      "path": "tools/audio/source/Senbonzakura_Kageyoshi_best_voice.wav",
+      "sha256": "db29825ef98e7ee0134c8d7fc6a5f9537efe764bb536653a46c74cf9a546761d",
+      "bytes": 1286502,
+      "audio": {
+        "sample_rate": 192000,
+        "channels": 1,
+        "sample_width_bytes": 2,
+        "frames": 643200
+      },
+      "previous_path": "C:\\Users\\joaop\\Downloads\\Áudios e vídeos para revisão\\Senbonzakura_Kageyoshi_best_voice.wav",
+      "runtime_assets": [
+        "senbonzakura_voice_name.ogg"
+      ],
+      "runtime_assets_present_in_this_main": []
+    },
+    {
+      "name": "Senbonzakura_music_only_extended30s.wav",
+      "group": "senbonzakura",
+      "path": "tools/audio/source/Senbonzakura_music_only_extended30s.wav",
+      "sha256": "9100efebde41a7df30ddefd200ed1b3b7b24b63b5a9e96093fa91d3e701f4734",
+      "bytes": 23040102,
+      "audio": {
+        "sample_rate": 192000,
+        "channels": 2,
+        "sample_width_bytes": 2,
+        "frames": 5760000
+      },
+      "previous_path": "C:\\Users\\joaop\\Downloads\\Áudios e vídeos para revisão\\Senbonzakura_music_only_extended30s.wav",
+      "runtime_assets": [
+        "senbonzakura_theme.ogg"
+      ],
+      "runtime_assets_present_in_this_main": []
+    },
+    {
+      "name": "Zanka_no_Tachi_Bankai_fixed.wav",
+      "group": "ryujin",
+      "path": "tools/audio/source/Zanka_no_Tachi_Bankai_fixed.wav",
+      "sha256": "d2b77fffea3cf4e1388c8072105e66103f4be388863189252783ba23d18c67ed",
+      "bytes": 518502,
+      "audio": {
+        "sample_rate": 192000,
+        "channels": 1,
+        "sample_width_bytes": 2,
+        "frames": 259200
+      },
+      "previous_path": "C:\\Users\\joaop\\Downloads\\Áudios e vídeos para revisão\\Zanka_no_Tachi_Bankai_fixed.wav",
+      "runtime_assets": [
+        "ryujin_voice_bankai.ogg"
+      ],
+      "runtime_assets_present_in_this_main": []
+    },
+    {
+      "name": "Zanka_no_Tachi_only_main_voice.wav",
+      "group": "ryujin",
+      "path": "tools/audio/source/Zanka_no_Tachi_only_main_voice.wav",
+      "sha256": "38c07dfba7160a97cc96448e3cf4fcd2c7c00414553f85c1a2b8b5aeb845a0b3",
+      "bytes": 860262,
+      "audio": {
+        "sample_rate": 192000,
+        "channels": 1,
+        "sample_width_bytes": 2,
+        "frames": 430080
+      },
+      "previous_path": "C:\\Users\\joaop\\Downloads\\Áudios e vídeos para revisão\\Zanka_no_Tachi_only_main_voice.wav",
+      "runtime_assets": [
+        "ryujin_voice_name.ogg"
+      ],
+      "runtime_assets_present_in_this_main": []
+    }
+  ]
+}

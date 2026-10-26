@@ -15,7 +15,8 @@ ROOT = Path(__file__).resolve().parents[2]
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--source-root', type=Path, required=True)
+    parser.add_argument('--source-root', type=Path, default=ROOT / 'tools/audio/source',
+                        help='Original WAVs; defaults to the versioned project source directory')
     parser.add_argument('--ffmpeg', type=Path, required=True)
     parser.add_argument('--only-name', action='store_true', help='Leave Bankai and other assets untouched')
     args = parser.parse_args()

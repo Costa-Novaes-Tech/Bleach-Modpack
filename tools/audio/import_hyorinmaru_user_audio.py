@@ -9,7 +9,8 @@ ROOT = Path(__file__).resolve().parents[2]
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--source-root', type=Path, required=True)
+    parser.add_argument('--source-root', type=Path, default=ROOT / 'tools/audio/source',
+                        help='Original WAVs; defaults to the versioned project source directory')
     parser.add_argument('--ffmpeg', type=Path, required=True)
     args = parser.parse_args()
     target = ROOT / 'src/main/resources/assets/bleachmod/sounds'
