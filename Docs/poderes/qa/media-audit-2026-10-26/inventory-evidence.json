@@ -1,0 +1,3048 @@
+{
+  "date": "2026-10-26",
+  "source": "C:\\Users\\joaop\\Downloads\\Áudios e vídeos para revisão",
+  "roots": [
+    {
+      "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack",
+      "branch": "Feature-Poderes-bankais",
+      "commit": "23b80e00f2387ce3d0e321a26ddf088e1fe859c2"
+    },
+    {
+      "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design",
+      "branch": "codex/design-poderes-criaturas",
+      "commit": "08105c2a1f84f3bf8d4001bfa316533f714d8599"
+    }
+  ],
+  "files": [
+    {
+      "name": "20261020_141842.mp4",
+      "path": "C:\\Users\\joaop\\Downloads\\Áudios e vídeos para revisão\\20261020_141842.mp4",
+      "bytes": 57803531,
+      "mtime_ns": 1792517429902980100,
+      "sha256": "ee1a12458db5586025945335fa10762bcef7869060d35c1d87f990db55a9275e",
+      "duration_s": 29.9,
+      "streams": [
+        "Stream #0:0[0x1](eng): Video: hevc (Main) (hvc1 / 0x31637668), yuv420p(tv, bt709), 1920x1080, 15213 kb/s, 59.94 fps, 60.04 tbr, 90k tbn (default)",
+        "Stream #0:1[0x2](eng): Audio: aac (LC) (mp4a / 0x6134706D), 48000 Hz, stereo, fltp, 256 kb/s (default)"
+      ],
+      "metadata_detected": true,
+      "exact_refs": [],
+      "stem_refs": [],
+      "hash_refs": [],
+      "copies": [],
+      "category": "Sem vínculo localizado",
+      "recommendation": "Separar para confirmação; não excluir nesta auditoria.",
+      "detail": "Gravação vertical de apresentação pessoal; não mostra o mod nas três amostras.",
+      "MiB": 55.126,
+      "references": 0,
+      "hash_references": 0,
+      "source_changed": false,
+      "unique_current_source": false
+    },
+    {
+      "name": "20261020_142226.mp4",
+      "path": "C:\\Users\\joaop\\Downloads\\Áudios e vídeos para revisão\\20261020_142226.mp4",
+      "bytes": 10152226,
+      "mtime_ns": 1792517426360389700,
+      "sha256": "33274853318436fb93e571e2ae9515742ffae42d8ca0145a008bf1535ac45e5a",
+      "duration_s": 28.81,
+      "streams": [
+        "Stream #0:0[0x1](eng): Video: hevc (Main) (hvc1 / 0x31637668), yuv420p(tv, bt709), 1920x1080, 2564 kb/s, 60.01 fps, 60.04 tbr, 90k tbn (default)",
+        "Stream #0:1[0x2](eng): Audio: aac (LC) (mp4a / 0x6134706D), 48000 Hz, stereo, fltp, 256 kb/s (default)"
+      ],
+      "metadata_detected": true,
+      "exact_refs": [],
+      "stem_refs": [],
+      "hash_refs": [],
+      "copies": [],
+      "category": "Sem vínculo localizado",
+      "recommendation": "Separar para confirmação; não excluir nesta auditoria.",
+      "detail": "Gravação vertical de apresentação pessoal; não mostra o mod nas três amostras.",
+      "MiB": 9.682,
+      "references": 0,
+      "hash_references": 0,
+      "source_changed": false,
+      "unique_current_source": false
+    },
+    {
+      "name": "bankai_comparison_original_30s.mp3",
+      "path": "C:\\Users\\joaop\\Downloads\\Áudios e vídeos para revisão\\bankai_comparison_original_30s.mp3",
+      "bytes": 721650,
+      "mtime_ns": 1792498793286888300,
+      "sha256": "6bdd07c294cdcf6e80c8f839112ecf20d357dc50726e8a4a7910492aacb988a6",
+      "duration_s": 30.04,
+      "streams": [
+        "Stream #0:0: Audio: mp3 (mp3float), 44100 Hz, stereo, fltp, 192 kb/s"
+      ],
+      "metadata_detected": true,
+      "exact_refs": [
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\qa\\benihime\\cycle71\\validation\\audio-validation.json",
+          "line": 3,
+          "text": "\"file\": \"bankai_comparison_original_30s.mp3\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\qa\\benihime\\cycle71\\validation\\audio-validation.json",
+          "line": 3,
+          "text": "\"file\": \"bankai_comparison_original_30s.mp3\",",
+          "tracked": true
+        }
+      ],
+      "stem_refs": [],
+      "hash_refs": [
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\qa\\benihime\\cycle71\\validation\\audio-validation.json",
+          "line": 4,
+          "text": "\"sha256\": \"6bdd07c294cdcf6e80c8f839112ecf20d357dc50726e8a4a7910492aacb988a6\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\qa\\benihime\\cycle71\\validation\\audio-validation.json",
+          "line": 4,
+          "text": "\"sha256\": \"6bdd07c294cdcf6e80c8f839112ecf20d357dc50726e8a4a7910492aacb988a6\",",
+          "tracked": true
+        }
+      ],
+      "copies": [],
+      "audio_decode": {
+        "exit_code": 0,
+        "errors": ""
+      },
+      "wav_pair": "bankai_comparison_original_30s_final.wav",
+      "pair_comparison": {
+        "correlation": 0.9999805247544975,
+        "lag_seconds": 0.0
+      },
+      "category": "Versão MP3 correspondente",
+      "recommendation": "Secundário ao WAV; eventual limpeza somente após backup e confirmação.",
+      "detail": "Correspondente de bankai_comparison_original_30s_final.wav; correlação PCM de áudio 0.999981. Mesma gravação provável, não duplicata binária.",
+      "MiB": 0.688,
+      "references": 2,
+      "hash_references": 2,
+      "source_changed": false,
+      "unique_current_source": false
+    },
+    {
+      "name": "bankai_comparison_original_30s_final.wav",
+      "path": "C:\\Users\\joaop\\Downloads\\Áudios e vídeos para revisão\\bankai_comparison_original_30s_final.wav",
+      "bytes": 5292078,
+      "mtime_ns": 1792498800084269700,
+      "sha256": "f22f3475d5438c29b4345fbaadef355fcfdba05b6bbf38f344813f3973db28e8",
+      "duration_s": 30.0,
+      "streams": [
+        "Stream #0:0: Audio: pcm_s16le ([1][0][0][0] / 0x0001), 44100 Hz, stereo, s16, 1411 kb/s"
+      ],
+      "metadata_detected": true,
+      "exact_refs": [
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\qa\\benihime\\cycle71\\validation\\audio-analysis.json",
+          "line": 3,
+          "text": "\"file\": \"C:\\\\Users\\\\joaop\\\\Downloads\\\\bankai_comparison_original_30s_final.wav\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\qa\\benihime\\cycle71\\validation\\audio-validation.json",
+          "line": 10,
+          "text": "\"file\": \"bankai_comparison_original_30s_final.wav\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\qa\\benihime\\cycle71\\validation\\audio-analysis.json",
+          "line": 3,
+          "text": "\"file\": \"C:\\\\Users\\\\joaop\\\\Downloads\\\\bankai_comparison_original_30s_final.wav\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\qa\\benihime\\cycle71\\validation\\audio-validation.json",
+          "line": 10,
+          "text": "\"file\": \"bankai_comparison_original_30s_final.wav\",",
+          "tracked": true
+        }
+      ],
+      "stem_refs": [],
+      "hash_refs": [
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\qa\\benihime\\cycle71\\validation\\audio-analysis.json",
+          "line": 7,
+          "text": "\"sha256\": \"f22f3475d5438c29b4345fbaadef355fcfdba05b6bbf38f344813f3973db28e8\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\qa\\benihime\\cycle71\\validation\\audio-validation.json",
+          "line": 11,
+          "text": "\"sha256\": \"f22f3475d5438c29b4345fbaadef355fcfdba05b6bbf38f344813f3973db28e8\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\qa\\benihime\\cycle71\\validation\\audio-analysis.json",
+          "line": 7,
+          "text": "\"sha256\": \"f22f3475d5438c29b4345fbaadef355fcfdba05b6bbf38f344813f3973db28e8\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\qa\\benihime\\cycle71\\validation\\audio-validation.json",
+          "line": 11,
+          "text": "\"sha256\": \"f22f3475d5438c29b4345fbaadef355fcfdba05b6bbf38f344813f3973db28e8\",",
+          "tracked": true
+        }
+      ],
+      "copies": [],
+      "audio_decode": {
+        "exit_code": 0,
+        "errors": ""
+      },
+      "category": "Fonte histórica",
+      "recommendation": "Arquivar; não confundir com a fonte atual.",
+      "detail": "Faixa de comparação Benihime documentada e identificada por hash; não é a entrada do importador atual.",
+      "MiB": 5.047,
+      "references": 4,
+      "hash_references": 4,
+      "source_changed": false,
+      "unique_current_source": false
+    },
+    {
+      "name": "bankai_final_ordered_30s.mp3",
+      "path": "C:\\Users\\joaop\\Downloads\\Áudios e vídeos para revisão\\bankai_final_ordered_30s.mp3",
+      "bytes": 721197,
+      "mtime_ns": 1792498773626142900,
+      "sha256": "119ed900b4728828b899021f491b8621ea90ec82dd2a5388cdd22d99807cd5e0",
+      "duration_s": 30.02,
+      "streams": [
+        "Stream #0:0: Audio: mp3 (mp3float), 48000 Hz, stereo, fltp, 192 kb/s"
+      ],
+      "metadata_detected": true,
+      "exact_refs": [
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\qa\\benihime\\cycle71\\validation\\audio-validation.json",
+          "line": 17,
+          "text": "\"file\": \"bankai_final_ordered_30s.mp3\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\qa\\benihime\\cycle71\\validation\\audio-validation.json",
+          "line": 17,
+          "text": "\"file\": \"bankai_final_ordered_30s.mp3\",",
+          "tracked": true
+        }
+      ],
+      "stem_refs": [
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\71-benihime-apoios-audio-higashi-execucao-2026-10-20.md",
+          "line": 17,
+          "text": "Os oito arquivos recebidos foram decodificados e identificados por hash; os WAVs foram escolhidos como fontes. A análise por correlação identifica as falas dentro de `bankai_final_ordered_30s.wav`: “Bankai” em aproximadamente 2,60 s e nome completo em 24,265 s. As versões comparison ficam como referências, sem substituir a faixa ordered.",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\licencas\\71-audios-fornecidos-benihime.md",
+          "line": 5,
+          "text": "Fontes utilizadas: `Bankai_voice_clean.wav`, `Kannonbiraki_Benihime_Aratame_voice_clean.wav` e `bankai_final_ordered_30s.wav`. Os MP3s equivalentes e a faixa comparison são referências; os WAVs foram escolhidos como fontes de conversão para OGG Vorbis. Não foram modificados os originais em Downloads.",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\qa\\benihime\\cycle71\\validation\\audio-analysis.json",
+          "line": 313,
+          "text": "\"file\": \"C:\\\\Users\\\\joaop\\\\Downloads\\\\bankai_final_ordered_30s.wav\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\qa\\benihime\\cycle71\\validation\\audio-import.json",
+          "line": 19,
+          "text": "\"source\": \"bankai_final_ordered_30s.wav\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\qa\\benihime\\cycle71\\validation\\audio-validation.json",
+          "line": 24,
+          "text": "\"file\": \"bankai_final_ordered_30s.wav\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\qa\\benihime\\cycle74\\audio\\audio-import.json",
+          "line": 11,
+          "text": "\"source\": \"bankai_final_ordered_30s.wav\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\tools\\audio\\import_benihime_user_audio.py",
+          "line": 27,
+          "text": "('bankai_final_ordered_30s.wav', 'benihime_invocation_mix',",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\71-benihime-apoios-audio-higashi-execucao-2026-10-20.md",
+          "line": 17,
+          "text": "Os oito arquivos recebidos foram decodificados e identificados por hash; os WAVs foram escolhidos como fontes. A análise por correlação identifica as falas dentro de `bankai_final_ordered_30s.wav`: “Bankai” em aproximadamente 2,60 s e nome completo em 24,265 s. As versões comparison ficam como referências, sem substituir a faixa ordered.",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\licencas\\71-audios-fornecidos-benihime.md",
+          "line": 5,
+          "text": "Fontes utilizadas: `Bankai_voice_clean.wav`, `Kannonbiraki_Benihime_Aratame_voice_clean.wav` e `bankai_final_ordered_30s.wav`. Os MP3s equivalentes e a faixa comparison são referências; os WAVs foram escolhidos como fontes de conversão para OGG Vorbis. Não foram modificados os originais em Downloads.",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\qa\\benihime\\cycle71\\validation\\audio-analysis.json",
+          "line": 313,
+          "text": "\"file\": \"C:\\\\Users\\\\joaop\\\\Downloads\\\\bankai_final_ordered_30s.wav\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\qa\\benihime\\cycle71\\validation\\audio-import.json",
+          "line": 19,
+          "text": "\"source\": \"bankai_final_ordered_30s.wav\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\qa\\benihime\\cycle71\\validation\\audio-validation.json",
+          "line": 24,
+          "text": "\"file\": \"bankai_final_ordered_30s.wav\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\qa\\benihime\\cycle74\\audio\\audio-import.json",
+          "line": 11,
+          "text": "\"source\": \"bankai_final_ordered_30s.wav\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\tools\\audio\\import_benihime_user_audio.py",
+          "line": 27,
+          "text": "('bankai_final_ordered_30s.wav', 'benihime_invocation_mix',",
+          "tracked": true
+        }
+      ],
+      "hash_refs": [
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\qa\\benihime\\cycle71\\validation\\audio-validation.json",
+          "line": 18,
+          "text": "\"sha256\": \"119ed900b4728828b899021f491b8621ea90ec82dd2a5388cdd22d99807cd5e0\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\qa\\benihime\\cycle71\\validation\\audio-validation.json",
+          "line": 18,
+          "text": "\"sha256\": \"119ed900b4728828b899021f491b8621ea90ec82dd2a5388cdd22d99807cd5e0\",",
+          "tracked": true
+        }
+      ],
+      "copies": [],
+      "audio_decode": {
+        "exit_code": 0,
+        "errors": ""
+      },
+      "wav_pair": "bankai_final_ordered_30s.wav",
+      "pair_comparison": {
+        "correlation": 0.9999827099673393,
+        "lag_seconds": 0.0
+      },
+      "category": "Versão MP3 correspondente",
+      "recommendation": "Secundário ao WAV; eventual limpeza somente após backup e confirmação.",
+      "detail": "Correspondente de bankai_final_ordered_30s.wav; correlação PCM de áudio 0.999983. Mesma gravação provável, não duplicata binária.",
+      "MiB": 0.688,
+      "references": 2,
+      "hash_references": 2,
+      "source_changed": false,
+      "unique_current_source": false
+    },
+    {
+      "name": "bankai_final_ordered_30s.wav",
+      "path": "C:\\Users\\joaop\\Downloads\\Áudios e vídeos para revisão\\bankai_final_ordered_30s.wav",
+      "bytes": 23040102,
+      "mtime_ns": 1792498781140168600,
+      "sha256": "37eef641ef61bc3be64f12ff74211757a1a1bc51268a3e1f8e668dd15b29dfa2",
+      "duration_s": 30.0,
+      "streams": [
+        "Stream #0:0: Audio: pcm_s16le ([1][0][0][0] / 0x0001), 192000 Hz, stereo, s16, 6144 kb/s"
+      ],
+      "metadata_detected": true,
+      "exact_refs": [
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\71-benihime-apoios-audio-higashi-execucao-2026-10-20.md",
+          "line": 17,
+          "text": "Os oito arquivos recebidos foram decodificados e identificados por hash; os WAVs foram escolhidos como fontes. A análise por correlação identifica as falas dentro de `bankai_final_ordered_30s.wav`: “Bankai” em aproximadamente 2,60 s e nome completo em 24,265 s. As versões comparison ficam como referências, sem substituir a faixa ordered.",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\licencas\\71-audios-fornecidos-benihime.md",
+          "line": 5,
+          "text": "Fontes utilizadas: `Bankai_voice_clean.wav`, `Kannonbiraki_Benihime_Aratame_voice_clean.wav` e `bankai_final_ordered_30s.wav`. Os MP3s equivalentes e a faixa comparison são referências; os WAVs foram escolhidos como fontes de conversão para OGG Vorbis. Não foram modificados os originais em Downloads.",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\qa\\benihime\\cycle71\\validation\\audio-analysis.json",
+          "line": 313,
+          "text": "\"file\": \"C:\\\\Users\\\\joaop\\\\Downloads\\\\bankai_final_ordered_30s.wav\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\qa\\benihime\\cycle71\\validation\\audio-import.json",
+          "line": 19,
+          "text": "\"source\": \"bankai_final_ordered_30s.wav\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\qa\\benihime\\cycle71\\validation\\audio-validation.json",
+          "line": 24,
+          "text": "\"file\": \"bankai_final_ordered_30s.wav\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\qa\\benihime\\cycle74\\audio\\audio-import.json",
+          "line": 11,
+          "text": "\"source\": \"bankai_final_ordered_30s.wav\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\tools\\audio\\import_benihime_user_audio.py",
+          "line": 27,
+          "text": "('bankai_final_ordered_30s.wav', 'benihime_invocation_mix',",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\71-benihime-apoios-audio-higashi-execucao-2026-10-20.md",
+          "line": 17,
+          "text": "Os oito arquivos recebidos foram decodificados e identificados por hash; os WAVs foram escolhidos como fontes. A análise por correlação identifica as falas dentro de `bankai_final_ordered_30s.wav`: “Bankai” em aproximadamente 2,60 s e nome completo em 24,265 s. As versões comparison ficam como referências, sem substituir a faixa ordered.",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\licencas\\71-audios-fornecidos-benihime.md",
+          "line": 5,
+          "text": "Fontes utilizadas: `Bankai_voice_clean.wav`, `Kannonbiraki_Benihime_Aratame_voice_clean.wav` e `bankai_final_ordered_30s.wav`. Os MP3s equivalentes e a faixa comparison são referências; os WAVs foram escolhidos como fontes de conversão para OGG Vorbis. Não foram modificados os originais em Downloads.",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\qa\\benihime\\cycle71\\validation\\audio-analysis.json",
+          "line": 313,
+          "text": "\"file\": \"C:\\\\Users\\\\joaop\\\\Downloads\\\\bankai_final_ordered_30s.wav\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\qa\\benihime\\cycle71\\validation\\audio-import.json",
+          "line": 19,
+          "text": "\"source\": \"bankai_final_ordered_30s.wav\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\qa\\benihime\\cycle71\\validation\\audio-validation.json",
+          "line": 24,
+          "text": "\"file\": \"bankai_final_ordered_30s.wav\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\qa\\benihime\\cycle74\\audio\\audio-import.json",
+          "line": 11,
+          "text": "\"source\": \"bankai_final_ordered_30s.wav\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\tools\\audio\\import_benihime_user_audio.py",
+          "line": 27,
+          "text": "('bankai_final_ordered_30s.wav', 'benihime_invocation_mix',",
+          "tracked": true
+        }
+      ],
+      "stem_refs": [
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\qa\\benihime\\cycle71\\validation\\audio-validation.json",
+          "line": 17,
+          "text": "\"file\": \"bankai_final_ordered_30s.mp3\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\qa\\benihime\\cycle71\\validation\\audio-validation.json",
+          "line": 17,
+          "text": "\"file\": \"bankai_final_ordered_30s.mp3\",",
+          "tracked": true
+        }
+      ],
+      "hash_refs": [
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\qa\\benihime\\cycle71\\validation\\audio-analysis.json",
+          "line": 317,
+          "text": "\"sha256\": \"37eef641ef61bc3be64f12ff74211757a1a1bc51268a3e1f8e668dd15b29dfa2\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\qa\\benihime\\cycle71\\validation\\audio-import.json",
+          "line": 20,
+          "text": "\"sourceSha256\": \"37eef641ef61bc3be64f12ff74211757a1a1bc51268a3e1f8e668dd15b29dfa2\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\qa\\benihime\\cycle71\\validation\\audio-validation.json",
+          "line": 25,
+          "text": "\"sha256\": \"37eef641ef61bc3be64f12ff74211757a1a1bc51268a3e1f8e668dd15b29dfa2\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\qa\\benihime\\cycle74\\audio\\audio-import.json",
+          "line": 12,
+          "text": "\"sourceSha256\": \"37eef641ef61bc3be64f12ff74211757a1a1bc51268a3e1f8e668dd15b29dfa2\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\qa\\benihime\\cycle71\\validation\\audio-analysis.json",
+          "line": 317,
+          "text": "\"sha256\": \"37eef641ef61bc3be64f12ff74211757a1a1bc51268a3e1f8e668dd15b29dfa2\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\qa\\benihime\\cycle71\\validation\\audio-import.json",
+          "line": 20,
+          "text": "\"sourceSha256\": \"37eef641ef61bc3be64f12ff74211757a1a1bc51268a3e1f8e668dd15b29dfa2\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\qa\\benihime\\cycle71\\validation\\audio-validation.json",
+          "line": 25,
+          "text": "\"sha256\": \"37eef641ef61bc3be64f12ff74211757a1a1bc51268a3e1f8e668dd15b29dfa2\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\qa\\benihime\\cycle74\\audio\\audio-import.json",
+          "line": 12,
+          "text": "\"sourceSha256\": \"37eef641ef61bc3be64f12ff74211757a1a1bc51268a3e1f8e668dd15b29dfa2\",",
+          "tracked": true
+        }
+      ],
+      "copies": [],
+      "audio_decode": {
+        "exit_code": 0,
+        "errors": ""
+      },
+      "runtime_targets": [
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\src\\main\\resources\\assets\\bleachmod\\sounds\\benihime_invocation_mix.ogg",
+          "sha256": "b70ccbac632182bb06b6dbed9dba9714877830f0ead1152c149e9677bba893f9",
+          "events": [
+            "benihime.invocation_mix"
+          ],
+          "decode": {
+            "exit_code": 0,
+            "errors": ""
+          },
+          "comparison": {
+            "correlation": 0.8687819217833749,
+            "lag_seconds": 1.2
+          },
+          "import_manifests": [
+            {
+              "manifest": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\qa\\benihime\\cycle74\\audio\\audio-import.json",
+              "source_hash_matches": true,
+              "output_hash_matches_current": true
+            },
+            {
+              "manifest": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\qa\\benihime\\cycle74\\audio\\audio-import.json",
+              "source_hash_matches": true,
+              "output_hash_matches_current": true
+            },
+            {
+              "manifest": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\qa\\benihime\\cycle71\\validation\\audio-import.json",
+              "source_hash_matches": true,
+              "output_hash_matches_current": false
+            },
+            {
+              "manifest": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\qa\\benihime\\cycle71\\validation\\audio-import.json",
+              "source_hash_matches": true,
+              "output_hash_matches_current": false
+            }
+          ]
+        }
+      ],
+      "category": "Fonte WAV atual",
+      "recommendation": "Preservar o original; OGG convertido não substitui fonte.",
+      "detail": "Fonte associada a benihime_invocation_mix.ogg.",
+      "MiB": 21.973,
+      "references": 14,
+      "hash_references": 8,
+      "source_changed": false,
+      "unique_current_source": true
+    },
+    {
+      "name": "Bankai_voice_clean.mp3",
+      "path": "C:\\Users\\joaop\\Downloads\\Áudios e vídeos para revisão\\Bankai_voice_clean.mp3",
+      "bytes": 23178,
+      "mtime_ns": 1792498811460443800,
+      "sha256": "3cec5a03f6f549342cf1ead0d19a30a4dbe09c9687d9cad42523bca4a77c7430",
+      "duration_s": 0.94,
+      "streams": [
+        "Stream #0:0: Audio: mp3 (mp3float), 48000 Hz, mono, fltp, 192 kb/s"
+      ],
+      "metadata_detected": true,
+      "exact_refs": [
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\qa\\benihime\\cycle71\\validation\\audio-validation.json",
+          "line": 31,
+          "text": "\"file\": \"Bankai_voice_clean.mp3\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\qa\\benihime\\cycle71\\validation\\audio-validation.json",
+          "line": 31,
+          "text": "\"file\": \"Bankai_voice_clean.mp3\",",
+          "tracked": true
+        }
+      ],
+      "stem_refs": [
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\licencas\\71-audios-fornecidos-benihime.md",
+          "line": 5,
+          "text": "Fontes utilizadas: `Bankai_voice_clean.wav`, `Kannonbiraki_Benihime_Aratame_voice_clean.wav` e `bankai_final_ordered_30s.wav`. Os MP3s equivalentes e a faixa comparison são referências; os WAVs foram escolhidos como fontes de conversão para OGG Vorbis. Não foram modificados os originais em Downloads.",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\qa\\benihime\\cycle71\\validation\\audio-analysis.json",
+          "line": 623,
+          "text": "\"file\": \"C:\\\\Users\\\\joaop\\\\Downloads\\\\Bankai_voice_clean.wav\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\qa\\benihime\\cycle71\\validation\\audio-import.json",
+          "line": 3,
+          "text": "\"source\": \"Bankai_voice_clean.wav\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\qa\\benihime\\cycle71\\validation\\audio-validation.json",
+          "line": 38,
+          "text": "\"file\": \"Bankai_voice_clean.wav\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\tools\\audio\\import_benihime_user_audio.py",
+          "line": 25,
+          "text": "('Bankai_voice_clean.wav', 'benihime_voice_bankai', 'aresample=44100,afade=t=in:d=0.01,afade=t=out:st=0.86:d=0.04', 1),",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\licencas\\71-audios-fornecidos-benihime.md",
+          "line": 5,
+          "text": "Fontes utilizadas: `Bankai_voice_clean.wav`, `Kannonbiraki_Benihime_Aratame_voice_clean.wav` e `bankai_final_ordered_30s.wav`. Os MP3s equivalentes e a faixa comparison são referências; os WAVs foram escolhidos como fontes de conversão para OGG Vorbis. Não foram modificados os originais em Downloads.",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\qa\\benihime\\cycle71\\validation\\audio-analysis.json",
+          "line": 623,
+          "text": "\"file\": \"C:\\\\Users\\\\joaop\\\\Downloads\\\\Bankai_voice_clean.wav\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\qa\\benihime\\cycle71\\validation\\audio-import.json",
+          "line": 3,
+          "text": "\"source\": \"Bankai_voice_clean.wav\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\qa\\benihime\\cycle71\\validation\\audio-validation.json",
+          "line": 38,
+          "text": "\"file\": \"Bankai_voice_clean.wav\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\tools\\audio\\import_benihime_user_audio.py",
+          "line": 25,
+          "text": "('Bankai_voice_clean.wav', 'benihime_voice_bankai', 'aresample=44100,afade=t=in:d=0.01,afade=t=out:st=0.86:d=0.04', 1),",
+          "tracked": true
+        }
+      ],
+      "hash_refs": [
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\qa\\benihime\\cycle71\\validation\\audio-validation.json",
+          "line": 32,
+          "text": "\"sha256\": \"3cec5a03f6f549342cf1ead0d19a30a4dbe09c9687d9cad42523bca4a77c7430\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\qa\\benihime\\cycle71\\validation\\audio-validation.json",
+          "line": 32,
+          "text": "\"sha256\": \"3cec5a03f6f549342cf1ead0d19a30a4dbe09c9687d9cad42523bca4a77c7430\",",
+          "tracked": true
+        }
+      ],
+      "copies": [],
+      "audio_decode": {
+        "exit_code": 0,
+        "errors": ""
+      },
+      "wav_pair": "Bankai_voice_clean.wav",
+      "pair_comparison": {
+        "correlation": 0.9999978837485836,
+        "lag_seconds": 0.0
+      },
+      "category": "Versão MP3 correspondente",
+      "recommendation": "Secundário ao WAV; eventual limpeza somente após backup e confirmação.",
+      "detail": "Correspondente de Bankai_voice_clean.wav; correlação PCM de áudio 0.999998. Mesma gravação provável, não duplicata binária.",
+      "MiB": 0.022,
+      "references": 2,
+      "hash_references": 2,
+      "source_changed": false,
+      "unique_current_source": false
+    },
+    {
+      "name": "Bankai_voice_clean.wav",
+      "path": "C:\\Users\\joaop\\Downloads\\Áudios e vídeos para revisão\\Bankai_voice_clean.wav",
+      "bytes": 345702,
+      "mtime_ns": 1792498819024385500,
+      "sha256": "25eda3b0caec2da82b85d8afe55664db5e99493b5478864b7b58f9021aea68f6",
+      "duration_s": 0.9,
+      "streams": [
+        "Stream #0:0: Audio: pcm_s16le ([1][0][0][0] / 0x0001), 192000 Hz, mono, s16, 3072 kb/s"
+      ],
+      "metadata_detected": true,
+      "exact_refs": [
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\licencas\\71-audios-fornecidos-benihime.md",
+          "line": 5,
+          "text": "Fontes utilizadas: `Bankai_voice_clean.wav`, `Kannonbiraki_Benihime_Aratame_voice_clean.wav` e `bankai_final_ordered_30s.wav`. Os MP3s equivalentes e a faixa comparison são referências; os WAVs foram escolhidos como fontes de conversão para OGG Vorbis. Não foram modificados os originais em Downloads.",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\qa\\benihime\\cycle71\\validation\\audio-analysis.json",
+          "line": 623,
+          "text": "\"file\": \"C:\\\\Users\\\\joaop\\\\Downloads\\\\Bankai_voice_clean.wav\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\qa\\benihime\\cycle71\\validation\\audio-import.json",
+          "line": 3,
+          "text": "\"source\": \"Bankai_voice_clean.wav\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\qa\\benihime\\cycle71\\validation\\audio-validation.json",
+          "line": 38,
+          "text": "\"file\": \"Bankai_voice_clean.wav\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\tools\\audio\\import_benihime_user_audio.py",
+          "line": 25,
+          "text": "('Bankai_voice_clean.wav', 'benihime_voice_bankai', 'aresample=44100,afade=t=in:d=0.01,afade=t=out:st=0.86:d=0.04', 1),",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\licencas\\71-audios-fornecidos-benihime.md",
+          "line": 5,
+          "text": "Fontes utilizadas: `Bankai_voice_clean.wav`, `Kannonbiraki_Benihime_Aratame_voice_clean.wav` e `bankai_final_ordered_30s.wav`. Os MP3s equivalentes e a faixa comparison são referências; os WAVs foram escolhidos como fontes de conversão para OGG Vorbis. Não foram modificados os originais em Downloads.",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\qa\\benihime\\cycle71\\validation\\audio-analysis.json",
+          "line": 623,
+          "text": "\"file\": \"C:\\\\Users\\\\joaop\\\\Downloads\\\\Bankai_voice_clean.wav\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\qa\\benihime\\cycle71\\validation\\audio-import.json",
+          "line": 3,
+          "text": "\"source\": \"Bankai_voice_clean.wav\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\qa\\benihime\\cycle71\\validation\\audio-validation.json",
+          "line": 38,
+          "text": "\"file\": \"Bankai_voice_clean.wav\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\tools\\audio\\import_benihime_user_audio.py",
+          "line": 25,
+          "text": "('Bankai_voice_clean.wav', 'benihime_voice_bankai', 'aresample=44100,afade=t=in:d=0.01,afade=t=out:st=0.86:d=0.04', 1),",
+          "tracked": true
+        }
+      ],
+      "stem_refs": [
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\qa\\benihime\\cycle71\\validation\\audio-validation.json",
+          "line": 31,
+          "text": "\"file\": \"Bankai_voice_clean.mp3\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\qa\\benihime\\cycle71\\validation\\audio-validation.json",
+          "line": 31,
+          "text": "\"file\": \"Bankai_voice_clean.mp3\",",
+          "tracked": true
+        }
+      ],
+      "hash_refs": [
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\qa\\benihime\\cycle71\\validation\\audio-analysis.json",
+          "line": 627,
+          "text": "\"sha256\": \"25eda3b0caec2da82b85d8afe55664db5e99493b5478864b7b58f9021aea68f6\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\qa\\benihime\\cycle71\\validation\\audio-import.json",
+          "line": 4,
+          "text": "\"sourceSha256\": \"25eda3b0caec2da82b85d8afe55664db5e99493b5478864b7b58f9021aea68f6\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\qa\\benihime\\cycle71\\validation\\audio-validation.json",
+          "line": 39,
+          "text": "\"sha256\": \"25eda3b0caec2da82b85d8afe55664db5e99493b5478864b7b58f9021aea68f6\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\qa\\benihime\\cycle71\\validation\\audio-analysis.json",
+          "line": 627,
+          "text": "\"sha256\": \"25eda3b0caec2da82b85d8afe55664db5e99493b5478864b7b58f9021aea68f6\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\qa\\benihime\\cycle71\\validation\\audio-import.json",
+          "line": 4,
+          "text": "\"sourceSha256\": \"25eda3b0caec2da82b85d8afe55664db5e99493b5478864b7b58f9021aea68f6\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\qa\\benihime\\cycle71\\validation\\audio-validation.json",
+          "line": 39,
+          "text": "\"sha256\": \"25eda3b0caec2da82b85d8afe55664db5e99493b5478864b7b58f9021aea68f6\",",
+          "tracked": true
+        }
+      ],
+      "copies": [],
+      "audio_decode": {
+        "exit_code": 0,
+        "errors": ""
+      },
+      "runtime_targets": [
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\src\\main\\resources\\assets\\bleachmod\\sounds\\benihime_voice_bankai.ogg",
+          "sha256": "f3e8b6344ac190ee493cc0917d6163a2c3e1e3780a9612eabd266a2eaf453e5a",
+          "events": [
+            "voice.benihime_bankai"
+          ],
+          "decode": {
+            "exit_code": 0,
+            "errors": ""
+          },
+          "comparison": {
+            "correlation": 0.9990003457944042,
+            "lag_seconds": 0.0
+          },
+          "import_manifests": [
+            {
+              "manifest": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\qa\\benihime\\cycle71\\validation\\audio-import.json",
+              "source_hash_matches": true,
+              "output_hash_matches_current": true
+            },
+            {
+              "manifest": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\qa\\benihime\\cycle71\\validation\\audio-import.json",
+              "source_hash_matches": true,
+              "output_hash_matches_current": true
+            }
+          ]
+        }
+      ],
+      "category": "Fonte WAV atual",
+      "recommendation": "Preservar o original; OGG convertido não substitui fonte.",
+      "detail": "Fonte associada a benihime_voice_bankai.ogg.",
+      "MiB": 0.33,
+      "references": 10,
+      "hash_references": 6,
+      "source_changed": false,
+      "unique_current_source": true
+    },
+    {
+      "name": "Bing Vídeos.mp4",
+      "path": "C:\\Users\\joaop\\Downloads\\Áudios e vídeos para revisão\\Bing Vídeos.mp4",
+      "bytes": 15088207,
+      "mtime_ns": 1792411805550190500,
+      "sha256": "033f3f65630d9f96e6395d05357561384560f175d0809dc69b834b7356122ca3",
+      "duration_s": 90.01,
+      "streams": [
+        "Stream #0:0[0x1](und): Video: h264 (High) (avc1 / 0x31637661), yuv420p(tv, bt709, progressive), 1280x720 [SAR 1:1 DAR 16:9], 1210 kb/s, 23.89 fps, 60 tbr, 57600 tbn (default)",
+        "Stream #0:1[0x2](und): Audio: aac (LC) (mp4a / 0x6134706D), 48000 Hz, stereo, fltp, 128 kb/s (default)"
+      ],
+      "metadata_detected": true,
+      "exact_refs": [
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\64-revisao-planejamento-animacoes-benihime-ryujin-2026-10-19.md",
+          "line": 54,
+          "text": "Fonte local: `C:/Users/joaop/Downloads/Bing Vídeos.mp4`, duração ~90 s, 1280×720. Inspecionada a sequência completa por amostragem de 3 s e os marcos da ativação por quadros adicionais; análise visual, não validação de sincronismo de áudio. Tempos aproximados do arquivo enviado, não duração proposta no jogo.",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\64-revisao-planejamento-animacoes-benihime-ryujin-2026-10-19.md",
+          "line": 54,
+          "text": "Fonte local: `C:/Users/joaop/Downloads/Bing Vídeos.mp4`, duração ~90 s, 1280×720. Inspecionada a sequência completa por amostragem de 3 s e os marcos da ativação por quadros adicionais; análise visual, não validação de sincronismo de áudio. Tempos aproximados do arquivo enviado, não duração proposta no jogo.",
+          "tracked": true
+        }
+      ],
+      "stem_refs": [],
+      "hash_refs": [],
+      "copies": [],
+      "category": "Vídeo de referência / QA",
+      "recommendation": "Preservar como referência/evidência, mesmo sem uso pelo jogo.",
+      "detail": "Referência anime/Bleach para Benihime; citada no ciclo 64.",
+      "MiB": 14.389,
+      "references": 2,
+      "hash_references": 0,
+      "source_changed": false,
+      "unique_current_source": false
+    },
+    {
+      "name": "Daiguren_Bankai_voice_clean.mp3",
+      "path": "C:\\Users\\joaop\\Downloads\\Áudios e vídeos para revisão\\Daiguren_Bankai_voice_clean.mp3",
+      "bytes": 26634,
+      "mtime_ns": 1792753334959085400,
+      "sha256": "4d18c176e00a8cc7718bcbd1d701e5e6153b9309fc4065775c1d2b305be7aa85",
+      "duration_s": 1.08,
+      "streams": [
+        "Stream #0:0: Audio: mp3 (mp3float), 48000 Hz, mono, fltp, 192 kb/s"
+      ],
+      "metadata_detected": true,
+      "exact_refs": [],
+      "stem_refs": [
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\99-hyorinmaru-fala-camera-coordenacao-2026-10-23.md",
+          "line": 8,
+          "text": "- Usuário reenviou o WAV após informar que havia apagado os originais. A fonte tem 1,05 s e hash 0703c3834add12358156e06e1668fb02b4aa9d2c9527f08e1fb4dde7772cea87, igual ao registro do ciclo 92. Cópia preservada em tools/audio/source/Daiguren_Bankai_voice_clean.wav.",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\qa\\cycle92\\audio-import.json",
+          "line": 3,
+          "text": "\"source\": \"Daiguren_Bankai_voice_clean.wav\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\qa\\cycle99\\audio-refinement.json",
+          "line": 2,
+          "text": "\"source\": \"tools\\\\audio\\\\source\\\\Daiguren_Bankai_voice_clean.wav\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\tools\\audio\\import_hyorinmaru_user_audio.py",
+          "line": 22,
+          "text": "('Daiguren_Bankai_voice_clean.wav', 'hyorinmaru_voice_bankai', 1,",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\99-hyorinmaru-fala-camera-coordenacao-2026-10-23.md",
+          "line": 8,
+          "text": "- Usuário reenviou o WAV após informar que havia apagado os originais. A fonte tem 1,05 s e hash 0703c3834add12358156e06e1668fb02b4aa9d2c9527f08e1fb4dde7772cea87, igual ao registro do ciclo 92. Cópia preservada em tools/audio/source/Daiguren_Bankai_voice_clean.wav.",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\qa\\cycle92\\audio-import.json",
+          "line": 3,
+          "text": "\"source\": \"Daiguren_Bankai_voice_clean.wav\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\qa\\cycle99\\audio-refinement.json",
+          "line": 2,
+          "text": "\"source\": \"tools\\\\audio\\\\source\\\\Daiguren_Bankai_voice_clean.wav\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\tools\\audio\\import_hyorinmaru_user_audio.py",
+          "line": 22,
+          "text": "('Daiguren_Bankai_voice_clean.wav', 'hyorinmaru_voice_bankai', 1,",
+          "tracked": true
+        }
+      ],
+      "hash_refs": [],
+      "copies": [],
+      "audio_decode": {
+        "exit_code": 0,
+        "errors": ""
+      },
+      "wav_pair": "Daiguren_Bankai_voice_clean.wav",
+      "pair_comparison": {
+        "correlation": 0.9999998448798115,
+        "lag_seconds": 0.0
+      },
+      "category": "Versão MP3 correspondente",
+      "recommendation": "Secundário ao WAV; eventual limpeza somente após backup e confirmação.",
+      "detail": "Correspondente de Daiguren_Bankai_voice_clean.wav; correlação PCM de áudio 1.000000. Mesma gravação provável, não duplicata binária.",
+      "MiB": 0.025,
+      "references": 0,
+      "hash_references": 0,
+      "source_changed": false,
+      "unique_current_source": false
+    },
+    {
+      "name": "Daiguren_Bankai_voice_clean.wav",
+      "path": "C:\\Users\\joaop\\Downloads\\Áudios e vídeos para revisão\\Daiguren_Bankai_voice_clean.wav",
+      "bytes": 403302,
+      "mtime_ns": 1792753337264424200,
+      "sha256": "0703c3834add12358156e06e1668fb02b4aa9d2c9527f08e1fb4dde7772cea87",
+      "duration_s": 1.05,
+      "streams": [
+        "Stream #0:0: Audio: pcm_s16le ([1][0][0][0] / 0x0001), 192000 Hz, mono, s16, 3072 kb/s"
+      ],
+      "metadata_detected": true,
+      "exact_refs": [
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\99-hyorinmaru-fala-camera-coordenacao-2026-10-23.md",
+          "line": 8,
+          "text": "- Usuário reenviou o WAV após informar que havia apagado os originais. A fonte tem 1,05 s e hash 0703c3834add12358156e06e1668fb02b4aa9d2c9527f08e1fb4dde7772cea87, igual ao registro do ciclo 92. Cópia preservada em tools/audio/source/Daiguren_Bankai_voice_clean.wav.",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\qa\\cycle92\\audio-import.json",
+          "line": 3,
+          "text": "\"source\": \"Daiguren_Bankai_voice_clean.wav\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\qa\\cycle99\\audio-refinement.json",
+          "line": 2,
+          "text": "\"source\": \"tools\\\\audio\\\\source\\\\Daiguren_Bankai_voice_clean.wav\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\tools\\audio\\import_hyorinmaru_user_audio.py",
+          "line": 22,
+          "text": "('Daiguren_Bankai_voice_clean.wav', 'hyorinmaru_voice_bankai', 1,",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\99-hyorinmaru-fala-camera-coordenacao-2026-10-23.md",
+          "line": 8,
+          "text": "- Usuário reenviou o WAV após informar que havia apagado os originais. A fonte tem 1,05 s e hash 0703c3834add12358156e06e1668fb02b4aa9d2c9527f08e1fb4dde7772cea87, igual ao registro do ciclo 92. Cópia preservada em tools/audio/source/Daiguren_Bankai_voice_clean.wav.",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\qa\\cycle92\\audio-import.json",
+          "line": 3,
+          "text": "\"source\": \"Daiguren_Bankai_voice_clean.wav\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\qa\\cycle99\\audio-refinement.json",
+          "line": 2,
+          "text": "\"source\": \"tools\\\\audio\\\\source\\\\Daiguren_Bankai_voice_clean.wav\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\tools\\audio\\import_hyorinmaru_user_audio.py",
+          "line": 22,
+          "text": "('Daiguren_Bankai_voice_clean.wav', 'hyorinmaru_voice_bankai', 1,",
+          "tracked": true
+        }
+      ],
+      "stem_refs": [],
+      "hash_refs": [
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\99-hyorinmaru-fala-camera-coordenacao-2026-10-23.md",
+          "line": 8,
+          "text": "- Usuário reenviou o WAV após informar que havia apagado os originais. A fonte tem 1,05 s e hash 0703c3834add12358156e06e1668fb02b4aa9d2c9527f08e1fb4dde7772cea87, igual ao registro do ciclo 92. Cópia preservada em tools/audio/source/Daiguren_Bankai_voice_clean.wav.",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\qa\\cycle92\\audio-import.json",
+          "line": 4,
+          "text": "\"sourceSha256\": \"0703c3834add12358156e06e1668fb02b4aa9d2c9527f08e1fb4dde7772cea87\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\qa\\cycle99\\audio-refinement.json",
+          "line": 4,
+          "text": "\"sourceSHA256\": \"0703c3834add12358156e06e1668fb02b4aa9d2c9527f08e1fb4dde7772cea87\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\99-hyorinmaru-fala-camera-coordenacao-2026-10-23.md",
+          "line": 8,
+          "text": "- Usuário reenviou o WAV após informar que havia apagado os originais. A fonte tem 1,05 s e hash 0703c3834add12358156e06e1668fb02b4aa9d2c9527f08e1fb4dde7772cea87, igual ao registro do ciclo 92. Cópia preservada em tools/audio/source/Daiguren_Bankai_voice_clean.wav.",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\qa\\cycle92\\audio-import.json",
+          "line": 4,
+          "text": "\"sourceSha256\": \"0703c3834add12358156e06e1668fb02b4aa9d2c9527f08e1fb4dde7772cea87\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\qa\\cycle99\\audio-refinement.json",
+          "line": 4,
+          "text": "\"sourceSHA256\": \"0703c3834add12358156e06e1668fb02b4aa9d2c9527f08e1fb4dde7772cea87\",",
+          "tracked": true
+        }
+      ],
+      "copies": [
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\tools\\audio\\source\\Daiguren_Bankai_voice_clean.wav",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\tools\\audio\\source\\Daiguren_Bankai_voice_clean.wav",
+          "tracked": true
+        }
+      ],
+      "audio_decode": {
+        "exit_code": 0,
+        "errors": ""
+      },
+      "runtime_targets": [
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\src\\main\\resources\\assets\\bleachmod\\sounds\\hyorinmaru_voice_bankai.ogg",
+          "sha256": "43be9210873a5f18335ace0ef93e67b15bce2128bce8ab87fd408f9710a9e080",
+          "events": [
+            "voice.hyorinmaru_bankai"
+          ],
+          "decode": {
+            "exit_code": 0,
+            "errors": ""
+          },
+          "comparison": {
+            "correlation": 0.9943566766709243,
+            "lag_seconds": -0.005
+          },
+          "import_manifests": [
+            {
+              "manifest": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\qa\\cycle99\\audio-refinement.json",
+              "source_hash_matches": true,
+              "output_hash_matches_current": true
+            },
+            {
+              "manifest": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\qa\\cycle92\\audio-import.json",
+              "source_hash_matches": true,
+              "output_hash_matches_current": false
+            },
+            {
+              "manifest": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\qa\\cycle92\\audio-import.json",
+              "source_hash_matches": true,
+              "output_hash_matches_current": false
+            },
+            {
+              "manifest": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\qa\\cycle99\\audio-refinement.json",
+              "source_hash_matches": true,
+              "output_hash_matches_current": true
+            }
+          ]
+        }
+      ],
+      "category": "Fonte WAV atual",
+      "recommendation": "Preservar o original; OGG convertido não substitui fonte.",
+      "detail": "Fonte associada a hyorinmaru_voice_bankai.ogg.",
+      "MiB": 0.385,
+      "references": 8,
+      "hash_references": 6,
+      "source_changed": false,
+      "unique_current_source": false
+    },
+    {
+      "name": "daiguren_hyorinmaru_ice_theme_adapted_20s.mp3",
+      "path": "C:\\Users\\joaop\\Downloads\\Áudios e vídeos para revisão\\daiguren_hyorinmaru_ice_theme_adapted_20s.mp3",
+      "bytes": 481581,
+      "mtime_ns": 1792753302990454400,
+      "sha256": "6423f66ac3d9f5cab2c1f4482c03c46135bba363c5ba35ece0ae650a2a78d4c1",
+      "duration_s": 20.04,
+      "streams": [
+        "Stream #0:0: Audio: mp3 (mp3float), 48000 Hz, stereo, fltp, 192 kb/s"
+      ],
+      "metadata_detected": true,
+      "exact_refs": [],
+      "stem_refs": [
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\qa\\cycle92\\audio-import.json",
+          "line": 19,
+          "text": "\"source\": \"daiguren_hyorinmaru_ice_theme_adapted_20s.wav\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\tools\\audio\\import_hyorinmaru_user_audio.py",
+          "line": 26,
+          "text": "('daiguren_hyorinmaru_ice_theme_adapted_20s.wav', 'hyorinmaru_theme', 2,",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\qa\\cycle92\\audio-import.json",
+          "line": 19,
+          "text": "\"source\": \"daiguren_hyorinmaru_ice_theme_adapted_20s.wav\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\tools\\audio\\import_hyorinmaru_user_audio.py",
+          "line": 26,
+          "text": "('daiguren_hyorinmaru_ice_theme_adapted_20s.wav', 'hyorinmaru_theme', 2,",
+          "tracked": true
+        }
+      ],
+      "hash_refs": [],
+      "copies": [],
+      "audio_decode": {
+        "exit_code": 0,
+        "errors": ""
+      },
+      "wav_pair": "daiguren_hyorinmaru_ice_theme_adapted_20s.wav",
+      "pair_comparison": {
+        "correlation": 0.9998409455504045,
+        "lag_seconds": 0.0
+      },
+      "category": "Versão MP3 correspondente",
+      "recommendation": "Secundário ao WAV; eventual limpeza somente após backup e confirmação.",
+      "detail": "Correspondente de daiguren_hyorinmaru_ice_theme_adapted_20s.wav; correlação PCM de áudio 0.999841. Mesma gravação provável, não duplicata binária.",
+      "MiB": 0.459,
+      "references": 0,
+      "hash_references": 0,
+      "source_changed": false,
+      "unique_current_source": false
+    },
+    {
+      "name": "daiguren_hyorinmaru_ice_theme_adapted_20s.wav",
+      "path": "C:\\Users\\joaop\\Downloads\\Áudios e vídeos para revisão\\daiguren_hyorinmaru_ice_theme_adapted_20s.wav",
+      "bytes": 15360102,
+      "mtime_ns": 1792753412387074900,
+      "sha256": "2a2070a5c4de34cf55b35290fb34b2f9d95859ecdef31c7e5e688a0b04e13e69",
+      "duration_s": 20.0,
+      "streams": [
+        "Stream #0:0: Audio: pcm_s16le ([1][0][0][0] / 0x0001), 192000 Hz, stereo, s16, 6144 kb/s"
+      ],
+      "metadata_detected": true,
+      "exact_refs": [
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\qa\\cycle92\\audio-import.json",
+          "line": 19,
+          "text": "\"source\": \"daiguren_hyorinmaru_ice_theme_adapted_20s.wav\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\tools\\audio\\import_hyorinmaru_user_audio.py",
+          "line": 26,
+          "text": "('daiguren_hyorinmaru_ice_theme_adapted_20s.wav', 'hyorinmaru_theme', 2,",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\qa\\cycle92\\audio-import.json",
+          "line": 19,
+          "text": "\"source\": \"daiguren_hyorinmaru_ice_theme_adapted_20s.wav\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\tools\\audio\\import_hyorinmaru_user_audio.py",
+          "line": 26,
+          "text": "('daiguren_hyorinmaru_ice_theme_adapted_20s.wav', 'hyorinmaru_theme', 2,",
+          "tracked": true
+        }
+      ],
+      "stem_refs": [],
+      "hash_refs": [
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\qa\\cycle92\\audio-import.json",
+          "line": 20,
+          "text": "\"sourceSha256\": \"2a2070a5c4de34cf55b35290fb34b2f9d95859ecdef31c7e5e688a0b04e13e69\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\qa\\cycle92\\audio-import.json",
+          "line": 20,
+          "text": "\"sourceSha256\": \"2a2070a5c4de34cf55b35290fb34b2f9d95859ecdef31c7e5e688a0b04e13e69\",",
+          "tracked": true
+        }
+      ],
+      "copies": [],
+      "audio_decode": {
+        "exit_code": 0,
+        "errors": ""
+      },
+      "runtime_targets": [
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\src\\main\\resources\\assets\\bleachmod\\sounds\\hyorinmaru_theme.ogg",
+          "sha256": "d8c93ec660815458408cc7e4c8ee6c06ca827703031c27877836b38fbe217e3d",
+          "events": [
+            "hyorinmaru.theme"
+          ],
+          "decode": {
+            "exit_code": 0,
+            "errors": ""
+          },
+          "comparison": {
+            "correlation": 0.9480773549079609,
+            "lag_seconds": 0.0
+          },
+          "import_manifests": [
+            {
+              "manifest": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\qa\\cycle92\\audio-import.json",
+              "source_hash_matches": true,
+              "output_hash_matches_current": true
+            },
+            {
+              "manifest": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\qa\\cycle92\\audio-import.json",
+              "source_hash_matches": true,
+              "output_hash_matches_current": true
+            }
+          ]
+        }
+      ],
+      "category": "Fonte WAV atual",
+      "recommendation": "Preservar o original; OGG convertido não substitui fonte.",
+      "detail": "Fonte associada a hyorinmaru_theme.ogg.",
+      "MiB": 14.649,
+      "references": 4,
+      "hash_references": 2,
+      "source_changed": false,
+      "unique_current_source": true
+    },
+    {
+      "name": "Daiguren_Hyorinmaru_voice_clean.mp3",
+      "path": "C:\\Users\\joaop\\Downloads\\Áudios e vídeos para revisão\\Daiguren_Hyorinmaru_voice_clean.mp3",
+      "bytes": 61770,
+      "mtime_ns": 1792753339845335500,
+      "sha256": "175fff3b93faadc84341d2bb9b53da4d6c9848cb9a43b50ef70c698209abff4b",
+      "duration_s": 2.54,
+      "streams": [
+        "Stream #0:0: Audio: mp3 (mp3float), 48000 Hz, mono, fltp, 192 kb/s"
+      ],
+      "metadata_detected": true,
+      "exact_refs": [],
+      "stem_refs": [
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\qa\\cycle92\\audio-import.json",
+          "line": 11,
+          "text": "\"source\": \"Daiguren_Hyorinmaru_voice_clean.wav\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\tools\\audio\\import_hyorinmaru_user_audio.py",
+          "line": 24,
+          "text": "('Daiguren_Hyorinmaru_voice_clean.wav', 'hyorinmaru_voice_name', 1,",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\qa\\cycle92\\audio-import.json",
+          "line": 11,
+          "text": "\"source\": \"Daiguren_Hyorinmaru_voice_clean.wav\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\tools\\audio\\import_hyorinmaru_user_audio.py",
+          "line": 24,
+          "text": "('Daiguren_Hyorinmaru_voice_clean.wav', 'hyorinmaru_voice_name', 1,",
+          "tracked": true
+        }
+      ],
+      "hash_refs": [],
+      "copies": [],
+      "audio_decode": {
+        "exit_code": 0,
+        "errors": ""
+      },
+      "wav_pair": "Daiguren_Hyorinmaru_voice_clean.wav",
+      "pair_comparison": {
+        "correlation": 0.9999988530158899,
+        "lag_seconds": 0.0
+      },
+      "category": "Versão MP3 correspondente",
+      "recommendation": "Secundário ao WAV; eventual limpeza somente após backup e confirmação.",
+      "detail": "Correspondente de Daiguren_Hyorinmaru_voice_clean.wav; correlação PCM de áudio 0.999999. Mesma gravação provável, não duplicata binária.",
+      "MiB": 0.059,
+      "references": 0,
+      "hash_references": 0,
+      "source_changed": false,
+      "unique_current_source": false
+    },
+    {
+      "name": "Daiguren_Hyorinmaru_voice_clean.wav",
+      "path": "C:\\Users\\joaop\\Downloads\\Áudios e vídeos para revisão\\Daiguren_Hyorinmaru_voice_clean.wav",
+      "bytes": 960102,
+      "mtime_ns": 1792753344952514000,
+      "sha256": "aeddb880c5295e32d3043588929f5aa5e4db9fc7b0d0e54de2a3e4910f5fc4f6",
+      "duration_s": 2.5,
+      "streams": [
+        "Stream #0:0: Audio: pcm_s16le ([1][0][0][0] / 0x0001), 192000 Hz, mono, s16, 3072 kb/s"
+      ],
+      "metadata_detected": true,
+      "exact_refs": [
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\qa\\cycle92\\audio-import.json",
+          "line": 11,
+          "text": "\"source\": \"Daiguren_Hyorinmaru_voice_clean.wav\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\tools\\audio\\import_hyorinmaru_user_audio.py",
+          "line": 24,
+          "text": "('Daiguren_Hyorinmaru_voice_clean.wav', 'hyorinmaru_voice_name', 1,",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\qa\\cycle92\\audio-import.json",
+          "line": 11,
+          "text": "\"source\": \"Daiguren_Hyorinmaru_voice_clean.wav\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\tools\\audio\\import_hyorinmaru_user_audio.py",
+          "line": 24,
+          "text": "('Daiguren_Hyorinmaru_voice_clean.wav', 'hyorinmaru_voice_name', 1,",
+          "tracked": true
+        }
+      ],
+      "stem_refs": [],
+      "hash_refs": [
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\qa\\cycle92\\audio-import.json",
+          "line": 12,
+          "text": "\"sourceSha256\": \"aeddb880c5295e32d3043588929f5aa5e4db9fc7b0d0e54de2a3e4910f5fc4f6\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\qa\\cycle92\\audio-import.json",
+          "line": 12,
+          "text": "\"sourceSha256\": \"aeddb880c5295e32d3043588929f5aa5e4db9fc7b0d0e54de2a3e4910f5fc4f6\",",
+          "tracked": true
+        }
+      ],
+      "copies": [],
+      "audio_decode": {
+        "exit_code": 0,
+        "errors": ""
+      },
+      "runtime_targets": [
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\src\\main\\resources\\assets\\bleachmod\\sounds\\hyorinmaru_voice_name.ogg",
+          "sha256": "cf55a5b8b2938d4ce64e8540b67e2c764b870357c2a3413cbea165de77d05641",
+          "events": [
+            "voice.hyorinmaru_name"
+          ],
+          "decode": {
+            "exit_code": 0,
+            "errors": ""
+          },
+          "comparison": {
+            "correlation": 0.999626127111848,
+            "lag_seconds": 0.0
+          },
+          "import_manifests": [
+            {
+              "manifest": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\qa\\cycle92\\audio-import.json",
+              "source_hash_matches": true,
+              "output_hash_matches_current": true
+            },
+            {
+              "manifest": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\qa\\cycle92\\audio-import.json",
+              "source_hash_matches": true,
+              "output_hash_matches_current": true
+            }
+          ]
+        }
+      ],
+      "category": "Fonte WAV atual",
+      "recommendation": "Preservar o original; OGG convertido não substitui fonte.",
+      "detail": "Fonte associada a hyorinmaru_voice_name.ogg.",
+      "MiB": 0.916,
+      "references": 4,
+      "hash_references": 2,
+      "source_changed": false,
+      "unique_current_source": true
+    },
+    {
+      "name": "Gravando 2026-09-20 193722.mp4",
+      "path": "C:\\Users\\joaop\\Downloads\\Áudios e vídeos para revisão\\Gravando 2026-09-20 193722.mp4",
+      "bytes": 38566497,
+      "mtime_ns": 1789943836029882100,
+      "sha256": "581f8872686c01601bc1127af7a51c938ebbcff3f50f5a6f9cb777449a1b6015",
+      "duration_s": 37.43,
+      "streams": [
+        "Stream #0:0[0x1](und): Video: h264 (Main) (avc1 / 0x31637661), yuv420p(progressive), 1920x1020 [SAR 1:1 DAR 32:17], 8047 kb/s, 30 fps, 30 tbr, 30k tbn (default)",
+        "Stream #0:1[0x2](und): Audio: aac (LC) (mp4a / 0x6134706D), 48000 Hz, stereo, fltp, 192 kb/s (default)"
+      ],
+      "metadata_detected": true,
+      "exact_refs": [],
+      "stem_refs": [],
+      "hash_refs": [],
+      "copies": [],
+      "category": "Vídeo de referência / QA",
+      "recommendation": "Preservar como referência/evidência, mesmo sem uso pelo jogo.",
+      "detail": "Gameplay do Bleach Mod, espada/chamas/HUD; sem referência textual encontrada.",
+      "MiB": 36.78,
+      "references": 0,
+      "hash_references": 0,
+      "source_changed": false,
+      "unique_current_source": false
+    },
+    {
+      "name": "Gravando 2026-10-20 201016.mp4",
+      "path": "C:\\Users\\joaop\\Downloads\\Áudios e vídeos para revisão\\Gravando 2026-10-20 201016.mp4",
+      "bytes": 484725596,
+      "mtime_ns": 1792537783802078600,
+      "sha256": "05a6a1b2d08b9432483a059bcd940e58aa12a07a074b405a948359ffa77422fe",
+      "duration_s": 461.13,
+      "streams": [
+        "Stream #0:0[0x1](und): Video: h264 (Main) (avc1 / 0x31637661), yuv420p(progressive), 1920x1020 [SAR 1:1 DAR 32:17], 8214 kb/s, 30 fps, 30 tbr, 30k tbn (default)",
+        "Stream #0:1[0x2](und): Audio: aac (LC) (mp4a / 0x6134706D), 48000 Hz, stereo, fltp, 192 kb/s (default)"
+      ],
+      "metadata_detected": true,
+      "exact_refs": [
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\73-analise-video-usuario-entrada-benihime-2026-10-20.md",
+          "line": 7,
+          "text": "Arquivo original: `C:\\Users\\joaop\\Downloads\\Gravando 2026-10-20 201016.mp4`, 484.725.596 bytes, duração aproximada de 7m41s, 1920×1020, 30 FPS, com faixa AAC estéreo. Original preservado; não duplicado no repositório. Hash e método em [origem.json](qa/benihime/cycle73/origem.json).",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\qa\\benihime\\cycle73\\origem.json",
+          "line": 2,
+          "text": "\"source\": \"C:\\\\Users\\\\joaop\\\\Downloads\\\\Gravando 2026-10-20 201016.mp4\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\73-analise-video-usuario-entrada-benihime-2026-10-20.md",
+          "line": 7,
+          "text": "Arquivo original: `C:\\Users\\joaop\\Downloads\\Gravando 2026-10-20 201016.mp4`, 484.725.596 bytes, duração aproximada de 7m41s, 1920×1020, 30 FPS, com faixa AAC estéreo. Original preservado; não duplicado no repositório. Hash e método em [origem.json](qa/benihime/cycle73/origem.json).",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\qa\\benihime\\cycle73\\origem.json",
+          "line": 2,
+          "text": "\"source\": \"C:\\\\Users\\\\joaop\\\\Downloads\\\\Gravando 2026-10-20 201016.mp4\",",
+          "tracked": true
+        }
+      ],
+      "stem_refs": [],
+      "hash_refs": [
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\qa\\benihime\\cycle73\\origem.json",
+          "line": 3,
+          "text": "\"sha256\": \"05a6a1b2d08b9432483a059bcd940e58aa12a07a074b405a948359ffa77422fe\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\qa\\benihime\\cycle73\\origem.json",
+          "line": 3,
+          "text": "\"sha256\": \"05a6a1b2d08b9432483a059bcd940e58aa12a07a074b405a948359ffa77422fe\",",
+          "tracked": true
+        }
+      ],
+      "copies": [],
+      "category": "Vídeo de referência / QA",
+      "recommendation": "Preservar como referência/evidência, mesmo sem uso pelo jogo.",
+      "detail": "QA da entrada Benihime; nome e hash encontrados nos registros do projeto.",
+      "MiB": 462.27,
+      "references": 4,
+      "hash_references": 2,
+      "source_changed": false,
+      "unique_current_source": false
+    },
+    {
+      "name": "Gravando 2026-10-23 161602.mp4",
+      "path": "C:\\Users\\joaop\\Downloads\\Áudios e vídeos para revisão\\Gravando 2026-10-23 161602.mp4",
+      "bytes": 37015499,
+      "mtime_ns": 1792782958402684200,
+      "sha256": "b47dd17734f32fe887282d8d62ab36c7e06800351be57576878bbe444adee827",
+      "duration_s": 32.5,
+      "streams": [
+        "Stream #0:0[0x1](und): Video: h264 (Main) (avc1 / 0x31637661), yuv420p(progressive), 1920x1080 [SAR 1:1 DAR 16:9], 8916 kb/s, 30 fps, 30 tbr, 30k tbn (default)",
+        "Stream #0:1[0x2](und): Audio: aac (LC) (mp4a / 0x6134706D), 48000 Hz, stereo, fltp, 192 kb/s (default)"
+      ],
+      "metadata_detected": true,
+      "exact_refs": [],
+      "stem_refs": [],
+      "hash_refs": [],
+      "copies": [],
+      "category": "Vídeo de referência / QA",
+      "recommendation": "Preservar como referência/evidência, mesmo sem uso pelo jogo.",
+      "detail": "Referência de anime/Bleach para liberação de Bankai/Senbonzakura; sem nome/hash localizado no projeto.",
+      "MiB": 35.301,
+      "references": 0,
+      "hash_references": 0,
+      "source_changed": false,
+      "unique_current_source": false
+    },
+    {
+      "name": "Gravando 2026-10-23 182203.mp4",
+      "path": "C:\\Users\\joaop\\Downloads\\Áudios e vídeos para revisão\\Gravando 2026-10-23 182203.mp4",
+      "bytes": 76884121,
+      "mtime_ns": 1792790515472380700,
+      "sha256": "a0ff858ecfced9aef70735f357e3dc8bfc7a3327a24672a53652a34575a84b5d",
+      "duration_s": 70.53,
+      "streams": [
+        "Stream #0:0[0x1](und): Video: h264 (Main) (avc1 / 0x31637661), yuv420p(progressive), 1914x1076 [SAR 1:1 DAR 957:538], 8525 kb/s, 30 fps, 30 tbr, 30k tbn (default)",
+        "Stream #0:1[0x2](und): Audio: aac (LC) (mp4a / 0x6134706D), 48000 Hz, stereo, fltp, 192 kb/s (default)"
+      ],
+      "metadata_detected": true,
+      "exact_refs": [],
+      "stem_refs": [],
+      "hash_refs": [],
+      "copies": [],
+      "category": "Sem vínculo localizado",
+      "recommendation": "Separar para confirmação; não excluir nesta auditoria.",
+      "detail": "Desktop, configurações de gravação e navegador/conversa; não mostra o mod nas amostras.",
+      "MiB": 73.322,
+      "references": 0,
+      "hash_references": 0,
+      "source_changed": false,
+      "unique_current_source": false
+    },
+    {
+      "name": "Gravando 2026-10-25 150636.mp4",
+      "path": "C:\\Users\\joaop\\Downloads\\Áudios e vídeos para revisão\\Gravando 2026-10-25 150636.mp4",
+      "bytes": 20096029,
+      "mtime_ns": 1792951592226267700,
+      "sha256": "ccc72692eede36b8ad1632a6fc45993c551c7aa3a58f73db4223d1c89c99494a",
+      "duration_s": 17.47,
+      "streams": [
+        "Stream #0:0[0x1](und): Video: h264 (Main) (avc1 / 0x31637661), yuv420p(progressive), 1920x1080 [SAR 1:1 DAR 16:9], 9008 kb/s, 30 fps, 30 tbr, 30k tbn (default)",
+        "Stream #0:1[0x2](und): Audio: aac (LC) (mp4a / 0x6134706D), 48000 Hz, stereo, fltp, 192 kb/s (default)"
+      ],
+      "metadata_detected": true,
+      "exact_refs": [
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\103-ryujin-bankai-sol-selamento-plano-prompt-2026-10-25.md",
+          "line": 7,
+          "text": "Vídeo original: `C:/Users/joaop/Downloads/Gravando 2026-10-25 150636.mp4`, 17,47 s, 1920×1080, 30 fps. Foram extraídos quadros a cada segundo e marcos adicionais em 0,3/1/1,3/1,6/1,9/2,2/3,2/9,2 s. [Prancha dos quadros](103-ryujin-referencia-frames-2026-10-25.jpg).",
+          "tracked": true
+        }
+      ],
+      "stem_refs": [],
+      "hash_refs": [],
+      "copies": [],
+      "category": "Vídeo de referência / QA",
+      "recommendation": "Preservar como referência/evidência, mesmo sem uso pelo jogo.",
+      "detail": "Referência de Zanka no Tachi, citada no planejamento Ryūjin do ciclo 103.",
+      "MiB": 19.165,
+      "references": 1,
+      "hash_references": 0,
+      "source_changed": false,
+      "unique_current_source": false
+    },
+    {
+      "name": "Gravando 2026-10-25 164851.mp4",
+      "path": "C:\\Users\\joaop\\Downloads\\Áudios e vídeos para revisão\\Gravando 2026-10-25 164851.mp4",
+      "bytes": 86492764,
+      "mtime_ns": 1792957719749406200,
+      "sha256": "218a8db88bf2abbc1b88528fcef00ed1efbe69f59a5db21f681f503cb508eaa3",
+      "duration_s": 82.0,
+      "streams": [
+        "Stream #0:0[0x1](und): Video: h264 (Main) (avc1 / 0x31637661), yuv420p(progressive), 1920x1020 [SAR 1:1 DAR 32:17], 8243 kb/s, 30 fps, 30 tbr, 30k tbn (default)",
+        "Stream #0:1[0x2](und): Audio: aac (LC) (mp4a / 0x6134706D), 48000 Hz, stereo, fltp, 192 kb/s (default)"
+      ],
+      "metadata_detected": true,
+      "exact_refs": [
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\101-senbonzakura-kageyoshi-cinematica-e-arte-conceitual-2026-10-23.md",
+          "line": 413,
+          "text": "A partir da inspeção quadro a quadro do vídeo gravado pelo usuário (`C:\\Users\\joaop\\Downloads\\Gravando 2026-10-25 164851.mp4`), foram diagnosticadas e corrigidas três causas-raiz visuais dentro dos **290 ticks** (preservando `COMMIT = 40`, trava de combate = `60`, cues de áudio, legendas e demais Zanpakutōs):",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\101-senbonzakura-kageyoshi-cinematica-e-arte-conceitual-2026-10-23.md",
+          "line": 415,
+          "text": "### 10.1. Diagnóstico no Vídeo do Usuário (`Gravando 2026-10-25 164851.mp4`)",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\101-senbonzakura-kageyoshi-cinematica-e-arte-conceitual-2026-10-23.md",
+          "line": 413,
+          "text": "A partir da inspeção quadro a quadro do vídeo gravado pelo usuário (`C:\\Users\\joaop\\Downloads\\Gravando 2026-10-25 164851.mp4`), foram diagnosticadas e corrigidas três causas-raiz visuais dentro dos **290 ticks** (preservando `COMMIT = 40`, trava de combate = `60`, cues de áudio, legendas e demais Zanpakutōs):",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\101-senbonzakura-kageyoshi-cinematica-e-arte-conceitual-2026-10-23.md",
+          "line": 415,
+          "text": "### 10.1. Diagnóstico no Vídeo do Usuário (`Gravando 2026-10-25 164851.mp4`)",
+          "tracked": true
+        }
+      ],
+      "stem_refs": [],
+      "hash_refs": [],
+      "copies": [],
+      "category": "Vídeo de referência / QA",
+      "recommendation": "Preservar como referência/evidência, mesmo sem uso pelo jogo.",
+      "detail": "QA/gameplay Senbonzakura, citado no relatório 101 atualizado.",
+      "MiB": 82.486,
+      "references": 4,
+      "hash_references": 0,
+      "source_changed": false,
+      "unique_current_source": false
+    },
+    {
+      "name": "Gravando 2026-10-26 131228.mp4",
+      "path": "C:\\Users\\joaop\\Downloads\\Áudios e vídeos para revisão\\Gravando 2026-10-26 131228.mp4",
+      "bytes": 277279627,
+      "mtime_ns": 1793031143019186000,
+      "sha256": "604688a08539e766c15437a1eb4f629fb0ffe29cfa9d75343335e9009fedd38b",
+      "duration_s": 263.3,
+      "streams": [
+        "Stream #0:0[0x1](und): Video: h264 (Main) (avc1 / 0x31637661), yuv420p(progressive), 1920x1020 [SAR 1:1 DAR 32:17], 8229 kb/s, 30 fps, 30 tbr, 30k tbn (default)",
+        "Stream #0:1[0x2](und): Audio: aac (LC) (mp4a / 0x6134706D), 48000 Hz, stereo, fltp, 192 kb/s (default)"
+      ],
+      "metadata_detected": true,
+      "exact_refs": [
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\qa\\cycle113\\manifest.json",
+          "line": 5,
+          "text": "\"source\": \"C:\\\\Users\\\\joaop\\\\Downloads\\\\Áudios e vídeos para revisão\\\\Gravando 2026-10-26 131228.mp4\",",
+          "tracked": false
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\qa\\cycle113\\package_review.py",
+          "line": 7,
+          "text": "source=next(Path('C:/Users/joaop/Downloads').glob('*/Gravando 2026-10-26 131228.mp4'))",
+          "tracked": false
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\113-auditoria-video-ryujin-combate-tres-frentes-2026-10-26.md",
+          "line": 7,
+          "text": "Gravação do usuário: `Gravando 2026-10-26 131228.mp4`, encontrada em `C:/Users/joaop/Downloads/Áudios e vídeos para revisão/`. Duração 263,30s, 1920×1020, 30fps. Hash, tamanho e origem em [manifest](qa/cycle113/manifest.json). Originais preservados fora do repositório.",
+          "tracked": false
+        }
+      ],
+      "stem_refs": [],
+      "hash_refs": [
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\qa\\cycle113\\manifest.json",
+          "line": 7,
+          "text": "\"source_sha256\": \"604688a08539e766c15437a1eb4f629fb0ffe29cfa9d75343335e9009fedd38b\",",
+          "tracked": false
+        }
+      ],
+      "copies": [],
+      "category": "Vídeo de referência / QA",
+      "recommendation": "Preservar como referência/evidência, mesmo sem uso pelo jogo.",
+      "detail": "Gameplay recente de combate do Bleach Mod; nome/hash confirmados no ciclo113/manifest criado durante esta auditoria. Preservar para revisão atual de rig/arma.",
+      "MiB": 264.434,
+      "references": 3,
+      "hash_references": 1,
+      "source_changed": false,
+      "unique_current_source": false
+    },
+    {
+      "name": "Kannonbiraki_Benihime_Aratame_voice_clean.mp3",
+      "path": "C:\\Users\\joaop\\Downloads\\Áudios e vídeos para revisão\\Kannonbiraki_Benihime_Aratame_voice_clean.mp3",
+      "bytes": 100362,
+      "mtime_ns": 1792498816072903500,
+      "sha256": "bd0a20b3118c53dfe69cfc3327ebf4fefdf843f47b315b42e644a617e615b591",
+      "duration_s": 4.15,
+      "streams": [
+        "Stream #0:0: Audio: mp3 (mp3float), 48000 Hz, mono, fltp, 192 kb/s"
+      ],
+      "metadata_detected": true,
+      "exact_refs": [
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\qa\\benihime\\cycle71\\validation\\audio-validation.json",
+          "line": 45,
+          "text": "\"file\": \"Kannonbiraki_Benihime_Aratame_voice_clean.mp3\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\qa\\benihime\\cycle71\\validation\\audio-validation.json",
+          "line": 45,
+          "text": "\"file\": \"Kannonbiraki_Benihime_Aratame_voice_clean.mp3\",",
+          "tracked": true
+        }
+      ],
+      "stem_refs": [
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\licencas\\71-audios-fornecidos-benihime.md",
+          "line": 5,
+          "text": "Fontes utilizadas: `Bankai_voice_clean.wav`, `Kannonbiraki_Benihime_Aratame_voice_clean.wav` e `bankai_final_ordered_30s.wav`. Os MP3s equivalentes e a faixa comparison são referências; os WAVs foram escolhidos como fontes de conversão para OGG Vorbis. Não foram modificados os originais em Downloads.",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\qa\\benihime\\cycle71\\validation\\audio-analysis.json",
+          "line": 642,
+          "text": "\"file\": \"C:\\\\Users\\\\joaop\\\\Downloads\\\\Kannonbiraki_Benihime_Aratame_voice_clean.wav\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\qa\\benihime\\cycle71\\validation\\audio-import.json",
+          "line": 11,
+          "text": "\"source\": \"Kannonbiraki_Benihime_Aratame_voice_clean.wav\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\qa\\benihime\\cycle71\\validation\\audio-validation.json",
+          "line": 52,
+          "text": "\"file\": \"Kannonbiraki_Benihime_Aratame_voice_clean.wav\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\qa\\benihime\\cycle74\\audio\\audio-import.json",
+          "line": 3,
+          "text": "\"source\": \"Kannonbiraki_Benihime_Aratame_voice_clean.wav\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\tools\\audio\\import_benihime_user_audio.py",
+          "line": 26,
+          "text": "('Kannonbiraki_Benihime_Aratame_voice_clean.wav', 'benihime_voice_name', 'aresample=44100,volume=4dB,afade=t=in:d=0.01,afade=t=out:st=4.08:d=0.043,alimiter=limit=0.97:level=false:latency=true', 1),",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\tools\\audio\\import_benihime_user_audio.py",
+          "line": 49,
+          "text": "'-i', str(args.source_root / 'Kannonbiraki_Benihime_Aratame_voice_clean.wav'),",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\licencas\\71-audios-fornecidos-benihime.md",
+          "line": 5,
+          "text": "Fontes utilizadas: `Bankai_voice_clean.wav`, `Kannonbiraki_Benihime_Aratame_voice_clean.wav` e `bankai_final_ordered_30s.wav`. Os MP3s equivalentes e a faixa comparison são referências; os WAVs foram escolhidos como fontes de conversão para OGG Vorbis. Não foram modificados os originais em Downloads.",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\qa\\benihime\\cycle71\\validation\\audio-analysis.json",
+          "line": 642,
+          "text": "\"file\": \"C:\\\\Users\\\\joaop\\\\Downloads\\\\Kannonbiraki_Benihime_Aratame_voice_clean.wav\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\qa\\benihime\\cycle71\\validation\\audio-import.json",
+          "line": 11,
+          "text": "\"source\": \"Kannonbiraki_Benihime_Aratame_voice_clean.wav\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\qa\\benihime\\cycle71\\validation\\audio-validation.json",
+          "line": 52,
+          "text": "\"file\": \"Kannonbiraki_Benihime_Aratame_voice_clean.wav\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\qa\\benihime\\cycle74\\audio\\audio-import.json",
+          "line": 3,
+          "text": "\"source\": \"Kannonbiraki_Benihime_Aratame_voice_clean.wav\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\tools\\audio\\import_benihime_user_audio.py",
+          "line": 26,
+          "text": "('Kannonbiraki_Benihime_Aratame_voice_clean.wav', 'benihime_voice_name', 'aresample=44100,volume=4dB,afade=t=in:d=0.01,afade=t=out:st=4.08:d=0.043,alimiter=limit=0.97:level=false:latency=true', 1),",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\tools\\audio\\import_benihime_user_audio.py",
+          "line": 49,
+          "text": "'-i', str(args.source_root / 'Kannonbiraki_Benihime_Aratame_voice_clean.wav'),",
+          "tracked": true
+        }
+      ],
+      "hash_refs": [
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\qa\\benihime\\cycle71\\validation\\audio-validation.json",
+          "line": 46,
+          "text": "\"sha256\": \"bd0a20b3118c53dfe69cfc3327ebf4fefdf843f47b315b42e644a617e615b591\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\qa\\benihime\\cycle71\\validation\\audio-validation.json",
+          "line": 46,
+          "text": "\"sha256\": \"bd0a20b3118c53dfe69cfc3327ebf4fefdf843f47b315b42e644a617e615b591\",",
+          "tracked": true
+        }
+      ],
+      "copies": [],
+      "audio_decode": {
+        "exit_code": 0,
+        "errors": ""
+      },
+      "wav_pair": "Kannonbiraki_Benihime_Aratame_voice_clean.wav",
+      "pair_comparison": {
+        "correlation": 0.9999996400174438,
+        "lag_seconds": 0.0
+      },
+      "category": "Versão MP3 correspondente",
+      "recommendation": "Secundário ao WAV; eventual limpeza somente após backup e confirmação.",
+      "detail": "Correspondente de Kannonbiraki_Benihime_Aratame_voice_clean.wav; correlação PCM de áudio 1.000000. Mesma gravação provável, não duplicata binária.",
+      "MiB": 0.096,
+      "references": 2,
+      "hash_references": 2,
+      "source_changed": false,
+      "unique_current_source": false
+    },
+    {
+      "name": "Kannonbiraki_Benihime_Aratame_voice_clean.wav",
+      "path": "C:\\Users\\joaop\\Downloads\\Áudios e vídeos para revisão\\Kannonbiraki_Benihime_Aratame_voice_clean.wav",
+      "bytes": 1583686,
+      "mtime_ns": 1792498820823268600,
+      "sha256": "2d58dcc25995546c60eee157bdc2c0a9bdb114db03a168cd6412b6c0ed46cdd5",
+      "duration_s": 4.12,
+      "streams": [
+        "Stream #0:0: Audio: pcm_s16le ([1][0][0][0] / 0x0001), 192000 Hz, mono, s16, 3072 kb/s"
+      ],
+      "metadata_detected": true,
+      "exact_refs": [
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\licencas\\71-audios-fornecidos-benihime.md",
+          "line": 5,
+          "text": "Fontes utilizadas: `Bankai_voice_clean.wav`, `Kannonbiraki_Benihime_Aratame_voice_clean.wav` e `bankai_final_ordered_30s.wav`. Os MP3s equivalentes e a faixa comparison são referências; os WAVs foram escolhidos como fontes de conversão para OGG Vorbis. Não foram modificados os originais em Downloads.",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\qa\\benihime\\cycle71\\validation\\audio-analysis.json",
+          "line": 642,
+          "text": "\"file\": \"C:\\\\Users\\\\joaop\\\\Downloads\\\\Kannonbiraki_Benihime_Aratame_voice_clean.wav\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\qa\\benihime\\cycle71\\validation\\audio-import.json",
+          "line": 11,
+          "text": "\"source\": \"Kannonbiraki_Benihime_Aratame_voice_clean.wav\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\qa\\benihime\\cycle71\\validation\\audio-validation.json",
+          "line": 52,
+          "text": "\"file\": \"Kannonbiraki_Benihime_Aratame_voice_clean.wav\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\qa\\benihime\\cycle74\\audio\\audio-import.json",
+          "line": 3,
+          "text": "\"source\": \"Kannonbiraki_Benihime_Aratame_voice_clean.wav\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\tools\\audio\\import_benihime_user_audio.py",
+          "line": 26,
+          "text": "('Kannonbiraki_Benihime_Aratame_voice_clean.wav', 'benihime_voice_name', 'aresample=44100,volume=4dB,afade=t=in:d=0.01,afade=t=out:st=4.08:d=0.043,alimiter=limit=0.97:level=false:latency=true', 1),",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\tools\\audio\\import_benihime_user_audio.py",
+          "line": 49,
+          "text": "'-i', str(args.source_root / 'Kannonbiraki_Benihime_Aratame_voice_clean.wav'),",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\licencas\\71-audios-fornecidos-benihime.md",
+          "line": 5,
+          "text": "Fontes utilizadas: `Bankai_voice_clean.wav`, `Kannonbiraki_Benihime_Aratame_voice_clean.wav` e `bankai_final_ordered_30s.wav`. Os MP3s equivalentes e a faixa comparison são referências; os WAVs foram escolhidos como fontes de conversão para OGG Vorbis. Não foram modificados os originais em Downloads.",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\qa\\benihime\\cycle71\\validation\\audio-analysis.json",
+          "line": 642,
+          "text": "\"file\": \"C:\\\\Users\\\\joaop\\\\Downloads\\\\Kannonbiraki_Benihime_Aratame_voice_clean.wav\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\qa\\benihime\\cycle71\\validation\\audio-import.json",
+          "line": 11,
+          "text": "\"source\": \"Kannonbiraki_Benihime_Aratame_voice_clean.wav\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\qa\\benihime\\cycle71\\validation\\audio-validation.json",
+          "line": 52,
+          "text": "\"file\": \"Kannonbiraki_Benihime_Aratame_voice_clean.wav\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\qa\\benihime\\cycle74\\audio\\audio-import.json",
+          "line": 3,
+          "text": "\"source\": \"Kannonbiraki_Benihime_Aratame_voice_clean.wav\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\tools\\audio\\import_benihime_user_audio.py",
+          "line": 26,
+          "text": "('Kannonbiraki_Benihime_Aratame_voice_clean.wav', 'benihime_voice_name', 'aresample=44100,volume=4dB,afade=t=in:d=0.01,afade=t=out:st=4.08:d=0.043,alimiter=limit=0.97:level=false:latency=true', 1),",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\tools\\audio\\import_benihime_user_audio.py",
+          "line": 49,
+          "text": "'-i', str(args.source_root / 'Kannonbiraki_Benihime_Aratame_voice_clean.wav'),",
+          "tracked": true
+        }
+      ],
+      "stem_refs": [
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\qa\\benihime\\cycle71\\validation\\audio-validation.json",
+          "line": 45,
+          "text": "\"file\": \"Kannonbiraki_Benihime_Aratame_voice_clean.mp3\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\qa\\benihime\\cycle71\\validation\\audio-validation.json",
+          "line": 45,
+          "text": "\"file\": \"Kannonbiraki_Benihime_Aratame_voice_clean.mp3\",",
+          "tracked": true
+        }
+      ],
+      "hash_refs": [
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\qa\\benihime\\cycle71\\validation\\audio-analysis.json",
+          "line": 646,
+          "text": "\"sha256\": \"2d58dcc25995546c60eee157bdc2c0a9bdb114db03a168cd6412b6c0ed46cdd5\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\qa\\benihime\\cycle71\\validation\\audio-import.json",
+          "line": 12,
+          "text": "\"sourceSha256\": \"2d58dcc25995546c60eee157bdc2c0a9bdb114db03a168cd6412b6c0ed46cdd5\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\qa\\benihime\\cycle71\\validation\\audio-validation.json",
+          "line": 53,
+          "text": "\"sha256\": \"2d58dcc25995546c60eee157bdc2c0a9bdb114db03a168cd6412b6c0ed46cdd5\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\qa\\benihime\\cycle74\\audio\\audio-import.json",
+          "line": 4,
+          "text": "\"sourceSha256\": \"2d58dcc25995546c60eee157bdc2c0a9bdb114db03a168cd6412b6c0ed46cdd5\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\qa\\benihime\\cycle71\\validation\\audio-analysis.json",
+          "line": 646,
+          "text": "\"sha256\": \"2d58dcc25995546c60eee157bdc2c0a9bdb114db03a168cd6412b6c0ed46cdd5\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\qa\\benihime\\cycle71\\validation\\audio-import.json",
+          "line": 12,
+          "text": "\"sourceSha256\": \"2d58dcc25995546c60eee157bdc2c0a9bdb114db03a168cd6412b6c0ed46cdd5\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\qa\\benihime\\cycle71\\validation\\audio-validation.json",
+          "line": 53,
+          "text": "\"sha256\": \"2d58dcc25995546c60eee157bdc2c0a9bdb114db03a168cd6412b6c0ed46cdd5\",",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\qa\\benihime\\cycle74\\audio\\audio-import.json",
+          "line": 4,
+          "text": "\"sourceSha256\": \"2d58dcc25995546c60eee157bdc2c0a9bdb114db03a168cd6412b6c0ed46cdd5\",",
+          "tracked": true
+        }
+      ],
+      "copies": [],
+      "audio_decode": {
+        "exit_code": 0,
+        "errors": ""
+      },
+      "runtime_targets": [
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\src\\main\\resources\\assets\\bleachmod\\sounds\\benihime_voice_name.ogg",
+          "sha256": "42e6c8c1456f53f97050c22bd3d4dcb020cd48275d4324e70d6e320be433684c",
+          "events": [
+            "voice.benihime_name"
+          ],
+          "decode": {
+            "exit_code": 0,
+            "errors": ""
+          },
+          "comparison": {
+            "correlation": 0.9969894960709298,
+            "lag_seconds": 0.0
+          },
+          "import_manifests": [
+            {
+              "manifest": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\qa\\benihime\\cycle74\\audio\\audio-import.json",
+              "source_hash_matches": true,
+              "output_hash_matches_current": true
+            },
+            {
+              "manifest": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\qa\\benihime\\cycle74\\audio\\audio-import.json",
+              "source_hash_matches": true,
+              "output_hash_matches_current": true
+            },
+            {
+              "manifest": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\qa\\benihime\\cycle71\\validation\\audio-import.json",
+              "source_hash_matches": true,
+              "output_hash_matches_current": false
+            },
+            {
+              "manifest": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\qa\\benihime\\cycle71\\validation\\audio-import.json",
+              "source_hash_matches": true,
+              "output_hash_matches_current": false
+            }
+          ]
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\src\\main\\resources\\assets\\bleachmod\\sounds\\benihime_invocation_mix.ogg",
+          "sha256": "b70ccbac632182bb06b6dbed9dba9714877830f0ead1152c149e9677bba893f9",
+          "events": [
+            "benihime.invocation_mix"
+          ],
+          "decode": {
+            "exit_code": 0,
+            "errors": ""
+          },
+          "comparison": {
+            "correlation": 0.6478019312629175,
+            "lag_seconds": -23.06525
+          },
+          "import_manifests": []
+        }
+      ],
+      "category": "Fonte WAV atual",
+      "recommendation": "Preservar o original; OGG convertido não substitui fonte.",
+      "detail": "Fonte associada a benihime_voice_name.ogg, benihime_invocation_mix.ogg.",
+      "MiB": 1.51,
+      "references": 14,
+      "hash_references": 8,
+      "source_changed": false,
+      "unique_current_source": true
+    },
+    {
+      "name": "Senbonzakura_Bankai_complete_voice.mp3",
+      "path": "C:\\Users\\joaop\\Downloads\\Áudios e vídeos para revisão\\Senbonzakura_Bankai_complete_voice.mp3",
+      "bytes": 80685,
+      "mtime_ns": 1792783732799888800,
+      "sha256": "25a1664617f4a6cf11e96bbea2a6e7eb0444fe0a53425d496a7e5e630fd5815a",
+      "duration_s": 3.34,
+      "streams": [
+        "Stream #0:0: Audio: mp3 (mp3float), 48000 Hz, mono, fltp, 192 kb/s"
+      ],
+      "metadata_detected": true,
+      "exact_refs": [],
+      "stem_refs": [
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\101-senbonzakura-kageyoshi-cinematica-e-arte-conceitual-2026-10-23.md",
+          "line": 224,
+          "text": "- `Senbonzakura_Bankai_complete_voice.wav`: 3.300s, 192 kHz mono, peak -1.50 dBFS, RMS -16.31 dBFS. Contém a fala integral *\"Bankai\"*. Não contém a palavra \"Chire\" (obedecendo rigorosamente à instrução de não inventar falas nem duplicar palavras).",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\101-senbonzakura-kageyoshi-cinematica-e-arte-conceitual-2026-10-23.md",
+          "line": 285,
+          "text": "- `Senbonzakura_Bankai_complete_voice.wav`: duração total 3.300s, com início efetivo de fonemas em 0.040s e término em 3.267s. O cue é disparado no tick 10. A legenda central *\"Bankai.\"* inicia fade-in imediatamente no tick 10, atinge opacidade máxima nos ticks 18..70 e executa fade-out suave até o tick 78.",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\tools\\audio\\import_senbonzakura_user_audio.py",
+          "line": 45,
+          "text": "('Senbonzakura_Bankai_complete_voice.wav', 'senbonzakura_voice_bankai', 1,",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\build\\cycle101-audio\\import.json",
+          "line": 3,
+          "text": "\"source\": \"Senbonzakura_Bankai_complete_voice.wav\",",
+          "tracked": false
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\101-senbonzakura-kageyoshi-cinematica-e-arte-conceitual-2026-10-23.md",
+          "line": 224,
+          "text": "- `Senbonzakura_Bankai_complete_voice.wav`: 3.300s, 192 kHz mono, peak -1.50 dBFS, RMS -16.31 dBFS. Contém a fala integral *\"Bankai\"*. Não contém a palavra \"Chire\" (obedecendo rigorosamente à instrução de não inventar falas nem duplicar palavras).",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\101-senbonzakura-kageyoshi-cinematica-e-arte-conceitual-2026-10-23.md",
+          "line": 285,
+          "text": "- `Senbonzakura_Bankai_complete_voice.wav`: duração total 3.300s, com início efetivo de fonemas em 0.040s e término em 3.267s. O cue é disparado no tick 10. A legenda central *\"Bankai.\"* inicia fade-in imediatamente no tick 10, atinge opacidade máxima nos ticks 18..70 e executa fade-out suave até o tick 78.",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\tools\\audio\\import_senbonzakura_user_audio.py",
+          "line": 45,
+          "text": "('Senbonzakura_Bankai_complete_voice.wav', 'senbonzakura_voice_bankai', 1,",
+          "tracked": true
+        }
+      ],
+      "hash_refs": [],
+      "copies": [],
+      "audio_decode": {
+        "exit_code": 0,
+        "errors": ""
+      },
+      "wav_pair": "Senbonzakura_Bankai_complete_voice.wav",
+      "pair_comparison": {
+        "correlation": 0.9999998432515836,
+        "lag_seconds": 0.0
+      },
+      "category": "Versão MP3 correspondente",
+      "recommendation": "Secundário ao WAV; eventual limpeza somente após backup e confirmação.",
+      "detail": "Correspondente de Senbonzakura_Bankai_complete_voice.wav; correlação PCM de áudio 1.000000. Mesma gravação provável, não duplicata binária.",
+      "MiB": 0.077,
+      "references": 0,
+      "hash_references": 0,
+      "source_changed": false,
+      "unique_current_source": false
+    },
+    {
+      "name": "Senbonzakura_Bankai_complete_voice.wav",
+      "path": "C:\\Users\\joaop\\Downloads\\Áudios e vídeos para revisão\\Senbonzakura_Bankai_complete_voice.wav",
+      "bytes": 1267302,
+      "mtime_ns": 1792783739524203700,
+      "sha256": "58e26b4dc8225069c862f48462b8b4ef56c2e849af46ed4ec32d6329728c4f2e",
+      "duration_s": 3.3,
+      "streams": [
+        "Stream #0:0: Audio: pcm_s16le ([1][0][0][0] / 0x0001), 192000 Hz, mono, s16, 3072 kb/s"
+      ],
+      "metadata_detected": true,
+      "exact_refs": [
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\101-senbonzakura-kageyoshi-cinematica-e-arte-conceitual-2026-10-23.md",
+          "line": 224,
+          "text": "- `Senbonzakura_Bankai_complete_voice.wav`: 3.300s, 192 kHz mono, peak -1.50 dBFS, RMS -16.31 dBFS. Contém a fala integral *\"Bankai\"*. Não contém a palavra \"Chire\" (obedecendo rigorosamente à instrução de não inventar falas nem duplicar palavras).",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\101-senbonzakura-kageyoshi-cinematica-e-arte-conceitual-2026-10-23.md",
+          "line": 285,
+          "text": "- `Senbonzakura_Bankai_complete_voice.wav`: duração total 3.300s, com início efetivo de fonemas em 0.040s e término em 3.267s. O cue é disparado no tick 10. A legenda central *\"Bankai.\"* inicia fade-in imediatamente no tick 10, atinge opacidade máxima nos ticks 18..70 e executa fade-out suave até o tick 78.",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\tools\\audio\\import_senbonzakura_user_audio.py",
+          "line": 45,
+          "text": "('Senbonzakura_Bankai_complete_voice.wav', 'senbonzakura_voice_bankai', 1,",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\build\\cycle101-audio\\import.json",
+          "line": 3,
+          "text": "\"source\": \"Senbonzakura_Bankai_complete_voice.wav\",",
+          "tracked": false
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\101-senbonzakura-kageyoshi-cinematica-e-arte-conceitual-2026-10-23.md",
+          "line": 224,
+          "text": "- `Senbonzakura_Bankai_complete_voice.wav`: 3.300s, 192 kHz mono, peak -1.50 dBFS, RMS -16.31 dBFS. Contém a fala integral *\"Bankai\"*. Não contém a palavra \"Chire\" (obedecendo rigorosamente à instrução de não inventar falas nem duplicar palavras).",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\101-senbonzakura-kageyoshi-cinematica-e-arte-conceitual-2026-10-23.md",
+          "line": 285,
+          "text": "- `Senbonzakura_Bankai_complete_voice.wav`: duração total 3.300s, com início efetivo de fonemas em 0.040s e término em 3.267s. O cue é disparado no tick 10. A legenda central *\"Bankai.\"* inicia fade-in imediatamente no tick 10, atinge opacidade máxima nos ticks 18..70 e executa fade-out suave até o tick 78.",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\tools\\audio\\import_senbonzakura_user_audio.py",
+          "line": 45,
+          "text": "('Senbonzakura_Bankai_complete_voice.wav', 'senbonzakura_voice_bankai', 1,",
+          "tracked": true
+        }
+      ],
+      "stem_refs": [],
+      "hash_refs": [
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\build\\cycle101-audio\\import.json",
+          "line": 4,
+          "text": "\"sourceSha256\": \"58e26b4dc8225069c862f48462b8b4ef56c2e849af46ed4ec32d6329728c4f2e\",",
+          "tracked": false
+        }
+      ],
+      "copies": [],
+      "audio_decode": {
+        "exit_code": 0,
+        "errors": ""
+      },
+      "runtime_targets": [
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\src\\main\\resources\\assets\\bleachmod\\sounds\\senbonzakura_voice_bankai.ogg",
+          "sha256": "4bbc524590aca653a0a2d5ad287464fc7d4801694c7b546f6bfc397bc3eafd63",
+          "events": [
+            "voice.senbonzakura_bankai"
+          ],
+          "decode": {
+            "exit_code": 0,
+            "errors": ""
+          },
+          "comparison": {
+            "correlation": 0.9997182630996772,
+            "lag_seconds": 0.0
+          },
+          "import_manifests": [
+            {
+              "manifest": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\build\\cycle101-audio\\import.json",
+              "source_hash_matches": true,
+              "output_hash_matches_current": true
+            }
+          ]
+        }
+      ],
+      "category": "Fonte WAV atual",
+      "recommendation": "Preservar o original; OGG convertido não substitui fonte.",
+      "detail": "Fonte associada a senbonzakura_voice_bankai.ogg.",
+      "MiB": 1.209,
+      "references": 7,
+      "hash_references": 1,
+      "source_changed": false,
+      "unique_current_source": true
+    },
+    {
+      "name": "Senbonzakura_Kageyoshi_best_voice.mp3",
+      "path": "C:\\Users\\joaop\\Downloads\\Áudios e vídeos para revisão\\Senbonzakura_Kageyoshi_best_voice.mp3",
+      "bytes": 81837,
+      "mtime_ns": 1792783752648821700,
+      "sha256": "548248647a51ce57ac90b44d10f8ad375a5dcad60d4a7fc9568a07c1d1eae2f2",
+      "duration_s": 3.38,
+      "streams": [
+        "Stream #0:0: Audio: mp3 (mp3float), 48000 Hz, mono, fltp, 192 kb/s"
+      ],
+      "metadata_detected": true,
+      "exact_refs": [],
+      "stem_refs": [
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\101-senbonzakura-kageyoshi-cinematica-e-arte-conceitual-2026-10-23.md",
+          "line": 225,
+          "text": "- `Senbonzakura_Kageyoshi_best_voice.wav`: 3.350s, 192 kHz mono, peak -1.50 dBFS, RMS -16.35 dBFS. Contém a invocação completa *\"Senbonzakura Kageyoshi\"*.",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\101-senbonzakura-kageyoshi-cinematica-e-arte-conceitual-2026-10-23.md",
+          "line": 286,
+          "text": "- `Senbonzakura_Kageyoshi_best_voice.wav`: duração total 3.350s. **Constatou-se uma janela de silêncio inicial de 0.429s (8.5 ticks) antes do primeiro fonema de \"Senbonzakura\"**. Disparar a legenda no tick 160 criava descompasso visual com a fala. A legenda central *\"Senbonzakura Kageyoshi.\"* passa a realizar fade-in no tick 165 (sincronizada com o início do áudio audível), sustenta visibilidade completa durante toda a enunciação até o tick 228 e realiza fade-out suave até o tick 244.",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\tools\\audio\\import_senbonzakura_user_audio.py",
+          "line": 47,
+          "text": "('Senbonzakura_Kageyoshi_best_voice.wav', 'senbonzakura_voice_name', 1,",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\build\\cycle101-audio\\import.json",
+          "line": 11,
+          "text": "\"source\": \"Senbonzakura_Kageyoshi_best_voice.wav\",",
+          "tracked": false
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\101-senbonzakura-kageyoshi-cinematica-e-arte-conceitual-2026-10-23.md",
+          "line": 225,
+          "text": "- `Senbonzakura_Kageyoshi_best_voice.wav`: 3.350s, 192 kHz mono, peak -1.50 dBFS, RMS -16.35 dBFS. Contém a invocação completa *\"Senbonzakura Kageyoshi\"*.",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\101-senbonzakura-kageyoshi-cinematica-e-arte-conceitual-2026-10-23.md",
+          "line": 286,
+          "text": "- `Senbonzakura_Kageyoshi_best_voice.wav`: duração total 3.350s. **Constatou-se uma janela de silêncio inicial de 0.429s (8.5 ticks) antes do primeiro fonema de \"Senbonzakura\"**. Disparar a legenda no tick 160 criava descompasso visual com a fala. A legenda central *\"Senbonzakura Kageyoshi.\"* passa a realizar fade-in no tick 165 (sincronizada com o início do áudio audível), sustenta visibilidade completa durante toda a enunciação até o tick 228 e realiza fade-out suave até o tick 244.",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\tools\\audio\\import_senbonzakura_user_audio.py",
+          "line": 47,
+          "text": "('Senbonzakura_Kageyoshi_best_voice.wav', 'senbonzakura_voice_name', 1,",
+          "tracked": true
+        }
+      ],
+      "hash_refs": [],
+      "copies": [],
+      "audio_decode": {
+        "exit_code": 0,
+        "errors": ""
+      },
+      "wav_pair": "Senbonzakura_Kageyoshi_best_voice.wav",
+      "pair_comparison": {
+        "correlation": 0.9999994367688116,
+        "lag_seconds": 0.0
+      },
+      "category": "Versão MP3 correspondente",
+      "recommendation": "Secundário ao WAV; eventual limpeza somente após backup e confirmação.",
+      "detail": "Correspondente de Senbonzakura_Kageyoshi_best_voice.wav; correlação PCM de áudio 0.999999. Mesma gravação provável, não duplicata binária.",
+      "MiB": 0.078,
+      "references": 0,
+      "hash_references": 0,
+      "source_changed": false,
+      "unique_current_source": false
+    },
+    {
+      "name": "Senbonzakura_Kageyoshi_best_voice.wav",
+      "path": "C:\\Users\\joaop\\Downloads\\Áudios e vídeos para revisão\\Senbonzakura_Kageyoshi_best_voice.wav",
+      "bytes": 1286502,
+      "mtime_ns": 1792783748584684300,
+      "sha256": "db29825ef98e7ee0134c8d7fc6a5f9537efe764bb536653a46c74cf9a546761d",
+      "duration_s": 3.35,
+      "streams": [
+        "Stream #0:0: Audio: pcm_s16le ([1][0][0][0] / 0x0001), 192000 Hz, mono, s16, 3072 kb/s"
+      ],
+      "metadata_detected": true,
+      "exact_refs": [
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\101-senbonzakura-kageyoshi-cinematica-e-arte-conceitual-2026-10-23.md",
+          "line": 225,
+          "text": "- `Senbonzakura_Kageyoshi_best_voice.wav`: 3.350s, 192 kHz mono, peak -1.50 dBFS, RMS -16.35 dBFS. Contém a invocação completa *\"Senbonzakura Kageyoshi\"*.",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\101-senbonzakura-kageyoshi-cinematica-e-arte-conceitual-2026-10-23.md",
+          "line": 286,
+          "text": "- `Senbonzakura_Kageyoshi_best_voice.wav`: duração total 3.350s. **Constatou-se uma janela de silêncio inicial de 0.429s (8.5 ticks) antes do primeiro fonema de \"Senbonzakura\"**. Disparar a legenda no tick 160 criava descompasso visual com a fala. A legenda central *\"Senbonzakura Kageyoshi.\"* passa a realizar fade-in no tick 165 (sincronizada com o início do áudio audível), sustenta visibilidade completa durante toda a enunciação até o tick 228 e realiza fade-out suave até o tick 244.",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\tools\\audio\\import_senbonzakura_user_audio.py",
+          "line": 47,
+          "text": "('Senbonzakura_Kageyoshi_best_voice.wav', 'senbonzakura_voice_name', 1,",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\build\\cycle101-audio\\import.json",
+          "line": 11,
+          "text": "\"source\": \"Senbonzakura_Kageyoshi_best_voice.wav\",",
+          "tracked": false
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\101-senbonzakura-kageyoshi-cinematica-e-arte-conceitual-2026-10-23.md",
+          "line": 225,
+          "text": "- `Senbonzakura_Kageyoshi_best_voice.wav`: 3.350s, 192 kHz mono, peak -1.50 dBFS, RMS -16.35 dBFS. Contém a invocação completa *\"Senbonzakura Kageyoshi\"*.",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\101-senbonzakura-kageyoshi-cinematica-e-arte-conceitual-2026-10-23.md",
+          "line": 286,
+          "text": "- `Senbonzakura_Kageyoshi_best_voice.wav`: duração total 3.350s. **Constatou-se uma janela de silêncio inicial de 0.429s (8.5 ticks) antes do primeiro fonema de \"Senbonzakura\"**. Disparar a legenda no tick 160 criava descompasso visual com a fala. A legenda central *\"Senbonzakura Kageyoshi.\"* passa a realizar fade-in no tick 165 (sincronizada com o início do áudio audível), sustenta visibilidade completa durante toda a enunciação até o tick 228 e realiza fade-out suave até o tick 244.",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\tools\\audio\\import_senbonzakura_user_audio.py",
+          "line": 47,
+          "text": "('Senbonzakura_Kageyoshi_best_voice.wav', 'senbonzakura_voice_name', 1,",
+          "tracked": true
+        }
+      ],
+      "stem_refs": [],
+      "hash_refs": [
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\build\\cycle101-audio\\import.json",
+          "line": 12,
+          "text": "\"sourceSha256\": \"db29825ef98e7ee0134c8d7fc6a5f9537efe764bb536653a46c74cf9a546761d\",",
+          "tracked": false
+        }
+      ],
+      "copies": [],
+      "audio_decode": {
+        "exit_code": 0,
+        "errors": ""
+      },
+      "runtime_targets": [
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\src\\main\\resources\\assets\\bleachmod\\sounds\\senbonzakura_voice_name.ogg",
+          "sha256": "90058b388fbc421718894dc80e2e39472ae194e49468f19b7f40276ec10a73c2",
+          "events": [
+            "voice.senbonzakura_name"
+          ],
+          "decode": {
+            "exit_code": 0,
+            "errors": ""
+          },
+          "comparison": {
+            "correlation": 0.9994601938231261,
+            "lag_seconds": 0.0
+          },
+          "import_manifests": [
+            {
+              "manifest": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\build\\cycle101-audio\\import.json",
+              "source_hash_matches": true,
+              "output_hash_matches_current": true
+            }
+          ]
+        }
+      ],
+      "category": "Fonte WAV atual",
+      "recommendation": "Preservar o original; OGG convertido não substitui fonte.",
+      "detail": "Fonte associada a senbonzakura_voice_name.ogg.",
+      "MiB": 1.227,
+      "references": 7,
+      "hash_references": 1,
+      "source_changed": false,
+      "unique_current_source": true
+    },
+    {
+      "name": "Senbonzakura_music_only_extended30s.mp3",
+      "path": "C:\\Users\\joaop\\Downloads\\Áudios e vídeos para revisão\\Senbonzakura_music_only_extended30s.mp3",
+      "bytes": 721197,
+      "mtime_ns": 1792784075831358000,
+      "sha256": "d078e046075491dd384f9978bc4e18a4e287efe28877258cc7fbd6cbeec26b4b",
+      "duration_s": 30.02,
+      "streams": [
+        "Stream #0:0: Audio: mp3 (mp3float), 48000 Hz, stereo, fltp, 192 kb/s"
+      ],
+      "metadata_detected": true,
+      "exact_refs": [],
+      "stem_refs": [
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\101-senbonzakura-kageyoshi-cinematica-e-arte-conceitual-2026-10-23.md",
+          "line": 226,
+          "text": "- `Senbonzakura_music_only_extended30s.wav`: 30.000s, 192 kHz estéreo, peak -7.17 dBFS. Cortado coerentemente para 14.50s com fade-out natural entre 13.5s e 14.5s.",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\tools\\audio\\import_senbonzakura_user_audio.py",
+          "line": 49,
+          "text": "('Senbonzakura_music_only_extended30s.wav', 'senbonzakura_theme', 2,",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\build\\cycle101-audio\\import.json",
+          "line": 19,
+          "text": "\"source\": \"Senbonzakura_music_only_extended30s.wav\",",
+          "tracked": false
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\101-senbonzakura-kageyoshi-cinematica-e-arte-conceitual-2026-10-23.md",
+          "line": 226,
+          "text": "- `Senbonzakura_music_only_extended30s.wav`: 30.000s, 192 kHz estéreo, peak -7.17 dBFS. Cortado coerentemente para 14.50s com fade-out natural entre 13.5s e 14.5s.",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\tools\\audio\\import_senbonzakura_user_audio.py",
+          "line": 49,
+          "text": "('Senbonzakura_music_only_extended30s.wav', 'senbonzakura_theme', 2,",
+          "tracked": true
+        }
+      ],
+      "hash_refs": [],
+      "copies": [],
+      "audio_decode": {
+        "exit_code": 0,
+        "errors": ""
+      },
+      "wav_pair": "Senbonzakura_music_only_extended30s.wav",
+      "pair_comparison": {
+        "correlation": 0.9998294898889337,
+        "lag_seconds": 0.0
+      },
+      "category": "Versão MP3 correspondente",
+      "recommendation": "Secundário ao WAV; eventual limpeza somente após backup e confirmação.",
+      "detail": "Correspondente de Senbonzakura_music_only_extended30s.wav; correlação PCM de áudio 0.999829. Mesma gravação provável, não duplicata binária.",
+      "MiB": 0.688,
+      "references": 0,
+      "hash_references": 0,
+      "source_changed": false,
+      "unique_current_source": false
+    },
+    {
+      "name": "Senbonzakura_music_only_extended30s.wav",
+      "path": "C:\\Users\\joaop\\Downloads\\Áudios e vídeos para revisão\\Senbonzakura_music_only_extended30s.wav",
+      "bytes": 23040102,
+      "mtime_ns": 1792784100020228600,
+      "sha256": "9100efebde41a7df30ddefd200ed1b3b7b24b63b5a9e96093fa91d3e701f4734",
+      "duration_s": 30.0,
+      "streams": [
+        "Stream #0:0: Audio: pcm_s16le ([1][0][0][0] / 0x0001), 192000 Hz, stereo, s16, 6144 kb/s"
+      ],
+      "metadata_detected": true,
+      "exact_refs": [
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\101-senbonzakura-kageyoshi-cinematica-e-arte-conceitual-2026-10-23.md",
+          "line": 226,
+          "text": "- `Senbonzakura_music_only_extended30s.wav`: 30.000s, 192 kHz estéreo, peak -7.17 dBFS. Cortado coerentemente para 14.50s com fade-out natural entre 13.5s e 14.5s.",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\tools\\audio\\import_senbonzakura_user_audio.py",
+          "line": 49,
+          "text": "('Senbonzakura_music_only_extended30s.wav', 'senbonzakura_theme', 2,",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\build\\cycle101-audio\\import.json",
+          "line": 19,
+          "text": "\"source\": \"Senbonzakura_music_only_extended30s.wav\",",
+          "tracked": false
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\101-senbonzakura-kageyoshi-cinematica-e-arte-conceitual-2026-10-23.md",
+          "line": 226,
+          "text": "- `Senbonzakura_music_only_extended30s.wav`: 30.000s, 192 kHz estéreo, peak -7.17 dBFS. Cortado coerentemente para 14.50s com fade-out natural entre 13.5s e 14.5s.",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\tools\\audio\\import_senbonzakura_user_audio.py",
+          "line": 49,
+          "text": "('Senbonzakura_music_only_extended30s.wav', 'senbonzakura_theme', 2,",
+          "tracked": true
+        }
+      ],
+      "stem_refs": [],
+      "hash_refs": [
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\build\\cycle101-audio\\import.json",
+          "line": 20,
+          "text": "\"sourceSha256\": \"9100efebde41a7df30ddefd200ed1b3b7b24b63b5a9e96093fa91d3e701f4734\",",
+          "tracked": false
+        }
+      ],
+      "copies": [],
+      "audio_decode": {
+        "exit_code": 0,
+        "errors": ""
+      },
+      "runtime_targets": [
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\src\\main\\resources\\assets\\bleachmod\\sounds\\senbonzakura_theme.ogg",
+          "sha256": "535aabcdfe0f05cc2989242342e391f34b2fa1b86c46c8ea870c8ac3f286b014",
+          "events": [
+            "senbonzakura.theme"
+          ],
+          "decode": {
+            "exit_code": 0,
+            "errors": ""
+          },
+          "comparison": {
+            "correlation": 0.6328340213046391,
+            "lag_seconds": 14.5
+          },
+          "import_manifests": [
+            {
+              "manifest": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\build\\cycle101-audio\\import.json",
+              "source_hash_matches": true,
+              "output_hash_matches_current": true
+            }
+          ]
+        }
+      ],
+      "category": "Fonte WAV atual",
+      "recommendation": "Preservar o original; OGG convertido não substitui fonte.",
+      "detail": "Fonte associada a senbonzakura_theme.ogg.",
+      "MiB": 21.973,
+      "references": 5,
+      "hash_references": 1,
+      "source_changed": false,
+      "unique_current_source": true
+    },
+    {
+      "name": "WhatsApp Audio 2026-10-09 at 17.33.11.ogg",
+      "path": "C:\\Users\\joaop\\Downloads\\Áudios e vídeos para revisão\\WhatsApp Audio 2026-10-09 at 17.33.11.ogg",
+      "bytes": 525491,
+      "mtime_ns": 1791578045154067600,
+      "sha256": "7f113429f4da8526a901af88f16537997added25e4f7eddac05c002f240f9657",
+      "duration_s": 228.81,
+      "streams": [
+        "Stream #0:0: Audio: opus, 48000 Hz, mono, fltp"
+      ],
+      "metadata_detected": true,
+      "exact_refs": [],
+      "stem_refs": [],
+      "hash_refs": [],
+      "copies": [],
+      "audio_decode": {
+        "exit_code": 0,
+        "errors": ""
+      },
+      "category": "Sem vínculo localizado",
+      "recommendation": "Separar para confirmação; não excluir nesta auditoria.",
+      "detail": "Áudio de 228,81 s decodificado; sem referência por nome/hash/cópia. Conteúdo não transcrito nem escutado; finalidade precisa de confirmação.",
+      "MiB": 0.501,
+      "references": 0,
+      "hash_references": 0,
+      "source_changed": false,
+      "unique_current_source": false
+    },
+    {
+      "name": "WhatsApp Video 2026-10-16 at 09.12.56.mp4",
+      "path": "C:\\Users\\joaop\\Downloads\\Áudios e vídeos para revisão\\WhatsApp Video 2026-10-16 at 09.12.56.mp4",
+      "bytes": 68205979,
+      "mtime_ns": 1792166469880209400,
+      "sha256": "41a8347513fb1d3050ef94edbdad5620199ca3958a13b536af8975d71b5ab197",
+      "duration_s": 48.97,
+      "streams": [
+        "Stream #0:0[0x1](und): Video: h264 (High) (avc1 / 0x31637661), yuv420p(tv, bt709, progressive), 1920x1080, 11025 kb/s, 60 fps, 60 tbr, 15360 tbn (default)",
+        "Stream #0:1[0x2](und): Audio: aac (LC) (mp4a / 0x6134706D), 48000 Hz, stereo, fltp, 112 kb/s (default)"
+      ],
+      "metadata_detected": true,
+      "exact_refs": [
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\51-roadmap-better-combat-ferramentas-refatoracao-2026-10-16.md",
+          "line": 25,
+          "text": "Arquivo fornecido: `WhatsApp Video 2026-10-16 at 09.12.56.mp4`, 48,93 s, 1920×1080, codificado a 60 quadros/s, com faixa de áudio. Análise **visual** por decodificação e amostragem ao longo do vídeo, com inspeção adicional a cada 0,5 s na liberação e no trecho final; áudio não transcrito. Os 60 quadros/s do arquivo não comprovam FPS do jogo.",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\51-roadmap-better-combat-ferramentas-refatoracao-2026-10-16.md",
+          "line": 25,
+          "text": "Arquivo fornecido: `WhatsApp Video 2026-10-16 at 09.12.56.mp4`, 48,93 s, 1920×1080, codificado a 60 quadros/s, com faixa de áudio. Análise **visual** por decodificação e amostragem ao longo do vídeo, com inspeção adicional a cada 0,5 s na liberação e no trecho final; áudio não transcrito. Os 60 quadros/s do arquivo não comprovam FPS do jogo.",
+          "tracked": true
+        }
+      ],
+      "stem_refs": [],
+      "hash_refs": [],
+      "copies": [],
+      "category": "Vídeo de referência / QA",
+      "recommendation": "Preservar como referência/evidência, mesmo sem uso pelo jogo.",
+      "detail": "QA/gameplay Bleach com Senbonzakura; citado no ciclo 51.",
+      "MiB": 65.046,
+      "references": 2,
+      "hash_references": 0,
+      "source_changed": false,
+      "unique_current_source": false
+    },
+    {
+      "name": "WhatsApp Video 2026-10-16 at 09.24.13.mp4",
+      "path": "C:\\Users\\joaop\\Downloads\\Áudios e vídeos para revisão\\WhatsApp Video 2026-10-16 at 09.24.13.mp4",
+      "bytes": 10814024,
+      "mtime_ns": 1792168891363808600,
+      "sha256": "8786ecaecb68f10694df4616ec46d672dc83b031451e28d676c1b7d412e5abed",
+      "duration_s": 71.24,
+      "streams": [
+        "Stream #0:0[0x1](und): Video: h264 (High) (avc1 / 0x31637661), yuv420p(tv, bt709, progressive), 848x478, 1080 kb/s, 60 fps, 60 tbr, 90k tbn (default)",
+        "Stream #0:1[0x2](und): Audio: aac (LC) (mp4a / 0x6134706D), 48000 Hz, stereo, fltp, 128 kb/s (default)"
+      ],
+      "metadata_detected": true,
+      "exact_refs": [],
+      "stem_refs": [],
+      "hash_refs": [],
+      "copies": [],
+      "category": "Sem vínculo localizado",
+      "recommendation": "Separar para confirmação; não excluir nesta auditoria.",
+      "detail": "Navegador com páginas de painel/finanças; não mostra o mod nas amostras.",
+      "MiB": 10.313,
+      "references": 0,
+      "hash_references": 0,
+      "source_changed": false,
+      "unique_current_source": false
+    },
+    {
+      "name": "Zanka_no_Tachi_Bankai_fixed.mp3",
+      "path": "C:\\Users\\joaop\\Downloads\\Áudios e vídeos para revisão\\Zanka_no_Tachi_Bankai_fixed.mp3",
+      "bytes": 34029,
+      "mtime_ns": 1792952000082798200,
+      "sha256": "8b86b9bfa356016db50e1cf6f831630fe9ee8ca26474ce115b0ea98f2f49a454",
+      "duration_s": 1.39,
+      "streams": [
+        "Stream #0:0: Audio: mp3 (mp3float), 48000 Hz, mono, fltp, 192 kb/s"
+      ],
+      "metadata_detected": true,
+      "exact_refs": [],
+      "stem_refs": [
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\103-ryujin-bankai-sol-selamento-plano-prompt-2026-10-25.md",
+          "line": 13,
+          "text": "- `Zanka_no_Tachi_Bankai_fixed.wav`: mono PCM16, 192 kHz, 1,35 s; início acima do limiar em 0,148 s; silêncio final detectado a partir de 1,234 s. Média -17,3 dBFS, pico amostral -1,5 dBFS.",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\104-ryujin-bankai-sol-selamento-report.md",
+          "line": 25,
+          "text": "- `Zanka_no_Tachi_Bankai_fixed.wav` $\\rightarrow$ `src/main/resources/assets/bleachmod/sounds/ryujin_voice_bankai.ogg` (48 kHz mono Vorbis, ~1,35 s, dinâmica de amplitude preservada).",
+          "tracked": true
+        }
+      ],
+      "hash_refs": [],
+      "copies": [],
+      "audio_decode": {
+        "exit_code": 0,
+        "errors": ""
+      },
+      "wav_pair": "Zanka_no_Tachi_Bankai_fixed.wav",
+      "pair_comparison": {
+        "correlation": 0.9999981429506088,
+        "lag_seconds": 0.0
+      },
+      "category": "Versão MP3 correspondente",
+      "recommendation": "Secundário ao WAV; eventual limpeza somente após backup e confirmação.",
+      "detail": "Correspondente de Zanka_no_Tachi_Bankai_fixed.wav; correlação PCM de áudio 0.999998. Mesma gravação provável, não duplicata binária.",
+      "MiB": 0.032,
+      "references": 0,
+      "hash_references": 0,
+      "source_changed": false,
+      "unique_current_source": false
+    },
+    {
+      "name": "Zanka_no_Tachi_Bankai_fixed.wav",
+      "path": "C:\\Users\\joaop\\Downloads\\Áudios e vídeos para revisão\\Zanka_no_Tachi_Bankai_fixed.wav",
+      "bytes": 518502,
+      "mtime_ns": 1792952006781331100,
+      "sha256": "d2b77fffea3cf4e1388c8072105e66103f4be388863189252783ba23d18c67ed",
+      "duration_s": 1.35,
+      "streams": [
+        "Stream #0:0: Audio: pcm_s16le ([1][0][0][0] / 0x0001), 192000 Hz, mono, s16, 3072 kb/s"
+      ],
+      "metadata_detected": true,
+      "exact_refs": [
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\103-ryujin-bankai-sol-selamento-plano-prompt-2026-10-25.md",
+          "line": 13,
+          "text": "- `Zanka_no_Tachi_Bankai_fixed.wav`: mono PCM16, 192 kHz, 1,35 s; início acima do limiar em 0,148 s; silêncio final detectado a partir de 1,234 s. Média -17,3 dBFS, pico amostral -1,5 dBFS.",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\104-ryujin-bankai-sol-selamento-report.md",
+          "line": 25,
+          "text": "- `Zanka_no_Tachi_Bankai_fixed.wav` $\\rightarrow$ `src/main/resources/assets/bleachmod/sounds/ryujin_voice_bankai.ogg` (48 kHz mono Vorbis, ~1,35 s, dinâmica de amplitude preservada).",
+          "tracked": true
+        }
+      ],
+      "stem_refs": [],
+      "hash_refs": [],
+      "copies": [],
+      "audio_decode": {
+        "exit_code": 0,
+        "errors": ""
+      },
+      "runtime_targets": [
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\src\\main\\resources\\assets\\bleachmod\\sounds\\ryujin_voice_bankai.ogg",
+          "sha256": "9fa34cbfcbd98c8920aca417a389e06add88531c82f0f8b895da30dec1c625bb",
+          "events": [
+            "voice.ryujin_bankai"
+          ],
+          "decode": {
+            "exit_code": 0,
+            "errors": ""
+          },
+          "comparison": {
+            "correlation": 0.9981747731837297,
+            "lag_seconds": 0.0
+          },
+          "import_manifests": []
+        }
+      ],
+      "category": "Fonte WAV atual",
+      "recommendation": "Preservar o original; OGG convertido não substitui fonte.",
+      "detail": "Fonte associada a ryujin_voice_bankai.ogg.",
+      "MiB": 0.494,
+      "references": 2,
+      "hash_references": 0,
+      "source_changed": false,
+      "unique_current_source": true
+    },
+    {
+      "name": "Zanka_no_Tachi_name_fixed.mp3",
+      "path": "C:\\Users\\joaop\\Downloads\\Áudios e vídeos para revisão\\Zanka_no_Tachi_name_fixed.mp3",
+      "bytes": 74925,
+      "mtime_ns": 1792952014408034900,
+      "sha256": "b145ff6ae760b17e17fc97ee28b3ed4b8933ec500b188cc95fa925e46cb23ebf",
+      "duration_s": 3.1,
+      "streams": [
+        "Stream #0:0: Audio: mp3 (mp3float), 48000 Hz, mono, fltp, 192 kb/s"
+      ],
+      "metadata_detected": true,
+      "exact_refs": [],
+      "stem_refs": [
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\103-ryujin-bankai-sol-selamento-plano-prompt-2026-10-25.md",
+          "line": 14,
+          "text": "- `Zanka_no_Tachi_name_fixed.wav`: mesmo formato, 3,05 s; início acima do limiar em 0,248 s; intervalo baixo em 2,665–2,879 s, com energia depois. Não cortar a cauda automaticamente. Média -17,5 dBFS, pico amostral -1,5 dBFS.",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\104-ryujin-bankai-sol-selamento-report.md",
+          "line": 26,
+          "text": "- `Zanka_no_Tachi_name_fixed.wav` $\\rightarrow$ `src/main/resources/assets/bleachmod/sounds/ryujin_voice_name.ogg` (48 kHz mono Vorbis, ~3,05 s, dinâmica de amplitude preservada).",
+          "tracked": true
+        }
+      ],
+      "hash_refs": [],
+      "copies": [],
+      "audio_decode": {
+        "exit_code": 0,
+        "errors": ""
+      },
+      "wav_pair": "Zanka_no_Tachi_name_fixed.wav",
+      "pair_comparison": {
+        "correlation": 0.9999967282641622,
+        "lag_seconds": 0.0
+      },
+      "category": "Versão MP3 correspondente",
+      "recommendation": "Secundário ao WAV; eventual limpeza somente após backup e confirmação.",
+      "detail": "Correspondente de Zanka_no_Tachi_name_fixed.wav; correlação PCM de áudio 0.999997. Mesma gravação provável, não duplicata binária.",
+      "MiB": 0.071,
+      "references": 0,
+      "hash_references": 0,
+      "source_changed": false,
+      "unique_current_source": false
+    },
+    {
+      "name": "Zanka_no_Tachi_name_fixed.wav",
+      "path": "C:\\Users\\joaop\\Downloads\\Áudios e vídeos para revisão\\Zanka_no_Tachi_name_fixed.wav",
+      "bytes": 1171302,
+      "mtime_ns": 1792952018572902000,
+      "sha256": "280d37432a2b9bab83b4fdb7ea3fcb70be7002282d91a285621eba51f58eb039",
+      "duration_s": 3.05,
+      "streams": [
+        "Stream #0:0: Audio: pcm_s16le ([1][0][0][0] / 0x0001), 192000 Hz, mono, s16, 3072 kb/s"
+      ],
+      "metadata_detected": true,
+      "exact_refs": [
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\103-ryujin-bankai-sol-selamento-plano-prompt-2026-10-25.md",
+          "line": 14,
+          "text": "- `Zanka_no_Tachi_name_fixed.wav`: mesmo formato, 3,05 s; início acima do limiar em 0,248 s; intervalo baixo em 2,665–2,879 s, com energia depois. Não cortar a cauda automaticamente. Média -17,5 dBFS, pico amostral -1,5 dBFS.",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\104-ryujin-bankai-sol-selamento-report.md",
+          "line": 26,
+          "text": "- `Zanka_no_Tachi_name_fixed.wav` $\\rightarrow$ `src/main/resources/assets/bleachmod/sounds/ryujin_voice_name.ogg` (48 kHz mono Vorbis, ~3,05 s, dinâmica de amplitude preservada).",
+          "tracked": true
+        }
+      ],
+      "stem_refs": [],
+      "hash_refs": [],
+      "copies": [],
+      "audio_decode": {
+        "exit_code": 0,
+        "errors": ""
+      },
+      "runtime_targets": [
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\src\\main\\resources\\assets\\bleachmod\\sounds\\ryujin_voice_name.ogg",
+          "sha256": "4c4b8fbbc8dd20c63517e39a23166c3365d7a971f8477c6501eada18736443d9",
+          "events": [
+            "voice.ryujin_name"
+          ],
+          "decode": {
+            "exit_code": 0,
+            "errors": ""
+          },
+          "comparison": {
+            "correlation": 0.8620965271625345,
+            "lag_seconds": -0.025
+          },
+          "import_manifests": []
+        }
+      ],
+      "category": "Fonte histórica",
+      "recommendation": "Arquivar; não confundir com a fonte atual.",
+      "detail": "Fonte antiga do nome Ryūjin, substituída por only_main_voice no ciclo 106; conservar histórico.",
+      "MiB": 1.117,
+      "references": 2,
+      "hash_references": 0,
+      "source_changed": false,
+      "unique_current_source": false
+    },
+    {
+      "name": "Zanka_no_Tachi_only_main_voice.mp3",
+      "path": "C:\\Users\\joaop\\Downloads\\Áudios e vídeos para revisão\\Zanka_no_Tachi_only_main_voice.mp3",
+      "bytes": 55341,
+      "mtime_ns": 1792967658018581500,
+      "sha256": "f6bb638110cd26c71bb06a321bfae7af66ffd11ef94c312fbf116630fc8c51ac",
+      "duration_s": 2.28,
+      "streams": [
+        "Stream #0:0: Audio: mp3 (mp3float), 48000 Hz, mono, fltp, 192 kb/s"
+      ],
+      "metadata_detected": true,
+      "exact_refs": [],
+      "stem_refs": [
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\106-ryujin-bankai-refinamento-sol-audio-camera-2026-10-25.md",
+          "line": 13,
+          "text": "1. **Substituição e Restauração da Fala Nominal:** Adoção da fonte isolada `Zanka_no_Tachi_only_main_voice.wav` (2,24 s, mono PCM16/192 kHz), tratamento da interferência de áudio e readequação de ducking e legendas.",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\106-ryujin-bankai-refinamento-sol-audio-camera-2026-10-25.md",
+          "line": 22,
+          "text": "- **Arquivo original preservado:** `C:/Users/joaop/Downloads/Zanka_no_Tachi_only_main_voice.wav` (430.080 amostras a 192 kHz, duração 2,2400 s).",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\00-CONTINUIDADE-CODEX.md",
+          "line": 18,
+          "text": "**Atualização 25/10 — [ciclo 106: refinamento Ryūjin, sol estruturado, áudio e câmera](106-ryujin-bankai-refinamento-sol-audio-camera-2026-10-25.md):** feedback do playtest incorporado na branch codex/ryujin-bankai-sol-selamento. Fala nominal substituída por Zanka_no_Tachi_only_main_voice.wav com tratamento espectral de interferência externa (221 Hz atenuado a -26 dB e mascarado com chiado térmico/brasa) e janelas de legenda/ducking reajustadas (ticks 64..106). Sol cenográfico reconstruído com f",
+          "tracked": true
+        }
+      ],
+      "hash_refs": [],
+      "copies": [],
+      "audio_decode": {
+        "exit_code": 0,
+        "errors": ""
+      },
+      "wav_pair": "Zanka_no_Tachi_only_main_voice.wav",
+      "pair_comparison": {
+        "correlation": 0.9999992969725161,
+        "lag_seconds": 0.0
+      },
+      "category": "Versão MP3 correspondente",
+      "recommendation": "Secundário ao WAV; eventual limpeza somente após backup e confirmação.",
+      "detail": "Correspondente de Zanka_no_Tachi_only_main_voice.wav; correlação PCM de áudio 0.999999. Mesma gravação provável, não duplicata binária.",
+      "MiB": 0.053,
+      "references": 0,
+      "hash_references": 0,
+      "source_changed": false,
+      "unique_current_source": false
+    },
+    {
+      "name": "Zanka_no_Tachi_only_main_voice.wav",
+      "path": "C:\\Users\\joaop\\Downloads\\Áudios e vídeos para revisão\\Zanka_no_Tachi_only_main_voice.wav",
+      "bytes": 860262,
+      "mtime_ns": 1792967654922854400,
+      "sha256": "38c07dfba7160a97cc96448e3cf4fcd2c7c00414553f85c1a2b8b5aeb845a0b3",
+      "duration_s": 2.24,
+      "streams": [
+        "Stream #0:0: Audio: pcm_s16le ([1][0][0][0] / 0x0001), 192000 Hz, mono, s16, 3072 kb/s"
+      ],
+      "metadata_detected": true,
+      "exact_refs": [
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\106-ryujin-bankai-refinamento-sol-audio-camera-2026-10-25.md",
+          "line": 13,
+          "text": "1. **Substituição e Restauração da Fala Nominal:** Adoção da fonte isolada `Zanka_no_Tachi_only_main_voice.wav` (2,24 s, mono PCM16/192 kHz), tratamento da interferência de áudio e readequação de ducking e legendas.",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\106-ryujin-bankai-refinamento-sol-audio-camera-2026-10-25.md",
+          "line": 22,
+          "text": "- **Arquivo original preservado:** `C:/Users/joaop/Downloads/Zanka_no_Tachi_only_main_voice.wav` (430.080 amostras a 192 kHz, duração 2,2400 s).",
+          "tracked": true
+        },
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\00-CONTINUIDADE-CODEX.md",
+          "line": 18,
+          "text": "**Atualização 25/10 — [ciclo 106: refinamento Ryūjin, sol estruturado, áudio e câmera](106-ryujin-bankai-refinamento-sol-audio-camera-2026-10-25.md):** feedback do playtest incorporado na branch codex/ryujin-bankai-sol-selamento. Fala nominal substituída por Zanka_no_Tachi_only_main_voice.wav com tratamento espectral de interferência externa (221 Hz atenuado a -26 dB e mascarado com chiado térmico/brasa) e janelas de legenda/ducking reajustadas (ticks 64..106). Sol cenográfico reconstruído com f",
+          "tracked": true
+        }
+      ],
+      "stem_refs": [],
+      "hash_refs": [],
+      "copies": [],
+      "audio_decode": {
+        "exit_code": 0,
+        "errors": ""
+      },
+      "runtime_targets": [
+        {
+          "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\src\\main\\resources\\assets\\bleachmod\\sounds\\ryujin_voice_name.ogg",
+          "sha256": "4c4b8fbbc8dd20c63517e39a23166c3365d7a971f8477c6501eada18736443d9",
+          "events": [
+            "voice.ryujin_name"
+          ],
+          "decode": {
+            "exit_code": 0,
+            "errors": ""
+          },
+          "comparison": {
+            "correlation": 0.9942609957513125,
+            "lag_seconds": 0.0
+          },
+          "import_manifests": []
+        }
+      ],
+      "category": "Fonte WAV atual",
+      "recommendation": "Preservar o original; OGG convertido não substitui fonte.",
+      "detail": "Fonte associada a ryujin_voice_name.ogg.",
+      "MiB": 0.82,
+      "references": 3,
+      "hash_references": 0,
+      "source_changed": false,
+      "unique_current_source": true
+    }
+  ],
+  "scanned_text_files": 2565,
+  "errors": [],
+  "scope": "Filesystem of two existing Git worktrees, tracked text and ignored QA text artifacts; no Git-history blobs, unrelated Downloads folders, external providers or playback listening.",
+  "untouched_check": true,
+  "summary": {
+    "counts": {
+      "Sem vínculo localizado": 5,
+      "Versão MP3 correspondente": 13,
+      "Fonte histórica": 2,
+      "Fonte WAV atual": 11,
+      "Vídeo de referência / QA": 8
+    },
+    "bytes_by_category": {
+      "Sem vínculo localizado": 156179393,
+      "Versão MP3 correspondente": 3184386,
+      "Fonte histórica": 6463380,
+      "Fonte WAV atual": 68665666,
+      "Vídeo de referência / QA": 1027470198
+    },
+    "total_bytes": 1261963023,
+    "unique_current_sources": 10,
+    "all_original_hashes_unchanged": true,
+    "audio_decodes_ok": 27,
+    "video_sampled_count": 12
+  },
+  "video_review": "Three sampled frames at 15%, 50%, 85% per video; not a full continuous review or audio listening.",
+  "concurrent_refresh_paths": [
+    "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\00-CONTINUIDADE-CODEX.md",
+    "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\113-auditoria-video-ryujin-combate-tres-frentes-2026-10-26.md",
+    "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\114-prompt-antigravity-senbon-combate-2026-10-26.md",
+    "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\115-prompt-antigravity-benihime-combate-2026-10-26.md",
+    "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\72-revisao-geral-roadmap-gamedesign-2026-10-20.md",
+    "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\qa\\cycle113\\manifest.json",
+    "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\Docs\\poderes\\qa\\cycle113\\package_review.py"
+  ],
+  "context_note": "During audit another conversation added working-tree documentation cycles113–115 and QA113. These references were refreshed without modifying those files; HEAD remains23b80e0."
+}

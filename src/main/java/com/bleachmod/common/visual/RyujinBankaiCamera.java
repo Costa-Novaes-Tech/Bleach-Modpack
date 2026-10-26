@@ -5,7 +5,7 @@ import net.minecraft.world.phys.Vec3;
 
 /** Frontal dolly on the caster's sagittal axis. No fixed rear-camera endpoint. */
 public final class RyujinBankaiCamera {
-    public static final int RETURN_START = 112, RETURN_SETTLE = 138;
+    public static final int RETURN_START = RyujinBankaiTimeline.RETURN_START, RETURN_SETTLE = 140;
     public record Frame(Vec3 eye, Vec3 focus, float fov) { }
     private RyujinBankaiCamera() { }
     private static Frame frame(Vec3 anchor, Vec3 forward, double z, double y, double focusY, double focusZ, float fov) {
@@ -40,7 +40,16 @@ public final class RyujinBankaiCamera {
         if(t==1)return target;
         if(frontal)return start.lerp(target,t);
         Vec3 a=start.subtract(center), b=target.subtract(center);
-        if(b.horizontalDistance()<.01)return BenihimeStage.returnEye(start,target,look,t);
+        // First-person endpoint is the eye itself: hold a safe radius while rotating behind
+        // the actor, then approach from behind. Never interpolate through the face/chest.
+        if(b.horizontalDistance()<.01){
+            double angle=Math.atan2(a.z,a.x),end=Math.atan2(-look.z,-look.x);
+            double turn=Math.atan2(Math.sin(end-angle),Math.cos(end-angle));
+            double orbit=RyujinBankaiTimeline.smooth(Math.min(1,t/.65));
+            double settle=RyujinBankaiTimeline.smooth(Math.max(0,(t-.65)/.35));
+            double radius=a.horizontalDistance()*(1-settle);
+            return center.add(Math.cos(angle+turn*orbit)*radius,a.y*(1-settle),Math.sin(angle+turn*orbit)*radius);
+        }
         double angle=Math.atan2(a.z,a.x), end=Math.atan2(b.z,b.x);
         double turn=Math.atan2(Math.sin(end-angle),Math.cos(end-angle));
         double r=Mth.lerp(t,a.horizontalDistance(),b.horizontalDistance());

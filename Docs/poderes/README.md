@@ -208,3 +208,9 @@ Dano aceito entre entidades vivas ativa/renova o estado automático de combate d
 ## Ciclo 36 — Consolidação e encerramento visual
 
 Homologação final recebida do usuário para bainha, proporção e inclinação. Stamina/progressão e estado de combate aprovados nos testes anteriores. Consolidado o histórico técnico dos ciclos 30–35, arquivos, contratos e limites. [Relatório de fechamento e proposta de esquiva](36-consolidacao-homologacao-proximos-passos-2026-10-13.md). Próxima fatia proposta: esquiva direcional curta com stamina; depois bloqueio/Postura. Nenhuma dessas ações foi implementada neste ciclo documental.
+# Entrega26/10 — ciclo119
+
+[Ryūjin12s, áudio/câmera e evidências](119-entrega-ryujin-curta-audio-camera-2026-10-26.md):148 regressões,233 GameTests e12cenários reais amostrados. Aceite de voz/ritmo pendente; pausa do C em terreno continua no roadmap de eficiência. [Contrato comum118](118-contrato-comum-arma-maos-efeitos-2026-10-26.md) para os combos das frentes Antigravity. Mudanças locais ainda sem commit/push.
+# Integração26/10 — ciclo120
+
+[Benihime e Senbon integrados com a Ryūjin curta](120-integracao-antigravity-combates-benihime-senbon-2026-10-26.md): commits e merges locais sem conflitos,148 regressões,233 GameTests e10cenários reais amostrados. JAR e roteiro de playtest no relatório. Rastro fixo Senbon, fluidez do C em terreno e aceite artístico continuam pendentes.
