@@ -15,23 +15,23 @@ import java.util.*;
 final class RyujinBankaiAudio {
     private static final class State {
         double lastAge=-1;
-        boolean bankai,name,extinguished,musicStarted;
-        Score score;
+        boolean bankai,name,extinguished,musicStarted,fireStarted;
+        Score score,fire;
         final List<SoundInstance> playing=new ArrayList<>();
     }
     private static final Map<Integer,State> STATES=new HashMap<>();
     private RyujinBankaiAudio() { }
     private static final class Score extends AbstractTickableSoundInstance {
         float gain;
-        Score(boolean compact) {
-            super(SoundEvent.createVariableRangeEvent(Reference.id(compact?"music.ryujin_compact":"music.ryujin_entrance")),SoundSource.MUSIC,RandomSource.create());
+        Score(String event, SoundSource source) {
+            super(SoundEvent.createVariableRangeEvent(Reference.id(event)),source,RandomSource.create());
             relative=true;attenuation=Attenuation.NONE;volume=0;looping=false;
         }
         @Override public boolean canStartSilent(){return true;}
         @Override public void tick(){volume=gain;}
     }
     static void stop(int owner){var s=STATES.remove(owner);if(s!=null)stopSounds(s);}
-    private static void stopSounds(State s){var m=Minecraft.getInstance().getSoundManager();s.playing.forEach(m::stop);if(s.score!=null)m.stop(s.score);s.playing.clear();s.score=null;}
+    private static void stopSounds(State s){var m=Minecraft.getInstance().getSoundManager();s.playing.forEach(m::stop);if(s.score!=null)m.stop(s.score);if(s.fire!=null)m.stop(s.fire);s.playing.clear();s.score=null;s.fire=null;}
     static void clear(){STATES.values().forEach(RyujinBankaiAudio::stopSounds);STATES.clear();}
     static void retain(Set<Integer> owners){for(int id:List.copyOf(STATES.keySet()))if(!owners.contains(id))stop(id);}
     private static void play(State s,SoundEvent event,SoundSource source,float volume,float pitch,Vec3 p,boolean local){
@@ -47,18 +47,22 @@ final class RyujinBankaiAudio {
         if(raw==s.lastAge)return;
         s.playing.removeIf(sound->!mc.getSoundManager().isActive(sound));
         if(local && !s.musicStarted && raw<10 && ClientVisualConfig.RYUJIN_MUSIC.get()){
-            s.musicStarted=true;s.score=new Score(duration==RyujinBankaiTimeline.COMPACT_DURATION);s.playing.add(s.score);mc.getSoundManager().play(s.score);
+            s.musicStarted=true;s.score=new Score("music.ryujin_entrance",SoundSource.MUSIC);s.playing.add(s.score);mc.getSoundManager().play(s.score);
         }
-        boolean speaking=(age>=11.8 && raw<RyujinBankaiTimeline.realAge(12,duration)+58)
-                || (age>=59.8 && raw<RyujinBankaiTimeline.realAge(60,duration)+90);
+        if(local && !s.fireStarted && raw<10){
+            s.fireStarted=true;s.fire=new Score("effect.ryujin_solar_fire",SoundSource.PLAYERS);s.playing.add(s.fire);mc.getSoundManager().play(s.fire);
+        }
+        boolean speaking=(raw>=RyujinBankaiTimeline.realAge(12,duration)-3 && raw<RyujinBankaiTimeline.realAge(12,duration)+32)
+                || (raw>=RyujinBankaiTimeline.realAge(60,duration)-3 && raw<RyujinBankaiTimeline.realAge(60,duration)+50);
+        double fade=Math.min(1,raw/8)*Math.min(1,(duration-raw)/20.0);
         if(s.score!=null){
-            double fade=Math.min(1,raw/30)*Math.min(1,(duration-raw)/40.0);
-            s.score.gain=ClientVisualConfig.RYUJIN_MUSIC.get()?(float)(.48*fade*(speaking?.16:1)):0;
+            s.score.gain=ClientVisualConfig.RYUJIN_MUSIC.get()?(float)(.75*fade*(speaking?.16:1)):0;
         }
+        if(s.fire!=null)s.fire.gain=(float)(.65*fade*(speaking?.12:1));
         // Skip expired lines for late observers; never replay a voice after a menu interruption.
         if(!s.bankai && age>=12){s.bankai=true;if(raw<RyujinBankaiTimeline.realAge(12,duration)+8)play(s,ModSounds.RYUJIN_VOICE_BANKAI.get(),SoundSource.VOICE,local?1:1.6F,1,p,local);}
         if(!s.name && age>=60){s.name=true;if(raw<RyujinBankaiTimeline.realAge(60,duration)+8)play(s,ModSounds.RYUJIN_VOICE_NAME.get(),SoundSource.VOICE,local?1:1.6F,1,p,local);}
-        if(age<52 && (int)raw/35!=(int)Math.max(0,s.lastAge)/35)
+        if(!local && age<52 && (int)raw/35!=(int)Math.max(0,s.lastAge)/35)
             play(s,SoundEvents.FIRE_AMBIENT,SoundSource.PLAYERS,speaking?.06F:.20F,.65F,p,local);
         if(!s.extinguished && age>=52){s.extinguished=true;if(previous<52)play(s,SoundEvents.FIRE_EXTINGUISH,SoundSource.PLAYERS,.55F,.7F,p,local);}
         s.lastAge=raw;

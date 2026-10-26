@@ -16,6 +16,30 @@ import java.util.*;
 public final class MvpRegressionTest {
     private static int count;
     public static void main(String[] args) {
+        test("Ryujin short scene aligns dialogue, absorption and safe first-person handoff",()->{
+            eq(240,com.bleachmod.common.visual.RyujinBankaiTimeline.DURATION);
+            eq(240,com.bleachmod.common.visual.RyujinBankaiTimeline.COMPACT_DURATION);
+            eq(40D,com.bleachmod.common.visual.RyujinBankaiTimeline.realAge(12,240));
+            eq(160D,com.bleachmod.common.visual.RyujinBankaiTimeline.realAge(60,240));
+            eq(90D,com.bleachmod.common.visual.RyujinBankaiTimeline.realAge(30,240));
+            eq(140D,com.bleachmod.common.visual.RyujinBankaiTimeline.realAge(52,240));
+            double previous=-1;
+            for(int t=0;t<=240;t++){
+                double beat=com.bleachmod.common.visual.RyujinBankaiTimeline.storyAge(t,240);
+                yes(beat>=previous);previous=beat;
+                yes(Math.abs(com.bleachmod.common.visual.RyujinBankaiTimeline.realAge(beat,240)-t)<.0001);
+            }
+            var center=net.minecraft.world.phys.Vec3.ZERO;
+            var look=new net.minecraft.world.phys.Vec3(0,0,1);
+            var start=new net.minecraft.world.phys.Vec3(0,-.12,5.2);
+            for(int i=1;i<100;i++){
+                double t=i/100.0;
+                var eye=com.bleachmod.common.visual.RyujinBankaiCamera.returnEye(start,center,center,look,t,false);
+                yes(Double.isFinite(eye.lengthSqr()));
+                if(t<.65)yes(eye.horizontalDistance()>5);
+                else yes(eye.dot(look)<0); // Final approach from behind, not through the face.
+            }
+        });
         test("Benihime camera follows the grasp and opens before floor supports without moving the rig clock",()->{
             var previous=com.bleachmod.common.visual.BenihimeEntranceCamera.sample(108);
             for(int i=433;i<=2112;i++){

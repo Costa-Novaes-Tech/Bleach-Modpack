@@ -156,13 +156,16 @@ public final class TechniqueService {
         Vec3 origin = player.position();
         Vec3 direction = player.getLookAngle().normalize();
         Set<UUID> hitEntities = new HashSet<>();
-        Set<BlockPos> visitedBlocks = new HashSet<>();
+        // All steps share the same vertical span. Visit each X/Z column once instead
+        // of allocating/hash-probing a BlockPos for every overlapping 3D step volume.
+        var visitedColumns = new it.unimi.dsi.fastutil.longs.LongOpenHashSet();
+        long started = System.nanoTime();
         DamageSource source = player.damageSources().indirectMagic(player, player);
 
         for (int step = 1; step <= (int) STEAM_CUT_RANGE; step++) {
             Vec3 center = origin.add(direction.scale(step));
             double halfWidth = steamCutHalfWidthAt(step);
-            destroySteamCutBlocks(level, center, origin.y, halfWidth, visitedBlocks, player.getBoundingBox());
+            destroySteamCutBlocks(level, center, origin.y, halfWidth, visitedColumns, player.getBoundingBox());
             AABB entityArea = new AABB(
                     center.x - halfWidth,
                     center.y - STEAM_CUT_BELOW_PLAYER_BLOCKS,
@@ -190,6 +193,9 @@ public final class TechniqueService {
                 player.getSoundSource(), 0.8F, 1.25F);
         level.playSound(null, impact.x, impact.y, impact.z, SoundEvents.GENERIC_EXPLODE,
                 player.getSoundSource(), 0.65F, 1.35F);
+        if (Boolean.getBoolean("bleachmod.ryujinBankaiQa"))
+            com.mojang.logging.LogUtils.getLogger().info("Ryujin steam cut terrain columns={} serverMs={}",
+                    visitedColumns.size(), (System.nanoTime()-started)/1_000_000.0);
     }
 
     private static double steamCutHalfWidthAt(int step) {
@@ -197,22 +203,24 @@ public final class TechniqueService {
     }
 
     private static void destroySteamCutBlocks(ServerLevel level, Vec3 center, double playerY,
-                                               double halfWidth, Set<BlockPos> visitedBlocks, AABB casterFootprint) {
+                                               double halfWidth, it.unimi.dsi.fastutil.longs.LongSet visitedColumns, AABB casterFootprint) {
         int minX = (int) Math.floor(center.x - halfWidth);
         int maxX = (int) Math.floor(center.x + halfWidth);
         int minY = (int) Math.floor(playerY - STEAM_CUT_BELOW_PLAYER_BLOCKS);
         int maxY = (int) Math.floor(playerY + STEAM_CUT_ABOVE_PLAYER_BLOCKS);
         int minZ = (int) Math.floor(center.z - halfWidth);
         int maxZ = (int) Math.floor(center.z + halfWidth);
-        for (BlockPos pos : BlockPos.betweenClosed(minX, minY, minZ, maxX, maxY, maxZ)) {
-            BlockPos immutablePos = pos.immutable();
-            // The vertical finisher plants the blade ahead; do not excavate the caster's own support.
-            boolean support=pos.getY()<playerY && pos.getX()+1>casterFootprint.minX && pos.getX()<casterFootprint.maxX
-                    && pos.getZ()+1>casterFootprint.minZ && pos.getZ()<casterFootprint.maxZ;
-            if (!visitedBlocks.add(immutablePos) || support || isProtectedSteamCutBlock(level, immutablePos)) {
-                continue;
+        var pos = new BlockPos.MutableBlockPos();
+        for (int z=minZ; z<=maxZ; z++) for (int x=minX; x<=maxX; x++) {
+            if (!visitedColumns.add(net.minecraft.world.level.ChunkPos.asLong(x,z))) continue;
+            boolean footprint=x+1>casterFootprint.minX && x<casterFootprint.maxX
+                    && z+1>casterFootprint.minZ && z<casterFootprint.maxZ;
+            for (int y=minY; y<=maxY; y++) {
+                pos.set(x,y,z);
+                if (footprint && y<playerY || isProtectedSteamCutBlock(level,pos)) continue;
+                // Keep vanilla removal, neighbor/fluid updates and block protections intact.
+                level.destroyBlock(pos, false);
             }
-            level.destroyBlock(immutablePos, false);
         }
     }
 

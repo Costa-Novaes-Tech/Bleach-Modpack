@@ -28,7 +28,7 @@ import java.util.UUID;
 
 /**
  * Server-authoritative contract and numerical validation for Ryūjin Jakka / Zanka no Tachi Bankai transformation.
- * Verifies the 60/40 gameplay contract, 800-tick presentation lifecycle, Reiatsu expenditure,
+ * Verifies the 60/40 gameplay contract, 240-tick presentation lifecycle, Reiatsu expenditure,
  * movement decoupling, pre- and post-commit cancellation semantics, and camera/timeline curves.
  */
 @GameTestHolder("bleachmod")
@@ -76,7 +76,7 @@ public final class RyujinBankaiGameTests {
 
         h.assertTrue(ReleaseAnimationService.snapshot(p).getInt("duration") == 60
                 && RyujinBankaiEntranceService.snapshot(p).getInt("duration") == RyujinBankaiTimeline.DURATION,
-                "Gameplay release (60 ticks) and presentation (800 ticks) clocks conflated");
+                "Gameplay release (60 ticks) and presentation (240 ticks) clocks conflated");
 
         h.onEachTick(() -> {
             tickScene(p);
@@ -94,7 +94,7 @@ public final class RyujinBankaiGameTests {
                     && d.getResources().getCurrentReiatsu() == 88, "Tick-40 commit failed or incorrect Reiatsu cost");
         });
 
-        // Tick 65: Gameplay lock ended (busy == false), but 800-tick presentation is still active!
+        // Tick 65: Gameplay lock ended (busy == false), but 240-tick presentation is still active!
         h.runAfterDelay(65, () -> {
             try {
                 h.assertTrue(!ReleaseAnimationService.busy(p), "Presentation prolonged gameplay busy state beyond tick 60");
@@ -296,7 +296,7 @@ public final class RyujinBankaiGameTests {
 
     @GameTest(template="empty",batch="ryujin_long_story")
     public static void realClocksPreserveOrderedBeatsInBothPresentationModes(GameTestHelper h){
-        for(int duration:new int[]{800,360}){
+        for(int duration:new int[]{RyujinBankaiTimeline.DURATION,RyujinBankaiTimeline.COMPACT_DURATION}){
             double previous=-1;
             for(int tick=0;tick<=duration;tick++){
                 double age=RyujinBankaiTimeline.storyAge(tick,duration);
@@ -309,7 +309,7 @@ public final class RyujinBankaiGameTests {
             h.assertTrue(RyujinBankaiTimeline.storyAge(duration,duration)==140,"Presentation failed to settle");
             h.assertTrue(duration-RyujinBankaiTimeline.realAge(60,duration)>=50,"Name voice would be cut at the end");
         }
-        h.assertTrue(RyujinBankaiTimeline.DURATION==800 && RyujinBankaiTimeline.COMPACT_DURATION==360,"Wrong long/compact real durations");
+        h.assertTrue(RyujinBankaiTimeline.DURATION==240 && RyujinBankaiTimeline.COMPACT_DURATION==240,"Legacy preference must not restore the rejected long scene");
         h.succeed();
     }
 

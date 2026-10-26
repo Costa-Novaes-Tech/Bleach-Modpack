@@ -35,7 +35,7 @@ import java.util.*;
 
 /**
  * Client-side cinematic director, camera controller, on-screen subtitles,
- * and audio manager for Ryūjin Jakka / Zanka no Tachi Bankai transformation (800 real ticks; authored beat clock 0..140).
+ * and audio manager for Ryūjin Jakka / Zanka no Tachi (240 real ticks; authored beats 0..140).
  */
 @Mod.EventBusSubscriber(modid = Reference.MOD_ID, value = Dist.CLIENT)
 public final class RyujinBankaiEntranceClient {
@@ -172,7 +172,7 @@ public final class RyujinBankaiEntranceClient {
         for (var id : List.copyOf(SCENES.keySet())) {
             var p = mc.level.getEntity(id);
             var s = SCENES.get(id);
-            if (p == null || !p.isAlive() || rawAge(s, 0) >= DURATION || p.position().distanceToSqr(s.anchor) > 512 * 512) {
+            if (p == null || !p.isAlive() || rawAge(s, 0) >= s.viewTicks || p.position().distanceToSqr(s.anchor) > 512 * 512) {
                 finish(id);
             }
         }
@@ -238,7 +238,7 @@ public final class RyujinBankaiEntranceClient {
 
         var mc = Minecraft.getInstance();
         double age = age(s, (float) event.getPartialTick());
-        if (age >= DURATION || age < 0) {
+        if (age >= RyujinBankaiTimeline.AUTHORED_END || age < 0) {
             restore();
             return;
         }
@@ -295,7 +295,7 @@ public final class RyujinBankaiEntranceClient {
         var s = local();
         if (s == null) return;
         double age = age(s, (float) event.getPartialTick());
-        if (age < DURATION && age >= 0 && event.usedConfiguredFov()) {
+        if (age < RyujinBankaiTimeline.AUTHORED_END && age >= 0 && event.usedConfiguredFov()) {
             float sign = (Minecraft.getInstance().player != null && Minecraft.getInstance().player.getMainArm() == HumanoidArm.LEFT) ? -1.0F : 1.0F;
             double t = RyujinBankaiTimeline.progress(age, RyujinBankaiCamera.RETURN_START, RyujinBankaiCamera.RETURN_SETTLE);
             event.setFOV(Mth.lerp(t, RyujinBankaiCamera.sample(s.anchor, s.forward, age, sign).fov(), event.getFOV()));
@@ -336,8 +336,8 @@ public final class RyujinBankaiEntranceClient {
         int bars = ((int)(255 * (1 - RyujinBankaiTimeline.progress(age,112,138))) << 24);
         g.fill(0, 0, width, barHeight, bars);
         g.fill(0, height - barHeight, width, height, bars);
-        subtitle(g, "Bankai", RyujinBankaiTimeline.speechAlpha(rawAge(s,0),s.viewTicks,12,52), width, height-barHeight-20);
-        subtitle(g, "Zanka no Tachi", RyujinBankaiTimeline.speechAlpha(rawAge(s,0),s.viewTicks,60,65), width, height-barHeight-20);
+        subtitle(g, "Bankai", RyujinBankaiTimeline.speechAlpha(rawAge(s,0),s.viewTicks,12,32), width, height-barHeight-20);
+        subtitle(g, "Zanka no Tachi", RyujinBankaiTimeline.speechAlpha(rawAge(s,0),s.viewTicks,60,50), width, height-barHeight-20);
     }
     private static void subtitle(GuiGraphics g, String text, float alpha, int width, int y) {
         if(alpha <= .01F)return;
@@ -382,7 +382,7 @@ public final class RyujinBankaiEntranceClient {
             var entity = world.getEntity(entry.getKey());
             float sign = (entity instanceof AbstractClientPlayer p && p.getMainArm() == HumanoidArm.LEFT) ? -1.0F : 1.0F;
             double age = age(scene, e.getPartialTick());
-            if (age >= 0 && age < DURATION) {
+            if (age >= 0 && age < RyujinBankaiTimeline.AUTHORED_END) {
                 RyujinSunVisual.render(e.getPoseStack(), cameraPos, scene.anchor, scene.forward, age, blade(scene,entry.getKey(),e.getPartialTick()));
             }
         }

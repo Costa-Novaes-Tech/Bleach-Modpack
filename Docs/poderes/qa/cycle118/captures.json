@@ -1,0 +1,715 @@
+{
+  "base": "58e3e4e",
+  "source_qa_directory": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\ryujin-bankai-qa\\cycle118-1793034149101",
+  "scenarios": [
+    {
+      "case": "01_day_back",
+      "samples": 32,
+      "impact_window_sample_gaps": [
+        {
+          "ms": 498,
+          "from_tick": 170,
+          "to_tick": 180
+        },
+        {
+          "ms": 505,
+          "from_tick": 180,
+          "to_tick": 190
+        },
+        {
+          "ms": 502,
+          "from_tick": 190,
+          "to_tick": 200
+        }
+      ],
+      "last_sample": {
+        "file": "screenshots/frame-t260.png",
+        "tick": 260,
+        "wallMs": 1793034163161,
+        "fps": 73,
+        "cameraType": "THIRD_PERSON_BACK",
+        "active": false,
+        "camPos": [
+          0.5,
+          -58.38,
+          -3.5
+        ],
+        "yaw": 0.0,
+        "pitch": 0.0
+      }
+    },
+    {
+      "case": "02_night_front",
+      "samples": 32,
+      "impact_window_sample_gaps": [
+        {
+          "ms": 496,
+          "from_tick": 170,
+          "to_tick": 180
+        },
+        {
+          "ms": 506,
+          "from_tick": 180,
+          "to_tick": 190
+        },
+        {
+          "ms": 506,
+          "from_tick": 190,
+          "to_tick": 200
+        }
+      ],
+      "last_sample": {
+        "file": "screenshots/frame-t260.png",
+        "tick": 260,
+        "wallMs": 1793034179810,
+        "fps": 70,
+        "cameraType": "THIRD_PERSON_FRONT",
+        "active": false,
+        "camPos": [
+          48.5,
+          -58.38,
+          4.5
+        ],
+        "yaw": 180.0,
+        "pitch": -0.0
+      }
+    },
+    {
+      "case": "03_first_return",
+      "samples": 32,
+      "impact_window_sample_gaps": [
+        {
+          "ms": 502,
+          "from_tick": 170,
+          "to_tick": 180
+        },
+        {
+          "ms": 499,
+          "from_tick": 180,
+          "to_tick": 190
+        },
+        {
+          "ms": 498,
+          "from_tick": 190,
+          "to_tick": 200
+        }
+      ],
+      "last_sample": {
+        "file": "screenshots/frame-t260.png",
+        "tick": 260,
+        "wallMs": 1793034196439,
+        "fps": 97,
+        "cameraType": "FIRST_PERSON",
+        "active": false,
+        "camPos": [
+          96.5,
+          -58.38,
+          0.5
+        ],
+        "yaw": 0.0,
+        "pitch": 0.0
+      }
+    },
+    {
+      "case": "04_left_front",
+      "samples": 32,
+      "impact_window_sample_gaps": [
+        {
+          "ms": 501,
+          "from_tick": 170,
+          "to_tick": 180
+        },
+        {
+          "ms": 495,
+          "from_tick": 180,
+          "to_tick": 190
+        },
+        {
+          "ms": 505,
+          "from_tick": 190,
+          "to_tick": 200
+        }
+      ],
+      "last_sample": {
+        "file": "screenshots/frame-t260.png",
+        "tick": 260,
+        "wallMs": 1793034213026,
+        "fps": 112,
+        "cameraType": "THIRD_PERSON_FRONT",
+        "active": false,
+        "camPos": [
+          144.5,
+          -58.38,
+          4.5
+        ],
+        "yaw": 180.0,
+        "pitch": -0.0
+      }
+    },
+    {
+      "case": "05_near_wall",
+      "samples": 32,
+      "impact_window_sample_gaps": [
+        {
+          "ms": 500,
+          "from_tick": 170,
+          "to_tick": 180
+        },
+        {
+          "ms": 498,
+          "from_tick": 180,
+          "to_tick": 190
+        },
+        {
+          "ms": 507,
+          "from_tick": 190,
+          "to_tick": 200
+        }
+      ],
+      "last_sample": {
+        "file": "screenshots/frame-t260.png",
+        "tick": 260,
+        "wallMs": 1793034229638,
+        "fps": 84,
+        "cameraType": "THIRD_PERSON_FRONT",
+        "active": false,
+        "camPos": [
+          192.5,
+          -58.38,
+          4.5
+        ],
+        "yaw": 180.0,
+        "pitch": -0.0
+      }
+    },
+    {
+      "case": "06_move_after_commit",
+      "samples": 32,
+      "impact_window_sample_gaps": [
+        {
+          "ms": 503,
+          "from_tick": 170,
+          "to_tick": 180
+        },
+        {
+          "ms": 496,
+          "from_tick": 180,
+          "to_tick": 190
+        },
+        {
+          "ms": 502,
+          "from_tick": 190,
+          "to_tick": 200
+        }
+      ],
+      "last_sample": {
+        "file": "screenshots/frame-t260.png",
+        "tick": 260,
+        "wallMs": 1793034246286,
+        "fps": 90,
+        "cameraType": "THIRD_PERSON_BACK",
+        "active": false,
+        "camPos": [
+          245.79431,
+          -58.38,
+          -0.77661
+        ],
+        "yaw": 35.0,
+        "pitch": 0.0
+      }
+    },
+    {
+      "case": "07_cancel_before_commit",
+      "samples": 32,
+      "impact_window_sample_gaps": [
+        {
+          "ms": 510,
+          "from_tick": 170,
+          "to_tick": 180
+        },
+        {
+          "ms": 488,
+          "from_tick": 180,
+          "to_tick": 190
+        },
+        {
+          "ms": 504,
+          "from_tick": 190,
+          "to_tick": 200
+        }
+      ],
+      "last_sample": {
+        "file": "screenshots/frame-t260.png",
+        "tick": 260,
+        "wallMs": 1793034262885,
+        "fps": 109,
+        "cameraType": "THIRD_PERSON_BACK",
+        "active": false,
+        "camPos": [
+          288.5,
+          -58.38,
+          -3.5
+        ],
+        "yaw": 0.0,
+        "pitch": 0.0
+      }
+    },
+    {
+      "case": "08_cancel_after_commit",
+      "samples": 32,
+      "impact_window_sample_gaps": [
+        {
+          "ms": 500,
+          "from_tick": 170,
+          "to_tick": 180
+        },
+        {
+          "ms": 495,
+          "from_tick": 180,
+          "to_tick": 190
+        },
+        {
+          "ms": 502,
+          "from_tick": 190,
+          "to_tick": 200
+        }
+      ],
+      "last_sample": {
+        "file": "screenshots/frame-t260.png",
+        "tick": 260,
+        "wallMs": 1793034279477,
+        "fps": 109,
+        "cameraType": "THIRD_PERSON_BACK",
+        "active": false,
+        "camPos": [
+          336.5,
+          -58.38,
+          -3.5
+        ],
+        "yaw": 0.0,
+        "pitch": 0.0
+      }
+    },
+    {
+      "case": "09_army_and_supreme",
+      "samples": 37,
+      "impact_window_sample_gaps": [
+        {
+          "ms": 102,
+          "from_tick": 170,
+          "to_tick": 172
+        },
+        {
+          "ms": 102,
+          "from_tick": 172,
+          "to_tick": 174
+        },
+        {
+          "ms": 103,
+          "from_tick": 174,
+          "to_tick": 176
+        },
+        {
+          "ms": 94,
+          "from_tick": 176,
+          "to_tick": 178
+        },
+        {
+          "ms": 1033,
+          "from_tick": 178,
+          "to_tick": 182
+        },
+        {
+          "ms": 469,
+          "from_tick": 182,
+          "to_tick": 192
+        }
+      ],
+      "last_sample": {
+        "file": "screenshots/frame-t220.png",
+        "tick": 220,
+        "wallMs": 1793034293936,
+        "fps": 1,
+        "cameraType": "THIRD_PERSON_BACK",
+        "active": false,
+        "camPos": [
+          384.5,
+          -58.38,
+          -3.5
+        ],
+        "yaw": 0.0,
+        "pitch": 0.0
+      }
+    },
+    {
+      "case": "10_supreme_front",
+      "samples": 47,
+      "impact_window_sample_gaps": [
+        {
+          "ms": 103,
+          "from_tick": 170,
+          "to_tick": 172
+        },
+        {
+          "ms": 98,
+          "from_tick": 172,
+          "to_tick": 174
+        },
+        {
+          "ms": 106,
+          "from_tick": 174,
+          "to_tick": 176
+        },
+        {
+          "ms": 96,
+          "from_tick": 176,
+          "to_tick": 178
+        },
+        {
+          "ms": 108,
+          "from_tick": 178,
+          "to_tick": 180
+        },
+        {
+          "ms": 95,
+          "from_tick": 180,
+          "to_tick": 182
+        },
+        {
+          "ms": 107,
+          "from_tick": 182,
+          "to_tick": 184
+        },
+        {
+          "ms": 97,
+          "from_tick": 184,
+          "to_tick": 186
+        },
+        {
+          "ms": 101,
+          "from_tick": 186,
+          "to_tick": 188
+        },
+        {
+          "ms": 99,
+          "from_tick": 188,
+          "to_tick": 190
+        },
+        {
+          "ms": 101,
+          "from_tick": 190,
+          "to_tick": 192
+        }
+      ],
+      "last_sample": {
+        "file": "screenshots/frame-t220.png",
+        "tick": 220,
+        "wallMs": 1793034308679,
+        "fps": 113,
+        "cameraType": "THIRD_PERSON_FRONT",
+        "active": false,
+        "camPos": [
+          432.5,
+          -26.38,
+          4.5
+        ],
+        "yaw": 180.0,
+        "pitch": -0.0
+      }
+    },
+    {
+      "case": "11_supreme_profile",
+      "samples": 47,
+      "impact_window_sample_gaps": [
+        {
+          "ms": 103,
+          "from_tick": 170,
+          "to_tick": 172
+        },
+        {
+          "ms": 96,
+          "from_tick": 172,
+          "to_tick": 174
+        },
+        {
+          "ms": 105,
+          "from_tick": 174,
+          "to_tick": 176
+        },
+        {
+          "ms": 96,
+          "from_tick": 176,
+          "to_tick": 178
+        },
+        {
+          "ms": 108,
+          "from_tick": 178,
+          "to_tick": 180
+        },
+        {
+          "ms": 101,
+          "from_tick": 180,
+          "to_tick": 182
+        },
+        {
+          "ms": 98,
+          "from_tick": 182,
+          "to_tick": 184
+        },
+        {
+          "ms": 97,
+          "from_tick": 184,
+          "to_tick": 186
+        },
+        {
+          "ms": 100,
+          "from_tick": 186,
+          "to_tick": 188
+        },
+        {
+          "ms": 99,
+          "from_tick": 188,
+          "to_tick": 190
+        },
+        {
+          "ms": 100,
+          "from_tick": 190,
+          "to_tick": 192
+        }
+      ],
+      "last_sample": {
+        "file": "screenshots/frame-t220.png",
+        "tick": 220,
+        "wallMs": 1793034323332,
+        "fps": 111,
+        "cameraType": "THIRD_PERSON_BACK",
+        "active": false,
+        "camPos": [
+          480.5,
+          -26.38,
+          -3.5
+        ],
+        "yaw": 0.0,
+        "pitch": 0.0
+      }
+    },
+    {
+      "case": "12_supreme_left_profile",
+      "samples": 46,
+      "impact_window_sample_gaps": [
+        {
+          "ms": 99,
+          "from_tick": 170,
+          "to_tick": 172
+        },
+        {
+          "ms": 99,
+          "from_tick": 172,
+          "to_tick": 174
+        },
+        {
+          "ms": 100,
+          "from_tick": 174,
+          "to_tick": 176
+        },
+        {
+          "ms": 106,
+          "from_tick": 176,
+          "to_tick": 178
+        },
+        {
+          "ms": 96,
+          "from_tick": 178,
+          "to_tick": 180
+        },
+        {
+          "ms": 96,
+          "from_tick": 180,
+          "to_tick": 182
+        },
+        {
+          "ms": 190,
+          "from_tick": 182,
+          "to_tick": 184
+        },
+        {
+          "ms": 84,
+          "from_tick": 184,
+          "to_tick": 188
+        },
+        {
+          "ms": 79,
+          "from_tick": 188,
+          "to_tick": 190
+        },
+        {
+          "ms": 101,
+          "from_tick": 190,
+          "to_tick": 192
+        }
+      ],
+      "last_sample": {
+        "file": "screenshots/frame-t220.png",
+        "tick": 220,
+        "wallMs": 1793034337928,
+        "fps": 109,
+        "cameraType": "THIRD_PERSON_BACK",
+        "active": false,
+        "camPos": [
+          528.5,
+          -26.38,
+          -3.5
+        ],
+        "yaw": 0.0,
+        "pitch": 0.0
+      }
+    }
+  ],
+  "selected_real_screenshots": [
+    {
+      "case": "01_day_back",
+      "tick": 40,
+      "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\ryujin-bankai-qa\\cycle118-1793034149101\\01_day_back\\screenshots\\frame-t040.png",
+      "file": "01_day_back-t040.png",
+      "sha256": "7f758bf44cb2399d1e2a75bf0eee96a56da0cd652b81a713145b33ee7cc600ed"
+    },
+    {
+      "case": "01_day_back",
+      "tick": 110,
+      "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\ryujin-bankai-qa\\cycle118-1793034149101\\01_day_back\\screenshots\\frame-t110.png",
+      "file": "01_day_back-t110.png",
+      "sha256": "a9ec8f4e8ac98e5d9e7ee2b420502f1feee736fff05584149a32d748febe9e5b"
+    },
+    {
+      "case": "01_day_back",
+      "tick": 150,
+      "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\ryujin-bankai-qa\\cycle118-1793034149101\\01_day_back\\screenshots\\frame-t150.png",
+      "file": "01_day_back-t150.png",
+      "sha256": "b099b64ec70d4b8c57e7cb90af898c4242265b470741eca44328f0e8460dc551"
+    },
+    {
+      "case": "01_day_back",
+      "tick": 170,
+      "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\ryujin-bankai-qa\\cycle118-1793034149101\\01_day_back\\screenshots\\frame-t170.png",
+      "file": "01_day_back-t170.png",
+      "sha256": "f41bfad176919a4133a9c020982cd1d26e0c07f75621afa7c95bb0a46e389ed5"
+    },
+    {
+      "case": "02_night_front",
+      "tick": 60,
+      "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\ryujin-bankai-qa\\cycle118-1793034149101\\02_night_front\\screenshots\\frame-t060.png",
+      "file": "02_night_front-t060.png",
+      "sha256": "cf55cd666e0bcdafbb25b545e406cc5e96d4177633e92a6a99901632be0d7343"
+    },
+    {
+      "case": "02_night_front",
+      "tick": 170,
+      "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\ryujin-bankai-qa\\cycle118-1793034149101\\02_night_front\\screenshots\\frame-t170.png",
+      "file": "02_night_front-t170.png",
+      "sha256": "f36d0f2b29eabc7d3917a0ac814be045585ac778dea09abe1b56081159ac9fa1"
+    },
+    {
+      "case": "03_first_return",
+      "tick": 220,
+      "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\ryujin-bankai-qa\\cycle118-1793034149101\\03_first_return\\screenshots\\frame-t220.png",
+      "file": "03_first_return-t220.png",
+      "sha256": "48d200e03ca3f69b27bdbaefe250891f3862da5d1f3374ca156485f7a9f7fbd9"
+    },
+    {
+      "case": "03_first_return",
+      "tick": 236,
+      "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\ryujin-bankai-qa\\cycle118-1793034149101\\03_first_return\\screenshots\\frame-t236.png",
+      "file": "03_first_return-t236.png",
+      "sha256": "de770a2a1badc2b803f2dfebe7bbc4c8a224d0404b0b4efff584581b537b50d1"
+    },
+    {
+      "case": "03_first_return",
+      "tick": 242,
+      "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\ryujin-bankai-qa\\cycle118-1793034149101\\03_first_return\\screenshots\\frame-t242.png",
+      "file": "03_first_return-t242.png",
+      "sha256": "e9c6826e7bd68a0fadb19705d8ce8a6ad7b84942e88c3f7b8a81bc6ff4d79c8a"
+    },
+    {
+      "case": "04_left_front",
+      "tick": 170,
+      "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\ryujin-bankai-qa\\cycle118-1793034149101\\04_left_front\\screenshots\\frame-t170.png",
+      "file": "04_left_front-t170.png",
+      "sha256": "b9029cd82ea8eda7c52f024b0fbf3ed1c72c0c5c3868e5cce6ecc67c1a13e34c"
+    },
+    {
+      "case": "05_near_wall",
+      "tick": 170,
+      "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\ryujin-bankai-qa\\cycle118-1793034149101\\05_near_wall\\screenshots\\frame-t170.png",
+      "file": "05_near_wall-t170.png",
+      "sha256": "1de426209807ef345cb139421d3f99ee2ba8e2d05fe571c9288d68d9d3bff185"
+    },
+    {
+      "case": "09_army_and_supreme",
+      "tick": 170,
+      "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\ryujin-bankai-qa\\cycle118-1793034149101\\09_army_and_supreme\\screenshots\\frame-t170.png",
+      "file": "09_army_and_supreme-t170.png",
+      "sha256": "bda3314ab54b84f79fb5dc553c5007b983646a9e3ee0d14def61900fdd9d0bff"
+    },
+    {
+      "case": "09_army_and_supreme",
+      "tick": 178,
+      "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\ryujin-bankai-qa\\cycle118-1793034149101\\09_army_and_supreme\\screenshots\\frame-t178.png",
+      "file": "09_army_and_supreme-t178.png",
+      "sha256": "1a655f6ce387d8c204dae63dbb3f2963c7029d6b744f9ad427e5fc52a0fef93e"
+    },
+    {
+      "case": "09_army_and_supreme",
+      "tick": 182,
+      "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\ryujin-bankai-qa\\cycle118-1793034149101\\09_army_and_supreme\\screenshots\\frame-t182.png",
+      "file": "09_army_and_supreme-t182.png",
+      "sha256": "ef974893661141bb1dc3dde27ee3c95f202752174e8cb510ad3a54a4e018247c"
+    },
+    {
+      "case": "09_army_and_supreme",
+      "tick": 192,
+      "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\ryujin-bankai-qa\\cycle118-1793034149101\\09_army_and_supreme\\screenshots\\frame-t192.png",
+      "file": "09_army_and_supreme-t192.png",
+      "sha256": "e67e8c46e4a64bdd160b54c9084b87f4ec03200c3c5a4af7bc9f8ea6c6e661d1"
+    },
+    {
+      "case": "10_supreme_front",
+      "tick": 168,
+      "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\ryujin-bankai-qa\\cycle118-1793034149101\\10_supreme_front\\screenshots\\frame-t168.png",
+      "file": "10_supreme_front-t168.png",
+      "sha256": "f483679ca9a0e9a964de97d14861f7234651564dc01c1280a4845f83e8d193a3"
+    },
+    {
+      "case": "10_supreme_front",
+      "tick": 180,
+      "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\ryujin-bankai-qa\\cycle118-1793034149101\\10_supreme_front\\screenshots\\frame-t180.png",
+      "file": "10_supreme_front-t180.png",
+      "sha256": "d78328bd14987324cb68a005a4e20ab60ba19b931de427b6fe779f0b9d395938"
+    },
+    {
+      "case": "11_supreme_profile",
+      "tick": 180,
+      "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\ryujin-bankai-qa\\cycle118-1793034149101\\11_supreme_profile\\screenshots\\frame-t180.png",
+      "file": "11_supreme_profile-t180.png",
+      "sha256": "dfaa6cb5f696f5d4372e1b7971def1369fc0e379dd5126c350bac732203973d0"
+    },
+    {
+      "case": "12_supreme_left_profile",
+      "tick": 180,
+      "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\ryujin-bankai-qa\\cycle118-1793034149101\\12_supreme_left_profile\\screenshots\\frame-t180.png",
+      "file": "12_supreme_left_profile-t180.png",
+      "sha256": "27ab15b8f346d8d266d4c4b39a69f581e93b3f2282e892c2dbdf134493013334"
+    }
+  ],
+  "warning": "Sampled framebuffer captures, not continuous video or a controlled benchmark. Gaps include capture overhead. Audio not subjectively auditioned.",
+  "runtime_sounds": {
+    "ryujin_compact_score.ogg": "caeb77cda63f1b327c65d3a9d07daabaed1287ff89ea79ca0f589a5dda94f6d7",
+    "ryujin_entrance_score.ogg": "e866f88fbe4d8a30e4b7cd874d7e0d363c58f92e98a2bd46a6fdcb388dc8523b",
+    "ryujin_solar_fire.ogg": "832453bd43be48385d11ef5ec23c64fc282391cbdacfaa6ab787bdd2c982c2cc",
+    "ryujin_voice_bankai.ogg": "9fa34cbfcbd98c8920aca417a389e06add88531c82f0f8b895da30dec1c625bb",
+    "ryujin_voice_name.ogg": "4c4b8fbbc8dd20c63517e39a23166c3365d7a971f8477c6501eada18736443d9"
+  },
+  "code": {
+    "RyujinBankaiTimeline": "87377df3080533ba30dd4271c696804c33265c94cdf27aaef970a0489e5c97e1",
+    "RyujinBankaiCamera": "1fc99dd34040824edb08179f2805d3fcec2e707cf7a6e10dc9e177281fa71b7a"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "branch": "Feature-Poderes-bankais",
+  "base": "58e3e4e",
+  "final_build_successful": true,
+  "regressions": 148,
+  "required_gametests": 233,
+  "client_scenarios": 12,
+  "sampled_frames": 433,
+  "jar": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\build\\libs\\bleachmod-0.2.0.jar",
+  "jar_sha256": "ccb7fdf373f8fc1b8eb0e33817d095cdd87f9fc77b682a0348c0532f02cf2bae",
+  "voices": {
+    "ryujin_voice_bankai.ogg": {
+      "unchanged_from_base": true,
+      "sha256": "9fa34cbfcbd98c8920aca417a389e06add88531c82f0f8b895da30dec1c625bb"
+    },
+    "ryujin_voice_name.ogg": {
+      "unchanged_from_base": true,
+      "sha256": "4c4b8fbbc8dd20c63517e39a23166c3365d7a971f8477c6501eada18736443d9"
+    }
+  },
+  "subjective_audio": "pending",
+  "multiplayer": "pending",
+  "terrain_stutter": "remaining; 438.82ms server execution, 1033ms sampled gap; not a controlled before/after benchmark"
+}
