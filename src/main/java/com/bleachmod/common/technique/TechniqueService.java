@@ -162,7 +162,7 @@ public final class TechniqueService {
         for (int step = 1; step <= (int) STEAM_CUT_RANGE; step++) {
             Vec3 center = origin.add(direction.scale(step));
             double halfWidth = steamCutHalfWidthAt(step);
-            destroySteamCutBlocks(level, center, origin.y, halfWidth, visitedBlocks);
+            destroySteamCutBlocks(level, center, origin.y, halfWidth, visitedBlocks, player.getBoundingBox());
             AABB entityArea = new AABB(
                     center.x - halfWidth,
                     center.y - STEAM_CUT_BELOW_PLAYER_BLOCKS,
@@ -197,7 +197,7 @@ public final class TechniqueService {
     }
 
     private static void destroySteamCutBlocks(ServerLevel level, Vec3 center, double playerY,
-                                               double halfWidth, Set<BlockPos> visitedBlocks) {
+                                               double halfWidth, Set<BlockPos> visitedBlocks, AABB casterFootprint) {
         int minX = (int) Math.floor(center.x - halfWidth);
         int maxX = (int) Math.floor(center.x + halfWidth);
         int minY = (int) Math.floor(playerY - STEAM_CUT_BELOW_PLAYER_BLOCKS);
@@ -206,7 +206,10 @@ public final class TechniqueService {
         int maxZ = (int) Math.floor(center.z + halfWidth);
         for (BlockPos pos : BlockPos.betweenClosed(minX, minY, minZ, maxX, maxY, maxZ)) {
             BlockPos immutablePos = pos.immutable();
-            if (!visitedBlocks.add(immutablePos) || isProtectedSteamCutBlock(level, immutablePos)) {
+            // The vertical finisher plants the blade ahead; do not excavate the caster's own support.
+            boolean support=pos.getY()<playerY && pos.getX()+1>casterFootprint.minX && pos.getX()<casterFootprint.maxX
+                    && pos.getZ()+1>casterFootprint.minZ && pos.getZ()<casterFootprint.maxZ;
+            if (!visitedBlocks.add(immutablePos) || support || isProtectedSteamCutBlock(level, immutablePos)) {
                 continue;
             }
             level.destroyBlock(immutablePos, false);

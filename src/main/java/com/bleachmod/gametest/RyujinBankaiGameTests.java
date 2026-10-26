@@ -313,4 +313,21 @@ public final class RyujinBankaiGameTests {
         h.succeed();
     }
 
+    @GameTest(template="empty",batch="ryujin_vertical_supreme")
+    public static void supremeGripMeetsAndBladeContactsGroundOnImpactForBothHands(GameTestHelper h){
+        for(float sign:new float[]{1,-1}){
+            for(float tick=10;tick<=46;tick+=.25F){
+                var pose=RyujinChoreography.attack("steam_cut",tick,sign);
+                var main=RyujinChoreography.bladeHand(pose,sign);var support=RyujinChoreography.supportHand(pose,sign);
+                h.assertTrue(main.distanceTo(support)<.22,"Hands separate from the common grip at"+tick+" gap="+main.distanceTo(support));
+            }
+            var contact=RyujinChoreography.attack("steam_cut",40,sign);
+            var hand=RyujinChoreography.bladeHand(contact,sign);var dir=RyujinChoreography.bladeDirection(contact);
+            var tip=hand.add(dir.scale(1.35));
+            h.assertTrue(Math.abs(hand.x)<.02 && dir.y<-.99 && Math.abs(tip.y)<.04,"Supreme is not centered/vertical/on ground");
+            h.assertTrue(RyujinChoreography.attack("steam_cut",56,sign).weight()==0,"Supreme did not release pose");
+        }
+        h.succeed();
+    }
+
 }

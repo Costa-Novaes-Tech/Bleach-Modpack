@@ -112,6 +112,7 @@ minecraft {
                 property 'bleachmod.ryujinBankaiQa', providers.gradleProperty('ryujinBankaiQa').getOrElse('false')
                 property 'bleachmod.ryujinBankaiQaFocus', providers.gradleProperty('ryujinBankaiQaFocus').getOrElse('false')
                 property 'bleachmod.ryujinBankaiQaKit', providers.gradleProperty('ryujinBankaiQaKit').getOrElse('false')
+                property 'bleachmod.ryujinBankaiQaCase', providers.gradleProperty('ryujinBankaiQaCase').getOrElse('-1')
                 property 'bleachmod.hyorinmaruQa', providers.gradleProperty('hyorinmaruQa').getOrElse('false')
                 property 'bleachmod.senbonzakuraQa', providers.gradleProperty('senbonzakuraQa').getOrElse('false')
                 property 'bleachmod.senbonCombatQa', providers.gradleProperty('senbonCombatQa').getOrElse('false')

@@ -47,14 +47,20 @@ public final class RyujinChoreography {
             case "higashi"->curve(age,sign,neutral(0),higashiHip(6),higashiHip(10),higashiCross(12),higashiEnd(16),neutral(22));
             case "minami"->curve(age,sign,neutral(0),k(7,-2.15,.2,-.3,-.05,-.1,-.18,-.65,0,.2),k(16,-.3,.15,-.15,.3,-.1,.4,.7,0,-.25),k(18,-.3,.15,-.15,.28,-.1,.35,.65,0,-.2),neutral(22));
             case "steam_cut"->curve(age,sign,neutral(0),
-                k(10,-.45,.45,.22,.10,-.45,.25,.2,-.2,-.25),
-                k(28,-.6,.48,.25,.10,-.48,.28,.25,-.2,-.28),
-                k(35,-.62,.5,.25,.10,-.5,.28,.25,-.2,-.28),
-                k(40,-1.9,-.35,-.28,-.10,.55,-.22,-.7,.2,.6),
-                k(46,-1.65,-.50,-.20,-.06,.48,-.16,-.45,.1,.4),neutral(56));
+                steamReady(10),steamReady(27),steamLift(34),steamLift(35),
+                steamGround(40),steamGround(46),
+                key(51,v(-1.72,-.53,0),v(-1.5,.53,0),Vec3.ZERO,v(.08,0,.04),v(.2,0,0),Vec3.ZERO,Vec3.ZERO),neutral(56));
             default->interpolate(neutral(0),neutral(0),0,sign,0);
         };
     }
+    /** Wrists meet in front of the sternum; yaw solves the grip without moving shoulder pivots. */
+    private static Key steamReady(float time){return key(time,v(-1.745,-.533,0),v(-1.50,.526,0),
+            v(.015,0,0),v(.14,0,.04),Vec3.ZERO,v(-.12,.06,-.16),v(-.15,0,0));}
+    private static Key steamLift(float time){return key(time,v(-2.65,-.53,.32),v(-2.45,.53,-.24),
+            v(-.04,0,0),v(-.12,0,.04),v(-.17,0,0),v(-.10,.16,-.16),v(-.6,0,0));}
+    /** Blade points down; authored length1.35 reaches ground at contact, not a diagonal swipe. */
+    private static Key steamGround(float time){return key(time,v(-1.55,-.524,0),v(-1.65,.526,0),
+            Vec3.ZERO,v(.2,0,.04),v(2.947,0,0),v(-.08,-.20,-.25),v(1.4,0,0));}
     private static Key dashKey(float age,double stride,double lean){
         return key(age,v(-.48,.10,-.10),v(-.72,-.35,.38),v(lean,-.08,0),v(stride,0,.04),
                 Vec3.ZERO,v(-.04,-.06,-.18),v(-.18,.08,-.02));
@@ -113,8 +119,12 @@ public final class RyujinChoreography {
     /** Local coordinates: anatomical right, up, forward. Accounts for the authored katana's
      * -45° element / 55° third-person display and vanilla held-item rotations. */
     public static Vec3 bladeDirection(Pose pose){
-        Vec3 r=modelRotation(v(0,Math.sin(Math.toRadians(10)),-Math.cos(Math.toRadians(10))),pose.arm);
+        Vec3 r=modelRotation(modelRotation(v(0,Math.sin(Math.toRadians(10)),-Math.cos(Math.toRadians(10))),pose.item),pose.arm);
         return v(-r.x,-r.y,-r.z).normalize();
+    }
+    public static Vec3 supportHand(Pose pose,float sign){
+        Vec3 r=modelRotation(v(0,.625,0),pose.support);
+        return v(-.3125*sign-r.x,1.375-r.y,-r.z);
     }
     public static Vec3 bladeHand(Pose pose,float sign){
         Vec3 r=modelRotation(v(0,.625,0),pose.arm);

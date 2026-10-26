@@ -54,6 +54,7 @@ public final class ElementalActionVisuals {
         @Override public void setupAnim(float partial){ }
         @Override public FirstPersonMode getFirstPersonMode(float partial){return FirstPersonMode.VANILLA;}
         @Override public Vec3f get3DTransform(String part,TransformType type,float partial,Vec3f value){var v=gesture(p);if(v==null)return value;
+            if(!v.ice && v.kind.equals("steam_cut"))return RyujinActionVisuals.steamTransform(p,com.bleachmod.common.visual.RyujinChoreography.attack(v.kind,age(v,partial),p.getMainArm()==HumanoidArm.RIGHT?1:-1),part,type,value);
             if(!v.ice)return RyujinActionVisuals.transform(p,com.bleachmod.common.visual.RyujinChoreography.attack(v.kind,age(v,partial),p.getMainArm()==HumanoidArm.RIGHT?1:-1),part,type,value);
             float age = age(v, partial);
             float t=Mth.clamp(age/v.gesture,0,1),w=Math.min(1,t*6)*Math.min(1,(1-t)*6),sign=p.getMainArm()==HumanoidArm.RIGHT?1:-1;

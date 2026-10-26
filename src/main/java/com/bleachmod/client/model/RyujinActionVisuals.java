@@ -58,6 +58,16 @@ public final class RyujinActionVisuals {
         }
         return value;
     }
+    public static Vec3f steamTransform(AbstractClientPlayer p,RyujinChoreography.Pose pose,String part,TransformType type,Vec3f value){
+        // Keep straight wrists on the shared grip; no shoulder-position teleport or tilted attack plane.
+        if(type==TransformType.BEND && (part.equals("rightArm") || part.equals("leftArm")))return mix(value,Vec3.ZERO,pose.weight());
+        var result=transform(p,pose,part,type,value);
+        // Ryujin's authored left-hand item display has a20-degree basis difference.
+        // Compensate on this local item bone only, leaving all other attacks/models intact.
+        if(p.getMainArm()==HumanoidArm.LEFT && part.equals("leftItem") && type==TransformType.ROTATION)
+            return new Vec3f(result.getX()+(float)Math.toRadians(20)*pose.weight(),result.getY(),result.getZ());
+        return result;
+    }
     static void hand(PoseStack stack,RyujinChoreography.Pose pose){
         float w=pose.weight();Vec3 pos=pose.handPosition().scale(w),r=pose.handRotation().scale(w);
         stack.translate(pos.x,pos.y,pos.z);stack.mulPose(Axis.XP.rotation((float)r.x));stack.mulPose(Axis.YP.rotation((float)r.y));stack.mulPose(Axis.ZP.rotation((float)r.z));
@@ -83,7 +93,7 @@ public final class RyujinActionVisuals {
     private static void particles(AbstractClientPlayer p,ElementalActionVisuals.View v,int age,Emitter e){
         Vec3 f=v.forward(),right=new Vec3(-f.z,0,f.x),origin=v.origin();
         var pose=RyujinChoreography.attack(v.kind(),age,p.getMainArm()==HumanoidArm.RIGHT?1:-1);
-        if(!v.kind().startsWith("sealed_") && age<v.gesture() && pose.weight()>.1)blade(e,p,Vec3.directionFromRotation(0,p.getYRot()),pose,age,v.kind().equals("higashi"));
+        if(!v.kind().startsWith("sealed_") && !v.kind().equals("steam_cut") && age<v.gesture() && pose.weight()>.1)blade(e,p,Vec3.directionFromRotation(0,p.getYRot()),pose,age,v.kind().equals("higashi"));
         switch(v.kind()){
             case "flame_barrage"->{if(age<6 || age>14)return;var head=origin.add(f.scale(age-6));
                 for(int i=0;i<65;i++){var local=com.bleachmod.common.visual.RyujinFlamePresentation.crest(i,age);
@@ -119,15 +129,26 @@ public final class RyujinActionVisuals {
                     float sign=p.getMainArm()==HumanoidArm.RIGHT?1:-1;
                     Vec3 hand=world(p.position(),f,RyujinChoreography.bladeHand(pose,sign));
                     Vec3 dir=world(Vec3.ZERO,f,RyujinChoreography.bladeDirection(pose));
-                    for(int i=0;i<12;i++){
-                        double a=i*Math.PI/6+age*.12;Vec3 q=hand.add(dir.scale(.3+i*.075));
+                    if(age%2==0)for(int i=0;i<6;i++){
+                        double a=i*Math.PI/3+age*.12;Vec3 q=hand.add(dir.scale(.3+i*.15));
                         Vec3 from=q.add(Math.cos(a)*.65,.15,Math.sin(a)*.65);
-                        e.particle(ParticleTypes.SMALL_FLAME,from,q.subtract(from).scale(.15));
+                        e.particle(i%3==0?ParticleTypes.SMALL_FLAME:ParticleTypes.ASH,from,q.subtract(from).scale(.15));
                     }
                 }else if(age<=43){
-                    for(int trail=0;trail<3;trail++){
+                    for(int trail=0;trail<2;trail++){
                         var cut=RyujinChoreography.attack("steam_cut",age-trail*.4F,p.getMainArm()==HumanoidArm.RIGHT?1:-1);
-                        blade(e,p,f,cut,age,true);
+                        Vec3 grip=world(p.position(),f,RyujinChoreography.bladeHand(cut,p.getMainArm()==HumanoidArm.RIGHT?1:-1));
+                        Vec3 direction=world(Vec3.ZERO,f,RyujinChoreography.bladeDirection(cut));
+                        for(int sample=0;sample<6;sample++)e.particle(sample%2==0?ParticleTypes.SMALL_FLAME:ParticleTypes.ELECTRIC_SPARK,grip.add(direction.scale(.18+sample*.22)),new Vec3(0,.015,0));
+                    }
+                    if(age==40){
+                        Vec3 hand=world(p.position(),f,RyujinChoreography.bladeHand(pose,p.getMainArm()==HumanoidArm.RIGHT?1:-1));
+                        Vec3 tip=hand.add(world(Vec3.ZERO,f,RyujinChoreography.bladeDirection(pose)).scale(1.35));
+                        for(int i=0;i<16;i++){
+                            double a=i*Math.PI/8;Vec3 d=new Vec3(Math.cos(a),0,Math.sin(a));
+                            e.particle(ParticleTypes.SMALL_FLAME,tip.add(d.scale(.25)),d.scale(.13).add(0,.04,0));
+                            if(i%4==0)e.smoke(tip.add(d.scale(.4)));
+                        }
                     }
                 }
             }

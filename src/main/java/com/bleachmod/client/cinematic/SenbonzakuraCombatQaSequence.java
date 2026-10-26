@@ -77,8 +77,8 @@ public final class SenbonzakuraCombatQaSequence {
     private static boolean enabled() {
         var mc = Minecraft.getInstance();
         if (net.minecraftforge.fml.loading.FMLEnvironment.production) return false;
-        if (manualTriggered && mc.player != null) return true;
-        return Boolean.getBoolean("bleachmod.senbonCombatQa")
+
+        return (manualTriggered || Boolean.getBoolean("bleachmod.senbonCombatQa"))
                 && Boolean.getBoolean("bleachmod.benihimeQa")
                 && mc.hasSingleplayerServer() && mc.player != null && mc.player.hasPermissions(2)
                 && mc.gameDirectory.getAbsolutePath().replace('\\', '/').contains("/run-benihime-qa/")
@@ -87,6 +87,7 @@ public final class SenbonzakuraCombatQaSequence {
 
     @SubscribeEvent
     public static void registerCommands(RegisterClientCommandsEvent e) {
+        if(net.minecraftforge.fml.loading.FMLEnvironment.production)return;
         e.getDispatcher().register(literal("senboncombatqa")
                 .then(literal("start").executes(c -> {
                     manualTriggered = true;

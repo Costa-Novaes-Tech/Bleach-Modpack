@@ -143,16 +143,17 @@ public final class ElementalReworkGameTests {
     @GameTest(template="empty",batch="new_steam",timeoutTicks=60)
     public static void steamCutWaitsForGestureAndKeepsItsTerrainContract(GameTestHelper h){
         var p=player(h,"ryujin_jakka","bankai");p.setPos(p.getX(),h.getLevel().getMaxBuildHeight()-110,p.getZ());
-        var target=target(h,p,0,30);var stone=p.blockPosition().offset(0,0,6);var bedrock=p.blockPosition().offset(0,0,7);
+        var target=target(h,p,0,30);var stone=p.blockPosition().offset(0,0,6);var bedrock=p.blockPosition().offset(0,0,7);var support=p.blockPosition().below();
         h.getLevel().setBlock(stone,net.minecraft.world.level.block.Blocks.STONE.defaultBlockState(),3);
-        h.getLevel().setBlock(bedrock,net.minecraft.world.level.block.Blocks.BEDROCK.defaultBlockState(),3);
+        h.getLevel().setBlock(bedrock,net.minecraft.world.level.block.Blocks.BEDROCK.defaultBlockState(),3);h.getLevel().setBlock(support,net.minecraft.world.level.block.Blocks.STONE.defaultBlockState(),3);
         TechniqueService.executeSlot(p,d(p),4);
         h.runAfterDelay(8,()->h.assertTrue(target.getHealth()==80 && h.getLevel().getBlockState(stone).is(net.minecraft.world.level.block.Blocks.STONE),"Steam cut executed during preparation"));
         h.runAfterDelay(35,()->h.assertTrue(target.getHealth()==80 && !h.getLevel().getBlockState(stone).isAir(),"Supreme cut struck before the release beat"));
         h.runAfterDelay(44,()->{try{
             h.assertTrue(target.getHealth()<80 && h.getLevel().getBlockState(stone).isAir() && h.getLevel().getBlockState(bedrock).is(net.minecraft.world.level.block.Blocks.BEDROCK),"Steam impact lost its terrain/damage contract");
+            h.assertTrue(h.getLevel().getBlockState(support).is(net.minecraft.world.level.block.Blocks.STONE),"Vertical impact excavated caster support");
             h.assertTrue(d(p).getResources().getCurrentReiatsu()==55 && d(p).getStatus().getTechniqueSlot4CooldownTicks()==1200,"Steam cut charged incorrectly");
-        }finally{clean(p,target);h.getLevel().setBlock(stone,net.minecraft.world.level.block.Blocks.AIR.defaultBlockState(),3);h.getLevel().setBlock(bedrock,net.minecraft.world.level.block.Blocks.AIR.defaultBlockState(),3);}h.succeed();});
+        }finally{clean(p,target);h.getLevel().setBlock(stone,net.minecraft.world.level.block.Blocks.AIR.defaultBlockState(),3);h.getLevel().setBlock(bedrock,net.minecraft.world.level.block.Blocks.AIR.defaultBlockState(),3);h.getLevel().setBlock(support,net.minecraft.world.level.block.Blocks.AIR.defaultBlockState(),3);}h.succeed();});
     }
     @GameTest(template="empty",batch="ryujin_authored_dash")
     public static void flameDashUsesItsOwnActionWithoutVanillaRiptideAttack(GameTestHelper h){
