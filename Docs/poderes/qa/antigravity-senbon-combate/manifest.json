@@ -1,0 +1,266 @@
+[
+  {
+    "case": "01_combo_front",
+    "frame": "frame-t038.png",
+    "path": "01_combo_front_frame-t038.png",
+    "bytes": 162764
+  },
+  {
+    "case": "01_combo_front",
+    "frame": "frame-t046.png",
+    "path": "01_combo_front_frame-t046.png",
+    "bytes": 163259
+  },
+  {
+    "case": "01_combo_front",
+    "frame": "frame-t052.png",
+    "path": "01_combo_front_frame-t052.png",
+    "bytes": 166498
+  },
+  {
+    "case": "01_combo_front",
+    "frame": "frame-t060.png",
+    "path": "01_combo_front_frame-t060.png",
+    "bytes": 167403
+  },
+  {
+    "case": "01_combo_front",
+    "frame": "frame-t068.png",
+    "path": "01_combo_front_frame-t068.png",
+    "bytes": 169459
+  },
+  {
+    "case": "01_combo_front",
+    "frame": "frame-t076.png",
+    "path": "01_combo_front_frame-t076.png",
+    "bytes": 169116
+  },
+  {
+    "case": "02_combo_profile",
+    "frame": "frame-t032.png",
+    "path": "02_combo_profile_frame-t032.png",
+    "bytes": 250669
+  },
+  {
+    "case": "02_combo_profile",
+    "frame": "frame-t038.png",
+    "path": "02_combo_profile_frame-t038.png",
+    "bytes": 246807
+  },
+  {
+    "case": "02_combo_profile",
+    "frame": "frame-t046.png",
+    "path": "02_combo_profile_frame-t046.png",
+    "bytes": 245459
+  },
+  {
+    "case": "02_combo_profile",
+    "frame": "frame-t052.png",
+    "path": "02_combo_profile_frame-t052.png",
+    "bytes": 255943
+  },
+  {
+    "case": "02_combo_profile",
+    "frame": "frame-t060.png",
+    "path": "02_combo_profile_frame-t060.png",
+    "bytes": 254642
+  },
+  {
+    "case": "02_combo_profile",
+    "frame": "frame-t068.png",
+    "path": "02_combo_profile_frame-t068.png",
+    "bytes": 253504
+  },
+  {
+    "case": "02_combo_profile",
+    "frame": "frame-t076.png",
+    "path": "02_combo_profile_frame-t076.png",
+    "bytes": 251204
+  },
+  {
+    "case": "03_combo_back",
+    "frame": "frame-t032.png",
+    "path": "03_combo_back_frame-t032.png",
+    "bytes": 192553
+  },
+  {
+    "case": "03_combo_back",
+    "frame": "frame-t038.png",
+    "path": "03_combo_back_frame-t038.png",
+    "bytes": 187590
+  },
+  {
+    "case": "03_combo_back",
+    "frame": "frame-t046.png",
+    "path": "03_combo_back_frame-t046.png",
+    "bytes": 186482
+  },
+  {
+    "case": "03_combo_back",
+    "frame": "frame-t052.png",
+    "path": "03_combo_back_frame-t052.png",
+    "bytes": 190104
+  },
+  {
+    "case": "03_combo_back",
+    "frame": "frame-t060.png",
+    "path": "03_combo_back_frame-t060.png",
+    "bytes": 189840
+  },
+  {
+    "case": "03_combo_back",
+    "frame": "frame-t068.png",
+    "path": "03_combo_back_frame-t068.png",
+    "bytes": 189896
+  },
+  {
+    "case": "03_combo_back",
+    "frame": "frame-t076.png",
+    "path": "03_combo_back_frame-t076.png",
+    "bytes": 191756
+  },
+  {
+    "case": "04_hakuteiken_front",
+    "frame": "frame-t044.png",
+    "path": "04_hakuteiken_front_frame-t044.png",
+    "bytes": 221253
+  },
+  {
+    "case": "04_hakuteiken_front",
+    "frame": "frame-t050.png",
+    "path": "04_hakuteiken_front_frame-t050.png",
+    "bytes": 229424
+  },
+  {
+    "case": "04_hakuteiken_front",
+    "frame": "frame-t056.png",
+    "path": "04_hakuteiken_front_frame-t056.png",
+    "bytes": 235569
+  },
+  {
+    "case": "04_hakuteiken_front",
+    "frame": "frame-t060.png",
+    "path": "04_hakuteiken_front_frame-t060.png",
+    "bytes": 38482
+  },
+  {
+    "case": "04_hakuteiken_front",
+    "frame": "frame-t064.png",
+    "path": "04_hakuteiken_front_frame-t064.png",
+    "bytes": 209401
+  },
+  {
+    "case": "04_hakuteiken_front",
+    "frame": "frame-t068.png",
+    "path": "04_hakuteiken_front_frame-t068.png",
+    "bytes": 218646
+  },
+  {
+    "case": "04_hakuteiken_front",
+    "frame": "frame-t078.png",
+    "path": "04_hakuteiken_front_frame-t078.png",
+    "bytes": 192215
+  },
+  {
+    "case": "04_hakuteiken_front",
+    "frame": "frame-t088.png",
+    "path": "04_hakuteiken_front_frame-t088.png",
+    "bytes": 193233
+  },
+  {
+    "case": "05_hakuteiken_profile",
+    "frame": "frame-t044.png",
+    "path": "05_hakuteiken_profile_frame-t044.png",
+    "bytes": 262774
+  },
+  {
+    "case": "05_hakuteiken_profile",
+    "frame": "frame-t050.png",
+    "path": "05_hakuteiken_profile_frame-t050.png",
+    "bytes": 267177
+  },
+  {
+    "case": "05_hakuteiken_profile",
+    "frame": "frame-t056.png",
+    "path": "05_hakuteiken_profile_frame-t056.png",
+    "bytes": 260301
+  },
+  {
+    "case": "05_hakuteiken_profile",
+    "frame": "frame-t060.png",
+    "path": "05_hakuteiken_profile_frame-t060.png",
+    "bytes": 266234
+  },
+  {
+    "case": "05_hakuteiken_profile",
+    "frame": "frame-t064.png",
+    "path": "05_hakuteiken_profile_frame-t064.png",
+    "bytes": 267348
+  },
+  {
+    "case": "05_hakuteiken_profile",
+    "frame": "frame-t068.png",
+    "path": "05_hakuteiken_profile_frame-t068.png",
+    "bytes": 276305
+  },
+  {
+    "case": "05_hakuteiken_profile",
+    "frame": "frame-t078.png",
+    "path": "05_hakuteiken_profile_frame-t078.png",
+    "bytes": 248715
+  },
+  {
+    "case": "05_hakuteiken_profile",
+    "frame": "frame-t088.png",
+    "path": "05_hakuteiken_profile_frame-t088.png",
+    "bytes": 247483
+  },
+  {
+    "case": "06_hakuteiken_back",
+    "frame": "frame-t044.png",
+    "path": "06_hakuteiken_back_frame-t044.png",
+    "bytes": 207475
+  },
+  {
+    "case": "06_hakuteiken_back",
+    "frame": "frame-t050.png",
+    "path": "06_hakuteiken_back_frame-t050.png",
+    "bytes": 212508
+  },
+  {
+    "case": "06_hakuteiken_back",
+    "frame": "frame-t056.png",
+    "path": "06_hakuteiken_back_frame-t056.png",
+    "bytes": 220665
+  },
+  {
+    "case": "06_hakuteiken_back",
+    "frame": "frame-t060.png",
+    "path": "06_hakuteiken_back_frame-t060.png",
+    "bytes": 223769
+  },
+  {
+    "case": "06_hakuteiken_back",
+    "frame": "frame-t064.png",
+    "path": "06_hakuteiken_back_frame-t064.png",
+    "bytes": 197412
+  },
+  {
+    "case": "06_hakuteiken_back",
+    "frame": "frame-t068.png",
+    "path": "06_hakuteiken_back_frame-t068.png",
+    "bytes": 250591
+  },
+  {
+    "case": "06_hakuteiken_back",
+    "frame": "frame-t078.png",
+    "path": "06_hakuteiken_back_frame-t078.png",
+    "bytes": 204626
+  },
+  {
+    "case": "06_hakuteiken_back",
+    "frame": "frame-t088.png",
+    "path": "06_hakuteiken_back_frame-t088.png",
+    "bytes": 202483
+  }
+]
