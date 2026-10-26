@@ -44,7 +44,7 @@ public final class RyujinChoreography {
                     key(2,v(-2.95,.08,-.08),v(-2.85,-.08,.08),Vec3.ZERO,Vec3.ZERO,Vec3.ZERO,v(-.04,-.04,-.16),v(-.15,0,0)),
                     key(13,v(-2.95,.08,-.08),v(-2.85,-.08,.08),Vec3.ZERO,Vec3.ZERO,Vec3.ZERO,v(-.04,-.04,-.16),v(-.15,0,0)),neutral(16));
             // Coiled at the outside hip; short whole-body rotation, not Rajada's overhead swing.
-            case "higashi"->curve(age,sign,neutral(0),higashiHip(6),higashiHip(10),higashiCross(12),higashiEnd(16),neutral(22));
+            case "higashi"->curve(age,sign,neutral(0),higashiHip(10),higashiCross(12),higashiEnd(16),neutral(22));
             case "minami"->curve(age,sign,neutral(0),k(7,-2.15,.2,-.3,-.05,-.1,-.18,-.65,0,.2),k(16,-.3,.15,-.15,.3,-.1,.4,.7,0,-.25),k(18,-.3,.15,-.15,.28,-.1,.35,.65,0,-.2),neutral(22));
             case "steam_cut"->curve(age,sign,neutral(0),
                 steamReady(10),steamReady(27),steamLift(34),steamLift(35),
@@ -80,7 +80,7 @@ public final class RyujinChoreography {
     }
     /** Same draw and rising blade as the normal strike, followed by the confirmed dramatic hold. */
     public static Pose execution(float age,float sign){
-        return curve(age,sign,neutral(0),higashiHip(6),higashiHip(10),higashiCross(12),
+        return curve(age,sign,neutral(0),higashiHip(10),higashiCross(12),
                 higashiEnd(16),higashiEnd(HigashiCinematicPath.IGNITE),
                 k(HigashiCinematicPath.END-8,-.65,-.15,.06,0,.16,-.03,0,0,0),neutral(HigashiCinematicPath.END));
     }
