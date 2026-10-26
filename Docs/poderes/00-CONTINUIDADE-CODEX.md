@@ -1,5 +1,8 @@
 # Continuidade do projeto — leia primeiro
 
+**Integração25/10 — [108: Senbonzakura, katana única e encerramento](108-integracao-senbonzakura-katana-encerramento-2026-10-25.md):** entrega do design salva em d20cc3d e integrada em af090b1, sem conflitos. Preservada Ryūjin106/107. Arma/bainha sem duplicação na cena, dissolução gradual e retorno244–286 com perspectiva/FOV/HUD restaurados. Check/build147 regressões e229 GameTests obrigatórios aprovados; amostras de QA do design conferidas, cliente gráfico integrado/escuta e aceite do usuário pendentes.
+
+
 **Integração25/10 — [107: refinamento Ryūjin](107-integracao-refinamento-ryujin-2026-10-25.md):** commit6ddf420 integrado em da73e58; conflito apenas no aviso de continuidade resolvido preservando105/106. Sol/áudio/câmera atualizados; check/build147 regressões e229 GameTests aprovados. Playtest gráfico e escuta pendentes; limites do diagnóstico de voz e do retorno fixo da câmera registrados no107. Mudanças locais Senbonzakura do checkout design não incluídas.
 
 

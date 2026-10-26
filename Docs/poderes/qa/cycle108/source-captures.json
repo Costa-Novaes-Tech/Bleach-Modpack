@@ -1,0 +1,56 @@
+[
+  {
+    "file": "design-single-katana-t010.png",
+    "sha256": "f0b77713edb5141a7aa42c0695fda1fdd47fab7387489ee025d7a7f45dd58ba1",
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\run-benihime-qa\\base\\senbonzakura-qa\\cycle101-1792972919745\\01_bankai_day_transformation\\screenshots\\frame-t010.png",
+    "metadata": {
+      "file": "frame-t010.png",
+      "scenario": "01_bankai_day_transformation",
+      "tick": 10,
+      "fps": 23,
+      "cameraType": "THIRD_PERSON_BACK",
+      "cinematicActive": true,
+      "hideWeapon": true,
+      "camPos": [
+        120.175,
+        -58.522,
+        2.858
+      ],
+      "camYaw": -174.01,
+      "camPitch": 8.6,
+      "playerPos": [
+        120.5,
+        -60.0,
+        0.5
+      ]
+    },
+    "scope": "captured on design branch before merge; not a new integrated graphical run"
+  },
+  {
+    "file": "design-first-person-t286.png",
+    "sha256": "6f70c773a004849d20f13b4a6e9d24cbafc4b389ac6d1b525c1deeb6f6e72eab",
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\run-benihime-qa\\base\\senbonzakura-qa\\cycle101-1792972919745\\03_bankai_first_person_return\\screenshots\\frame-t286.png",
+    "metadata": {
+      "file": "frame-t286.png",
+      "scenario": "03_bankai_first_person_return",
+      "tick": 286,
+      "fps": 26,
+      "cameraType": "FIRST_PERSON",
+      "cinematicActive": false,
+      "hideWeapon": false,
+      "camPos": [
+        260.5,
+        -58.38,
+        0.5
+      ],
+      "camYaw": 0.0,
+      "camPitch": 0.0,
+      "playerPos": [
+        260.5,
+        -60.0,
+        0.5
+      ]
+    },
+    "scope": "captured on design branch before merge; not a new integrated graphical run"
+  }
+]
