@@ -1,0 +1,2 @@
+[18:11:50] [Server thread/INFO] [minecraft/GameTestServer]: All 233 required tests passed :)
+BUILD SUCCESSFUL in 2m 52s

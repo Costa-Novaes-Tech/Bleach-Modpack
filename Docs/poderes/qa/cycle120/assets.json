@@ -1,0 +1,94 @@
+{
+  "date": "2026-10-26",
+  "branch": "Feature-Poderes-bankais",
+  "merged_head": "9713af16037b7c85d72c57b245504098298f07f5",
+  "animations": [
+    {
+      "animation": "benihime_thrust",
+      "beginTick": 8,
+      "endTick": 20,
+      "stopTick": 30,
+      "rightItem_keyframes": 4,
+      "emote_sha256": "599490fd8647a96de5ccd8275c1a5bfff0e02812f070418ba97f522ad8f5f274",
+      "bedrock_sha256": "6738ece0e6df2837d81c204ae7c1fc400f89050b18d7266214a881b38d75e772"
+    },
+    {
+      "animation": "benihime_thrust_2",
+      "beginTick": 8,
+      "endTick": 20,
+      "stopTick": 30,
+      "rightItem_keyframes": 4,
+      "emote_sha256": "f95ccef5dfe143dbf64152de4d4e51daf0708d694f0af1e8f9e50c4ce8794050",
+      "bedrock_sha256": "cddad8b2ab3bb7b019a3e3272c35a4e7d3540ec43085f53cd488cfc7f0aae60a"
+    },
+    {
+      "animation": "benihime_slash",
+      "beginTick": 8,
+      "endTick": 20,
+      "stopTick": 30,
+      "rightItem_keyframes": 5,
+      "emote_sha256": "cf67ddf04e040166c196610834dfbaf28dc2f3c7c85cf599dea6155928d03531",
+      "bedrock_sha256": "298e5b589645605e8190b5f81fa5d33be0405c04e5cdf02ac0742aef570c4cb2"
+    },
+    {
+      "animation": "senbonzakura_diagonal",
+      "beginTick": 0,
+      "endTick": 12,
+      "stopTick": 20,
+      "rightItem_keyframes": 9,
+      "emote_sha256": "8d42d315ef23be4c5ae1dee93b2d77f22e1d380bb984885ee8f50345d0e8941f",
+      "bedrock_sha256": "1b9b7a8ea7beff338fc72725b0d0d080c20458b04ce6555027de1aae5a13d8af"
+    },
+    {
+      "animation": "senbonzakura_return",
+      "beginTick": 0,
+      "endTick": 12,
+      "stopTick": 20,
+      "rightItem_keyframes": 9,
+      "emote_sha256": "657d3e5e29ef127643bd933fcd8e46e45f7d03e28959d278dd33d245763df035",
+      "bedrock_sha256": "20c45f5a6c7d3bb5ac727849556dc1e484d23f3df9c4c7fe77557e26f9230cf4"
+    },
+    {
+      "animation": "senbonzakura_thrust",
+      "beginTick": 0,
+      "endTick": 12,
+      "stopTick": 20,
+      "rightItem_keyframes": 9,
+      "emote_sha256": "8c9712f8fe21cdd1d6ee1d6e0c0e7ae5c075e308945b83b36660c4f5b5a8ebab",
+      "bedrock_sha256": "92ef7e07a13599ccfdeb63366b5d0bd667d1e6eb7304f4e22394f43d12bd615a"
+    }
+  ],
+  "benihime_profile": {
+    "parent": "bettercombat:sword",
+    "attributes": {
+      "attack_range": 3.0,
+      "category": "bleach_benihime_fencing",
+      "two_handed": false,
+      "attacks": [
+        {
+          "hitbox": "FORWARD_BOX",
+          "angle": 0,
+          "animation": "bleachmod:benihime_thrust",
+          "upswing": 0.45,
+          "damage_multiplier": 1.0
+        },
+        {
+          "hitbox": "FORWARD_BOX",
+          "angle": 0,
+          "animation": "bleachmod:benihime_thrust_2",
+          "upswing": 0.45,
+          "damage_multiplier": 1.0
+        },
+        {
+          "hitbox": "HORIZONTAL_PLANE",
+          "angle": 100,
+          "animation": "bleachmod:benihime_slash",
+          "upswing": 0.45,
+          "damage_multiplier": 1.0
+        }
+      ]
+    }
+  },
+  "jar_sha256": "b7c0ff101a3efbd90c915383b8c7d6bcb97b10773745261ef68fed8fe74fd4e0",
+  "status": "finite assets and channels verified; Java parser and runtime checked separately"
+}
