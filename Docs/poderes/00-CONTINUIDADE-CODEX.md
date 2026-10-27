@@ -1,5 +1,7 @@
 # Continuidade do projeto — leia primeiro
 
+**27/10 — [149: integração solicitada para teste](149-integracao-duas-frentes-para-teste-2026-10-27.md):** docs/provas preservadosf3e954d, Senbon834ae74 integradoec97869 e Higashibe46530 integrado18edea9, sem conflitos manuais. Check/build150regressões e237GameTests integrados aprovados; JAR0.2.0 gerado. Pendências148/katanaHG continuam visuais; usuário fará teste. Main intacta e sem push.
+
 **27/10 — [148: conferência independente dos pacotes AG](148-conferencia-realidade-e-limites-qa-antigravity-2026-10-27.md):** execução real confirmada: Senbon211hashes/197PNGs idênticos aos originais; Higashi71PNGs/9hashes fontes e237GameTests no log original. Visual ainda parcial: comparativosSenbon selecionam fases diferentes; telemetriaHigashi só identifica vítima apósBURNS e não cobre hint anterior; katanaHG segue pendente. Sem merge/reexecução nesta auditoria.
 
 **27/10 — [147: auditoria dos novos retornos](147-auditoria-retornos-s1-higashi-encaminhamento-qa-2026-10-27.md):** SenbonS1 e0a79a6 mostra ponta alta melhorada, mas aceite integral depende de QA145. Higashi0f3a1e1 exige prova de cancelamento tardio de morte, causalidade e limpeza dos IDs pendentes; QA146 inclui negativos e captura da janela inteira. Antigravity executa e entrega arquivos locais para auditoriaCodex; sem merge/teste novo nesta rodada.

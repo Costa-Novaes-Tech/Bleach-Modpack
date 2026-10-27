@@ -1,0 +1,24 @@
+{
+  "branch": "Feature-Poderes-bankais",
+  "runtimeCommit": "18edea9",
+  "senbonMerge": "ec97869",
+  "senbonSource": "834ae74",
+  "higashiSource": "be46530",
+  "checkBuild": {
+    "exitCode": 0,
+    "duration": "2m12s",
+    "regressions": 150
+  },
+  "gameTests": {
+    "exitCode": 0,
+    "duration": "3m31s",
+    "passed": 237
+  },
+  "jar": {
+    "path": "build\\libs\\bleachmod-0.2.0.jar",
+    "bytes": 15940215,
+    "sha256": "5bf0fdb4a82eb3dfb845adc4f86d22da77a159d03a34752c2946ac6be9843c12"
+  },
+  "clientVisual": "not rerun; user testing pending",
+  "push": false
+}
