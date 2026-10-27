@@ -140,7 +140,7 @@ public final class ElementalTechniqueService {
             level.sendParticles(ParticleTypes.SMOKE,pos.x,pos.y,pos.z,4,.18,.25,.18,.02);
             level.playSound(null,t.blockPosition(),net.minecraft.sounds.SoundEvents.FIRECHARGE_USE,c.owner.getSoundSource(),.65F,1.35F);
         }
-        if(dealt && t.isAlive() && c.identity.equals(CharacterData.RYUJIN) && !c.form.equals("sealed"))t.setSecondsOnFire(c.form.equals("bankai")?4:3);return dealt;
+        if(dealt && t.isAlive() && !c.kind.equals("higashi") && c.identity.equals(CharacterData.RYUJIN) && !c.form.equals("sealed"))t.setSecondsOnFire(c.form.equals("bankai")?4:3);return dealt;
     }
     private static void chill(Cast c,LivingEntity t,int ticks){
         if(c.controlled.size()>=64 || CONTROL_RECOVERY.size()>=1024 || c.controlled.contains(t.getUUID()) || CONTROL_RECOVERY.getOrDefault(t.getUUID(),0L)>c.owner.level().getGameTime())return;

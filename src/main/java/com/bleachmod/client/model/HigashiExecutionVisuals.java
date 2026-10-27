@@ -51,8 +51,14 @@ public final class HigashiExecutionVisuals {
         var pose=new Pose(m,now-HigashiCinematicPath.IMPACT);
         if(POSES.size()>=24&&!POSES.containsKey(m.owner()))POSES.remove(POSES.keySet().iterator().next());POSES.put(m.owner(),pose);
         if(m.confirmed()){
-            if(BURNS.size()>=8)BURNS.remove(BURNS.keySet().iterator().next());BURNS.put(m.target(),new Burn(m,now,mc.level.getEntity(m.target()) instanceof net.minecraft.world.entity.LivingEntity living?living:null));
-
+            if(BURNS.size()>=8)BURNS.remove(BURNS.keySet().iterator().next());
+            net.minecraft.world.entity.LivingEntity living = mc.level.getEntity(m.target()) instanceof net.minecraft.world.entity.LivingEntity l ? l : null;
+            if(living != null){
+                living.clearFire();
+                living.setRemainingFireTicks(0);
+                living.setSharedFlagOnFire(false);
+            }
+            BURNS.put(m.target(),new Burn(m,now,living));
         }
         if(mc.player!=null&&mc.player.getId()==m.owner()&&!com.bleachmod.client.cinematic.CinematicDirector.localActive()&&ClientVisualConfig.EXECUTION_CAMERA.get()&&mc.screen==null&&mc.getCameraEntity()==mc.player&&now>=dismissedUntil){
             if(cinematic==null){previousType=mc.options.getCameraType();mc.options.setCameraType(CameraType.THIRD_PERSON_BACK);}
@@ -67,8 +73,11 @@ public final class HigashiExecutionVisuals {
             if(mc instanceof net.bettercombat.api.MinecraftClient_BetterCombat bc)bc.cancelUpswing();
         }
     }
+    public static boolean isExecuting(int entity){
+        var burn=BURNS.get(entity);return burn!=null&&world==Minecraft.getInstance().level&&now()-burn.start<HigashiCinematicPath.END;
+    }
     public static boolean holdingCorpse(int entity){
-        var burn=BURNS.get(entity);return burn!=null&&world==Minecraft.getInstance().level&&now()-burn.start<HigashiCinematicPath.IGNITE-HigashiCinematicPath.IMPACT;
+        return isExecuting(entity);
     }
     private static void restore(){var mc=Minecraft.getInstance();if(previousType!=null&&mc.options.getCameraType()==CameraType.THIRD_PERSON_BACK)mc.options.setCameraType(previousType);previousType=null;cinematic=null;sideSign=1.0F;}
     private static void dismiss(){var mc=Minecraft.getInstance();if(mc.player!=null)POSES.remove(mc.player.getId());dismissedUntil=now()+HigashiCinematicPath.END;restore();}
@@ -131,8 +140,11 @@ public final class HigashiExecutionVisuals {
     @SubscribeEvent public static void silhouette(RenderLevelStageEvent e){
         if(e.getStage()!=RenderLevelStageEvent.Stage.AFTER_ENTITIES||world!=Minecraft.getInstance().level)return;
         var mc=Minecraft.getInstance();var stack=e.getPoseStack();var camera=e.getCamera().getPosition();
+        long now=now();
         for(var b:BURNS.values()){
-            var actor=b.silhouette;if(actor==null||actor.isAlive()||now()-b.start>=HigashiCinematicPath.IGNITE-HigashiCinematicPath.IMPACT+6)continue;
+            var actor=b.silhouette;if(actor==null)continue;
+            long elapsed=now-b.start;
+            if(elapsed<0||elapsed>=HigashiCinematicPath.IGNITE+12)continue;
             if(mc.player==null||mc.player.distanceToSqr(b.packet.victim())>80*80)continue;
             int death=actor.deathTime,hurt=actor.hurtTime,fire=actor.getRemainingFireTicks();boolean burning=actor.isOnFire();
             try{
@@ -143,11 +155,11 @@ public final class HigashiExecutionVisuals {
         }
     }
     @SubscribeEvent public static void hideIncinerated(RenderLivingEvent.Pre<?,?> e){
-        var b=BURNS.get(e.getEntity().getId());
-        if(!renderingSilhouette&&b!=null&&!e.getEntity().isAlive()&&world==e.getEntity().level()){
-            // Dispatcher draws vanilla fire after LivingRenderer even when Pre is cancelled.
-            // Clear the dead client entity flag before that outer pass as well.
-            if(holdingCorpse(e.getEntity().getId()))e.getEntity().setSharedFlagOnFire(false);
+        int id=e.getEntity().getId();
+        if(!renderingSilhouette&&isExecuting(id)){
+            e.getEntity().clearFire();
+            e.getEntity().setRemainingFireTicks(0);
+            e.getEntity().setSharedFlagOnFire(false);
             e.setCanceled(true);
         }
     }
