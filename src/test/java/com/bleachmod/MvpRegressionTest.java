@@ -1371,6 +1371,10 @@ public final class MvpRegressionTest {
                 var pose=com.bleachmod.common.visual.RyujinChoreography.execution(16,sign);
                 var blade=com.bleachmod.common.visual.RyujinChoreography.bladeDirection(pose);
                 yes(blade.z>.6&&blade.y>.4);
+                for(float t=0;t<=com.bleachmod.common.visual.HigashiCinematicPath.END;t+=1.0F){
+                    var p=com.bleachmod.common.visual.RyujinChoreography.execution(t,sign);
+                    yes(p.item().lengthSqr()<1e-6);
+                }
             }
         });
         test("Higashi preview packets remain distinct from confirmed death", () -> {

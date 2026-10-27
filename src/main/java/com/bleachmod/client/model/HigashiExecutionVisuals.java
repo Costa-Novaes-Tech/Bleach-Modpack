@@ -155,11 +155,10 @@ public final class HigashiExecutionVisuals {
             if(item){
                 float w=execPose.weight();
                 if(type==TransformType.ROTATION){
-                    Vec3 r=execPose.item().lengthSqr()>1e-6?execPose.item():execPose.handRotation();
-                    return mix(value,r,w);
+                    return mix(value,execPose.item(),w);
                 }
                 if(type==TransformType.POSITION){
-                    return mix(value,execPose.handPosition(),w);
+                    return mix(value,Vec3.ZERO,w);
                 }
             }
             return RyujinActionVisuals.transform(p,execPose,part,type,value);
