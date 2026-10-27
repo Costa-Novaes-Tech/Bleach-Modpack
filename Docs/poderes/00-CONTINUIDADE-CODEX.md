@@ -1,5 +1,7 @@
 # Continuidade do projeto — leia primeiro
 
+**27/10 — [131: merge solicitado e testes](131-merge-hyorinmaru-higashi-testes-integrados-2026-10-27.md):** correções locais preservadas438628e; Hyōrinmaru/Higashi0675778 integrados sem conflitos ema18bfc8. Fonte da hidra confere. Check/build integrado aprovado149 regressões; teste visual do usuário pendente. Main intacta, sem push; logs anteriores preservados fora dos commits.
+
 **27/10 — [129: auditoria dos retornos AG](129-auditoria-retornos-antigravity-correcao-rastro-2026-10-27.md):** Senbon já integrado f4342ba; combo/rastro entregues, mas Hakuteiken e restante do passe visual124 sem novo diff. Corrigida colisão AURA/melee, início local concorrente e espelhamento do rastro; protocolo2.36, check149 regressões aprovado; cliente visual pendente. Sincronismo do rastro ainda aproximado. Hyōrinmaru/Higashi0675778 ainda na outra branch, sem nova prova gráfica no retorno; não homologados. Missões126 permanecem próxima frente após fechamentos.
 
 **26/10 — [126: futuro de personagens, NPCs e lore](126-roadmap-personagens-npcs-lore-proximas-entregas-2026-10-26.md):** acrescentada sequência proposta: reconciliar base existente → piloto narrativo completo → presença/diálogos NPC → adversários/provas → núcleo de mundo → capítulos/facções → continuidade multiplayer. Oito NPCs registrados não equivalem a campanha pronta. M08–M10 e M03 preservados; M11/M05 continuam dependências GDD. Implementação após a lista obrigatória, planejamento em paralelo; piloto e recompensas ainda não aprovados. Sem runtime nesta revisão.
