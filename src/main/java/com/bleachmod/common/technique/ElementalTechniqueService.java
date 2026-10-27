@@ -148,8 +148,9 @@ public final class ElementalTechniqueService {
         boolean resistant=t instanceof net.minecraft.world.entity.player.Player || t.getMaxHealth()>=100;
         IceControlService.chill(c.owner,t,resistant?Math.min(20,ticks):ticks,resistant?1:3,c.slot);
     }
-    private static void effect(Cast c){int age=c.age();var p=c.owner;
-        switch(c.kind){
+    private static void effect(Cast c){
+            int age=c.age();var p=c.owner;
+            switch(c.kind){
             case "front_cut","wide_cut","sealed_cut","sealed_sweep","higashi"->{
                 if(c.kind.equals("higashi")&&age>=8&&age<=11){
                     // Short planted approach, bounded by collision and the original cast frame.
@@ -172,9 +173,24 @@ public final class ElementalTechniqueService {
                     if(t==execution){c.hits.add(t.getUUID());cinematicKill=HigashiExecutionService.execute(p,t);}
                     else {
                         var position=t.position();float width=t.getBbWidth(),height=t.getBbHeight();
-                        boolean dealt=hit(c,t,c.kind.equals("higashi")?16:3,true);
-                        if(c.kind.equals("higashi")&&dealt&&!t.isAlive()&&!cinematicKill){
-                            HigashiExecutionService.confirmedDeath(p,t,position,width,height);cinematicKill=true;
+                        if(c.kind.equals("higashi")){
+                            HigashiExecutionService.sendHint(p,t,position,width,height);
+                        }
+                        try {
+                            boolean dealt=hit(c,t,c.kind.equals("higashi")?16:3,true);
+                            if(c.kind.equals("higashi")){
+                                boolean finalDead=dealt&&!t.isAlive()&&!cinematicKill&&!t.getPersistentData().getBoolean("bleachmod_death_canceled_transient");
+                                if(finalDead){
+                                    HigashiExecutionService.confirmedDeath(p,t,position,width,height);
+                                    cinematicKill=true;
+                                } else {
+                                    HigashiExecutionService.cancelHint(p,t);
+                                }
+                            }
+                        } finally {
+                            if(c.kind.equals("higashi")){
+                                t.getPersistentData().remove("bleachmod_death_canceled_transient");
+                            }
                         }
                     }
                 }
@@ -283,6 +299,12 @@ public final class ElementalTechniqueService {
     }
     @SubscribeEvent public static void tick(TickEvent.ServerTickEvent e){if(e.phase==TickEvent.Phase.END)for(var list:new ArrayList<>(CASTS.values()))if(!list.isEmpty())tick(list.get(0).owner);}
     @SubscribeEvent public static void logout(net.minecraftforge.event.entity.player.PlayerEvent.PlayerLoggedOutEvent e){if(e.getEntity() instanceof ServerPlayer p)cancel(p);}
+    @SubscribeEvent(priority = net.minecraftforge.eventbus.api.EventPriority.LOWEST, receiveCanceled = true)
+    public static void onLivingDeathLowest(LivingDeathEvent e){
+        if(e.getEntity()!=null && e.isCanceled()){
+            e.getEntity().getPersistentData().putBoolean("bleachmod_death_canceled_transient",true);
+        }
+    }
     @SubscribeEvent public static void ashDeath(LivingDeathEvent e){
         if(e.getEntity().getPersistentData().getBoolean(ASH) && e.getEntity().level() instanceof net.minecraft.server.level.ServerLevel level){
             var mob=e.getEntity();level.sendParticles(ParticleTypes.ASH,mob.getX(),mob.getY()+1,mob.getZ(),14,.25,.6,.25,.025);

@@ -15,6 +15,7 @@ import net.minecraft.client.*;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.entity.HumanoidArm;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.phys.*;
 import net.minecraftforge.api.distmarker.Dist;
@@ -29,9 +30,35 @@ import java.util.*;
 public final class HigashiExecutionVisuals {
     private record Burn(HigashiExecutionS2C packet,long start,net.minecraft.world.entity.LivingEntity silhouette){ }
     private static boolean renderingSilhouette;
+    private static long proofSuppressedTick=Long.MIN_VALUE,proofSilhouetteTick=Long.MIN_VALUE;
     private record Pose(HigashiExecutionS2C packet,long start){ }
     private static final Map<Integer,Burn> BURNS=new LinkedHashMap<>();
     private static final Map<Integer,Pose> POSES=new LinkedHashMap<>();
+    public record PendingTarget(int entityId, long expiryGameTime, int worldHash, boolean confirmed) { }
+    private static final Map<Integer, PendingTarget> PENDING_TARGETS = new java.util.concurrent.ConcurrentHashMap<>();
+    public static void notePendingTarget(int entityId, boolean confirmed) {
+        var mc = Minecraft.getInstance();
+        int worldHash = mc.level != null ? System.identityHashCode(mc.level) : 0;
+        long gameTime = mc.level != null ? mc.level.getGameTime() : 0;
+        PENDING_TARGETS.put(entityId, new PendingTarget(entityId, gameTime + 15, worldHash, confirmed));
+    }
+    public static void notePendingTarget(int entityId) { notePendingTarget(entityId, true); }
+    public static void removePendingTarget(int entityId) { PENDING_TARGETS.remove(entityId); }
+    public static boolean isPendingTarget(int entityId) {
+        PendingTarget pending = PENDING_TARGETS.get(entityId);
+        if (pending == null) return false;
+        var mc = Minecraft.getInstance();
+        if (mc.level == null || System.identityHashCode(mc.level) != pending.worldHash) {
+            PENDING_TARGETS.remove(entityId);
+            return false;
+        }
+        long now = mc.level.getGameTime();
+        if (now > pending.expiryGameTime) {
+            PENDING_TARGETS.remove(entityId);
+            return false;
+        }
+        return true;
+    }
     private static net.minecraft.client.multiplayer.ClientLevel world;
     private static CameraType previousType;
     private static java.lang.reflect.Method cameraPosition;
@@ -42,66 +69,127 @@ public final class HigashiExecutionVisuals {
     public static void init(){PlayerAnimationFactory.ANIMATION_DATA_FACTORY.registerFactory(Reference.id("higashi_execution"),3600,Animation::new);}
     private static long now(){return world==null?0:world.getGameTime();}
     private static float age(Pose pose,float partial){return now()-pose.start+partial;}
-    public static void accept(HigashiExecutionS2C m){var mc=Minecraft.getInstance();if(mc.level==null||!m.startsExecution())return;
-        if(world!=mc.level){reset();world=mc.level;}
-        long now=now();var previous=POSES.get(m.owner());
-        if(previous!=null&&previous.packet.target()==m.target()&&age(previous,0)<HigashiCinematicPath.END)return;
-        // Ordinary Higashi already performed the draw/approach. Join at the confirmed impact,
-        // never replay a lethal-looking scene speculatively against a survivor.
-        var pose=new Pose(m,now);
-        if(POSES.size()>=24&&!POSES.containsKey(m.owner()))POSES.remove(POSES.keySet().iterator().next());POSES.put(m.owner(),pose);
-        if(m.confirmed()){
-            if(BURNS.size()>=8)BURNS.remove(BURNS.keySet().iterator().next());
-            net.minecraft.world.entity.LivingEntity living = mc.level.getEntity(m.target()) instanceof net.minecraft.world.entity.LivingEntity l ? l : null;
-            net.minecraft.world.entity.LivingEntity clientSilhouette = null;
-            if(living != null){
+    private static net.minecraft.world.entity.LivingEntity createPresentationSilhouette(net.minecraft.world.entity.LivingEntity living, Vec3 pos){
+        if(living == null || world == null) return null;
+        try {
+            net.minecraft.world.entity.LivingEntity replica = (net.minecraft.world.entity.LivingEntity) living.getType().create(world);
+            if(replica == null) {
+                living.deathTime = 0;
+                living.hurtTime = 0;
                 living.clearFire();
                 living.setRemainingFireTicks(0);
                 living.setSharedFlagOnFire(false);
-                try {
-                    clientSilhouette = (net.minecraft.world.entity.LivingEntity) living.getType().create(mc.level);
-                    if(clientSilhouette != null){
-                        clientSilhouette.setPos(m.victim().x, m.victim().y, m.victim().z);
-                        clientSilhouette.setYRot(living.getYRot());
-                        clientSilhouette.setXRot(living.getXRot());
-                        clientSilhouette.yRotO = living.getYRot();
-                        clientSilhouette.xRotO = living.getXRot();
-                        clientSilhouette.yBodyRot = living.yBodyRot;
-                        clientSilhouette.yBodyRotO = living.yBodyRot;
-                        clientSilhouette.yHeadRot = living.yHeadRot;
-                        clientSilhouette.yHeadRotO = living.yHeadRot;
-                        for(var slot : net.minecraft.world.entity.EquipmentSlot.values()){
-                            clientSilhouette.setItemSlot(slot, living.getItemBySlot(slot).copy());
-                        }
-                        clientSilhouette.noPhysics = true;
-                        clientSilhouette.deathTime = 0;
-                        clientSilhouette.hurtTime = 0;
-                        clientSilhouette.clearFire();
-                        clientSilhouette.setRemainingFireTicks(0);
-                        clientSilhouette.setSharedFlagOnFire(false);
-                    }
-                } catch(Throwable ignored){
-                    clientSilhouette = null;
-                }
-                if(clientSilhouette == null) clientSilhouette = living;
+                return living;
             }
-            BURNS.put(m.target(),new Burn(m,now,clientSilhouette));
+            replica.setPos(pos.x, pos.y, pos.z);
+            replica.setYRot(living.getYRot());
+            replica.setXRot(living.getXRot());
+            replica.yRotO = living.getYRot();
+            replica.xRotO = living.getXRot();
+            replica.yBodyRot = living.yBodyRot;
+            replica.yBodyRotO = living.yBodyRot;
+            replica.yHeadRot = living.yHeadRot;
+            replica.yHeadRotO = living.yHeadRot;
+            for(var slot : net.minecraft.world.entity.EquipmentSlot.values()){
+                var item = living.getItemBySlot(slot);
+                if(!item.isEmpty()) replica.setItemSlot(slot, item.copy());
+            }
+            try {
+                var nonDefault = living.getEntityData().getNonDefaultValues();
+                if(nonDefault != null && !nonDefault.isEmpty()) replica.getEntityData().assignValues(nonDefault);
+            } catch(Throwable ignored){ }
+            if(living instanceof com.bleachmod.entity.HollowEntity hLiving && replica instanceof com.bleachmod.entity.HollowEntity hReplica){
+                hReplica.setVariant(hLiving.getVariant());
+            }
+            replica.noPhysics = true;
+            replica.deathTime = 0;
+            replica.hurtTime = 0;
+            replica.clearFire();
+            replica.setRemainingFireTicks(0);
+            replica.setSharedFlagOnFire(false);
+            return replica;
+        } catch(Throwable t){
+            living.deathTime = 0;
+            living.hurtTime = 0;
+            living.clearFire();
+            living.setRemainingFireTicks(0);
+            living.setSharedFlagOnFire(false);
+            return living;
         }
-        if(mc.player!=null&&mc.player.getId()==m.owner()&&!com.bleachmod.client.cinematic.CinematicDirector.localActive()&&ClientVisualConfig.EXECUTION_CAMERA.get()&&mc.screen==null&&mc.getCameraEntity()==mc.player&&now>=dismissedUntil){
-            if(cinematic==null){previousType=mc.options.getCameraType();mc.options.setCameraType(CameraType.THIRD_PERSON_BACK);}
-            cinematic=pose;
-            var shotR=HigashiCinematicPath.sample(m.attacker(),m.victim(),m.height(),0,1.0F);
-            var shotL=HigashiCinematicPath.sample(m.attacker(),m.victim(),m.height(),0,-1.0F);
-            var hitR=mc.level.clip(new ClipContext(shotR.focus(),shotR.eye(),ClipContext.Block.COLLIDER,ClipContext.Fluid.NONE,mc.player));
-            var hitL=mc.level.clip(new ClipContext(shotL.focus(),shotL.eye(),ClipContext.Block.COLLIDER,ClipContext.Fluid.NONE,mc.player));
-            double dR=(hitR.getType()==HitResult.Type.MISS)?shotR.eye().distanceToSqr(shotR.focus()):hitR.getLocation().distanceToSqr(shotR.focus());
-            double dL=(hitL.getType()==HitResult.Type.MISS)?shotL.eye().distanceToSqr(shotL.focus()):hitL.getLocation().distanceToSqr(shotL.focus());
-            sideSign=(dR>=dL)?1.0F:-1.0F;
-            if(mc instanceof net.bettercombat.api.MinecraftClient_BetterCombat bc)bc.cancelUpswing();
+    }
+    public static void accept(HigashiExecutionS2C m){var mc=Minecraft.getInstance();
+        if(mc.level==null||!m.startsExecution()){
+            if(m.isCancel())removePendingTarget(m.target());
+            return;
         }
+        try{
+            if(world!=mc.level){reset();world=mc.level;}
+            long now=now();var previous=POSES.get(m.owner());
+            if(previous!=null&&previous.packet.target()==m.target()&&age(previous,0)<HigashiCinematicPath.END)return;
+            // Ordinary Higashi already performed the draw/approach. Join at the confirmed impact,
+            // never replay a lethal-looking scene speculatively against a survivor.
+            var pose=new Pose(m,now);
+            if(POSES.size()>=24&&!POSES.containsKey(m.owner()))POSES.remove(POSES.keySet().iterator().next());POSES.put(m.owner(),pose);
+            if(m.confirmed()){
+                if(BURNS.size()>=8)BURNS.remove(BURNS.keySet().iterator().next());
+                ElementalActionVisuals.VIEWS.remove(m.owner());
+                net.minecraft.world.entity.LivingEntity living = mc.level.getEntity(m.target()) instanceof net.minecraft.world.entity.LivingEntity l ? l : null;
+                LivingEntity clientSilhouette = createPresentationSilhouette(living, m.victim());
+                BURNS.put(m.target(),new Burn(m,now,clientSilhouette));
+            }
+            if(mc.player!=null&&mc.player.getId()==m.owner()&&!com.bleachmod.client.cinematic.CinematicDirector.localActive()&&ClientVisualConfig.EXECUTION_CAMERA.get()&&mc.screen==null&&mc.getCameraEntity()==mc.player&&now>=dismissedUntil){
+                if(cinematic==null){previousType=mc.options.getCameraType();mc.options.setCameraType(CameraType.THIRD_PERSON_BACK);}
+                cinematic=pose;
+                var shotR=HigashiCinematicPath.sample(m.attacker(),m.victim(),m.height(),0,1.0F);
+                var shotL=HigashiCinematicPath.sample(m.attacker(),m.victim(),m.height(),0,-1.0F);
+                var hitR=mc.level.clip(new ClipContext(shotR.focus(),shotR.eye(),ClipContext.Block.COLLIDER,ClipContext.Fluid.NONE,mc.player));
+                var hitL=mc.level.clip(new ClipContext(shotL.focus(),shotL.eye(),ClipContext.Block.COLLIDER,ClipContext.Fluid.NONE,mc.player));
+                double dR=(hitR.getType()==HitResult.Type.MISS)?shotR.eye().distanceToSqr(shotR.focus()):hitR.getLocation().distanceToSqr(shotR.focus());
+                double dL=(hitL.getType()==HitResult.Type.MISS)?shotL.eye().distanceToSqr(shotL.focus()):hitL.getLocation().distanceToSqr(shotL.focus());
+                sideSign=(dR>=dL)?1.0F:-1.0F;
+                if(mc instanceof net.bettercombat.api.MinecraftClient_BetterCombat bc)bc.cancelUpswing();
+            }
+        }finally{
+            if(m.confirmed()||m.isCancel())removePendingTarget(m.target());
+        }
+    }
+    public static boolean isPerformingExecution(int entityId){
+        var pose=POSES.get(entityId);return pose!=null&&world==Minecraft.getInstance().level&&now()-pose.start<HigashiCinematicPath.END;
     }
     public static boolean isExecuting(int entity){
         var burn=BURNS.get(entity);return burn!=null&&world==Minecraft.getInstance().level&&now()-burn.start<HigashiCinematicPath.END;
+    }
+    public static boolean shouldSuppressEntity(int entity){
+        boolean suppressed=!renderingSilhouette && (isExecuting(entity) || isPendingTarget(entity));
+        if(suppressed && Boolean.getBoolean("bleachmod.higashiPoseQa") && proofSuppressedTick!=now()){
+            proofSuppressedTick=now();com.mojang.logging.LogUtils.getLogger().info("PROOF141 original render blocked entity={} tick={}",entity,now());
+        }
+        return suppressed;
+    }
+    public static float currentPoseAge(){
+        var mc=Minecraft.getInstance();if(mc.player==null)return -1;
+        var p=POSES.get(mc.player.getId());return p==null?-1:age(p,0);
+    }
+    public static float currentBurnAge(){
+        if(BURNS.isEmpty())return -1;
+        var b=BURNS.values().iterator().next();
+        return now()-b.start;
+    }
+    public static int currentBurnTarget(){
+        if(BURNS.isEmpty())return -1;
+        return BURNS.keySet().iterator().next();
+    }
+    public static boolean isOriginalPresent(int entityId){
+        var mc=Minecraft.getInstance();return mc.level!=null&&mc.level.getEntity(entityId)!=null;
+    }
+    public static boolean isOriginalSuppressed(int entityId){
+        return shouldSuppressEntity(entityId);
+    }
+    public static boolean isReplicaVisible(int entityId){
+        var burn=BURNS.get(entityId);
+        if(burn==null||world!=Minecraft.getInstance().level)return false;
+        long elapsed=now()-burn.start;
+        return elapsed>=0&&elapsed<HigashiCinematicPath.IGNITE+12;
     }
     public static boolean holdingCorpse(int entity){
         return isExecuting(entity);
@@ -109,7 +197,7 @@ public final class HigashiExecutionVisuals {
     private static void restore(){var mc=Minecraft.getInstance();if(previousType!=null&&mc.options.getCameraType()==CameraType.THIRD_PERSON_BACK)mc.options.setCameraType(previousType);previousType=null;cinematic=null;sideSign=1.0F;}
     private static void dismiss(){var mc=Minecraft.getInstance();if(mc.player!=null)POSES.remove(mc.player.getId());dismissedUntil=now()+HigashiCinematicPath.END;restore();}
     public static void yieldToRelease(){if(cinematic!=null)dismiss();}
-    private static void reset(){restore();BURNS.clear();POSES.clear();world=null;emitted=Long.MIN_VALUE;dismissedUntil=Long.MIN_VALUE;}
+    private static void reset(){restore();BURNS.clear();POSES.clear();PENDING_TARGETS.clear();world=null;emitted=Long.MIN_VALUE;dismissedUntil=Long.MIN_VALUE;}
     public static boolean localExecutionActive(){return cameraActive();}
     private static boolean cameraActive(){var mc=Minecraft.getInstance();return cinematic!=null&&world==mc.level&&mc.player!=null&&mc.getCameraEntity()==mc.player&&mc.options.getCameraType()==CameraType.THIRD_PERSON_BACK;}
     private static Pose pose(AbstractClientPlayer p){var value=POSES.get(p.getId());
@@ -133,11 +221,10 @@ public final class HigashiExecutionVisuals {
             if(item){
                 float w=execPose.weight();
                 if(type==TransformType.ROTATION){
-                    Vec3 r=execPose.item().lengthSqr()>1e-6?execPose.item():execPose.handRotation();
-                    return mix(value,r,w);
+                    return mix(value,execPose.item(),w);
                 }
                 if(type==TransformType.POSITION){
-                    return mix(value,execPose.handPosition(),w);
+                    return mix(value,Vec3.ZERO,w);
                 }
             }
             return RyujinActionVisuals.transform(p,execPose,part,type,value);
@@ -160,6 +247,7 @@ public final class HigashiExecutionVisuals {
     @SubscribeEvent public static void tick(TickEvent.ClientTickEvent e){if(e.phase!=TickEvent.Phase.END)return;var mc=Minecraft.getInstance();
         if(mc.level==null||world!=mc.level){reset();world=mc.level;return;}
         long now=now();BURNS.values().removeIf(b->now-b.start>=HigashiCinematicPath.END);POSES.values().removeIf(p->age(p,0)>=HigashiCinematicPath.END);
+        int currentWorld=System.identityHashCode(mc.level);PENDING_TARGETS.entrySet().removeIf(entry->entry.getValue().worldHash!=currentWorld||now>entry.getValue().expiryGameTime);
         if(cinematic!=null&&age(cinematic,0)>=HigashiCinematicPath.END)restore();
         if(cinematic!=null&&(mc.player==null||!mc.player.isAlive()||mc.player.hurtTime>0||mc.screen!=null||(age(cinematic,0)>4&&(mc.options.keyAttack.isDown()||mc.options.keyUse.isDown()||mc.options.keyUp.isDown()||mc.options.keyDown.isDown()||mc.options.keyLeft.isDown()||mc.options.keyRight.isDown()||mc.options.keyJump.isDown()))||mc.getCameraEntity()!=mc.player||mc.options.getCameraType()!=CameraType.THIRD_PERSON_BACK||!ClientVisualConfig.EXECUTION_CAMERA.get()||mc.player.distanceToSqr(cinematic.packet.attacker())>9||pose(mc.player)==null))dismiss();
         if(cinematic!=null&&mc.player!=null&&mc.level!=null&&age(cinematic,0)>=10&&age(cinematic,0)<=16){
@@ -189,6 +277,9 @@ public final class HigashiExecutionVisuals {
         for(var b:BURNS.values()){
             var actor=b.silhouette;if(actor==null)continue;
             long elapsed=now-b.start;
+            if(Boolean.getBoolean("bleachmod.higashiPoseQa") && proofSilhouetteTick!=now && elapsed%4==0){
+                proofSilhouetteTick=now;com.mojang.logging.LogUtils.getLogger().info("PROOF141 silhouette target={} type={} elapsed={} variant={} originalPresent={}",b.packet.target(),actor.getType(),elapsed,actor instanceof com.bleachmod.entity.HollowEntity h?h.getVariant():"vanilla",mc.level.getEntity(b.packet.target())!=null);
+            }
             if(elapsed<0||elapsed>=HigashiCinematicPath.IGNITE+12)continue;
             if(mc.player==null||mc.player.distanceToSqr(b.packet.victim())>80*80)continue;
             float alpha=(elapsed<=HigashiCinematicPath.IGNITE)?1.0F:Math.max(0.0F,1.0F-(float)(elapsed-HigashiCinematicPath.IGNITE)/12.0F);
@@ -200,35 +291,16 @@ public final class HigashiExecutionVisuals {
                 if(alpha>=0.999F){
                     mc.getEntityRenderDispatcher().render(actor,at.x,at.y,at.z,actor.getYRot(),0,stack,bufferSource,mc.getEntityRenderDispatcher().getPackedLightCoords(actor,e.getPartialTick()));
                 }else{
-                    float tint=Math.max(0.25F,alpha);
+                    float tint=Math.max(0.20F,alpha);
+                    com.mojang.blaze3d.systems.RenderSystem.enableBlend();
+                    com.mojang.blaze3d.systems.RenderSystem.defaultBlendFunc();
                     net.minecraft.client.renderer.MultiBufferSource alphaBuffers=renderType->{
-                        net.minecraft.client.renderer.RenderType targetType=renderType;
-                        try{
-                            var renderer=mc.getEntityRenderDispatcher().getRenderer(actor);
-                            if(renderer!=null){
-                                @SuppressWarnings("unchecked")
-                                var typedRenderer=(net.minecraft.client.renderer.entity.EntityRenderer<net.minecraft.world.entity.LivingEntity>)renderer;
-                                var tex=typedRenderer.getTextureLocation(actor);
-                                if(tex!=null)targetType=net.minecraft.client.renderer.RenderType.entityTranslucent(tex);
-                            }
-                        }catch(Throwable ignored){ }
-                        var parent=bufferSource.getBuffer(targetType);
-                        return new com.mojang.blaze3d.vertex.VertexConsumer(){
-                            @Override public com.mojang.blaze3d.vertex.VertexConsumer vertex(double x,double y,double z){parent.vertex(x,y,z);return this;}
-                            @Override public com.mojang.blaze3d.vertex.VertexConsumer color(int r,int g,int b,int a){
-                                parent.color((int)(r*tint),(int)(g*tint),(int)(b*tint),(int)(a*alpha));return this;
-                            }
-                            @Override public com.mojang.blaze3d.vertex.VertexConsumer uv(float u,float v){parent.uv(u,v);return this;}
-                            @Override public com.mojang.blaze3d.vertex.VertexConsumer overlayCoords(int u,int v){parent.overlayCoords(u,v);return this;}
-                            @Override public com.mojang.blaze3d.vertex.VertexConsumer uv2(int u,int v){parent.uv2(u,v);return this;}
-                            @Override public com.mojang.blaze3d.vertex.VertexConsumer normal(float x,float y,float z){parent.normal(x,y,z);return this;}
-                            @Override public void defaultColor(int r,int g,int b,int a){parent.defaultColor(r,g,b,a);}
-                            @Override public void unsetDefaultColor(){parent.unsetDefaultColor();}
-                            @Override public void endVertex(){parent.endVertex();}
-                        };
+                        var parent=bufferSource.getBuffer(renderType);
+                        return new AlphaTintVertexConsumer(parent,alpha,tint);
                     };
                     mc.getEntityRenderDispatcher().render(actor,at.x,at.y,at.z,actor.getYRot(),0,stack,alphaBuffers,mc.getEntityRenderDispatcher().getPackedLightCoords(actor,e.getPartialTick()));
                     bufferSource.endBatch();
+                    com.mojang.blaze3d.systems.RenderSystem.disableBlend();
                 }
             }finally{actor.deathTime=death;actor.hurtTime=hurt;actor.setRemainingFireTicks(fire);actor.setSharedFlagOnFire(burning);renderingSilhouette=false;}
         }
