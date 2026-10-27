@@ -4,7 +4,7 @@ import net.minecraft.world.phys.Vec3;
 
 /** Authored shots in a stable attacker/target frame; no world or graphics state. */
 public final class HigashiCinematicPath {
-    public static final int IMPACT=12, SLASH_END=16, IGNITE=SLASH_END+40, END=IGNITE+32, PREVIEW_TIMEOUT=22;
+    public static final int IMPACT=12, SLASH_END=16, IGNITE=SLASH_END+20, END=IGNITE+32, PREVIEW_TIMEOUT=22;
     public record Shot(Vec3 eye,Vec3 focus,float fov){ }
     private HigashiCinematicPath(){ }
     private static double ease(double t){t=Math.max(0,Math.min(1,t));return t*t*(3-2*t);}

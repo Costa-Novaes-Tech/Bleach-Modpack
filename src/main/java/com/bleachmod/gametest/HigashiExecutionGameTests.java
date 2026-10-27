@@ -51,11 +51,11 @@ public final class HigashiExecutionGameTests {
         }finally{RyujinTechniqueService.cancel(p);t.discard();}h.succeed();});
     }
     @GameTest(template="empty",batch="execution_timing")
-    public static void cinematicHoldsForTwoSecondsAfterBladePassesAndReturnsAfterAsh(GameTestHelper h){
+    public static void cinematicHoldsForOneSecondAfterBladePassesAndReturnsAfterAsh(GameTestHelper h){
         var path=com.bleachmod.common.visual.HigashiCinematicPath.class;
-        h.assertTrue(com.bleachmod.common.visual.HigashiCinematicPath.IGNITE-com.bleachmod.common.visual.HigashiCinematicPath.SLASH_END==40,"Dramatic hold is not two game seconds");
+        h.assertTrue(com.bleachmod.common.visual.HigashiCinematicPath.IGNITE-com.bleachmod.common.visual.HigashiCinematicPath.SLASH_END==20,"Dramatic hold is not one game second");
         var a=com.bleachmod.common.visual.RyujinChoreography.execution(16,1);
-        var b=com.bleachmod.common.visual.RyujinChoreography.execution(55,1);
+        var b=com.bleachmod.common.visual.RyujinChoreography.execution(35,1);
         h.assertTrue(a.arm().distanceTo(b.arm())<1e-8&&a.weight()==1&&b.weight()==1,"Follow-through moves before ignition");
         h.assertTrue(com.bleachmod.common.visual.HigashiCinematicPath.END>com.bleachmod.common.visual.HigashiCinematicPath.IGNITE+20,"Camera returns before incineration completes");
         h.succeed();
