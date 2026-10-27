@@ -1,0 +1,78 @@
+[27out.2026 13:43:24.624] [Server thread/INFO] [com.bleachmod.client.cinematic.CinematicQaCommands/]: Cinematic QA 71 prepared lethal owner=1 victim=3 health=10.0/20.0 at=(0.5, -60.0, 3.5)
+[27out.2026 13:43:25.578] [Server thread/INFO] [com.bleachmod.client.cinematic.CinematicQaCommands/]: Cinematic QA 71 cast lethal tick=173 victim=19c2ce76-fd54-4757-bde3-62ae9f3bf2b3
+[27out.2026 13:43:26.558] [Render thread/INFO] [com.bleachmod.client.model.HigashiExecutionVisuals/]: PROOF141 original render blocked entity=3 tick=191
+[27out.2026 13:43:26.659] [Render thread/INFO] [com.bleachmod.client.model.HigashiExecutionVisuals/]: PROOF141 original render blocked entity=3 tick=194
+[27out.2026 13:43:26.738] [Render thread/INFO] [com.bleachmod.client.model.HigashiExecutionVisuals/]: PROOF141 original render blocked entity=3 tick=196
+[27out.2026 13:43:26.792] [Render thread/INFO] [com.bleachmod.client.model.HigashiExecutionVisuals/]: PROOF141 original render blocked entity=3 tick=197
+[27out.2026 13:43:26.794] [Render thread/INFO] [com.bleachmod.client.model.HigashiExecutionVisuals/]: PROOF141 silhouette target=3 type=entity.minecraft.husk elapsed=8 variant=vanilla originalPresent=true
+[27out.2026 13:43:26.846] [Render thread/INFO] [com.bleachmod.client.model.HigashiExecutionVisuals/]: PROOF141 original render blocked entity=3 tick=198
+[27out.2026 13:43:26.898] [Render thread/INFO] [com.bleachmod.client.model.HigashiExecutionVisuals/]: PROOF141 original render blocked entity=3 tick=199
+[27out.2026 13:43:26.948] [Render thread/INFO] [com.bleachmod.client.model.HigashiExecutionVisuals/]: PROOF141 original render blocked entity=3 tick=200
+[27out.2026 13:43:26.997] [Render thread/INFO] [com.bleachmod.client.model.HigashiExecutionVisuals/]: PROOF141 original render blocked entity=3 tick=201
+[27out.2026 13:43:26.998] [Render thread/INFO] [com.bleachmod.client.model.HigashiExecutionVisuals/]: PROOF141 silhouette target=3 type=entity.minecraft.husk elapsed=12 variant=vanilla originalPresent=true
+[27out.2026 13:43:27.052] [Render thread/INFO] [com.bleachmod.client.model.HigashiExecutionVisuals/]: PROOF141 original render blocked entity=3 tick=202
+[27out.2026 13:43:27.102] [Render thread/INFO] [com.bleachmod.client.model.HigashiExecutionVisuals/]: PROOF141 original render blocked entity=3 tick=203
+[27out.2026 13:43:27.160] [Render thread/INFO] [com.bleachmod.client.model.HigashiExecutionVisuals/]: PROOF141 original render blocked entity=3 tick=204
+[27out.2026 13:43:27.222] [Render thread/INFO] [com.bleachmod.client.model.HigashiExecutionVisuals/]: PROOF141 original render blocked entity=3 tick=206
+[27out.2026 13:43:27.381] [Render thread/INFO] [com.bleachmod.client.model.HigashiExecutionVisuals/]: PROOF141 silhouette target=3 type=entity.minecraft.husk elapsed=20 variant=vanilla originalPresent=false
+[27out.2026 13:43:27.582] [Render thread/INFO] [com.bleachmod.client.model.HigashiExecutionVisuals/]: PROOF141 silhouette target=3 type=entity.minecraft.husk elapsed=24 variant=vanilla originalPresent=false
+[27out.2026 13:43:27.796] [Render thread/INFO] [com.bleachmod.client.model.HigashiExecutionVisuals/]: PROOF141 silhouette target=3 type=entity.minecraft.husk elapsed=28 variant=vanilla originalPresent=false
+[27out.2026 13:43:28.003] [Render thread/INFO] [com.bleachmod.client.model.HigashiExecutionVisuals/]: PROOF141 silhouette target=3 type=entity.minecraft.husk elapsed=32 variant=vanilla originalPresent=false
+[27out.2026 13:43:28.195] [Render thread/INFO] [com.bleachmod.client.model.HigashiExecutionVisuals/]: PROOF141 silhouette target=3 type=entity.minecraft.husk elapsed=36 variant=vanilla originalPresent=false
+[27out.2026 13:43:28.381] [Render thread/INFO] [com.bleachmod.client.model.HigashiExecutionVisuals/]: PROOF141 silhouette target=3 type=entity.minecraft.husk elapsed=40 variant=vanilla originalPresent=false
+[27out.2026 13:43:28.571] [Render thread/INFO] [com.bleachmod.client.model.HigashiExecutionVisuals/]: PROOF141 silhouette target=3 type=entity.minecraft.husk elapsed=44 variant=vanilla originalPresent=false
+[27out.2026 13:43:28.772] [Render thread/INFO] [com.bleachmod.client.model.HigashiExecutionVisuals/]: PROOF141 silhouette target=3 type=entity.minecraft.husk elapsed=48 variant=vanilla originalPresent=false
+[27out.2026 13:43:28.968] [Render thread/INFO] [com.bleachmod.client.model.HigashiExecutionVisuals/]: PROOF141 silhouette target=3 type=entity.minecraft.husk elapsed=52 variant=vanilla originalPresent=false
+[27out.2026 13:43:29.166] [Render thread/INFO] [com.bleachmod.client.model.HigashiExecutionVisuals/]: PROOF141 silhouette target=3 type=entity.minecraft.husk elapsed=56 variant=vanilla originalPresent=false
+[27out.2026 13:43:29.364] [Render thread/INFO] [com.bleachmod.client.model.HigashiExecutionVisuals/]: PROOF141 silhouette target=3 type=entity.minecraft.husk elapsed=60 variant=vanilla originalPresent=false
+[27out.2026 13:43:29.560] [Render thread/INFO] [com.bleachmod.client.model.HigashiExecutionVisuals/]: PROOF141 silhouette target=3 type=entity.minecraft.husk elapsed=64 variant=vanilla originalPresent=false
+[27out.2026 13:43:32.048] [Server thread/INFO] [com.bleachmod.client.cinematic.CinematicQaCommands/]: Cinematic QA finished lethal victimPresent=false victimAlive=false expectedAlive=false passed=true
+[27out.2026 13:43:32.542] [Render thread/INFO] [com.bleachmod.client.cinematic.CinematicQaSequence/]: Cinematic QA 77 camera scenario=lethal seen=true expected=true passed=true
+[27out.2026 13:43:32.561] [Server thread/INFO] [com.bleachmod.client.cinematic.CinematicQaCommands/]: Cinematic QA 71 prepared threshold owner=1 victim=12 health=10.0/20.0 at=(0.4999999999999997, -60.0, 5.500000023841858)
+[27out.2026 13:43:33.548] [Server thread/INFO] [com.bleachmod.client.cinematic.CinematicQaCommands/]: Cinematic QA 71 cast threshold tick=333 victim=0041c3a0-dd07-4f76-bce5-3182cdbed3f9
+[27out.2026 13:43:34.204] [Render thread/INFO] [com.bleachmod.client.model.HigashiExecutionVisuals/]: PROOF141 original render blocked entity=12 tick=344
+[27out.2026 13:43:34.264] [Render thread/INFO] [com.bleachmod.client.model.HigashiExecutionVisuals/]: PROOF141 original render blocked entity=12 tick=346
+[27out.2026 13:43:34.314] [Render thread/INFO] [com.bleachmod.client.model.HigashiExecutionVisuals/]: PROOF141 original render blocked entity=12 tick=347
+[27out.2026 13:43:34.316] [Render thread/INFO] [com.bleachmod.client.model.HigashiExecutionVisuals/]: PROOF141 silhouette target=12 type=entity.bleachmod.hollow elapsed=4 variant=FLYING originalPresent=true
+[27out.2026 13:43:34.363] [Render thread/INFO] [com.bleachmod.client.model.HigashiExecutionVisuals/]: PROOF141 original render blocked entity=12 tick=348
+[27out.2026 13:43:34.411] [Render thread/INFO] [com.bleachmod.client.model.HigashiExecutionVisuals/]: PROOF141 original render blocked entity=12 tick=349
+[27out.2026 13:43:34.458] [Render thread/INFO] [com.bleachmod.client.model.HigashiExecutionVisuals/]: PROOF141 original render blocked entity=12 tick=350
+[27out.2026 13:43:34.504] [Render thread/INFO] [com.bleachmod.client.model.HigashiExecutionVisuals/]: PROOF141 original render blocked entity=12 tick=351
+[27out.2026 13:43:34.505] [Render thread/INFO] [com.bleachmod.client.model.HigashiExecutionVisuals/]: PROOF141 silhouette target=12 type=entity.bleachmod.hollow elapsed=8 variant=FLYING originalPresent=true
+[27out.2026 13:43:34.568] [Render thread/INFO] [com.bleachmod.client.model.HigashiExecutionVisuals/]: PROOF141 original render blocked entity=12 tick=352
+[27out.2026 13:43:34.610] [Render thread/INFO] [com.bleachmod.client.model.HigashiExecutionVisuals/]: PROOF141 original render blocked entity=12 tick=353
+[27out.2026 13:43:34.658] [Render thread/INFO] [com.bleachmod.client.model.HigashiExecutionVisuals/]: PROOF141 original render blocked entity=12 tick=354
+[27out.2026 13:43:34.704] [Render thread/INFO] [com.bleachmod.client.model.HigashiExecutionVisuals/]: PROOF141 original render blocked entity=12 tick=355
+[27out.2026 13:43:34.705] [Render thread/INFO] [com.bleachmod.client.model.HigashiExecutionVisuals/]: PROOF141 silhouette target=12 type=entity.bleachmod.hollow elapsed=12 variant=FLYING originalPresent=true
+[27out.2026 13:43:34.765] [Render thread/INFO] [com.bleachmod.client.model.HigashiExecutionVisuals/]: PROOF141 original render blocked entity=12 tick=356
+[27out.2026 13:43:34.812] [Render thread/INFO] [com.bleachmod.client.model.HigashiExecutionVisuals/]: PROOF141 original render blocked entity=12 tick=357
+[27out.2026 13:43:34.860] [Render thread/INFO] [com.bleachmod.client.model.HigashiExecutionVisuals/]: PROOF141 original render blocked entity=12 tick=358
+[27out.2026 13:43:34.913] [Render thread/INFO] [com.bleachmod.client.model.HigashiExecutionVisuals/]: PROOF141 original render blocked entity=12 tick=359
+[27out.2026 13:43:34.914] [Render thread/INFO] [com.bleachmod.client.model.HigashiExecutionVisuals/]: PROOF141 silhouette target=12 type=entity.bleachmod.hollow elapsed=16 variant=FLYING originalPresent=true
+[27out.2026 13:43:34.952] [Render thread/INFO] [com.bleachmod.client.model.HigashiExecutionVisuals/]: PROOF141 original render blocked entity=12 tick=360
+[27out.2026 13:43:35.015] [Render thread/INFO] [com.bleachmod.client.model.HigashiExecutionVisuals/]: PROOF141 original render blocked entity=12 tick=361
+[27out.2026 13:43:35.062] [Render thread/INFO] [com.bleachmod.client.model.HigashiExecutionVisuals/]: PROOF141 original render blocked entity=12 tick=362
+[27out.2026 13:43:35.109] [Render thread/INFO] [com.bleachmod.client.model.HigashiExecutionVisuals/]: PROOF141 original render blocked entity=12 tick=360
+[27out.2026 13:43:35.207] [Render thread/INFO] [com.bleachmod.client.model.HigashiExecutionVisuals/]: PROOF141 original render blocked entity=12 tick=361
+[27out.2026 13:43:35.264] [Render thread/INFO] [com.bleachmod.client.model.HigashiExecutionVisuals/]: PROOF141 silhouette target=12 type=entity.bleachmod.hollow elapsed=20 variant=FLYING originalPresent=false
+[27out.2026 13:43:35.462] [Render thread/INFO] [com.bleachmod.client.model.HigashiExecutionVisuals/]: PROOF141 silhouette target=12 type=entity.bleachmod.hollow elapsed=24 variant=FLYING originalPresent=false
+[27out.2026 13:43:35.661] [Render thread/INFO] [com.bleachmod.client.model.HigashiExecutionVisuals/]: PROOF141 silhouette target=12 type=entity.bleachmod.hollow elapsed=28 variant=FLYING originalPresent=false
+[27out.2026 13:43:35.853] [Render thread/INFO] [com.bleachmod.client.model.HigashiExecutionVisuals/]: PROOF141 silhouette target=12 type=entity.bleachmod.hollow elapsed=32 variant=FLYING originalPresent=false
+[27out.2026 13:43:35.930] [Render thread/INFO] [com.bleachmod.client.model.HigashiExecutionVisuals/]: PROOF141 silhouette target=12 type=entity.bleachmod.hollow elapsed=36 variant=FLYING originalPresent=false
+[27out.2026 13:43:36.109] [Render thread/INFO] [com.bleachmod.client.model.HigashiExecutionVisuals/]: PROOF141 silhouette target=12 type=entity.bleachmod.hollow elapsed=40 variant=FLYING originalPresent=false
+[27out.2026 13:43:36.312] [Render thread/INFO] [com.bleachmod.client.model.HigashiExecutionVisuals/]: PROOF141 silhouette target=12 type=entity.bleachmod.hollow elapsed=44 variant=FLYING originalPresent=false
+[27out.2026 13:43:36.504] [Render thread/INFO] [com.bleachmod.client.model.HigashiExecutionVisuals/]: PROOF141 silhouette target=12 type=entity.bleachmod.hollow elapsed=48 variant=FLYING originalPresent=false
+[27out.2026 13:43:36.710] [Render thread/INFO] [com.bleachmod.client.model.HigashiExecutionVisuals/]: PROOF141 silhouette target=12 type=entity.bleachmod.hollow elapsed=52 variant=FLYING originalPresent=false
+[27out.2026 13:43:36.904] [Render thread/INFO] [com.bleachmod.client.model.HigashiExecutionVisuals/]: PROOF141 silhouette target=12 type=entity.bleachmod.hollow elapsed=56 variant=FLYING originalPresent=false
+[27out.2026 13:43:37.101] [Render thread/INFO] [com.bleachmod.client.model.HigashiExecutionVisuals/]: PROOF141 silhouette target=12 type=entity.bleachmod.hollow elapsed=60 variant=FLYING originalPresent=false
+[27out.2026 13:43:37.306] [Render thread/INFO] [com.bleachmod.client.model.HigashiExecutionVisuals/]: PROOF141 silhouette target=12 type=entity.bleachmod.hollow elapsed=64 variant=FLYING originalPresent=false
+[27out.2026 13:43:40.048] [Server thread/INFO] [com.bleachmod.client.cinematic.CinematicQaCommands/]: Cinematic QA finished threshold victimPresent=false victimAlive=false expectedAlive=false passed=true
+[27out.2026 13:43:40.539] [Render thread/INFO] [com.bleachmod.client.cinematic.CinematicQaSequence/]: Cinematic QA 77 camera scenario=threshold seen=true expected=true passed=true
+[27out.2026 13:43:40.542] [Server thread/INFO] [com.bleachmod.client.cinematic.CinematicQaCommands/]: Cinematic QA 71 prepared survive owner=1 victim=21 health=1000.0/1000.0 at=(0.49999999999999944, -60.0, 7.500000047683716)
+[27out.2026 13:43:41.497] [Server thread/INFO] [com.bleachmod.client.cinematic.CinematicQaCommands/]: Cinematic QA 71 cast survive tick=492 victim=392c6ad9-5754-46fc-8256-80baec92f9b2
+[27out.2026 13:43:47.997] [Server thread/INFO] [com.bleachmod.client.cinematic.CinematicQaCommands/]: Cinematic QA finished survive victimPresent=true victimAlive=true expectedAlive=true passed=true
+[27out.2026 13:43:48.550] [Render thread/INFO] [com.bleachmod.client.cinematic.CinematicQaSequence/]: Cinematic QA 77 camera scenario=survive seen=false expected=false passed=true
+[27out.2026 13:43:48.554] [Server thread/INFO] [com.bleachmod.client.cinematic.CinematicQaCommands/]: Cinematic QA 71 prepared miss owner=1 victim=23 health=1000.0/1000.0 at=(6.499999999999999, -60.0, 9.500000071525573)
+[27out.2026 13:43:49.545] [Server thread/INFO] [com.bleachmod.client.cinematic.CinematicQaCommands/]: Cinematic QA 71 cast miss tick=653 victim=07b972b9-1480-470c-a640-21950559aa97
+[27out.2026 13:43:56.045] [Server thread/INFO] [com.bleachmod.client.cinematic.CinematicQaCommands/]: Cinematic QA finished miss victimPresent=true victimAlive=true expectedAlive=true passed=true
+[27out.2026 13:43:56.541] [Render thread/INFO] [com.bleachmod.client.cinematic.CinematicQaSequence/]: Cinematic QA 77 camera scenario=miss seen=false expected=false passed=true

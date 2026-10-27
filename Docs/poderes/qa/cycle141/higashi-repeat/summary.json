@@ -1,0 +1,26 @@
+{
+  "lethal": {
+    "rows": 116,
+    "cameraStartElapsed": 39,
+    "cameraSeen": true,
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-benihime\\run-benihime-qa\\base\\cinematic-qa\\1793119404550-lethal"
+  },
+  "threshold": {
+    "rows": 120,
+    "cameraStartElapsed": 32,
+    "cameraSeen": true,
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-benihime\\run-benihime-qa\\base\\cinematic-qa\\1793119412542-threshold"
+  },
+  "survive": {
+    "rows": 129,
+    "cameraStartElapsed": null,
+    "cameraSeen": false,
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-benihime\\run-benihime-qa\\base\\cinematic-qa\\1793119420539-survive"
+  },
+  "miss": {
+    "rows": 129,
+    "cameraStartElapsed": null,
+    "cameraSeen": false,
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-benihime\\run-benihime-qa\\base\\cinematic-qa\\1793119428550-miss"
+  }
+}

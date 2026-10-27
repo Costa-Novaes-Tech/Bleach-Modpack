@@ -1,0 +1,80 @@
+diff --git a/src/main/java/com/bleachmod/client/cinematic/SenbonzakuraCombatQaSequence.java b/src/main/java/com/bleachmod/client/cinematic/SenbonzakuraCombatQaSequence.java
+index c6377f9..ee13426 100644
+--- a/src/main/java/com/bleachmod/client/cinematic/SenbonzakuraCombatQaSequence.java
++++ b/src/main/java/com/bleachmod/client/cinematic/SenbonzakuraCombatQaSequence.java
+@@ -54,10 +54,7 @@ public final class SenbonzakuraCombatQaSequence {
+     private static final String[] CASES = {
+             "01_combo_front",
+             "02_combo_profile",
+-            "03_combo_back",
+-            "04_hakuteiken_front",
+-            "05_hakuteiken_profile",
+-            "06_hakuteiken_back"
++            "03_combo_back"
+     };
+ 
+     private record Trial(UUID owner, UUID target, long start, int index, Vec3 origin) { }
+@@ -118,7 +115,7 @@ public final class SenbonzakuraCombatQaSequence {
+             long age = mc.level.getGameTime() - current.start();
+             // Combo attacks input simulation (swings on ticks 30, 44, 58)
+             if (current.index() < 3) {
+-                mc.options.keyAttack.setDown(age >= 30 && age < 85);
++                mc.options.keyAttack.setDown(age >= 30 && age < 32);
+             }
+         }
+ 
+@@ -197,7 +194,7 @@ public final class SenbonzakuraCombatQaSequence {
+         p.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(ModItems.SENBONZAKURA.get()));
+         p.setItemSlot(EquipmentSlot.OFFHAND, ItemStack.EMPTY);
+ 
+-        Husk h = EntityType.HUSK.create(p.serverLevel());
++        Husk h = null; // Proof141: no target can occlude the isolated diagonal.
+         if (h != null) {
+             h.setPos(p.position().add(0, 0, index < 3 ? 2.2 : 10.0));
+             h.setNoAi(true);
+@@ -256,9 +253,9 @@ public final class SenbonzakuraCombatQaSequence {
+         if (mc.player == null) return;
+ 
+         // Custom camera framing for profile view
+-        if (CASES[t.index()].contains("profile")) {
++        if (t.index() < 3) {
+             Vec3 focus = mc.player.getPosition((float) e.getPartialTick()).add(0, 1.2, 0);
+-            Vec3 eye = focus.add(-4.5, 0.4, 0.5); // Lateral profile view from the side
++            Vec3 eye = focus.add(t.index()==0 ? new Vec3(0,0.25,4.2) : t.index()==1 ? new Vec3(-4.2,0.25,0) : new Vec3(0,0.25,-4.2)); // Lateral profile view from the side
+             try {
+                 if (cameraPosition == null) {
+                     cameraPosition = net.minecraftforge.fml.util.ObfuscationReflectionHelper.findMethod(Camera.class, "m_90581_", Vec3.class);
+@@ -282,7 +279,7 @@ public final class SenbonzakuraCombatQaSequence {
+         if (mc.player == null || mc.level == null) return;
+ 
+         int age = (int) (mc.level.getGameTime() - t.start());
+-        if (age < 25 || age > 120 || lastFrame == age || mc.screen != null) return;
++        if (age < 25 || age > 90 || lastFrame == age || mc.screen != null) return;
+ 
+         // Capture key moments
+         boolean captureThisTick = false;
+@@ -294,12 +291,24 @@ public final class SenbonzakuraCombatQaSequence {
+             captureThisTick = (age == 44 || age == 50 || age == 56 || age == 60 || age == 64 || age == 68 || age == 78 || age == 88);
+         }
+ 
++        captureThisTick = t.index() < 3 && age >= 25 && age <= 90;
+         if (!captureThisTick) return;
+         lastFrame = age;
+ 
+         String file = String.format(Locale.ROOT, "frame-t%03d.png", age);
+         try {
+             Files.createDirectories(evidence);
++            var poseData=new com.google.gson.JsonObject();
++            poseData.addProperty("age",age);poseData.addProperty("partialTick",mc.getFrameTime());poseData.addProperty("worldTick",mc.level.getGameTime());
++            poseData.addProperty("comboCount",((net.bettercombat.logic.PlayerAttackProperties)mc.player).getComboCount());
++            if(mc.player instanceof dev.kosmx.playerAnim.impl.IAnimatedPlayer animated){
++                var ap=animated.playerAnimator_getAnimation();poseData.addProperty("applierActive",ap.isActive());
++                for(String bone:List.of("rightArm","rightItem","body")){
++                    var rot=ap.get3DTransform(bone,dev.kosmx.playerAnim.api.TransformType.ROTATION,dev.kosmx.playerAnim.core.util.Vec3f.ZERO);
++                    poseData.addProperty(bone,rot.getX()+","+rot.getY()+","+rot.getZ());
++                }
++            }
++            Files.writeString(evidence.resolve("pose-telemetry.jsonl"),poseData+System.lineSeparator(),StandardOpenOption.CREATE,StandardOpenOption.APPEND);
+             Screenshot.grab(evidence.toFile(), file, mc.getMainRenderTarget(), msg -> { });
+             Files.writeString(evidence.resolve("frames.jsonl"),
+                     String.format(Locale.ROOT, "{\"file\":\"%s\",\"tick\":%d,\"case\":\"%s\",\"fps\":%d,\"busy\":%s,\"source\":\"Minecraft framebuffer\"}%n",
