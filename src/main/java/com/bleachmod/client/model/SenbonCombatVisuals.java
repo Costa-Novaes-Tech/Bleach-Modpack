@@ -142,48 +142,29 @@ public final class SenbonCombatVisuals {
             Vec3 left = SenbonGeometry.left(forward);
             Vec3 dominantRight = left.scale(-1);
 
-            // Calculate blade hand and tip based on our reconstructed choreographies
+            // Sample blade hand and tip from active PlayerAnimator applier or exact continuous kinematics
             Vec3 localHand, localTip;
-            switch (swing.combo()) {
-                case 0 -> { // Diagonal cut: top-dominant to low-opposite across chest
-                    double t = progress;
-                    localHand = new Vec3(
-                            (0.35 - 0.65 * t) * sign,
-                            1.45 - 0.50 * t,
-                            0.20 + 0.10 * t
-                    );
-                    localTip = new Vec3(
-                            (0.70 - 1.50 * t) * sign,
-                            2.10 - 1.45 * t,
-                            0.50 + 0.30 * t
-                    );
-                }
-                case 1 -> { // Return cut: horizontal sweep from low-opposite to dominant chest
-                    double t = progress;
-                    localHand = new Vec3(
-                            (-0.32 + 0.70 * t) * sign,
-                            0.95 + 0.20 * t,
-                            0.30 - 0.10 * t
-                    );
-                    localTip = new Vec3(
-                            (-0.85 + 1.70 * t) * sign,
-                            1.05 + 0.15 * t,
-                            0.70 - 0.10 * t
-                    );
-                }
-                default -> { // Thrust: linear forward extension from ribs chamber
-                    double t = progress;
-                    localHand = new Vec3(
-                            (0.25 - 0.05 * t) * sign,
-                            1.10 + 0.05 * t,
-                            -0.05 + 0.60 * t
-                    );
-                    localTip = new Vec3(
-                            (0.25 - 0.05 * t) * sign,
-                            1.10 + 0.05 * t,
-                            0.70 + 1.15 * t
-                    );
-                }
+            if (player instanceof dev.kosmx.playerAnim.impl.IAnimatedPlayer animatedPlayer
+                    && animatedPlayer.playerAnimator_getAnimation() != null
+                    && animatedPlayer.playerAnimator_getAnimation().isActive()) {
+                var applier = animatedPlayer.playerAnimator_getAnimation();
+                boolean rightHand = player.getMainArm() == HumanoidArm.RIGHT;
+                String armName = rightHand ? "rightArm" : "leftArm";
+                String itemName = rightHand ? "rightItem" : "leftItem";
+                var armRot = applier.get3DTransform(armName, dev.kosmx.playerAnim.api.TransformType.ROTATION, dev.kosmx.playerAnim.core.util.Vec3f.ZERO);
+                var itemRot = applier.get3DTransform(itemName, dev.kosmx.playerAnim.api.TransformType.ROTATION, dev.kosmx.playerAnim.core.util.Vec3f.ZERO);
+                var itemPos = applier.get3DTransform(itemName, dev.kosmx.playerAnim.api.TransformType.POSITION, dev.kosmx.playerAnim.core.util.Vec3f.ZERO);
+
+                Vec3 shoulder = new Vec3(0.3125 * sign, 1.375, 0);
+                Vec3 wristLocal = rotateLocal(new Vec3(0, -0.625, 0), armRot);
+                localHand = shoulder.add(wristLocal).add(itemPos.getX() * 0.0625 * sign, itemPos.getY() * 0.0625, itemPos.getZ() * 0.0625);
+
+                Vec3 bladeDirLocal = rotateLocal(new Vec3(0, 0, 0.9), itemRot);
+                Vec3 bladeDirWorld = rotateLocal(bladeDirLocal, armRot);
+                localTip = localHand.add(bladeDirWorld.x * sign, bladeDirWorld.y, bladeDirWorld.z);
+            } else {
+                localHand = sampleHand(swing.combo(), progress, sign);
+                localTip = sampleTip(swing.combo(), progress, sign);
             }
 
             // Transform local bone offsets into world coordinates
@@ -248,5 +229,63 @@ public final class SenbonCombatVisuals {
         if (event.getLevel().isClientSide()) {
             clear();
         }
+    }
+    public static Vec3 sampleHand(int combo, float progress, float sign) {
+        double t = Math.max(0.0, Math.min(1.0, progress));
+        return switch (combo) {
+            case 0 -> new Vec3(
+                    (0.28 - 0.53 * t) * sign,
+                    1.40 - 0.52 * t,
+                    0.35 - 0.05 * t
+            );
+            case 1 -> new Vec3(
+                    (-0.25 + 0.55 * t) * sign,
+                    0.88 + 0.07 * t,
+                    0.30 - 0.20 * t
+            );
+            default -> new Vec3(
+                    (0.30 - 0.10 * t) * sign,
+                    0.95 + 0.20 * t,
+                    0.10 + 0.55 * t
+            );
+        };
+    }
+
+    public static Vec3 sampleTip(int combo, float progress, float sign) {
+        double t = Math.max(0.0, Math.min(1.0, progress));
+        return switch (combo) {
+            case 0 -> new Vec3(
+                    (0.65 - 1.35 * t) * sign,
+                    2.05 - 1.35 * t,
+                    0.40 + 0.05 * t
+            );
+            case 1 -> new Vec3(
+                    (-0.70 + 1.05 * t) * sign,
+                    0.70 + 0.35 * t,
+                    0.45 + 0.50 * t
+            );
+            default -> new Vec3(
+                    (0.35 - 0.15 * t) * sign,
+                    1.05 + 0.10 * t,
+                    0.95 + 0.90 * t
+            );
+        };
+    }
+
+    private static Vec3 rotateLocal(Vec3 v, dev.kosmx.playerAnim.core.util.Vec3f rot) {
+        double x = v.x, y = v.y, z = v.z;
+        double rz = rot.getZ();
+        double x1 = x * Math.cos(rz) - y * Math.sin(rz);
+        double y1 = x * Math.sin(rz) + y * Math.cos(rz);
+        double z1 = z;
+        double ry = rot.getY();
+        double x2 = x1 * Math.cos(ry) + z1 * Math.sin(ry);
+        double y2 = y1;
+        double z2 = -x1 * Math.sin(ry) + z1 * Math.cos(ry);
+        double rx = rot.getX();
+        double x3 = x2;
+        double y3 = y2 * Math.cos(rx) - z2 * Math.sin(rx);
+        double z3 = y2 * Math.sin(rx) + z2 * Math.cos(rx);
+        return new Vec3(x3, y3, z3);
     }
 }

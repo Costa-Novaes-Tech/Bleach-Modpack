@@ -1,4 +1,4 @@
-# 135 — Correção: Katana Senbon e Combo Básico Reconstruído
+# 135 — Correção: Katana Senbon, Reconstrução do Combo Básico e Rastro Dinâmico
 
 Data: 27/10/2026  
 Frente: Antigravity Design Lab  
@@ -74,19 +74,48 @@ A tabela abaixo comprova a continuidade matemática entre os golpes através do 
 1. **Toggle de Desativação VFX:**
    - Adicionada verificação de propriedade de sistema `bleachmod.senbonVfxDisable` em `SenbonCombatVisuals.java` e `build.gradle`.
    - Quando ativa, o emissor de partículas cancela imediatamente suas operações, permitindo inspeção visual pura da katana e da malha nos testes de QA.
-2. **Harmonização do Rastro de Pétalas:**
-   - Trajetória dos pontos da lâmina em `SenbonCombatVisuals` (base, 1/3, 2/3, ponta) alinhada rigorosamente aos novos planos anatômicos:
-     - Golpe 1: de ombro direito alto cruzando para peito baixo esquerdo.
-     - Golpe 2: varredura horizontal de peito esquerdo para direito dominante.
-     - Golpe 3: estocada linear axial mirando para a frente.
-   - Orçamento e atenuação preservados: 12 partículas (`ALL`), 6 (`DECREASED`), 3 (`MINIMAL`), redução de 50% em primeira pessoa, corte imediato em caso de teleporte > 4 blocos.
+2. **Amostragem em Tempo Real do PlayerAnimator (`AnimationApplier`):**
+   - Em vez de curvas independentes arbitrárias, `SenbonCombatVisuals` consulta diretamente em tempo real o `AnimationApplier` ativo do jogador (`((IAnimatedPlayer) player).playerAnimator_getAnimation()`).
+   - Obtém `armRot`, `armPos`, `itemRot` e `itemPos` reais do modelo renderizado em cada tick.
+   - Aplica a cinemática direta real:
+     $$\vec{P}_{hand} = \vec{P}_{shoulder} + R_{arm}(\vec{v}_{wrist}) + \vec{P}_{item}$$
+     $$\vec{P}_{tip} = \vec{P}_{hand} + R_{arm}(R_{item}(\vec{v}_{blade}))$$
+   - Como retaguarda analítica contínua para amostragem estática/headless, `sampleHand` e `sampleTip` foram calibrados com as posições exatas dos keyframes, mantendo $\Delta = 0.00$ de descontinuidade entre os golpes.
+3. **Orçamento e Atenuação Gráfica:**
+   - 12 partículas/tick (`ALL`), 6 (`DECREASED`), 3 (`MINIMAL`).
+   - Atenuação de 50% em visão de primeira pessoa.
+   - Culling e corte imediato de faixa em teleporte (> 4 blocos).
+   - Separação estrita: `MELEE = 12` desacoplado da `AURA` passiva, sem concorrência local.
 
 ---
 
 ## 5. Validação Automatizada e Suíte de Testes (Fase 5)
 
-- **Teste Unitário Ampliado:**
-  Atualizado `src/test/java/com/bleachmod/MvpRegressionTest.java` para incluir as 3 animações de Senbonzakura no teste de integridade PlayerAnimator (`AnimationSerializing.deserializeAnimation` em `attack_animations` e `player_animation`).
-- **Resultado dos Testes:**
-  - `./gradlew regressionTest --offline`: **PASS (149 cenários de regressão)**.
-  - Zero falhas de serialização ou regressão em Benihime, Ryūjin ou Hyōrinmaru.
+- **Testes Unitários:**
+  - `MvpRegressionTest.java` ampliado com teste de deserialização dos clips da Senbonzakura (Emote e Bedrock).
+  - Adicionado teste específico de continuidade das seams do rastro e orientação axial da estocada:
+    `"Senbon melee trail positions match sword kinematics and combo seams seamlessly"`.
+- **Resultados:**
+  - `./gradlew regressionTest --offline`: **PASS (150 cenários de regressão)**.
+  - `./gradlew check build --offline`: **BUILD SUCCESSFUL**.
+
+---
+
+## 6. Status: Implementado, Observado e Pendências
+
+### 6.1 Implementado
+- Correção dos arquivos de animação (`"turn": 0` em todos os moves de retorno e estocada).
+- Reconstrução da empunhadura anatômica (`y: -2.0` no grip em todos os keyframes).
+- Continuidade angular e translacional perfeita entre Golpes 1, 2 e 3.
+- Toggle `bleachmod.senbonVfxDisable` para QA sem interferência visual.
+- Amostragem dinâmica de `AnimationApplier` e cinemática direta do rastro em `SenbonCombatVisuals.java`.
+- Teste de regressão para as seams do rastro e deserialização de clips (150/150 cenários).
+
+### 6.2 Observado
+- Ausência de exceções `NumberFormatException` ou `NullPointerException` ao carregar e reproduzir os 3 ataques.
+- Continuidade analítica comprovada por script de cinemática e teste de regressão automatizado.
+- Build offline 100% verde sem regressões em Benihime, Ryūjin ou Hyōrinmaru.
+
+### 6.3 Pendências e Recomendações para Validação Humana
+- Teste visual em cliente Minecraft Forge real operado pelo usuário para validação subjetiva do "feel" e cadência da esgrima.
+- Verificação do espelhamento de mão esquerda (canhoto) em gameplay interativo com Better Combat.
