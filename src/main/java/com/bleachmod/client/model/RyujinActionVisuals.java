@@ -49,17 +49,11 @@ public final class RyujinActionVisuals {
             if(part.equals("body"))return mix(value,pose.body(),w);
             if(part.equals(sign>0?"rightLeg":"leftLeg"))return mix(value,pose.leg(),w);
             if(part.equals(sign>0?"leftLeg":"rightLeg"))return mix(value,pose.leg().multiply(-1,1,-1),w);
-            if(item){
-                Vec3 r = pose.item().lengthSqr() > 1e-6 ? pose.item() : pose.handRotation();
-                return mix(value, r, w);
-            }
+            if(item)return mix(value,pose.item(),w);
         }
         if(type==TransformType.BEND && (arm||support))return mix(value,new Vec3(0,arm && Math.abs(pose.arm().x)>2?.35:.1,0),w);
         if(type==TransformType.POSITION){
-            if(item){
-                Vec3 pos = pose.handPosition();
-                return mix(value, pos, w);
-            }
+            if(item)return mix(value,Vec3.ZERO,w);
             if(part.equals("body"))return new Vec3f(value.getX(),value.getY()+Math.abs((float)pose.leg().x)*.8F*w,value.getZ());
         }
         return value;

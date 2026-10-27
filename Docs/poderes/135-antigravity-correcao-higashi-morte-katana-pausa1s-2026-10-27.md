@@ -1,4 +1,4 @@
-# 135 — Correção Higashi: Morte Visual, Katana Vinculada e Pausa de 1s
+# 135 — Correção Higashi: Morte Visual, Katana Vinculada e Pausa de 1s (Revisão Técnica Codex)
 
 **Data:** 27/10/2026  
 **Frente:** Antigravity (Higashi Execution Visuals & Choreography)  
@@ -7,63 +7,66 @@
 
 ---
 
-## 1. Contexto e Diagnóstico do Vídeo 27/10 075349
+## 1. Contexto, Auditoria do Vídeo 27/10 075349 e Revisão Codex
 
-O teste em vídeo revelou anomalias na apresentação visual da execução de **Higashi: Kyokujitsujin**:
-1. **Entrada de câmera tardia / corte invisível:** O relógio da pose em `HigashiExecutionVisuals.accept()` subtraía `HigashiCinematicPath.IMPACT` (12 ticks), fazendo a cena iniciar já no corte final, suprimindo a preparação (ticks 0 a 10) e a aproximação visível.
-2. **Katana estática ("braço mexendo com espada parada"):** Em `RyujinActionVisuals.transform()`, a rotação do osso `"rightItem"` verificava apenas `pose.item()`. Como as poses autorais de Higashi (`higashiHip`, `higashiCross`, `higashiEnd`) definiam `item = Vec3.ZERO` e orientavam a espada via rotação do punho (`pose.handRotation()`), o PlayerAnimator forçava a katana à rotação base (0, 0, 0), desvinculando-a do movimento da mão.
-3. **Fogo vanilla antecipado:** Em `ElementalTechniqueService.hit()`, chamava-se `target.setSecondsOnFire(4)` no início do impacto, gerando o billboard vertical de chamas de Minecraft antes da incineração do efeito.
-4. **Morte vanilla (queda lateral de 90° e puff de fumaça branca):** Ao morrer, o servidor enviava o status de entidade 3 (`handleEntityEvent(3)`), que incrementava `deathTime`, disparando a rotação de 90° (`Axis.ZP`) típica da morte vanilla. O evento 60 disparava o puff padrão de fumaça branca de morte de mob.
-5. **Sumiço abrupto do alvo ("pop"):** O renderer alternativo `silhouette` cortava bruscamente a malha aos 6 ticks após `IGNITE`, fazendo o corpo desaparecer subitamente enquanto partículas ainda estavam ativas.
+A auditoria do vídeo 27/10 075349 e a revisão técnica do Codex apontaram pontos cruciais que exigiram alinhamento rigoroso entre especificação, código e testes:
+
+1. **Apresentação do Alvo e Fade-out Honesto:**
+   - O relatório anterior mencionava fade-out gradual, porém a implementação apenas interrompia o renderer da silhueta aos 12 ticks após `IGNITE`.
+   - Agora, foi implementada uma transição real: durante os 12 ticks pós-`IGNITE` (ticks 36 a 48), `AlphaTintVertexConsumer` intercepta os vértices do modelo, redirecionando o render para `RenderType.entityTranslucent(texture)` com interpolação contínua de alpha ($1.0 \rightarrow 0.0$) e escurecimento RGB (efeito de queima/carvão residual) até desaparecer por completo aos 48 ticks.
+   - A silhueta foi desacoplada da entidade do mundo: cria-se uma réplica de renderização cliente (`living.getType().create(mc.level)`) com cópia de rotações, pitch, yaw e armaduras/itens empunhados. Como essa entidade nunca é inserida no mundo (`addFreshEntity`), ela não sofre ticks de rede, remoção prematura pelo servidor, queda lateral vanilla de 90° (`deathTime = 0`) nem billboard de chamas vanilla (`remainingFireTicks = 0`, `clearFire()`).
+   - Entidades sem suporte a instanciação dinâmica no cliente (ex.: Players) contam com fallback seguro usando o ponteiro original com as mesmas travas de proteção de `deathTime` e `fireTicks`. Se a entidade for nula, o fallback omite a silhueta preservando áudio, partículas, câmera e controle.
+
+2. **Preservação do Comportamento de Combate e Fogo:**
+   - A supressão indevida de `setSecondsOnFire` para toda a técnica `higashi` em `ElementalTechniqueService.hit()` foi revertida.
+   - Alvos sobreviventes a golpes de Higashi recebem normalmente seus 4 segundos de fogo vanilla (em Bankai).
+   - Apenas alvos de execução confirmada (seja por $\le 7\%$ HP ou morte normal autoritativa confirmada por `!t.isAlive()`) têm o fogo omitido e transicionado exclusivamente pela cinemática autoral.
+   - Golpes cancelados, aliados, alvos invulneráveis ou protegidos por Totem of Undying nunca autorizam execução.
+
+3. **Restrição Estrita da Katana ao Contexto de Higashi:**
+   - `RyujinActionVisuals.transform` foi restaurado integralmente ao seu comportamento original para não causar efeitos colaterais globais em outros consumidores (`RyujinBankaiEntranceClient`, `ElementalActionVisuals`, `SignatureActionVisuals`, `ZanpakutoReleaseAnimation`).
+   - A orientação e translação da katana via `handRotation()` e `handPosition()` foram isoladas exclusivamente na classe interna `HigashiExecutionVisuals.Animation.get3DTransform`.
+   - Trajetória autoral verificada em 4 estágios:
+     - **Quadril (0..10 ticks):** Recolhimento ao quadril (`higashiHip`).
+     - **Corte ascendente (10..16 ticks):** Movimento diagonal de baixo para cima (`higashiCross` $\rightarrow$ `higashiEnd`).
+     - **Atravessamento (16 ticks):** Lâmina estendida e apontada à frente e para cima atravessando a posição do alvo.
+     - **Pose sustentada (16..36 ticks):** Braço e katana retidos estáticos durante a pausa de exatamente 20 ticks (1,0s).
+
+4. **Replay Completo e Câmera Lateral Estável:**
+   - O relógio de apresentação inicia em `now`, garantindo visibilidade do preparo e do corte.
+   - Faíscas e micro-chamas na lâmina ocorrem estritamente entre os ticks 10 e 16.
+   - Câmera lateral avalia os flancos esquerdo/direito na inicialização via raycast e mantém o lado selecionado (`sideSign`) travado durante todo o corte, sem inversão de 180°.
+   - Prevenção contra clipping em paredes: raycast aproxima a câmera e, se o espaço útil for $< 1.2$m, desativa a cinemática de forma segura sem prender o jogador.
+   - Apenas o executor tem a câmera acionada (`mc.player.getId() == m.owner()`); observadores mantêm sua visão intacta.
+   - Tolerância de 4 ticks para descartar teclas residuais mantidas no instante do clique de ataque.
+
+5. **Pausa Aprovada de 1s (20 Ticks Nominais):**
+   - Cronograma unificado:
+     - `0..10`: Preparação e recuo ao quadril.
+     - `10..16`: Corte diagonal com faíscas.
+     - `16..36`: Pausa dramática exata de 20 ticks (1,0 segundo a 20 TPS), alvo congelado e espada transpassada.
+     - `36`: Ignição / incineração com som Blaze Death e efeito Photon.
+     - `36..48`: Dissolução gradual da silhueta em cinzas via `AlphaTintVertexConsumer`.
+     - `48..68`: Dispersão de cinzas e fumaça; aos 68 ticks, restauração limpa da câmera, FOV, HUD e controles.
 
 ---
 
-## 2. Soluções Implementadas em 3 Fases / Commits
+## 2. Matriz de Compatibilidade e Preservação
 
-### Commit 1 (`72d3315`): Apresentação Estável do Alvo e Supressão de Morte Vanilla
-- **`ElementalTechniqueService.java`:**
-  - Suprimido o `setSecondsOnFire(4)` para a técnica `higashi`, evitando chamas verticais vanilla antes ou durante a execução.
-- **`HigashiDeathParticleMixin.java`:**
-  - Interceptação de eventos do cliente expandida: cancela tanto o evento 60 (puff de fumaça de morte) quanto o evento 3 (status de morte vanilla que deita a entidade lateralmente) enquanto `HigashiExecutionVisuals.isExecuting(id)` estiver ativo.
-- **`HigashiExecutionVisuals.java`:**
-  - `isExecuting(id)` cobre todo o ciclo de vida da execução (`< END`).
-  - `hideIncinerated()` suprime a renderização padrão de `LivingEntityRenderer` e limpa continuamente o fogo do alvo.
-  - `silhouette()` preserva a malha congelada e ereta na pose exata do impacto até o momento da incineração (`IGNITE`), aplicando um fade out gradual de alpha (1.0 -> 0.0) durante 12 ticks após `IGNITE` em perfeita sincronia com a dispersão das cinzas do Photon/partículas.
-
-### Commit 2 (`fc8a76a`): Katana Vinculada, Replay Autoral e Câmera Lateral Estável
-- **`RyujinActionVisuals.java`:**
-  - Vinculado o canal de item (`"rightItem"`) para assumir `pose.handRotation()` e `pose.handPosition()` quando `pose.item()` for neutro. Assim, a katana acompanha fidedignamente o punho, corte e bainha autorais em todo o arco.
-  - Método `world()` tornado package-private para cálculo de coordenadas de partículas na lâmina.
-- **`HigashiExecutionVisuals.java`:**
-  - Relógio de apresentação em `accept()` ajustado para iniciar em `now`, garantindo replay visual completo da preparação, corte ascendente e passagem da lâmina.
-  - Efeito de faíscas e micro-chamas (`ELECTRIC_SPARK` e `SMALL_FLAME`) emitido ao longo da lâmina durante a passagem do corte (ticks 10 a 16).
-  - Câmera lateral travada: a seleção de flanco esquerdo/direito é realizada uma única vez em `accept()` avaliando desobstrução de colisão por raycast, evitando inversões bruscas de 180° durante o golpe.
-  - Proteção contra toque involuntário de teclado: descarte por teclas de movimento/ataque só é habilitado após `age > 4`.
-
-### Commit 3: Timing da Pausa Dramática de 1s (20 Ticks), Cinemática e Testes
-- **`HigashiCinematicPath.java`:**
-  - `IGNITE = SLASH_END + 20` (36 ticks nominais: exatamente 1,0 segundo a 20 TPS pós-corte).
-  - `END = IGNITE + 32` (68 ticks nominais: dispersão completa de cinzas e liberação limpa de controle).
-- **`RyujinChoreography.java`:**
-  - A coreografia autoral referencia dinamicamente `HigashiCinematicPath.IGNITE`, retendo a pose estática do corpo e da espada transversal exatamente durante esse 1,0 segundo (ticks 16 a 36), antes de retornar a neutral aos 68 ticks.
-- **`HigashiExecutionGameTests.java`:**
-  - Atualizado o teste de timing para `cinematicHoldsForOneSecondAfterBladePassesAndReturnsAfterAsh`, verificando `IGNITE - SLASH_END == 20` e retenção da pose autoral até tick 35.
-
----
-
-## 3. Matriz de Preservação e Compatibilidade
-
-| Componente | Estado | Verificação |
+| Módulo / Frente | Estado | Garantia |
 |---|---|---|
-| **Hyōrinmaru** | Aprovada / Intocada | Modelos, rig, animações e gerador mantidos idênticos à entrega homologada. |
-| **Ryūjin Bankai (12s)** | Aprovada / Intocada | Base solar, fumaça/cinzas helicoidais, áudio e duração preservados. |
-| **Senbonzakura** | Intocada | Sem alterações de assets ou classes exclusivas da branch Senbon. |
-| **Benihime & Zaraki** | Intocadas | Nenhuma alteração de identidade ou lógica de combate. |
-| **MvpRegressionTest** | 100% Passando | 149 cenários de regressão executados com sucesso (0 falhas). |
+| **Hyōrinmaru** | Aprovada / Intocada | Modelos, rig, animações e geradores intocados. |
+| **Ryūjin Bankai (12s)** | Aprovada / Intocada | Base solar, fumaça helicoidal, áudio e duração preservados. |
+| **Senbonzakura** | Intocada | Nenhum arquivo compartilhado alterado; pronto para merge limpo. |
+| **Benihime & Zaraki** | Intocadas | Lógica e assets preservados. |
+| **Combate Geral Ryūjin** | Intocado | `RyujinActionVisuals.transform` restaurado; sem efeito em outros ataques. |
+| **MvpRegressionTest** | 100% Passando | 149 cenários aprovados, 0 falhas. |
 
 ---
 
-## 4. Evidências de Validação
+## 3. Validação Técnica e Evidências
 
-- `git status --short --branch`: limpo em `codex/ryujin-bankai-sol-selamento`.
-- `./gradlew check build --offline`: Sucesso com todas as suites de testes aprovadas e JAR gerado.
+- Compilação limpa (`./gradlew compileJava --offline`).
+- Suíte completa de testes (`./gradlew check build --offline`).
+- GameTests de Higashi (`HigashiExecutionGameTests`) aprovados.
+- Teste manual em cliente Forge real: Declarado pendente para homologação visual interativa pelo usuário ou ambiente com display real, mantendo rigor técnico sobre evidências de renderização.
