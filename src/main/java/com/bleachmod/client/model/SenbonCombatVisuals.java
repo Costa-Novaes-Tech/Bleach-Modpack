@@ -83,6 +83,11 @@ public final class SenbonCombatVisuals {
         if (mc.isPaused() || lastClientTick == mc.level.getGameTime()) return;
         lastClientTick = mc.level.getGameTime();
 
+        if (Boolean.getBoolean("bleachmod.senbonVfxDisable")) {
+            SWINGS.clear();
+            return;
+        }
+
         // Expire finished swings
         SWINGS.values().removeIf(s -> lastClientTick - s.startTick() >= SWING_DURATION);
         PREVIOUS_POSITIONS.keySet().removeIf(id -> mc.level.getEntity(id) == null);
