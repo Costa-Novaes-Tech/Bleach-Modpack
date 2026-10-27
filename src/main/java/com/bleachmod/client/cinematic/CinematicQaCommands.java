@@ -81,7 +81,7 @@ public final class CinematicQaCommands {
         for(var entity:p.serverLevel().getEntitiesOfClass(Mob.class,p.getBoundingBox().inflate(80),
                 m->m.getPersistentData().hasUUID(TARGET)&&m.getPersistentData().getUUID(TARGET).equals(p.getUUID())))entity.discard();
         var center = p.blockPosition();
-        for(var pos : net.minecraft.core.BlockPos.betweenClosed(center.offset(-8,-2,-8), center.offset(8,4,8))) {
+        for(var pos : net.minecraft.core.BlockPos.betweenClosed(center.offset(-12,-4,-12), center.offset(12,6,12))) {
             if(p.serverLevel().getBlockState(pos).is(net.minecraft.world.level.block.Blocks.FIRE)) {
                 p.serverLevel().removeBlock(pos, false);
             }

@@ -31,7 +31,6 @@ public final class ElementalTechniqueService {
     }
     private static final Map<UUID,List<Cast>> CASTS=new HashMap<>();
     private static final Map<UUID,Long> CONTROL_RECOVERY=new HashMap<>();
-    private static final ThreadLocal<Cast> ACTIVE_CAST=new ThreadLocal<>();
     private static final class Cast {
         final ServerPlayer owner;final String identity,form,kind;final Vec3 origin,forward;final long start;
         final int slot,duration,gesture;final double radius;final Set<UUID> hits=new HashSet<>(),controlled=new HashSet<>();
@@ -150,8 +149,6 @@ public final class ElementalTechniqueService {
         IceControlService.chill(c.owner,t,resistant?Math.min(20,ticks):ticks,resistant?1:3,c.slot);
     }
     private static void effect(Cast c){
-        ACTIVE_CAST.set(c);
-        try {
             int age=c.age();var p=c.owner;
             switch(c.kind){
             case "front_cut","wide_cut","sealed_cut","sealed_sweep","higashi"->{
@@ -176,9 +173,24 @@ public final class ElementalTechniqueService {
                     if(t==execution){c.hits.add(t.getUUID());cinematicKill=HigashiExecutionService.execute(p,t);}
                     else {
                         var position=t.position();float width=t.getBbWidth(),height=t.getBbHeight();
-                        boolean dealt=hit(c,t,c.kind.equals("higashi")?16:3,true);
-                        if(c.kind.equals("higashi")&&dealt&&!t.isAlive()&&!cinematicKill){
-                            HigashiExecutionService.confirmedDeath(p,t,position,width,height);cinematicKill=true;
+                        if(c.kind.equals("higashi")){
+                            HigashiExecutionService.sendHint(p,t,position,width,height);
+                        }
+                        try {
+                            boolean dealt=hit(c,t,c.kind.equals("higashi")?16:3,true);
+                            if(c.kind.equals("higashi")){
+                                boolean finalDead=dealt&&!t.isAlive()&&!cinematicKill&&!t.getPersistentData().getBoolean("bleachmod_death_canceled_transient");
+                                if(finalDead){
+                                    HigashiExecutionService.confirmedDeath(p,t,position,width,height);
+                                    cinematicKill=true;
+                                } else {
+                                    HigashiExecutionService.cancelHint(p,t);
+                                }
+                            }
+                        } finally {
+                            if(c.kind.equals("higashi")){
+                                t.getPersistentData().remove("bleachmod_death_canceled_transient");
+                            }
                         }
                     }
                 }
@@ -238,9 +250,6 @@ public final class ElementalTechniqueService {
             }
             case "minami"->army(c);
         }
-        } finally {
-            ACTIVE_CAST.remove();
-        }
     }
     private static boolean groundConnected(Cast c,LivingEntity target){
         Vec3 end=new Vec3(target.getX(),c.origin.y,target.getZ());double distance=end.distanceTo(c.origin);if(distance>36)return false;
@@ -290,11 +299,10 @@ public final class ElementalTechniqueService {
     }
     @SubscribeEvent public static void tick(TickEvent.ServerTickEvent e){if(e.phase==TickEvent.Phase.END)for(var list:new ArrayList<>(CASTS.values()))if(!list.isEmpty())tick(list.get(0).owner);}
     @SubscribeEvent public static void logout(net.minecraftforge.event.entity.player.PlayerEvent.PlayerLoggedOutEvent e){if(e.getEntity() instanceof ServerPlayer p)cancel(p);}
-    @SubscribeEvent public static void higashiDeath(LivingDeathEvent e){
-        Cast c = ACTIVE_CAST.get();
-        if(c != null && c.kind.equals("higashi") && e.getEntity() != null && e.getEntity().level() instanceof net.minecraft.server.level.ServerLevel){
-            LivingEntity target = e.getEntity();
-            HigashiExecutionService.confirmedDeath(c.owner, target, target.position(), target.getBbWidth(), target.getBbHeight());
+    @SubscribeEvent(priority = net.minecraftforge.eventbus.api.EventPriority.LOWEST, receiveCanceled = true)
+    public static void onLivingDeathLowest(LivingDeathEvent e){
+        if(e.getEntity()!=null && e.isCanceled()){
+            e.getEntity().getPersistentData().putBoolean("bleachmod_death_canceled_transient",true);
         }
     }
     @SubscribeEvent public static void ashDeath(LivingDeathEvent e){

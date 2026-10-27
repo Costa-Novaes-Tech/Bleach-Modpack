@@ -83,6 +83,9 @@ public final class CinematicQaSequence {
         int targetId = com.bleachmod.client.model.HigashiExecutionVisuals.currentBurnTarget();
         boolean origPresent = targetId >= 0 && com.bleachmod.client.model.HigashiExecutionVisuals.isOriginalPresent(targetId);
         boolean origSuppressed = targetId >= 0 && com.bleachmod.client.model.HigashiExecutionVisuals.isOriginalSuppressed(targetId);
+        boolean replicaVisible = targetId >= 0 && com.bleachmod.client.model.HigashiExecutionVisuals.isReplicaVisible(targetId);
+        boolean hintActive = targetId >= 0 && com.bleachmod.client.model.HigashiExecutionVisuals.isPendingTarget(targetId);
+        boolean confirmedActive = targetId >= 0 && com.bleachmod.client.model.HigashiExecutionVisuals.isExecuting(targetId);
         String phase;
         if(burnAge >= 0){
             phase = burnAge < 10 ? "DRAW" :
@@ -104,6 +107,11 @@ public final class CinematicQaSequence {
             metadata.addProperty("poseAge",poseAge);
             metadata.addProperty("burnAge",burnAge);
             metadata.addProperty("targetId",targetId);
+            metadata.addProperty("worldTick",mc.level.getGameTime());
+            metadata.addProperty("ownerId",mc.player.getId());
+            metadata.addProperty("hintActive",hintActive);
+            metadata.addProperty("confirmedActive",confirmedActive);
+            metadata.addProperty("replicaVisible",replicaVisible);
             metadata.addProperty("originalPresent",origPresent);
             metadata.addProperty("originalSuppressed",origSuppressed);
             row=metadata.toString()+System.lineSeparator();
