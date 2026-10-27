@@ -45,7 +45,7 @@ public final class ElementalActionVisuals {
         if(result.isEmpty())VIEWS.remove(owner);else{if(VIEWS.size()>=24 && !VIEWS.containsKey(owner))VIEWS.remove(VIEWS.keySet().iterator().next());VIEWS.put(owner,result);}
     }
     static float age(View v,float partial){return world==null?999:world.getGameTime()-v.start+partial;}
-    public static View gesture(AbstractClientPlayer p){if(world!=p.level() || !p.isAlive() || HigashiExecutionVisuals.isExecuting(p.getId()))return null;for(var v:VIEWS.getOrDefault(p.getId(),List.of()))if(age(v,0)<v.gesture)return v;return null;}
+    public static View gesture(AbstractClientPlayer p){if(world!=p.level() || !p.isAlive() || HigashiExecutionVisuals.isPerformingExecution(p.getId()))return null;for(var v:VIEWS.getOrDefault(p.getId(),List.of()))if(age(v,0)<v.gesture)return v;return null;}
     public static boolean busy(AbstractClientPlayer p){return gesture(p)!=null;}
     private static Vec3f mix(Vec3f a,float x,float y,float z,float w){return new Vec3f(Mth.lerp(w,a.getX(),x),Mth.lerp(w,a.getY(),y),Mth.lerp(w,a.getZ(),z));}
     private static final class Animation implements IAnimation {

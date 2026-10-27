@@ -52,7 +52,10 @@ public final class CinematicQaCommands {
                         &&Minecraft.getInstance().player!=null&&Minecraft.getInstance().player.hasPermissions(2))
                 .then(literal("higashi")
                         .then(literal("lethal").executes(c->request("lethal")))
+                        .then(literal("lethal_husk").executes(c->request("lethal_husk")))
+                        .then(literal("lethal_flying").executes(c->request("lethal_flying")))
                         .then(literal("threshold").executes(c->request("threshold")))
+                        .then(literal("threshold_real").executes(c->request("threshold_real")))
                         .then(literal("survive").executes(c->request("survive")))
                         .then(literal("miss").executes(c->request("miss"))))
                 .then(literal("benihime").executes(c->request("benihime")))
@@ -77,6 +80,12 @@ public final class CinematicQaCommands {
         var previous=PENDING.get(p.getUUID());if(previous!=null)cleanTask(p.getServer(),previous);
         for(var entity:p.serverLevel().getEntitiesOfClass(Mob.class,p.getBoundingBox().inflate(80),
                 m->m.getPersistentData().hasUUID(TARGET)&&m.getPersistentData().getUUID(TARGET).equals(p.getUUID())))entity.discard();
+        var center = p.blockPosition();
+        for(var pos : net.minecraft.core.BlockPos.betweenClosed(center.offset(-8,-2,-8), center.offset(8,4,8))) {
+            if(p.serverLevel().getBlockState(pos).is(net.minecraft.world.level.block.Blocks.FIRE)) {
+                p.serverLevel().removeBlock(pos, false);
+            }
+        }
         PENDING.remove(p.getUUID());
     }
     private static void cleanTask(net.minecraft.server.MinecraftServer server,Pending task) {
@@ -101,12 +110,19 @@ public final class CinematicQaCommands {
         p.setItemSlot(EquipmentSlot.MAINHAND,new ItemStack(ModItems.RYUJIN_JAKKA.get()));
         p.setItemSlot(EquipmentSlot.OFFHAND,ItemStack.EMPTY);
         p.teleportTo(p.serverLevel(),p.getX(),p.getY(),p.getZ(),0,0);
-        var target=EntityType.HUSK.create(p.serverLevel());if(target==null)return;
-        Vec3 at=p.position().add(scenario.equals("miss")?6:0,0,3);
+        boolean isThreshold = scenario.equals("threshold") || scenario.equals("threshold_real");
+        boolean isFlying = scenario.equals("lethal_flying");
+        boolean isSurvive = scenario.equals("survive");
+        boolean isMiss = scenario.equals("miss");
+        net.minecraft.world.entity.Mob target = isFlying ? com.bleachmod.registry.ModEntities.HOLLOW.get().create(p.serverLevel()) : EntityType.HUSK.create(p.serverLevel());if(target==null)return;
+        if(target instanceof com.bleachmod.entity.HollowEntity hollow)hollow.setVariant(com.bleachmod.entity.HollowVariant.FLYING);
+        Vec3 at=p.position().add(isMiss?6:0,0,3);
         target.setPos(at);target.setYRot(180);target.setNoAi(true);target.setNoGravity(true);target.setPersistenceRequired();
         target.getAttribute(Attributes.ARMOR).setBaseValue(0);
-        target.getAttribute(Attributes.MAX_HEALTH).setBaseValue((scenario.equals("survive")||scenario.equals("miss"))?1000:scenario.equals("threshold")?100:20);
-        target.setHealth((scenario.equals("survive")||scenario.equals("miss"))?1000:scenario.equals("threshold")?7:10);
+        float maxHealth = (isSurvive||isMiss)?1000:(isThreshold?100:20);
+        float currentHealth = (isSurvive||isMiss)?1000:(isThreshold?7:10);
+        target.getAttribute(Attributes.MAX_HEALTH).setBaseValue(maxHealth);
+        target.setHealth(currentHealth);
         target.getPersistentData().putUUID(TARGET,p.getUUID());
         if(!p.level().noCollision(target,target.getBoundingBox())||!p.serverLevel().addFreshEntity(target))return;
         SyncHelper.full(p);SyncHelper.appearance(p);

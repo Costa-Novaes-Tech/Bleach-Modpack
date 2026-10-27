@@ -31,6 +31,7 @@ public final class ElementalTechniqueService {
     }
     private static final Map<UUID,List<Cast>> CASTS=new HashMap<>();
     private static final Map<UUID,Long> CONTROL_RECOVERY=new HashMap<>();
+    private static final ThreadLocal<Cast> ACTIVE_CAST=new ThreadLocal<>();
     private static final class Cast {
         final ServerPlayer owner;final String identity,form,kind;final Vec3 origin,forward;final long start;
         final int slot,duration,gesture;final double radius;final Set<UUID> hits=new HashSet<>(),controlled=new HashSet<>();
@@ -148,8 +149,11 @@ public final class ElementalTechniqueService {
         boolean resistant=t instanceof net.minecraft.world.entity.player.Player || t.getMaxHealth()>=100;
         IceControlService.chill(c.owner,t,resistant?Math.min(20,ticks):ticks,resistant?1:3,c.slot);
     }
-    private static void effect(Cast c){int age=c.age();var p=c.owner;
-        switch(c.kind){
+    private static void effect(Cast c){
+        ACTIVE_CAST.set(c);
+        try {
+            int age=c.age();var p=c.owner;
+            switch(c.kind){
             case "front_cut","wide_cut","sealed_cut","sealed_sweep","higashi"->{
                 if(c.kind.equals("higashi")&&age>=8&&age<=11){
                     // Short planted approach, bounded by collision and the original cast frame.
@@ -234,6 +238,9 @@ public final class ElementalTechniqueService {
             }
             case "minami"->army(c);
         }
+        } finally {
+            ACTIVE_CAST.remove();
+        }
     }
     private static boolean groundConnected(Cast c,LivingEntity target){
         Vec3 end=new Vec3(target.getX(),c.origin.y,target.getZ());double distance=end.distanceTo(c.origin);if(distance>36)return false;
@@ -283,6 +290,13 @@ public final class ElementalTechniqueService {
     }
     @SubscribeEvent public static void tick(TickEvent.ServerTickEvent e){if(e.phase==TickEvent.Phase.END)for(var list:new ArrayList<>(CASTS.values()))if(!list.isEmpty())tick(list.get(0).owner);}
     @SubscribeEvent public static void logout(net.minecraftforge.event.entity.player.PlayerEvent.PlayerLoggedOutEvent e){if(e.getEntity() instanceof ServerPlayer p)cancel(p);}
+    @SubscribeEvent public static void higashiDeath(LivingDeathEvent e){
+        Cast c = ACTIVE_CAST.get();
+        if(c != null && c.kind.equals("higashi") && e.getEntity() != null && e.getEntity().level() instanceof net.minecraft.server.level.ServerLevel){
+            LivingEntity target = e.getEntity();
+            HigashiExecutionService.confirmedDeath(c.owner, target, target.position(), target.getBbWidth(), target.getBbHeight());
+        }
+    }
     @SubscribeEvent public static void ashDeath(LivingDeathEvent e){
         if(e.getEntity().getPersistentData().getBoolean(ASH) && e.getEntity().level() instanceof net.minecraft.server.level.ServerLevel level){
             var mob=e.getEntity();level.sendParticles(ParticleTypes.ASH,mob.getX(),mob.getY()+1,mob.getZ(),14,.25,.6,.25,.025);

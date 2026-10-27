@@ -15,5 +15,14 @@ public record HigashiExecutionS2C(int owner,int target,Vec3 attacker,Vec3 victim
     private static boolean finite(Vec3 v){return Double.isFinite(v.x+v.y+v.z)&&Math.abs(v.x)<3e7&&Math.abs(v.z)<3e7&&Math.abs(v.y)<4096;}
     public static void encode(HigashiExecutionS2C m,FriendlyByteBuf b){b.writeVarInt(m.owner);b.writeVarInt(m.target);for(var p:new Vec3[]{m.attacker,m.victim}){b.writeDouble(p.x);b.writeDouble(p.y);b.writeDouble(p.z);}b.writeFloat(m.width);b.writeFloat(m.height);b.writeBoolean(m.confirmed);}
     public static HigashiExecutionS2C decode(FriendlyByteBuf b){return new HigashiExecutionS2C(b.readVarInt(),b.readVarInt(),new Vec3(b.readDouble(),b.readDouble(),b.readDouble()),new Vec3(b.readDouble(),b.readDouble(),b.readDouble()),b.readFloat(),b.readFloat(),b.readBoolean());}
-    public static void handle(HigashiExecutionS2C m,Supplier<NetworkEvent.Context> supplier){var c=supplier.get();c.enqueueWork(()->{if(m.valid())DistExecutor.unsafeRunWhenOn(Dist.CLIENT,()->()->com.bleachmod.client.model.HigashiExecutionVisuals.accept(m));});c.setPacketHandled(true);}
+    public static void handle(HigashiExecutionS2C m,Supplier<NetworkEvent.Context> supplier){
+        var c=supplier.get();
+        if(m.startsExecution()){
+            DistExecutor.unsafeRunWhenOn(Dist.CLIENT,()->()->com.bleachmod.client.model.HigashiExecutionVisuals.notePendingTarget(m.target()));
+        }
+        c.enqueueWork(()->{
+            if(m.valid())DistExecutor.unsafeRunWhenOn(Dist.CLIENT,()->()->com.bleachmod.client.model.HigashiExecutionVisuals.accept(m));
+        });
+        c.setPacketHandled(true);
+    }
 }

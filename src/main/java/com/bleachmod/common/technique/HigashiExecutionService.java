@@ -22,6 +22,8 @@ public final class HigashiExecutionService {
     /** Called only after authoritative damage; surviving totems/cancelled damage never incinerate. */
     public static void confirmedDeath(ServerPlayer owner,LivingEntity target,net.minecraft.world.phys.Vec3 position,float width,float height){
         if(target.isAlive())return;
+        if(target.getPersistentData().getBoolean("bleachmod_higashi_confirmed"))return;
+        target.getPersistentData().putBoolean("bleachmod_higashi_confirmed",true);
         broadcast(owner,new HigashiExecutionS2C(owner.getId(),target.getId(),owner.position(),position,Math.min(16,width),Math.min(16,height)));
     }
     public static boolean execute(ServerPlayer owner,LivingEntity target){
