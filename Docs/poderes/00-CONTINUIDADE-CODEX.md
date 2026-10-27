@@ -1,5 +1,7 @@
 # Continuidade do projeto — leia primeiro
 
+**27/10 — [150: prioridade de eficiência e retenção](150-prioridade-eficiencia-limpeza-retencao-qa-2026-10-27.md):** item8 antecipado como frente transversal; QA ocupa2.098,99MiB/8.616arquivos no checkout. Planejar inventário, consolidação e retenção mínima após aceite, preservando provas de regressões abertas. Sem exclusão ou reescrita de histórico. Publicação da branch solicitada pelo usuário; conferir resultado no Git.
+
 **27/10 — [149: integração solicitada para teste](149-integracao-duas-frentes-para-teste-2026-10-27.md):** docs/provas preservadosf3e954d, Senbon834ae74 integradoec97869 e Higashibe46530 integrado18edea9, sem conflitos manuais. Check/build150regressões e237GameTests integrados aprovados; JAR0.2.0 gerado. Pendências148/katanaHG continuam visuais; usuário fará teste. Main intacta e sem push.
 
 **27/10 — [148: conferência independente dos pacotes AG](148-conferencia-realidade-e-limites-qa-antigravity-2026-10-27.md):** execução real confirmada: Senbon211hashes/197PNGs idênticos aos originais; Higashi71PNGs/9hashes fontes e237GameTests no log original. Visual ainda parcial: comparativosSenbon selecionam fases diferentes; telemetriaHigashi só identifica vítima apósBURNS e não cobre hint anterior; katanaHG segue pendente. Sem merge/reexecução nesta auditoria.
