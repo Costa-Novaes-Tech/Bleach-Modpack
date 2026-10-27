@@ -284,7 +284,7 @@ public final class MvpRegressionTest {
             }
         });
         test("Benihime Better Combat animations parse as finite original fencing motions",()->{
-            for(String name:List.of("benihime_thrust","benihime_thrust_2","benihime_slash")){
+            for(String name:List.of("benihime_thrust","benihime_thrust_2","benihime_slash","senbonzakura_diagonal","senbonzakura_return","senbonzakura_thrust")){
                 try(var reader=java.nio.file.Files.newBufferedReader(java.nio.file.Path.of("src/main/resources/assets/bleachmod/attack_animations/"+name+".json"))){
                     var animations=dev.kosmx.playerAnim.core.data.gson.AnimationSerializing.deserializeAnimation(reader);
                     eq(1,animations.size());var animation=animations.get(0);yes(animation.getPart("rightArm").isEnabled());yes(animation.getPart("rightItem").isEnabled());yes(animation.getPart("body").isEnabled());yes(!animation.isInfinite());eq(20,animation.endTick);
@@ -1043,6 +1043,29 @@ public final class MvpRegressionTest {
             yes(com.bleachmod.common.visual.SenbonGeometry.inside(center,center.add(10,0,0),10,3));
             yes(!com.bleachmod.common.visual.SenbonGeometry.inside(center,center.add(10.01,0,0),10,3));
             yes(!com.bleachmod.common.visual.SenbonGeometry.inside(center,center.add(0,3.01,0),10,3));
+        });
+        test("Senbon melee trail positions match sword kinematics and combo seams seamlessly", () -> {
+            for (float sign : new float[]{1.0F, -1.0F}) {
+                var h0_end = com.bleachmod.client.model.SenbonCombatVisuals.sampleHand(0, 1.0F, sign);
+                var t0_end = com.bleachmod.client.model.SenbonCombatVisuals.sampleTip(0, 1.0F, sign);
+                var h1_start = com.bleachmod.client.model.SenbonCombatVisuals.sampleHand(1, 0.0F, sign);
+                var t1_start = com.bleachmod.client.model.SenbonCombatVisuals.sampleTip(1, 0.0F, sign);
+                yes(h0_end.distanceToSqr(h1_start) < 1e-6);
+                yes(t0_end.distanceToSqr(t1_start) < 1e-6);
+
+                var h1_end = com.bleachmod.client.model.SenbonCombatVisuals.sampleHand(1, 1.0F, sign);
+                var t1_end = com.bleachmod.client.model.SenbonCombatVisuals.sampleTip(1, 1.0F, sign);
+                var h2_start = com.bleachmod.client.model.SenbonCombatVisuals.sampleHand(2, 0.0F, sign);
+                var t2_start = com.bleachmod.client.model.SenbonCombatVisuals.sampleTip(2, 0.0F, sign);
+                yes(h1_end.distanceToSqr(h2_start) < 1e-6);
+                yes(t1_end.distanceToSqr(t2_start) < 1e-6);
+
+                var h2_end = com.bleachmod.client.model.SenbonCombatVisuals.sampleHand(2, 1.0F, sign);
+                var t2_end = com.bleachmod.client.model.SenbonCombatVisuals.sampleTip(2, 1.0F, sign);
+                yes(Math.abs(h2_end.x - t2_end.x) < 1e-6);
+                yes(Math.abs(h2_end.y - t2_end.y) < 1e-6);
+                yes(t2_end.z > h2_end.z + 1.0);
+            }
         });
         test("Senbon identity and independent mastery survive save",()->{
             var d=player();d.getCharacter().bindZanpakuto("senbonzakura");d.getCharacter().setMastery("zanpakuto","shikai",43);
