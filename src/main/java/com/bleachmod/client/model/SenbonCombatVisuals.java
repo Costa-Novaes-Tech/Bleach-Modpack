@@ -135,7 +135,7 @@ public final class SenbonCombatVisuals {
             float sign = player.getMainArm() == HumanoidArm.RIGHT ? 1.0F : -1.0F;
             Vec3 forward = SenbonGeometry.forward(player.getYRot());
             Vec3 left = SenbonGeometry.left(forward);
-            Vec3 dominantRight = left.scale(-sign);
+            Vec3 dominantRight = left.scale(-1);
 
             // Calculate blade hand and tip based on our reconstructed choreographies
             Vec3 localHand, localTip;

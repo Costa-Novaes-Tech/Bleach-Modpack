@@ -35,7 +35,7 @@
    - `src/main/resources/assets/bleachmod/player_animation/senbonzakura_thrust.json`
    - Cadência unificada `8-20-30-2`, empunhadura a uma mão, mão livre no quadril esquerdo para contrabalanço nobre, transições anatômicas contínuas sem teleporte ou saltos entre os três golpes.
 2. **Rastros Dinâmicos Ancorados à Lâmina e Remoção do ARC Legado:**
-   - `src/main/java/com/bleachmod/client/model/SenbonCombatVisuals.java`: classe de amostragem contínua da espada (base, 1/3, 2/3 e ponta), com orçamento gráfico (12/6/3 partículas), atenuação em primeira pessoa (50%), culling por distância (48 blocos) e corte imediato de fita em teleporte (> 4 blocks).
+   - `src/main/java/com/bleachmod/client/model/SenbonCombatVisuals.java`: classe de amostragem contínua da espada (base, 1/3, 2/3 e ponta), com orçamento gráfico (12/6/3 partículas), atenuação em primeira pessoa (50%), culling por distância (48 blocos) e corte imediato de fita em teleporte (> 4 blocos).
    - `src/main/java/com/bleachmod/common/compat/BetterCombatCompat.java`: substituição do antigo pacote estático `SenbonPetalsS2C.ARC` na linha 43 pelo evento dinâmico leve `SenbonPetalsS2C.AURA` associado ao índice do combo.
    - `src/main/java/com/bleachmod/client/compat/BetterCombatClientCompat.java` e `src/main/java/com/bleachmod/client/particle/SenbonPetalEffects.java`: despacho seguro do evento visual no cliente.
 3. **Evidências Fotográficas do Cliente Real (46 PNGs capturados):**
