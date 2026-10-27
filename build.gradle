@@ -99,6 +99,7 @@ minecraft {
                 workingDirectory project.file('run/hollow-qa/aerial')
                 property 'bleachmod.hollowQa', 'true'
                 property 'bleachmod.hollowQaExit', providers.gradleProperty('hollowQaExit').getOrElse('false')
+                property 'bleachmod.hollowGaitQa', providers.gradleProperty('hollowGaitQa').getOrElse('false')
                 args '--width', '1280', '--height', '720'
             }
             if (providers.gradleProperty('benihimeQa').map { it.toBoolean() }.getOrElse(false)) {

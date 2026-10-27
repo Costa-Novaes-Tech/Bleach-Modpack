@@ -56,6 +56,10 @@ public final class HollowQaBootstrap {
             mc.getToasts().clear();
             moveCamera(.5, 2.1, 13.5, .5, 1.8, .5);
         }
+        if (Boolean.getBoolean("bleachmod.hollowGaitQa")) {
+            gaitTick();
+            return;
+        }
         if (ticks == 100) capture = "01-front";
         if (ticks == 130) moveCamera(.5, 2.2, -12.5, .5, 1.8, .5);
         if (ticks == 190) capture = "02-rear";
@@ -78,6 +82,42 @@ public final class HollowQaBootstrap {
         if (ticks >= 880 && ticks <= 1600 && ticks % 2 == 0) capture = "flight-" + ticks;
         if (ticks == 1620) com.mojang.logging.LogUtils.getLogger().info("Hollow aerial QA complete: {}", evidence);
         if (ticks == 1660 && Boolean.getBoolean("bleachmod.hollowQaExit")) mc.stop();
+    }
+
+    /** Side/front/rear walking passes in the same fresh, development-only QA world. */
+    private static void gaitTick() {
+        var mc = Minecraft.getInstance();
+        if (ticks >= 40 && ticks <= 500) {
+            int frame = ticks;
+            var server = mc.getSingleplayerServer();
+            var uuid = mc.player.getUUID();
+            server.execute(() -> {
+                var player = server.getPlayerList().getPlayer(uuid);
+                if (player == null) return;
+                var level = player.serverLevel();
+                for (var entity : level.getAllEntities()) {
+                    if (!(entity instanceof com.bleachmod.entity.HollowEntity mob)
+                            || mob.getVariant() != com.bleachmod.entity.HollowVariant.BRUTE) continue;
+                    mob.setTarget(null);
+                    mob.setNoAi(false);
+                    if (frame % 20 == 0)
+                        mob.getNavigation().moveTo(-3.5, mob.getY(), mob.getZ() + 12, 1);
+                    double dx = frame < 200 ? 7 : frame < 350 ? 5 : -5;
+                    double dz = frame < 200 ? 0 : frame < 350 ? 6 : -6;
+                    double x = mob.getX() + dx, z = mob.getZ() + dz;
+                    float yaw = (float)Math.toDegrees(Math.atan2(dx, -dz));
+                    float pitch = (float)Math.toDegrees(Math.atan2(.4, Math.hypot(dx, dz)));
+                    player.teleportTo(level, x, mob.getY() + 2 - player.getEyeHeight(), z, yaw, pitch);
+                    player.getAbilities().flying = true;
+                    player.onUpdateAbilities();
+                    break;
+                }
+            });
+        }
+        if (ticks >= 80 && ticks <= 490 && ticks % 2 == 0)
+            capture = (ticks < 200 ? "gait-side-" : ticks < 350 ? "gait-front-" : "gait-rear-") + ticks;
+        if (ticks == 510) com.mojang.logging.LogUtils.getLogger().info("Hollow gait QA complete: {}", evidence);
+        if (ticks == 530 && Boolean.getBoolean("bleachmod.hollowQaExit")) mc.stop();
     }
 
     private static void startCombat(com.bleachmod.entity.HollowVariant variant, double elevation) {

@@ -176,15 +176,17 @@ def build_rig(variant):
                   (.6, 1.6 if i in [0, 5] else 1, .7), 3)
         for s, side in [(-1, "right"), (1, "left")]:
             x = s * 12
-            arm = r.bone(side + "_arm", (x, 36, .5), "chest", [-18, 0, s * 14])
+            # Counter the chest's 11-degree hunch so the upper arms hang under
+            # the shoulders. Slight outward clearance keeps the heavy hands off the hips.
+            arm = r.bone(side + "_arm", (x, 36, .5), "chest", [-11, 0, -s * 6])
             r.mass(arm, "deltoid", (x, 34.4, .5), (10, 10, 10), 0)
             r.mass(arm, "upper_arm", (x, 28.8, .5), (7, 12, 7), 1)
             r.box(arm, "shoulder_scute", (x - 4, 37, -2.7), (8, 2.1, 6), 4,
                   [0, 0, s * 16], [x, 38, .3])
-            lower = r.bone(side + "_arm_lower", (x, 23, .5), side + "_arm", [25, 0, 0])
+            lower = r.bone(side + "_arm_lower", (x, 23, .5), side + "_arm", [-12, 0, 0])
             r.mass(lower, "heavy_forearm", (x, 18.5, .5), (8.4 if s < 0 else 7.8, 10.7, 8), 0)
             r.box(lower, "forearm_tendon", (x - 1.5, 15, -4.1), (3, 7, 1.2), 1)
-            hand = r.bone(side + "_hand", (x, 13, .5), side + "_arm_lower", [-10, 0, 0])
+            hand = r.bone(side + "_hand", (x, 13, .5), side + "_arm_lower", [4, 0, 0])
             r.mass(hand, "palm", (x, 11.4, .2), (8, 4.5, 6), 2)
             for finger in range(3):
                 fx = x - 2.6 + finger * 2.2
@@ -347,9 +349,11 @@ def animations():
         walk[side + "_leg"] = {"rotation": [sine(speed, 19, phase), sine(speed, 2, phase), sign * 1.5]}
         walk[side + "_leg_lower"] = {"rotation": [f"math.max(0, math.sin(query.anim_time * {speed} + {phase + 35})) * 22 - 5", 0, 0]}
         walk[side + "_foot"] = {"rotation": [sine(speed, -13, phase + 15), 0, 0]}
-        walk[side + "_arm"] = {"rotation": [sine(speed, -10, phase - 22), sine(speed, 4, phase), sine(speed, sign * 2, phase - 30)]}
-        walk[side + "_arm_lower"] = {"rotation": [sine(speed, 7, phase - 58), 0, 0]}
-        walk[side + "_hand"] = {"rotation": [sine(speed, -6, phase - 85), 0, sine(speed, 3, phase - 60)]}
+        # Oppose the same-side leg around a vertical upper-arm pose. Elbows stay
+        # slightly flexed forward throughout the stride; wrists only follow gently.
+        walk[side + "_arm"] = {"rotation": [sine(speed, -14, phase), sine(speed, 1.5, phase), sine(speed, sign, phase - 30)]}
+        walk[side + "_arm_lower"] = {"rotation": [sine(speed, -4, phase - 20, -2), 0, 0]}
+        walk[side + "_hand"] = {"rotation": [sine(speed, 2, phase - 40), 0, sine(speed, 1, phase - 40)]}
         for i in range(3):
             walk[f"{side}_finger_{i}"] = {"rotation": [sine(speed, 3, phase - 90 - i * 8), 0, 0]}
     add("brute", "walk", 1.25, walk)
