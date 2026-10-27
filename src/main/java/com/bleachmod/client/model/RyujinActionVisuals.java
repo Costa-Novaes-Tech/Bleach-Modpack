@@ -83,7 +83,7 @@ public final class RyujinActionVisuals {
         void smoke(Vec3 at){particle(ParticleTypes.SMOKE,at,new Vec3(0,.025,0));}
     }
     private static boolean equipped(AbstractClientPlayer p){return p.isAlive() && !p.isSpectator() && p.getMainHandItem().is(ModItems.RYUJIN_JAKKA.get()) && PlayerCapability.get(p).map(d->d.getCharacter().getZanpakutoIdentity().equals("ryujin_jakka")).orElse(false);}
-    private static Vec3 world(Vec3 origin,Vec3 forward,Vec3 local){Vec3 right=new Vec3(-forward.z,0,forward.x);return origin.add(right.scale(local.x)).add(0,local.y,0).add(forward.scale(local.z));}
+    static Vec3 world(Vec3 origin,Vec3 forward,Vec3 local){Vec3 right=new Vec3(-forward.z,0,forward.x);return origin.add(right.scale(local.x)).add(0,local.y,0).add(forward.scale(local.z));}
     private static void blade(Emitter e,AbstractClientPlayer p,Vec3 forward,RyujinChoreography.Pose pose,int age,boolean hot){
         float sign=p.getMainArm()==HumanoidArm.RIGHT?1:-1;
         Vec3 hand=world(p.position(),forward,RyujinChoreography.bladeHand(pose,sign));Vec3 dir=world(Vec3.ZERO,forward,RyujinChoreography.bladeDirection(pose));

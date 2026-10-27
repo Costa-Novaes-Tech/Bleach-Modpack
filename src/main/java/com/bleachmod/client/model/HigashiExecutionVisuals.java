@@ -48,11 +48,44 @@ public final class HigashiExecutionVisuals {
         if(previous!=null&&previous.packet.target()==m.target()&&age(previous,0)<HigashiCinematicPath.END)return;
         // Ordinary Higashi already performed the draw/approach. Join at the confirmed impact,
         // never replay a lethal-looking scene speculatively against a survivor.
-        var pose=new Pose(m,now-HigashiCinematicPath.IMPACT);
+        var pose=new Pose(m,now);
         if(POSES.size()>=24&&!POSES.containsKey(m.owner()))POSES.remove(POSES.keySet().iterator().next());POSES.put(m.owner(),pose);
         if(m.confirmed()){
-            if(BURNS.size()>=8)BURNS.remove(BURNS.keySet().iterator().next());BURNS.put(m.target(),new Burn(m,now,mc.level.getEntity(m.target()) instanceof net.minecraft.world.entity.LivingEntity living?living:null));
-
+            if(BURNS.size()>=8)BURNS.remove(BURNS.keySet().iterator().next());
+            net.minecraft.world.entity.LivingEntity living = mc.level.getEntity(m.target()) instanceof net.minecraft.world.entity.LivingEntity l ? l : null;
+            net.minecraft.world.entity.LivingEntity clientSilhouette = null;
+            if(living != null){
+                living.clearFire();
+                living.setRemainingFireTicks(0);
+                living.setSharedFlagOnFire(false);
+                try {
+                    clientSilhouette = (net.minecraft.world.entity.LivingEntity) living.getType().create(mc.level);
+                    if(clientSilhouette != null){
+                        clientSilhouette.setPos(m.victim().x, m.victim().y, m.victim().z);
+                        clientSilhouette.setYRot(living.getYRot());
+                        clientSilhouette.setXRot(living.getXRot());
+                        clientSilhouette.yRotO = living.getYRot();
+                        clientSilhouette.xRotO = living.getXRot();
+                        clientSilhouette.yBodyRot = living.yBodyRot;
+                        clientSilhouette.yBodyRotO = living.yBodyRot;
+                        clientSilhouette.yHeadRot = living.yHeadRot;
+                        clientSilhouette.yHeadRotO = living.yHeadRot;
+                        for(var slot : net.minecraft.world.entity.EquipmentSlot.values()){
+                            clientSilhouette.setItemSlot(slot, living.getItemBySlot(slot).copy());
+                        }
+                        clientSilhouette.noPhysics = true;
+                        clientSilhouette.deathTime = 0;
+                        clientSilhouette.hurtTime = 0;
+                        clientSilhouette.clearFire();
+                        clientSilhouette.setRemainingFireTicks(0);
+                        clientSilhouette.setSharedFlagOnFire(false);
+                    }
+                } catch(Throwable ignored){
+                    clientSilhouette = null;
+                }
+                if(clientSilhouette == null) clientSilhouette = living;
+            }
+            BURNS.put(m.target(),new Burn(m,now,clientSilhouette));
         }
         if(mc.player!=null&&mc.player.getId()==m.owner()&&!com.bleachmod.client.cinematic.CinematicDirector.localActive()&&ClientVisualConfig.EXECUTION_CAMERA.get()&&mc.screen==null&&mc.getCameraEntity()==mc.player&&now>=dismissedUntil){
             if(cinematic==null){previousType=mc.options.getCameraType();mc.options.setCameraType(CameraType.THIRD_PERSON_BACK);}
@@ -67,8 +100,11 @@ public final class HigashiExecutionVisuals {
             if(mc instanceof net.bettercombat.api.MinecraftClient_BetterCombat bc)bc.cancelUpswing();
         }
     }
+    public static boolean isExecuting(int entity){
+        var burn=BURNS.get(entity);return burn!=null&&world==Minecraft.getInstance().level&&now()-burn.start<HigashiCinematicPath.END;
+    }
     public static boolean holdingCorpse(int entity){
-        var burn=BURNS.get(entity);return burn!=null&&world==Minecraft.getInstance().level&&now()-burn.start<HigashiCinematicPath.IGNITE-HigashiCinematicPath.IMPACT;
+        return isExecuting(entity);
     }
     private static void restore(){var mc=Minecraft.getInstance();if(previousType!=null&&mc.options.getCameraType()==CameraType.THIRD_PERSON_BACK)mc.options.setCameraType(previousType);previousType=null;cinematic=null;sideSign=1.0F;}
     private static void dismiss(){var mc=Minecraft.getInstance();if(mc.player!=null)POSES.remove(mc.player.getId());dismissedUntil=now()+HigashiCinematicPath.END;restore();}
@@ -82,27 +118,36 @@ public final class HigashiExecutionVisuals {
         for(var v:ElementalActionVisuals.VIEWS.getOrDefault(p.getId(),List.of())){if(!v.kind().equals("higashi")&&ElementalActionVisuals.age(v,0)<v.gesture())return null;}
         return age(value,0)<HigashiCinematicPath.END?value:null;
     }
+    private static Vec3f mix(Vec3f from,Vec3 to,float w){return new Vec3f(net.minecraft.util.Mth.lerp(w,from.getX(),(float)to.x),net.minecraft.util.Mth.lerp(w,from.getY(),(float)to.y),net.minecraft.util.Mth.lerp(w,from.getZ(),(float)to.z));}
     private static final class Animation implements IAnimation {
         private final AbstractClientPlayer p;Animation(AbstractClientPlayer player){p=player;}
         @Override public boolean isActive(){return pose(p)!=null;}
         @Override public void setupAnim(float partial){ }
         @Override public FirstPersonMode getFirstPersonMode(float partial){return FirstPersonMode.VANILLA;}
-        @Override public Vec3f get3DTransform(String part,TransformType type,float partial,Vec3f value){var pose=pose(p);if(pose==null)return value;
+        @Override public Vec3f get3DTransform(String part,TransformType type,float partial,Vec3f value){
+            var pose=pose(p);if(pose==null)return value;
             if(part.equals("body")&&type==TransformType.POSITION)return new Vec3f(value.getX(),0,value.getZ());
-            return RyujinActionVisuals.transform(p,RyujinChoreography.execution(age(pose,partial),p.getMainArm()==HumanoidArm.RIGHT?1:-1),part,type,value);}
+            float sign=p.getMainArm()==HumanoidArm.RIGHT?1:-1;
+            var execPose=RyujinChoreography.execution(age(pose,partial),sign);
+            boolean item=part.equals(sign>0?"rightItem":"leftItem");
+            if(item){
+                float w=execPose.weight();
+                if(type==TransformType.ROTATION){
+                    Vec3 r=execPose.item().lengthSqr()>1e-6?execPose.item():execPose.handRotation();
+                    return mix(value,r,w);
+                }
+                if(type==TransformType.POSITION){
+                    return mix(value,execPose.handPosition(),w);
+                }
+            }
+            return RyujinActionVisuals.transform(p,execPose,part,type,value);
+        }
     }
     @SubscribeEvent(priority=EventPriority.LOWEST) public static void camera(ViewportEvent.ComputeCameraAngles e){if(!cameraActive())return;var mc=Minecraft.getInstance();var p=cinematic.packet;
         var shot=HigashiCinematicPath.sample(p.attacker(),p.victim(),p.height(),age(cinematic,(float)e.getPartialTick()),sideSign);Vec3 eye=shot.eye();
         var hit=mc.level.clip(new ClipContext(shot.focus(),eye,ClipContext.Block.COLLIDER,ClipContext.Fluid.NONE,mc.player));
         if(hit.getType()!=HitResult.Type.MISS)eye=hit.getLocation().add(shot.focus().subtract(eye).normalize().scale(.25));
-        if(eye.distanceToSqr(shot.focus())<1.5*1.5){
-            var altShot=HigashiCinematicPath.sample(p.attacker(),p.victim(),p.height(),age(cinematic,(float)e.getPartialTick()),-sideSign);Vec3 altEye=altShot.eye();
-            var altHit=mc.level.clip(new ClipContext(altShot.focus(),altEye,ClipContext.Block.COLLIDER,ClipContext.Fluid.NONE,mc.player));
-            if(altHit.getType()!=HitResult.Type.MISS)altEye=altHit.getLocation().add(altShot.focus().subtract(altEye).normalize().scale(.25));
-            if(altEye.distanceToSqr(altShot.focus())>=1.5*1.5){
-                sideSign=-sideSign;shot=altShot;eye=altEye;
-            }else{dismiss();return;}
-        }
+        if(eye.distanceToSqr(shot.focus())<1.2*1.2){dismiss();return;}
         try{
             if(cameraPosition==null)cameraPosition=net.minecraftforge.fml.util.ObfuscationReflectionHelper.findMethod(Camera.class,"m_90581_",Vec3.class);
             cameraPosition.invoke(e.getCamera(),eye);
@@ -114,11 +159,20 @@ public final class HigashiExecutionVisuals {
     @SubscribeEvent public static void bars(RenderGuiEvent.Post e){if(!cameraActive())return;float t=age(cinematic,e.getPartialTick());int size=(int)(e.getGuiGraphics().guiHeight()*.075*Math.max(0,Math.min(1,Math.min(t/3,(HigashiCinematicPath.END-t)/5))));var g=e.getGuiGraphics();g.fill(0,0,g.guiWidth(),size,0xff000000);g.fill(0,g.guiHeight()-size,g.guiWidth(),g.guiHeight(),0xff000000);}
     @SubscribeEvent public static void tick(TickEvent.ClientTickEvent e){if(e.phase!=TickEvent.Phase.END)return;var mc=Minecraft.getInstance();
         if(mc.level==null||world!=mc.level){reset();world=mc.level;return;}
-        long now=now();BURNS.values().removeIf(b->now-b.start>=HigashiCinematicPath.END-HigashiCinematicPath.IMPACT);POSES.values().removeIf(p->age(p,0)>=HigashiCinematicPath.END);
+        long now=now();BURNS.values().removeIf(b->now-b.start>=HigashiCinematicPath.END);POSES.values().removeIf(p->age(p,0)>=HigashiCinematicPath.END);
         if(cinematic!=null&&age(cinematic,0)>=HigashiCinematicPath.END)restore();
-        if(cinematic!=null&&(mc.player==null||!mc.player.isAlive()||mc.player.hurtTime>0||mc.screen!=null||mc.options.keyAttack.isDown()||mc.options.keyUse.isDown()||mc.options.keyUp.isDown()||mc.options.keyDown.isDown()||mc.options.keyLeft.isDown()||mc.options.keyRight.isDown()||mc.options.keyJump.isDown()||mc.getCameraEntity()!=mc.player||mc.options.getCameraType()!=CameraType.THIRD_PERSON_BACK||!ClientVisualConfig.EXECUTION_CAMERA.get()||mc.player.distanceToSqr(cinematic.packet.attacker())>9||pose(mc.player)==null))dismiss();
+        if(cinematic!=null&&(mc.player==null||!mc.player.isAlive()||mc.player.hurtTime>0||mc.screen!=null||(age(cinematic,0)>4&&(mc.options.keyAttack.isDown()||mc.options.keyUse.isDown()||mc.options.keyUp.isDown()||mc.options.keyDown.isDown()||mc.options.keyLeft.isDown()||mc.options.keyRight.isDown()||mc.options.keyJump.isDown()))||mc.getCameraEntity()!=mc.player||mc.options.getCameraType()!=CameraType.THIRD_PERSON_BACK||!ClientVisualConfig.EXECUTION_CAMERA.get()||mc.player.distanceToSqr(cinematic.packet.attacker())>9||pose(mc.player)==null))dismiss();
+        if(cinematic!=null&&mc.player!=null&&mc.level!=null&&age(cinematic,0)>=10&&age(cinematic,0)<=16){
+            float cAge=age(cinematic,0);float sign=mc.player.getMainArm()==HumanoidArm.RIGHT?1:-1;
+            var cutPose=RyujinChoreography.execution(cAge,sign);
+            Vec3 f=cinematic.packet.victim().subtract(cinematic.packet.attacker()).multiply(1,0,1).normalize();
+            if(f.lengthSqr()<.1)f=Vec3.directionFromRotation(0,mc.player.getYRot());
+            Vec3 hand=RyujinActionVisuals.world(mc.player.position(),f,RyujinChoreography.bladeHand(cutPose,sign));
+            Vec3 dir=RyujinActionVisuals.world(Vec3.ZERO,f,RyujinChoreography.bladeDirection(cutPose));
+            for(int i=0;i<8;i++){Vec3 q=hand.add(dir.scale(.15+i*.14));if(i%4==0)mc.level.addParticle(ParticleTypes.ELECTRIC_SPARK,q.x,q.y,q.z,0,.01,0);else mc.level.addParticle(ParticleTypes.SMALL_FLAME,q.x,q.y,q.z,0,.015,0);}
+        }
         if(mc.isPaused()||emitted==now)return;emitted=now;int budget=256,scale=mc.options.particles().get()==ParticleStatus.MINIMAL?4:1;
-        for(var b:BURNS.values()){var m=b.packet;if(mc.player==null||mc.player.distanceToSqr(m.victim())>80*80)continue;int age=(int)(now-b.start)-(HigashiCinematicPath.IGNITE-HigashiCinematicPath.IMPACT);
+        for(var b:BURNS.values()){var m=b.packet;if(mc.player==null||mc.player.distanceToSqr(m.victim())>80*80)continue;int age=(int)(now-b.start)-HigashiCinematicPath.IGNITE;
             if(age<0)continue;
             if(age==0){PhotonPilotBridge.incinerate(m.victim(),m.width(),m.height());mc.level.playLocalSound(m.victim().x,m.victim().y,m.victim().z,net.minecraft.sounds.SoundEvents.BLAZE_DEATH,net.minecraft.sounds.SoundSource.PLAYERS,.8F,.65F,false);}
             var random=new Random(m.target()*31L+age);
@@ -131,23 +185,60 @@ public final class HigashiExecutionVisuals {
     @SubscribeEvent public static void silhouette(RenderLevelStageEvent e){
         if(e.getStage()!=RenderLevelStageEvent.Stage.AFTER_ENTITIES||world!=Minecraft.getInstance().level)return;
         var mc=Minecraft.getInstance();var stack=e.getPoseStack();var camera=e.getCamera().getPosition();
+        long now=now();
         for(var b:BURNS.values()){
-            var actor=b.silhouette;if(actor==null||actor.isAlive()||now()-b.start>=HigashiCinematicPath.IGNITE-HigashiCinematicPath.IMPACT+6)continue;
+            var actor=b.silhouette;if(actor==null)continue;
+            long elapsed=now-b.start;
+            if(elapsed<0||elapsed>=HigashiCinematicPath.IGNITE+12)continue;
             if(mc.player==null||mc.player.distanceToSqr(b.packet.victim())>80*80)continue;
+            float alpha=(elapsed<=HigashiCinematicPath.IGNITE)?1.0F:Math.max(0.0F,1.0F-(float)(elapsed-HigashiCinematicPath.IGNITE)/12.0F);
             int death=actor.deathTime,hurt=actor.hurtTime,fire=actor.getRemainingFireTicks();boolean burning=actor.isOnFire();
             try{
                 renderingSilhouette=true;actor.deathTime=0;actor.hurtTime=0;actor.setRemainingFireTicks(0);actor.setSharedFlagOnFire(false);
                 Vec3 at=b.packet.victim().subtract(camera);
-                mc.getEntityRenderDispatcher().render(actor,at.x,at.y,at.z,actor.getYRot(),0,stack,mc.renderBuffers().bufferSource(),mc.getEntityRenderDispatcher().getPackedLightCoords(actor,e.getPartialTick()));
+                var bufferSource=mc.renderBuffers().bufferSource();
+                if(alpha>=0.999F){
+                    mc.getEntityRenderDispatcher().render(actor,at.x,at.y,at.z,actor.getYRot(),0,stack,bufferSource,mc.getEntityRenderDispatcher().getPackedLightCoords(actor,e.getPartialTick()));
+                }else{
+                    float tint=Math.max(0.25F,alpha);
+                    net.minecraft.client.renderer.MultiBufferSource alphaBuffers=renderType->{
+                        net.minecraft.client.renderer.RenderType targetType=renderType;
+                        try{
+                            var renderer=mc.getEntityRenderDispatcher().getRenderer(actor);
+                            if(renderer!=null){
+                                @SuppressWarnings("unchecked")
+                                var typedRenderer=(net.minecraft.client.renderer.entity.EntityRenderer<net.minecraft.world.entity.LivingEntity>)renderer;
+                                var tex=typedRenderer.getTextureLocation(actor);
+                                if(tex!=null)targetType=net.minecraft.client.renderer.RenderType.entityTranslucent(tex);
+                            }
+                        }catch(Throwable ignored){ }
+                        var parent=bufferSource.getBuffer(targetType);
+                        return new com.mojang.blaze3d.vertex.VertexConsumer(){
+                            @Override public com.mojang.blaze3d.vertex.VertexConsumer vertex(double x,double y,double z){parent.vertex(x,y,z);return this;}
+                            @Override public com.mojang.blaze3d.vertex.VertexConsumer color(int r,int g,int b,int a){
+                                parent.color((int)(r*tint),(int)(g*tint),(int)(b*tint),(int)(a*alpha));return this;
+                            }
+                            @Override public com.mojang.blaze3d.vertex.VertexConsumer uv(float u,float v){parent.uv(u,v);return this;}
+                            @Override public com.mojang.blaze3d.vertex.VertexConsumer overlayCoords(int u,int v){parent.overlayCoords(u,v);return this;}
+                            @Override public com.mojang.blaze3d.vertex.VertexConsumer uv2(int u,int v){parent.uv2(u,v);return this;}
+                            @Override public com.mojang.blaze3d.vertex.VertexConsumer normal(float x,float y,float z){parent.normal(x,y,z);return this;}
+                            @Override public void defaultColor(int r,int g,int b,int a){parent.defaultColor(r,g,b,a);}
+                            @Override public void unsetDefaultColor(){parent.unsetDefaultColor();}
+                            @Override public void endVertex(){parent.endVertex();}
+                        };
+                    };
+                    mc.getEntityRenderDispatcher().render(actor,at.x,at.y,at.z,actor.getYRot(),0,stack,alphaBuffers,mc.getEntityRenderDispatcher().getPackedLightCoords(actor,e.getPartialTick()));
+                    bufferSource.endBatch();
+                }
             }finally{actor.deathTime=death;actor.hurtTime=hurt;actor.setRemainingFireTicks(fire);actor.setSharedFlagOnFire(burning);renderingSilhouette=false;}
         }
     }
     @SubscribeEvent public static void hideIncinerated(RenderLivingEvent.Pre<?,?> e){
-        var b=BURNS.get(e.getEntity().getId());
-        if(!renderingSilhouette&&b!=null&&!e.getEntity().isAlive()&&world==e.getEntity().level()){
-            // Dispatcher draws vanilla fire after LivingRenderer even when Pre is cancelled.
-            // Clear the dead client entity flag before that outer pass as well.
-            if(holdingCorpse(e.getEntity().getId()))e.getEntity().setSharedFlagOnFire(false);
+        int id=e.getEntity().getId();
+        if(!renderingSilhouette&&isExecuting(id)){
+            e.getEntity().clearFire();
+            e.getEntity().setRemainingFireTicks(0);
+            e.getEntity().setSharedFlagOnFire(false);
             e.setCanceled(true);
         }
     }
