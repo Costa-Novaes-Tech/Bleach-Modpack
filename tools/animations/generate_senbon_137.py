@@ -24,35 +24,35 @@ TICKS = [0, 4, 8, 11, 14, 17, 20, 30]
 # S1-F06: Final baixo esquerdo
 # S1-F07: Manter se encadear / recuperar se soltar
 S1_RIGHT_ARM = [
-    {"pitch": -1.10, "yaw": 0.15, "roll": -0.15, "x": -4.7, "y": 1.9, "z": -0.8},   # t=0  (guarda)
-    {"pitch": -1.50, "yaw": 0.28, "roll": -0.25, "x": -4.8, "y": 2.1, "z": -0.7},   # t=4  (recolher ombro)
-    {"pitch": -1.75, "yaw": 0.38, "roll": -0.38, "x": -4.8, "y": 2.2, "z": -0.6},   # t=8  (ponta alta)
-    {"pitch": -1.35, "yaw": -0.10, "roll": 0.15, "x": -4.6, "y": 1.8, "z": -1.8},   # t=11 (iniciar diagonal)
-    {"pitch": -0.85, "yaw": -0.45, "roll": 0.38, "x": -4.5, "y": 1.5, "z": -2.0},   # t=14 (passagem centro)
-    {"pitch": -0.75, "yaw": -0.50, "roll": 0.35, "x": -4.55, "y": 1.5, "z": -1.5},  # t=17 (descer esquerda)
-    {"pitch": -0.65, "yaw": -0.55, "roll": 0.32, "x": -4.6, "y": 1.5, "z": -1.0},   # t=20 (final baixo esquerdo)
+    {"pitch": -0.70, "yaw": 0.10, "roll": -0.10, "x": -4.8, "y": 1.8, "z": -0.5},   # t=0  (guarda)
+    {"pitch": -1.30, "yaw": 0.25, "roll": -0.25, "x": -4.8, "y": 2.0, "z": -0.5},   # t=4  (recolher ombro)
+    {"pitch": -1.65, "yaw": 0.32, "roll": -0.30, "x": -4.8, "y": 2.1, "z": -0.5},   # t=8  (ponta alta)
+    {"pitch": -1.25, "yaw": -0.05, "roll": 0.10, "x": -4.7, "y": 1.9, "z": -1.2},   # t=11 (iniciar diagonal)
+    {"pitch": -0.85, "yaw": -0.35, "roll": 0.25, "x": -4.6, "y": 1.7, "z": -1.5},   # t=14 (passagem centro)
+    {"pitch": -0.70, "yaw": -0.45, "roll": 0.28, "x": -4.6, "y": 1.6, "z": -1.2},   # t=17 (descer esquerda)
+    {"pitch": -0.60, "yaw": -0.50, "roll": 0.30, "x": -4.6, "y": 1.5, "z": -0.8},   # t=20 (final baixo esquerdo)
     {"pitch": 0.0, "yaw": 0.0, "roll": 0.0, "x": 0.0, "y": 0.0, "z": 0.0}            # t=30 (recupera idle)
 ]
 
 S1_RIGHT_ITEM = [
-    {"pitch": -0.50, "yaw": 0.15, "roll": -1.20, "x": 1.0, "y": -2.0, "z": -0.8},   # t=0  (guarda)
-    {"pitch": -0.30, "yaw": 0.20, "roll": -1.40, "x": 1.3, "y": -2.0, "z": -0.9},   # t=4  (subindo ponta)
-    {"pitch": -0.15, "yaw": 0.25, "roll": -1.55, "x": 1.5, "y": -2.0, "z": -1.0},   # t=8  (ponta alta fora do rosto)
-    {"pitch": -1.25, "yaw": 0.05, "roll": -1.50, "x": -0.8, "y": -2.0, "z": -0.8},  # t=11 (corte diagonal acelerado)
-    {"pitch": -1.15, "yaw": -0.05, "roll": -1.45, "x": -0.6, "y": -2.0, "z": -0.5}, # t=14 (cruzando linha media)
-    {"pitch": -0.95, "yaw": -0.02, "roll": -1.35, "x": -0.5, "y": -2.0, "z": -0.4}, # t=17 (descendo esquerda)
-    {"pitch": -0.80, "yaw": 0.0, "roll": -1.20, "x": -0.4, "y": -2.0, "z": -0.3},   # t=20 (final baixo esquerdo)
-    {"pitch": 0.0, "yaw": 0.0, "roll": 0.0, "x": 0.0, "y": 0.0, "z": 0.0}            # t=30 (recupera idle)
+    {"pitch": -1.7931, "yaw": 1.0077, "roll": -1.7615, "x": 1.0, "y": -2.0, "z": -0.8}, # t=0  (guarda)
+    {"pitch": -2.3799, "yaw": 1.6103, "roll": -2.0707, "x": 1.0, "y": -2.0, "z": -0.8}, # t=4  (subindo ponta)
+    {"pitch": -2.8561, "yaw": 0.1026, "roll": -2.5627, "x": 1.0, "y": -2.0, "z": -0.8}, # t=8  (ponta alta fora do rosto)
+    {"pitch": -1.9510, "yaw": 0.7301, "roll": -1.9510, "x": 1.0, "y": -2.0, "z": -0.8}, # t=11 (início diagonal)
+    {"pitch": -1.7773, "yaw": 0.2697, "roll": -3.1179, "x": 1.0, "y": -2.0, "z": -0.8}, # t=14 (passagem centro)
+    {"pitch": -1.4840, "yaw": 0.5157, "roll": -3.0390, "x": 1.0, "y": -2.0, "z": -0.8}, # t=17 (descendo esquerda)
+    {"pitch": -1.2853, "yaw": 0.4841, "roll": -2.8561, "x": 1.0, "y": -2.0, "z": -0.8}, # t=20 (final baixo esquerdo)
+    {"pitch": 0.0, "yaw": 0.0, "roll": 0.0, "x": 0.0, "y": 0.0, "z": 0.0}                 # t=30 (recupera idle)
 ]
 
 S1_TORSO = [
     {"yaw": 0.0, "roll": 0.0, "pitch": 0.0, "x": 0.0, "y": 0.0, "z": 0.0},
     {"yaw": -0.15, "roll": 0.02, "pitch": 0.05, "x": 0.0, "y": 0.0, "z": 0.05},
-    {"yaw": -0.35, "roll": 0.04, "pitch": 0.10, "x": 0.0, "y": 0.0, "z": 0.10},
-    {"yaw": 0.0, "roll": -0.05, "pitch": -0.05, "x": 0.0, "y": 0.0, "z": -0.05},
-    {"yaw": 0.45, "roll": -0.12, "pitch": -0.12, "x": 0.0, "y": 0.0, "z": -0.10},
-    {"yaw": 0.60, "roll": -0.10, "pitch": -0.10, "x": 0.0, "y": 0.0, "z": -0.08},
-    {"yaw": 0.70, "roll": -0.08, "pitch": -0.08, "x": 0.0, "y": 0.0, "z": -0.05},
+    {"yaw": -0.30, "roll": 0.03, "pitch": 0.08, "x": 0.0, "y": 0.0, "z": 0.08},
+    {"yaw": 0.0, "roll": -0.04, "pitch": -0.04, "x": 0.0, "y": 0.0, "z": -0.04},
+    {"yaw": 0.35, "roll": -0.08, "pitch": -0.08, "x": 0.0, "y": 0.0, "z": -0.08},
+    {"yaw": 0.50, "roll": -0.06, "pitch": -0.06, "x": 0.0, "y": 0.0, "z": -0.06},
+    {"yaw": 0.60, "roll": -0.05, "pitch": -0.05, "x": 0.0, "y": 0.0, "z": -0.04},
     {"yaw": 0.0, "roll": 0.0, "pitch": 0.0, "x": 0.0, "y": 0.0, "z": 0.0}
 ]
 
@@ -263,7 +263,8 @@ def main():
     ATTACK_DIR.mkdir(parents=True, exist_ok=True)
     PLAYER_DIR.mkdir(parents=True, exist_ok=True)
     
-    for name, strike_data in STRIKES.items():
+    for name in ["diagonal"]:
+        strike_data = STRIKES[name]
         emote = build_emote_json(name, strike_data)
         bedrock = build_bedrock_json(name, strike_data)
         
