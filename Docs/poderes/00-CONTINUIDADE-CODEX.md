@@ -1,5 +1,7 @@
 # Continuidade do projeto — leia primeiro
 
+**27/10 — planejamento Uryū/Benihime:** usuário encerrou Hyōrinmaru e escolheu Uryū tradicional primeiro, TYBW depois. Planos por assunto: [Uryū](plano-uryu-arqueiro-tradicional.md) e [Benihime selada](plano-benihime-substituicao-selada.md). Kit4slots e Hadō91 são propostas para discussão, não aprovadas/implementadas. Conferir base Quincy e migração do ID gigai antes dos prompts executivos; não criar/trocar branches nesta rodada.
+
 **27/10 — [estado atual do combate Senbon/Higashi](estado-combate-senbon-higashi.md):** Codex reproduziu e corrigiu a composição entre corpo global, escala do jogador, braço e item. Matriz real confirmou a base; regressão com fixture capturada. Senbon três golpes e Higashi quadril→diagonal ascendente; mecânica/câmera/vítima/pausa preservadas. Check/build151regressões,237GameTests e11cenários gráficos finais aprovados tecnicamente. Arte e primeira pessoa/multiplayer pendentes de aceite. QA compacto em qa/combate-atual.
 
 **27/10 — [150: prioridade de eficiência e retenção](150-prioridade-eficiencia-limpeza-retencao-qa-2026-10-27.md):** item8 antecipado como frente transversal; QA ocupa2.098,99MiB/8.616arquivos no checkout. Planejar inventário, consolidação e retenção mínima após aceite, preservando provas de regressões abertas. Sem exclusão ou reescrita de histórico. Publicação da branch solicitada pelo usuário; conferir resultado no Git.

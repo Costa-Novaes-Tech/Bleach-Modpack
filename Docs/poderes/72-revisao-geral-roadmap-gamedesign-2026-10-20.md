@@ -168,7 +168,7 @@ Medição preliminar de25/10, antes da integração: checkout design com aproxim
 - [ ] 4. Benihime81: esgrima Better Combat, kit selado, Hiasobi e suprema destrutiva implementados para teste; validação artística e balanceamento pendentes.
 - [ ] 5. Contrato e implementação do kit Uryū Ishida.
 - [ ] 6. Mentor e Proficiências, após confirmação da equipe.
-- [ ] 7. Hyōrinmaru: dragões, animações e transformação com apoio do Blockbench.
+- [x] 7. Hyōrinmaru: concluída e homologada pelo usuário em27/10/2026; retirada da fila ativa.
 - [ ] 8. Eficiência e limpeza: inventário, retenção de evidências, gargalos de build/QA e limpeza revisada; preservar worktrees para colaboração paralela.
 
 **Aceites posteriores de25/10:** entrada Benihime validada pelo usuário, incluindo o refinamento102; Investida/Rajada aprovadas. Higashi será validada depois. A substituição da boneca do kit selado Benihime foi solicitada, mas a alternativa ainda não foi fechada. Esses aceites atualizam os registros históricos acima; não significam homologação de todas as técnicas, áudio em observadores ou multiplayer. Integração e validações combinadas serão registradas no105.
@@ -246,3 +246,7 @@ O item8 passa a prioridade transversal, em paralelo à homologação e antes de 
 # Estado do combate em27/10
 
 [Documento por assunto](estado-combate-senbon-higashi.md): correções de coreografia Senbon/Higashi feitas e testadas pelo Codex; matriz do renderer fundamenta nova regressão.151regressões/237GameTests e11cenários gráficos finais. Itens2/4 aguardam aceite artístico do usuário; nenhuma baixa automática de feature. Demais itens obrigatórios, eficiência e NPCs/quests posteriores preservados.
+
+# Priorização aprovada em27/10 — duas novas frentes em planejamento
+
+Hyōrinmaru concluída, fora do trabalho pendente. Uryū começará pelo arqueiro tradicional; TYBW posteriormente, conforme escolha explícita. [Plano Uryū](plano-uryu-arqueiro-tradicional.md) e [substituição selada Benihime](plano-benihime-substituicao-selada.md) preparam duas conversas Antigravity. Slots e Hadō91 ainda são propostas; nenhuma branch/código/prompt executivo despachado nesta rodada. Higashi/Senbon continuam aguardando teste do usuário, eficiência permanece transversal, Mentor/Proficiências aguardam equipe e NPCs/quests seguem na etapa posterior.
