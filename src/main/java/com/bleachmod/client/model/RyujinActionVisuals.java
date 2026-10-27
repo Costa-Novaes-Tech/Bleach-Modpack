@@ -49,11 +49,17 @@ public final class RyujinActionVisuals {
             if(part.equals("body"))return mix(value,pose.body(),w);
             if(part.equals(sign>0?"rightLeg":"leftLeg"))return mix(value,pose.leg(),w);
             if(part.equals(sign>0?"leftLeg":"rightLeg"))return mix(value,pose.leg().multiply(-1,1,-1),w);
-            if(item)return mix(value,pose.item(),w);
+            if(item){
+                Vec3 r = pose.item().lengthSqr() > 1e-6 ? pose.item() : pose.handRotation();
+                return mix(value, r, w);
+            }
         }
         if(type==TransformType.BEND && (arm||support))return mix(value,new Vec3(0,arm && Math.abs(pose.arm().x)>2?.35:.1,0),w);
         if(type==TransformType.POSITION){
-            if(item)return mix(value,Vec3.ZERO,w);
+            if(item){
+                Vec3 pos = pose.handPosition();
+                return mix(value, pos, w);
+            }
             if(part.equals("body"))return new Vec3f(value.getX(),value.getY()+Math.abs((float)pose.leg().x)*.8F*w,value.getZ());
         }
         return value;
@@ -83,7 +89,7 @@ public final class RyujinActionVisuals {
         void smoke(Vec3 at){particle(ParticleTypes.SMOKE,at,new Vec3(0,.025,0));}
     }
     private static boolean equipped(AbstractClientPlayer p){return p.isAlive() && !p.isSpectator() && p.getMainHandItem().is(ModItems.RYUJIN_JAKKA.get()) && PlayerCapability.get(p).map(d->d.getCharacter().getZanpakutoIdentity().equals("ryujin_jakka")).orElse(false);}
-    private static Vec3 world(Vec3 origin,Vec3 forward,Vec3 local){Vec3 right=new Vec3(-forward.z,0,forward.x);return origin.add(right.scale(local.x)).add(0,local.y,0).add(forward.scale(local.z));}
+    static Vec3 world(Vec3 origin,Vec3 forward,Vec3 local){Vec3 right=new Vec3(-forward.z,0,forward.x);return origin.add(right.scale(local.x)).add(0,local.y,0).add(forward.scale(local.z));}
     private static void blade(Emitter e,AbstractClientPlayer p,Vec3 forward,RyujinChoreography.Pose pose,int age,boolean hot){
         float sign=p.getMainArm()==HumanoidArm.RIGHT?1:-1;
         Vec3 hand=world(p.position(),forward,RyujinChoreography.bladeHand(pose,sign));Vec3 dir=world(Vec3.ZERO,forward,RyujinChoreography.bladeDirection(pose));
