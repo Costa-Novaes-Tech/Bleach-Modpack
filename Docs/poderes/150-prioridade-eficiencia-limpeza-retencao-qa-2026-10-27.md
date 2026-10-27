@@ -67,3 +67,13 @@ Template por dossiê: estado e data/commit; kit/contratos vigentes; decisões ap
 Execução em fases: mapear documentos e referências -> integrar um dossiê piloto -> conferir cada afirmação contra fonte/aceite atual -> criar mapa antigo/novo e ajustar links -> retirar os relatórios redundantes do checkout quando a informação estiver preservada. Renomear para uma pasta de arquivo não reduz bytes. O Git publicado preserva histórico textual, mas recuperação deve ter caminho/commit explícitos. Não mover GDD da equipe, nem alterar Zaraki ou apagar fontes de assets. O levantamento desta rodada não leu integralmente todos os173documentos; a consolidação de conteúdo exige essa conferência por assunto.
 
 Nenhum arquivo excluído e nenhum processo encerrado nesta auditoria. Dados brutos locais em build/storage-audit.json (regenerável, não versionado).
+
+## Limpeza executada — 27/10/2026
+
+Pedido explícito do usuário para remover lixo/capturas/vídeos descartáveis. Primeiro lote por antiguidade/extensão:35.021arquivos/9,317GiB; bloqueado pela revisão automática por risco de excluir provas únicas, sem exclusão nesse lote. A alternativa segura comparou SHA-256 com arquivos preservados fora do conjunto de exclusão.
+
+**Resultado efetivo:10.719duplicatas removidas,2.442.136.754bytes (2,274GiB), zero falhas.** Ambos os hashes foram revalidados antes de cada remoção. Cópia idêntica mantida e existência conferida após a limpeza. Nenhum arquivo único foi removido. Exclusões limitadas a mídias de QA antigas nos checkouts principal/design; checkout Benihime não teve candidatos removidos. Saves, configurações, mods, código, áudio, assets e JAR testável preservados. Nenhuma reescrita/GC do histórico Git.
+
+Manifesto comprimido com cada caminho removido, hash e cópia preservada: [duplicatas-removidas.csv.gz](qa/limpeza150/duplicatas-removidas.csv.gz). Resultado: [resultado.json](qa/limpeza150/resultado.json). Relatórios antigos podem apontar a captura removida; o manifesto fornece a cópia idêntica que deve ser usada. A consolidação documental futura corrigirá/retirará essas referências históricas sem declarar perda da prova.
+
+Restam24.302candidatos antigos/7,042GiB sem cópia idêntica comprovada fora do lote. **Preservados, exclusão pendente de revisão/aprovação específica do manifesto**, não tratar como lixo confirmado. Lista local revisável: build/cleanup-unique-pending-approval.csv. Limpeza não encerra consolidação documental nem auditoria de desempenho.
