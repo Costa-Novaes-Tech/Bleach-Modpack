@@ -1,0 +1,50 @@
+[
+  {
+    "frame_id": "S1-F02",
+    "title": "S1-F02: Preparacao Alta (Ombro Direito / Fora do Rosto)",
+    "tick_file": "frame-t038.png",
+    "composite_png": "Docs/poderes/qa/cycle138/comparativo-S1-F02.png"
+  },
+  {
+    "frame_id": "S1-F04",
+    "title": "S1-F04: Travessia Diagonal pelo Centro",
+    "tick_file": "frame-t042.png",
+    "composite_png": "Docs/poderes/qa/cycle138/comparativo-S1-F04.png"
+  },
+  {
+    "frame_id": "S1-F06",
+    "title": "S1-F06 / S2-F00: Final Baixo Esquerdo (Seam 1->2)",
+    "tick_file": "frame-t044.png",
+    "composite_png": "Docs/poderes/qa/cycle138/comparativo-S1-F06.png"
+  },
+  {
+    "frame_id": "S2-F04",
+    "title": "S2-F04: Varredura Horizontal no Plano do Peito",
+    "tick_file": "frame-t050.png",
+    "composite_png": "Docs/poderes/qa/cycle138/comparativo-S2-F04.png"
+  },
+  {
+    "frame_id": "S2-F06",
+    "title": "S2-F06 / S3-F00: Recolha na Costela Direita (Seam 2->3)",
+    "tick_file": "frame-t056.png",
+    "composite_png": "Docs/poderes/qa/cycle138/comparativo-S2-F06.png"
+  },
+  {
+    "frame_id": "S3-F03",
+    "title": "S3-F03: Extensao Linear Frontal da Estocada",
+    "tick_file": "frame-t064.png",
+    "composite_png": "Docs/poderes/qa/cycle138/comparativo-S3-F03.png"
+  },
+  {
+    "frame_id": "S3-F04",
+    "title": "S3-F04: Contato Frontal na Mira Central",
+    "tick_file": "frame-t070.png",
+    "composite_png": "Docs/poderes/qa/cycle138/comparativo-S3-F04.png"
+  },
+  {
+    "frame_id": "S3-F06",
+    "title": "S3-F06 / S1-F00: Retorno a Guarda Nobre (Loop Fechado)",
+    "tick_file": "frame-t076.png",
+    "composite_png": "Docs/poderes/qa/cycle138/comparativo-S3-F06.png"
+  }
+]

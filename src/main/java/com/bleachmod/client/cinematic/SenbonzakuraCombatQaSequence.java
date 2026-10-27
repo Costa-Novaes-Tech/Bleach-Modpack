@@ -20,6 +20,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Husk;
 import net.minecraft.world.item.ItemStack;
@@ -44,20 +45,24 @@ import java.util.UUID;
 import static net.minecraft.commands.Commands.literal;
 
 /**
- * Automated QA sequence for Senbonzakura:
- * - Controlled fencing Better Combat combo (diagonal cut, horizontal return with petal ribbon, precise thrust)
- * - Shūkei: Hakuteiken 5 moments (preparation, complete form, aerodynamic launch, impact pulse, dissipation)
- * Validated across Front, Profile, and Back camera views.
+ * Automated QA sequence for Senbonzakura Strike 1 (S1 - diagonal descendente):
+ * Validates S1 execution across 6 audit-ready scenarios:
+ * 1. 01_shikai_right_front
+ * 2. 02_shikai_right_profile
+ * 3. 03_shikai_right_back
+ * 4. 04_sealed_right_profile
+ * 5. 05_bankai_right_profile
+ * 6. 06_shikai_left_profile
  */
 @Mod.EventBusSubscriber(modid = Reference.MOD_ID, value = Dist.CLIENT)
 public final class SenbonzakuraCombatQaSequence {
     private static final String[] CASES = {
-            "01_combo_front",
-            "02_combo_profile",
-            "03_combo_back",
-            "04_hakuteiken_front",
-            "05_hakuteiken_profile",
-            "06_hakuteiken_back"
+            "01_shikai_right_front",
+            "02_shikai_right_profile",
+            "03_shikai_right_back",
+            "04_sealed_right_profile",
+            "05_bankai_right_profile",
+            "06_shikai_left_profile"
     };
 
     private record Trial(UUID owner, UUID target, long start, int index, Vec3 origin) { }
@@ -67,8 +72,10 @@ public final class SenbonzakuraCombatQaSequence {
     private static Path evidence;
     private static CameraType previousCamera;
     private static boolean previousHud;
+    private static HumanoidArm previousMainHand;
     private static boolean manualTriggered = false;
     private static java.lang.reflect.Method cameraPosition;
+    private static java.lang.reflect.Field attackAnimationField;
 
     private SenbonzakuraCombatQaSequence() { }
 
@@ -87,7 +94,7 @@ public final class SenbonzakuraCombatQaSequence {
 
     @SubscribeEvent
     public static void registerCommands(RegisterClientCommandsEvent e) {
-        if(net.minecraftforge.fml.loading.FMLEnvironment.production)return;
+        if (net.minecraftforge.fml.loading.FMLEnvironment.production) return;
         e.getDispatcher().register(literal("senboncombatqa")
                 .then(literal("start").executes(c -> {
                     manualTriggered = true;
@@ -116,17 +123,17 @@ public final class SenbonzakuraCombatQaSequence {
         var current = trial;
         if (current != null) {
             long age = mc.level.getGameTime() - current.start();
-            // Combo attacks input simulation (swings on ticks 30, 44, 58)
-            if (current.index() < 3) {
-                mc.options.keyAttack.setDown(age >= 30 && age < 85);
-            }
+            // Single attack input on tick 30 (triggers S1)
+            mc.options.keyAttack.setDown(age >= 30 && age < 32);
         }
 
         wait++;
-        if (stage == 0 && wait < 40) return;
+        // Warmup: 120 ticks before case 0 for shaders/terrain stabilization
+        if (stage == 0 && wait < 120) return;
         if (stage == 0) {
             previousCamera = mc.options.getCameraType();
             previousHud = mc.options.hideGui;
+            previousMainHand = mc.options.mainHand().get();
         }
 
         if (stage < CASES.length && (stage == 0 || wait >= 140)) {
@@ -136,16 +143,22 @@ public final class SenbonzakuraCombatQaSequence {
             wait = 0;
             lastFrame = -1;
 
+            if (name.contains("left")) {
+                mc.options.mainHand().set(HumanoidArm.LEFT);
+            } else {
+                mc.options.mainHand().set(HumanoidArm.RIGHT);
+            }
+            mc.options.broadcastOptions();
+
             if (name.contains("front")) {
                 mc.options.setCameraType(CameraType.THIRD_PERSON_FRONT);
-            } else if (name.contains("back")) {
-                mc.options.setCameraType(CameraType.THIRD_PERSON_BACK);
             } else {
-                mc.options.setCameraType(CameraType.THIRD_PERSON_BACK); // Profile camera managed via ComputeCameraAngles
+                mc.options.setCameraType(CameraType.THIRD_PERSON_BACK);
             }
             mc.options.hideGui = true;
 
-            evidence = mc.gameDirectory.toPath().resolve("senbonzakura-combat-qa/" + System.currentTimeMillis() + "-" + name);
+            String runId = System.getProperty("bleachmod.senbonQaRunId", "run-cycle145");
+            evidence = mc.gameDirectory.toPath().resolve("senbonzakura-combat-qa/" + runId + "/" + name);
             mc.getSingleplayerServer().execute(() -> prepareServer(mc.getSingleplayerServer().getPlayerList().getPlayer(id), index));
         } else if (stage == CASES.length && wait >= 140) {
             stage++;
@@ -153,6 +166,8 @@ public final class SenbonzakuraCombatQaSequence {
             mc.options.keyAttack.setDown(false);
             mc.options.setCameraType(previousCamera != null ? previousCamera : CameraType.FIRST_PERSON);
             mc.options.hideGui = previousHud;
+            mc.options.mainHand().set(previousMainHand != null ? previousMainHand : HumanoidArm.RIGHT);
+            mc.options.broadcastOptions();
             LogUtils.getLogger().info("Senbonzakura Combat QA sequence COMPLETE: All 6 scenarios executed & captured!");
             if (mc.player != null) {
                 mc.player.displayClientMessage(Component.literal("§d[Senbonzakura Combat QA] Validation complete!"), false);
@@ -187,7 +202,14 @@ public final class SenbonzakuraCombatQaSequence {
             d.getCharacter().unlockForm(form);
             d.getCharacter().setMastery("zanpakuto", form, 100);
         }
-        String form = index >= 3 ? "bankai" : "shikai";
+
+        String caseName = CASES[index];
+        String form = "shikai";
+        if (caseName.contains("sealed")) {
+            form = "sealed";
+        } else if (caseName.contains("bankai")) {
+            form = "bankai";
+        }
         d.getCharacter().setActiveForm("zanpakuto", form);
         d.getCharacter().setSelectedForm("zanpakuto", form);
         d.getStatus().clearCooldowns();
@@ -197,23 +219,11 @@ public final class SenbonzakuraCombatQaSequence {
         p.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(ModItems.SENBONZAKURA.get()));
         p.setItemSlot(EquipmentSlot.OFFHAND, ItemStack.EMPTY);
 
-        Husk h = EntityType.HUSK.create(p.serverLevel());
-        if (h != null) {
-            h.setPos(p.position().add(0, 0, index < 3 ? 2.2 : 10.0));
-            h.setNoAi(true);
-            h.setNoGravity(true);
-            h.setPersistenceRequired();
-            h.getAttribute(Attributes.MAX_HEALTH).setBaseValue(1000);
-            h.setHealth(1000);
-            h.setYRot(180);
-            p.serverLevel().addFreshEntity(h);
-        }
-
         SyncHelper.full(p);
         SyncHelper.appearance(p);
 
-        trial = new Trial(p.getUUID(), h != null ? h.getUUID() : null, p.level().getGameTime(), index, p.position());
-        LogUtils.getLogger().info("Senbonzakura Combat QA prepared {} target={} index={}", CASES[index], h != null ? h.getId() : -1, index);
+        trial = new Trial(p.getUUID(), null, p.level().getGameTime(), index, p.position());
+        LogUtils.getLogger().info("Senbonzakura Combat QA prepared {} form={} index={}", CASES[index], form, index);
     }
 
     @SubscribeEvent
@@ -226,26 +236,7 @@ public final class SenbonzakuraCombatQaSequence {
         if (p == null) return;
 
         long age = p.level().getGameTime() - t.start();
-        var target = t.target() != null ? p.serverLevel().getEntity(t.target()) : null;
-
-        // Keep combo target in reach
-        if (t.index() < 3 && (age == 30 || age == 44 || age == 58) && target != null) {
-            target.setPos(p.position().add(0, 0, 2.2));
-            target.setDeltaMovement(Vec3.ZERO);
-            LogUtils.getLogger().info("Senbonzakura Combat QA swing {} age={}", CASES[t.index()], age);
-        }
-
-        // Hakuteiken cast at tick 40
-        if (t.index() >= 3 && age == 40) {
-            PlayerCapability.get(p).ifPresent(d -> {
-                TechniqueService.executeSlot(p, d, 4);
-                LogUtils.getLogger().info("Senbonzakura Combat QA cast Hakuteiken: busy={} blade={}", SenbonzakuraTechniqueService.busy(p), d.getCharacter().getSenbonBlade());
-            });
-        }
-
-        if (age == 130 && target != null) {
-            target.discard();
-        }
+        // Server ticks for isolated S1 (no target management needed)
     }
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
@@ -255,23 +246,31 @@ public final class SenbonzakuraCombatQaSequence {
         var mc = Minecraft.getInstance();
         if (mc.player == null) return;
 
-        // Custom camera framing for profile view
-        if (CASES[t.index()].contains("profile")) {
-            Vec3 focus = mc.player.getPosition((float) e.getPartialTick()).add(0, 1.2, 0);
-            Vec3 eye = focus.add(-4.5, 0.4, 0.5); // Lateral profile view from the side
-            try {
-                if (cameraPosition == null) {
-                    cameraPosition = net.minecraftforge.fml.util.ObfuscationReflectionHelper.findMethod(Camera.class, "m_90581_", Vec3.class);
-                }
-                cameraPosition.invoke(e.getCamera(), eye);
-            } catch (ReflectiveOperationException | RuntimeException ignored) { }
-            Vec3 dir = focus.subtract(eye).normalize();
-            double pitch = -Math.toDegrees(Math.asin(dir.y));
-            double yaw = Math.toDegrees(Math.atan2(-dir.x, dir.z));
-            e.setYaw((float) yaw);
-            e.setPitch((float) pitch);
-            e.setRoll(0);
+        Vec3 focus = mc.player.getPosition((float) e.getPartialTick()).add(0, 1.2, 0);
+        Vec3 offset;
+        String caseName = CASES[t.index()];
+        if (caseName.contains("front")) {
+            offset = new Vec3(0, 0.25, 4.2);
+        } else if (caseName.contains("back")) {
+            offset = new Vec3(0, 0.25, -4.2);
+        } else if (caseName.contains("left")) {
+            offset = new Vec3(4.2, 0.25, 0); // Lateral profile from the left
+        } else {
+            offset = new Vec3(-4.2, 0.25, 0); // Lateral profile from the right
         }
+        Vec3 eye = focus.add(offset);
+        try {
+            if (cameraPosition == null) {
+                cameraPosition = net.minecraftforge.fml.util.ObfuscationReflectionHelper.findMethod(Camera.class, "m_90581_", Vec3.class);
+            }
+            cameraPosition.invoke(e.getCamera(), eye);
+        } catch (ReflectiveOperationException | RuntimeException ignored) { }
+        Vec3 dir = focus.subtract(eye).normalize();
+        double pitch = -Math.toDegrees(Math.asin(dir.y));
+        double yaw = Math.toDegrees(Math.atan2(-dir.x, dir.z));
+        e.setYaw((float) yaw);
+        e.setPitch((float) pitch);
+        e.setRoll(0);
     }
 
     @SubscribeEvent
@@ -282,24 +281,67 @@ public final class SenbonzakuraCombatQaSequence {
         if (mc.player == null || mc.level == null) return;
 
         int age = (int) (mc.level.getGameTime() - t.start());
-        if (age < 25 || age > 120 || lastFrame == age || mc.screen != null) return;
-
-        // Capture key moments
-        boolean captureThisTick = false;
-        if (t.index() < 3) {
-            // Combo: Strike 1 windup & cut (32, 38), Strike 2 return + petal ribbon (46, 52), Strike 3 thrust (60, 68), Recovery (76)
-            captureThisTick = (age == 38 || age == 42 || age == 44 || age == 50 || age == 56 || age == 64 || age == 70 || age == 76);
-        } else {
-            // Hakuteiken: Preparation (44, 50), Full wings/zenith (56), Launch/dash (60, 64), Impact/contact (68), Recovery/dissipation (78, 88)
-            captureThisTick = (age == 44 || age == 50 || age == 56 || age == 60 || age == 64 || age == 68 || age == 78 || age == 88);
-        }
-
-        if (!captureThisTick) return;
+        if (age < 25 || age > 75 || lastFrame == age || mc.screen != null) return;
         lastFrame = age;
 
         String file = String.format(Locale.ROOT, "frame-t%03d.png", age);
         try {
             Files.createDirectories(evidence);
+            var poseData = new com.google.gson.JsonObject();
+            poseData.addProperty("age", age);
+            poseData.addProperty("partialTick", mc.getFrameTime());
+            poseData.addProperty("worldTick", mc.level.getGameTime());
+            poseData.addProperty("case", CASES[t.index()]);
+            poseData.addProperty("form", CASES[t.index()].contains("sealed") ? "sealed" : CASES[t.index()].contains("bankai") ? "bankai" : "shikai");
+            poseData.addProperty("hand", mc.options.mainHand().get().name());
+            poseData.addProperty("fps", mc.getFps());
+            poseData.addProperty("comboCount", ((net.bettercombat.logic.PlayerAttackProperties) mc.player).getComboCount());
+            if (mc instanceof net.bettercombat.api.MinecraftClient_BetterCombat bc) {
+                poseData.addProperty("upswingTicks", bc.getUpswingTicks());
+                poseData.addProperty("swingProgress", bc.getSwingProgress());
+                poseData.addProperty("swingInProgress", bc.isWeaponSwingInProgress());
+            }
+
+            try {
+                if (attackAnimationField == null) {
+                    for (java.lang.reflect.Field f : mc.player.getClass().getDeclaredFields()) {
+                        if (f.getType().getSimpleName().equals("AttackAnimationSubStack")) {
+                            f.setAccessible(true);
+                            attackAnimationField = f;
+                            break;
+                        }
+                    }
+                }
+                if (attackAnimationField != null) {
+                    var subStack = (net.bettercombat.client.animation.AttackAnimationSubStack) attackAnimationField.get(mc.player);
+                    if (subStack != null && subStack.base != null) {
+                        var anim = subStack.base.getAnimation();
+                        if (anim instanceof dev.kosmx.playerAnim.api.layered.KeyframeAnimationPlayer kap) {
+                        String clipName = "senbon_diagonal";
+                        if (kap.getData() != null && kap.getData().extraData != null && kap.getData().extraData.containsKey("name")) {
+                            clipName = String.valueOf(kap.getData().extraData.get("name"));
+                        }
+                        poseData.addProperty("clipName", clipName);
+                            poseData.addProperty("clipTick", kap.getCurrentTick());
+                            poseData.addProperty("clipStopTick", kap.getStopTick());
+                            poseData.addProperty("clipActive", kap.isActive());
+                        }
+                    }
+                }
+            } catch (Throwable ignored) { }
+
+            if (mc.player instanceof dev.kosmx.playerAnim.impl.IAnimatedPlayer animated) {
+                var ap = animated.playerAnimator_getAnimation();
+                poseData.addProperty("applierActive", ap.isActive());
+                for (String bone : List.of("rightArm", "rightItem", "leftArm", "leftItem", "body", "head")) {
+                    var rot = ap.get3DTransform(bone, dev.kosmx.playerAnim.api.TransformType.ROTATION, dev.kosmx.playerAnim.core.util.Vec3f.ZERO);
+                    poseData.addProperty(bone + "_rot", rot.getX() + "," + rot.getY() + "," + rot.getZ());
+                    var pos = ap.get3DTransform(bone, dev.kosmx.playerAnim.api.TransformType.POSITION, dev.kosmx.playerAnim.core.util.Vec3f.ZERO);
+                    poseData.addProperty(bone + "_pos", pos.getX() + "," + pos.getY() + "," + pos.getZ());
+                }
+            }
+
+            Files.writeString(evidence.resolve("pose-telemetry.jsonl"), poseData + System.lineSeparator(), StandardOpenOption.CREATE, StandardOpenOption.APPEND);
             Screenshot.grab(evidence.toFile(), file, mc.getMainRenderTarget(), msg -> { });
             Files.writeString(evidence.resolve("frames.jsonl"),
                     String.format(Locale.ROOT, "{\"file\":\"%s\",\"tick\":%d,\"case\":\"%s\",\"fps\":%d,\"busy\":%s,\"source\":\"Minecraft framebuffer\"}%n",
