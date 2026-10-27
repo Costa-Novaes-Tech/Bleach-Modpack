@@ -1,0 +1,9 @@
+DERIVED SUMMARY. Full original path/hash in validacao.json.
+[19:55:51] [Server thread/INFO] [co.bl.cl.ci.SenbonzakuraCombatQaSequence/]: Senbonzakura Combat QA prepared 01_shikai_right_profile form=shikai index=0
+[19:55:58] [Server thread/INFO] [co.bl.cl.ci.SenbonzakuraCombatQaSequence/]: Senbonzakura Combat QA prepared 02_shikai_right_front form=shikai index=1
+[19:56:05] [Server thread/INFO] [co.bl.cl.ci.SenbonzakuraCombatQaSequence/]: Senbonzakura Combat QA prepared 03_shikai_right_back form=shikai index=2
+[19:56:12] [Server thread/INFO] [co.bl.cl.ci.SenbonzakuraCombatQaSequence/]: Senbonzakura Combat QA prepared 04_sealed_right_profile form=sealed index=3
+[19:56:19] [Server thread/INFO] [co.bl.cl.ci.SenbonzakuraCombatQaSequence/]: Senbonzakura Combat QA prepared 05_bankai_right_profile form=bankai index=4
+[19:56:26] [Server thread/INFO] [co.bl.cl.ci.SenbonzakuraCombatQaSequence/]: Senbonzakura Combat QA prepared 06_shikai_left_profile form=shikai index=5
+[19:56:33] [Render thread/INFO] [co.bl.cl.ci.SenbonzakuraCombatQaSequence/]: Senbonzakura Combat QA sequence COMPLETE: All 6 scenarios executed & captured!
+BUILD SUCCESSFUL in 2m 18s

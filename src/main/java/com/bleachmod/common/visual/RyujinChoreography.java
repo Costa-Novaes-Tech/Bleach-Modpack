@@ -78,11 +78,34 @@ public final class RyujinChoreography {
         return key(tick,v(-.98,-.45,-.16),v(-.8,.18,.14),v(-.06,.50,0),v(-.14,0,.05),Vec3.ZERO,
                 v(-.10,.12,-.12),v(-.55,.22,.38));
     }
-    /** Same draw and rising blade as the normal strike, followed by the confirmed dramatic hold. */
+    /** Confirmed replay: wrist-local rotations include vanilla's hand basis, not world Euler angles. */
     public static Pose execution(float age,float sign){
-        return curve(age,sign,neutral(0),higashiHip(10),higashiCross(12),
-                higashiEnd(16),higashiEnd(HigashiCinematicPath.IGNITE),
+        return curve(age,sign,neutral(0),executionHip(7),executionHip(10),
+                key(12,v(-1.05,-.18,.06),v(-.65,.10,.08),v(.02,-.12,0),v(.04,0,.05),
+                        v(-.684624,-.036927,-.064953),v(.03,-.06,-.12),v(-.18,.08,.12)),
+                executionFinish(16),executionFinish(HigashiCinematicPath.IGNITE),
                 k(HigashiCinematicPath.END-8,-.65,-.15,.06,0,.16,-.03,0,0,0),neutral(HigashiCinematicPath.END));
+    }
+    private static Key executionHip(float tick){
+        return key(tick,v(.18,.04,.24),v(-.5,.18,-.12),v(.06,-.45,0),v(.12,0,.06),
+                v(-.091963,-.006051,-.026991),v(.10,-.20,.04),v(.16,-.10,-.18));
+    }
+    private static Key executionFinish(float tick){
+        return key(tick,v(-1.65,-.65,-.30),v(-.8,.18,.14),v(-.06,.50,0),v(-.14,0,.05),
+                v(-.762852,-.115709,-.185898),v(-.10,.12,-.12),v(-.55,.22,.38));
+    }
+    /** Runtime held-item chain: arm -> vanilla Rx(-90) Ry(180) -> item -> model/display. */
+    public static Vec3 executionBladeDirection(Pose pose){
+        Vec3 r=modelRotation(v(0,Math.cos(Math.toRadians(10)),-Math.sin(Math.toRadians(10))),pose.item);
+        r=modelRotation(modelRotation(r,v(0,Math.PI,0)),v(-Math.PI/2,0,0));
+        // Global body precedes the renderer's negative X/Y scale; arm/item follow it.
+        r=modelRotation(modelRotation(r,pose.arm),v(-pose.body.x,-pose.body.y,pose.body.z));
+        return r.scale(-1).normalize();
+    }
+    public static Vec3 executionItemPosition(Pose pose){
+        Vec3 grip=v(0,.25-.85*4.5/16*Math.cos(Math.toRadians(10)),
+                .5/16+.85*4.5/16*Math.sin(Math.toRadians(10)));
+        return grip.subtract(modelRotation(grip,pose.item)).scale(16);
     }
     /** No idle layer: outward pose exists only inside the 60-tick release and fades out by tick 60. */
     public static Pose release(float age,float sign){

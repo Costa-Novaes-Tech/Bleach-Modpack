@@ -1,0 +1,32 @@
+[
+  {
+    "burnAge": 4.0,
+    "raw": "run-benihime-qa\\base\\cinematic-qa\\1793141612199-lethal_husk\\screenshots\\frame-0033-t0039-DRAW.png",
+    "sha256": "9ace355f091592f5714407798d7c41fe48bcaf4ade0ce7d8777721d6d87b58a6"
+  },
+  {
+    "burnAge": 10.0,
+    "raw": "run-benihime-qa\\base\\cinematic-qa\\1793141612199-lethal_husk\\screenshots\\frame-0038-t0045-CUT.png",
+    "sha256": "159a6e4ebb105171201087ffd2376cfc28fed05a467e910987da2d9718eee1d2"
+  },
+  {
+    "burnAge": 12.0,
+    "raw": "run-benihime-qa\\base\\cinematic-qa\\1793141612199-lethal_husk\\screenshots\\frame-0040-t0047-CUT.png",
+    "sha256": "6a99af69d1c2c147c47f51fcceae82ad31c05f14c0658c3c98963540e31cf2db"
+  },
+  {
+    "burnAge": 14.0,
+    "raw": "run-benihime-qa\\base\\cinematic-qa\\1793141612199-lethal_husk\\screenshots\\frame-0042-t0049-CUT.png",
+    "sha256": "e8754fc7bbc1cf0439163aa56f38c83c372fe8187d225c21c31315541fb61024"
+  },
+  {
+    "burnAge": 16.0,
+    "raw": "run-benihime-qa\\base\\cinematic-qa\\1793141612199-lethal_husk\\screenshots\\frame-0044-t0051-HOLD.png",
+    "sha256": "71850af21582242e4a99116c843dfc0eae1908d93a790285fd6ba5a8e88d5569"
+  },
+  {
+    "burnAge": 26.0,
+    "raw": "run-benihime-qa\\base\\cinematic-qa\\1793141612199-lethal_husk\\screenshots\\frame-0054-t0061-HOLD.png",
+    "sha256": "d0ea3c3401df90b1726ee4f1393ac79b3fe98b15ddeda2a25b31ca969e8ecb3e"
+  }
+]

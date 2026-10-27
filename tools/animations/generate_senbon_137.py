@@ -259,11 +259,84 @@ def build_bedrock_json(name, strike_data):
         }
     }
 
+def multiply(a, b):
+    return [[sum(a[i][k] * b[k][j] for k in range(3)) for j in range(3)] for i in range(3)]
+
+
+def rotate(m, v):
+    return [sum(m[i][j] * v[j] for j in range(3)) for i in range(3)]
+
+
+def rotation(x, y, z):
+    sx, cx, sy, cy, sz, cz = math.sin(x), math.cos(x), math.sin(y), math.cos(y), math.sin(z), math.cos(z)
+    return [[cz*cy, cz*sy*sx-sz*cx, cz*sy*cx+sz*sx],
+            [sz*cy, sz*sy*sx+cz*cx, sz*sy*cx-cz*sx], [-sy, cy*sx, cy*cx]]
+
+
+def transpose(m):
+    return [list(row) for row in zip(*m)]
+
+
+def align(a, b):
+    """Shortest rotation from unit a to unit b; item rotation is AFTER vanilla hand axes."""
+    c = sum(x*y for x, y in zip(a, b))
+    v = [a[1]*b[2]-a[2]*b[1], a[2]*b[0]-a[0]*b[2], a[0]*b[1]-a[1]*b[0]]
+    if c < -0.99999:
+        raise ValueError("Antipodal blade key requires an explicit edge orientation")
+    k = [[0, -v[2], v[1]], [v[2], 0, -v[0]], [-v[1], v[0], 0]]
+    k2 = multiply(k, k)
+    return [[(1 if i == j else 0)+k[i][j]+k2[i][j]/(1+c) for j in range(3)] for i in range(3)]
+
+
+def solve_runtime_items():
+    """Use model/display/vanilla-hand composition, never subtract independent Euler angles.
+
+    ItemInHandLayer: arm -> Rx(-90) Ry(180) -> PlayerAnimator item -> display -> element.
+    The three runtime models share the same wrapped handle and display basis.
+    Shoulder animation is kept; only the wrist-local katana transform is solved here.
+    """
+    actions = json.loads((ROOT / "Docs/poderes/media/137-storyboards/poses.json").read_text(encoding="utf-8"))["actions"]
+    vanilla = multiply(rotation(-math.pi/2, 0, 0), rotation(0, math.pi, 0))
+    display = multiply(rotation(0, -math.pi/2, 0), rotation(0, 0, math.radians(55)))
+    basis = multiply(display, rotation(0, 0, -math.pi/4))
+    blade = rotate(basis, [0, 1, 0])
+    # Grip is at model y=3.5, with 0.85 display scale and (0,4,.5) pixel translation.
+    offset = rotate(basis, [0, -4.5/16*.85, 0])
+    grip = [offset[0], offset[1]+4/16, offset[2]+.5/16]
+    for name, action in zip(("diagonal", "return", "thrust"), actions[:3]):
+        data = STRIKES[name]
+        previous = None
+        for i, frame in enumerate(action["frames"]):
+            if i >= len(TICKS)-1:
+                break
+            arm, body = data["rightArm"][i], data["torso"][i]
+            # PlayerRenderer's global body is BEFORE model scale(-1,-1,1):
+            # conjugation into the arm frame flips pitch/yaw, but preserves roll.
+            outer = multiply(multiply(rotation(-body["pitch"], -body["yaw"], body["roll"]),
+                                      rotation(arm["pitch"], arm["yaw"], arm["roll"])), vanilla)
+            target = rotate(transpose(outer), [-v for v in frame["direction"]])
+            local = align(blade, target)
+            angles = [math.atan2(local[2][1], local[2][2]), math.asin(max(-1, min(1, -local[2][0]))),
+                      math.atan2(local[1][0], local[0][0])]
+            if previous:
+                alternative = [angles[0]+math.pi, math.pi-angles[1], angles[2]+math.pi]
+                options = [[a+2*math.pi*round((p-a)/(2*math.pi)) for a, p in zip(option, previous)]
+                           for option in (angles, alternative)]
+                angles = min(options, key=lambda option: sum((a-p)**2 for a, p in zip(option, previous)))
+            previous = angles
+            solved = rotation(*angles)
+            check = rotate(outer, rotate(solved, blade))
+            assert max(abs(a+b) for a, b in zip(check, frame["direction"])) < 1e-7
+            moved = rotate(solved, grip)
+            data["rightItem"][i] = dict(zip(("pitch", "yaw", "roll"), (round(a, 6) for a in angles)))
+            data["rightItem"][i].update({axis: round((a-b)*16, 6) for axis, a, b in zip(("x", "y", "z"), grip, moved)})
+
+
 def main():
     ATTACK_DIR.mkdir(parents=True, exist_ok=True)
     PLAYER_DIR.mkdir(parents=True, exist_ok=True)
-    
-    for name in ["diagonal"]:
+    solve_runtime_items()
+    for name in ("diagonal", "return", "thrust"):
         strike_data = STRIKES[name]
         emote = build_emote_json(name, strike_data)
         bedrock = build_bedrock_json(name, strike_data)

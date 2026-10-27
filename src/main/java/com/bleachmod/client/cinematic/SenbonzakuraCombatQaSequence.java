@@ -56,7 +56,10 @@ import static net.minecraft.commands.Commands.literal;
  */
 @Mod.EventBusSubscriber(modid = Reference.MOD_ID, value = Dist.CLIENT)
 public final class SenbonzakuraCombatQaSequence {
-    private static final String[] CASES = {
+    private static final String[] CASES = Boolean.getBoolean("bleachmod.senbonComboQa") ? new String[]{
+            "01_shikai_right_profile", "02_shikai_right_front", "03_shikai_right_back",
+            "04_sealed_right_profile", "05_bankai_right_profile", "06_shikai_left_profile"
+    } : new String[]{
             "01_shikai_right_front",
             "02_shikai_right_profile",
             "03_shikai_right_back",
@@ -124,7 +127,7 @@ public final class SenbonzakuraCombatQaSequence {
         if (current != null) {
             long age = mc.level.getGameTime() - current.start();
             // Single attack input on tick 30 (triggers S1)
-            mc.options.keyAttack.setDown(age >= 30 && age < 32);
+            mc.options.keyAttack.setDown(age >= 30 && age < (Boolean.getBoolean("bleachmod.senbonComboQa") ? 100 : 32));
         }
 
         wait++;
@@ -157,7 +160,7 @@ public final class SenbonzakuraCombatQaSequence {
             }
             mc.options.hideGui = true;
 
-            String runId = System.getProperty("bleachmod.senbonQaRunId", "run-cycle145");
+            String runId = System.getProperty("bleachmod.senbonQaRunId", "run-" + System.currentTimeMillis());
             evidence = mc.gameDirectory.toPath().resolve("senbonzakura-combat-qa/" + runId + "/" + name);
             mc.getSingleplayerServer().execute(() -> prepareServer(mc.getSingleplayerServer().getPlayerList().getPlayer(id), index));
         } else if (stage == CASES.length && wait >= 140) {
@@ -281,7 +284,9 @@ public final class SenbonzakuraCombatQaSequence {
         if (mc.player == null || mc.level == null) return;
 
         int age = (int) (mc.level.getGameTime() - t.start());
-        if (age < 25 || age > 75 || lastFrame == age || mc.screen != null) return;
+        int captureEnd = Boolean.getBoolean("bleachmod.senbonComboQa") ? 120 : 75;
+        if (age < 28 || age > captureEnd || lastFrame == age || mc.screen != null) return;
+        if (Boolean.getBoolean("bleachmod.senbonComboQa") && age % 2 != 0) return;
         lastFrame = age;
 
         String file = String.format(Locale.ROOT, "frame-t%03d.png", age);
@@ -304,11 +309,13 @@ public final class SenbonzakuraCombatQaSequence {
 
             try {
                 if (attackAnimationField == null) {
-                    for (java.lang.reflect.Field f : mc.player.getClass().getDeclaredFields()) {
-                        if (f.getType().getSimpleName().equals("AttackAnimationSubStack")) {
-                            f.setAccessible(true);
-                            attackAnimationField = f;
-                            break;
+                    for (Class<?> type = mc.player.getClass(); type != null && attackAnimationField == null; type = type.getSuperclass()) {
+                        for (java.lang.reflect.Field f : type.getDeclaredFields()) {
+                            if (f.getType().getSimpleName().equals("AttackAnimationSubStack")) {
+                                f.setAccessible(true);
+                                attackAnimationField = f;
+                                break;
+                            }
                         }
                     }
                 }

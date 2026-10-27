@@ -116,6 +116,8 @@ minecraft {
                 property 'bleachmod.hyorinmaruQa', providers.gradleProperty('hyorinmaruQa').getOrElse('false')
                 property 'bleachmod.senbonzakuraQa', providers.gradleProperty('senbonzakuraQa').getOrElse('false')
                 property 'bleachmod.senbonCombatQa', providers.gradleProperty('senbonCombatQa').getOrElse('false')
+                property 'bleachmod.senbonComboQa', providers.gradleProperty('senbonComboQa').getOrElse('false')
+                property 'bleachmod.senbonQaRunId', providers.gradleProperty('senbonQaRunId').getOrElse('run-' + System.currentTimeMillis())
                 property 'bleachmod.senbonVfxDisable', providers.gradleProperty('senbonVfxDisable').getOrElse('false')
                 property 'bleachmod.qaAutoExit', providers.gradleProperty('qaAutoExit').getOrElse('false')
                 property 'bleachmod.cinematicQaFast', providers.gradleProperty('cinematicQaFast').getOrElse('false')

@@ -224,7 +224,7 @@ public final class HigashiExecutionVisuals {
                     return mix(value,execPose.item(),w);
                 }
                 if(type==TransformType.POSITION){
-                    return mix(value,Vec3.ZERO,w);
+                    return mix(value,RyujinChoreography.executionItemPosition(execPose),w);
                 }
             }
             return RyujinActionVisuals.transform(p,execPose,part,type,value);
@@ -256,7 +256,7 @@ public final class HigashiExecutionVisuals {
             Vec3 f=cinematic.packet.victim().subtract(cinematic.packet.attacker()).multiply(1,0,1).normalize();
             if(f.lengthSqr()<.1)f=Vec3.directionFromRotation(0,mc.player.getYRot());
             Vec3 hand=RyujinActionVisuals.world(mc.player.position(),f,RyujinChoreography.bladeHand(cutPose,sign));
-            Vec3 dir=RyujinActionVisuals.world(Vec3.ZERO,f,RyujinChoreography.bladeDirection(cutPose));
+            Vec3 dir=RyujinActionVisuals.world(Vec3.ZERO,f,RyujinChoreography.executionBladeDirection(cutPose));
             for(int i=0;i<8;i++){Vec3 q=hand.add(dir.scale(.15+i*.14));if(i%4==0)mc.level.addParticle(ParticleTypes.ELECTRIC_SPARK,q.x,q.y,q.z,0,.01,0);else mc.level.addParticle(ParticleTypes.SMALL_FLAME,q.x,q.y,q.z,0,.015,0);}
         }
         if(mc.isPaused()||emitted==now)return;emitted=now;int budget=256,scale=mc.options.particles().get()==ParticleStatus.MINIMAL?4:1;

@@ -1,0 +1,7 @@
+DERIVED SUMMARY. Full original path/hash in validacao.json.
+[19:53:40] [Render thread/INFO] [co.bl.cl.ci.CinematicQaSequence/]: Cinematic QA 77 camera scenario=lethal_husk seen=true expected=true passed=true
+[19:53:48] [Render thread/INFO] [co.bl.cl.ci.CinematicQaSequence/]: Cinematic QA 77 camera scenario=lethal_flying seen=true expected=true passed=true
+[19:53:56] [Render thread/INFO] [co.bl.cl.ci.CinematicQaSequence/]: Cinematic QA 77 camera scenario=threshold_real seen=true expected=true passed=true
+[19:54:04] [Render thread/INFO] [co.bl.cl.ci.CinematicQaSequence/]: Cinematic QA 77 camera scenario=survive seen=false expected=false passed=true
+[19:54:12] [Render thread/INFO] [co.bl.cl.ci.CinematicQaSequence/]: Cinematic QA 77 camera scenario=miss seen=false expected=false passed=true
+BUILD SUCCESSFUL in 2m 14s

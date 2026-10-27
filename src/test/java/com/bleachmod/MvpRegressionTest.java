@@ -1378,27 +1378,48 @@ public final class MvpRegressionTest {
                 var end=com.bleachmod.common.visual.RyujinChoreography.execution(16,sign);
                 var hand=com.bleachmod.common.visual.RyujinChoreography.bladeHand(hip,sign);
                 yes(hand.x*sign>.35&&hand.y>.65&&hand.y<.9&&hand.z<0);
-                var low=hand.add(com.bleachmod.common.visual.RyujinChoreography.bladeDirection(hip).scale(1.4));
-                var high=com.bleachmod.common.visual.RyujinChoreography.bladeHand(end,sign).add(com.bleachmod.common.visual.RyujinChoreography.bladeDirection(end).scale(1.4));
+                var low=hand.add(com.bleachmod.common.visual.RyujinChoreography.executionBladeDirection(hip).scale(1.4));
+                var high=com.bleachmod.common.visual.RyujinChoreography.bladeHand(end,sign).add(com.bleachmod.common.visual.RyujinChoreography.executionBladeDirection(end).scale(1.4));
                 yes(low.y<.5&&high.y>1.9&&high.y-low.y>1.4);
                 yes((low.x-high.x)*sign>.5&&low.z>.9&&high.z>1);
-                for(float age=1;age<=16;age+=.25F){
-                    var normal=com.bleachmod.common.visual.RyujinChoreography.attack("higashi",age,sign);
-                    var execution=com.bleachmod.common.visual.RyujinChoreography.execution(age,sign);
-                    yes(normal.arm().distanceTo(execution.arm())<1e-9);
-                }
+                yes(end.arm().x < -1.5);
+                yes(com.bleachmod.common.visual.RyujinChoreography.bladeHand(end,sign).y>1.35);
             }
         });
         test("Higashi rising follow-through points toward the victim instead of behind the caster", () -> {
             for(float sign:new float[]{-1,1}){
                 var pose=com.bleachmod.common.visual.RyujinChoreography.execution(16,sign);
-                var blade=com.bleachmod.common.visual.RyujinChoreography.bladeDirection(pose);
+                var blade=com.bleachmod.common.visual.RyujinChoreography.executionBladeDirection(pose);
                 yes(blade.z>.6&&blade.y>.4);
                 for(float t=0;t<=com.bleachmod.common.visual.HigashiCinematicPath.END;t+=1.0F){
                     var p=com.bleachmod.common.visual.RyujinChoreography.execution(t,sign);
-                    yes(p.item().lengthSqr()<1e-6);
+                    yes(Double.isFinite(p.item().lengthSqr()));
+                    yes(com.bleachmod.common.visual.RyujinChoreography.executionItemPosition(p).length()<3);
                 }
             }
+        });
+        test("Held katana coordinates agree with independently captured renderer matrices", () -> {
+            try {
+                var fixture=com.google.gson.JsonParser.parseString(java.nio.file.Files.readString(
+                        java.nio.file.Path.of("src/test/resources/higashi-held-renderer-calibration.json"))).getAsJsonObject();
+                var measured=new java.util.ArrayList<net.minecraft.world.phys.Vec3>();
+                var predicted=new java.util.ArrayList<net.minecraft.world.phys.Vec3>();
+                double by=Math.cos(Math.toRadians(10)),bz=-Math.sin(Math.toRadians(10));
+                for(var entry:fixture.getAsJsonArray("poses")){
+                    var o=entry.getAsJsonObject();var m=o.getAsJsonArray("heldMatrix");
+                    measured.add(new net.minecraft.world.phys.Vec3(
+                            m.get(4).getAsDouble()*by+m.get(8).getAsDouble()*bz,
+                            m.get(5).getAsDouble()*by+m.get(9).getAsDouble()*bz,
+                            m.get(6).getAsDouble()*by+m.get(10).getAsDouble()*bz).normalize());
+                    var zero=net.minecraft.world.phys.Vec3.ZERO;
+                    var pose=new com.bleachmod.common.visual.RyujinChoreography.Pose(
+                            fixtureVector(o.getAsJsonArray("arm")),zero,fixtureVector(o.getAsJsonArray("body")),
+                            zero,fixtureVector(o.getAsJsonArray("item")),zero,zero,1);
+                    predicted.add(com.bleachmod.common.visual.RyujinChoreography.executionBladeDirection(pose));
+                }
+                // Camera-independent angle between two stable poses, measured before model display.
+                yes(Math.abs(measured.get(0).dot(measured.get(1))-predicted.get(0).dot(predicted.get(1)))<1e-5);
+            }catch(java.io.IOException failure){throw new AssertionError(failure);}
         });
         test("Higashi preview packets remain distinct from confirmed death", () -> {
             var preview=new com.bleachmod.common.network.s2c.HigashiExecutionS2C(1,2,new net.minecraft.world.phys.Vec3(0,70,0),new net.minecraft.world.phys.Vec3(0,70,3),.6F,1.8F,false);
@@ -1560,6 +1581,7 @@ public final class MvpRegressionTest {
     }
     private static Map<String,com.bleachmod.server.world.HistoryWorld.Destination> historyManifest(String json){try{var f=java.nio.file.Files.createTempFile("maps",".json");try{java.nio.file.Files.writeString(f,json);return com.bleachmod.server.world.HistoryWorld.parse(f);}finally{java.nio.file.Files.deleteIfExists(f);}}catch(java.io.IOException e){throw new IllegalArgumentException(e);}}
     private static void historyRejects(String json){rejects(()->historyManifest(json));}
+    private static net.minecraft.world.phys.Vec3 fixtureVector(com.google.gson.JsonArray a){return new net.minecraft.world.phys.Vec3(a.get(0).getAsDouble(),a.get(1).getAsDouble(),a.get(2).getAsDouble());}
     private static PlayerData player(){PlayerData d=new PlayerData();d.initializeShinigami();d.getCharacter().bindZanpakuto("ryujin_jakka");d.getCharacter().preserveLegacyTechniques();return d;}
     private static Quest quest(){Quest q=new Quest();q.setStringId("q");q.getObjectives().add(new KillObjective("minecraft:zombie",5,KillObjective.SpawnMode.NATURAL,KillObjective.CountMode.ANY_MATCHING));q.getRewards().add(new TpsReward(100));return q;}
     private static JsonObject forms(){JsonObject r=new JsonObject(),groups=new JsonObject();groups.add("zanpakuto",FormDefaults.shinigamiGroup().toJson());r.add("shinigami",groups);return r;}

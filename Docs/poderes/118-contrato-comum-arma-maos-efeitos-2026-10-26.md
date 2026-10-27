@@ -29,3 +29,7 @@ Codex mantém compatibilidade/mixins, controladores comuns, contrato de âncoras
 Os agentes podem desenvolver o primeiro golpe nos seus checkouts isolados, seguindo esta interface. Mudança comum precisa de diff e comunicação coordenada; não é necessário esperar uma API universal inexistente para diagnosticar os assets. A integração final exige remover controladores/emissores redundantes junto com seus substitutos e repetir a mesma cena antes/depois no Minecraft real.
 
 Estado: diagnóstico de fonte e contrato publicados nesta frente; vínculo completo dos combos customizados continua sob as entregas114/115 e aceite visual. Nada neste documento homologa duas mãos em primeira pessoa ou observador multiplayer.
+
+## Calibração confirmada em27/10
+
+O giro global body precede a escala negativaX/Y do renderer; no espaço local do braço, sua composição usa Rz(z) Ry(-y) Rx(-x). Item, braço e corpo não recebem a mesma conversão de sinais. Medição real, fixture de regressão, gerador atualizado e limites estão no [estado do combate](estado-combate-senbon-higashi.md). Não reutilizar subtração de Euler nem aplicar a base de um modelo a todas as identidades sem medição. Esta calibração não modifica controladores globais de outras zanpakutos.

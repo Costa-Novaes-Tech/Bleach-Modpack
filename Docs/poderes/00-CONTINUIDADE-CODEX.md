@@ -1,5 +1,7 @@
 # Continuidade do projeto — leia primeiro
 
+**27/10 — [estado atual do combate Senbon/Higashi](estado-combate-senbon-higashi.md):** Codex reproduziu e corrigiu a composição entre corpo global, escala do jogador, braço e item. Matriz real confirmou a base; regressão com fixture capturada. Senbon três golpes e Higashi quadril→diagonal ascendente; mecânica/câmera/vítima/pausa preservadas. Check/build151regressões,237GameTests e11cenários gráficos finais aprovados tecnicamente. Arte e primeira pessoa/multiplayer pendentes de aceite. QA compacto em qa/combate-atual.
+
 **27/10 — [150: prioridade de eficiência e retenção](150-prioridade-eficiencia-limpeza-retencao-qa-2026-10-27.md):** item8 antecipado como frente transversal; QA ocupa2.098,99MiB/8.616arquivos no checkout. Planejar inventário, consolidação e retenção mínima após aceite, preservando provas de regressões abertas. Sem exclusão ou reescrita de histórico. Publicação da branch solicitada pelo usuário; conferir resultado no Git.
 
 **27/10 — [149: integração solicitada para teste](149-integracao-duas-frentes-para-teste-2026-10-27.md):** docs/provas preservadosf3e954d, Senbon834ae74 integradoec97869 e Higashibe46530 integrado18edea9, sem conflitos manuais. Check/build150regressões e237GameTests integrados aprovados; JAR0.2.0 gerado. Pendências148/katanaHG continuam visuais; usuário fará teste. Main intacta e sem push.

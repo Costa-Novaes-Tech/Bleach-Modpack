@@ -1,0 +1,187 @@
+{
+  "date": "2026-10-27",
+  "branch": "Feature-Poderes-bankais",
+  "baseCommit": "8e555d5514c8d1546f2f82f2384ee30fd87de8b7",
+  "regressionsPassed": 151,
+  "requiredGameTestsPassed": 237,
+  "senbonClientScenarios": [
+    {
+      "case": "01_shikai_right_profile",
+      "captures": 47,
+      "clipsObserved": [
+        "senbonzakura_diagonal",
+        "senbonzakura_return",
+        "senbonzakura_thrust"
+      ],
+      "comboCounts": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "finalApplierActive": false
+    },
+    {
+      "case": "02_shikai_right_front",
+      "captures": 47,
+      "clipsObserved": [
+        "senbonzakura_diagonal",
+        "senbonzakura_return",
+        "senbonzakura_thrust"
+      ],
+      "comboCounts": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "finalApplierActive": false
+    },
+    {
+      "case": "03_shikai_right_back",
+      "captures": 47,
+      "clipsObserved": [
+        "senbonzakura_diagonal",
+        "senbonzakura_return",
+        "senbonzakura_thrust"
+      ],
+      "comboCounts": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "finalApplierActive": false
+    },
+    {
+      "case": "04_sealed_right_profile",
+      "captures": 47,
+      "clipsObserved": [
+        "senbonzakura_diagonal",
+        "senbonzakura_return",
+        "senbonzakura_thrust"
+      ],
+      "comboCounts": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "finalApplierActive": false
+    },
+    {
+      "case": "05_bankai_right_profile",
+      "captures": 47,
+      "clipsObserved": [
+        "senbonzakura_diagonal",
+        "senbonzakura_return",
+        "senbonzakura_thrust"
+      ],
+      "comboCounts": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "finalApplierActive": false
+    },
+    {
+      "case": "06_shikai_left_profile",
+      "captures": 47,
+      "clipsObserved": [
+        "senbonzakura_diagonal",
+        "senbonzakura_return",
+        "senbonzakura_thrust"
+      ],
+      "comboCounts": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "finalApplierActive": false
+    }
+  ],
+  "higashiCameraChecks": [
+    "[19:53:40] [Render thread/INFO] [co.bl.cl.ci.CinematicQaSequence/]: Cinematic QA 77 camera scenario=lethal_husk seen=true expected=true passed=true",
+    "[19:53:48] [Render thread/INFO] [co.bl.cl.ci.CinematicQaSequence/]: Cinematic QA 77 camera scenario=lethal_flying seen=true expected=true passed=true",
+    "[19:53:56] [Render thread/INFO] [co.bl.cl.ci.CinematicQaSequence/]: Cinematic QA 77 camera scenario=threshold_real seen=true expected=true passed=true",
+    "[19:54:04] [Render thread/INFO] [co.bl.cl.ci.CinematicQaSequence/]: Cinematic QA 77 camera scenario=survive seen=false expected=false passed=true",
+    "[19:54:12] [Render thread/INFO] [co.bl.cl.ci.CinematicQaSequence/]: Cinematic QA 77 camera scenario=miss seen=false expected=false passed=true"
+  ],
+  "logs": {
+    "check": {
+      "path": "build\\check151-calibrated.log",
+      "sha256": "a28f3cdfb8e41b8fa49e5044ad7a856ce5d3c4c099fbb0eab4853383cb7064f7",
+      "bytes": 19069,
+      "exitCode": 0
+    },
+    "higashi": {
+      "path": "build\\higashi-calibrated151.log",
+      "sha256": "e810461599c76d549ae0290141dfd70fd631d01f867b25ccccd4655135515203",
+      "bytes": 203183,
+      "exitCode": 0
+    },
+    "senbon": {
+      "path": "build\\senbon-calibrated151.log",
+      "sha256": "659fe1fdf5d2e1ee048a8e7a1b4ea5f1ad2c19973f3da9845942ecce348844ad",
+      "bytes": 166619,
+      "exitCode": 0
+    },
+    "gametest": {
+      "path": "build\\gametest151.log",
+      "sha256": "77195faafedb2e234f2e43a1a175e282a4d68b40707dbc424ee59bb6851097a3",
+      "bytes": 265073,
+      "exitCode": 0
+    }
+  },
+  "sourceSha256": {
+    "build.gradle": "f93f10435cc80b0c48e2a70bf36fe4066042e88f9fd6033ed8b8b162df493440",
+    "src/main/java/com/bleachmod/client/cinematic/CinematicQaSequence.java": "1f04a0cf4889459da3803de11010afcf3a23bc0563253c43602ab15ecc0052f5",
+    "src/main/java/com/bleachmod/client/cinematic/HeldWeaponQaProbe.java": "3c14438ac36a5496bed0292a3af0c79a2d6559220921b713628377e142748953",
+    "src/main/java/com/bleachmod/client/cinematic/SenbonzakuraCombatQaSequence.java": "35f66f429ecf3aead1d3578cfd1839e8b1c031cea54396cfa987a4c117dfa414",
+    "src/main/java/com/bleachmod/client/model/HigashiExecutionVisuals.java": "c09494eaad2553c8c182e04a19feb634ad1a62929a985ef7ab3eb6332022e9a8",
+    "src/main/java/com/bleachmod/common/visual/RyujinChoreography.java": "ca2b7d1ff672130b695bbc957e6cc205fbf73a72c08fcc0ad084fb420dde29a2",
+    "src/main/java/com/bleachmod/mixin/client/HeldWeaponQaMixin.java": "cffdd05be32fa53dc3afe117d506de4a928d74246f729e62f5f219d43b415445",
+    "src/main/resources/assets/bleachmod/attack_animations/senbonzakura_diagonal.json": "cbaafc12eac05515afea931adcec8e96a289ad2c72fba17b236a576bd035a33e",
+    "src/main/resources/assets/bleachmod/attack_animations/senbonzakura_return.json": "7c37e5265b67d90f96cb33d8f38584165e63c1dc2ebdb7a5c41d56e49e452b35",
+    "src/main/resources/assets/bleachmod/attack_animations/senbonzakura_thrust.json": "214c2d8d09d9ca1abf196c170d58105ccc0e11a3677e7fb4c732e3a962622338",
+    "src/main/resources/assets/bleachmod/player_animation/senbonzakura_diagonal.json": "6cf16c92b38b592aae7b667b10caa1b3b5bc45a77d42e3594f3b8f1a20d317a6",
+    "src/main/resources/assets/bleachmod/player_animation/senbonzakura_return.json": "7ac3547a0c940d7d75bec85731ef8a0f7bcb7530e533b232ec034c38d1eeca77",
+    "src/main/resources/assets/bleachmod/player_animation/senbonzakura_thrust.json": "5d9e6144c9aff0439596a83c47356154e8d2e86a7dec2866765e11c77a968e88",
+    "src/main/resources/bleachmod.mixins.json": "8f5c93844a5bc76893bf3b0bc260beaadf4fe8a0c00c577df6f5db6f57070fb5",
+    "src/test/java/com/bleachmod/MvpRegressionTest.java": "45c29600d1ea134e60e77b580001879a8471374a5bfa8f8de634fdce881c6f79",
+    "src/test/resources/higashi-held-renderer-calibration.json": "70819b2f54260ed301929de5a82e2eea80968d719987eda425bbc57b0d9a97d7",
+    "tools/animations/generate_senbon_137.py": "1e7bc2e11a4247ce24dbe8f353bff9b0cf3589703a08440681eadf41a316401a"
+  },
+  "jar": {
+    "path": "build\\libs\\bleachmod-0.2.0.jar",
+    "bytes": 15946752,
+    "sha256": "e1ab3176686f31d23d1fa4a47a390a657b75f51e9f263fab89d4cb301c6c5d70"
+  },
+  "limits": [
+    "GIFs are sampled framebuffer images, not continuous video",
+    "Senbon trail disabled, passive aura still present",
+    "First person and remote multiplayer not visually validated",
+    "Higashi left hand not exercised by these five client scenarios",
+    "Artistic acceptance pending user"
+  ]
+}

@@ -243,3 +243,6 @@ A transformação longa da Ryūjin foi rejeitada por duração após teste do us
 
 O item8 passa a prioridade transversal, em paralelo à homologação e antes de expandir NPCs/quests, preservando a lista obrigatória. O [plano150](150-prioridade-eficiencia-limpeza-retencao-qa-2026-10-27.md) determina inventário, consolidação documental, retenção mínima por feature e remoção revisada de duplicatas/derivados após aceite. QA atual soma aproximadamente2,05GiB em8.616arquivos. Provas das regressões Senbon/Higashi permanecem até fechamento; não manter todos os brutos indefinidamente. Limpeza do checkout e redução do histórico Git são operações distintas. Nenhum arquivo removido nesta rodada.
 
+# Estado do combate em27/10
+
+[Documento por assunto](estado-combate-senbon-higashi.md): correções de coreografia Senbon/Higashi feitas e testadas pelo Codex; matriz do renderer fundamenta nova regressão.151regressões/237GameTests e11cenários gráficos finais. Itens2/4 aguardam aceite artístico do usuário; nenhuma baixa automática de feature. Demais itens obrigatórios, eficiência e NPCs/quests posteriores preservados.

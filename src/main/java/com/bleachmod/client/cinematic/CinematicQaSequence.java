@@ -114,6 +114,15 @@ public final class CinematicQaSequence {
             metadata.addProperty("replicaVisible",replicaVisible);
             metadata.addProperty("originalPresent",origPresent);
             metadata.addProperty("originalSuppressed",origSuppressed);
+            if (Boolean.getBoolean("bleachmod.higashiPoseQa")
+                    && mc.player instanceof dev.kosmx.playerAnim.impl.IAnimatedPlayer animated) {
+                var applier = animated.playerAnimator_getAnimation();
+                for (String bone : java.util.List.of("rightArm", "rightItem", "leftArm", "leftItem", "body", "torso")) {
+                    var rotation = applier.get3DTransform(bone, dev.kosmx.playerAnim.api.TransformType.ROTATION,
+                            dev.kosmx.playerAnim.core.util.Vec3f.ZERO);
+                    metadata.addProperty(bone + "Rotation", rotation.getX()+","+rotation.getY()+","+rotation.getZ());
+                }
+            }
             row=metadata.toString()+System.lineSeparator();
             Files.writeString(evidence.toPath().resolve("frames.jsonl"),row,StandardOpenOption.CREATE,StandardOpenOption.APPEND);
             if(serial==1){
