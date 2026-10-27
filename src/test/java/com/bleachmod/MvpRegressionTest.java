@@ -1061,8 +1061,20 @@ public final class MvpRegressionTest {
             var zero=net.minecraft.world.phys.Vec3.ZERO;var f=new net.minecraft.world.phys.Vec3(0,0,1);
             yes(new com.bleachmod.common.network.s2c.SenbonPetalsS2C(0,zero,f,6,1,0,1,7).valid());
             yes(!new com.bleachmod.common.network.s2c.SenbonPetalsS2C(0,zero,f,Float.NaN,1,0,1,7).valid());
-            yes(!new com.bleachmod.common.network.s2c.SenbonPetalsS2C(12,zero,f,6,1,0,1,7).valid());
+            yes(!new com.bleachmod.common.network.s2c.SenbonPetalsS2C(13,zero,f,6,1,0,1,7).valid());
             yes(!new com.bleachmod.common.network.s2c.SenbonPetalsS2C(0,zero,zero,6,1,0,1,7).valid());
+        });
+        test("Senbon passive aura cannot start melee trail and trail validates combo",()->{
+            var zero=net.minecraft.world.phys.Vec3.ZERO;var f=new net.minecraft.world.phys.Vec3(0,0,1);
+            for(int combo=0;combo<3;combo++){
+                var aura=new com.bleachmod.common.network.s2c.SenbonPetalsS2C(10,zero,f,1,0,combo,1,7);
+                yes(aura.valid());yes(!aura.meleeTrail());
+                var trail=new com.bleachmod.common.network.s2c.SenbonPetalsS2C(12,zero,f,1,0,combo,1,7);
+                yes(trail.valid());yes(trail.meleeTrail());
+                var buffer=new net.minecraft.network.FriendlyByteBuf(io.netty.buffer.Unpooled.buffer());
+                try{com.bleachmod.common.network.s2c.SenbonPetalsS2C.encode(trail,buffer);eq(trail,com.bleachmod.common.network.s2c.SenbonPetalsS2C.decode(buffer));}finally{buffer.release();}
+            }
+            yes(!new com.bleachmod.common.network.s2c.SenbonPetalsS2C(12,zero,f,1,0,3,1,7).valid());
         });
         test("large floral field packet roundtrips owner and rejects excess radius",()->{
             var zero=net.minecraft.world.phys.Vec3.ZERO;var f=new net.minecraft.world.phys.Vec3(0,0,1);

@@ -42,7 +42,7 @@ public final class BetterCombatCompat {
             CURRENT.set(new Swing(p));
             if(CURRENT.get().allowed && combo>=0 && combo<=2 && p.getMainHandItem().is(ModItems.SENBONZAKURA.get())){
                 Vec3 f=SenbonGeometry.forward(p.getYRot()),o=p.position().add(0,1.2,0);
-                var packet=new SenbonPetalsS2C(SenbonPetalsS2C.AURA,o,f,1.5F,0.0F,combo,(int)(p.level().getGameTime()*31+p.getId()),p.getId());
+                var packet=new SenbonPetalsS2C(SenbonPetalsS2C.MELEE_TRAIL,o,f,1.5F,0.0F,combo,(int)(p.level().getGameTime()*31+p.getId()),p.getId());
                 for(ServerPlayer receiver:p.serverLevel().players())if(receiver.position().distanceToSqr(o)<=64*64)NetworkHandler.sendToPlayer(packet,receiver);
             }
         }

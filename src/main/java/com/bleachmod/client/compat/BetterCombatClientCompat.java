@@ -17,12 +17,6 @@ public final class BetterCombatClientCompat {
     public static void init(){
         BetterCombatClientEvents.ATTACK_START.register((p,hand)->{
             cancelIfBlocked();
-            if(p!=null && p.getMainHandItem().is(com.bleachmod.init.ModItems.SENBONZAKURA.get())){
-                int combo=((net.bettercombat.logic.PlayerAttackProperties)p).getComboCount();
-                if(combo>=0 && combo<=2){
-                    com.bleachmod.client.model.SenbonCombatVisuals.startMelee(p.getId(),combo);
-                }
-            }
         });
     }
     private static void cancelIfBlocked(){var mc=Minecraft.getInstance();var p=mc.player;
