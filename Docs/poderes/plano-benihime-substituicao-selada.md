@@ -1,12 +1,12 @@
 # Benihime — substituição do Gigai no kit selado
 
-27/10/2026. Estado: PROPOSTA para discussão, sem código ou nova animação. Decisão existente: usuário rejeitou a boneca deixada para trás e pediu outra habilidade. A escolha do Hadō91 abaixo ainda não foi aprovada.
+27/10/2026. Estado: direção APROVADA pelo usuário em27/10, sem código ou nova animação nesta rodada. Decisão existente: usuário rejeitou a boneca deixada para trás e pediu outra habilidade. Usuário concordou com Hadō91 como substituto; calibração inicial autorizada para protótipo.
 
 ## Estado conferido no código
 
 Slots selados em TechniqueDefinitions e BenihimeTechniqueService: H Saque da Bengala (cane_draw); N Jūgeki Byakurai (byakurai); B Rikujōkōrō — Seis Hastes (six_rods); C Gigai Portátil (gigai). O C atual recua por pathEnd de6blocos e deployGigai cria um decoy temporário. Definição atual: custo22, recarga240ticks. Esses números são estado anterior, não balanceamento aprovado para o substituto.
 
-## Recomendação principal: Hadō91 — Senju Kōten Taihō
+## Substituta aprovada: Hadō91 — Senju Kōten Taihō
 
 Dar ao selado um finalizador ofensivo com preparação clara: múltiplos pontos/lanças luminosas surgem ao redor do conjurador, convergem para um local selecionado e explodem numa área concentrada. Nome e uso por Urahara possuem referência secundária de cânone; quantidades, tempos, área e interação com o kit são adaptações a fechar.
 
@@ -18,7 +18,7 @@ Selecionar ponto por mira com parede/solo/alvo válidos; não exigir sempre um i
 
 Não manifestar a boneca da Bankai na forma selada. A identidade é domínio de Kidō e a bengala. A nova ação ocupa só o C selado; combos básicos aprovados, Shikai, Bankai, áudio e transformação permanecem sob seus contratos atuais.
 
-## Alternativa caso o finalizador não agrade
+## Alternativa histórica — não escolhida
 
 Contrapulso de Kidō: interceptação curta de ameaça frontal seguida de contra-ataque. Seria adaptação original identificada, não técnica canônica inventada. Cobre sobrevivência melhor, mas corre risco de repetir o escudo da Shikai; por isso Hadō91 é a recomendação principal.
 
@@ -30,7 +30,7 @@ A IA deve possuir BenihimeTechniqueService/Policy, seus efeitos/animação espec
 
 ## Fases para o futuro prompt
 
-0. Fechar a escolha, recurso/custo/cooldown, dano total, preparo/interrupção e área. Inventariar IDs e saves afetados.
+0. Conferir a ficha V0 autorizada, contrato de interrupção e integração. Inventariar IDs e saves afetados; não repetir a escolha do Hadō91 já aprovada.
 1. Nova pose de conjuração SEM partículas: mão/arma solidárias, braço livre coerente e alternativa para offhand ocupado. Medir no renderer do modelo Benihime; não copiar offsets Ryūjin.
 2. Uma lança de Kidō com origem real na pose e impacto, para provar lançamento/colisão.
 3. Convergência completa e impacto concentrado; manter ritmo/legibilidade/performance.
@@ -44,3 +44,11 @@ Ferramentas: PlayerAnimator/Better Combat existentes nas responsabilidades adequ
 - Código conferido: TechniqueDefinitions, BenihimeTechniqueService, CharacterData e pt_br.json.
 - Contrato118 e estado-combate-senbon-higashi: espaços global/local e validação de espada real. A calibração é específica do modelo; repetir medição para Benihime.
 - Referência secundária do nome/uso: https://bleach.fandom.com/wiki/Senju_K%C5%8Dten_Taih%C5%8D e https://bleach.fandom.com/wiki/Kisuke_Urahara, resultados indexados consultados27/10. Não foi lido capítulo integral. Mangá/cena e arte devem ser conferidos antes de aprovar reprodução fiel de pose e sequência; nossa implementação proposta ainda é adaptação.
+
+## Ficha V0 — Hadō91 para teste
+
+Substituir somente C selado. Alcance do ponto de impacto24blocos; raio4blocos; preparação1,2s;6lanças visuais convergentes;16HP de dano total máximo por alvo por ativação, antes da defesa/escala existente; teto8alvos; custo30pontos do recurso espiritual atual; recarga14s. Esses são valores de protótipo, não balanceamento final.
+
+Uma única resolução autoritativa do dano na convergência;6lanças não causam6vezes16HP. Alvo/local válido e linha de visão antes da cobrança. Fixar destino no lançamento, travel visual curto sincronizado ao impacto; paredes impedem atingir através delas. Sem destruição de blocos nesta versão. Preservar regra comum de interrupção e recuperação do controlador; nenhuma câmera cinematográfica nova.
+
+Migração gigai→senju_koten_taiho conserva descoberta/Mastery do slot, sem alterar os outros slots/identidades. Preservar poder e apresentação da suprema Bankai;16HP não é instrução para ultrapassá-la por escala multiplicada. Custos/cooldown do Gigai citados acima são só histórico.
