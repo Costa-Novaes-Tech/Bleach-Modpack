@@ -11,7 +11,8 @@
   ],
   "client": [
     "client.AbstractClientPlayerMixin",
-    "client.HigashiDeathParticleMixin"
+    "client.HigashiDeathParticleMixin",
+    "client.HigashiEntityRenderMixin"
   ],
   "injectors": {
     "defaultRequire": 1
