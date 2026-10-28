@@ -4,7 +4,6 @@ import com.bleachmod.common.ProgressionService;
 import com.bleachmod.common.RegistryReload;
 import com.bleachmod.common.data.*;
 import com.bleachmod.common.network.SyncHelper;
-import com.bleachmod.common.quest.QuestRegistry;
 import com.bleachmod.common.evolution.FormRegistry;
 import com.bleachmod.init.ModItems;
 import com.mojang.brigadier.arguments.*;
@@ -14,9 +13,7 @@ import net.minecraft.commands.*;
 import net.minecraft.commands.arguments.EntityArgument;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -43,34 +40,33 @@ public final class BleachCommands {
                 }
             })));
         var root=literal("bleachdev").requires(s->s.hasPermission(2));
+        DevCommandTree.attach(root);
         AssetBenchCommands.attach(root);
         AppearanceCommands.attach(root);
-        root.then(literal("quincy").then(argument("player", EntityArgument.player()).executes(ctx -> mutate(ctx, (p, d) -> {
-            d.initializeQuincy();
-            p.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(ModItems.QUINCY_BOW.get()));
-            p.sendSystemMessage(Component.literal("Perfil Quincy ativado. Arco espiritual Kojaku equipado."));
+        root.then(literal("quincy").executes(DevCommandTree::help).then(argument("player", EntityArgument.player()).executes(ctx -> mutate(ctx, (p, d) -> {
+            DevKitService.quincy(p,d);
         }))));
-        root.then(literal("zanpakuto").then(literal("bind").then(argument("player",EntityArgument.player())
+        root.then(literal("zanpakuto").executes(DevCommandTree::help).then(literal("bind").then(argument("player",EntityArgument.player())
             .then(argument("identity",StringArgumentType.word())
                 .suggests((ctx,b)->SharedSuggestionProvider.suggest(IDENTITIES,b))
                 .executes(ctx->mutate(ctx,(p,d)->bind(p,d,StringArgumentType.getString(ctx,"identity"))))))));
         // One-step Bankai for testing: binds the blade (optional), buys the skill, discovers the forms,
         // meets the mastery requirements of the world's form JSON, hands over the blade and preselects Bankai.
-        root.then(literal("bankai").then(argument("player",EntityArgument.player())
+        root.then(literal("bankai").executes(DevCommandTree::help).then(argument("player",EntityArgument.player())
             .executes(ctx->mutate(ctx,(p,d)->grantBankai(p,d,null)))
             .then(argument("identity",StringArgumentType.word())
                 .suggests((ctx,b)->SharedSuggestionProvider.suggest(IDENTITIES.subList(1,IDENTITIES.size()),b))
                 .executes(ctx->mutate(ctx,(p,d)->grantBankai(p,d,StringArgumentType.getString(ctx,"identity")))))));
-        root.then(literal("points").then(literal("add").then(argument("player",EntityArgument.player())
+        root.then(literal("points").executes(DevCommandTree::help).then(literal("add").then(argument("player",EntityArgument.player())
             .then(argument("amount",IntegerArgumentType.integer(1,1000000)).executes(ctx->mutate(ctx,(p,d)->d.getResources().addTrainingPoints(IntegerArgumentType.getInteger(ctx,"amount"))))))));
-        root.then(literal("skill").then(literal("set").then(argument("player",EntityArgument.player())
+        root.then(literal("skill").executes(DevCommandTree::help).then(literal("set").then(argument("player",EntityArgument.player())
             .then(literal("zanpakuto").then(argument("level",IntegerArgumentType.integer(0,2)).executes(ctx->mutate(ctx,(p,d)->{
                 int level=IntegerArgumentType.getInteger(ctx,"level");
                 d.getSkills().get("zanpakuto").setLevel(level);
                 if(level>=1)d.getCharacter().unlockForm("shikai");
                 if(level>=2)d.getCharacter().unlockForm("bankai");
             })))))));
-        root.then(literal("mastery").then(literal("set").then(argument("player",EntityArgument.player())
+        root.then(literal("mastery").executes(DevCommandTree::help).then(literal("set").then(argument("player",EntityArgument.player())
             .then(literal("zanpakuto").then(argument("form",StringArgumentType.word())
                 .suggests((ctx,b)->SharedSuggestionProvider.suggest(java.util.List.of("sealed","shikai","bankai"),b))
                 .then(argument("value",DoubleArgumentType.doubleArg(0,100)).executes(ctx->mutate(ctx,(p,d)->{
@@ -82,108 +78,61 @@ public final class BleachCommands {
                     d.getCharacter().setMastery("zanpakuto",form,value);
                     com.bleachmod.common.technique.TechniqueProgression.unlockEligible(d.getCharacter());
                 }))))))));
-        root.then(literal("reiatsu").then(literal("fill").then(argument("player",EntityArgument.player())
+        root.then(literal("reiatsu").executes(DevCommandTree::help).then(literal("fill").then(argument("player",EntityArgument.player())
             .executes(ctx->mutate(ctx,(p,d)->d.getResources().setCurrentReiatsu(d.getResources().getMaxReiatsu()))))));
-        root.then(literal("reiatsu").then(literal("free").then(argument("player",EntityArgument.player())
-            .executes(ctx->mutateTest(ctx,(p,d)->d.getResources().setCostsDisabled(true))))));
-        root.then(literal("reiatsu").then(literal("restore").then(argument("player",EntityArgument.player())
-            .executes(ctx->mutateTest(ctx,(p,d)->d.getResources().setCostsDisabled(false))))));
-        root.then(literal("cooldowns").then(literal("disable").then(argument("player",EntityArgument.player())
+        root.then(literal("reiatsu").executes(DevCommandTree::help).then(literal("free").then(argument("player",EntityArgument.player())
+            .executes(ctx->mutateTest(ctx,(p,d)->DevKitService.setReiatsuCheat(p,d,true))))));
+        root.then(literal("reiatsu").executes(DevCommandTree::help).then(literal("restore").then(argument("player",EntityArgument.player())
+            .executes(ctx->mutateTest(ctx,(p,d)->DevKitService.setReiatsuCheat(p,d,false))))));
+        root.then(literal("cooldowns").executes(DevCommandTree::help).then(literal("disable").then(argument("player",EntityArgument.player())
             .executes(ctx->mutateTest(ctx,(p,d)->{
-                d.getStatus().setCooldownsDisabled(true);
                 resetTechniqueEffects(p,d);
+                DevKitService.setCooldownCheat(p,d,true);
             })))));
-        root.then(literal("cooldowns").then(literal("restore").then(argument("player",EntityArgument.player())
-            .executes(ctx->mutateTest(ctx,(p,d)->d.getStatus().setCooldownsDisabled(false))))));
-        root.then(literal("cooldowns").then(literal("clear").then(argument("player",EntityArgument.player())
+        root.then(literal("cooldowns").executes(DevCommandTree::help).then(literal("restore").then(argument("player",EntityArgument.player())
+            .executes(ctx->mutateTest(ctx,(p,d)->DevKitService.setCooldownCheat(p,d,false))))));
+        root.then(literal("cooldowns").executes(DevCommandTree::help).then(literal("clear").then(argument("player",EntityArgument.player())
             .executes(ctx->mutateTest(ctx,BleachCommands::resetTechniqueEffects)))));
 
-        root.then(literal("asauchi").then(literal("give").then(argument("player",EntityArgument.player())
+        root.then(literal("asauchi").executes(DevCommandTree::help).then(literal("give").then(argument("player",EntityArgument.player())
             .executes(ctx->mutate(ctx,(p,d)->{
                 ItemStack stack=new ItemStack(ModItems.ASAUCHI.get());
                 if(!p.getInventory().add(stack)) p.drop(stack,false);
             })))));
-        root.then(literal("inspect").then(argument("player",EntityArgument.player()).executes(ctx->{
+        root.then(literal("inspect").executes(DevCommandTree::help).then(argument("player",EntityArgument.player()).executes(ctx->{
             ServerPlayer p=EntityArgument.getPlayer(ctx,"player");
-            PlayerData d=SyncHelper.require(p);
-            ctx.getSource().sendSuccess(()->Component.literal(p.getScoreboardName()+": "+d.getCharacter().getRace()
-                +" | "+d.getCharacter().getActiveForm()+" -> "+d.getCharacter().getSelectedForm()
-                +" | reiatsu="+d.getResources().getCurrentReiatsu()+"/"+d.getResources().getMaxReiatsu()
-                +" | cooldowns="+(d.getStatus().areCooldownsDisabled()?"disabled":"normal")
-                +" | reiatsuCosts="+(d.getResources().areCostsDisabled()?"free":"normal")
-                +" | identity="+d.getCharacter().getZanpakutoIdentity()
-                +" | BP="+Math.round(d.getBattlePower())
-                +" | points="+d.getResources().getTrainingPoints()+" | zanpakuto="+d.getSkills().getLevel("zanpakuto")
-                +" | mastery="+d.getCharacter().getMastery("zanpakuto","shikai")+"/"+d.getCharacter().getMastery("zanpakuto","bankai")),false);
+            ctx.getSource().sendSuccess(()->Component.literal("Atalho antigo: use /bleachdev status [jogador].\n"+DevCommandTree.status(p,SyncHelper.require(p))),false);
             return 1;
         })));
         event.getDispatcher().register(root);
     }
-    private static final java.util.List<String> IDENTITIES=java.util.List.of("asauchi","ryujin_jakka","hyorinmaru","senbonzakura","benihime","nozarashi");
+    private static final java.util.List<String> IDENTITIES=DevKitService.IDENTITIES;
     private interface Mutation { void apply(ServerPlayer player,PlayerData data); }
     private static void bind(ServerPlayer p,PlayerData d,String identity) {
-        if (!Reference.RACE_SHINIGAMI.equals(d.getCharacter().getRace())) throw new IllegalArgumentException("Shinigami required");
-        d.getCharacter().bindZanpakuto(identity);
-        d.getCharacter().preserveLegacyTechniques();
-        d.getStatus().clearTransformationState();
-        com.bleachmod.common.technique.MasteryPracticeService.cancelIntent(p);
-        com.bleachmod.common.technique.RyujinTechniqueService.cancel(p);
-        com.bleachmod.common.technique.HyorinmaruTechniqueService.cancel(p);
-        var item = net.minecraftforge.registries.ForgeRegistries.ITEMS.getValue(Reference.id(identity));
-        if (item != null) {
-            p.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(item));
-        }
-        d.getResources().setActionCharge(0);
-        SyncHelper.appearance(p);
+        DevKitService.bindLegacy(p,d,identity);
     }
     private static void grantBankai(ServerPlayer p,PlayerData d,String identity) {
-        if (!Reference.RACE_SHINIGAMI.equals(d.getCharacter().getRace())) throw new IllegalArgumentException("Shinigami required");
-        if (identity!=null) bind(p,d,identity);
-        String current=d.getCharacter().getZanpakutoIdentity();
-        if (CharacterData.ASAUCHI.equals(current))
-            throw new IllegalArgumentException("Asauchi has no Bankai: /bleachdev bankai "+p.getScoreboardName()+" <zanpakuto>");
-        var shikai=FormRegistry.getForm(Reference.RACE_SHINIGAMI,Reference.GROUP_ZANPAKUTO,"shikai");
-        var bankai=FormRegistry.getForm(Reference.RACE_SHINIGAMI,Reference.GROUP_ZANPAKUTO,"bankai");
-        if (shikai==null||bankai==null) throw new IllegalArgumentException("Forms not loaded");
-        if (d.getSkills().getLevel("zanpakuto")<2) d.getSkills().get("zanpakuto").setLevel(2);
-        d.getCharacter().unlockForm("shikai");
-        d.getCharacter().unlockForm("bankai");
-        // Shikai mastery satisfies Bankai's requisite; Bankai mastery allows transforming straight from sealed.
-        raiseMastery(d,shikai,bankai.getUnlockOnMastery());
-        raiseMastery(d,bankai,bankai.getAllowFreeTransformOnMastery());
-        d.getCharacter().preserveLegacyTechniques();
-        com.bleachmod.common.technique.TechniqueProgression.unlockEligible(d.getCharacter());
-        var item=net.minecraftforge.registries.ForgeRegistries.ITEMS.getValue(Reference.id(current));
-        if (item!=null) {
-            p.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(item));
-        }
-        d.getCharacter().setSelectedForm(Reference.GROUP_ZANPAKUTO,"bankai");
-    }
-    private static void raiseMastery(PlayerData d,com.bleachmod.common.evolution.FormData form,double target) {
-        double value=Math.min(form.getMaxMastery(),Math.max(target,d.getCharacter().getMastery(Reference.GROUP_ZANPAKUTO,form.getName())));
-        d.getCharacter().setMastery(Reference.GROUP_ZANPAKUTO,form.getName(),value);
+        String target=identity==null?d.getCharacter().getZanpakutoIdentity():identity;
+        if(CharacterData.ASAUCHI.equals(target))throw new IllegalArgumentException("Asauchi não possui Bankai; use /bleachdev kit shinigami <zanpakuto>.");
+        DevKitService.shinigami(p,d,target);
     }
     private static void resetTechniqueEffects(ServerPlayer player,PlayerData data) {
-        data.getStatus().clearTechniqueTestState();
-        com.bleachmod.common.technique.RyujinTechniqueService.cancel(player);
-        com.bleachmod.common.technique.HyorinmaruTechniqueService.cancel(player);
-        player.setDeltaMovement(Vec3.ZERO);
-        player.hurtMarked = true;
+        DevKitService.resetCombat(player,data,true);
     }
     private static int mutate(CommandContext<CommandSourceStack> ctx,Mutation action) throws CommandSyntaxException {
-        return mutate(ctx,action,true);
+        return performLegacy(ctx,action);
     }
     private static int mutateTest(CommandContext<CommandSourceStack> ctx,Mutation action) throws CommandSyntaxException {
-        return mutate(ctx,action,false);
+        return performLegacy(ctx,action);
     }
-    private static int mutate(CommandContext<CommandSourceStack> ctx,Mutation action,boolean normalize) throws CommandSyntaxException {
+    private static int performLegacy(CommandContext<CommandSourceStack> ctx,Mutation action) throws CommandSyntaxException {
         ServerPlayer player=EntityArgument.getPlayer(ctx,"player");
         PlayerData data=SyncHelper.require(player);
-        if(!data.getStatus().hasCreatedCharacter()) throw new SimpleCommandExceptionType(Component.literal("Confirm the character first")).create();
+        if(!data.getStatus().hasCreatedCharacter()) throw new SimpleCommandExceptionType(Component.literal("Confirme a criação do personagem primeiro.")).create();
         try { action.apply(player,data); }
         catch(IllegalArgumentException e) { throw new SimpleCommandExceptionType(Component.literal(e.getMessage())).create(); }
-        if (normalize) ProgressionService.sync(player,data);
-        else SyncHelper.full(player);
+        DevKitService.finish(player,data);
+        ctx.getSource().sendSuccess(()->Component.literal("Atalho antigo: consulte /bleachdev help para kit, cheats e progress."),false);
         ctx.getSource().sendSuccess(()->Component.literal("Bleach: "+player.getScoreboardName()+" updated"
                 +" | cooldowns="+(data.getStatus().areCooldownsDisabled()?"disabled":"normal")
                 +" | reiatsuCosts="+(data.getResources().areCostsDisabled()?"free":"normal")),true);

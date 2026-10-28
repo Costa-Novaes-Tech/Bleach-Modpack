@@ -35,6 +35,10 @@ public final class ClientPacketHandler {
     }
 
     public static void handleAppearanceSync(AppearanceSyncS2C msg) {
+        if (msg.nbt()!=null && msg.nbt().getBoolean("devCombatReset")) {
+            com.bleachmod.client.model.HigashiExecutionVisuals.cancelOwnerPresentation(msg.playerId());
+            return;
+        }
         apply(msg.playerId(), msg.nbt());
     }
 

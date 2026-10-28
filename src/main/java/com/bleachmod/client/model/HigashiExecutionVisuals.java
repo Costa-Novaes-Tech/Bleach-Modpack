@@ -196,6 +196,11 @@ public final class HigashiExecutionVisuals {
     }
     private static void restore(){var mc=Minecraft.getInstance();if(previousType!=null&&mc.options.getCameraType()==CameraType.THIRD_PERSON_BACK)mc.options.setCameraType(previousType);previousType=null;cinematic=null;sideSign=1.0F;}
     private static void dismiss(){var mc=Minecraft.getInstance();if(mc.player!=null)POSES.remove(mc.player.getId());dismissedUntil=now()+HigashiCinematicPath.END;restore();}
+    /** Operator reset ends only this attacker's pose/camera. Confirmed victim ashes finish normally. */
+    public static void cancelOwnerPresentation(int owner){
+        POSES.remove(owner);
+        if(cinematic!=null&&cinematic.packet.owner()==owner)dismiss();
+    }
     public static void yieldToRelease(){if(cinematic!=null)dismiss();}
     private static void reset(){restore();BURNS.clear();POSES.clear();PENDING_TARGETS.clear();world=null;emitted=Long.MIN_VALUE;dismissedUntil=Long.MIN_VALUE;}
     public static boolean localExecutionActive(){return cameraActive();}

@@ -1,5 +1,9 @@
 # Ciclo 72 — revisão geral do projeto, game design e roadmap
 
+**Entrega técnica28/10:** [bleachdev/kits/cheats](guia-bleachdev-kits-cheats.md) implementados, 158 regressões/250 GameTests/7cenários gráficos aprovados. Teste humano pendente; aliases ainda transitórios. Quincy (arco/autorização/técnicas) e empunhadura Senbon seguem nas frentes AG. Kit reversível agora permite retomar teste humano de Benihime/Higashi sem reinicializar personagem.
+
+**Prioridade operacional aprovada em 28/10:** antes de expansão, executar [coordenação de comandos/kits, Quincy e empunhadura Senbon](coordenacao-correcoes-kits-comandos-2026-10-28.md). Não reabrir Hyorinmaru. O bloqueio de alternância racial impede testes Benihime/Higashi e tem prioridade; suites verdes anteriores não homologam arco/contato visual.
+
 **27/10 — encaminhamento das provas141:** [142: SenbonS1](142-prompt-antigravity-senbon-s1-transformacao-real-2026-10-27.md) limita correção à transformação REAL mão/item e preparação alta, com comandos deQA. [143: Higashi](143-prompt-antigravity-higashi-transicao-pre-camera-2026-10-27.md) preserva supressão e corrige janela vermelha anterior à câmera; harness deve separar Hollowletal de threshold e registrar relógio real. AlteraçõesQA locais nos checkouts devem ser preservadas/adaptadas. Sem merge nas duas frentes.
 
 **27/10 — [141: provas isoladas em cliente real](141-provas-isoladas-reais-senbon-higashi-2026-10-27.md):** SenbonS1 reprovado: canais ativos no marco de preparação, lâmina ainda baixa/para trás; não é só parser. Higashi testada com Husk e Hollow alado a50%HP mortos por dano normal, sem duplicação nos quadros durante câmera; flash vermelho antes da câmera ainda observado noHusk. Controles sobreviver/erro não abriram câmera. Três runClient exit0,1055capturas contabilizadas nos manifests, GIFs amostrados e limites no141. Só QA/telemetria nos worktrees das frentes; sem merge/commit/push, poses/gameplay intactos.
