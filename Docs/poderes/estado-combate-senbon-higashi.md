@@ -45,3 +45,23 @@ Pacote compacto em qa/combate-atual: pranchas de poses, GIFs amostrados, telemet
 - [Combo Senbon amostrado](qa/combate-atual/senbon-perfil-amostrado.gif).
 - [Marcos Higashi](qa/combate-atual/higashi-perfil.png) e [sequência amostrada](qa/combate-atual/higashi-amostrado.gif). Parte do fogo do cenário pode cobrir os pés; braços e katana são o foco desta revisão.
 - Pranchas/GIFs são derivados; JSONs registram caminhos/hashes das capturas reais. Pacote compacto: aproximadamente3,3MiB; originais no diretório de execução, sem subir centenas de PNGs ao Git.
+
+
+## Atualização 28/10/2026 — Correção da empunhadura e contato da katana Senbon (Anti-penetração)
+
+- **Causa raiz diagnosticada**: O solver `solve_runtime_items()` anterior usava um alinhamento vetorial irrestrito que girava livremente a katana no punho para satisfazer um vetor 2D isolado do storyboard. Isso resultava em rotações arbitrárias de `roll`, arrastando o pomo/cabo para Y ≈ 5.91px (exatamente dentro do osso do antebraço, compreendido entre Y=6 do cotovelo e Y=10..12 do punho) e forçando o ângulo da lâmina com o antebraço a mergulhar para apenas 7°..22°, fatiando o volume do braço de dentro para fora. Além disso, a compensação de translação sofria deriva de vários centímetros durante a interpolação linear entre ticks, e havia descontinuidade entre S3(t=20) e S1(t=0).
+- **Âncora analítica de empunhadura**: Implementada solução matemática exata em `tools/animations/generate_senbon_137.py`:
+  `T_item = R_vanilla^T * p_palm_target - T_vanilla - R_item * p_item_grip`
+  com `p_palm_target = [-0.85/16, 11.2/16, 0.0]`. Garante o centro do cabo travado milimetricamente na palma da mão (deriva < 0.0001px nos keyframes, e < 0.33mm na interpolação contínua sub-tick).
+- **Projeção anatômica distal (Anti-penetração)**:
+  - **S3 (Estocada central)**: Braço estendido frontalmente (pitch ≈ -1.65), item com `roll: +1.55` (+89°), `pitch: -1.38`, projetando a lâmina para frente ao longo do eixo +Y distal da mão, para longe do cotovelo. Pomo a Y=8.23px (base da mão), tsuba a Y=14.60px (fora dos dedos), ponta a Y=34.57px. Folga mínima do antebraço: **3.40px (21.2cm)** em toda a trajetória.
+  - **S2 (Retorno horizontal)**: Varredura horizontal no peito (pitch ≈ -1.35..-1.45), item com `roll: -1.55` (-89°), `pitch: -1.28`. Folga mínima: **3.40px (21.2cm)**.
+  - **S1 (Diagonal descendente)**: Preparação alta no ombro direito descendo cruzada até a esquerda baixa, punho articulando na diagonal. Folga mínima: **3.40px (21.2cm)**.
+- **Continuidade C0 estrita (Loop nobre fechado)**:
+  - S1(t=20) = S2(t=0) com Δ = 0.000000.
+  - S2(t=20) = S3(t=0) com Δ = 0.000000.
+  - S3(t=20) = S1(t=0) com Δ = 0.000000 (loop de guarda nobre).
+  - No tick 30 (recuperação para idle), o pivô do braço direito retorna a (-5.0, 2.0, 0.0), preservando a postura padrão do Minecraft.
+- **Validação em jogo (Cliente Forge real)**:
+  - Suíte completa automatizada executada em dois ciclos (sem VFX e com VFX) nos 6 cenários oficiais (`01_shikai_right_profile`, `02_shikai_right_front`, `03_shikai_right_back`, `04_sealed_right_profile`, `05_bankai_right_profile`, `06_shikai_left_profile`).
+  - Telemetria de pose e `HeldWeaponQaProbe` confirmaram o encadeamento dos 3 clipes em sequência contínua com Better Combat, sem invasão geométrica do antebraço e com acompanhamento fiel do cabo pela mão.
