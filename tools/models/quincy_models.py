@@ -190,43 +190,30 @@ def generate_seele_texture(width=32, height=64) -> bytes:
 # ---------------------------------------------------------------------------
 # Minecraft Item Model JSON Generation
 # ---------------------------------------------------------------------------
+# The 3D bow lies in YZ, unlike vanilla's generated XY sprite.
+# Keep its centre (the physical grip) at the hand pivot, not vanilla sprite offsets.
 COMMON_DISPLAY = {
-    "thirdperson_righthand": {
-        "rotation": [-80, 260, -40],
-        "translation": [-1, -2, 2.5],
-        "scale": [0.9, 0.9, 0.9]
-    },
-    "thirdperson_lefthand": {
-        "rotation": [-80, -280, 40],
-        "translation": [-1, -2, 2.5],
-        "scale": [0.9, 0.9, 0.9]
-    },
-    "firstperson_righthand": {
-        "rotation": [0, -90, 25],
-        "translation": [1.13, 3.2, 1.13],
-        "scale": [0.68, 0.68, 0.68]
-    },
-    "firstperson_lefthand": {
-        "rotation": [0, 90, -25],
-        "translation": [1.13, 3.2, 1.13],
-        "scale": [0.68, 0.68, 0.68]
-    },
-    "gui": {
-        "rotation": [0, 0, -45],
-        "translation": [0, 0, 0],
-        "scale": [0.45, 0.45, 0.45]
-    },
-    "ground": {
-        "rotation": [0, 0, 0],
-        "translation": [0, 2, 0],
-        "scale": [0.5, 0.5, 0.5]
-    },
-    "fixed": {
-        "rotation": [0, 180, 0],
-        "translation": [-2, 4, -5],
-        "scale": [0.8, 0.8, 0.8]
-    }
+    "thirdperson_righthand": {"rotation": [90, 180, 0], "translation": [0, -2, -1], "scale": [0.72]*3},
+    "thirdperson_lefthand": {"rotation": [90, 180, 0], "translation": [0, -2, -1], "scale": [0.72]*3},
+    "firstperson_righthand": {"rotation": [0, 0, -8], "translation": [1, -1, -1], "scale": [0.35]*3},
+    "firstperson_lefthand": {"rotation": [0, 0, -8], "translation": [1, -1, -1], "scale": [0.35]*3},
+    "gui": {"rotation": [0, 0, -45], "translation": [0, 0, 0], "scale": [0.45]*3},
+    "ground": {"rotation": [0, 0, 0], "translation": [0, 2, 0], "scale": [0.5]*3},
+    "fixed": {"rotation": [0, 180, 0], "translation": [-2, 4, -5], "scale": [0.8]*3}
 }
+
+
+def bow_display(drawn=False):
+    display=json.loads(json.dumps(COMMON_DISPLAY))
+    if drawn:
+        for hand in ("righthand", "lefthand"):
+            # Vanilla bow-pulling arms already supply Rx(-90). Avoid applying it twice.
+            display["thirdperson_"+hand]["rotation"]=[0,0,0]
+            display["firstperson_"+hand]={"rotation": DRAW_FIRST_PERSON, "translation":[0,1,0], "scale":[0.35]*3}
+    return display
+
+DRAW_FIRST_PERSON = [19.4288, 12.1347, 8.4577]
+
 
 
 def build_bow_elements(pull_stage: int) -> list[dict]:
@@ -276,8 +263,8 @@ def build_bow_elements(pull_stage: int) -> list[dict]:
         # Upper Limb - Segment 1 (Base)
         {
             "name": "upper_limb_base",
-            "from": [7.2 - limb_flex_x * 0.2, 10.0, 6.8],
-            "to": [8.8 - limb_flex_x * 0.2, 16.0, 8.8],
+            "from": [7.2, 10.0, 6.8],
+            "to": [8.8, 16.0, 8.8],
             "faces": {
                 "north": {"uv": [0, 0, 4, 6], "texture": "#texture"},
                 "south": {"uv": [0, 0, 4, 6], "texture": "#texture"},
@@ -289,8 +276,8 @@ def build_bow_elements(pull_stage: int) -> list[dict]:
         # Upper Limb - Segment 2 (Curve out)
         {
             "name": "upper_limb_curve",
-            "from": [7.4 - limb_flex_x * 0.5, 16.0, 6.0],
-            "to": [8.6 - limb_flex_x * 0.5, 22.0, 7.8],
+            "from": [7.4, 16.0, 6.0],
+            "to": [8.6, 22.0, 7.8],
             "rotation": {"origin": [8.0, 16.0, 7.0], "axis": "x", "angle": -22.5},
             "faces": {
                 "north": {"uv": [0, 6, 4, 12], "texture": "#texture"},
@@ -302,8 +289,8 @@ def build_bow_elements(pull_stage: int) -> list[dict]:
         # Upper Limb - Wing Crest Tip
         {
             "name": "upper_tip",
-            "from": [7.6 - limb_flex_x, 21.0, 4.0],
-            "to": [8.4 - limb_flex_x, 26.0, 5.5],
+            "from": [7.6, 21.0, 4.0],
+            "to": [8.4, 26.0, 5.5],
             "rotation": {"origin": [8.0, 21.0, 5.0], "axis": "x", "angle": -22.5},
             "faces": {
                 "north": {"uv": [4, 0, 6, 5], "texture": "#texture"},
@@ -316,8 +303,8 @@ def build_bow_elements(pull_stage: int) -> list[dict]:
         # Lower Limb - Segment 1 (Base)
         {
             "name": "lower_limb_base",
-            "from": [7.2 - limb_flex_x * 0.2, 0.0, 6.8],
-            "to": [8.8 - limb_flex_x * 0.2, 6.0, 8.8],
+            "from": [7.2, 0.0, 6.8],
+            "to": [8.8, 6.0, 8.8],
             "faces": {
                 "north": {"uv": [0, 0, 4, 6], "texture": "#texture"},
                 "south": {"uv": [0, 0, 4, 6], "texture": "#texture"},
@@ -329,8 +316,8 @@ def build_bow_elements(pull_stage: int) -> list[dict]:
         # Lower Limb - Segment 2 (Curve out)
         {
             "name": "lower_limb_curve",
-            "from": [7.4 - limb_flex_x * 0.5, -6.0, 6.0],
-            "to": [8.6 - limb_flex_x * 0.5, 0.0, 7.8],
+            "from": [7.4, -6.0, 6.0],
+            "to": [8.6, 0.0, 7.8],
             "rotation": {"origin": [8.0, 0.0, 7.0], "axis": "x", "angle": 22.5},
             "faces": {
                 "north": {"uv": [0, 6, 4, 12], "texture": "#texture"},
@@ -342,8 +329,8 @@ def build_bow_elements(pull_stage: int) -> list[dict]:
         # Lower Limb - Wing Crest Tip
         {
             "name": "lower_tip",
-            "from": [7.6 - limb_flex_x, -10.0, 4.0],
-            "to": [8.4 - limb_flex_x, -5.0, 5.5],
+            "from": [7.6, -10.0, 4.0],
+            "to": [8.4, -5.0, 5.5],
             "rotation": {"origin": [8.0, -5.0, 5.0], "axis": "x", "angle": 22.5},
             "faces": {
                 "north": {"uv": [4, 0, 6, 5], "texture": "#texture"},
@@ -355,55 +342,40 @@ def build_bow_elements(pull_stage: int) -> list[dict]:
         },
     ]
 
-    # Reishi String: Upper half and Lower half meeting at nock point (8.0, 8.0, 8.0 + string_z)
-    if pull_stage == 0:
-        elements.append({
-            "name": "string_straight",
-            "from": [7.8, -8.0, 7.8],
-            "to": [8.2, 24.0, 8.2],
-            "faces": {
-                "north": {"uv": [0, 8, 1, 16], "texture": "#texture"},
-                "south": {"uv": [0, 8, 1, 16], "texture": "#texture"},
-                "east":  {"uv": [0, 8, 1, 16], "texture": "#texture"},
-                "west":  {"uv": [0, 8, 1, 16], "texture": "#texture"}
-            }
-        })
-    else:
-        # Upper drawn string
-        elements.append({
-            "name": "string_upper",
-            "from": [7.8, 8.0, 7.8 + string_z * 0.5],
-            "to": [8.2, 24.0, 8.2 + string_z * 0.5],
-            "rotation": {"origin": [8.0, 8.0, 8.0 + string_z], "axis": "x", "angle": -22.5},
-            "faces": {
-                "north": {"uv": [0, 8, 1, 16], "texture": "#texture"},
-                "south": {"uv": [0, 8, 1, 16], "texture": "#texture"},
-                "east":  {"uv": [0, 8, 1, 16], "texture": "#texture"},
-                "west":  {"uv": [0, 8, 1, 16], "texture": "#texture"}
-            }
-        })
-        # Lower drawn string
-        elements.append({
-            "name": "string_lower",
-            "from": [7.8, -8.0, 7.8 + string_z * 0.5],
-            "to": [8.2, 8.0, 8.2 + string_z * 0.5],
-            "rotation": {"origin": [8.0, 8.0, 8.0 + string_z], "axis": "x", "angle": 22.5},
-            "faces": {
-                "north": {"uv": [0, 8, 1, 16], "texture": "#texture"},
-                "south": {"uv": [0, 8, 1, 16], "texture": "#texture"},
-                "east":  {"uv": [0, 8, 1, 16], "texture": "#texture"},
-                "west":  {"uv": [0, 8, 1, 16], "texture": "#texture"}
-            }
-        })
+    # Limbs bend towards the string (rear +Z), never sideways out of the bow plane.
+    for element in elements:
+        if "limb" not in element["name"] and "tip" not in element["name"]: continue
+        flex=limb_flex_x*(1.0 if "tip" in element["name"] else 0.5 if "curve" in element["name"] else 0.2)
+        z0,z1=element["from"][2],element["to"][2]
+        element["from"][2]=16-z1+flex; element["to"][2]=16-z0+flex
+        if "rotation" in element:
+            element["rotation"]["origin"][2]=16-element["rotation"]["origin"][2]+flex
+            element["rotation"]["angle"]*=-1
+
+    def tip_point(name,upper):
+        e=next(e for e in elements if e["name"]==name);r=e["rotation"];o=r["origin"]
+        y=e["to"][1] if upper else e["from"][1];z=(e["from"][2]+e["to"][2])/2
+        a=math.radians(r["angle"]);dy,dz=y-o[1],z-o[2]
+        return [8,o[1]+math.cos(a)*dy-math.sin(a)*dz,o[2]+math.sin(a)*dy+math.cos(a)*dz]
+    top,bottom=tip_point("upper_tip",True),tip_point("lower_tip",False)
+    nock=[8,10.5,max(top[2],bottom[2])+string_z]
+    # Fine voxel segments join real limb tips and the nock exactly, without invalid arbitrary element rotations.
+    for half,endpoint in [("upper",top),("lower",bottom)]:
+        for i in range(16):
+            p0=[nock[j]+(endpoint[j]-nock[j])*i/16 for j in range(3)]
+            p1=[nock[j]+(endpoint[j]-nock[j])*(i+1)/16 for j in range(3)]
+            elements.append({"name":f"string_{half}_{i}","from":[min(p0[j],p1[j])-.10 for j in range(3)],
+                             "to":[max(p0[j],p1[j])+.10 for j in range(3)],
+                             "faces":{face:{"uv":[0,8,.5,8.5],"texture":"#texture"} for face in ["north","south","east","west","up","down"]}})
 
     # Arrow visible during draw stage 2 and 3
     if pull_stage >= 2:
-        arrow_z_start = 8.0 + string_z - 16.0
-        arrow_z_end = 8.0 + string_z
+        arrow_z_start = nock[2] - 24.0
+        arrow_z_end = nock[2]
         elements.append({
             "name": "nocked_arrow_shaft",
-            "from": [7.75, 7.75, arrow_z_start],
-            "to": [8.25, 8.25, arrow_z_end],
+            "from": [7.75, 10.25, arrow_z_start],
+            "to": [8.25, 10.75, arrow_z_end],
             "faces": {
                 "north": {"uv": [8, 8, 9, 16], "texture": "#texture"},
                 "south": {"uv": [8, 8, 9, 16], "texture": "#texture"},
@@ -415,8 +387,8 @@ def build_bow_elements(pull_stage: int) -> list[dict]:
         })
         elements.append({
             "name": "nocked_arrow_head",
-            "from": [7.3, 7.3, arrow_z_start - 3.0],
-            "to": [8.7, 8.7, arrow_z_start],
+            "from": [7.3, 9.8, arrow_z_start - 3.0],
+            "to": [8.7, 11.2, arrow_z_start],
             "faces": {
                 "north": {"uv": [8, 0, 10, 2], "texture": "#texture"},
                 "south": {"uv": [8, 0, 10, 2], "texture": "#texture"},
@@ -439,7 +411,7 @@ def generate_json_models():
             "layer0": "bleachmod:item/quincy_bow",
             "texture": "bleachmod:item/quincy_bow"
         },
-        "display": COMMON_DISPLAY,
+        "display": bow_display(),
         "elements": build_bow_elements(0),
         "overrides": [
             {
@@ -467,7 +439,7 @@ def generate_json_models():
                 "layer0": "bleachmod:item/quincy_bow",
                 "texture": "bleachmod:item/quincy_bow"
             },
-            "display": COMMON_DISPLAY,
+            "display": bow_display(True),
             "elements": build_bow_elements(idx + 1)
         }
         with open(MODELS_ITEM_DIR / f"quincy_bow_pulling_{idx}.json", "w", encoding="utf-8") as f:

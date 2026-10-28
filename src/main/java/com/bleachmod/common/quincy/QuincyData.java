@@ -13,6 +13,18 @@ import java.util.*;
  * Substate for Quincy archetype: Kojaku spirit bow, Licht Regen, Hirenkyaku and Sprenger.
  */
 public class QuincyData {
+    private double mastery;
+    private final double[] techniqueMasteries=new double[4];
+    public double getMastery(){return mastery;}
+    public double getTechniqueMastery(int slot){QuincyTechniques.slot(slot);return techniqueMasteries[slot-1];}
+    public void addPractice(int slot,double profileGain,double techniqueGain){
+        if(slot<0||slot>4||!Double.isFinite(profileGain)||!Double.isFinite(techniqueGain)||profileGain<0||techniqueGain<0)return;
+        mastery=clamp(mastery+profileGain);
+        if(slot>0)techniqueMasteries[slot-1]=clamp(techniqueMasteries[slot-1]+techniqueGain);
+    }
+    public void maximizeMastery(){mastery=100;java.util.Arrays.fill(techniqueMasteries,100);}
+    private static double clamp(double value){return Double.isFinite(value)?Math.max(0,Math.min(100,value)):0;}
+
     // Sprenger state
     private boolean sprengerActive;
     private BlockPos sprengerCenter = BlockPos.ZERO;
@@ -129,6 +141,10 @@ public class QuincyData {
 
     public CompoundTag save() {
         CompoundTag tag = new CompoundTag();
+        tag.putDouble("profileMastery",mastery);
+        var progress=new CompoundTag();
+        for(var def:QuincyTechniques.ALL)progress.putDouble(def.id(),techniqueMasteries[def.slot()-1]);
+        tag.put("masteries",progress);
         if (sprengerActive) {
             tag.putBoolean("sprengerActive", true);
             tag.put("sprengerCenter", NbtUtils.writeBlockPos(sprengerCenter));
@@ -144,6 +160,9 @@ public class QuincyData {
 
     public void load(CompoundTag tag) {
         resetTransientState();
+        mastery=clamp(tag.getDouble("profileMastery"));
+        var progress=tag.getCompound("masteries");
+        for(var def:QuincyTechniques.ALL)techniqueMasteries[def.slot()-1]=clamp(progress.getDouble(def.id()));
         if (tag.contains("sprengerActive") && tag.getBoolean("sprengerActive")) {
             this.sprengerActive = true;
             this.sprengerCenter = NbtUtils.readBlockPos(tag.getCompound("sprengerCenter"));

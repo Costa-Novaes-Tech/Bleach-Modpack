@@ -23,7 +23,7 @@ A arma anterior vai para o inventário. Se a nova arma já estiver no inventári
 
 ## Preset e ajustes finos
 
-- `/bleachdev cheats all [jogador]`: desativa custos de Reiatsu e cooldowns, limpa ações/cooldowns atuais, preenche Reiatsu, maximiza formas/técnicas do kit Shinigami e garante saldo mínimo de 10000 pontos. Repetir não soma outros 10000. Usa o recurso existente trainingPoints, apresentado no jogo como Spirit Points; não cria moeda nova. Stamina e atributos não são maximizados.
+- `/bleachdev cheats all [jogador]`: desativa custos de Reiatsu e cooldowns, limpa ações/cooldowns atuais, preenche Reiatsu, maximiza formas/técnicas do kit Shinigami ou domínio/técnicas Quincy e garante saldo mínimo de 10000 pontos. Repetir não soma outros 10000. Usa o recurso existente trainingPoints, apresentado no jogo como Spirit Points; não cria moeda nova. Stamina e atributos não são maximizados.
 - `/bleachdev cheats off [jogador]`: restaura custos e cooldowns normais. Não apaga pontos/maestrias/desbloqueios concedidos.
 - `/bleachdev cheats cooldowns on|off [jogador]`: on ativa o cheat, portanto remove a espera. Limpa os contadores atuais sem descartar uma técnica de duas etapas em curso. Desmarca o preset all automático.
 - `/bleachdev cheats reiatsu on|off [jogador]`: on remove custo de Reiatsu, sem remover custo de stamina. Desmarca o preset all automático.
@@ -33,7 +33,7 @@ A arma anterior vai para o inventário. Se a nova arma já estiver no inventári
 
 O preset all acompanha trocas de kit durante a sessão. Os overrides e o preset deixam de valer ao sair/morrer/reiniciar; concessões de progresso permanecem no save. Fazer uma alteração individual de custo/cooldown sai do modo all, preservando os outros toggles já aplicados.
 
-**Limite Quincy desta base:** não existe ainda catálogo próprio de maestria/aquisição Quincy. `progress max`/`cheats all` não inventam maestria Quincy nem concedem Shikai/Bankai a essa raça. A frente AG Quincy deverá coordenar essa integração com a autorização de uso; a correção do arco e técnicas é uma entrega separada.
+**Quincy atualizado28/10:** domínio e maestrias das quatro técnicas agora são independentes, aparecem no HUD e permanecem no save/troca de kit. all/progress max também maximizam o Quincy; off não apaga esses valores. Aquisição narrativa/economia Gintō ainda são protótipo, sem criação de Shikai/Bankai ou concessão TYBW.
 
 ## Limpeza e diagnóstico
 

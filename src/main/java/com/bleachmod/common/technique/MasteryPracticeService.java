@@ -43,7 +43,8 @@ public final class MasteryPracticeService {
     }
     public static void damage(ServerPlayer owner, LivingEntity target) {
         Context context = CONTEXT.get();
-        if (context != null && (context.owner != owner || context.slot == 0)) return;
+        if (context != null && context.owner != owner) return;
+        if (context != null && context.slot == 0 && !PlayerCapability.get(owner).map(com.bleachmod.common.quincy.QuincyTechniqueService::isQuincy).orElse(false)) return;
         if (context == null) noteIntent(owner);
         int slot = context == null ? 0 : context.slot;
         if (context == null && TechniqueService.isRyujinJakkaEquipped(owner)
@@ -71,8 +72,12 @@ public final class MasteryPracticeService {
                 : !(target instanceof Enemy || target instanceof ServerPlayer) || !TechniqueTargets.allowed(owner,target))return;
         PlayerCapability.get(owner).ifPresent(data -> {
             var character = data.getCharacter();
-            if (!data.getStatus().hasCreatedCharacter() || data.getStatus().areCooldownsDisabled() || data.getResources().areCostsDisabled()
-                    || !"shinigami".equals(character.getRace()) || !"zanpakuto".equals(character.getActiveFormGroup())
+            boolean quincy=com.bleachmod.common.quincy.QuincyTechniqueService.isQuincy(data);
+            if (!data.getStatus().hasCreatedCharacter() || data.getStatus().areCooldownsDisabled() || data.getResources().areCostsDisabled())return;
+            if(quincy){
+                if(slot<0||slot>4||healing)return;
+                if(slot<=2&&!owner.getMainHandItem().is(com.bleachmod.init.ModItems.QUINCY_BOW.get()))return;
+            }else if (!"shinigami".equals(character.getRace()) || !"zanpakuto".equals(character.getActiveFormGroup())
                     || !TechniqueProgression.equipped(owner, data) || !TransformationsHelper.isUnlocked(data, "zanpakuto", character.getActiveForm())
                     || (slot > 0 && !TechniqueProgression.available(character, character.getActiveForm(), slot))) return;
             Practice practice = state(owner); long now = owner.getServer().getTickCount();
@@ -80,6 +85,7 @@ public final class MasteryPracticeService {
             practice.targets.values().removeIf(until -> until <= now);
             if (practice.targets.size() >= 128) return;
             practice.next = now + GLOBAL_INTERVAL; practice.targets.put(target.getUUID(), now + TARGET_INTERVAL);
+            if(quincy){data.getQuincy().addPractice(slot,FORM_GAIN,TECHNIQUE_GAIN);SyncHelper.full(owner);return;}
             var before = MasteryFeedback.snapshot(character);
             character.addMastery("zanpakuto", character.getActiveForm(), FORM_GAIN, 100);
             if (slot > 0) character.addTechniqueMastery(character.getActiveForm(), slot, TECHNIQUE_GAIN);
@@ -92,6 +98,14 @@ public final class MasteryPracticeService {
             }
             SyncHelper.full(owner);
         });
+    }
+    /** Quincy projectile/spell damage is not a supported melee weapon in CombatEvents. */
+    @SubscribeEvent(priority=net.minecraftforge.eventbus.api.EventPriority.LOWEST)
+    public static void quincyDamage(net.minecraftforge.event.entity.living.LivingDamageEvent event){
+        Context context=CONTEXT.get();
+        if(context!=null&&event.getAmount()>0&&event.getSource().getEntity()==context.owner
+                &&PlayerCapability.get(context.owner).map(com.bleachmod.common.quincy.QuincyTechniqueService::isQuincy).orElse(false))
+            credit(context.owner,event.getEntity(),context.slot);
     }
     @SubscribeEvent public static void logout(PlayerEvent.PlayerLoggedOutEvent event) { PRACTICE.remove(event.getEntity().getUUID()); }
     @SubscribeEvent public static void dimension(PlayerEvent.PlayerChangedDimensionEvent event) { if (event.getEntity() instanceof ServerPlayer player) cancelIntent(player); }

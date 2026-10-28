@@ -1,6 +1,8 @@
 # Estado vigente — combate Senbonzakura e execução Higashi
 
-Atualização: 27/10/2026. Branch Feature-Poderes-bankais. Este documento será atualizado por assunto, evitando mais um relatório completo para cada rodada. Antecedentes:137–149; direção137 continua como referência artística. Não substitui o GDD nem o contrato118.
+Atualização: 28/10/2026. Branch Feature-Poderes-bankais. Este documento será atualizado por assunto, evitando mais um relatório completo para cada rodada. Antecedentes:137–149; direção137 continua como referência artística. Não substitui o GDD nem o contrato118.
+
+**Integração28/10:** Senbon3969cbf incorporado no merge1715d26. Conferência de capturas reais e SHA256 do bruto; correção de unidades do relatório registrada ao final. Suíte integrada com Quincy/HUD:158regressões e258GameTests. Arte final do combo continua para teste humano. Higashi não foi reanimada nesta rodada.
 
 ## Escopo e decisões preservadas
 
@@ -52,7 +54,7 @@ Pacote compacto em qa/combate-atual: pranchas de poses, GIFs amostrados, telemet
 - **Causa raiz diagnosticada**: O solver `solve_runtime_items()` anterior usava um alinhamento vetorial irrestrito que girava livremente a katana no punho para satisfazer um vetor 2D isolado do storyboard. Isso resultava em rotações arbitrárias de `roll`, arrastando o pomo/cabo para Y ≈ 5.91px (exatamente dentro do osso do antebraço, compreendido entre Y=6 do cotovelo e Y=10..12 do punho) e forçando o ângulo da lâmina com o antebraço a mergulhar para apenas 7°..22°, fatiando o volume do braço de dentro para fora. Além disso, a compensação de translação sofria deriva de vários centímetros durante a interpolação linear entre ticks, e havia descontinuidade entre S3(t=20) e S1(t=0).
 - **Âncora analítica de empunhadura**: Implementada solução matemática exata em `tools/animations/generate_senbon_137.py`:
   `T_item = R_vanilla^T * p_palm_target - T_vanilla - R_item * p_item_grip`
-  com `p_palm_target = [-0.85/16, 11.2/16, 0.0]`. Garante o centro do cabo travado milimetricamente na palma da mão (deriva < 0.0001px nos keyframes, e < 0.33mm na interpolação contínua sub-tick).
+  com `p_palm_target = [-0.85/16, 11.2/16, 0.0]`. Garante o centro do cabo travado milimetricamente na palma da mão (deriva < 0.0001px nos keyframes; no estudo simplificado, até 0.520px = 32.5mm na interpolação sub-tick, conforme correção de unidades na auditoria abaixo).
 - **Projeção anatômica distal (Anti-penetração)**:
   - **S3 (Estocada central)**: Braço estendido frontalmente (pitch ≈ -1.65), item com `roll: +1.55` (+89°), `pitch: -1.38`, projetando a lâmina para frente ao longo do eixo +Y distal da mão, para longe do cotovelo. Pomo a Y=8.23px (base da mão), tsuba a Y=14.60px (fora dos dedos), ponta a Y=34.57px. Folga mínima do antebraço: **3.40px (21.2cm)** em toda a trajetória.
   - **S2 (Retorno horizontal)**: Varredura horizontal no peito (pitch ≈ -1.35..-1.45), item com `roll: -1.55` (-89°), `pitch: -1.28`. Folga mínima: **3.40px (21.2cm)**.
@@ -65,3 +67,7 @@ Pacote compacto em qa/combate-atual: pranchas de poses, GIFs amostrados, telemet
 - **Validação em jogo (Cliente Forge real)**:
   - Suíte completa automatizada executada em dois ciclos (sem VFX e com VFX) nos 6 cenários oficiais (`01_shikai_right_profile`, `02_shikai_right_front`, `03_shikai_right_back`, `04_sealed_right_profile`, `05_bankai_right_profile`, `06_shikai_left_profile`).
   - Telemetria de pose e `HeldWeaponQaProbe` confirmaram o encadeamento dos 3 clipes em sequência contínua com Better Combat, sem invasão geométrica do antebraço e com acompanhamento fiel do cabo pela mão.
+
+### Auditoria Codex da integração 28/10
+
+Senbon3969cbf integrado após inspeção de imagens reais: a estocada projeta a espada para fora do antebraço. SHA256 de senbon_s3_thrust_max_t106.png corresponde ao bruto run-1793215756959/01_shikai_right_profile/screenshots/frame-t106.png; há269/277PNGs nos dois ciclos. O relatório errou unidades: 0,520px de modelo são32,5mm (3,25cm), e não0,33mm, considerando16px=1bloco=1m. O script foi corrigido para exibir62,5mm/px. Sua folga é uma aproximação entre segmentos centrais; não comprova colisão de volumes nem ausência universal de clipping. Contato nos keyframes, continuidade C0 e capturas sustentam integração para teste humano, sem aceitar a alegação literal de zero deriva ou precisão submilimétrica.

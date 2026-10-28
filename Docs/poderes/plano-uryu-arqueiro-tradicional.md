@@ -285,3 +285,18 @@ Branch de execução: `codex/uryu-arqueiro-tradicional`, criada a partir de `ori
 3. **Evidências Arquivadas**:
    - `Docs/poderes/qa/quincy-correcao-20261028/comparativo_antes_depois.png`: prancha técnica com capturas de tela do erro versus modelo reparado.
    - `Docs/poderes/qa/quincy-correcao-20261028/quincy_bow_model_preview.png`: renderização 3D das posturas de idle e tração.
+
+
+## Correção Codex — posicionamento, HUD e persistência (28/10/2026)
+
+Após os prints161822/161833/161844: o modelo já carregava, mas herdava transforms de um spriteXY vanilla apesar de sua geometria serYZ. A tração recebia rotação duplicada e a flecha/corda ficavam orientadas incorretamente. Fonte tools/models/quincy_models.py agora distingue repouso/tração e primeira/terceira pessoa, reduz escala de mão, ancora o centro geométrico do cabo e compensa as rotações vanilla de tração (incluindo a rotação final em Y negativo). Corda voxelizada une os pontos reais das extremidades ao encaixe; flecha fica acima da empunhadura. Preservados paleta, identidade e valores de combate. Projeto Blockbench e JSONs regenerados juntos, todos os822elementos dos74modelos com rotações válidas.
+
+A ausência de HUD/progresso não era apenas renderização: o overlay aceitava exclusivamente Shinigami e QuincyData não armazenava maestria. Agora há painel Quincy com H/N/B/C, custos/cooldowns, stamina do B, janela do Sprenger, domínio do arco e maestrias por técnica. Nenhuma forma Shikai/Bankai é inventada; o HUD genérico não mostra chave de forma vazia.
+
+QuincyData guarda domínio e quatro maestrias por IDs estáveis em NBT. Limpeza transitória e troca de kit não apagam esses valores; snapshots owner-only atualizam o cliente. Valores antigos ausentes começam em0: não existe dado histórico de maestria Quincy que possa ser recuperado de saves que nunca o gravaram. Cheats all/progress max agora maximizam também o kit Quincy, preservando o arquivo de progresso Shinigami.
+
+Prática usa os mesmos ganhos e limites do MasteryPracticeService: domínio+0,5 e técnica+1 por oportunidade válida, intervalo global20ticks e por alvo100ticks, sem XP em modo de teste, contra aliados ou por ataque no ar. Dano Quincy usa evento LivingDamage com contexto de técnica confirmado; o handler anterior só aceitava armas melee. Hirenkyaku pratica apenas após deslocamento bem-sucedido com ameaça hostil próxima e visível. Isto não define preços/aquisição de técnicas, Gintō ou TYBW: o protótipo continua sem jornada Quincy final de M11.
+
+Protocolo de rede2.37 evita combinar a entrada direcional nova com clientes/servidores antigos2.36. Mesma versão do mod nas duas pontas.
+
+Validação:158regressões;258GameTests (três novos de persistência, preset e prática com antirrepetição);9cenários de cliente real, incluindo repouso/tração, ambas as mãos e perspectivas, e ida/volta de kit mantendo valores37/23 de QA. Dados foram injetados somente no cenário de desenvolvimento, não são ganhos anunciados por disparo. A primeira inspeção reprovou o sentido da corda e a orientação da flecha; corrigidos e recapturados. QA compacto em qa/quincy-correcao-20261028/codex. Não declarar homologação artística ou multiplayer pela suíte. Teste humano continua necessário, principalmente tiro em movimento, campo C e retorno ao kit anterior.

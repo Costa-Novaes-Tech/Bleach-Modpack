@@ -165,12 +165,12 @@ def validate():
                 drift = np.linalg.norm(p_grip_arm - p_wrist)
                 if drift > max_subtick_drift: max_subtick_drift = drift
                 if clr < min_subtick_clr: min_subtick_clr = clr
-        print(f"  {name:8s}: min sub-tick clearance = {min_subtick_clr:.2f}px ({min_subtick_clr*6.25:.1f}cm) | max sub-tick drift = {max_subtick_drift:.3f}px ({max_subtick_drift*0.625:.2f}mm)")
+        print(f"  {name:8s}: min sub-tick clearance = {min_subtick_clr:.2f}px ({min_subtick_clr*6.25:.1f}cm) | max sub-tick drift = {max_subtick_drift:.3f}px ({max_subtick_drift*62.5:.2f}mm)")
         assert min_subtick_clr >= 2.0, f"Sub-tick collision in {name}: clearance {min_subtick_clr:.2f}px < 2.0px!"
         assert max_subtick_drift < 1.0, f"Sub-tick drift excessive in {name}: {max_subtick_drift:.3f}px >= 1.0px!"
 
     print("\n" + "=" * 60)
-    print("ALL KINEMATIC & CLEARANCE CHECKS PASSED: ZERO FOREARM COLLISION, ZERO DRIFT, PERFECT CONTINUITY!")
+    print("Simplified centreline checks passed; keyframe contact and C0 checked. Sub-tick drift is nonzero; inspect the real renderer.")
     print("=" * 60)
 
 if __name__ == "__main__":

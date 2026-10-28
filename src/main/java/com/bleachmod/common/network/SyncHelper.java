@@ -32,6 +32,7 @@ public final class SyncHelper {
         PlayerCapability.get(player).ifPresent(data -> {
             CompoundTag tag = new CompoundTag();
             tag.put("resources", data.getResources().save());
+            tag.put("quincy", data.getQuincy().save());
             tag.put("senbonHud", com.bleachmod.common.technique.SenbonzakuraTechniqueService.hud(player));
             tag.put("benihimeHud",com.bleachmod.common.technique.BenihimeTechniqueService.hud(player));
             tag.put("guardView", data.getGuard().snapshot());

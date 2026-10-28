@@ -1,0 +1,29 @@
+{
+  "sourceCommit": "3969cbf",
+  "merge": "1715d26",
+  "review": "Real frames inspected; qualified integration for human testing, no universal collision/precision claim",
+  "unitCorrection": "0.520 model pixel = 32.5 millimetres at16 pixels/metre; script output corrected",
+  "frames": [
+    {
+      "artifact": "C:\\Users\\joaop\\.gemini\\antigravity\\brain\\c1b3dc1d-e195-4bee-8907-8e5c680d1dba\\senbon_s1_diagonal_t044.png",
+      "raw": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-benihime\\run-benihime-qa\\base\\senbonzakura-combat-qa\\run-1793215756959\\01_shikai_right_profile\\screenshots\\frame-t044.png",
+      "artifactSha256": "f70c9ba0433ce8307980c171e5775b25d466fad13a4656db7deec3c7896ca4c3",
+      "rawSha256": "f70c9ba0433ce8307980c171e5775b25d466fad13a4656db7deec3c7896ca4c3",
+      "match": true
+    },
+    {
+      "artifact": "C:\\Users\\joaop\\.gemini\\antigravity\\brain\\c1b3dc1d-e195-4bee-8907-8e5c680d1dba\\senbon_s3_thrust_max_t106.png",
+      "raw": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-benihime\\run-benihime-qa\\base\\senbonzakura-combat-qa\\run-1793215756959\\01_shikai_right_profile\\screenshots\\frame-t106.png",
+      "artifactSha256": "7962edbc6bf2dca74646552a79913ec2a47459cdc1a806a8db579a4578c0f66e",
+      "rawSha256": "7962edbc6bf2dca74646552a79913ec2a47459cdc1a806a8db579a4578c0f66e",
+      "match": true
+    },
+    {
+      "artifact": "C:\\Users\\joaop\\.gemini\\antigravity\\brain\\c1b3dc1d-e195-4bee-8907-8e5c680d1dba\\senbon_front_s3_t106.png",
+      "raw": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-benihime\\run-benihime-qa\\base\\senbonzakura-combat-qa\\run-1793215756959\\02_shikai_right_front\\screenshots\\frame-t106.png",
+      "artifactSha256": "7288d400a6165ff2bdee23629f570d85ec8a4fb08dbb9f7645fe43a0516fd1b8",
+      "rawSha256": "7288d400a6165ff2bdee23629f570d85ec8a4fb08dbb9f7645fe43a0516fd1b8",
+      "match": true
+    }
+  ]
+}

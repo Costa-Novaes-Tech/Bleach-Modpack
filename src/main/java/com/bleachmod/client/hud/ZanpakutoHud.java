@@ -36,7 +36,9 @@ public final class ZanpakutoHud {
     public static final IGuiOverlay OVERLAY = (gui, g, partialTick, w, h) -> {
         var mc = Minecraft.getInstance(); if (mc.player == null || mc.options.hideGui) return;
         PlayerCapability.get(mc.player).ifPresent(d -> {
-            if (!d.isDataLoaded() || !d.getStatus().hasCreatedCharacter() || !"shinigami".equals(d.getCharacter().getRace())) return;
+            if (!d.isDataLoaded() || !d.getStatus().hasCreatedCharacter()) return;
+            if("quincy".equals(d.getCharacter().getRace())){QuincyHud.render(g,w,h,d);return;}
+            if(!"shinigami".equals(d.getCharacter().getRace()))return;
             String form = d.getCharacter().getActiveForm(), identity = d.getCharacter().getZanpakutoIdentity();
             float scale = Math.min(0.85F, Math.min(w / 500F, h / 260F));
             int width = 188, height = 167;

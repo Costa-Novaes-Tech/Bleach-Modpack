@@ -1,0 +1,79 @@
+{
+  "date": "2026-10-28",
+  "branch": "Feature-Poderes-bankais",
+  "parent": "1715d26e0fc1245438b2599bc7e565d0d392705e",
+  "sourceHashes": {
+    "src/main/java/com/bleachmod/common/quincy/QuincyData.java": "64f741fd90fd22a4f2a2a87125de778b0ca0b1f681a5351740aa49e4357b5aff",
+    "src/main/java/com/bleachmod/common/quincy/QuincyTechniques.java": "bd0f9c988e3db68258f7bdf33cfe1b09fd31f3634e21655ca554e01808d7428e",
+    "src/main/java/com/bleachmod/client/hud/QuincyHud.java": "f58db2afde45f8acc07024c24df0dcd152607ffd431d73b9e41dee7381b4abf9",
+    "src/main/java/com/bleachmod/client/cinematic/QuincyQaSequence.java": "120b7567da2d43154122d73e17e2948dfee047bf4e46ae92e46e1336f6bddace",
+    "src/main/java/com/bleachmod/common/technique/MasteryPracticeService.java": "83bb8256f68a80f3086851e1c6a3d6dfb78855a00ec4a7d95f7245c6610362f2",
+    "tools/models/quincy_models.py": "c48ba0e8bd1dcf8a3197eb83104d4bbeb0596bf7506b5e02fe8fa17d4188fe86",
+    "src/main/resources/assets/bleachmod/models/item/quincy_bow.json": "751aa94c8c05f94c1013920208d2f0f9510003abd8fde6e314416cb67f60912e",
+    "src/main/resources/assets/bleachmod/models/item/quincy_bow_pulling_2.json": "b7a8e90a582b214dbdcf0b1778ba774d3596c6a2a9b568d552134ce933a0aa13"
+  },
+  "rawSource": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\quincy-qa\\1793227078040",
+  "captureType": "Minecraft framebuffer; JPEGs are scaled/compressed derivatives, not original PNGs",
+  "captures": [
+    {
+      "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\quincy-qa\\1793227078040\\screenshots\\draw-left-profile.png",
+      "sha256": "76a299c38fae602e516720e924c7cb5f976adb8c317c5bb3450491d551a68943"
+    },
+    {
+      "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\quincy-qa\\1793227078040\\screenshots\\draw-right-front.png",
+      "sha256": "b5feeda681d1c47836611841062ecc8144b7add17494d847d052f8374a645668"
+    },
+    {
+      "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\quincy-qa\\1793227078040\\screenshots\\draw-right-profile.png",
+      "sha256": "e7fbc5f0c3b1bab76ad10fa592224be70c4702cbe9721bba85ec7ac616a9dab7"
+    },
+    {
+      "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\quincy-qa\\1793227078040\\screenshots\\first-draw-left.png",
+      "sha256": "2cf1791859143e269d138e59382ef55c3c4ed950a8fa9fd97d3299506c394087"
+    },
+    {
+      "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\quincy-qa\\1793227078040\\screenshots\\first-draw-right.png",
+      "sha256": "f2c94d457cfab03bc85ae709978bcc95c4e8514ef7fbb226a8423318e152071c"
+    },
+    {
+      "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\quincy-qa\\1793227078040\\screenshots\\first-idle-right.png",
+      "sha256": "abb044673d66118ba3885b7c2de7a6d156b0927bd17346398ed23671520a6217"
+    },
+    {
+      "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\quincy-qa\\1793227078040\\screenshots\\idle-left-profile.png",
+      "sha256": "51446fd45db90eeba8a79eaf9e9eabc4112c6181389bb58183ed41a1dc1e3f87"
+    },
+    {
+      "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\quincy-qa\\1793227078040\\screenshots\\idle-right-profile.png",
+      "sha256": "59887872495aa8b37451fd16e168bd542808cc227d3aad99be4d7105c6e05b14"
+    },
+    {
+      "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\quincy-qa\\1793227078040\\screenshots\\mastery-after-kit-return.png",
+      "sha256": "22dbfe90512d1a8a94ec59a60a91a3e0aa018e76c7a202d38b039e513ab69748"
+    }
+  ],
+  "validation": {
+    "regressions": 158,
+    "requiredGameTests": 258,
+    "clientCases": 9,
+    "clientAllPassed": true,
+    "networkProtocol": "2.37"
+  },
+  "logs": {
+    "build/quincy-hud-validation-final.log": "0c1bb9ee2c207030ebb03ad56101a181a41276c30bb284aa4ccbfd786b645fab",
+    "build/quincy-pose-client-final.log": "4a60caf9f9ff76cf8012b8faf0582729e6dad5dce8feb9d173fb62855194e568",
+    "build/quincy-final-build.log": "09866b72b1ce10928a9cc9ee4ee92ca04fdfa2a4400243a31a3987e287af5ab3"
+  },
+  "jar": {
+    "path": "build/libs/bleachmod-0.2.0.jar",
+    "sha256": "8b2768b210d60c18bfc91ea32d7c444a3b8042fe3fdce89afddcc264595c1393"
+  },
+  "limitations": [
+    "Singleplayer; observer/multiplayer not run",
+    "HUD values37/23 deliberately injected in dev QA to test preservation; not XP earned by one arrow",
+    "First visual pass failed orientation and was corrected before these captures",
+    "Quincy economy/acquisition narrative still prototype",
+    "No fresh artistic acceptance of Senbon/Higashi; Senbon external real evidence audited and merged",
+    "Bow uses native use pose; continuous manual movement/aim and all skins still require user acceptance"
+  ]
+}

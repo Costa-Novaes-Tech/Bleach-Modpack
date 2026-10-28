@@ -188,7 +188,8 @@ public final class DevKitService {
         } else if (!Reference.RACE_QUINCY.equals(data.getCharacter().getRace())) {
             throw new IllegalArgumentException("Selecione um kit Shinigami ou Quincy primeiro.");
         }
-        // Quincy has no mastery/acquisition registry yet; do not forge zanpakuto mastery for it.
+        if(Reference.RACE_QUINCY.equals(data.getCharacter().getRace()))data.getQuincy().maximizeMastery();
+        // Each kit keeps its own progress; no Shikai/Bankai granted to Quincy.
         float points = data.getResources().getTrainingPoints();
         if (points < TEST_POINTS) data.getResources().addTrainingPoints(TEST_POINTS - points);
     }

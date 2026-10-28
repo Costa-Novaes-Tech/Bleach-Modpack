@@ -102,7 +102,7 @@ public final class DevCommandTree {
                 + " | cheats: cooldowns=" + (data.getStatus().areCooldownsDisabled() ? "on (sem espera)" : "off")
                 + ", reiatsu=" + (data.getResources().areCostsDisabled() ? "on (sem custo)" : "off")
                 + " | all=" + DevKitService.allEnabled(player) + " | pontos=" + data.getResources().getTrainingPoints()
-                + (shinigami ? " | maestria selada/Shikai/Bankai=" + c.getMastery("zanpakuto", "sealed") + "/" + c.getMastery("zanpakuto", "shikai") + "/" + c.getMastery("zanpakuto", "bankai") : "");
+                + (shinigami ? " | maestria selada/Shikai/Bankai=" + c.getMastery("zanpakuto", "sealed") + "/" + c.getMastery("zanpakuto", "shikai") + "/" + c.getMastery("zanpakuto", "bankai") : " | domínio Quincy="+data.getQuincy().getMastery()+"/100");
     }
 
     private static String summary(PlayerData data) {
@@ -125,7 +125,7 @@ public final class DevCommandTree {
                     +"/bleachdev cheats cooldowns|reiatsu on|off [jogador]\n"
                     +"all: Reiatsu cheio, maestrias do kit máximas, mínimo 10000 pontos.\n"
                     +"Stamina normal. off não desfaz progresso concedido.\n"
-                    +"Overrides terminam ao sair/morrer. Quincy sem catálogo próprio de maestria nesta base.";
+                    +"Overrides terminam ao sair/morrer. Domínio e técnicas Quincy têm maestrias próprias; aquisição narrativa ainda é protótipo.";
             case "progress" -> "Progressão administrativa — alterações ficam salvas.\n"
                     +"/bleachdev progress max [jogador]\n"
                     +"/bleachdev progress points <quantidade> [jogador] — adicionar\n"

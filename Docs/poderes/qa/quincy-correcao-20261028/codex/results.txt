@@ -1,0 +1,9 @@
+idle-right-profile PASS using=false mastery=37.0 failure=null
+draw-right-profile PASS using=true mastery=37.0 failure=null
+draw-right-front PASS using=true mastery=37.0 failure=null
+idle-left-profile PASS using=false mastery=37.0 failure=null
+draw-left-profile PASS using=true mastery=37.0 failure=null
+first-idle-right PASS using=false mastery=37.0 failure=null
+first-draw-right PASS using=true mastery=37.0 failure=null
+first-draw-left PASS using=true mastery=37.0 failure=null
+mastery-after-kit-return PASS using=false mastery=37.0 failure=null
