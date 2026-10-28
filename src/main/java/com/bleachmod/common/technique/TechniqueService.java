@@ -70,6 +70,10 @@ public final class TechniqueService {
     }
 
     public static void executeSlot(ServerPlayer player, PlayerData data, int slot) {
+        if (com.bleachmod.common.quincy.QuincyTechniqueService.isQuincyActive(player, data)) {
+            com.bleachmod.common.quincy.QuincyTechniqueService.executeSlot(player, data, slot);
+            return;
+        }
         if (!TechniqueProgression.authorize(player, data, slot)) return;
         if (ElementalTechniqueService.elemental(data)) { ElementalTechniqueService.execute(player,data,slot); return; }
         if (com.bleachmod.common.data.CharacterData.BENIHIME.equals(data.getCharacter().getZanpakutoIdentity())) {

@@ -28,6 +28,9 @@ public class ModEntityRenderers {
     public static void registerRenderers(
             EntityRenderersEvent.RegisterRenderers event
     ) {
+        event.registerEntityRenderer(ModEntities.QUINCY_ARROW.get(), com.bleachmod.client.quincy.QuincyArrowRenderer::new);
+        event.registerEntityRenderer(ModEntities.SEELE_SCHNEIDER_PROJECTILE.get(), com.bleachmod.client.quincy.SeeleSchneiderRenderer::new);
+        event.registerEntityRenderer(ModEntities.SPRENGER_NODE.get(), com.bleachmod.client.quincy.SprengerNodeRenderer::new);
         event.registerEntityRenderer(ModEntities.ICE_DRAGON.get(), com.bleachmod.client.model.IceDragonRenderer::new);
         event.registerEntityRenderer(
                 ModEntities.HOLLOW.get(),

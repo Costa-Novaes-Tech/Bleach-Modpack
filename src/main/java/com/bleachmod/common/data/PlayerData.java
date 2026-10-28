@@ -19,6 +19,9 @@ public class PlayerData {
     private final PlayerQuestData playerQuestData = new PlayerQuestData();
     private boolean dataLoaded;
     private final AttributeData attributes = new AttributeData();
+    private final com.bleachmod.common.quincy.QuincyData quincy = new com.bleachmod.common.quincy.QuincyData();
+
+    public com.bleachmod.common.quincy.QuincyData getQuincy() { return quincy; }
 
     public AttributeData getAttributes() { return attributes; }
 
@@ -70,6 +73,18 @@ public class PlayerData {
         }
     }
 
+    public void initializeQuincy() {
+        guard.reset();
+        character.setRace(Reference.RACE_QUINCY);
+        status.setHasCreatedCharacter(true);
+        resources.setMaxReiatsu(Reference.BASE_REIATSU);
+        resources.setCurrentReiatsu(Reference.BASE_REIATSU);
+        resources.setActionCharge(0);
+        status.clearTransientState();
+        quincy.resetTransientState();
+        resources.fillStamina();
+    }
+
     public void initializeShinigami() {
         guard.reset();
         character.initializeShinigami();
@@ -86,6 +101,7 @@ public class PlayerData {
         guard.release();
         resources.setActionCharge(0);
         status.clearTransientState();
+        quincy.resetTransientState();
     }
 
     /** Leaving a level ends combat and drops what was bound to it, but cooldowns travel with the player. */
@@ -94,6 +110,7 @@ public class PlayerData {
         resources.setActionCharge(0);
         status.clearTransformationState();
         status.clearCombat();
+        quincy.resetTransientState();
     }
 
     public CompoundTag save() {
@@ -101,6 +118,7 @@ public class PlayerData {
         tag.putInt("schemaVersion", 9);
         tag.put("guard", guard.save());
         tag.put("attributes", attributes.save());
+        tag.put("quincy", quincy.save());
         tag.put("character", character.save());
         tag.put("appearance", appearance.save());
         tag.put("resources", resources.save());
@@ -131,6 +149,7 @@ public class PlayerData {
             playerQuestData.load(tag.getCompound("playerQuestData"));
         }
         if (tag.contains("attributes")) attributes.load(tag.getCompound("attributes"));
+        if (tag.contains("quincy")) quincy.load(tag.getCompound("quincy"));
         if (tag.contains("attributes") || tag.contains("schemaVersion"))
             resources.setMaxStamina(com.bleachmod.common.StaminaPolicy.maximum(attributes.level(AttributeData.RESISTANCE)));
         updateTransformationSkillLimits(character.getRace());

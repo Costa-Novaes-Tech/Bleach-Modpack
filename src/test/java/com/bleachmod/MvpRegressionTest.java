@@ -1156,6 +1156,49 @@ public final class MvpRegressionTest {
             var copy=new CharacterData();copy.load(c.save());eq(43D,copy.getTechniqueMastery("bankai",3));eq(17D,copy.getTechniqueMastery("bankai",4));
             eq("path",com.bleachmod.common.technique.TechniqueDefinitions.require("benihime","bankai",3).id());eq("final_stitch",com.bleachmod.common.technique.TechniqueDefinitions.require("benihime","bankai",4).id());
         });
+        test("Benihime Hadō 91 definition, migration from gigai, choreography and geometry",()->{
+            var def=com.bleachmod.common.technique.TechniqueDefinitions.require("benihime","sealed",4);
+            eq("senju_koten_taiho",def.id());
+            eq(30F,def.cost());
+            eq(280,def.cooldownTicks());
+            eq("ability.bleachmod.benihime.senju_koten_taiho",def.nameKey());
+
+            // Legacy migration from revision 4 gigai
+            var legacy=new CharacterData().save();legacy.putInt("techniqueRevision",4);legacy.putString("zanpakutoIdentity","benihime");
+            var masteries=new net.minecraft.nbt.CompoundTag();masteries.putDouble("benihime|sealed|gigai",72.5);masteries.putDouble("benihime|shikai|1",50);legacy.put("techniqueMasteries",masteries);
+            var unlocks=new net.minecraft.nbt.CompoundTag();unlocks.putBoolean("benihime|sealed|gigai",true);legacy.put("unlockedTechniques",unlocks);
+            var c=new CharacterData();c.load(legacy);
+            eq(72.5D,c.getTechniqueMastery("sealed",4));
+            yes(c.isTechniqueDiscovered("sealed",4));
+            var saved=c.save();
+            eq(5,saved.getInt("techniqueRevision"));
+            yes(saved.getCompound("unlockedTechniques").contains("benihime|sealed|senju_koten_taiho"));
+            var copy=new CharacterData();copy.load(saved);
+            eq(72.5D,copy.getTechniqueMastery("sealed",4));
+            yes(copy.isTechniqueDiscovered("sealed",4));
+
+            // Choreography
+            for(float sign:new float[]{1F,-1F}){
+                var start=com.bleachmod.common.visual.BenihimeChoreography.technique("senju_koten_taiho",0,24,sign);
+                eq(0F,start.weight());
+                var mid=com.bleachmod.common.visual.BenihimeChoreography.technique("senju_koten_taiho",12,24,sign);
+                yes(mid.weight()>0F);
+                yes(Double.isFinite(mid.arm().lengthSqr()) && Double.isFinite(mid.body().lengthSqr()) && Double.isFinite(mid.handRotation().lengthSqr()));
+                var end=com.bleachmod.common.visual.BenihimeChoreography.technique("senju_koten_taiho",24,24,sign);
+                eq(0F,end.weight());
+                eq(0D,end.arm().lengthSqr());
+            }
+
+            // Geometry
+            var zero=net.minecraft.world.phys.Vec3.ZERO;var f=new net.minecraft.world.phys.Vec3(0,0,1);
+            for(float progress:new float[]{0F,.25F,.5F,.8F,1F}){
+                var frame=new com.bleachmod.common.network.s2c.BenihimeFrameS2C(1,com.bleachmod.common.network.s2c.BenihimeFrameS2C.HADO91,zero,f.scale(16),f,24,progress,0);
+                yes(frame.valid());
+                var mesh=com.bleachmod.common.visual.BenihimeGeometry.build(frame);
+                yes(!mesh.isEmpty() && mesh.size()<700);
+                for(var q:mesh)for(var v:List.of(q.a(),q.b(),q.c(),q.d()))yes(Double.isFinite(v.x)&&Double.isFinite(v.y)&&Double.isFinite(v.z));
+            }
+        });
         test("Benihime combat rig returns to idle and every spell has a distinct body motion",()->{
             var zero=net.minecraft.world.phys.Vec3.ZERO;var f=new net.minecraft.world.phys.Vec3(0,0,1);
             var idle=com.bleachmod.common.visual.BenihimeEntranceGeometry.buildIdle(zero,f,30,0);
@@ -1319,7 +1362,7 @@ public final class MvpRegressionTest {
                 }
                 eq(0F,com.bleachmod.common.visual.SignatureChoreography.sample(entry.getKey(),end,end,1).weight());
             }
-            eq(22,com.bleachmod.common.visual.SignatureChoreography.LENGTHS.size());
+            eq(23,com.bleachmod.common.visual.SignatureChoreography.LENGTHS.size());
         });
         test("Remaining releases recover to neutral and reject invalid time", () -> {
             for(String identity:List.of("senbonzakura","benihime","asauchi"))for(int length:new int[]{24,60}){
@@ -1576,6 +1619,109 @@ public final class MvpRegressionTest {
                 yes(com.bleachmod.common.visual.HollowBossEntrance.hand(t,true).planted());
                 yes(com.bleachmod.common.visual.HollowBossEntrance.foot(t,false).planted());
             }
+        });
+        test("Quincy profile initialization, race, and independent QuincyData save/load NBT persistence", () -> {
+            PlayerData d = new PlayerData();
+            d.initializeQuincy();
+            eq("quincy", d.getCharacter().getRace());
+            eq(100.0F, d.getResources().getCurrentReiatsu());
+            eq(100.0F, d.getResources().getMaxReiatsu());
+            yes(!d.getQuincy().isSprengerActive());
+
+            var center = new net.minecraft.core.BlockPos(10, 64, 20);
+            var vertices = java.util.List.of(
+                    new net.minecraft.core.BlockPos(16, 64, 20),
+                    new net.minecraft.core.BlockPos(12, 64, 26),
+                    new net.minecraft.core.BlockPos(5, 64, 24),
+                    new net.minecraft.core.BlockPos(5, 64, 16),
+                    new net.minecraft.core.BlockPos(12, 64, 14)
+            );
+            d.getQuincy().startSprenger(center, vertices, 1000L);
+            yes(d.getQuincy().isSprengerActive());
+            eq(center, d.getQuincy().getSprengerCenter());
+            eq(5, d.getQuincy().getSprengerVertices().size());
+            eq(1000L, d.getQuincy().getSprengerCreationTick());
+
+            var tag = d.save();
+            var loaded = new PlayerData();
+            loaded.load(tag);
+            eq("quincy", loaded.getCharacter().getRace());
+            yes(loaded.getQuincy().isSprengerActive());
+            eq(center, loaded.getQuincy().getSprengerCenter());
+            eq(5, loaded.getQuincy().getSprengerVertices().size());
+            eq(1000L, loaded.getQuincy().getSprengerCreationTick());
+
+            loaded.resetTransientState();
+            yes(!loaded.getQuincy().isSprengerActive());
+        });
+        test("Quincy Kojaku bow charges Reiatsu, calculates pull scale, and enforces 48-block maximum range", () -> {
+            eq(2.0F, com.bleachmod.common.quincy.QuincyBowItem.COMMON_SHOT_PE_COST);
+            eq(20, com.bleachmod.common.quincy.QuincyBowItem.FULL_CHARGE_TICKS);
+            eq(5, com.bleachmod.common.quincy.QuincyBowItem.MIN_CHARGE_TICKS);
+            eq(48.0D, com.bleachmod.common.quincy.QuincyArrowEntity.COMMON_MAX_RANGE);
+            eq(6.0F, com.bleachmod.common.quincy.QuincyArrowEntity.COMMON_BASE_DAMAGE);
+            eq(40.0D, com.bleachmod.common.quincy.QuincyArrowEntity.LICHT_REGEN_MAX_RANGE);
+            eq(2.0F, com.bleachmod.common.quincy.QuincyArrowEntity.LICHT_REGEN_DAMAGE);
+        });
+        test("Seele Schneider (H) pierces up to 3 distinct targets, deals 10 HP per target, and stops at wall", () -> {
+            eq(12.0F, com.bleachmod.common.quincy.QuincyTechniqueService.SEELE_PE_COST);
+            eq(120, com.bleachmod.common.quincy.QuincyTechniqueService.SEELE_COOLDOWN_TICKS);
+            eq(48.0D, com.bleachmod.common.quincy.SeeleSchneiderEntity.MAX_RANGE);
+            eq(10.0F, com.bleachmod.common.quincy.SeeleSchneiderEntity.DAMAGE_PER_TARGET);
+            eq(3, com.bleachmod.common.quincy.SeeleSchneiderEntity.MAX_TARGETS);
+            eq(0.5D, com.bleachmod.common.quincy.SeeleSchneiderEntity.CORRIDOR_WIDTH);
+        });
+        test("Licht Regen (N) fires 12 arrows over 2 seconds in a 20-degree cone, with 2 HP per hit and 8 HP ceiling per target", () -> {
+            eq(20.0F, com.bleachmod.common.quincy.QuincyTechniqueService.LICHT_REGEN_PE_COST);
+            eq(200, com.bleachmod.common.quincy.QuincyTechniqueService.LICHT_REGEN_COOLDOWN_TICKS);
+            eq(12, com.bleachmod.common.quincy.QuincyTechniqueService.LICHT_REGEN_TOTAL_SHOTS);
+            eq(40, com.bleachmod.common.quincy.QuincyTechniqueService.LICHT_REGEN_DURATION_TICKS);
+            eq(4, com.bleachmod.common.quincy.QuincyArrowEntity.LICHT_REGEN_MAX_HITS_PER_TARGET);
+
+            var quincy = new com.bleachmod.common.quincy.QuincyData();
+            quincy.startLichtRegen(new net.minecraft.world.phys.Vec3(0, 0, 1));
+            yes(quincy.isLichtRegenActive());
+            eq(40, quincy.getLichtRegenTicksLeft());
+            eq(0, quincy.getLichtRegenFiredCount());
+
+            var targetId = java.util.UUID.randomUUID();
+            eq(0, quincy.getLichtRegenHitsOn(targetId));
+            for (int i = 0; i < 4; i++) {
+                quincy.recordLichtRegenHit(targetId);
+            }
+            eq(4, quincy.getLichtRegenHitsOn(targetId));
+        });
+        test("Hirenkyaku (B) executes 6-block horizontal movement, charges 8 PE and 10 stamina, and respects terrain bounds", () -> {
+            eq(8.0F, com.bleachmod.common.quincy.HirenkyakuService.PE_COST);
+            eq(10.0F, com.bleachmod.common.quincy.HirenkyakuService.STAMINA_COST);
+            eq(120, com.bleachmod.common.quincy.HirenkyakuService.COOLDOWN_TICKS);
+            eq(6.0D, com.bleachmod.common.quincy.HirenkyakuService.TOTAL_DISTANCE);
+            eq(0.5D, com.bleachmod.common.quincy.HirenkyakuService.STEP_SIZE);
+        });
+        test("Sprenger (C) requires 5 local floor vertices, charges 35 PE once, prepares in 1.5s, detonates within 6s for 18 HP up to 8 targets, and cleans up on timeout", () -> {
+            eq(35.0F, com.bleachmod.common.quincy.QuincyTechniqueService.SPRENGER_PE_COST);
+            eq(400, com.bleachmod.common.quincy.QuincyTechniqueService.SPRENGER_COOLDOWN_TICKS);
+            eq(36.0D, com.bleachmod.common.quincy.QuincyTechniqueService.SPRENGER_MAX_CENTER_DISTANCE);
+            eq(6.0D, com.bleachmod.common.quincy.QuincyTechniqueService.SPRENGER_RADIUS);
+            eq(4.0D, com.bleachmod.common.quincy.QuincyTechniqueService.SPRENGER_HEIGHT);
+            eq(30, com.bleachmod.common.quincy.QuincyTechniqueService.SPRENGER_PREP_TICKS);
+            eq(120, com.bleachmod.common.quincy.QuincyTechniqueService.SPRENGER_EXPIRATION_TICKS);
+            eq(18.0F, com.bleachmod.common.quincy.QuincyTechniqueService.SPRENGER_DAMAGE);
+            eq(8, com.bleachmod.common.quincy.QuincyTechniqueService.SPRENGER_MAX_TARGETS);
+
+            var quincy = new com.bleachmod.common.quincy.QuincyData();
+            quincy.startSprenger(new net.minecraft.core.BlockPos(0, 60, 0), java.util.List.of(), 100L);
+            yes(quincy.isSprengerActive());
+
+            long agePrep = 120L - quincy.getSprengerCreationTick();
+            yes(agePrep < com.bleachmod.common.quincy.QuincyTechniqueService.SPRENGER_PREP_TICKS);
+
+            long ageWindow = 150L - quincy.getSprengerCreationTick();
+            yes(ageWindow >= com.bleachmod.common.quincy.QuincyTechniqueService.SPRENGER_PREP_TICKS
+                    && ageWindow <= com.bleachmod.common.quincy.QuincyTechniqueService.SPRENGER_EXPIRATION_TICKS);
+
+            long ageExpired = 230L - quincy.getSprengerCreationTick();
+            yes(ageExpired > com.bleachmod.common.quincy.QuincyTechniqueService.SPRENGER_EXPIRATION_TICKS);
         });
         System.out.println("PASS: "+count+" regression scenarios");
     }

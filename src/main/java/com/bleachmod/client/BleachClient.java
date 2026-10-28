@@ -80,6 +80,13 @@ public final class BleachClient {
         registerFormProperty(ModItems.HYORINMARU.get());
         registerFormProperty(ModItems.SENBONZAKURA.get()); registerFormProperty(ModItems.BENIHIME.get());
         registerFormProperty(ModItems.NOZARASHI.get());
+        ItemProperties.register(ModItems.QUINCY_BOW.get(), new net.minecraft.resources.ResourceLocation("pull"), (stack, level, entity, seed) -> {
+            if (entity == null || entity.getUseItem() != stack) return 0.0F;
+            return (float) (stack.getUseDuration() - entity.getUseItemRemainingTicks()) / 20.0F;
+        });
+        ItemProperties.register(ModItems.QUINCY_BOW.get(), new net.minecraft.resources.ResourceLocation("pulling"), (stack, level, entity, seed) -> {
+            return entity != null && entity.isUsingItem() && entity.getUseItem() == stack ? 1.0F : 0.0F;
+        });
     }
 
     private static void registerFormProperty(Item item) {

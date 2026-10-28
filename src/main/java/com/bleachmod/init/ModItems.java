@@ -34,6 +34,13 @@ public final class ModItems {
     public static final RegistryObject<Item> NOZARASHI = ITEMS.register("nozarashi",
             ZanpakutoItem::new);
 
+    public static final RegistryObject<Item> QUINCY_BOW = ITEMS.register("quincy_bow",
+            com.bleachmod.common.quincy.QuincyBowItem::new);
+    public static final RegistryObject<Item> QUINCY_ARROW = ITEMS.register("quincy_arrow",
+            () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> SEELE_SCHNEIDER = ITEMS.register("seele_schneider",
+            () -> new Item(new Item.Properties()));
+
     /** Temporary History Mode travel items; replaced later by Senkaimon/Garganta. */
     public static final RegistryObject<Item> TRAVEL_HUMAN_WORLD = ITEMS.register("travel_human_world",
             () -> new WorldTravelItem(HistoryWorld.HUMAN_WORLD));

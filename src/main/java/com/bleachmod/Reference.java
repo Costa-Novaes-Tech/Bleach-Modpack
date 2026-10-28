@@ -7,6 +7,7 @@ public final class Reference {
     public static final String NETWORK_PROTOCOL = "2.36"; // Dedicated Senbon melee trail discriminator requires matching clients.
 
     public static final String RACE_SHINIGAMI = "shinigami";
+    public static final String RACE_QUINCY = "quincy";
     public static final String GROUP_ZANPAKUTO = "zanpakuto";
     public static final String FORM_SEALED = "sealed";
     public static final String FORM_SHIKAI = "shikai";

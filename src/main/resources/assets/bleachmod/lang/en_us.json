@@ -452,6 +452,7 @@
   "ability.bleachmod.benihime.byakurai": "Jūgeki Byakurai",
   "ability.bleachmod.benihime.six_rods": "Rikujōkōrō — Six Rods",
   "ability.bleachmod.benihime.gigai": "Portable Gigai",
+  "ability.bleachmod.benihime.senju_koten_taiho": "Hadō 91: Senju Kōten Taihō",
   "ability.bleachmod.hyorinmaru.hydra_assault": "Glacial Hydra Assault",
   "ability.bleachmod.hyorinmaru.ice_eruption": "Glacial Eruption",
   "ability.bleachmod.hyorinmaru.frost_armor": "Frost Coating",
@@ -460,5 +461,18 @@
   "cinematic.bleachmod.senbonzakura.bankai": "Bankai.",
   "cinematic.bleachmod.senbonzakura.name": "Senbonzakura Kageyoshi.",
   "subtitles.bleachmod.voice.ryujin_bankai": "Bankai.",
-  "subtitles.bleachmod.voice.ryujin_name": "Zanka no Tachi."
+  "subtitles.bleachmod.voice.ryujin_name": "Zanka no Tachi.",
+  "item.bleachmod.quincy_bow": "Kojaku (Quincy Spirit Bow)",
+  "item.bleachmod.quincy_arrow": "Reishi Arrow",
+  "item.bleachmod.seele_schneider": "Seele Schneider",
+  "entity.bleachmod.quincy_arrow": "Reishi Arrow",
+  "entity.bleachmod.seele_schneider_projectile": "Seele Schneider",
+  "entity.bleachmod.sprenger_node": "Sprenger Node",
+  "message.bleachmod.quincy.low_reiatsu": "Insufficient spiritual energy (PE)",
+  "message.bleachmod.quincy.low_stamina": "Insufficient stamina",
+  "message.bleachmod.quincy.sprenger_started": "Sprenger activated! Preparing Ginto catalysis...",
+  "message.bleachmod.quincy.sprenger_preparing": "Sprenger is still catalysing...",
+  "message.bleachmod.quincy.sprenger_detonated": "Sprenger detonated!",
+  "message.bleachmod.quincy.sprenger_expired": "Sprenger expired and dissolved peacefully.",
+  "message.bleachmod.quincy.sprenger_invalid_terrain": "Invalid terrain for Sprenger formation. 5 local solid surfaces required."
 }

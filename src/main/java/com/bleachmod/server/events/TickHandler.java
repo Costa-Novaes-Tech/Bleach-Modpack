@@ -53,6 +53,7 @@ public class TickHandler {
             TechniqueService.tickFlameBarrageGround(player, data);
             TechniqueService.tickFlameDash(player, data);
             com.bleachmod.common.technique.SenbonzakuraTechniqueService.tick(player, data); com.bleachmod.common.technique.BenihimeTechniqueService.tick(player,data);
+            com.bleachmod.common.quincy.QuincyTechniqueService.tickServer(player, data);
             FormData active = TransformationsHelper.getActiveFormData(data);
             float drain = active == null ? 0.0F : CombatBalance.formDrain((float) active.getEnergyDrain(),
                     data.getAttributes().level(AttributeData.CONTROL));

@@ -21,7 +21,7 @@ server.setRequestHandler(CallToolRequestSchema,async req=>{
    if(!tasks.has(args.mode))throw Error('Unsupported task');
    if([...jobs.values()].some(j=>j.state==='running'))throw Error('Another MCP task is active');
    const branch=execFileSync('git',['-C',root,'branch','--show-current'],{encoding:'utf8',windowsHide:true}).trim();
-   if(branch!=='codex/design-poderes-criaturas')throw Error('Wrong branch');
+   if(branch!=='codex/design-poderes-criaturas' && branch!=='codex/uryu-arqueiro-tradicional')throw Error('Wrong branch');
    const id=new Date().toISOString().replaceAll(/[:.]/g,'-')+'-'+args.mode;
    const log=path.join(out,id+'.log');const fd=fs.openSync(log,'wx');
    const shell=path.join(process.env.SystemRoot,'System32/WindowsPowerShell/v1.0/powershell.exe');

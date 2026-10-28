@@ -45,6 +45,11 @@ public final class BleachCommands {
         var root=literal("bleachdev").requires(s->s.hasPermission(2));
         AssetBenchCommands.attach(root);
         AppearanceCommands.attach(root);
+        root.then(literal("quincy").then(argument("player", EntityArgument.player()).executes(ctx -> mutate(ctx, (p, d) -> {
+            d.initializeQuincy();
+            p.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(ModItems.QUINCY_BOW.get()));
+            p.sendSystemMessage(Component.literal("Perfil Quincy ativado. Arco espiritual Kojaku equipado."));
+        }))));
         root.then(literal("zanpakuto").then(literal("bind").then(argument("player",EntityArgument.player())
             .then(argument("identity",StringArgumentType.word())
                 .suggests((ctx,b)->SharedSuggestionProvider.suggest(IDENTITIES,b))

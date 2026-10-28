@@ -29,6 +29,9 @@ public final class DodgeService {
     }
 
     public static boolean request(ServerPlayer p, PlayerData data, int forward, int left) {
+        if (com.bleachmod.common.quincy.QuincyTechniqueService.isQuincyActive(p, data)) {
+            return com.bleachmod.common.quincy.HirenkyakuService.execute(p, data, forward, left);
+        }
         if (com.bleachmod.common.technique.ReleaseAnimationService.busy(p) || com.bleachmod.common.technique.ElementalTechniqueService.busy(p)) return false;
         var state = data.getStatus();
         if (com.bleachmod.common.technique.BenihimeTechniqueService.busy(p) || com.bleachmod.common.technique.SenbonzakuraTechniqueService.busy(p)
