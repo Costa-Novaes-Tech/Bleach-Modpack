@@ -20,13 +20,14 @@ public final class HeldWeaponQaProbe {
     private static final String RUN="held-probe-"+System.currentTimeMillis()+".jsonl";
     private HeldWeaponQaProbe() { }
     public static void capture(LivingEntity entity,ItemStack item,ItemDisplayContext context,boolean left,PoseStack stack){
+        boolean senbonQa = Boolean.getBoolean("bleachmod.senbonCombatQa") || Boolean.getBoolean("bleachmod.senbonComboQa");
         if(net.minecraftforge.fml.loading.FMLEnvironment.production || !Boolean.getBoolean("bleachmod.benihimeQa")
-                || !Boolean.getBoolean("bleachmod.higashiPoseQa"))return;
+                || (!Boolean.getBoolean("bleachmod.higashiPoseQa") && !senbonQa))return;
         var mc=Minecraft.getInstance();
         if(entity!=mc.player || mc.level==null || context!=ItemDisplayContext.THIRD_PERSON_RIGHT_HAND
                 &&context!=ItemDisplayContext.THIRD_PERSON_LEFT_HAND)return;
-        float age=com.bleachmod.client.model.HigashiExecutionVisuals.currentPoseAge();
-        long tick=mc.level.getGameTime();if(age<0 || tick==lastTick)return;lastTick=tick;
+        float age = senbonQa ? (float)(mc.level.getGameTime() % 10000) : com.bleachmod.client.model.HigashiExecutionVisuals.currentPoseAge();
+        long tick=mc.level.getGameTime();if((!senbonQa && age<0) || tick==lastTick)return;lastTick=tick;
         var row=new JsonObject();row.addProperty("worldTick",tick);row.addProperty("poseAge",age);
         row.addProperty("context",context.name());
         var matrix=new JsonArray();for(float f:stack.last().pose().get(new float[16]))matrix.add(f);row.add("heldMatrix",matrix);
