@@ -1,8 +1,10 @@
 # Handoff vigente — Game Design do Bleach Mod
 
-> **Checkpoint de revisão concluído — 23/10/2026:** M09-12C aprovado e aplicado: aldeões como civis vivos caçáveis, preservando prestadores essenciais. Retornos RAC-30/RAC-31A e M06-CS-01A/B/C/D concluídos conceitualmente; fontes M08 e amostra M09 integradas. M10b/9.4.1 liga estadias aos serviços de volta já escolhidos. [Resultado e entregas em 12.1 do parecer](00-revisao-cobertura-m01-a-m10-2026-10-23.md#121-conclusão-do-checkpoint-autorizado--23102026). M08/M09/M10 seguem em especificação de conteúdo; próximo M11 com retorno M05.
+> **Bloco atual — 28/10/2026:** [M13 — Campanhas e sidequests](13-campanhas-e-sidequests.md), `EM ESPECIFICAÇÃO`, **somente a campanha principal**. Por solicitação explícita, M11 e o trabalho de quests raciais/formação/fillers/laterais ficam adiados. 07A/B do M11 já estão aprovados e aplicados; não reenviar. Primeiro arco proposto: Shinigami Substituto, antes da crise da Soul Society. M13-01A/02A decididos: contexto escrito/apresentação breve e missões executadas pelo jogador; início por NPC ou painel/HUD quando o evento permitir, com criação do confronto. Encenação de Ichigo/Rukia como abertura obrigatória substituída; 01B reformulado por atividade jogável, sem aprovação automática dos sete blocos. M13-03A/B aprovados: abertura com Rukia/confronto Hollow curto e conclusão após objetivo válido, com retorno ao NPC quando necessário. M13-04A/B aprovados: Rukia encaminha o caso de Orihime e objetivo é vencer o Hollow, sem barra de defesa. M13-05A/B aprovados: Chad/Shrieker direto e missão curta de Kon por Urahara com início no painel junto da escola. M13-06A aprovado: Grand Fisher, vitória jogável e retirada narrativa. M13-07A/B aprovados: Don Kanonji em texto e crise de Uryū em duas missões, Hollows e Menos. M13-08A aprovado: Renji vencível e prisão no desfecho. 08B/C aprovados no alcance estrutural: incluir avaliação com perseguição cronometrada de Ururu e duelo de um golpe válido contra Urahara antes da viagem. 09A/B aprovados: 60 segundos/limite de 30% como valores provisórios e Ururu concluída preservada se falhar depois contra Urahara. 10A/B aprovados: travessia breve, Kōtotsu no contexto, Jidanbō jogável e Gin no desfecho. 11A/B decididos: incluir Ganju jogável e aceitar exercício/lançamento com Kūkaku. 12A/B aprovados: vitória completa de Ganju e sequência Ikkaku/Yumichika com retenção da primeira. 13A/B aprovados: Jirōbō jogável e rota de Hanatarō sem escolta. 14A/B aprovados: segundo Renji/interlúdio de Aizen em texto e Shunsui jogável. 15A/B aprovados: contato com Rukia/Byakuya em texto e Mayuri com retirada após vitória. 16A/B decididos: preparação própria do jogador com Yoruichi e Tōsen/Komamura em duas missões. 17A/B aprovados: circuito de Yoruichi e resgate por interação, Sōkyoku em texto. 18A/B aprovados: Byakuya contínuo e Soi Fon jogável/Yamamoto em texto. 19B aprovado com revisão: Aizen em contexto, Byakuya último boss. Roteiro/seleção Substituto e Soul Society consolidados em M13/10.32/10.33; 28 missões, realização pendente. Publicação documental autorizada ao fechar este arco; próximo arco Arrancar em rodada posterior. Manter na main local e publicar somente ao concluir Soul Society, conforme esclarecimento explícito. Não reenviar decisões aprovadas. Sem implementação, teste de jogo ou publicação.
 
-> **Publicação do checkpoint:** autorizada pelo usuário para após essa revisão. Conferir e publicar os arquivos acumulados de documentação; resultado Git deve constar da entrega. Nenhum código, mapa/save, build ou teste de jogo integra este checkpoint. Os registros inferiores conservam a sequência histórica; não retomar perguntas respondidas.
+> **Checkpoint anterior concluído — 23/10/2026:** M09-12C aprovado e aplicado: aldeões como civis vivos caçáveis, preservando prestadores essenciais. Retornos RAC-30/RAC-31A e M06-CS-01A/B/C/D concluídos conceitualmente; fontes M08 e amostra M09 integradas. M10b/9.4.1 liga estadias aos serviços de volta já escolhidos. [Resultado e entregas em 12.1 do parecer](00-revisao-cobertura-m01-a-m10-2026-10-23.md#121-conclusão-do-checkpoint-autorizado--23102026). M08/M09/M10 seguem em especificação de conteúdo; próximo M11 com retorno M05.
+
+> **Publicação anterior concluída:** commit `26b73b3742681bfeee694c23a6e92007fd7f44ba`, enviado à `origin/main` em 23/10/2026 com 76 arquivos de documentação. Não repetir essa publicação; a abertura de M11 e respostas seguintes são mudanças locais posteriores. Nenhum código, mapa/save, build ou teste de jogo integra este checkpoint. Os registros inferiores conservam a sequência histórica; não retomar perguntas respondidas.
 
 **Síntese anterior preservada — 23/10/2026:** Bloco principal [M10 — Dimensões, locais e estruturas](10-dimensoes-locais-e-estruturas.md), `EM ESPECIFICAÇÃO`. M10-01A/B aprovados: núcleos planejados com áreas geradas e proteção pequena/sinalizada de trechos essenciais. M10-02A/B decididos: rotas/serviços inicialmente e skills de abertura sem exclusividade racial absoluta; passagens comuns fora de combate. 02C admite técnica como a de Urahara e dispositivo como o de Mayuri. 03A revisado por 03D: skills próprias escolhem locais conhecidos e acessíveis, inclusive locais do jogador. 03B/C decididos: busca próxima; sem solução, permanecer na origem. 04A decidido: retorno viável. 03D/E decididos: escolha de local próprio conhecido/acessível e visita com registro manual. 05A decidido: Rukongai com atividades próprias. 05B decidido: pequenos refúgios distribuídos em Hueco Mundo. 05C decidido: Karakura adaptada ao Minecraft. 06A decidido: bases espirituais viáveis com abastecimento local. 07A decidido: transição breve nas viagens comuns. 07B decidido: convidados da mesma party. 07C decidido: Energia ao formar e janela sem manutenção. 07D/E decididos: preparo parado/cancelável e autonomia da passagem paga em regiões ativas. 07F/G decididos: uma passagem ativa, fechamento manual e ida/volta. Bloco comum revisado/consolidado conceitualmente; 08A decidido condicionalmente à pesquisa, com água transportada funcional como adaptação; 08B decidido sobre ponto de renascimento no mundo escolhido; 08C decidido sobre recuperação na falha do ponto; 08D decidido sobre ausência de seleção e posição no retorno; bloco espacial consolidado; 08E decidido no recorte Hueco Mundo: dormir a qualquer horário possível; 08F decidido sobre passagem da noite por mundo; 08G decidido sobre criaturas por região; catálogo M10b aberto e 09A decidido sobre primeiros percursos; 09B decidido sobre operadores da primeira rota a Hueco Mundo; 09C decidido: primeiro acesso por missão e contexto da campanha, separado de abertura própria. M09-01–11 aprovados: regras gerais `ESPECIFICADO CONCEITUALMENTE`, catálogo M09a `EM ESPECIFICAÇÃO`, revisão 09b com entregas antes da implementação. M08 mantém suas pendências. Base `main`, `3a37ca7`, ampliações locais; sem runtime/build/testes/publicação. SP compra skills/formas; Mastery pela prática.
 
@@ -18,6 +20,294 @@ Fontes de entrada:
 - [Continuidade de engenharia e poderes](../poderes/00-CONTINUIDADE-CODEX.md): ciclos técnicos; seus caminhos e branches históricos precisam de confirmação local.
 
 ## Ponto exato de continuidade
+
+### M13 — Roteiro Substituto/Soul Society consolidado; publicação documental autorizada — 28/10/2026
+
+“Perfeito, aprovo” aceita a revisão de 19B: Aizen em contexto nesta aparição, com superioridade/Hōgyoku/partida preservados; Byakuya último boss da Soul Society. Confrontos vencíveis futuros de Aizen mantêm STR-03. Aplicado em M13/8.20/10.31/12.37 e retorno explicativo de M03; proposta antiga de boss não adotada preservada em histórico, fora do catálogo vigente.
+
+Seleção/estrutura dos dois primeiros arcos consolidadas em M13/10.32: 10 missões Substituto e 18 Soul Society, incluindo preparações; epílogo de Aizen em contexto. 10.33 aplica conclusão comum e resolve a continuidade narrativa (execução cancelada/Rukia na Soul Society), sem novo boss/quest administrativa/teleporte obrigatório. Retorno real deve ser demonstrado na ficha conforme M10; custos/perfis, mapas/acesso, recompensas/replay, UI/participação/era/persistência ainda dependem de especificação/implementação.
+
+[Fechamento e limites da revisão](00-fechamento-roteiro-substituto-soul-society-2026-10-28.md). Publicação documental autorizada pelo usuário ao concluir este arco; seguir main local e confirmar commit/push pelos resultados Git, sem publicar código/runtime. Registros anteriores M11 e retornos de M03/M04/M05/M07/M08 fazem parte da documentação local referenciada; preservá-los. Próxima coautoria: arco Arrancar, mantendo M11/racial/fillers/laterais adiados. Nenhum cenário de jogo foi executado ou aceito nesta rodada.
+
+### Registro anterior — M13 — Cobertura restante aprovada; justificativa de Aizen solicitada — 28/10/2026
+
+“Concordo” aprova 19A: Hitsugaya/Gin, Iba/Ikkaku, Hisagi/Yumichika e oficiais do resgate no contexto, sem mais missões obrigatórias desses combates. Aplicado em M13/8.19/10.30/12.36; não reenviar. “porque adaptar para uma vitória?” é pergunta de justificativa de 19B, não aceite de vencer Aizen, rejeição formal do contrato geral ou escolha da alternativa.
+
+M03/STR-03 reconferido: vitória do jogador nos bosses selecionados, exemplo de derrota/selamento final de Aizen em Karakura. Não exige que toda aparição seja boss vencível. CAMP-S09 reconferido em 28/10/2026 confirma superioridade/saída de Aizen com Hōgyoku neste arco. Assistente reconsiderou a recomendação, sem alterar M03: Byakuya último boss deste arco; revelação/Hōgyoku/saída de Aizen em contexto, confrontos vencíveis posteriores preservados. Proposta anterior mantida como histórico não aprovado em 10.31; explicação/recomendação atual em 10.31.1.
+
+19B permanece aberto em 12.37; receber escolha do recorte antes de definir encerramento/retorno, revisar e publicar. Main local, publicação só ao concluir Soul Society. Sem branch/commit/push novos ou runtime/build/testes; pendências/adiamentos preservados.
+
+### Registro anterior — M13 — Byakuya/Soi Fon aprovados; cobertura final e Aizen propostos — 28/10/2026
+
+“Concordo” e “Adotamos” aprovam 18A/B: luta contínua Byakuya Shikai/Bankai/Senkei, Soi Fon jogável antes da libertação e Yamamoto/Shunsui/Ukitake em contexto. Aplicado em M13/8.18/10.28/10.29/12.34/12.35; não reenviar. Preservar libertação → Byakuya; ordem de Soi Fon é adaptação assumida.
+
+CAMP-S09/CAMP-S10 reconferidos para frentes finais/conspiração/Hōgyoku/fuga. Página TV Tokyo 63–74 aberta para localizar encerramento, mas conteúdo Bount posterior não foi adotado; fechamento deste arco sustentado pela retrospectiva oficial 42–63, sem capítulo/episódio integral. 19A em 10.30 propõe demais disputas/oficiais/histórias pessoais em contexto. 19B em 10.31 propõe MAIN-SS-14: Hōgyoku já obtido no contexto inicial, jogador vence representação de Aizen desta era e ele sai com Gin/Tōsen depois da vitória. Adaptação STR-03 explícita, sem falsa reprodução de Ichigo vencendo Aizen neste momento ou recuperação do artefato.
+
+Duas escolhas em 12.36/12.37; depois encerramento/retorno e revisão antes da publicação. Main local, só publicar ao concluir Soul Society. Sem branch/commit/push novos ou runtime/build/testes; pendências de realização e M11/racial/fillers/laterais preservadas.
+
+### Registro anterior — M13 — Circuito/resgate aprovados; Byakuya e frentes paralelas propostos — 28/10/2026
+
+“Adotamos” e “Seguimos asism” aprovam 17A/B: circuito de Yoruichi com pontos/obstáculos/desníveis e interação final cronometrada; alcançar/libertar Rukia por interação, Sōkyoku em texto e Byakuya seguinte. Aplicado em M13/8.17/10.26/10.27/12.32/12.33; não reenviar. Tempo/distância/mapa e integrações continuam pendentes, sem copiar parâmetros de Ururu ou declarar arco encerrado.
+
+CAMP-S09 e CAMP-S10/55–59 reconferidos em 28/10/2026: Byakuya Shikai/Bankai/Senkei e reconhecimento da vitória; Soi Fon/Yoruichi e Yamamoto/Shunsui/Ukitake paralelos. Sinopses oficiais do anime, não capítulos/episódios integrais nem parâmetros do mod. 18A propõe confronto contínuo de Byakuya, sem novas missões entre momentos; 18B Soi Fon jogável antes da libertação e Yamamoto em texto, preservando libertação → Byakuya. Ordem de Soi Fon é adaptação explícita, sem Yoruichi aliada combatente ou poder gratuito.
+
+Duas escolhas em 12.34/12.35; depois fechar outras frentes/oficiais, conspiração/Aizen e encerramento/retorno. Ainda não concluir/publicar. Main local, publicar só ao terminar Soul Society; sem branch/commit/push novos ou runtime/build/teste. M11/racial/fillers/laterais adiados.
+
+### Registro anterior — M13 — Preparo próprio escolhido e capitães separados; ensaio/resgate propostos — 28/10/2026
+
+“Prefiro uma preparação jogável própria” escolhe a alternativa de 16A, preterindo só plano/contexto sem prova; conteúdo ainda por escolha. “Duas missões” aprova 16B: Tōsen e depois Komamura, mantendo a primeira vitória se falhar na segunda. Aplicado em M13/8.16/10.24/10.25/12.30/12.31; não reenviar inclusão/divisão.
+
+CAMP-S08/42/45 e CAMP-S09 reconferidos: Yoruichi orienta o treino de Ichigo e tem mobilidade no contexto; circuito não é exercício literal verificado da obra. MAIN-SS-PREP-01 em 10.26 propõe pontos em ordem/obstáculos/desníveis e interação final cronometrada, na Soul Society, viável com movimentos do personagem apto; valores/mapa ainda por ficha. Não repetir Ururu/Urahara, conceder Shunpo/Bankai ou exigir técnica racial por associação.
+
+MAIN-SS-12 em 10.27 propõe alcançar/libertar Rukia por interação, Sōkyoku no contexto e principal Byakuya seguinte. Fontes CAMP-S10/54/CAMP-S09 sustentam contexto, não mecanismo universal de destruir a arma por clique. Duas escolhas 17A/B em 12.32/12.33: circuito versus duelo curto de Yoruichi; libertação com Sōkyoku em texto versus desafio adicional da arma. Depois Byakuya, outras frentes/conspiração/encerramento. Main local, publicação só ao concluir Soul Society; sem branch/commit/push novos, runtime/build/teste. M11/racial/fillers/laterais adiados.
+
+### Registro anterior — M13 — Prisão/Mayuri aprovados; preparação final e capitães em oposição — 28/10/2026
+
+“Adotamos” e “Incluimos” aprovam 15A/B: contato jogável com Rukia na prisão, primeiro Byakuya/intervenção de Yoruichi no desfecho, principal Byakuya reservado à execução; Mayuri vencido com retirada narrativa posterior. Aplicado em M13/8.15/10.22/10.23/12.28/12.29; não reenviar. Sem derrota forçada, Letzt Stil/perda de poderes de Uryū ou resgate final já realizado.
+
+CAMP-S09 reconferido para preparação/urgência, Renji/Byakuya e frentes paralelas; CAMP-S10 (TV Tokyo 52–62) consultado em 28/10/2026: 52 duelo Renji/Byakuya, 53 frente Kenpachi/Tōsen/Komamura e Bankai de Tōsen, 54 execução. Sinopses oficiais, não conteúdo integral/perfis. MAIN-SS-11A/B e contexto em 10.24/10.25 são propostas: Yoruichi apresenta plano, treino de Ichigo/duelo Renji em texto; jogador vence Tōsen e Komamura separadamente com retenção da primeira.
+
+Duas escolhas 16A/B em 12.30/12.31: contexto sem nova prova versus preparo próprio; capitães separados, juntos ou apenas contexto. Depois resgate/Byakuya e cobertura das demais frentes/conspiração/encerramento. Arco ainda não concluído: revisar antes de publicar. Main local, publicar só ao terminar Soul Society; sem commit/push/branch nova ou runtime/build/testes. M11/racial/fillers/laterais adiados.
+
+### Registro anterior — M13 — Interlúdio/Shunsui aprovados; Kenpachi, prisão e Mayuri — 28/10/2026
+
+“Concordo” e “Adotamos” aprovam 14A/B: aparente morte de Aizen/reações em texto após segundo Renji, sem investigação obrigatória; Shunsui jogável antes de Kenpachi, capitão vivo no desfecho. Aplicado em M13/8.14/10.19/10.20/12.26/12.27; não reenviar ou transferir história/poderes de Chad ao jogador.
+
+CAMP-S06/07/08 reconferidos para Kenpachi e primeira chegada à prisão; CAMP-S09, retrospectiva oficial Pierrot do resgate (42–63), consultada em 28/10/2026, confirma interrupção de Byakuya por Yoruichi, Mayuri/Bankai e sua retirada, confronto principal de Byakuya posterior. Sinopses do anime, sem conteúdo integral/perfis completos. Não importar consequências de Ichigo ou Letzt Stil de Uryū para o jogador.
+
+MAIN-SS-08 em 10.21 traduz Kenpachi já encadeado por 14B/STR-03, sem mecânica nova de derrota obrigatória, fase invencível, quebra da arma ou poder gratuito. MAIN-SS-09/10 em 10.22/10.23 são propostas: contato jogável com Rukia e Byakuya/Yoruichi no desfecho escrito, principal Byakuya guardado para execução; Mayuri vencido com retirada narrativa. Duas escolhas 15A/B em 12.28/12.29; depois preparação final/execução e confrontos restantes. Main local, publicação só ao concluir Soul Society. Sem branch/commit/push novos, implementação/build/testes; M11/racial/fillers/laterais adiados.
+
+### Registro anterior — M13 — Jirōbō/Hanatarō aprovados; segundo Renji e cobertura até Kenpachi — 28/10/2026
+
+“Adotamos” e “Seguimos assim” aprovam 13A/B: confronto do jogador com Jirōbō, cerco de soldados no contexto; Hanatarō indica rota curta das galerias, sem escolta, até saída próxima à prisão. Aplicado em M13/8.13/10.17/10.18/12.24/12.25; não reenviar. Sem aliados canônicos, barra de defesa ou cura gratuita automática.
+
+CAMP-S07/30–38 e CAMP-S06 reconferidos: segundo Renji com Zabimaru, vitória de Ichigo, reações/aparente morte de Aizen, ocorrência Chad/Shunsui e aproximação de Kenpachi. CAMP-S08 (TV Tokyo 39–51) aberto para continuidade; só sinopses oficiais, sem capítulo/episódio integral ou repertório completo. Não transformar referência de força de Renji em multiplicador numérico aprovado nem importar Bankai/poderes posteriores.
+
+MAIN-SS-06/07 em 10.19/10.20 são propostas: segundo Renji com resultado coerente, interlúdio de Aizen em texto; Shunsui como luta adaptada do jogador antes de Kenpachi, sem impor derrota de Chad ao personagem. Duas escolhas 14A/B em 12.26/12.27: texto versus investigação de Aizen; Shunsui jogável versus contexto. Depois Kenpachi/prisão. Main local, publicar só ao concluir Soul Society. Sem commit/push/branch nova, implementação/build/teste de jogo. M11/racial/fillers/laterais adiados.
+
+### Registro anterior — M13 — Ganju/Ikkaku/Yumichika aprovados; Jirōbō e Hanatarō propostos — 28/10/2026
+
+Respostas “Concordo” e “seguimos assim” aprovam 12A/B: vitória completa de Ganju, vivo no desfecho; Ikkaku e depois Yumichika em duas missões, mantendo Ikkaku concluído se falhar na segunda. Aplicado em M13/8.12/10.15/10.16/12.22/12.23; não reenviar. Sem NPC Ganju aliado, divisão automática de party, poderes posteriores ou fichas prontas.
+
+CAMP-S07/28–31 e CAMP-S06 reconferidos: Jirōbō diante de Uryū/Orihime; cerco de soldados; Hanatarō conhece/cuidou de Rukia e guia pelas galerias até a aproximação da prisão, onde Renji impede avanço. Fontes oficiais do anime, não capítulos/episódios integrais. Próximas propostas MAIN-SS-04/05 em 10.17/10.18: Jirōbō jogável, cerco genérico no contexto; rota curta de Hanatarō sem escolta/barra de defesa/cura automática. Autoria e organização são adaptações.
+
+Duas escolhas novas 13A/B em 12.24/12.25; depois segundo Renji na Soul Society. Seguir main local e publicar somente ao concluir o arco, conforme esclarecimento do usuário. Sem nova branch, commit/push, implementação/build/teste de jogo. M11/racial/fillers/laterais adiados.
+
+### Registro anterior — M13 — Ganju incluído e Kūkaku aprovado; versionamento solicitado — 28/10/2026
+
+“Prefiro incluir” escolhe o confronto com Ganju (11A), preterindo só contexto; “Podemois seguir assim” aceita exercício/lançamento de Kūkaku (11B). Aplicado em M13/8.11/10.14/10.15/12.20/12.21. Não reenviar inclusão ou minijogo. Resultado completo de Ganju ainda é proposta 12A porque a briga da obra é interrompida.
+
+CAMP-S07, TV Tokyo episódios 26–38, consultado em 28/10/2026: especialmente 26–28 sustenta entrada e confrontos paralelos Ikkaku/Ichigo e Yumichika/Ganju. Sinopses do anime, não capítulos/episódios completos ou repertórios. 12B propõe Ikkaku e depois Yumichika em duas missões do jogador, preservando a primeira se falhar depois; sem NPC Ganju aliado, divisão forçada de party ou poderes posteriores. Duas escolhas em 12.22/12.23; depois Hanatarō/avanço à prisão.
+
+Direção literal: “Apenas uma informação quando acabarmos esse arco vamos subir no repositório, na main, mas antes vamos atualizar a branch mesmo”. Esclarecimento explícito posterior: “Manter na main local e publicar somente ao concluir o arco”. Seguir na main local e publicar somente ao terminar Soul Society; não criar branch separada. Checkout está na main, HEAD 26b73b3742681bfeee694c23a6e92007fd7f44ba. Sem commit/push executados nesta rodada; preservar mudanças locais e conferir escopo antes de versionar. Documentação/campanha principal, M11/racial/laterais adiados; sem runtime/build/teste de jogo.
+
+### Registro anterior — M13 — Abertura Soul Society aprovada; entrada por Kūkaku proposta — 28/10/2026
+
+“Perfeito, podemos adotar isso sim” aceita 10A/B: percurso breve pelo Dangai, Kōtotsu no texto; jogador vence Jidanbō, Gin fecha acesso no desfecho escrito e Yoruichi encaminha Kūkaku. Aplicado em M13/8.10/10.11/10.13/12.18/12.19; não reenviar. Sem derrota forçada adicional, morte definitiva do guardião ou bloqueio global de rotas legítimas.
+
+CAMP-S02/23–25 e CAMP-S06 reconferidos em 28/10/2026: briga interrompida de Ganju/Ichigo, parentesco com Kūkaku, treino de controle da esfera, canhão e separação do elenco. Sinopses oficiais do anime, não capítulo integral; não comprovam comandos de interface do mod ou custos/valores.
+
+MAIN-SS-02 em 10.14 propõe exercício curto de manter marcador de energia na faixa por intervalo breve, seguido de partida explícita pelo canhão e chegada dentro do Seireitei. Ganju proposto em contexto, sem luta obrigatória; sem dividir party automaticamente, conceder skill/recompensa de dispositivo ou tornar NPC aliado combatente. Duas escolhas 11A/B em 12.20/12.21: Ganju em texto versus luta própria, exercício versus partida direta. Depois Ikkaku. Apenas campanha principal/documentação; M11/racial/laterais adiados; sem implementação/teste/publicação.
+
+### Registro anterior — M13 — Parâmetros de Ururu aprovados; abertura da Soul Society proposta — 28/10/2026
+
+Respostas “Pode ser isso mesmo, depois caso não, ajusto” e “Mantemos concluida” aprovam 09A/B: 60 segundos nominais/limite de 30% como valores provisórios e etapa de Ururu preservada se falhar contra Urahara. Aplicado em M13/8.9/10.12/12.16/12.17; não reenviar. Falha ao atingir o limite em qualquer momento, sem cura automática ou apagar falha por recuperação posterior. Perfil/área/encerramento, Vida/formas, elegibilidade e persistência seguem por integração, sem teste de jogo.
+
+CAMP-S06, retrospectiva oficial Pierrot da infiltração (21–41), confirma Rukongai, Jidanbō vencido, bloqueio de Gin e busca de Kūkaku. Sinopse acessível em 28/10/2026, não capítulo integral/repertório completo. Nova ficha proposta MAIN-SS-01 em M13/10.13: início pelo guardião no portão, vitória do jogador, Gin no desfecho escrito e caminho alternativo encaminhado por Yoruichi. Sem derrota forçada ou bloqueio global de acessos legítimos.
+
+10A/B, em 12.18/12.19, aguardam duas escolhas: viagem curta com Kōtotsu no texto ou perseguição própria; Jidanbō jogável e Gin apenas no desfecho. Depois Kūkaku/Ganju e entrada alternativa. Só campanha principal e documentação local; M11/racial/fillers/laterais adiados; sem runtime/build/teste/publicação.
+
+### Registro anterior — M13 — Preparação aprovada; perseguição de Ururu acrescentada — 28/10/2026
+
+“Perfeito, podemos seguir assim” aceita a prova de Urahara explicada anteriormente (08B); o restante da mesma resposta pede incluir perseguição pela menina da loja, com tempo e limite percentual de Vida (08C). Resposta integral em M13/8.8. Ururu Tsumugiya identificada em fonte oficial licenciada CAMP-S05; sinopses CAMP-S02/18–20 confirmam contexto/local, sem provar todos os detalhes da cena. Cronômetro/limiar são adaptação do mod.
+
+M13/10.12 agora contém MAIN-SUB-PREP-01 em duas etapas: resistir à perseguição de Ururu e acertar um golpe válido em Urahara; depois disponibilizar a expedição, em início próprio. Não repetir inclusão, formação ou recuperação pessoal de Ichigo. Etapas de treino não concedem poderes ou viagem automática.
+
+Duas escolhas novas 09A/B em 12.16/12.17: começar com 60 segundos e falha ao atingir 30% da Vida máxima de referência ou menos em qualquer momento (hipótese de balanceamento); preservar Ururu concluída se falhar depois contra Urahara. Ambas propostas, sem resposta. Perfil/encerramento seguro, área/obstáculos/mobilidade, formas/Vida e participação exigem M05/M07/M09/M10/M12/M15. Depois consolidar sequência Substituto e abrir Soul Society. Somente campanha principal e documentação local; M11/racial/laterais adiados; sem implementação/teste/publicação.
+
+### Registro anterior — M13 — Renji aprovado; explicação da prova de Urahara solicitada — 28/10/2026
+
+À pergunta 1, “Concordo” aprova 08A: jogador vence Renji; Byakuya/prisão de Rukia no desfecho escrito; aplicado em 8.7/10.10/12.13. Não reenviar ou aplicar perda de poderes de Ichigo ao personagem.
+
+À pergunta 2, usuário perguntou “Como seria uma prova prática de preparação? Seria o treinamento breve naquela sala na loja do urahara?”. É esclarecimento, não escolha/aprovação de 08B. M13/10.12 agora explica alternativa curta no campo subterrâneo: conversar/iniciar, duelo controlado contra representação de Urahara, acertar um golpe válido usando recursos atuais, avaliação encerrada e expedição disponibilizada. Objetivo/perfil e interrupção segura são propostas de adaptação; CAMP-S02/19–20 confirma o lugar/treino, não esse objetivo literal. Não repetir poço/Hollowficação/recuperação racial de Ichigo ou conceder forma/skill gratuitamente.
+
+08B continua aberto em 12.14: incluir essa preparação ou manter plano/travessia sem prova. Inclusão/obrigatoriedade e regras de combate seguro não estão aprovadas. Depois da escolha, consolidar sequência Substituto e começar Soul Society. Só campanha principal; demais módulos/catálogos adiados; sem implementação/teste/publicação.
+
+
+### Registro anterior — M13 — 07A/B aprovados; Renji e expedição propostos — 28/10/2026
+
+Resposta literal “gostei da forma como propôs, muito bom, podemos seguir” aceita o pacote M13-07A/B: Don Kanonji em contexto escrito e crise de Uryū em duas missões, grupo de Hollows e Menos. Conclusão da primeira preservada se o boss falhar; Menos vencido pelo jogador com recuo narrativo. Aplicado em M13/8.6/10.8/10.9/12.11/12.12, sem números/recompensas ou perfis completos aprovados. Não reenviar.
+
+Novas propostas M13-08A/B em 10.10/10.11/12.13/12.14: (1) Kon avisa saída de Rukia; início pelo painel local, jogador vence Renji; Byakuya e prisão de Rukia em desfecho escrito, sem luta invencível, morte/perda de poderes forçadas do jogador. Prisão é marco protegido já aprovado; alternativa de cobertura seria atividade própria de retirada perante Byakuya. (2) Urahara apresenta plano e oferece expedição; objetivo atravessar passagem e chegar ao Rukongai. Treino de recuperação de Ichigo no contexto, sem repetir formação ou comprar/conceder formas por associação. Alternativa prova prática própria antes da viagem.
+
+CAMP-S02/03 reconferidos, limites de sinopses/retrospectiva oficiais; M10b/9.5 mantém operadores comuns separados das intervenções contextuais de Urahara. A ida não é primeira visita universal nem concede Senkaimon/entrada no Seireitei. Percurso/Dangai, riscos/retomada, acesso/volta por contexto e participação ainda precisam de ficha. Duas respostas pendentes; depois revisar sequência Substituto e abrir objetivos da Soul Society. Somente campanha principal; M11/racial/lateral adiados, sem implementação/teste/publicação.
+
+
+### Registro anterior — M13 — Grand Fisher aprovado; ligação e crise Quincy propostas — 28/10/2026
+
+Resposta literal “Positivo, adotamos” aprova M13-06A: Grand Fisher vencido pelo jogador/party, missão concluída e fuga no texto de desfecho; não morte definitiva, derrota forçada ou parentesco do personagem com os Kurosaki. Aplicado em M13/8.5/10.7/12.10; não reenviar. Capacidades, mapa, transição, participação/recompensas e realização continuam pendentes.
+
+Duas escolhas novas M13-07A/B em 10.8/10.9/12.11/12.12: (1) Don Kanonji em contexto escrito curto ou missão jogável do hospital; recomendado texto. CAMP-S04, sinopse oficial Shueisha volume 4 indexada, sustenta presença no mangá; duas aberturas falharam, sem capítulo integral. Não reclassificar como filler/side quest automaticamente. (2) Crise de Uryū em duas missões, grupo de Hollows e Menos em início próprio pelo painel local; recomendado separar. Conclusão da primeira permanece se o jogador falhar no boss; vitória do Menos seguida de recuo narrativo propostos especificamente, sem NPCs aliados combatendo.
+
+CAMP-S01/02/03 reconferidos para desafio, Hollows e afastamento do Menos; fontes do anime, sem repertórios/números completos. Depois das duas respostas: MAIN-SUB-07 — Rukia é levada. Só campanha principal; M11/racial/fillers/laterais adiados; documentação local, sem implementação/teste/publicação.
+
+
+### Registro anterior — M13 — 05A/B aprovados; Grand Fisher em proposta — 28/10/2026
+
+Resposta literal conjunta “Concordo com as recomendações” aprova M13-05A/B: Chad apresenta o periquito e o jogador enfrenta Shrieker diretamente; incluir o incidente de Kon como missão curta, encaminhada por Urahara, início no painel/HUD na área da escola e confronto com o Hollow da ocorrência. Aplicado em M13/8.4/10.5/10.6/12.8/12.9. Não reenviar perguntas; números, capacidades exatas, mapa, acesso/participação e recompensas continuam pendentes.
+
+[MAIN-SUB-05 — Grand Fisher](13-campanhas-e-sidequests.md#107-main-sub-05--grand-fisher), M13-06A em 12.10, proposta: Rukia oferece confronto na área do cemitério; jogador/party vence a representação inicial; vitória seguida de retirada narrativa em texto e conclusão. CAMP-S01/03 reconferidos confirmam isca humana e fuga no primeiro confronto. Não transferir parentesco/memórias de Ichigo ao jogador, usar forma posterior ou matar definitivamente por associação. A condição de vitória é proposta nova, não regra universal de boss.
+
+Uma resposta pendente sobre essa adaptação. Depois: selecionar a cobertura da ligação até a crise de Uryū e escrever os objetivos seguintes, sem fechar implicitamente todos os episódios/casos intermediários. Só campanha principal; M11/racial/fillers/laterais adiados; sem implementação/teste/publicação.
+
+
+### Registro anterior — M13 — 04A/B aprovados; propostas Chad e Kon em bloco — 28/10/2026
+
+Respostas literais: 1. “Concordo”; 2. “Prefiro vencer o Hollow”. M13-04A/B aplicados em 8.3/10.4/12.6/12.7: Rukia encaminha o caso de Orihime e o objetivo é vencer o irmão Hollow, sem barra de defesa/escolta/cronômetro da personagem. Isso vale para esta missão; não generalizar a toda a campanha. Não reenviar questões aprovadas.
+
+Propostas seguintes em M13/10.5/10.6/12.8/12.9, M13-05A/B: (1) Chad apresenta o caso do periquito e jogador enfrenta Shrieker diretamente, com alternativa de investigação curta; (2) Urahara encaminha o incidente de Kon e o jogador inicia pelo HUD na área da escola um confronto com o Hollow da ocorrência; alternativa é manter Kon apenas no texto e seguir para Grand Fisher. Recomendações: fluxo direto de Shrieker e inclusão da missão curta de Kon. Nada aprovado por antecipação.
+
+CAMP-S01 (4–7) e CAMP-S03 reconferidos: Shrieker/periquito, destino do Hollow ao Inferno e contexto da alma modificada/escola/Kon. Fontes são sinopses/retrospectiva oficiais do anime, não capítulos integrais. Não inventar armadilhas, conceder Kon como pet, abrir dimensão do Inferno ou transformar Kon em boss a matar. Depois das escolhas: Grand Fisher. Somente campanha principal; M11/racial/lateral adiados; documentação local, sem implementação/teste/publicação.
+
+### Registro anterior — proposta do caso de Orihime
+
+### M13 — 03A/B aprovados; caso de Orihime em proposta — 28/10/2026
+
+Respostas literais: 1. “Vamos seguir como você recomendou”; 2. “Vamos seguir como você recomendou”. Aprovam abertura com Rukia e um confronto Hollow curto em Karakura antes de Orihime, e conclusão após objetivo válido com retorno ao NPC apenas quando houver entrega/conversa necessária. Aplicado em M13/8.2/10.3/12.4/12.5; não pedir novamente. Nome/visual do primeiro alvo e detalhes de realização permanecem pendentes.
+
+[MAIN-SUB-02](13-campanhas-e-sidequests.md#104-main-sub-02--laços-além-da-morte) desenvolvida: confronto com o irmão Hollow de Orihime e desfecho breve. Nova fonte CAMP-S03, retrospectiva oficial Pierrot dos episódios 1–20, confirma o irmão recuperando lucidez e a partida por ação voluntária com Zanpakutō; não transforma qualquer poder do jogador em purificação. Vitória da luta pertence ao jogador/party; resolução narrativa vem depois e não concede vitória a um NPC aliado.
+
+M13-04A/B propostos, duas respostas pendentes em 12.6/12.7: Rukia encaminha o caso ou pedido direto de Orihime; combate direto ou objetivo adicional de defendê-la com Vida/falha próprias. Recomendações: Rukia encaminha e foco no confronto, sem barra de defesa/escolta/cronômetro. Conclusão 03B é contrato comum, não nova pergunta. Depois: MAIN-SUB-03, Chad/periquito. Só campanha principal; M11, racial, fillers/laterais adiados; sem implementação/teste/publicação.
+
+### Registro anterior — primeira ficha em proposta
+
+### M13 — Primeira missão desenvolvida; abertura e conclusão propostas — 28/10/2026
+
+O usuário autorizou continuar (“Perfeito, pode seguir”). [MAIN-SUB-01](13-campanhas-e-sidequests.md#103-main-sub-01--um-hollow-na-área) agora propõe Rukia junto de uma área designada em Karakura, apresentação breve, início pelo NPC, um confronto Hollow da abertura e conclusão após vitória válida, disponibilizando o caso de Orihime sem iniciá-lo sozinho. Perfil de combate simples é adaptação proposta; nome/visual exatos continuam sem confirmação primária suficiente. Requisitos por caminho, mapa, participação e recompensas não foram inventados para fechar a ficha.
+
+Duas escolhas novas, [M13-03A/B](13-campanhas-e-sidequests.md#124-m13-03a--decidido--primeira-missão-com-rukia-e-um-confronto-hollow), aguardam resposta: abrir com Rukia/confronto inicial ou começar no caso de Orihime; concluir após objetivo válido ou exigir retorno ao NPC após todo confronto. Recomendação: primeiro confronto curto e conclusão automática quando não houver entrega/conversa necessária. 01A/02A já decididos, não reenviar. Depois desenvolver MAIN-SUB-02. Somente campanha principal; M11, racial e lateral adiados. Sinopses oficiais dos episódios 1–2 reconferidas; sem implementação ou teste de jogo.
+
+### Registro anterior — formato de execução
+
+### M13 — Execução direta por NPC/painel; início cria o confronto — 28/10/2026
+
+M13-01A revisado e M13-02A decididos pela direção literal preservada em M13/8.1: história pode ficar escrita; NPC se apresenta brevemente e o jogador inicia/executa a missão. Evento autônomo pode ter botão na área de missões do HUD e, no confronto, criar o Hollow/inimigo previsto. Não mostrar encontros entre personagens como abertura obrigatória. M03/STR-03 e M09-06A já cobrem vitória jogável/início deliberado; “Iniciar missão” pode ser essa ação, sem exigir confirmação duplicada universal. A ficha define contexto/local/versão e revalida o começo, sem duplicar a mesma tentativa.
+
+M13-01B não recebeu aprovação dos sete blocos/quantidade de quests; a pergunta anterior foi reformulada por atividade jogável e não deve ser reenviada. Catálogo 10.1 passou a NPC/objetivo/início; 10.3 traz exemplo revisável com Rukia e confronto Hollow, sem aprovar fonte universal, ator exato ou disponibilidade remota permanente. Próximo: primeira missão MAIN-SUB-01 com identidade/versão do alvo, ação concreta e conclusão, depois sequência do arco. NPC/HUD são modos aprovados por evento, não dois cliques obrigatórios nem início remoto universal.
+
+Somente campanha principal; M11, formação racial, fillers e demais laterais continuam adiados. M12/M14/M15/M16 recebem dependências específicas sem converter a prioridade em especificação técnica completa. Sem implementação, quest JSON, mapa, build, teste de jogo ou publicação. Busca adicional não confirmou em fonte primária do mangá/anime o nome do primeiro Hollow; a ficha não o tratou como fechado nem importou a versão do filme live-action.
+
+### Registro anterior — M13 — Somente campanha principal — 28/10/2026
+
+Direção literal mais recente: “Calma, vamos começar com a campanha principal, então as sidequests como as quests raciais, quests fillers que seriam as side quests reais e etc fica pra depois”. Supersede a intenção intermediária de começar o novo módulo pela formação racial. Não escrever formação, origem racial ou fillers nesta rodada. M13 aberto com os 15 campos do mapa e rascunho de sete blocos de acontecimentos do arco Shinigami Substituto; não são sete quests aprovadas.
+
+Atual: M13-01A/B em [12](13-campanhas-e-sidequests.md#12-decisões-registradas-e-histórico), duas respostas pendentes. A recomenda contextualização breve da primeira noite de Ichigo/Rukia em vez de começar depois; B recomenda desenvolver os sete blocos em missões enxutas em vez de condensar os primeiros casos em relatos. Ordem macro e protagonismo do jogador/party continuam herdados de M03; não repetir essa votação. Próxima entrega: ficha MAIN-SUB-01 com ação concreta do jogador, contexto e conclusão. M12 fica dependência de realização, ainda sem documento próprio, por escolha de prioridade do usuário.
+
+M11 adiado: 07A/B aprovados por respostas literais “Concordo” e “concordo”, aplicados em 8.21/8.22/10.5/12.21/12.22; [histórico](historico/2026-10-28-propostas-m11-07ab-zanpakuto-morte-e-desgaste.md). Arma pessoal na própria posse preservada na morte comum; selada/Shikai sem desgaste comum, com danos e consequências preservados. Perda/recuperação fora da morte e reparação de lâmina foram apenas anunciadas, sem novo conjunto de perguntas publicado. Demais pendências permanecem no módulo. Não reabrir M11 enquanto o foco for campanha.
+
+Pesquisa de preparação em M13/4: sinopses oficiais acessíveis dos episódios iniciais, sem capítulos/episódios integrais ou classificação automática de todo conteúdo do anime como mangá. Roteiro é proposta; não há quest, saga, recompensa, mapa ou runtime novo.
+
+
+### Registro anterior — M11-05C/06C decididos; 07A/B em proposta — 28/10/2026
+
+Respostas literais à rodada de duas perguntas: 1. “Concordo com o recomendado”; 2. “Concordo com o recomendado”. Aplicadas em M11/8.16/8.20, fichas 10.1/10.4 e 12.18/12.20; [perguntas e respostas](historico/2026-10-28-propostas-m11-desgaste-acesso-oetsu-e-repeticao.md). Shinai desgasta em golpe acertado/bloqueio efetivo, não ao bater no ar ou apenas guardar; cada execução de obtenção de Asauchi requer materiais apropriados e tarefa prática, sem refazer formação. Quantidades, fontes/produtos, prova concreta, reparo/encantamentos e integração permanecem por ficha. 05B/D, 06A/B e STR-08 conservam aprovações; nenhuma pergunta pendente daquele bloco.
+
+Atual: [M11-07A/B](historico/2026-10-28-propostas-m11-07ab-zanpakuto-morte-e-desgaste.md), M11/12.21/12.22, duas respostas pendentes. Recomenda preservar na morte comum o exemplar pessoal Shinigami que estava na posse do dono, sem buscar arma já fora da posse ou reparar consequências; e forma selada/Shikai sem desgaste comum de uso, mantendo dano por causas específicas. Não abrange Asauchi sem vínculo, shinai, Cruz, armas Arrancar ou Fullbring por associação. M07-G01/02G/03I/03M/N continuam aprovados; não repetir escolhas de encerramento/perda de posse/dano estrutural de Bankai.
+
+Pesquisa ITEM-S17, fonte oficial indexada/abertura 403 e glossário histórico Pierrot acessível, com limites registrados no módulo. Não usa a obra como prova de proteção em respawn/durabilidade vanilla. Depois das respostas: recuperação concreta do exemplar perdido/destruído, representação/retorno de armas incorporadas, materiais/receitas e demais fichas, sem uniformizar naturezas diferentes. Somente documentação local; sem código/receita/save, build, teste de jogo ou publicação.
+
+### Registro anterior — M11-05B/D e 06A/B decididos; STR-08 explícito — 28/10/2026
+
+[Respostas literais e propostas originais](historico/2026-10-28-propostas-m11-05bcd-06a-instrumentos-e-asauchi.md): 1. “Vamos seguir com o recomendado”; 2. “Desgaste”; 3. “Espaço próprio”; 4. missão com Ōetsu repetível após formação, recompensando Asauchi. 05B aplica perda conforme inventário do mundo e crafting por perda aos instrumentos básicos sem vínculo; não classifica a Cruz ou armas pessoais. 05C confirma desgaste, mas ambas as alternativas anteriores o previam; gatilhos ainda precisam de esclarecimento. 05D define espaço próprio real para foco, mantendo arco de duas mãos. 06A define uma Asauchi por nova conclusão válida da missão racial após formação, sem crafting comum. Não limitar a repetição somente a quem perdeu o item, nem duplicar a mesma conclusão.
+
+Aprovação posterior “Perfeito, recomendação aprovada” responde à recomendação comunicada em comentário de começar por encomenda intermediada pela Academia e reservar encontro pessoal com Ōetsu para quando a história permitir: 06B decidido, M11/8.19/12.19. Não atribuir essa resposta às questões ainda não apresentadas de desgaste e insumos. [Registro de aprovação e duas perguntas restantes](historico/2026-10-28-propostas-m11-desgaste-acesso-oetsu-e-repeticao.md): esclarecer gatilhos de desgaste (05C) e escolher materiais/tarefa ou somente prova por repetição (06C). M11/12.18/12.20; duas respostas pendentes.
+
+STR-08, M03: formação Shinigami é missão/campanha racial; campanha principal acompanha acontecimentos principais da obra; fillers são side quests opcionais, mantendo D05/STR-02 e missões originais de ligação identificadas. Aplicado em M04 e retorno dirigido M08, sem abrir catálogos M12/M13 prematuramente. Missão de Asauchi é continuidade racial de obtenção, sem alterar a história principal a cada repetição. ITEM-S16 confirma por texto oficial indexado Ōetsu na Divisão Zero e contexto do Palácio Real; aberturas 403, sem episódio integral ou proibição universal de contato antecipado inferida. Intermediação aprovada é adaptação. Receita/código/save intactos; sem build, teste de jogo ou publicação.
+
+### Registro anterior — M11-05B/C/D e 06A — Quatro propostas agrupadas — 28/10/2026
+
+O usuário pediu várias perguntas de uma vez e continuidade com a skill e a obra. [Bloco completo, perguntas e alternativas](historico/2026-10-28-propostas-m11-05bcd-06a-instrumentos-e-asauchi.md); M11/12.14–12.17, quatro respostas pendentes. 05B recomenda perda conforme inventário do mundo e crafting após perda para instrumentos comuns sem vínculo; não abrange a Cruz enquanto sua classificação não estiver resolvida. 05C recomenda desgaste da shinai por golpe acertado/bloqueio efetivo. 05D recomenda espaço próprio de equipamento do foco, preservando item real e arco de duas mãos já aprovados em M06-09J/K/L. 06A recomenda Asauchi recebida na formação, sem receita comum; não muda a rota M04. Nenhuma proposta aprovada por este pedido de continuidade.
+
+Pesquisa ITEM-S15: glossário oficial TYBW indexado atribui a forja das Asauchi a Ōetsu; abertura 403, sem capítulo integral. Receita atual de ferro/papel/graveto conferida, sem alteração. Aplicar após respostas somente os escopos escolhidos; seguir para fichas de materiais/receitas/reposição e armas vinculadas. M11-05A e sua dúvida canônica da Cruz permanecem separados. Sem implementação, build, teste de jogo ou publicação.
+
+### Registro anterior — M11-05A — Diretriz de vínculo recebida; aplicação em verificação — 28/10/2026
+
+Resposta literal: “Se na obra são objetos vinculados ao usuário então deveria ser vinculados, se não então podemos adotar isso de guardar em báu e etc”. Aplicada em M11/8.14/12.13 e nas fichas 10.1/10.2. Preservar o vínculo que a obra estabelecer; guarda/transferência para objetos sem vínculo, mantendo requisitos de uso e aprendizado com o personagem. A shinai definida no mod como instrumento de treino é guardável/emprestável; não herda a natureza da futura Zanpakutō. Não concluir impossibilidade de guardar, retorno automático ou proteção na morte só por haver ligação pessoal.
+
+Pesquisa ITEM-S11–14 em M11/4: Pierrot confirma a Cruz especial dos Quincy, mas não sua exclusividade individual; trecho Bandai sobre sucessão não prova vínculo espiritual, e o capítulo 186 localizado na VIZ exige assinatura, sem leitura integral. Verificação primária da Cruz continua pendente, sem declarar ausência universal de vínculo. [Proposta original e resposta](historico/2026-10-28-proposta-m11-05a-posse-instrumentos-basicos.md). A resposta não aprova todo o pacote anterior: morte/perda e crafting por perda precisam ser tratados separadamente. Próximo: completar a classificação, depois consequências materiais, desgaste/receitas e Asauchi. M05 mantém taxas/limiares/saciedade por ficha. Somente documentação local, sem código/teste/publicação.
+
+### Registro anterior — M11-04A decidido; M11-05A proposto — 28/10/2026
+
+Resposta literal a 04A: “Vida, Stamina, Energia e fome cheias (recomendado)”. Aplicada em M11/8.13/12.12 e M05/17.3; [pergunta e resposta](historico/2026-10-28-proposta-m11-04a-recursos-ao-renascer.md). Renascimento após morte comum preenche os recursos nos limites válidos do corpo-base permanente e a barra de fome. Saciedade oculta inicial continua por ficha. Formas encerradas, tempos legítimos, consequências especiais, local e corpo de retorno preservam M06/M06a/M07/M10; não conceder o abastecimento a login/sono/viagem ou decidir itens/XP por associação. 03A/B permanecem aprovados; registros anteriores abaixo conservam a sequência.
+
+Atual: M11-05A proposto em [12.13](11-itens-e-economia.md#1213-m11-05a--diretriz-decidida--posse-e-reposição-dos-instrumentos-básicos), uma resposta pendente. Recomenda shinai/Cruz básicas transferíveis, morte seguindo regra de inventário do mundo e crafting para perda/quebra; alternativa vincula e preserva na morte, sem transferência. Primeira entrega/crafting após quebra e Cruz sem desgaste por tiro já são aprovados. O novo escopo é posse, morte/perda e ampliação de reposição, sem estender a Asauchi, armas vinculadas ou Fullbring. [Pergunta completa](historico/2026-10-28-proposta-m11-05a-posse-instrumentos-basicos.md). Depois fichas materiais e conciliação da Asauchi; taxas/limiares/saciedade de sobrevivência continuam entregas M05 antes da implementação. Somente documentação local, sem runtime/teste/publicação.
+
+### Registro anterior — M11-03A/B decididos; M11-04A proposto — 28/10/2026
+
+Respostas literais do usuário: 1. “Sim”; 2. “Concordo com a recomendação”. Referem-se às duas perguntas reapresentadas nesta sessão, registradas no [histórico de aprovação](historico/2026-10-28-decisoes-m11-03ab-recuperacao-e-inanicao.md). Propostas originais de 23/10 preservadas; aprovações de 28/10 aplicadas em M11/8.11/8.12/12.10/12.11 e M05/17.2. Recuperação natural lenta de Vida exige nutrição suficiente, sem cura rápida adicional; Stamina/Energia mantêm recuperação própria. Fome baixa limita corrida comum e barra vazia causa inanição conforme dificuldade, podendo matar no Difícil; demais ações conservam seus requisitos e fome não retira estágios.
+
+Atual: [M11-04A](11-itens-e-economia.md#1212-m11-04a--decidido--recursos-ao-renascer-após-morte-comum), uma resposta pendente. Recomenda Vida/Stamina/Energia cheias nos limites do corpo-base permanente e barra de fome cheia ao renascer após morte comum; saciedade oculta por ficha. Alternativa mantém Vida/fome cheias e Stamina/Energia parciais. Não estender a login/viagem/sono, não restaurar formas ou consequências especiais, não zerar tempos de combate ou decidir itens/XP. M10 preserva local/corpo; M06/M07/M06a mantêm contratos vigentes. Pergunta completa no módulo e [histórico da proposta](historico/2026-10-28-proposta-m11-04a-recursos-ao-renascer.md). Registrar somente após resposta; depois fichas de quantidades/integração e obtenção/perda/reposição/Asauchi. Somente documentação local, sem implementação/teste/publicação.
+
+### Registro anterior — M11-02E decidido; M11-03A/B propostos — 23/10/2026
+
+Resposta literal: “Comida comum + devoração nutritiva (recomendado)”. Aplicada em M11/8.10/12.9, M04/H2, M05/17.1 e M07/8.35. Perfis alimentares jogáveis cobertos: comida vanilla para os corpos restantes Hollow/Arrancar e saciedade pela devoração já elegível, sem cura/refill de recursos, ampliação de presas, evolução Arrancar ou regressão racial. Sustento ambiental de 02D continua apenas do Hollow comum inicial em Hueco Mundo.
+
+Atual: duas propostas agrupadas em M11/12.10/12.11 e M05/17.2. 03A recomenda recuperação natural lenta de Vida condicionada à nutrição, preservando combate e recuperação própria de Stamina/Energia. 03B recomenda bloqueio de corrida por fome baixa e dano de inanição conforme dificuldade, podendo matar no Difícil; alternativa mantém corrida limitada sem dano. Duas respostas pendentes. Depois recursos ao renascer e fichas de taxas/quantidades, sem repetir dietas ou efeitos comuns. Apenas documentação local; sem implementação/teste/publicação.
+
+### Registro anterior — M11-02D decidido; M11-02E proposto — 23/10/2026
+
+Resposta: “Nutrição ambiental em Hueco Mundo (recomendado)”. Registrada em M11/8.9/12.8, M05/17.1 e histórico. Hollow comum inicial recebe sustento ambiental em Hueco Mundo; não precisa comer recorrentemente ali. Sem cura direta, reposição de Stamina/Energia, treino offline ou predação evolutiva pelo ambiente. Menos e Arrancar não incluídos automaticamente.
+
+Atual 02E em M11/12.9 propõe um pacote para os demais perfis: barra de fome existente, comida vanilla cotidiana e saciedade ao concluir devoração evolutiva já elegível. Alternativa conserva a alimentação comum, sem função nutritiva da devoração. Não ampliar presas ou criar regressão passiva. Uma resposta pendente; após fechar perfis, tratar penalidades/recuperação e recursos ao renascer em M05/M11. A referência oficial do episódio 167 confirma a diferença da regressão canônica; estabilidade de M07 permanece adaptação aprovada. Apenas documentação local, sem implementação/teste/publicação.
+
+### Registro anterior — M11-02C decidido com ajuste; M11-02D proposto — 23/10/2026
+
+Resposta literal em M11/12.7 e histórico: “Acredito que a parte de comida para encher apenas a fome possa ser feitos tanto com as comidas do vanilla mas que as outras formas especificas de cada raça tenham outras funções além e também de encher a fome, e como funcionam na obra também”. Aplicada em M11/8.8 e M05/17.1. Comida vanilla comum pode nutrir Shinigami espirituais; não fica restrita a provisões espirituais. Mantém 02A: sem recarga direta de recursos. Alimentos especiais terão função própria conforme referência e ficha; catálogo inicial em M11/10.3 separa comida, refeição excepcional, nutrição ambiental e provisão de técnica.
+
+Pesquisa ITEM-S10: glossário oficial TYBW, verbete 虚圏, trecho indexado descreve nutrição suficiente pela respiração para Hollows comuns em Hueco Mundo. Abertura direta 403; sem episódio/capítulo integral. Atual 02D em M11/12.8 propõe esse sustento para o perfil inicial, sem cura, Stamina/Energia ou marcos de predação. Uma resposta pendente; demais perfis alimentares, penalidades e recursos ao renascer continuam M05/M11. Apenas documentação local, sem publicação/implementação/teste.
+
+### Registro anterior — M11-02B decidido; M11-02C proposto — 23/10/2026
+
+Resposta de B: “Preservar alimentação e fome nos corpos humanos (recomendado)”. Aplicada em M11/8.7/12.6, M05/17.1 e histórico. Quincy/Fullbringer em corpo humano material mantêm alimentos/barra de fome vanilla, separados de Stamina/Energia; Vida conforme M05. Sem fome adicional por toda técnica ou extensão a todos os corpos.
+
+Atual: M11-02C em M11/12.7/M05 e histórico próprio. Recomenda fome Shinigami na barra existente com comida espiritual comum, produção/comércio em Soul Society e fontes apropriadas no Mundo Humano; alternativa aceita também comida vanilla comum. Uma resposta pendente. Restrição/compatibilidade é adaptação proposta: as fontes examinadas não comprovam proibição universal de alimento material para Shinigami. Antes de oferecer essa jornada, concretizar fonte/produto/percurso acessíveis; não usar refeição excepcional como prova de toda nutrição, não criar conversão automática de comida por portal ou declarar Urahara fornecedor universal.
+
+Depois Hollow/Arrancar, condições/penalidades nutricionais, recuperação e recursos ao renascer; manter estabilidade racial e contratos da predação. Nenhum código/receita/save, build, teste ou publicação nesta rodada.
+
+### Registro anterior — M11-02A decidido; M11-02B proposto — 23/10/2026
+
+Resposta de 02A: “Comida comum sem recarga de recursos (recomendado)”. Aplicada em M11/8.6/12.5, M05/17.1 e histórico. Comida compatível repõe alimentação/saciedade; não dá recarga direta de Vida/Stamina/Energia nem acelerador comum de Energia fora de combate. Recuperação normal mantém M05; alimentos especiais/curativos/poções continuam com efeitos próprios, sem remoção por associação.
+
+Atual: M11-02B, em M11/12.6/M05/17.1 e histórico próprio, recomenda preservar alimentos e barra de fome vanilla para Quincy/Fullbringer em corpo humano material, separadas de Stamina/Energia. Alternativa retira fome obrigatória desses corpos; uma resposta pendente. Não escolher por associação dieta Shinigami/Hollow/Arrancar ou aplicar cura rápida duplicada. Depois completar os outros perfis, condições/penalidades nutricionais e recursos ao renascer; sem repetir 02A.
+
+Pesquisa ITEM-S07–09 em M11/4: Shonen Jump/Pierrot sustentam predação de almas; sinopse TV Tokyo 32 não contém toda explicação nutricional; trecho indexado TYBW de refeição especial não fundamenta comida comum universal. Sem capítulo/episódio integral ou dieta espiritual completa validada. Perguntas seguem no recorte já fundamentado, sem inventar o restante; apenas documentação local, sem runtime/teste/publicação.
+
+### Registro anterior — M11-01C decidido; retorno M05/M11-02A em proposta — 23/10/2026
+
+**Resposta explícita de C:** “Cruz sem desgaste por disparo (recomendado)”. Aplicada em M11/8.5/10.2/12.4, histórico e perfil Quincy em M08. Arco de Reishi é manifestação; Cruz é o objeto real. Preparar/disparar não consome durabilidade da Cruz; Energia por tiro permanece. Perda/destruição, vínculo, slot e receitas continuam por ficha, sem indestrutibilidade ou mudança de desgaste de toda arma.
+
+**Atual M11-02A PROPOSTO:** alimento comum compatível repõe alimentação/saciedade, sem recarga direta de Vida/Stamina/Energia; alternativa acelera Energia fora de combate. Uma resposta pendente. M11/12.5 e M05/17.1, com pergunta no histórico de 02A. Não infere que todas as origens comem os mesmos alimentos ou recebem a mesma fome, não dá cura à predação nem revê M07. Depois fechar dietas/fome, condições nutricionais de recuperação e recursos ao renascer, com pesquisa pertinente; itens especiais/poções/curativos por ficha.
+
+ITEM-S05/S06: guias oficiais Minecraft sobre saúde/alimentação e maçã comum/dourada, sem assumir APIs/taxas Java 1.20.1 ou usar referências de Minecraft como prova de dieta de Bleach. Leitura dirigida do TickHandler e trechos pertinentes de ResourcesData não resolve toda integração com alimentação vanilla; nenhuma auditoria integral ou teste. Abertura documental local, sem código/receita/save alterado, build ou publicação nova.
+
+### Registro anterior — M11-01C — Esclarecer Cruz física versus arco de Reishi — 23/10/2026
+
+Resposta literal preservada em M11/12.4 e histórico: “Mas o arco quincy é material ou é criado por eles? Se for criado por reishi então não faz sentido ter desgaste mas se for o material então concordo que deveria desgastar”. M06-09J já separa foco físico equipado, com Cruz Quincy como referência, e arco básico de Reishi manifestado. Receita/reposição de M11-01B é do instrumento, não de um arco físico criado em bancada. Usuário não selecionou automaticamente uma regra de desgaste da Cruz; não marcar C como decidido.
+
+ITEM-S03/S04 em M11/4: glossário oficial TYBW, trecho indexado de Sanrei sobre formação de arco/flechas com Reishi (abertura 403); glossário Pierrot ka acessível sobre arco espiritual/Cruz. Sem leitura integral de capítulo/episódio e sem evidência canônica de desgaste por tiro. Pergunta C reformulada: Cruz física sem desgaste por flecha (recomendação) ou com desgaste por flecha; uma resposta pendente. Não reabrir foco equipado, Energia por tiro ou obtenção inicial/crafting já aprovados. Sem runtime/teste/publicação.
+
+### Registro anterior — M11-01B decidido com ajuste; M11-01C em proposta — 23/10/2026
+
+Resposta literal de B no módulo/histórico: “Sua recomendação não implica em poder também compra/crafting eles coexistem, mas concordo que os primeiros instrumentos serão fornecidos na introdução, mas quando quebrar o jogador terá que craftar”. Aplicada em M11/8.4/10.1/10.2/12.2 e fontes M08. Primeiros instrumentos fornecidos na orientação; crafting repõe após quebra; não tratar compra/fabricação como alternativas que excluem a entrega inicial. A resposta não abre crafting de Asauchi/Zanpakutō nem compra de Mastery. Receitas/materiais e prevenção de requisito circular ainda precisam de ficha.
+
+M11-01C proposto em 12.4: recomendar foco sem desgaste por disparo, com perda/destruição ainda sujeitas à ficha; alternativa desgaste por flecha emitida. Uma resposta pendente. Não inferir imunidade geral, desgaste da shinai ou durabilidade de toda arma. Depois fechar sobrevivência M05/M11, obtenção/perda/reposição e Asauchi; sem reabrir A/B. Alterações documentais locais posteriores a `26b73b3`, sem runtime/teste ou nova publicação.
+
+### Registro da abertura — M11-01A decidido; M11-01B então em proposta — 23/10/2026
+
+Aplicar a [regra M11/8.1](11-itens-e-economia.md#81-m11-01a--comércio-material-sp-para-progressão--decidido): comércio comum não consome SP; moeda/preço não selecionados. Pergunta/resposta literal de A e pergunta de B no [histórico](historico/2026-10-23-propostas-m11-01ab-comercio-e-instrumentos-iniciais.md). B recomenda fornecer os primeiros instrumentos na orientação, sem antecipar Asauchi nem conceder skills. Após resposta, registrar a obtenção escolhida e fechar sobrevivência M05/M11 e propriedade/perda/reposição antes de avançar aos preços/catálogos executáveis.
+
+Leitura dirigida do estado atual: dois arquivos ModItems, ZanpakutoItem, receita Asauchi e loot Hollow. Receita atual de Asauchi usa ferro/papel/graveto, enquanto M04 prevê recebê-la após formação; precisa de conciliação, sem remoção ou aprovação de crafting nesta abertura. Fonte oficial TYBW acessível apenas em trechos indexados de Nimaiya/episódio 13, com abertura 403, não prova receita ou procedimento universal. Limites no M11/4/14. Sem código, build, teste ou push novo.
+
 
 ### Publicação autorizada após concluir o próximo bloco — 23/10/2026
 

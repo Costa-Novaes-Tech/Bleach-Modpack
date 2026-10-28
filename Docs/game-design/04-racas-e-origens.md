@@ -615,13 +615,17 @@ spawn técnico no Mundo Humano
     -> avaliação ou recrutamento
     -> ingresso na Academia
     -> treino de fundamentos com uma shinai
-    -> primeira prova e recebimento posterior de uma Asauchi
+    -> prova e conclusão da formação racial
+    -> missão ligada a Ōetsu, habilitada após a formação (M11-06A/B)
+    -> recebimento de Asauchi por conclusão válida
     -> atribuição ligada ao Mundo Humano
 ```
 
 O prólogo não precisa simular anos escolares. A Academia pode condensar momentos decisivos e deixar treinamentos opcionais, exames e relações para sidequests e progressão social. A shinai funciona como ferramenta de treino anterior à arma espiritual; ela não substitui a Asauchi nem se transforma nela.
 
 **Dependências de itens para o módulo 11:** shinai, Asauchi, vestimenta institucional e ferramentas de comunicação ou trabalho que a origem aprovada realmente utilizar. Forma de entrega, propriedade, perda e recuperação não serão decididas aqui.
+
+**Conciliação de 28/10/2026 — STR-08/M11-06A/B:** formação Shinigami é missão/campanha racial; a campanha principal acompanha acontecimentos principais da obra e fillers viram side quests opcionais. Asauchi deixa de ser entendida como simples item entregue durante a formação: concluir a formação habilita a missão racial ligada a Ōetsu Nimaiya, repetível e com uma Asauchi por conclusão válida. 06B aprovado: atendimento inicial intermediado pela Academia; encontro pessoal com Ōetsu quando a história permitir. É adaptação de acesso, sem antecipar livre circulação pelo Palácio Real. Preserva treino com shinai, recebimento posterior de Asauchi e a campanha própria da arma canônica; não concede liberações nem altera requisitos de SP/Mastery. O fluxo acima concilia o exemplo anterior a essas decisões; 06C aprovou materiais apropriados e tarefa prática por execução sem refazer formação; produtos/fontes/quantidades/atividade e demais fichas ainda necessários. [Respostas e contexto](historico/2026-10-28-propostas-m11-05bcd-06a-instrumentos-e-asauchi.md); [aprovação de acesso e questões restantes](historico/2026-10-28-propostas-m11-desgaste-acesso-oetsu-e-repeticao.md).
 
 ### RAC-08 — Qual é a origem Hollow principal?
 
@@ -1174,7 +1178,7 @@ A Academia deve apresentar a identidade e os fundamentos do caminho sem transfor
 
 O jogador Shinigami começa seu treinamento utilizando uma **shinai**.
 
-Depois de avançar na formação apropriada, recebe uma **Asauchi**.
+Depois de concluir a formação racial apropriada, habilita a missão de obtenção de uma **Asauchi**, conforme M11-06A/B (28/10/2026). A missão ligada a Ōetsu é repetível, com atendimento inicial intermediado pela Academia e encontro pessoal quando a história permitir; cada conclusão válida concede um exemplar. Não é fabricação comum ou desbloqueio automático de Shikai/Bankai.
 
 A Asauchi representa o estágio anterior à obtenção da Zanpakutō canônica escolhida pelo jogador.
 
@@ -1350,6 +1354,8 @@ Esses conceitos poderão aparecer através de:
 - provas específicas de progressão.
 
 A intenção é preservar a identidade Hollow sem transformar sua experiência em manutenção constante.
+
+**Complemento M11-02D/E — 23/10/2026:** alimentação cotidiana usa a barra de fome existente, com comida vanilla também para Hollow/Arrancar; não há uma segunda fome racial ou cota recorrente de almas. Devoração evolutiva já elegível também nutre, sem cura/refill de recursos. O sustento ambiental suficiente em Hueco Mundo está aprovado apenas para o Hollow comum inicial. M11-03A/B foram aprovados em 28/10/2026: nutrição suficiente condiciona a recuperação natural lenta de Vida; fome baixa limita corrida comum e inanição segue a dificuldade, podendo matar no Difícil. Stamina/Energia e demais ações conservam suas regras; fome não retira estágios conquistados. Limiares/taxas continuam no retorno M05. [Contrato alimentar vigente](11-itens-e-economia.md#810-m11-02e--alimentação-comum-e-devoração-nutritiva--decidido).
 
 ---
 
