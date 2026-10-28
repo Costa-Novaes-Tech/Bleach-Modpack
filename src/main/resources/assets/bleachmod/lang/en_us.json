@@ -476,5 +476,16 @@
   "message.bleachmod.quincy.sprenger_expired": "Sprenger expired and dissolved peacefully.",
   "message.bleachmod.quincy.sprenger_invalid_terrain": "Invalid terrain for Sprenger formation. 5 local solid surfaces required.",
   "message.bleachmod.quincy.race_required": "Quincy heritage required to wield spiritual bow techniques",
-  "message.bleachmod.quincy.bow_required": "Kojaku spiritual bow must be held in main hand"
+  "message.bleachmod.quincy.bow_required": "Kojaku spiritual bow must be held in main hand",
+  "ability.bleachmod.quincy.seele": "Seele Schneider",
+  "ability.bleachmod.quincy.licht": "Licht Regen",
+  "ability.bleachmod.quincy.hirenkyaku": "Hirenkyaku",
+  "ability.bleachmod.quincy.sprenger": "Sprenger",
+  "hud.bleachmod.quincy.title": "Quincy · Kojaku",
+  "hud.bleachmod.quincy.mastery": "Bow mastery: %s/100",
+  "hud.bleachmod.quincy.basic": "Shot: 2 PE · charge 1s",
+  "hud.bleachmod.quincy.prototype": "Traditional archer",
+  "hud.bleachmod.quincy.cooldown": "Cooldown: %ss",
+  "hud.bleachmod.quincy.preparing": "Preparing · window %ss",
+  "hud.bleachmod.quincy.detonate": "Reactivate C · %ss left"
 }

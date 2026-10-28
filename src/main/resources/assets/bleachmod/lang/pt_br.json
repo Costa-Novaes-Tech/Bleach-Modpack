@@ -476,5 +476,16 @@
   "message.bleachmod.quincy.sprenger_expired": "Sprenger expirou e se dissolveu.",
   "message.bleachmod.quincy.sprenger_invalid_terrain": "Terreno invalido para formacao do Sprenger. Necessario 5 apoios locais solidos.",
   "message.bleachmod.quincy.race_required": "Heranca Quincy necessaria para usar tecnicas de arco espiritual",
-  "message.bleachmod.quincy.bow_required": "Arco espiritual Kojaku deve estar na mao principal"
+  "message.bleachmod.quincy.bow_required": "Arco espiritual Kojaku deve estar na mao principal",
+  "ability.bleachmod.quincy.seele": "Seele Schneider",
+  "ability.bleachmod.quincy.licht": "Licht Regen",
+  "ability.bleachmod.quincy.hirenkyaku": "Hirenkyaku",
+  "ability.bleachmod.quincy.sprenger": "Sprenger",
+  "hud.bleachmod.quincy.title": "Quincy · Kojaku",
+  "hud.bleachmod.quincy.mastery": "Domínio do arco: %s/100",
+  "hud.bleachmod.quincy.basic": "Disparo: 2 PE · carga 1s",
+  "hud.bleachmod.quincy.prototype": "Arqueiro tradicional",
+  "hud.bleachmod.quincy.cooldown": "Recarga: %ss",
+  "hud.bleachmod.quincy.preparing": "Preparando · janela %ss",
+  "hud.bleachmod.quincy.detonate": "Reativar C · restante %ss"
 }
