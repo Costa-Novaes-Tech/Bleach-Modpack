@@ -98,6 +98,7 @@ public final class QuincyGameTests {
         boolean moved = HirenkyakuService.execute(p, d, 1, 0);
         h.assertTrue(moved, "Hirenkyaku should execute");
         h.assertTrue(d.getResources().getCurrentReiatsu() == 92.0F, "Hirenkyaku consumed 8 PE");
+        h.assertTrue(d.getResources().getStamina() == 90.0F, "Hirenkyaku consumed 10 stamina");
         h.assertTrue(d.getStatus().getTechniqueSlot3CooldownTicks() == 120, "Hirenkyaku 6s (120 ticks) cooldown");
         h.succeed();
     }

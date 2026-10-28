@@ -97,7 +97,7 @@ public final class HirenkyakuService {
 
         // Consume resources
         resources.consumeReiatsu(PE_COST);
-        resources.tickStamina(true); // Registers effort
+        resources.spendStamina(STAMINA_COST);
         data.getStatus().setTechniqueSlot3CooldownTicks(COOLDOWN_TICKS);
 
         // Perform safe displacement

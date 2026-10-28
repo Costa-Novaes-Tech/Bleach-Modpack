@@ -1697,6 +1697,12 @@ public final class MvpRegressionTest {
             eq(120, com.bleachmod.common.quincy.HirenkyakuService.COOLDOWN_TICKS);
             eq(6.0D, com.bleachmod.common.quincy.HirenkyakuService.TOTAL_DISTANCE);
             eq(0.5D, com.bleachmod.common.quincy.HirenkyakuService.STEP_SIZE);
+
+            var res = new com.bleachmod.common.data.ResourcesData();
+            res.fillStamina();
+            eq(100.0F, res.getStamina());
+            yes(res.spendStamina(10.0F));
+            eq(90.0F, res.getStamina());
         });
         test("Sprenger (C) requires 5 local floor vertices, charges 35 PE once, prepares in 1.5s, detonates within 6s for 18 HP up to 8 targets, and cleans up on timeout", () -> {
             eq(35.0F, com.bleachmod.common.quincy.QuincyTechniqueService.SPRENGER_PE_COST);
