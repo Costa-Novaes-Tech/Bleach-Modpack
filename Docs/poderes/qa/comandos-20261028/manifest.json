@@ -1,0 +1,86 @@
+{
+  "date": "2026-10-28",
+  "branch": "Feature-Poderes-bankais",
+  "base": "d247bb09ad81396e77310701a450ace00dfe77cd",
+  "sourceState": "working tree; source SHA256 below identify exact tested implementation",
+  "sourceHashes": {
+    "build.gradle": "e43020f2364fa39ea6acb187076d2a76c20e277c6c16d98ed222ea6b49fff737",
+    "src/main/java/com/bleachmod/server/commands/DevKitService.java": "e3c7a77b3edc0e4bfa1d4dbce6ef5e26c81d17cbe1b4d0c625da217f6a1deab6",
+    "src/main/java/com/bleachmod/server/commands/DevCommandTree.java": "6377df7226cf240c17402c3abd75f79886502d1d9f6b1bbc0cf460d64851fabe",
+    "src/main/java/com/bleachmod/server/commands/BleachCommands.java": "5f259e37d16cc7eef4d8cb400d116bd85d888dd7ddb1d64609b780692109052f",
+    "src/main/java/com/bleachmod/client/network/ClientPacketHandler.java": "c26fd85053dff0534177096757e469a9f32d51d1c227733ecb9ff0265331b0a3",
+    "src/main/java/com/bleachmod/client/model/HigashiExecutionVisuals.java": "312ff1c367904b1bfc3ebb7238970d3e42a5b3792fdd11ab2f2d6e7a8905aa1c",
+    "src/main/java/com/bleachmod/client/cinematic/DevCommandQaSequence.java": "82ddcfd5f9198f4712889e333991c4a388162b3f9afcc36d526ced3def8f2af6",
+    "src/main/java/com/bleachmod/gametest/DevCommandGameTests.java": "ed094fe60aba0e9cbf472dbad3edd7da02da1f2feb325c54e3052845ed572078"
+  },
+  "validation": {
+    "regressions": 158,
+    "requiredGameTests": 250,
+    "clientCases": 7,
+    "clientAllPass": true,
+    "commands": [
+      "gradlew.bat check build runGameTestServer --offline --console=plain",
+      "gradlew.bat runClient -PbenihimeQa=true -PdevCommandsQa=true -PcinematicQaFast=true -PqaAutoExit=true --offline --console=plain"
+    ]
+  },
+  "environment": {
+    "java": "17.0.20.1",
+    "minecraft": "1.20.1",
+    "forge": "47.4.10",
+    "photon": false
+  },
+  "rawEvidence": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\dev-command-qa\\1793209540347",
+  "screenshots": [
+    {
+      "file": "run-benihime-qa\\base\\dev-command-qa\\1793209540347\\screenshots\\benihime-all.png",
+      "sha256": "a9bc847dcd940e90e01cad77e289f91b396aaf4ac0624feee39ed06ce344fd5c",
+      "bytes": 447804
+    },
+    {
+      "file": "run-benihime-qa\\base\\dev-command-qa\\1793209540347\\screenshots\\benihime-entrance.png",
+      "sha256": "e9614f7a2b8476688631699dc9c2b64f48632b6fb19376f5f29ec4965621eb26",
+      "bytes": 227192
+    },
+    {
+      "file": "run-benihime-qa\\base\\dev-command-qa\\1793209540347\\screenshots\\cheats-off.png",
+      "sha256": "f3bcb9f16be5755a783ba780e8d4feb3b8339ee3f1ebad628eba07a04e07e4f5",
+      "bytes": 416830
+    },
+    {
+      "file": "run-benihime-qa\\base\\dev-command-qa\\1793209540347\\screenshots\\help.png",
+      "sha256": "b9527a646159b0ff0cda582e3ed24bc67345abe11b68a470415e06742fd65600",
+      "bytes": 365612
+    },
+    {
+      "file": "run-benihime-qa\\base\\dev-command-qa\\1793209540347\\screenshots\\quincy.png",
+      "sha256": "79458f6f2c729e16e74a3a1277e8155e82e21388873daf22e76001b82924f0f3",
+      "bytes": 365843
+    },
+    {
+      "file": "run-benihime-qa\\base\\dev-command-qa\\1793209540347\\screenshots\\reset-camera.png",
+      "sha256": "60390a43e0450fa84e3997a330c033a2303e421a38e23e9ab8d00800a31a6aa7",
+      "bytes": 366364
+    },
+    {
+      "file": "run-benihime-qa\\base\\dev-command-qa\\1793209540347\\screenshots\\senbon-all.png",
+      "sha256": "e6ede6c00c0ac6e4f79cd4b5a31f5dce15d399cd3f60d1037b7d5915accd29b6",
+      "bytes": 434576
+    }
+  ],
+  "logs": {
+    "build/devcommands-validation-final.log": "b236b51cf0917851140e18e54e2b519c3f8dbc5c269daf9689e74bc69404d6c9",
+    "build/devcommands-client-final.log": "bb5ed2227712ab177c0f6c5fe4d2c6d09d2b1b0e013058ae4cebe5dfcfc62efb"
+  },
+  "jar": {
+    "file": "build/libs/bleachmod-0.2.0.jar",
+    "sha256": "699ac1f5584714bdb0dfeb5a10033bb1291214ccc267f720097c7d42041fa57d"
+  },
+  "limits": [
+    "singleplayer; two real clients not tested",
+    "camera restoration from FIRST_PERSON demonstrated; no claim for all camera modes",
+    "commands and packet sync only; Quincy bow remains rejected for invalid element rotations and is assigned to AG A",
+    "Senbon grip and Higashi choreography not re-homologated",
+    "transitional aliases remain in autocomplete",
+    "Quincy-specific mastery/acquisition registry pending AG A; no invented mastery grant"
+  ]
+}
