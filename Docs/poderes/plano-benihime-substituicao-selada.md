@@ -39,6 +39,18 @@ A IA deve possuir BenihimeTechniqueService/Policy, seus efeitos/animação espec
 
 Ferramentas: PlayerAnimator/Better Combat existentes nas responsabilidades adequadas, renderer/VFX nativo e Blockbench se um projétil exigir modelo próprio. Photon apenas opcional. Sem nova biblioteca necessária por antecipação. Branch proposta codex/benihime-selada-kido, do mesmo commit de poderes usado por Uryū; checkout separado existente, sem trocar branch/pasta agora.
 
+## Fases de implementação e status
+
+- [x] **Fase 0 — Inventário, Contratos e Parâmetros V0**: ID `senju_koten_taiho`, custo 30 PE, recarga 280 ticks (14s), 24 ticks (1.2s) de conjuração, 16 HP base antes de defesa, raio 4 blocos, até 8 alvos.
+- [x] **Fase 1 — Coreografia e Poses**: Base firme, bengala baixa, mão de conjuração posicionada, torso acompanhando e recuperação a neutro (peso 0) ao final de 24 ticks (`BenihimeChoreography`, `SignatureChoreography`).
+- [x] **Fase 2 — Geometria e VFX das Lanças**: 6 lanças em arco convergentes com nós de luz, trajetória interpolada e clarão/onda de choque no impacto, sem destruição de blocos ou sobreposição opaca de tela (`BenihimeGeometry`, `BenihimeFrameS2C`).
+- [x] **Fase 3 — Serviço de Combate e Lógica de Seleção**: Mira direta em alvo elegível ou no solo/bloco até 24 blocos, sem travessia de paredes (LOS via `line`), resolução única de dano na convergência (sem multiplicação por lança), exclusão de aliados via `TechniqueTargets.allowed` e remoção do recoil/decoy do C antigo (`BenihimeTechniqueService`).
+- [x] **Fase 4 — Migração de Progresso e Saves**: Revisão 5 em `CharacterData`, migrando `sealed|gigai` e `sealed|4` para `sealed|senju_koten_taiho` de forma idempotente, conservando descoberta e Mastery.
+- [x] **Fase 5 — Verificação e Provas Reais**:
+  - Testes unitários de regressão (`./gradlew.bat test`): 100% aprovados, cobrindo definição, migração, coreografia e geometria finita.
+  - Servidor GameTest real do Minecraft Forge (`./gradlew.bat runGameTestServer`): 243/243 testes aprovados, incluindo `sealedHado91PreparesAndConvergesOnTargetWithoutBlockDestruction`.
+  - Execução de Client QA no Forge (`Invoke-Design.ps1 -Mode ClientQa`): Concluído com código de saída 0.
+
 ## Referências
 
 - Código conferido: TechniqueDefinitions, BenihimeTechniqueService, CharacterData e pt_br.json.

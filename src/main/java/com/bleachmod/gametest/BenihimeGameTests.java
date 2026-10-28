@@ -59,12 +59,34 @@ public final class BenihimeGameTests {
         h.runAfterDelay(25,()->h.assertTrue(t.hasEffect(net.minecraft.world.effect.MobEffects.MOVEMENT_SLOWDOWN)&&!outside.hasEffect(net.minecraft.world.effect.MobEffects.MOVEMENT_SLOWDOWN)&&t.getHealth()==1000,"Six rods selected wrong target or damaged it"));
         h.runAfterDelay(90,()->{h.assertTrue(!t.hasEffect(net.minecraft.world.effect.MobEffects.MOVEMENT_SLOWDOWN),"Six rods lease persisted");done(h,p,t,outside);});
     }
-    @GameTest(template="empty",batch="beni_sealed_gigai",timeoutTicks=95)
-    public static void sealedGigaiBackstepsDistractsAndCleansMannequin(GameTestHelper h){
-        var p=player(h,"sealed");var d=data(p);var origin=p.position();var blocks=netFloor(h,p);var t=target(h,p,0,3);t.setTarget(p);ticks(h,p);
-        h.assertTrue(BenihimeTechniqueService.executeSlot(p,d,4),"Gigai refused");h.assertTrue(d.getResources().getCurrentReiatsu()==78,"Gigai charged wrong cost");
-        h.runAfterDelay(10,()->{h.assertTrue(p.getZ()<origin.z-5,"Gigai did not backstep");h.assertTrue(t.getTarget() instanceof net.minecraft.world.entity.decoration.ArmorStand,"Mob was not distracted");});
-        h.runAfterDelay(80,()->{try{h.assertTrue(h.getLevel().getEntitiesOfClass(net.minecraft.world.entity.decoration.ArmorStand.class,new net.minecraft.world.phys.AABB(origin,origin).inflate(3),e->e.getPersistentData().getBoolean("bleachmod_gigai")).isEmpty(),"Gigai left orphan");}finally{removeBlocks(h,blocks);}done(h,p,t);});
+    @GameTest(template="empty",batch="beni_sealed_hado91",timeoutTicks=55)
+    public static void sealedHado91PreparesAndConvergesOnTargetWithoutBlockDestruction(GameTestHelper h){
+        var p=player(h,"sealed");var d=data(p);var t=target(h,p,0,12);var friend=target(h,p,1,12);var outside=target(h,p,0,26);
+        var board=h.getLevel().getScoreboard();var group=board.addPlayerTeam("h91"+UUID.randomUUID().toString().substring(0,6));
+        board.addPlayerToTeam(p.getScoreboardName(),group);board.addPlayerToTeam(friend.getScoreboardName(),group);
+        var checkBlock=BlockPos.containing(t.position().add(0,-1,0));
+        h.getLevel().setBlockAndUpdate(checkBlock,net.minecraft.world.level.block.Blocks.STONE.defaultBlockState());
+        ticks(h,p);
+        h.assertTrue(BenihimeTechniqueService.executeSlot(p,d,4),"Hadō 91 refused");
+        h.assertTrue(d.getResources().getCurrentReiatsu()==70,"Hadō 91 charged wrong cost");
+        h.assertTrue(d.getStatus().getTechniqueSlot4CooldownTicks()==280,"Hadō 91 wrong cooldown");
+        h.runAfterDelay(10,()->{
+            h.assertTrue(t.getHealth()==1000,"Hadō 91 damaged target before arrival");
+            h.assertTrue(!BenihimeTechniqueService.executeSlot(p,d,4),"Duplicate cast accepted while busy");
+        });
+        h.runAfterDelay(28,()->{
+            try{
+                h.assertTrue(t.getHealth()<1000 && t.getHealth()>=984,"Hadō 91 damage incorrect: "+t.getHealth());
+                h.assertTrue(friend.getHealth()==1000,"Hadō 91 damaged allied target");
+                h.assertTrue(outside.getHealth()==1000,"Hadō 91 hit target beyond 24 blocks");
+                h.assertTrue(h.getLevel().getBlockState(checkBlock).is(net.minecraft.world.level.block.Blocks.STONE),"Hadō 91 destroyed terrain block");
+                h.assertTrue(!BenihimeTechniqueService.busy(p),"Caster remained busy after impact");
+            }finally{
+                board.removePlayerTeam(group);
+                h.getLevel().removeBlock(checkBlock,false);
+            }
+            done(h,p,t,friend,outside);
+        });
     }
     @GameTest(template="empty",batch="beni_final_terrain",timeoutTicks=85)
     public static void finalStitchBreaksNaturalSurfaceOnlyAtFinalRupture(GameTestHelper h){

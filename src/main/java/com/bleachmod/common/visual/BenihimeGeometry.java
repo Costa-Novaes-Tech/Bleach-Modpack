@@ -31,6 +31,7 @@ public final class BenihimeGeometry {
                 ring(out,c,new Vec3(1,0,0),new Vec3(0,0,1),.65,0xFFF0B0FF,24);
             }
             case DECOY->{for(int i=0;i<12;i++){double a=i*Math.PI/6;Vec3 at=o.add(Math.cos(a)*p, .2+i*.12,Math.sin(a)*p);ribbon(out,at,at.add(0,.4,0),left.scale(.06),0xC2CADBB0);}}
+            case HADO91->{hado91(out,m);}
             case THREAD_LASH->{
                 Vec3 axis=end.subtract(o),across=side(axis);double reach=Math.sin(Math.PI*Math.min(1,p))*.7+.3;
                 for(int thread=0;thread<9;thread++){
@@ -78,6 +79,40 @@ public final class BenihimeGeometry {
                 for(Vec3 portal:List.of(o,end)){ring(out,portal.add(0,1.25,0),across,portalUp,1.2,RED,24);stitch(out,portal.add(across.scale(-.55)).add(0,.2,0),portal.add(across.scale(.55)).add(0,2.3,0),across,.18,7);}}
         }
         return List.copyOf(out);
+    }
+    private static void hado91(List<Quad> out,BenihimeFrameS2C m){
+        Vec3 o=m.origin(),end=m.end(),f=m.forward().normalize(),left=SenbonGeometry.left(f);
+        double p=m.progress(),r=m.radius();
+        int PINK=0xF5F2D0DF,GLOW=0xEEFFE4EF,CORE=0xFFFFFFFF;
+        for(int i=0;i<6;i++){
+            double offset=(i-2.5)*0.7;
+            double arch=Math.cos((i-2.5)*0.45);
+            Vec3 spearOrigin=o.add(left.scale(offset)).add(0,0.9+arch*0.65,0).add(f.scale(-0.35-0.15*Math.abs(i-2.5)));
+            Vec3 toEnd=end.subtract(spearOrigin);
+            Vec3 dir=toEnd.lengthSqr()>0.001?toEnd.normalize():f;
+            if(p<0.5){
+                double grow=Math.min(1.0,p/0.45);
+                double nodeSize=0.06*grow;
+                cube(out,spearOrigin.add(-nodeSize,-nodeSize,-nodeSize),spearOrigin.add(nodeSize,nodeSize,nodeSize),GLOW);
+                Vec3 tip=spearOrigin.add(dir.scale(grow*1.4));
+                limb(out,spearOrigin,tip,0.045*grow,PINK);
+                ribbon(out,spearOrigin,tip,UP.scale(0.02*grow),CORE);
+            }else{
+                double stagger=(i%3)*0.04;
+                double flight=Math.max(0,Math.min(1.0,(p-0.5-stagger)/0.40));
+                Vec3 head=spearOrigin.lerp(end,flight);
+                Vec3 tail=spearOrigin.lerp(end,Math.max(0,flight-0.28));
+                limb(out,tail,head,0.06,PINK);
+                ribbon(out,tail,head,UP.scale(0.025),CORE);
+                ring(out,head,left,UP,0.12*(1.0-flight*0.4),GLOW,8);
+            }
+        }
+        if(p>0.82){
+            double flash=(p-0.82)/0.18;
+            ring(out,end.add(0,0.15,0),new Vec3(1,0,0),new Vec3(0,0,1),r*Math.min(1.0,flash*1.2),GLOW,24);
+            ring(out,end.add(0,0.3,0),left,UP,Math.max(0.2,r*0.6*(1.0-flash)),CORE,16);
+            limb(out,end,end.add(0,2.5*(1.0-flash),0),0.16*(1.0-flash),PINK);
+        }
     }
     private static Vec3 side(Vec3 direction){Vec3 v=direction.cross(UP);return v.lengthSqr()<.001?new Vec3(1,0,0):v.normalize();}
     private static void stitch(List<Quad> out,Vec3 a,Vec3 b,Vec3 cross,double width,int count){

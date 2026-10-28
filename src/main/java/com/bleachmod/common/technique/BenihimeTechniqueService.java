@@ -126,7 +126,11 @@ public final class BenihimeTechniqueService {
         if(sealed){
             if(slot==1||slot==2)end=aim(p,slot==1?4:22);
             if(slot==3){recipient=aimedEnemy(s,18);if(recipient==null)return fail(p,"target");end=recipient.position();}
-            if(slot==4){end=pathEnd(p,SenbonGeometry.forward(p.getYRot()).scale(-1),6);if(end==null)return fail(p,"path");}
+            if(slot==4){
+                var enemy=aimedEnemy(s,BenihimePolicy.HADO91_RANGE);
+                end=enemy!=null?enemy.position():aim(p,BenihimePolicy.HADO91_RANGE);
+                if(end==null)return fail(p,"target");
+            }
         }
         if(end==null)return fail(p,"target");
         var def=TechniqueDefinitions.require(CharacterData.BENIHIME,s.form,slot);
@@ -192,9 +196,19 @@ public final class BenihimeTechniqueService {
                     if(t instanceof LivingEntity living&&TechniqueTargets.allowed(s.owner,living)&&s.owner.distanceToSqr(living)<=18*18&&s.owner.hasLineOfSight(living)){
                         s.bound=living;s.boundUntil=now+(living instanceof ServerPlayer||!living.canChangeDimensions()?24:60);MasteryPracticeService.control(s.owner,living,3);}
                     s.action=null;}}
-                case 4->{s.draw(DECOY,a.origin.add(0,-1,0),a.end,1,age/12.0,0);
-                    if(age==4)deployGigai(s,a,now);
-                    if(age>=12)s.action=null;}
+                case 4->{
+                    s.draw(HADO91,a.origin,a.end,BenihimePolicy.HADO91_RADIUS,age/(double)BenihimePolicy.HADO91_TICKS,0);
+                    if(age==BenihimePolicy.HADO91_TICKS){
+                        s.level.playSound(null,BlockPos.containing(a.end),SoundEvents.GENERIC_EXPLODE,s.owner.getSoundSource(),.8F,1.35F);
+                        s.level.sendParticles(net.minecraft.core.particles.ParticleTypes.FLASH,a.end.x,a.end.y+.5,a.end.z,1,0,0,0,0);
+                        var targets=s.level.getEntitiesOfClass(LivingEntity.class,new AABB(a.end,a.end).inflate(BenihimePolicy.HADO91_RADIUS+1),e->TechniqueTargets.allowed(s.owner,e))
+                                .stream().filter(e->SenbonGeometry.inside(a.end,e.position(),BenihimePolicy.HADO91_RADIUS,3.5))
+                                .filter(e->line(s,a.end.add(0,.3,0),e.getBoundingBox().getCenter()))
+                                .limit(BenihimePolicy.HADO91_MAX_TARGETS).toList();
+                        for(var t:targets)hurt(s,t,BenihimePolicy.HADO91_DAMAGE,4);
+                    }
+                    if(age>=BenihimePolicy.HADO91_TICKS)s.action=null;
+                }
             }
             return;
         }
@@ -253,23 +267,6 @@ public final class BenihimeTechniqueService {
                 }
             }
         }
-    }
-    private static void deployGigai(State s,Action a,long now){
-        var p=s.owner;Vec3 delta=a.end.subtract(p.position());
-        if(p.position().distanceToSqr(a.origin.add(0,-1,0))>2.25||!loaded(s.level,p.position(),a.end)||!s.level.noCollision(p,p.getBoundingBox().expandTowards(delta)))return;
-        var support=s.level.clip(new ClipContext(a.end.add(0,.1,0),a.end.add(0,-.2,0),ClipContext.Block.COLLIDER,ClipContext.Fluid.NONE,p));
-        if(support.getType()==HitResult.Type.MISS)return;
-        if(s.decoy!=null)s.decoy.discard();
-        var dummy=net.minecraft.world.entity.EntityType.ARMOR_STAND.create(s.level);if(dummy==null)return;
-        dummy.setInvulnerable(true);dummy.setPos(a.origin.add(0,-1,0));dummy.setYRot(p.getYRot());dummy.setShowArms(true);dummy.setNoBasePlate(true);
-        var head=new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.PLAYER_HEAD);
-        head.getOrCreateTag().put("SkullOwner",net.minecraft.nbt.NbtUtils.writeGameProfile(new CompoundTag(),p.getGameProfile()));dummy.setItemSlot(EquipmentSlot.HEAD,head);
-        var robe=new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.LEATHER_CHESTPLATE);
-        ((net.minecraft.world.item.DyeableLeatherItem)robe.getItem()).setColor(robe,0x344C3B);dummy.setItemSlot(EquipmentSlot.CHEST,robe);
-        dummy.setItemSlot(EquipmentSlot.LEGS,new net.minecraft.world.item.ItemStack(net.minecraft.world.item.Items.LEATHER_LEGGINGS));
-        s.level.addFreshEntity(dummy);dummy.getPersistentData().putBoolean("bleachmod_gigai",true);s.decoy=dummy;s.decoyUntil=now+60;
-        for(var mob:s.level.getEntitiesOfClass(Mob.class,p.getBoundingBox().inflate(12)).stream().limit(32).toList())if(mob.getTarget()==p&&mob.hasLineOfSight(dummy)){mob.setTarget(dummy);MasteryPracticeService.control(p,mob,4);}
-        p.connection.teleport(a.end.x,a.end.y,a.end.z,p.getYRot(),p.getXRot());p.setPos(a.end);p.setDeltaMovement(Vec3.ZERO);p.fallDistance=0;
     }
     private static void tickNet(State s,long now){Net net=s.net;if(now-net.start>=BenihimePolicy.NET_TICKS || s.owner.position().distanceToSqr(net.center)>BenihimePolicy.AREA*BenihimePolicy.AREA){s.net=null;return;}
         double radius=netRadius(net,now);

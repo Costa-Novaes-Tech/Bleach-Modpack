@@ -65,9 +65,9 @@ public final class TechniqueDefinitions {
         }
         for(String form:List.of("sealed","shikai","bankai")) {
             boolean bankai=form.equals("bankai");
-            String[] ids=form.equals("sealed")?new String[]{"cane_draw","byakurai","six_rods","gigai"}:bankai?new String[]{"dissection","reconstruction","path","final_stitch"}:new String[]{"nake","shield","shibari","hiasobi"};
-            float[] costs=form.equals("sealed")?new float[]{8,12,18,22}:bankai?new float[]{25,28,30,50}:new float[]{12,18,20,25};
-            int[] cooldowns=form.equals("sealed")?new int[]{60,100,180,240}:bankai?new int[]{140,240,260,560}:new int[]{60,140,160,200};
+            String[] ids=form.equals("sealed")?new String[]{"cane_draw","byakurai","six_rods","senju_koten_taiho"}:bankai?new String[]{"dissection","reconstruction","path","final_stitch"}:new String[]{"nake","shield","shibari","hiasobi"};
+            float[] costs=form.equals("sealed")?new float[]{8,12,18,30}:bankai?new float[]{25,28,30,50}:new float[]{12,18,20,25};
+            int[] cooldowns=form.equals("sealed")?new int[]{60,100,180,280}:bankai?new int[]{140,240,260,560}:new int[]{60,140,160,200};
             for(int slot=1;slot<=4;slot++)add(entries,CharacterData.BENIHIME,form,slot,ids[slot-1],"ability.bleachmod.benihime."+ids[slot-1],costs[slot-1],cooldowns[slot-1],0);
         }
         return Collections.unmodifiableMap(entries);

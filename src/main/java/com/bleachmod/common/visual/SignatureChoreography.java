@@ -8,7 +8,7 @@ public final class SignatureChoreography {
     public static final Map<String,Integer> LENGTHS=Map.ofEntries(
         Map.entry("petal_cut",6),Map.entry("five_cuts",54),Map.entry("petal_stream",24),Map.entry("petal_convergence",12),Map.entry("petal_guard",12),
         Map.entry("floral_garden",16),Map.entry("floral_bloom",16),Map.entry("senkei",20),Map.entry("ikka_senjinka",12),Map.entry("hakuteiken",26),
-        Map.entry("cane_draw",16),Map.entry("byakurai",18),Map.entry("six_rods",20),Map.entry("gigai",12),Map.entry("nake",15),Map.entry("shield",12),Map.entry("shibari",20),Map.entry("hiasobi",28),Map.entry("dissection",24),Map.entry("reconstruction",30),Map.entry("final_stitch",60),Map.entry("path",6));
+        Map.entry("cane_draw",16),Map.entry("byakurai",18),Map.entry("six_rods",20),Map.entry("gigai",12),Map.entry("senju_koten_taiho",24),Map.entry("nake",15),Map.entry("shield",12),Map.entry("shibari",20),Map.entry("hiasobi",28),Map.entry("dissection",24),Map.entry("reconstruction",30),Map.entry("final_stitch",60),Map.entry("path",6));
     private SignatureChoreography(){ }
     public static int duration(String kind){return LENGTHS.getOrDefault(kind,0);}
     private static RyujinChoreography.Pose empty(){return new RyujinChoreography.Pose(Vec3.ZERO,Vec3.ZERO,Vec3.ZERO,Vec3.ZERO,Vec3.ZERO,Vec3.ZERO,Vec3.ZERO,0);}
@@ -33,6 +33,7 @@ public final class SignatureChoreography {
             case "reconstruction"->{arm=v(-1.1,.18,-.25);support=v(-1.3,-.2,.25);body=v(.08,0,0);handRot=v(-.15,.15,.15*Math.sin(age*Math.PI/5));}
             case "restructure"->{arm=v(-.8,.5,-.2);support=v(-1.2,-.4,.35);body=v(-.08*roll,.2*roll,0);leg=v(.12*roll,0,.06);handRot=v(-.1,.3,-.3*roll);}
             case "path"->{arm=v(-1.65,-.2,-.12);support=v(-1.1,.3,.25);body=v(.2,-.15,0);handRot=v(-.3,0,-.18);}
+            case "senju_koten_taiho"->{arm=v(-.65,.15,-.15);support=v(-1.15,.45,.35);body=v(.04,.12*roll,0);leg=v(.06*roll,0,.025);handRot=v(-.10,.02,-.05);}
         }
         return pose(arm,support,body,leg,hand,handRot,w,sign);
     }

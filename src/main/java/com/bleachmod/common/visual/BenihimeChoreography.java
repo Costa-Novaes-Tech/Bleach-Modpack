@@ -5,7 +5,7 @@ import java.util.List;
 
 /** Sword gestures only: no attack scheduling, reach, damage, movement or release changes. */
 public final class BenihimeChoreography {
-    public static final List<String> TECHNIQUES=List.of("cane_draw","byakurai","six_rods","gigai","nake","shield","shibari","hiasobi","dissection","reconstruction","final_stitch","path");
+    public static final List<String> TECHNIQUES=List.of("cane_draw","byakurai","six_rods","gigai","senju_koten_taiho","nake","shield","shibari","hiasobi","dissection","reconstruction","final_stitch","path");
     private record Key(float phase,Vec3 arm,Vec3 support,Vec3 body,Vec3 leg,Vec3 hand,Vec3 rotation) { }
     private BenihimeChoreography() { }
     private static Vec3 v(double x,double y,double z){return new Vec3(x,y,z);}
@@ -74,6 +74,10 @@ public final class BenihimeChoreography {
                     k(.2F,-.80,.10,-.12,-.1,support,v(-.04,-.03,.04),v(-.2,.1,0)),
                     k(.5F,-.35,-.1,-.06,.16,support,v(-.03,-.02,-.22),v(.08,0,-.08)),
                     k(.75F,-.50,-.1,-.06,.1,support,grip,v(.04,0,-.04)),neutral(1));
+            case "senju_koten_taiho"->curve(age,duration,sign,neutral(0),
+                    k(.15F,-.55,.12,-.10,-.06,v(-.85,.25,.20),grip,v(-.10,.05,0)),
+                    k(.55F,-.50,.08,-.08,.10,v(-1.20,.45,.35),grip,v(-.12,.02,-.05)),
+                    k(.82F,-.48,.06,-.06,.06,v(-.90,.30,.25),grip,v(-.06,.01,-.02)),neutral(1));
             default->curve(age,duration,sign,neutral(0),neutral(1));
         };
     }
