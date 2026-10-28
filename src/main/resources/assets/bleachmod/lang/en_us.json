@@ -474,5 +474,7 @@
   "message.bleachmod.quincy.sprenger_preparing": "Sprenger is still catalysing...",
   "message.bleachmod.quincy.sprenger_detonated": "Sprenger detonated!",
   "message.bleachmod.quincy.sprenger_expired": "Sprenger expired and dissolved peacefully.",
-  "message.bleachmod.quincy.sprenger_invalid_terrain": "Invalid terrain for Sprenger formation. 5 local solid surfaces required."
+  "message.bleachmod.quincy.sprenger_invalid_terrain": "Invalid terrain for Sprenger formation. 5 local solid surfaces required.",
+  "message.bleachmod.quincy.race_required": "Quincy heritage required to wield spiritual bow techniques",
+  "message.bleachmod.quincy.bow_required": "Kojaku spiritual bow must be held in main hand"
 }

@@ -197,3 +197,91 @@ Branch de execução: `codex/uryu-arqueiro-tradicional`, criada a partir de `ori
 7. **C (Sprenger)**:
    - Mirar no chão e pressionar tecla 4 (ou `C`). Observar a colocação dos 5 nodos de Seele Schneider no terreno formando o pentágono e o consumo único de 35 PE.
    - Aguardar 1.5s de preparo e pressionar tecla 4 novamente antes de 6.0s para detonar a área e dissolver os nodos.
+
+
+---
+
+## Ciclo de Correções e Integração — 28/10/2026 (Frente Antigravity A)
+
+**Branch de execução**: `codex/quincy-correcao-integracao`  
+**Base remota**: `origin/Feature-Poderes-bankais` (`d247bb09ad81396e77310701a450ace00dfe77cd`)  
+**Coordenação**: Conforme `Docs/poderes/coordenacao-correcoes-kits-comandos-2026-10-28.md`  
+
+### 1. Diagnóstico e Reparo do Modelo e Textura (Prioridade Zero)
+- **Causa Raiz Identificada**:
+  - `BlockElement$Deserializer.getAngle` no Minecraft Forge 1.20.1 rejeitava com `JsonParseException` qualquer rotação que não pertencesse ao conjunto estrito `{-45.0, -22.5, 0.0, 22.5, 45.0}`.
+  - No protótipo inicial, `tools/models/quincy_models.py` gerava elementos com ângulos contínuos (`-12.0`, `-25.0`, `12.0`, `25.0` e rotações fracionárias de tração da corda `-5.0`, `-10.0`, `-15.0`).
+  - O Minecraft falhava no bake do modelo e aplicava o fallback para `builtin/missing` (modelo de bloco 16x16x16 com textura preta e magenta). Os transforms de empunhadura ampliavam esse cubo na mão do jogador, cobrindo metade da tela em 1ª pessoa e o tórax em 3ª pessoa.
+  - Além disso, `quincy_bow.json` possuía `"parent": "item/generated"` em conjunto com `"elements"`, gerando conflitos no pipeline de item extrusion.
+- **Correções Aplicadas**:
+  - Reconstrução dos elementos em `quincy_models.py`: todas as rotações das hastes e da corda foram calibradas estritamente para os ângulos permitidos `-22.5`, `0.0` e `22.5`.
+  - Remoção de `"parent": "item/generated"` de modelos que definem `"elements"` próprios; inclusão explícita de `"particle": "bleachmod:item/quincy_bow"`.
+  - Calibração do display de GUI em `COMMON_DISPLAY`: escala ajustada de `0.9` para `0.45` com rotação `[0, 0, -45]`, permitindo que o arco espiritual de 36 unidades de altura caiba com elegância no slot de 16x16 do inventário e hotbar sem transbordar.
+  - Calibração de 1ª pessoa (`firstperson_righthand` / `firstperson_lefthand`): retículo central de mira permanece desobstruído durante idle e tração.
+  - Criação do script de auditoria `tools/models/validate_model_angles.py`: 100% dos 74 arquivos de modelo de item e 701 elementos validados com zero ângulos ilegais.
+  - Artefatos visuais gerados em `Docs/poderes/qa/quincy-correcao-20261028/`:
+    - `quincy_bow_model_preview.png`: Renderização 3D do modelo idle e tração estagio 2 com flecha engastada.
+    - `comparativo_antes_depois.png`: Prancha comparativa lado a lado mostrando o erro de runtime inicial versus o modelo restaurado.
+
+### 2. Correção de Autorização e Despacho de Técnicas (Fase 2)
+- **Desacoplamento de Raça e Posse do Item**:
+  - `QuincyTechniqueService.isQuincy(data)`: exige estritamente `Reference.RACE_QUINCY.equalsIgnoreCase(data.getCharacter().getRace())` e `hasCreatedCharacter()`. Possuir o arco não confere raça Quincy.
+  - `QuincyBowItem`: tanto no início da tração (`use`) quanto no disparo (`releaseUsing`), verifica vida, espectador, raça Quincy e bloqueios de ação. Jogadores não-Quincy recebem feedback e são impedidos de usar o arco para burlar fundamentos.
+  - `QuincyTechniqueService.authorize`: bloqueia execução durante esquiva, canalização de ação, guarda ativa ou quebrada, espectador ou morte; exige o arco Kojaku na mão principal para Seele Schneider (H) e Licht Regen (N), liberando Hirenkyaku (B) e Sprenger (C) para movimentação e catalisação.
+  - `clearQuincyTransientState(player, data)`: interface mínima limpa fornecida para o Codex chamar na troca reversível de kit (`/bleachdev kit`), desfazendo campos de Sprenger e cancelando rajadas ativas.
+
+### 3. Hirenkyaku e Desacoplamento da Esquiva Comum (Fase 3)
+- **Restauração da Esquiva Universal**:
+  - Removido o desvio em `DodgeService.request`: o atalho `Alt + Direção` permanece estritamente a esquiva comum física universal para todas as raças.
+- **Direção e Entrada de Rede para a Tecla B**:
+  - `ExecuteTechniqueSlotC2S` atualizado de forma retrocompatível para transportar `(int slot, int forward, int left)`.
+  - `ClientForgeEvents`: ao pressionar `TECHNIQUE_SLOT_3` (B), captura os inputs WASD do jogador.
+  - O servidor valida o vetor de deslocamento e consulta `player.zza` / `player.xxa` como fallback; sem input ativo, executa o recuo de retaguarda padrão.
+- **Colisão por Volume Varrido e Terreno Seguro**:
+  - `HirenkyakuService`: realiza varredura de volume (`currentBox.minmax(candidateBox)`) a cada passo de 0.5 blocos, prevenindo penetração em paredes finas (barras de ferro, vidros, cercas).
+  - Sonda vertical de apoio: interrompe o deslocamento antes de precipícios e impede que o jogador deslize sobre águas profundas sem base sólida.
+- **Cobrança de Recursos e Cheats**:
+  - Cobra 8 PE e 10 Stamina.
+  - Quando o cheat de Reiatsu estiver ativado (`costsDisabled == true`), o consumo de PE é dispensado, mas a stamina continua sendo estritamente cobrada (esforço físico do deslocamento).
+
+### 4. Validação H / N / C com Alvos Controlados (Fase 4)
+- **Seele Schneider (H)**:
+  - Projétil veloz (3.0b/tick, 48 blocos), caixa de colisão de corredor (~0.5b).
+  - Raycast de blocos no início de cada tick: interrompido imediatamente ao colidir com bloco sólido.
+  - Checagem de linha de visada individual para cada entidade atingida: impede dano através de paredes.
+  - Atravessa até 3 alvos distintos causando 10 HP em cada um e descarta ao atingir o limite.
+- **Licht Regen (N)**:
+  - 12 flechas disparadas em cone de 20 graus ao longo de 40 ticks (2.0s).
+  - 2 HP por acerto com teto estrito de 8 HP (máximo 4 acertos contados) por alvo.
+  - Respeita o `hurtTime` vanilla; limpeza automática do estado de rajada em caso de cancelamento, morte ou logout.
+- **Sprenger (C)**:
+  - Busca de pentágono no solo local (+/- 4 blocos verticais) com suporte a vegetação e blocos substituíveis (`canBeReplaced()`).
+  - Preparo de 1.5s (30 ticks) seguido de janela de reativação até 6.0s (120 ticks).
+  - Reativação válida não cobra PE novamente nem é bloqueada pelo cooldown de 20s.
+  - Dano de 18 HP em até 8 alvos com checagem de linha de visada do centro cilíndrico (raio 6, altura 4).
+  - Sem quebra ou destruição de blocos de terreno.
+
+### 5. Resultados de Validação e Evidências
+1. **Compilação e Regressão Offline**:
+   - Comando: `./gradlew check --console=plain`
+   - Resultado: `BUILD SUCCESSFUL` (Exit Code 0).
+   - Suíte de regressão: `PASS: 158 regression scenarios`.
+2. **GameTests no Forge Server Real**:
+   - Comando: `./gradlew runGameTestServer --console=plain`
+   - Resultado: `BUILD SUCCESSFUL` (Exit Code 0).
+   - Total de GameTests: `248/248` aprovados (100% de sucesso).
+   - Novos testes em `QuincyGameTests.java`:
+     - `quincyProfileInitializationAndBowEquip`: PASS
+     - `quincyBowConsumesReiatsuAndFiresWithoutVanillaArrows`: PASS
+     - `nonQuincyHoldingBowCannotUseOrAuthorizeTechniques`: PASS
+     - `quincyBowRequiresBowForTechniques1And2`: PASS
+     - `seeleSchneiderExecutionChargesPEAndSetsCooldown`: PASS
+     - `lichtRegenExecutionChargesPEAndSetsCooldown`: PASS
+     - `hirenkyakuChargesPEAndStaminaAndSetsCooldown`: PASS
+     - `hirenkyakuRetreatsWithoutInputAndBlocksUnderBusyStates`: PASS
+     - `hirenkyakuConsumesStaminaEvenWithReiatsuCostsDisabledCheat`: PASS
+     - `sprengerLifecycleCreationAndDetonation`: PASS
+     - `sprengerClearTransientStateCleansField`: PASS
+3. **Evidências Arquivadas**:
+   - `Docs/poderes/qa/quincy-correcao-20261028/comparativo_antes_depois.png`: prancha técnica com capturas de tela do erro versus modelo reparado.
+   - `Docs/poderes/qa/quincy-correcao-20261028/quincy_bow_model_preview.png`: renderização 3D das posturas de idle e tração.

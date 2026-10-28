@@ -1,6 +1,6 @@
 {
-  "parent": "bleachmod:item/quincy_bow",
   "textures": {
+    "particle": "bleachmod:item/quincy_bow",
     "layer0": "bleachmod:item/quincy_bow",
     "texture": "bleachmod:item/quincy_bow"
   },
@@ -80,14 +80,14 @@
         -45
       ],
       "translation": [
-        1,
-        1,
+        0,
+        0,
         0
       ],
       "scale": [
-        0.9,
-        0.9,
-        0.9
+        0.45,
+        0.45,
+        0.45
       ]
     },
     "ground": {
@@ -376,7 +376,7 @@
           7.0
         ],
         "axis": "x",
-        "angle": -12
+        "angle": -22.5
       },
       "faces": {
         "north": {
@@ -436,7 +436,7 @@
           5.0
         ],
         "axis": "x",
-        "angle": -25
+        "angle": -22.5
       },
       "faces": {
         "north": {
@@ -565,7 +565,7 @@
           7.0
         ],
         "axis": "x",
-        "angle": 12
+        "angle": 22.5
       },
       "faces": {
         "north": {
@@ -625,7 +625,7 @@
           5.0
         ],
         "axis": "x",
-        "angle": 25
+        "angle": 22.5
       },
       "faces": {
         "north": {
@@ -694,7 +694,7 @@
           15.0
         ],
         "axis": "x",
-        "angle": -15.0
+        "angle": -22.5
       },
       "faces": {
         "north": {
@@ -754,7 +754,7 @@
           15.0
         ],
         "axis": "x",
-        "angle": 15.0
+        "angle": 22.5
       },
       "faces": {
         "north": {

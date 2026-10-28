@@ -474,5 +474,7 @@
   "message.bleachmod.quincy.sprenger_preparing": "Sprenger ainda em preparacao (catalisacao Ginto)...",
   "message.bleachmod.quincy.sprenger_detonated": "Sprenger detonado!",
   "message.bleachmod.quincy.sprenger_expired": "Sprenger expirou e se dissolveu.",
-  "message.bleachmod.quincy.sprenger_invalid_terrain": "Terreno invalido para formacao do Sprenger. Necessario 5 apoios locais solidos."
+  "message.bleachmod.quincy.sprenger_invalid_terrain": "Terreno invalido para formacao do Sprenger. Necessario 5 apoios locais solidos.",
+  "message.bleachmod.quincy.race_required": "Heranca Quincy necessaria para usar tecnicas de arco espiritual",
+  "message.bleachmod.quincy.bow_required": "Arco espiritual Kojaku deve estar na mao principal"
 }

@@ -70,7 +70,7 @@ public final class TechniqueService {
     }
 
     public static void executeSlot(ServerPlayer player, PlayerData data, int slot) {
-        if (com.bleachmod.common.quincy.QuincyTechniqueService.isQuincyActive(player, data)) {
+        if (com.bleachmod.common.quincy.QuincyTechniqueService.isQuincy(data)) {
             com.bleachmod.common.quincy.QuincyTechniqueService.executeSlot(player, data, slot);
             return;
         }

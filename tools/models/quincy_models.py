@@ -213,8 +213,8 @@ COMMON_DISPLAY = {
     },
     "gui": {
         "rotation": [0, 0, -45],
-        "translation": [1, 1, 0],
-        "scale": [0.9, 0.9, 0.9]
+        "translation": [0, 0, 0],
+        "scale": [0.45, 0.45, 0.45]
     },
     "ground": {
         "rotation": [0, 0, 0],
@@ -291,7 +291,7 @@ def build_bow_elements(pull_stage: int) -> list[dict]:
             "name": "upper_limb_curve",
             "from": [7.4 - limb_flex_x * 0.5, 16.0, 6.0],
             "to": [8.6 - limb_flex_x * 0.5, 22.0, 7.8],
-            "rotation": {"origin": [8.0, 16.0, 7.0], "axis": "x", "angle": -12},
+            "rotation": {"origin": [8.0, 16.0, 7.0], "axis": "x", "angle": -22.5},
             "faces": {
                 "north": {"uv": [0, 6, 4, 12], "texture": "#texture"},
                 "south": {"uv": [0, 6, 4, 12], "texture": "#texture"},
@@ -304,7 +304,7 @@ def build_bow_elements(pull_stage: int) -> list[dict]:
             "name": "upper_tip",
             "from": [7.6 - limb_flex_x, 21.0, 4.0],
             "to": [8.4 - limb_flex_x, 26.0, 5.5],
-            "rotation": {"origin": [8.0, 21.0, 5.0], "axis": "x", "angle": -25},
+            "rotation": {"origin": [8.0, 21.0, 5.0], "axis": "x", "angle": -22.5},
             "faces": {
                 "north": {"uv": [4, 0, 6, 5], "texture": "#texture"},
                 "south": {"uv": [4, 0, 6, 5], "texture": "#texture"},
@@ -331,7 +331,7 @@ def build_bow_elements(pull_stage: int) -> list[dict]:
             "name": "lower_limb_curve",
             "from": [7.4 - limb_flex_x * 0.5, -6.0, 6.0],
             "to": [8.6 - limb_flex_x * 0.5, 0.0, 7.8],
-            "rotation": {"origin": [8.0, 0.0, 7.0], "axis": "x", "angle": 12},
+            "rotation": {"origin": [8.0, 0.0, 7.0], "axis": "x", "angle": 22.5},
             "faces": {
                 "north": {"uv": [0, 6, 4, 12], "texture": "#texture"},
                 "south": {"uv": [0, 6, 4, 12], "texture": "#texture"},
@@ -344,7 +344,7 @@ def build_bow_elements(pull_stage: int) -> list[dict]:
             "name": "lower_tip",
             "from": [7.6 - limb_flex_x, -10.0, 4.0],
             "to": [8.4 - limb_flex_x, -5.0, 5.5],
-            "rotation": {"origin": [8.0, -5.0, 5.0], "axis": "x", "angle": 25},
+            "rotation": {"origin": [8.0, -5.0, 5.0], "axis": "x", "angle": 22.5},
             "faces": {
                 "north": {"uv": [4, 0, 6, 5], "texture": "#texture"},
                 "south": {"uv": [4, 0, 6, 5], "texture": "#texture"},
@@ -374,7 +374,7 @@ def build_bow_elements(pull_stage: int) -> list[dict]:
             "name": "string_upper",
             "from": [7.8, 8.0, 7.8 + string_z * 0.5],
             "to": [8.2, 24.0, 8.2 + string_z * 0.5],
-            "rotation": {"origin": [8.0, 8.0, 8.0 + string_z], "axis": "x", "angle": -15 * (pull_stage / 3.0)},
+            "rotation": {"origin": [8.0, 8.0, 8.0 + string_z], "axis": "x", "angle": -22.5},
             "faces": {
                 "north": {"uv": [0, 8, 1, 16], "texture": "#texture"},
                 "south": {"uv": [0, 8, 1, 16], "texture": "#texture"},
@@ -387,7 +387,7 @@ def build_bow_elements(pull_stage: int) -> list[dict]:
             "name": "string_lower",
             "from": [7.8, -8.0, 7.8 + string_z * 0.5],
             "to": [8.2, 8.0, 8.2 + string_z * 0.5],
-            "rotation": {"origin": [8.0, 8.0, 8.0 + string_z], "axis": "x", "angle": 15 * (pull_stage / 3.0)},
+            "rotation": {"origin": [8.0, 8.0, 8.0 + string_z], "axis": "x", "angle": 22.5},
             "faces": {
                 "north": {"uv": [0, 8, 1, 16], "texture": "#texture"},
                 "south": {"uv": [0, 8, 1, 16], "texture": "#texture"},
@@ -434,8 +434,8 @@ def generate_json_models():
     """Write all JSON models for item rendering."""
     # 1. quincy_bow.json with predicate overrides
     base_model = {
-        "parent": "item/generated",
         "textures": {
+            "particle": "bleachmod:item/quincy_bow",
             "layer0": "bleachmod:item/quincy_bow",
             "texture": "bleachmod:item/quincy_bow"
         },
@@ -462,8 +462,8 @@ def generate_json_models():
     # 2. pulling stages
     for idx in range(3):
         pull_model = {
-            "parent": "bleachmod:item/quincy_bow",
             "textures": {
+                "particle": "bleachmod:item/quincy_bow",
                 "layer0": "bleachmod:item/quincy_bow",
                 "texture": "bleachmod:item/quincy_bow"
             },
