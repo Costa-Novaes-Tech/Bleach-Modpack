@@ -196,8 +196,16 @@ public final class HyorinmaruCinematicService {
     }
 
     @SubscribeEvent
-    public static void hurt(LivingHurtEvent event) {
-        if (event.getEntity() instanceof ServerPlayer p && active(p)) {
+    public static void death(net.minecraftforge.event.entity.living.LivingDeathEvent event) {
+        if (event.getEntity() instanceof ServerPlayer p) {
+            ReleaseAnimationService.cancel(p);
+            cancel(p);
+        }
+    }
+
+    @SubscribeEvent
+    public static void dimension(PlayerEvent.PlayerChangedDimensionEvent event) {
+        if (event.getEntity() instanceof ServerPlayer p) {
             ReleaseAnimationService.cancel(p);
             cancel(p);
         }

@@ -76,6 +76,14 @@ public final class RyujinBankaiEntranceService {
                 && TechniqueProgression.equipped(p, d)
                 && (ReleaseAnimationService.busy(p) || (age >= 40 && d.getCharacter().getActiveForm().equals("bankai")));
 
+        if (age >= 60 && d != null && (!SignatureAnimationService.snapshot(p).isEmpty()
+                || d.getGuard().shownActive()
+                || d.getStatus().isDodging()
+                || ElementalTechniqueService.busy(p)
+                || d.getStatus().getFlameDashTicks() > 0)) {
+            valid = false;
+        }
+
         if (!valid || !p.isAlive() || p.isSpectator() || s.dimension != p.level().dimension()
                 || age >= DURATION || p.position().distanceToSqr(s.anchor) > 512 * 512) {
             cancel(p);
@@ -84,13 +92,17 @@ public final class RyujinBankaiEntranceService {
 
     @SubscribeEvent
     public static void logout(PlayerEvent.PlayerLoggedOutEvent e) {
-        if (e.getEntity() instanceof ServerPlayer p) SCENES.remove(p.getUUID());
+        if (e.getEntity() instanceof ServerPlayer p) cancel(p);
     }
 
     @SubscribeEvent
-    public static void hurt(LivingHurtEvent e) {
+    public static void death(net.minecraftforge.event.entity.living.LivingDeathEvent e) {
         if (e.getEntity() instanceof ServerPlayer p) cancel(p);
-        if (e.getSource().getEntity() instanceof ServerPlayer p) cancel(p);
+    }
+
+    @SubscribeEvent
+    public static void dimension(PlayerEvent.PlayerChangedDimensionEvent e) {
+        if (e.getEntity() instanceof ServerPlayer p) cancel(p);
     }
 
     @SubscribeEvent

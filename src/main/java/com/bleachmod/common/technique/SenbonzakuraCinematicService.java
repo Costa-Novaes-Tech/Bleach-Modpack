@@ -146,6 +146,16 @@ public final class SenbonzakuraCinematicService {
     }
 
     @SubscribeEvent
+    public static void death(net.minecraftforge.event.entity.living.LivingDeathEvent e) {
+        if (e.getEntity() instanceof ServerPlayer p) cancel(p);
+    }
+
+    @SubscribeEvent
+    public static void dimension(PlayerEvent.PlayerChangedDimensionEvent e) {
+        if (e.getEntity() instanceof ServerPlayer p) cancel(p);
+    }
+
+    @SubscribeEvent
     public static void stop(ServerStoppingEvent e) {
         SCENES.clear();
     }

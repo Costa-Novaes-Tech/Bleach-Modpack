@@ -40,7 +40,14 @@ public final class RyujinBankaiGameTests {
     }
 
     private static FakePlayer player(GameTestHelper h) {
-        var p = new FakePlayer(h.getLevel(), new GameProfile(UUID.randomUUID(), "RyujinQA"));
+        var p = new FakePlayer(h.getLevel(), new GameProfile(UUID.randomUUID(), "RyujinQA")) {
+            @Override
+            public boolean isInvulnerableTo(net.minecraft.world.damagesource.DamageSource source) {
+                if (source.is(net.minecraft.tags.DamageTypeTags.BYPASSES_INVULNERABILITY)) return false;
+                return isInvulnerable();
+            }
+        };
+        net.minecraftforge.fml.util.ObfuscationReflectionHelper.setPrivateValue(net.minecraft.server.level.ServerPlayer.class, p, 0, "f_8921_");
         var pos = h.absolutePos(new BlockPos(2, 2, 2));
         p.setPos(pos.getX() + 0.5, h.getLevel().getMaxBuildHeight() - 110, pos.getZ() + 0.5);
         p.setYRot(0);
@@ -170,7 +177,7 @@ public final class RyujinBankaiGameTests {
     }
 
     @GameTest(template = "empty", batch = "ryujin_bankai_damage", timeoutTicks = 85)
-    public static void postCommitDamageCancelsPresentationWithoutRevertingBankai(GameTestHelper h) {
+    public static void postCommitDamageBlockedDuringPresentationWithoutCancellingSceneOrRevertingBankai(GameTestHelper h) {
         var p = player(h);
         var d = data(p);
         ReleaseAnimationService.begin(p, d, "zanpakuto", "bankai", 12.0F);
@@ -185,18 +192,216 @@ public final class RyujinBankaiGameTests {
             try {
                 h.assertTrue(d.getCharacter().getActiveForm().equals("bankai"), "Form not Bankai at tick 70");
                 h.assertTrue(!RyujinBankaiEntranceService.snapshot(p).isEmpty(), "Presentation inactive at tick 70");
+                h.assertTrue(com.bleachmod.common.technique.BankaiActivationProtectionService.isProtected(p), "Player not protected at tick 70");
 
-                // Simulate hurt event
-                RyujinBankaiEntranceService.hurt(new LivingHurtEvent(p, p.damageSources().generic(), 5.0F));
+                p.setHealth(20.0F);
+                boolean dealt = p.hurt(p.damageSources().generic(), 5.0F);
                 tickScene(p);
 
-                h.assertTrue(RyujinBankaiEntranceService.snapshot(p).isEmpty(), "Presentation was not cancelled by damage");
+                h.assertTrue(!dealt, "Damage was not blocked during presentation");
+                h.assertTrue(p.getHealth() == 20.0F, "Player took health damage during Bankai presentation");
+                h.assertTrue(!RyujinBankaiEntranceService.snapshot(p).isEmpty(), "Presentation was cancelled by normal damage");
                 h.assertTrue(d.getCharacter().getActiveForm().equals("bankai"), "Bankai was reverted by damage after commit");
             } finally {
                 clean(p);
             }
             h.succeed();
         });
+    }
+
+    @GameTest(template = "empty", batch = "ryujin_bankai_protection_types")
+    public static void mobProjectileFireFallDamageBlockedDuringActivation(GameTestHelper h) {
+        var p = player(h);
+        var d = data(p);
+        ReleaseAnimationService.begin(p, d, "zanpakuto", "bankai", 12.0F);
+        try {
+            h.assertTrue(com.bleachmod.common.technique.BankaiActivationProtectionService.isProtected(p), "Not protected at tick 0");
+            p.setHealth(20.0F);
+
+            // 1. Mob attack
+            boolean mobHit = p.hurt(p.damageSources().mobAttack(p), 6.0F);
+            h.assertTrue(!mobHit && p.getHealth() == 20.0F, "Mob attack penetrated Bankai activation protection");
+
+            // 2. Projectile (arrow)
+            var arrow = new net.minecraft.world.entity.projectile.Arrow(h.getLevel(), p);
+            boolean arrowHit = p.hurt(p.damageSources().arrow(arrow, p), 8.0F);
+            h.assertTrue(!arrowHit && p.getHealth() == 20.0F, "Arrow projectile penetrated Bankai activation protection");
+
+            // 3. Fire / in fire
+            boolean fireHit = p.hurt(p.damageSources().inFire(), 4.0F);
+            h.assertTrue(!fireHit && p.getHealth() == 20.0F, "Fire damage penetrated Bankai activation protection");
+
+            // 4. Fall
+            boolean fallHit = p.hurt(p.damageSources().fall(), 10.0F);
+            h.assertTrue(!fallHit && p.getHealth() == 20.0F, "Fall damage penetrated Bankai activation protection");
+
+            h.assertTrue(!RyujinBankaiEntranceService.snapshot(p).isEmpty(), "Scene cancelled by blocked hazards");
+        } finally {
+            clean(p);
+        }
+        h.succeed();
+    }
+
+    @GameTest(template = "empty", batch = "ryujin_bankai_protection_totem")
+    public static void totemOfUndyingNotConsumedDuringActivationDamage(GameTestHelper h) {
+        var p = player(h);
+        var d = data(p);
+        p.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(net.minecraft.world.item.Items.TOTEM_OF_UNDYING));
+        p.setHealth(2.0F);
+
+        ReleaseAnimationService.begin(p, d, "zanpakuto", "bankai", 12.0F);
+        try {
+            h.assertTrue(com.bleachmod.common.technique.BankaiActivationProtectionService.isProtected(p), "Player not protected during activation");
+
+            // Hit with massive lethal damage
+            boolean hit = p.hurt(p.damageSources().generic(), 100.0F);
+            h.assertTrue(!hit, "Lethal damage was not blocked during Bankai activation");
+            h.assertTrue(p.getHealth() == 2.0F, "Player health dropped despite activation protection");
+            h.assertTrue(p.getItemBySlot(EquipmentSlot.OFFHAND).is(net.minecraft.world.item.Items.TOTEM_OF_UNDYING), "Totem of Undying was consumed");
+            h.assertTrue(p.isAlive(), "Player died during Bankai activation");
+        } finally {
+            clean(p);
+        }
+        h.succeed();
+    }
+
+    @GameTest(template = "empty", batch = "ryujin_bankai_protection_expiry", timeoutTicks = 260)
+    public static void damageImmediatelyAfterPresentationEndsIsAppliedNormally(GameTestHelper h) {
+        var p = player(h);
+        var d = data(p);
+        ReleaseAnimationService.begin(p, d, "zanpakuto", "bankai", 12.0F);
+
+        h.onEachTick(() -> {
+            ReleaseAnimationService.tick(p);
+            tickScene(p);
+        });
+
+        // Presentation duration is 240 ticks. Advance to tick 242.
+        h.runAfterDelay(242, () -> {
+            try {
+                h.assertTrue(!com.bleachmod.common.technique.BankaiActivationProtectionService.isProtected(p), "Protection persisted past presentation end");
+                h.assertTrue(RyujinBankaiEntranceService.snapshot(p).isEmpty(), "Presentation did not expire at tick 240");
+                h.assertTrue(d.getCharacter().getActiveForm().equals("bankai"), "Active form lost after presentation");
+
+                p.setHealth(20.0F);
+                p.invulnerableTime = 0;
+                boolean hit = p.hurt(p.damageSources().generic(), 5.0F);
+                h.assertTrue(hit, "Damage after presentation expiry was erroneously blocked");
+                h.assertTrue(p.getHealth() < 20.0F, "Player health was not reduced after protection expired");
+            } finally {
+                clean(p);
+            }
+            h.succeed();
+        });
+    }
+
+    @GameTest(template = "empty", batch = "ryujin_bankai_voluntary_exit", timeoutTicks = 85)
+    public static void voluntaryCombatActionAfterTick60TerminatesPresentationAndProtection(GameTestHelper h) {
+        var p = player(h);
+        var d = data(p);
+        ReleaseAnimationService.begin(p, d, "zanpakuto", "bankai", 12.0F);
+
+        h.onEachTick(() -> {
+            ReleaseAnimationService.tick(p);
+            tickScene(p);
+        });
+
+        h.runAfterDelay(70, () -> {
+            try {
+                h.assertTrue(com.bleachmod.common.technique.BankaiActivationProtectionService.isProtected(p), "Player not protected at tick 70");
+                h.assertTrue(!RyujinBankaiEntranceService.snapshot(p).isEmpty(), "Scene not active at tick 70");
+
+                // Player initiates dodge (voluntary combat action)
+                d.getStatus().beginDodge(Vec3.ZERO, 0);
+                tickScene(p);
+
+                h.assertTrue(RyujinBankaiEntranceService.snapshot(p).isEmpty(), "Voluntary dodge did not terminate scenic presentation");
+                h.assertTrue(!com.bleachmod.common.technique.BankaiActivationProtectionService.isProtected(p), "Protection persisted after voluntary combat exit");
+
+                // Subsequent damage is no longer blocked
+                p.setHealth(20.0F);
+                p.invulnerableTime = 0;
+                boolean hit = p.hurt(p.damageSources().generic(), 4.0F);
+                h.assertTrue(hit && p.getHealth() < 20.0F, "Player remained invulnerable in free combat after exiting scene");
+            } finally {
+                clean(p);
+            }
+            h.succeed();
+        });
+    }
+
+    @GameTest(template = "empty", batch = "ryujin_bankai_auto_damage")
+    public static void automaticTransformationDamageDoesNotCancelPresentation(GameTestHelper h) {
+        var p = player(h);
+        var d = data(p);
+        ReleaseAnimationService.begin(p, d, "zanpakuto", "bankai", 12.0F);
+        try {
+            h.assertTrue(!RyujinBankaiEntranceService.snapshot(p).isEmpty(), "Entrance did not start");
+
+            // Simulate automatic world damage caused by the player's transformation hitting a target
+            var mob = new net.minecraft.world.entity.monster.Zombie(h.getLevel());
+            mob.setPos(p.position().add(2, 0, 0));
+            mob.hurt(p.damageSources().playerAttack(p), 4.0F);
+
+            tickScene(p);
+            h.assertTrue(!RyujinBankaiEntranceService.snapshot(p).isEmpty(), "Automatic damage caused by transformation cancelled presentation");
+            h.assertTrue(com.bleachmod.common.technique.BankaiActivationProtectionService.isProtected(p), "Protection lost after automatic damage");
+        } finally {
+            clean(p);
+        }
+        h.succeed();
+    }
+
+    @GameTest(template = "empty", batch = "ryujin_bankai_bypasses")
+    public static void bypassesInvulnerabilityDamageTerminatesPresentation(GameTestHelper h) {
+        var p = player(h);
+        var d = data(p);
+        ReleaseAnimationService.begin(p, d, "zanpakuto", "bankai", 12.0F);
+        try {
+            h.assertTrue(!RyujinBankaiEntranceService.snapshot(p).isEmpty(), "Entrance did not start");
+
+            // Damage that bypasses invulnerability (e.g. /kill, void, genericKill)
+            p.setHealth(10.0F);
+            p.invulnerableTime = 0;
+            boolean hit = p.hurt(p.damageSources().genericKill(), 100.0F);
+            h.assertTrue(hit, "Bypasses invulnerability damage was blocked");
+            h.assertTrue(!p.isAlive(), "Player survived genericKill");
+
+            tickScene(p);
+            h.assertTrue(RyujinBankaiEntranceService.snapshot(p).isEmpty(), "Scene leaked after administrative player death");
+            h.assertTrue(!com.bleachmod.common.technique.BankaiActivationProtectionService.isProtected(p), "Protection persisted after death");
+        } finally {
+            clean(p);
+        }
+        h.succeed();
+    }
+
+    @GameTest(template = "empty", batch = "ryujin_bankai_nbt_integrity")
+    public static void noPersistentNbtFlagLeftAndExternalInvulnerabilityPreserved(GameTestHelper h) {
+        var p = player(h);
+        var d = data(p);
+
+        // Verify player does not have any transient invulnerability flag saved to NBT
+        var tagBefore = new net.minecraft.nbt.CompoundTag();
+        p.addAdditionalSaveData(tagBefore);
+        h.assertTrue(!tagBefore.contains("bleachmod_bankai_invulnerable"), "Leaked NBT flag before activation");
+
+        ReleaseAnimationService.begin(p, d, "zanpakuto", "bankai", 12.0F);
+        try {
+            h.assertTrue(com.bleachmod.common.technique.BankaiActivationProtectionService.isProtected(p), "Protection not active");
+
+            var tagDuring = new net.minecraft.nbt.CompoundTag();
+            p.addAdditionalSaveData(tagDuring);
+            h.assertTrue(!tagDuring.contains("bleachmod_bankai_invulnerable"), "Invulnerability persisted to NBT during activation");
+
+            // External invulnerability flag (e.g. /god) is not overwritten or corrupted
+            p.setInvulnerable(true);
+            h.assertTrue(p.isInvulnerable(), "External invulnerability flag was corrupted");
+            p.setInvulnerable(false);
+        } finally {
+            clean(p);
+        }
+        h.succeed();
     }
 
     @GameTest(template = "empty", batch = "ryujin_bankai_curves")

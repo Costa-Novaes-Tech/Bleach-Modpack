@@ -206,11 +206,6 @@ public final class RyujinBankaiEntranceClient {
 
         double age = age(s, 0);
 
-        // Player voluntary movement or damage handling
-        if (mc.player.hurtTime > 0) {
-            cameraEnabled = false;
-        }
-
         // After commit and initial sequence (tick 60+), player movement releases camera smoothly
         if (rawAge(s, 0) >= 60 && (mc.options.keyUp.isDown() || mc.options.keyDown.isDown() || mc.options.keyLeft.isDown()
                 || mc.options.keyRight.isDown() || mc.options.keyJump.isDown() || mc.options.keyAttack.isDown())) {
