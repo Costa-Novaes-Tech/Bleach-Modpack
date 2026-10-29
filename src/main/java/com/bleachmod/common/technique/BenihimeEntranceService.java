@@ -40,6 +40,7 @@ public final class BenihimeEntranceService {
         });
         SCENES.put(player.getUUID(),new Scene(player.level().getGameTime(),anchor,player.getYRot(),stageYaw,player.level().dimension()));
     }
+    public static boolean active(ServerPlayer player){return SCENES.containsKey(player.getUUID());}
     public static CompoundTag snapshot(ServerPlayer player){
         var tag=new CompoundTag();var scene=SCENES.get(player.getUUID());if(scene==null)return tag;
         long age=player.level().getGameTime()-scene.start;if(age<0||age>=DURATION)return tag;
@@ -60,10 +61,8 @@ public final class BenihimeEntranceService {
         var point=s.anchor.add(Vec3.directionFromRotation(0,s.stageYaw).scale(-back)).add(0,height,0);
         p.level().playSound(null,point.x,point.y,point.z,event,net.minecraft.sounds.SoundSource.PLAYERS,volume,pitch);
     }
-    @SubscribeEvent public static void logout(PlayerEvent.PlayerLoggedOutEvent e){SCENES.remove(e.getEntity().getUUID());}
-    @SubscribeEvent public static void hurt(net.minecraftforge.event.entity.living.LivingHurtEvent e){
-        if(e.getEntity() instanceof ServerPlayer p)cancel(p);
-        if(e.getSource().getEntity() instanceof ServerPlayer p)cancel(p);
-    }
+    @SubscribeEvent public static void logout(PlayerEvent.PlayerLoggedOutEvent e){if(e.getEntity() instanceof ServerPlayer p)cancel(p);}
+    @SubscribeEvent public static void death(net.minecraftforge.event.entity.living.LivingDeathEvent e){if(e.getEntity() instanceof ServerPlayer p)cancel(p);}
+    @SubscribeEvent public static void dimension(PlayerEvent.PlayerChangedDimensionEvent e){if(e.getEntity() instanceof ServerPlayer p)cancel(p);}
     @SubscribeEvent public static void stop(ServerStoppingEvent e){SCENES.clear();}
 }

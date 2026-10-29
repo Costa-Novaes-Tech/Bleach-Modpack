@@ -35,6 +35,7 @@ public final class ReleaseAnimationService {
                 && List.of(CharacterData.RYUJIN,CharacterData.HYORINMARU,CharacterData.SENBONZAKURA,CharacterData.BENIHIME,CharacterData.ASAUCHI).contains(d.getCharacter().getZanpakutoIdentity());
     }
     public static boolean busy(ServerPlayer p) { return ACTIVE.containsKey(p.getUUID()) || NozarashiReleaseEffects.inCinematic(p); }
+    public static boolean isBankaiRelease(ServerPlayer p) { var r = ACTIVE.get(p.getUUID()); return r != null && "bankai".equals(r.form); }
     /** Form listeners clear old techniques while the release still owns its presentation. */
     public static boolean committing(ServerPlayer p) { var r=ACTIVE.get(p.getUUID());return r!=null && r.committing; }
     public static void begin(ServerPlayer p, PlayerData d, String group, String form, float cost) {
