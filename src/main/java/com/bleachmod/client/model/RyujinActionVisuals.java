@@ -93,7 +93,7 @@ public final class RyujinActionVisuals {
     private static void particles(AbstractClientPlayer p,ElementalActionVisuals.View v,int age,Emitter e){
         Vec3 f=v.forward(),right=new Vec3(-f.z,0,f.x),origin=v.origin();
         var pose=RyujinChoreography.attack(v.kind(),age,p.getMainArm()==HumanoidArm.RIGHT?1:-1);
-        if(!v.kind().startsWith("sealed_") && !v.kind().equals("steam_cut") && age<v.gesture() && pose.weight()>.1)blade(e,p,Vec3.directionFromRotation(0,p.getYRot()),pose,age,v.kind().equals("higashi"));
+        if(!v.kind().startsWith("sealed_") && !v.kind().equals("steam_cut") && !(v.kind().equals("higashi") && HigashiBetterCombatMotion.available()) && age<v.gesture() && pose.weight()>.1)blade(e,p,Vec3.directionFromRotation(0,p.getYRot()),pose,age,v.kind().equals("higashi"));
         switch(v.kind()){
             case "flame_barrage"->{if(age<6 || age>14)return;var head=origin.add(f.scale(age-6));
                 for(int i=0;i<65;i++){var local=com.bleachmod.common.visual.RyujinFlamePresentation.crest(i,age);
@@ -110,7 +110,7 @@ public final class RyujinActionVisuals {
                 for(int i=0;i<12;i++){double y=(6+i%3*.45)*grow,r=6*Math.sqrt(Math.max(0,1-y*y/49)),a=i*Math.PI/6;e.fire(origin.add(Math.cos(a)*r,y,Math.sin(a)*r),i);}
                 if(age%4==0)for(int i=0;i<8;i++){double a=i*Math.PI/4;e.smoke(origin.add(Math.cos(a)*5.2,4.7*grow,Math.sin(a)*5.2));}
             }
-            case "higashi"->{if(age<10 || age>16)return;
+            case "higashi"->{if(HigashiBetterCombatMotion.available() || age<10 || age>16)return;
                 float sign=p.getMainArm()==HumanoidArm.RIGHT?1:-1;
                 // Sample the authored blade, not a second diagonal disconnected from the wrist.
                 for(int trail=0;trail<3;trail++){

@@ -1,5 +1,7 @@
 # Continuidade do projeto — leia primeiro
 
+**29/10 — Higashi com animação pronta:** usuário autorizou reaproveitar Better Combat; one_handed_uppercut_right amostrada para golpe comum e execução, espelho pela biblioteca, relógio e pausa1s preservados. Adaptador inicial sem delegate corrigido após QA visual reprovado; segundo ciclo Forge5cenários/635capturas e158regressões/check/build exit0. Vítima/gatilhos/dano/câmera intactos. [Estado/evidências](estado-combate-senbon-higashi.md), aceite humano pendente. Sem alteração das três frentes AG.
+
 **29/10 — roadmap reconciliado:** o bloco inicial de [72](72-revisao-geral-roadmap-gamedesign-2026-10-20.md) e seu checklist agora distinguem aceites, quatro frentes ativas, Higashi pendente de aceite específico, eficiência transversal e campanha futura126. Benihime/Hyorinmaru preservadas; Ishida já implementado, refinamento de projétil pendente. Histórico antigo mantido como histórico, sem reabrir features por notas superadas. Revisão documental, sem gameplay/merge/testes novos.
 
 **29/10 — quatro frentes autorizadas:** [coordenação e sincronização](antigravity-frentes-2026-10-29.md). AG proteção de ativação Bankai (invencibilidade temporária aprovada, supera dano normal na análise anterior), AG projéteis Quincy, AG Garden N prisão; Codex usa combo pronto Better Combat na Senbon. Cada AG compara refs e integra origin/Feature-Poderes-bankais NA sua branch antes de implementar, preservando trabalho existente. Sem merge automático de retorno. Clientes QA serializados.

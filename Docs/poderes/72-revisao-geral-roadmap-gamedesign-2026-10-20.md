@@ -24,7 +24,7 @@ Coordenação, arquivos exclusivos e três prompts em [frentes29/10](antigravity
 
 ### Fechamento e trabalho transversal
 
-- Higashi: mecânica de execução e vítima única preservadas; coreografia ainda sem novo aceite humano explícito. Reteste dedicado antes de declarar encerrada, sem presumir que o vídeo29/10 a cobriu.
+- Higashi: a pedido do usuário em29/10, coreografia trocada por uppercut pronto Better Combat no golpe comum/replay.158regressões e5cenários Forge conferidos; [estado](estado-combate-senbon-higashi.md). Mecânica/vítima/pausa1s preservadas; aguarda playtest e aceite visual humano para encerrar.
 - Auditar retornos, integrar um por vez e repetir testes de interação pertinentes; só então teste combinado. Primeira pessoa, dedicado/observador e diferenças de skin continuam coberturas específicas, não defeitos automaticamente confirmados nem motivo para reabrir toda feature aceita.
 - Eficiência/limpeza continua prioritária e transversal: consolidar dossiês, reter evidência mínima útil, medir build/QA e pausas de destruição extensa antes de otimizar. Duplicatas já removidas; evidência única antiga não é lixo confirmado. Não eliminar arquivos nesta revisão.
 - Capacitação Antigravity: contrato e prompts preparados, ainda sem resultado comparativo que comprove melhora de julgamento. Avaliar aderência/evidência nas entregas destas frentes.

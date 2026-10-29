@@ -116,6 +116,8 @@ public final class CinematicQaSequence {
             metadata.addProperty("originalSuppressed",origSuppressed);
             if (Boolean.getBoolean("bleachmod.higashiPoseQa")
                     && mc.player instanceof dev.kosmx.playerAnim.impl.IAnimatedPlayer animated) {
+                metadata.addProperty("readyHigashiClip", com.bleachmod.client.model.HigashiBetterCombatMotion.CLIP);
+                metadata.addProperty("readyHigashiAvailable", com.bleachmod.client.model.HigashiBetterCombatMotion.available());
                 var applier = animated.playerAnimator_getAnimation();
                 for (String bone : java.util.List.of("rightArm", "rightItem", "leftArm", "leftItem", "body", "torso")) {
                     var rotation = applier.get3DTransform(bone, dev.kosmx.playerAnim.api.TransformType.ROTATION,
