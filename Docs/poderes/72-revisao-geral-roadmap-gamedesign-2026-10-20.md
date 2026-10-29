@@ -211,12 +211,12 @@ Medição preliminar de25/10, antes da integração: checkout design com aproxim
 - [ ] 2. Higashi: mecânicas preservadas; novo aceite específico da coreografia ainda não registrado.
 - [x] 3. Investida e Rajada Ryūjin aceitas; proteção da ativação está na frente separada29/10.
 - [x] 4. Benihime atual aceita em29/10; não reabrir kit/esgrima por notas antigas.
-- [ ] 5. Uryū tradicional implementado; finalizar refinamento de projéteis e teste integrado. TYBW posterior.
+- [ ] 5. Uryū base aceita provisoriamente; Vollständig4185558 implementada e em playtest humano. Antithesis executável/aquisição narrativa posteriores.
 - [ ] 6. Mentor e Proficiências: aguardando equipe, sem implementação ativa.
 - [x] 7. Hyōrinmaru concluída e homologada; fora da fila ativa.
 - [ ] 8. Eficiência/consolidação/QA: frente transversal em andamento; sem nova exclusão automática.
-- [ ] 9. Senbon: combo pronto em teste humano; Garden N em frente AG própria.
-- [ ] 10. Proteção temporária durante ativação Bankai e cancelamento Ryūjin: frente AG autorizada.
+- [ ] 9. Senbon: combo aceito e preservado; prioridade AG é Garden N prisão. [Prompt executivo atualizado](prompt-antigravity-garden-prisao-2026-10-29.md), fases sincronização → estado/dano → VFX → QA → auditoria; sem retorno automático à poderes.
+- [x] 10. Proteção temporária Bankai/cancelamento Ryūjin integrados e aceitos pelo usuário; preservar.
 
 **Aceites posteriores de25/10:** entrada Benihime validada pelo usuário, incluindo o refinamento102; Investida/Rajada aprovadas. Higashi será validada depois. A substituição da boneca do kit selado Benihime foi solicitada, mas a alternativa ainda não foi fechada. Esses aceites atualizam os registros históricos acima; não significam homologação de todas as técnicas, áudio em observadores ou multiplayer. Integração e validações combinadas serão registradas no105.
 
