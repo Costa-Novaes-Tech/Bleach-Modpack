@@ -1,0 +1,232 @@
+{
+  "base": "5b5587c",
+  "change": "weapon_attributes Senbon ready-made combo; QA uses real attack input; VFX disabled",
+  "raw": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\senbonzakura-combat-qa\\codex-ready-20261029",
+  "cases": {
+    "01_shikai_right_profile": {
+      "frames": 47,
+      "clips": [
+        "one_handed_slash_horizontal_left",
+        "one_handed_slash_horizontal_right",
+        "one_handed_stab"
+      ]
+    },
+    "02_shikai_right_front": {
+      "frames": 47,
+      "clips": [
+        "one_handed_slash_horizontal_left",
+        "one_handed_slash_horizontal_right",
+        "one_handed_stab"
+      ]
+    },
+    "03_shikai_right_back": {
+      "frames": 46,
+      "clips": [
+        "one_handed_slash_horizontal_left",
+        "one_handed_slash_horizontal_right",
+        "one_handed_stab"
+      ]
+    },
+    "04_sealed_right_profile": {
+      "frames": 47,
+      "clips": [
+        "one_handed_slash_horizontal_left",
+        "one_handed_slash_horizontal_right",
+        "one_handed_stab"
+      ]
+    },
+    "05_bankai_right_profile": {
+      "frames": 47,
+      "clips": [
+        "one_handed_slash_horizontal_left",
+        "one_handed_slash_horizontal_right",
+        "one_handed_stab"
+      ]
+    },
+    "06_shikai_left_profile": {
+      "frames": 47,
+      "clips": [
+        "one_handed_slash_horizontal_left",
+        "one_handed_slash_horizontal_right",
+        "one_handed_stab"
+      ]
+    }
+  },
+  "selected": [
+    {
+      "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\senbonzakura-combat-qa\\codex-ready-20261029\\01_shikai_right_profile\\screenshots\\frame-t036.png",
+      "sha256": "6d31ab0c206642bdad210b353e9dd651994d517f508ea9930c071ec1bbb5d691",
+      "clip": "one_handed_slash_horizontal_right",
+      "clipTick": 11,
+      "age": 36
+    },
+    {
+      "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\senbonzakura-combat-qa\\codex-ready-20261029\\01_shikai_right_profile\\screenshots\\frame-t048.png",
+      "sha256": "20ffcae854c16ced77932cbe849cee0503308b5feaa4f0516369226793b890ce",
+      "clip": "one_handed_slash_horizontal_left",
+      "clipTick": 9,
+      "age": 48
+    },
+    {
+      "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\senbonzakura-combat-qa\\codex-ready-20261029\\01_shikai_right_profile\\screenshots\\frame-t062.png",
+      "sha256": "2e4290e057d2c8e9fa625dc77196831bbe87230c6d8a84f041031586338032da",
+      "clip": "one_handed_stab",
+      "clipTick": 11,
+      "age": 62
+    },
+    {
+      "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\senbonzakura-combat-qa\\codex-ready-20261029\\02_shikai_right_front\\screenshots\\frame-t036.png",
+      "sha256": "d38a97e3f3ab223a714c021cca9a8757e96d5fb1bd6b4f7393434e5af8d5e5b9",
+      "clip": "one_handed_slash_horizontal_right",
+      "clipTick": 11,
+      "age": 36
+    },
+    {
+      "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\senbonzakura-combat-qa\\codex-ready-20261029\\02_shikai_right_front\\screenshots\\frame-t048.png",
+      "sha256": "b1fd73da537725d087f2d55475d400c68de61de613ad78f2cb4bad08aafc293b",
+      "clip": "one_handed_slash_horizontal_left",
+      "clipTick": 9,
+      "age": 48
+    },
+    {
+      "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\senbonzakura-combat-qa\\codex-ready-20261029\\02_shikai_right_front\\screenshots\\frame-t062.png",
+      "sha256": "dc60910c3f86a0161bf00de718b8ebf4a68601dfe96a9a1dc9c002032bdcb5cf",
+      "clip": "one_handed_stab",
+      "clipTick": 11,
+      "age": 62
+    },
+    {
+      "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\senbonzakura-combat-qa\\codex-ready-20261029\\06_shikai_left_profile\\screenshots\\frame-t036.png",
+      "sha256": "4c8b9be2582132fc6e98c63052a2e5343df05467b4651f530fa64135983ca92e",
+      "clip": "one_handed_slash_horizontal_right",
+      "clipTick": 10,
+      "age": 36
+    },
+    {
+      "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\senbonzakura-combat-qa\\codex-ready-20261029\\06_shikai_left_profile\\screenshots\\frame-t048.png",
+      "sha256": "52b42c2e87740e692b108f273b7770ad7c3a19b8cf1aa92d9d0a47a2b091cfad",
+      "clip": "one_handed_slash_horizontal_left",
+      "clipTick": 10,
+      "age": 48
+    },
+    {
+      "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\senbonzakura-combat-qa\\codex-ready-20261029\\06_shikai_left_profile\\screenshots\\frame-t062.png",
+      "sha256": "d88f877059ca5f5f363c5e829e69fbae0db7363f076e74d8541e3b6e173b8730",
+      "clip": "one_handed_stab",
+      "clipTick": 10,
+      "age": 62
+    }
+  ],
+  "limits": "Crops are derived. Not whole-mesh collision proof, first-person or dedicated multiplayer approval.",
+  "build": {
+    "command": "gradlew.bat check build --offline --console=plain",
+    "exitCode": 0,
+    "regressions": 158,
+    "log": "build/senbon-ready-build-20261029.log"
+  },
+  "clientNoVfx": {
+    "exitCode": 0,
+    "command": "runClient -PbenihimeQa=true -PsenbonCombatQa=true -PsenbonComboQa=true -PsenbonVfxDisable=true -PsenbonQaRunId=codex-ready-20261029 -PcinematicQaFast=true -PqaAutoExit=true --offline",
+    "log": "build/senbon-ready-client-20261029.log"
+  },
+  "hashes": {
+    "src/main/resources/data/bleachmod/weapon_attributes/senbonzakura.json": "295d6920753ccbf9551107aa82629e56d07f09952292f56d741332229975341d",
+    "build/libs/bleachmod-0.2.0.jar": "3f283e122a5ac7fae6486d97fdb1ad5c26104c7817d6fcffa7c39c5d81828c3c",
+    "build/senbon-ready-build-20261029.log": "4301f7f5dbe8a325a8f5218dd1bbac20946fdf34284168bc21c1cb1192fe65fb",
+    "build/senbon-ready-client-20261029.log": "069c13136c60c1e43b67f9b7fb60e637c06d0c02faced93458fa3d2ab826c613",
+    "build/senbon-ready-vfx-client-20261029.log": "b300924547e9995b254cc2d2a644e11b7d2213a479e190c77549aa3f357d960b"
+  },
+  "clientVfx": {
+    "exitCode": 0,
+    "raw": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\senbonzakura-combat-qa\\codex-ready-vfx-20261029",
+    "log": "build/senbon-ready-vfx-client-20261029.log",
+    "cases": {
+      "01_shikai_right_profile": {
+        "frames": 47,
+        "clips": [
+          "one_handed_slash_horizontal_left",
+          "one_handed_slash_horizontal_right",
+          "one_handed_stab"
+        ]
+      },
+      "02_shikai_right_front": {
+        "frames": 47,
+        "clips": [
+          "one_handed_slash_horizontal_left",
+          "one_handed_slash_horizontal_right",
+          "one_handed_stab"
+        ]
+      },
+      "03_shikai_right_back": {
+        "frames": 47,
+        "clips": [
+          "one_handed_slash_horizontal_left",
+          "one_handed_slash_horizontal_right",
+          "one_handed_stab"
+        ]
+      },
+      "04_sealed_right_profile": {
+        "frames": 47,
+        "clips": [
+          "one_handed_slash_horizontal_left",
+          "one_handed_slash_horizontal_right",
+          "one_handed_stab"
+        ]
+      },
+      "05_bankai_right_profile": {
+        "frames": 47,
+        "clips": [
+          "one_handed_slash_horizontal_left",
+          "one_handed_slash_horizontal_right",
+          "one_handed_stab"
+        ]
+      },
+      "06_shikai_left_profile": {
+        "frames": 47,
+        "clips": [
+          "one_handed_slash_horizontal_left",
+          "one_handed_slash_horizontal_right",
+          "one_handed_stab"
+        ]
+      }
+    },
+    "selected": [
+      {
+        "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\senbonzakura-combat-qa\\codex-ready-vfx-20261029\\02_shikai_right_front\\screenshots\\frame-t036.png",
+        "sha256": "eea43696ba717cf1585d58150d135b70e0eef25be255c48ea0f0370cbaf587dd",
+        "clip": "one_handed_slash_horizontal_right",
+        "clipTick": 10
+      },
+      {
+        "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\senbonzakura-combat-qa\\codex-ready-vfx-20261029\\02_shikai_right_front\\screenshots\\frame-t048.png",
+        "sha256": "0ac44c301d16ef309ff41e7680e141bfb3486f20f720226f80ec93327767e5a8",
+        "clip": "one_handed_slash_horizontal_left",
+        "clipTick": 9
+      },
+      {
+        "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\senbonzakura-combat-qa\\codex-ready-vfx-20261029\\02_shikai_right_front\\screenshots\\frame-t060.png",
+        "sha256": "69635a3f3fa4b222ab35b599f81a37503a6fc8f0722d16c99c4ae559ca530838",
+        "clip": "one_handed_stab",
+        "clipTick": 9
+      },
+      {
+        "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\senbonzakura-combat-qa\\codex-ready-vfx-20261029\\05_bankai_right_profile\\screenshots\\frame-t036.png",
+        "sha256": "33bc4b2b0aa6fcd3f3323a3b39e97f7e17926e4866c7789e354cf0bc1958e4c6",
+        "clip": "one_handed_slash_horizontal_right",
+        "clipTick": 10
+      },
+      {
+        "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\senbonzakura-combat-qa\\codex-ready-vfx-20261029\\05_bankai_right_profile\\screenshots\\frame-t048.png",
+        "sha256": "37ed6afc9a0c30ad3b34a1db3429358ec19740eb244d76f6d54fe4ffa18964b1",
+        "clip": "one_handed_slash_horizontal_left",
+        "clipTick": 10
+      },
+      {
+        "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\senbonzakura-combat-qa\\codex-ready-vfx-20261029\\05_bankai_right_profile\\screenshots\\frame-t062.png",
+        "sha256": "3731accf2bad649ff6dc2b7762bab94d36066e9f389eadf74fccb8e58feb1f0e",
+        "clip": "one_handed_stab",
+        "clipTick": 10
+      }
+    ]
+  }
+}

@@ -13,6 +13,8 @@ Recupere primeiro 00-CONTINUIDADE-CODEX.md e o documento atual do assunto em Doc
 
 Antes de implementar, registre brevemente: resultado observável; restrições; arquivos sob sua responsabilidade; hipótese e teste que pode refutá-la; critérios de aceitação. Não altere rede, registries ou serviços compartilhados sem coordenação explícita. Branch nova somente conforme autorização, baseada na Feature-Poderes-bankais atualizada. Sem merge automático por esta skill.
 
+Para as frentes autorizadas de29/10, a sincronização inicial é obrigatória: leia ../../antigravity-frentes-2026-10-29.md, compare sua branch com a respectiva origin, origin/Feature-Poderes-bankais e origin/main; preserve mudanças locais; integre origin/Feature-Poderes-bankais NA SUA branch individual antes de implementar. A permissão específica deste ciclo autoriza esse merge de entrada, não merge de saída na poderes/main. Registre os SHAs e prove ancestralidade; não basta dizer que a branch está atualizada. Não editar continuidade/roadmap compartilhados em paralelo.
+
 ## Diagnóstico e execução
 
 Separe observado, hipótese e desconhecido. Leia a cadeia real de execução antes de corrigir a camada que parece mais provável. Em animações: entrada → clip selecionado → canais ativos → corpo/braço → transformação do item → renderer → quadro final. Mão animada não comprova arma animada. Preview Python/Blockbench não comprova resultado Forge.

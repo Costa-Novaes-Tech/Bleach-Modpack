@@ -1,12 +1,12 @@
 # Estado vigente — combate Senbonzakura e execução Higashi
 
-Atualização: 28/10/2026. Branch Feature-Poderes-bankais. Este documento será atualizado por assunto, evitando mais um relatório completo para cada rodada. Antecedentes:137–149; direção137 continua como referência artística. Não substitui o GDD nem o contrato118.
+Atualização: 29/10/2026. Branch Feature-Poderes-bankais. Este documento será atualizado por assunto, evitando mais um relatório completo para cada rodada. Antecedentes:137–149; direção137 continua como referência artística. Não substitui o GDD nem o contrato118.
 
 **Integração28/10:** Senbon3969cbf incorporado no merge1715d26. Conferência de capturas reais e SHA256 do bruto; correção de unidades do relatório registrada ao final. Suíte integrada com Quincy/HUD:158regressões e258GameTests. Arte final do combo continua para teste humano. Higashi não foi reanimada nesta rodada.
 
 ## Escopo e decisões preservadas
 
-Senbon: uma mão; S1 diagonal descendente, S2 retorno horizontal no peito, S3 estocada central, repetição1→2→3. Não redesenhar pétalas/ultimate nesta correção. Hyōrinmaru, Asauchi, Benihime, Zaraki e transformação Ryūjin aprovadas permanecem preservadas.
+Senbon: em29/10 o usuário autorizou substituir a coreografia personalizada por golpes prontos Better Combat. Nova sequência uma mão: one_handed_slash_horizontal_right → one_handed_slash_horizontal_left → one_handed_stab. Isso supera a obrigatoriedade anterior de S1 diagonal; não reativar clips antigos por conflito de merge. Arquivos customizados ficam preservados como histórico/recursos, mas não selecionados pelo combo ativo. Cadência upswing0.5 da espada pronta, primeiro hitbox agora horizontal para acompanhar movimento; alcance/dano/passiva/poderes preservados. QA real e aceite separados do histórico abaixo. Garden pertence à frente AG dedicada; Ryūjin recebe política de proteção em outra frente, sem reabrir seu visual.
 
 Higashi: o usuário confirmou em27/10 que o defeito atual é a coreografia/espada; o restante funciona. Alteração restrita ao replay visual confirmado: recolha no quadril, corte ascendente, final alto e recuperação. Dano, limiar7%, morte letal normal, confirmação, câmera, vítima única, cinzas e relógio de ignição inalterados. SLASH_END16, IGNITE36: pausa20ticks/1segundo depois do corte.
 
@@ -71,3 +71,7 @@ Pacote compacto em qa/combate-atual: pranchas de poses, GIFs amostrados, telemet
 ### Auditoria Codex da integração 28/10
 
 Senbon3969cbf integrado após inspeção de imagens reais: a estocada projeta a espada para fora do antebraço. SHA256 de senbon_s3_thrust_max_t106.png corresponde ao bruto run-1793215756959/01_shikai_right_profile/screenshots/frame-t106.png; há269/277PNGs nos dois ciclos. O relatório errou unidades: 0,520px de modelo são32,5mm (3,25cm), e não0,33mm, considerando16px=1bloco=1m. O script foi corrigido para exibir62,5mm/px. Sua folga é uma aproximação entre segmentos centrais; não comprova colisão de volumes nem ausência universal de clipping. Contato nos keyframes, continuidade C0 e capturas sustentam integração para teste humano, sem aceitar a alegação literal de zero deriva ou precisão submilimétrica.
+
+## Entrega29/10 — combo pronto
+
+Usuário autorizou reaproveitar Better Combat. weapon_attributes seleciona cortes horizontais direito/esquerdo e estocada prontos, uma mão, upswing0.5; primeiro hitbox passa a horizontal. Fonte IDs conferida no JAR BetterCombat1.9.0 instalado. Clipes próprios preservados mas não selecionados pelo combo. Check/build exit0,158regressões. Dois runClient reais com input de ataque normal, sem pose artificial:281capturas semVFX e282comVFX, seis cenários em cada. Telemetria de todos os casos confirma os3clipes prontos. [Evidência compacta](qa/combate-atual/senbon-ready-20261029/manifest.json), [poses](qa/combate-atual/senbon-ready-20261029/poses.jpg), [VFX](qa/combate-atual/senbon-ready-20261029/poses-vfx.jpg). Quadros selecionados inspecionados pelo Codex; não equivalem à avaliação contínua de todos os frames, colisão integral de malha, primeira pessoa, dedicado/observador ou homologação humana. Nenhum GameTest foi reexecutado para esta alteração de configuração visual. Arte final para usuário testar; partículas preservadas, precisão geométrica do rastro não foi reescrita.

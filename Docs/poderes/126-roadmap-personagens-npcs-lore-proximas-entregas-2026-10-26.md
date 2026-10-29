@@ -108,3 +108,7 @@ Sem gameplay, merge, instalação, download ou nova dependência nesta revisão.
 ### Preparação anterior às novas frentes — 29/10
 
 A pedido do usuário, manter as propostas acima e priorizar [capacitação do Antigravity](plano-capacitacao-antigravity.md): contrato curto do executor, auditoria pequena, feedback e teste de transferência antes de features extensas. Não iniciar NPCs/campanha automaticamente. Nenhum exercício foi executado nem capacidade adicional comprovada nesta preparação.
+
+**Retorno dos testes29/10:** antes de novas missões, tratar [interrupção Ryūjin, projéteis Quincy e diagnóstico de coreografia/Garden Senbon](revisao-testes-2026-10-29.md). Benihime aceita. Frentes sugeridas Codex/Ryūjin, AG-A/Quincy e AG-B/Senbon em fases, ainda sem despacho ou implementação nesta revisão.
+
+**Divisão aprovada29/10:** [quatro frentes](antigravity-frentes-2026-10-29.md): três AG para proteção temporária de ativação Bankai, projéteis Ishida e Garden N; Codex para combo Senbon com animações prontas. Invencibilidade durante ativação agora aprovada pelo usuário; não limitar correção a manter dano normal. Sincronização poderes→branches individuais obrigatória antes de implementação; sem merge automático de retorno. NPCs/lore continuam preservados para depois.
