@@ -219,6 +219,7 @@ public final class HigashiExecutionVisuals {
         @Override public FirstPersonMode getFirstPersonMode(float partial){return FirstPersonMode.VANILLA;}
         @Override public Vec3f get3DTransform(String part,TransformType type,float partial,Vec3f value){
             var pose=pose(p);if(pose==null)return value;
+            if(HigashiBetterCombatMotion.available())return HigashiBetterCombatMotion.transform(p,age(pose,partial),true,HigashiCinematicPath.END,part,type,value);
             if(part.equals("body")&&type==TransformType.POSITION)return new Vec3f(value.getX(),0,value.getZ());
             float sign=p.getMainArm()==HumanoidArm.RIGHT?1:-1;
             var execPose=RyujinChoreography.execution(age(pose,partial),sign);
@@ -255,7 +256,7 @@ public final class HigashiExecutionVisuals {
         int currentWorld=System.identityHashCode(mc.level);PENDING_TARGETS.entrySet().removeIf(entry->entry.getValue().worldHash!=currentWorld||now>entry.getValue().expiryGameTime);
         if(cinematic!=null&&age(cinematic,0)>=HigashiCinematicPath.END)restore();
         if(cinematic!=null&&(mc.player==null||!mc.player.isAlive()||mc.player.hurtTime>0||mc.screen!=null||(age(cinematic,0)>4&&(mc.options.keyAttack.isDown()||mc.options.keyUse.isDown()||mc.options.keyUp.isDown()||mc.options.keyDown.isDown()||mc.options.keyLeft.isDown()||mc.options.keyRight.isDown()||mc.options.keyJump.isDown()))||mc.getCameraEntity()!=mc.player||mc.options.getCameraType()!=CameraType.THIRD_PERSON_BACK||!ClientVisualConfig.EXECUTION_CAMERA.get()||mc.player.distanceToSqr(cinematic.packet.attacker())>9||pose(mc.player)==null))dismiss();
-        if(cinematic!=null&&mc.player!=null&&mc.level!=null&&age(cinematic,0)>=10&&age(cinematic,0)<=16){
+        if(!HigashiBetterCombatMotion.available()&&cinematic!=null&&mc.player!=null&&mc.level!=null&&age(cinematic,0)>=10&&age(cinematic,0)<=16){
             float cAge=age(cinematic,0);float sign=mc.player.getMainArm()==HumanoidArm.RIGHT?1:-1;
             var cutPose=RyujinChoreography.execution(cAge,sign);
             Vec3 f=cinematic.packet.victim().subtract(cinematic.packet.attacker()).multiply(1,0,1).normalize();
