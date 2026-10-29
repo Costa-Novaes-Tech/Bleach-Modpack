@@ -139,6 +139,9 @@ public class ClientForgeEvents {
             return;
         }
         PlayerCapability.get(mc.player).ifPresent(data -> {
+            if(com.bleachmod.common.quincy.QuincyTechniqueService.isQuincy(data)){
+                NetworkHandler.sendToServer(new ExecuteActionC2S(ExecuteActionC2S.ActionType.QUINCY_VOLLSTANDIG));return;
+            }
             String group = data.getCharacter().getSelectedFormGroup().isEmpty()
                     ? Reference.GROUP_ZANPAKUTO : data.getCharacter().getSelectedFormGroup();
             List<String> names = TransformationsHelper.getSelectableFormNames(data, group);

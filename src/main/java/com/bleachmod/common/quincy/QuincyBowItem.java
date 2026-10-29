@@ -54,6 +54,8 @@ public class QuincyBowItem extends BowItem {
 
     public static final int FULL_CHARGE_TICKS = 20; // 1.0s
 
+    public static int chargeTicks(LivingEntity player) { return !(player instanceof Player p)?FULL_CHARGE_TICKS:PlayerCapability.get(p).map(d->d.getQuincy().isVollstandigActive()?QuincyVollstandigService.CHARGE:FULL_CHARGE_TICKS).orElse(FULL_CHARGE_TICKS); }
+    public static float shotCost(ServerPlayer p) { return QuincyVollstandigService.active(p)?QuincyVollstandigService.VOLLEY_COST:COMMON_SHOT_PE_COST; }
     public static final int MIN_CHARGE_TICKS = 5;   // 0.25s
 
 
@@ -146,13 +148,13 @@ public class QuincyBowItem extends BowItem {
 
                     || data.getStatus().isActionCharging() || ReleaseAnimationService.busy(serverPlayer)
 
-                    || ElementalTechniqueService.busy(serverPlayer)) {
+                    || ElementalTechniqueService.busy(serverPlayer) || QuincyVollstandigService.preparing(serverPlayer)) {
 
                 return InteractionResultHolder.fail(stack);
 
             }
 
-            if (!data.getResources().canAffordReiatsu(COMMON_SHOT_PE_COST)) {
+            if (!data.getResources().canAffordReiatsu(shotCost(serverPlayer))) {
 
                 serverPlayer.displayClientMessage(Component.translatable("message.bleachmod.quincy.low_reiatsu"), true);
 
@@ -208,13 +210,13 @@ public class QuincyBowItem extends BowItem {
 
                         || data.getStatus().isActionCharging() || ReleaseAnimationService.busy(serverPlayer)
 
-                        || ElementalTechniqueService.busy(serverPlayer)) {
+                        || ElementalTechniqueService.busy(serverPlayer) || QuincyVollstandigService.preparing(serverPlayer)) {
 
                     return;
 
                 }
 
-                if (!data.getResources().consumeReiatsu(COMMON_SHOT_PE_COST)) {
+                if (!data.getResources().consumeReiatsu(shotCost(serverPlayer))) {
 
                     serverPlayer.displayClientMessage(Component.translatable("message.bleachmod.quincy.low_reiatsu"), true);
 
@@ -224,21 +226,21 @@ public class QuincyBowItem extends BowItem {
 
 
 
-                float power = Math.min(1.0F, (float) useTicks / (float) FULL_CHARGE_TICKS);
+                float power = Math.min(1.0F, (float) useTicks / (float) chargeTicks(serverPlayer));
 
                 com.bleachmod.common.technique.MasteryPracticeService.noteIntent(serverPlayer);
                 QuincyArrowEntity arrow = new QuincyArrowEntity(level, serverPlayer);
 
-                arrow.configureCommon(power);
+                if(QuincyVollstandigService.active(serverPlayer)) arrow.configureVollstandig(power); else arrow.configureCommon(power);
 
 
 
                 Vec3 look = serverPlayer.getLookAngle();
 
                 // Velocity 3.0F travels ~64 blocks in straight flight without gravity, stable precision 0.0F divergence
-                arrow.shoot(look.x, look.y, look.z, 3.0F * power, 0.0F);
+                arrow.shoot(look.x, look.y, look.z, (QuincyVollstandigService.active(serverPlayer)?3.6F:3.0F) * power, 0.0F);
 
-                level.addFreshEntity(arrow);
+                if(level.addFreshEntity(arrow) && QuincyVollstandigService.active(serverPlayer)){QuincyVollstandigService.track(serverPlayer,arrow);QuincyVollstandigService.satellites(serverPlayer);}
 
 
 

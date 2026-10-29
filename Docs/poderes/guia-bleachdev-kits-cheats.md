@@ -21,6 +21,16 @@ O alvo padrão é quem executa. Nos comandos novos, acrescentar um jogador/selec
 
 A arma anterior vai para o inventário. Se a nova arma já estiver no inventário, ocorre troca de posições, preservando personalização do item. Repetir o kit não acumula novas armas. Sem espaço para preservar o item anterior, falha antes de mudar raça/kit. A mão secundária não é alterada.
 
+## Vollständig Quincy — protótipo 29/10
+
+1. `/bleachdev kit quincy` equipa o arco e preserva o arquivo Shinigami.
+2. `/bleachdev progress vollstandig` concede o aprendizado/requisito de teste explicitamente. Não aplica Antithesis como reversão de combate nem representa a aquisição da campanha.
+3. Opcional: `/bleachdev cheats all` para testar sem custo de Reiatsu/cooldown, após a concessão. Stamina continua normal.
+4. **G** inicia/encerra a transformação; **V** retorna à base. Entrada de 9 s, com preparo cancelável antes do compromisso. Flecha manual na forma avançada: central + quatro auxiliares, carga completa 0,6 s, alcance 96 blocos, 4 PE por salva. Não chamar a forma de Shikai/Bankai.
+5. H/N/B/C mudam de repertório na forma avançada; HUD informa maestrias/custos próprios e cargas do Hirenkyaku. Testar também com `cheats off` para validar custos/manutenção.
+
+Reset combat, troca de kit, morte, saída e mudança de dimensão encerram a Vollständig e seus efeitos transitórios. Aprendizado e maestrias permanecem. Para voltar às zanpakutō: `/bleachdev kit shinigami <identidade>`.
+
 ## Preset e ajustes finos
 
 - `/bleachdev cheats all [jogador]`: desativa custos de Reiatsu e cooldowns, limpa ações/cooldowns atuais, preenche Reiatsu, maximiza formas/técnicas do kit Shinigami ou domínio/técnicas Quincy e garante saldo mínimo de 10000 pontos. Repetir não soma outros 10000. Usa o recurso existente trainingPoints, apresentado no jogo como Spirit Points; não cria moeda nova. Stamina e atributos não são maximizados.
@@ -33,11 +43,11 @@ A arma anterior vai para o inventário. Se a nova arma já estiver no inventári
 
 O preset all acompanha trocas de kit durante a sessão. Os overrides e o preset deixam de valer ao sair/morrer/reiniciar; concessões de progresso permanecem no save. Fazer uma alteração individual de custo/cooldown sai do modo all, preservando os outros toggles já aplicados.
 
-**Quincy atualizado28/10:** domínio e maestrias das quatro técnicas agora são independentes, aparecem no HUD e permanecem no save/troca de kit. all/progress max também maximizam o Quincy; off não apaga esses valores. Aquisição narrativa/economia Gintō ainda são protótipo, sem criação de Shikai/Bankai ou concessão TYBW.
+**Quincy atualizado28/10:** domínio e maestrias das quatro técnicas agora são independentes, aparecem no HUD e permanecem no save/troca de kit. all/progress max também maximizam o Quincy; off não apaga esses valores. Aquisição narrativa/economia Gintō ainda são protótipo, sem criação de Shikai/Bankai. Atualização29/10: TYBW tem concessão administrativa explícita acima.
 
 ## Limpeza e diagnóstico
 
-`/bleachdev reset combat [jogador]` encerra ações e cenas do dono, limpa cooldowns e canalizações, para movimento/uso de item e devolve câmera de cenas canceladas. Preserva progressão e forma ativa. Passivas permanentes dessa forma podem reaparecer no tick seguinte, o que é esperado. A troca de kit também faz essa limpeza, antes de ativar o novo perfil.
+`/bleachdev reset combat [jogador]` encerra ações e cenas do dono, limpa cooldowns e canalizações, para movimento/uso de item e devolve câmera de cenas canceladas. Preserva progressão e forma ativa Shinigami; Vollständig Quincy é encerrada pelo reset. Passivas permanentes dessa forma podem reaparecer no tick seguinte, o que é esperado. A troca de kit também faz essa limpeza, antes de ativar o novo perfil.
 
 Sprenger: remove somente nós carregados pertencentes ao dono, em todas as dimensões já carregadas, sem forçar chunks ou usar uma caixa de busca do tamanho do mundo. Ação Licht Regen e estado da formação são encerrados. A frente Quincy continua responsável pelo restante do ciclo de vida de projéteis/limpeza da sua implementação.
 

@@ -37,6 +37,10 @@ public final class DevCommandTree {
                 .then(toggle("cooldowns", DevKitService::setCooldownCheat))
                 .then(toggle("reiatsu", DevKitService::setReiatsuCheat)));
         root.then(literal("progress").executes(DevCommandTree::help)
+                .then(targets(literal("vollstandig"),(ctx,p,d)->{
+                    if(!com.bleachmod.common.quincy.QuincyTechniqueService.isQuincy(d))throw new IllegalArgumentException("Selecione kit Quincy primeiro.");
+                    d.getQuincy().grantVollstandig();
+                }))
                 .then(targets(literal("max"), (ctx, p, d) -> DevKitService.maximize(d)))
                 .then(literal("points").then(targets(argument("amount", IntegerArgumentType.integer(1, 1_000_000)),
                     (ctx, p, d) -> d.getResources().addTrainingPoints(IntegerArgumentType.getInteger(ctx, "amount")))))
@@ -127,7 +131,7 @@ public final class DevCommandTree {
                     +"Stamina normal. off não desfaz progresso concedido.\n"
                     +"Overrides terminam ao sair/morrer. Domínio e técnicas Quincy têm maestrias próprias; aquisição narrativa ainda é protótipo.";
             case "progress" -> "Progressão administrativa — alterações ficam salvas.\n"
-                    +"/bleachdev progress max [jogador]\n"
+                    +"/bleachdev progress vollstandig [jogador] — concessão provisória Quincy; G ativar, V retornar\n/bleachdev progress max [jogador]\n"
                     +"/bleachdev progress points <quantidade> [jogador] — adicionar\n"
                     +"/bleachdev progress mastery <sealed|shikai|bankai> <valor> [jogador]\n"
                     +"max não liga cheats. Maestria segue limite configurado.";

@@ -69,6 +69,7 @@ public final class BleachClient {
         event.enqueueWork(com.bleachmod.client.cinematic.CinematicDirector::init);
         event.enqueueWork(com.bleachmod.client.cinematic.BenihimeEntranceClient::init);
         event.enqueueWork(com.bleachmod.client.cinematic.HyorinmaruCinematicClient::init);
+        event.enqueueWork(com.bleachmod.client.cinematic.QuincyVollstandigVisuals::init);
         event.enqueueWork(com.bleachmod.client.cinematic.SenbonzakuraCinematicClient::init);
         event.enqueueWork(com.bleachmod.client.cinematic.RyujinBankaiEntranceClient::init);
         event.enqueueWork(com.bleachmod.client.berserk.NozarashiStance::init);
@@ -82,7 +83,7 @@ public final class BleachClient {
         registerFormProperty(ModItems.NOZARASHI.get());
         ItemProperties.register(ModItems.QUINCY_BOW.get(), new net.minecraft.resources.ResourceLocation("pull"), (stack, level, entity, seed) -> {
             if (entity == null || entity.getUseItem() != stack) return 0.0F;
-            return (float) (stack.getUseDuration() - entity.getUseItemRemainingTicks()) / 20.0F;
+            return (float) (stack.getUseDuration() - entity.getUseItemRemainingTicks()) / (float)com.bleachmod.common.quincy.QuincyBowItem.chargeTicks(entity);
         });
         ItemProperties.register(ModItems.QUINCY_BOW.get(), new net.minecraft.resources.ResourceLocation("pulling"), (stack, level, entity, seed) -> {
             return entity != null && entity.isUsingItem() && entity.getUseItem() == stack ? 1.0F : 0.0F;

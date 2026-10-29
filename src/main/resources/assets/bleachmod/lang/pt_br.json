@@ -487,5 +487,13 @@
   "hud.bleachmod.quincy.prototype": "Arqueiro tradicional",
   "hud.bleachmod.quincy.cooldown": "Recarga: %ss",
   "hud.bleachmod.quincy.preparing": "Preparando · janela %ss",
-  "hud.bleachmod.quincy.detonate": "Reativar C · restante %ss"
+  "hud.bleachmod.quincy.detonate": "Reativar C · restante %ss",
+  "message.bleachmod.quincy.vollstandig_locked": "Vollständig não aprendida. Protótipo: /bleachdev progress vollstandig",
+  "hud.bleachmod.quincy.vollstandig": "Quincy · Vollständig",
+  "hud.bleachmod.quincy.volley": "5 flechas · 0,6s · 96m · 4 PE",
+  "hud.bleachmod.quincy.form_hint": "G: Vollständig · V: forma base",
+  "ability.bleachmod.quincy.piercer": "Flecha perfurante",
+  "ability.bleachmod.quincy.arsenal": "Arsenal de Reishi",
+  "ability.bleachmod.quincy.step_advanced": "Hirenkyaku · 3 cargas",
+  "ability.bleachmod.quincy.convergence": "Convergência de Reishi"
 }

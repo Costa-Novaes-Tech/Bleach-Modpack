@@ -11,7 +11,8 @@ import java.util.function.Supplier;
 public record ExecuteActionC2S(ActionType action) {
     public enum ActionType {
         INSTANT_TRANSFORM,
-        FORCE_DESCEND
+        FORCE_DESCEND,
+        QUINCY_VOLLSTANDIG
     }
 
     public static void encode(ExecuteActionC2S msg, FriendlyByteBuf buf) {
@@ -30,6 +31,8 @@ public record ExecuteActionC2S(ActionType action) {
             }
             PlayerCapability.get(player).ifPresent(data -> {
                 if (!data.getStatus().hasCreatedCharacter() || !player.isAlive() || !data.getStatus().allowAction(player.level().getGameTime())) return;
+                if(msg.action==ActionType.QUINCY_VOLLSTANDIG){com.bleachmod.common.quincy.QuincyVollstandigService.toggle(player,data);return;}
+                if(msg.action==ActionType.FORCE_DESCEND && com.bleachmod.common.quincy.QuincyTechniqueService.isQuincy(data)){com.bleachmod.common.quincy.QuincyVollstandigService.stop(player,data);return;}
                 if (msg.action == ActionType.INSTANT_TRANSFORM) {
                     FormModeHandler.instantTransform(player, data);
                 } else if (msg.action == ActionType.FORCE_DESCEND) {

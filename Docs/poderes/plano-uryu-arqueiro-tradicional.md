@@ -1,11 +1,27 @@
 # Uryū Ishida — plano do arqueiro tradicional
 
 
+## Protótipo Vollständig implementado para testes — 29/10
+
+Autorizado pelo usuário após o plano TYBW: quatro estrelas/flechas flutuantes atrás do jogador, acompanhando-o. Cada disparo válido do arco cria **uma central + quatro auxiliares**. Carga completa 12 ticks (0,6 s), alcance 96 blocos, custo único de 4 Reiatsu por salva. H também recebe os quatro auxiliares dentro do custo próprio da técnica; projéteis do arsenal N não geram salvas recursivas. A central comum mantém dano-base de 6 HP; auxiliares 1,5 HP cada, sujeitas à defesa e à imunidade entre golpes do jogo: não prometem dano quíntuplo.
+
+A central atravessa até **cinco entidades elegíveis distintas e dois blocos sólidos distintos no voo inteiro**. Para no quinto alvo ou diante do terceiro bloco; atravessar uma segunda parede não renova o orçamento. Não quebra terreno. Blocos indestrutíveis e com entidade de bloco continuam bloqueando. Orçamentos persistem no NBT; trajetória reta, alcance/vida limitados e colisões ordenadas. Auxiliares param no primeiro alvo/bloco e não geram novos satélites.
+
+Entrada manual por G: 180 ticks/9 s, compromisso no tick 160. Antes disso, deslocar-se mais de 2 blocos, sofrer dano, defender ou esquivar cancela sem custo. Compromisso cobra 30 Reiatsu uma vez; manutenção de 2/s substitui regeneração-base enquanto ativa. V ou G retorna à base; morte, saída, dimensão e troca de kit limpam forma/efeitos/projéteis avançados. Conquistas e maestrias são preservadas. Não herda invulnerabilidade de Bankai.
+
+Concessão administrativa: `/bleachdev kit quincy`, `/bleachdev progress vollstandig`; aquisição narrativa e aplicação executável de Antithesis continuam pendentes. `/bleachdev progress max` maximiza maestrias avançadas somente se a forma foi concedida. Asas e estrelas usam malhas geométricas luminosas iniciais; câmera frontal abre para a manifestação e retorna gradualmente. Pose PlayerAnimator apenas durante a entrada, sem modificar combos homologados. Sons nativos de cristal/ativação; nenhuma fala de Bankai reutilizada. Rig/texturas finais Blockbench e vozes continuam refinamento futuro, não entrega presumida.
+
+Kit transformado V0: H flecha perfurante concentrada (12 HP,16 PE,6 s CD); N arsenal de 12 projéteis (2 HP por projétil,25 PE,12 s CD,3 ticks entre tiros); B Hirenkyaku de 6 blocos com 3 cargas (8 PE+10 stamina por uso,uma carga a cada 6 s); C convergência avisada por 30 ticks, raio 6,18 HP,até 16 alvos elegíveis,40 PE,20 s CD. Respeita linha de visão/colisão, aliados e hurtTime. Prática segue o antirrepetição existente (20 ticks global/100 por alvo), apenas efeito válido e fora de cheats. Kit-base e maestrias básicas independentes.
+
+Validação29/10: check/build e158regressões aprovados;277GameTests na repetição final. Uma execução anterior teve falha isolada no teste legado de cadência do Hollow tanque; passou ao repetir a mesma suíte sem alterar esse código. Sete novos GameTests Quincy aprovados: preparação/cancelamento, salvo de cinco com custo único, cinco alvos distintos, dois blocos separados/terceiro bloqueante e NBT, auxiliar sem perfuração, convergência limitada a16alvos sem repetição e encerramento por exaustão. As primeiras provas de voo estavam enterradas e foram movidas para céu livre, sem afrouxar limites.
+
+Cliente Forge real: seis capturas de entrada/formação/forma ativa/disparo/retorno; telemetria confirmou cinco projéteis no tick229 e restauração de câmera/base. Quatro estrelas conferidas visualmente; HUD próprio legível. [Manifesto e limites](qa/quincy-vollstandig-20261029/manifest.json), [prancha compacta](qa/quincy-vollstandig-20261029/cliente-real.jpg), [comandos de teste](guia-bleachdev-kits-cheats.md). Somente183KB de imagem retida no repositório. Visual inicial, equilíbrio do novo kit e multiplayer ainda aguardam validação humana/específica. Não homologado pelo usuário. Os trechos de proposta abaixo são histórico da decisão, subordinados a este contrato.
+
 ## Direção vigente —29/10: expansão TYBW autorizada
 
 Usuário testou e aceitou provisoriamente as flechas atuais; Senbon e Ryūjin também consideradas boas. Pediu progressão do arco com disparos mais rápidos/distantes, habilidades e transformação. Em resposta explícita escolheu “Incluir transformação Quincy de TYBW agora”. Essa decisão supera o adiamento de TYBW neste documento e no roadmap. Não renomear Quincy para Shikai/Bankai. Missão da Rukia adiada pelo usuário.
 
-Baseline integrado1aef0e1: quatro técnicas tradicionais, arco, projétil64blocos, tiro comum2Reiatsu/carga20ticks e HUD/maestrias próprios. Preservar esse estado-base aceito. Expansão TYBW ainda não implementada; parâmetros e repertório abaixo são propostas para discussão.
+Baseline integrado1aef0e1: quatro técnicas tradicionais, arco, projétil64blocos, tiro comum2Reiatsu/carga20ticks e HUD/maestrias próprios. Preservar esse estado-base aceito. A expansão foi autorizada posteriormente e está no protótipo acima; repertório abaixo registra a proposta inicial.
 
 ### Estrutura proposta
 

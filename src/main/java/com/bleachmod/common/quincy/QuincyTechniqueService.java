@@ -166,7 +166,7 @@ public final class QuincyTechniqueService {
 
         if (!isQuincy(data)) return false;
 
-        if (slot < 1 || slot > 4) return false;
+        if (slot < 1 || slot > 4 || QuincyVollstandigService.preparing(player)) return false;
 
 
 
@@ -219,6 +219,7 @@ public final class QuincyTechniqueService {
 
 
 
+        if(QuincyVollstandigService.active(player)){QuincyVollstandigService.execute(player,data,slot,forward,left);return;}
         switch (slot) {
 
             case 1 -> executeSeeleSchneider(player, data);
@@ -243,6 +244,7 @@ public final class QuincyTechniqueService {
 
     public static void clearQuincyTransientState(ServerPlayer player, PlayerData data) {
 
+        if(player!=null && data!=null)QuincyVollstandigService.stop(player,data);
         if (data != null) {
 
             data.getQuincy().resetTransientState();

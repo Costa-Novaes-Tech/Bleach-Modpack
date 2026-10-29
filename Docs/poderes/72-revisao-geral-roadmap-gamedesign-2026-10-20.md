@@ -1,6 +1,6 @@
 # Ciclo 72 — revisão geral do projeto, game design e roadmap
 
-**Prioridade humana posterior29/10:** Senbon e Ryūjin aceitas no teste; flechas atuais boas provisoriamente. Próxima frente é expansão Ishida com passiva de tiro rápido/longo, habilidades e transformação TYBW, explicitamente autorizada; supera o adiamento TYBW abaixo. [Plano atual](plano-uryu-arqueiro-tradicional.md). Quest Rukia fica para depois. Garden ainda independente/sem entrega confirmada. Propostas de novo kit/custos/cinemática aguardam fechamento, sem código novo nesta rodada.
+**Prioridade humana posterior29/10:** Senbon e Ryūjin aceitas no teste; flechas atuais boas provisoriamente. Próxima frente é expansão Ishida com passiva de tiro rápido/longo, habilidades e transformação TYBW, explicitamente autorizada; supera o adiamento TYBW abaixo. [Plano atual](plano-uryu-arqueiro-tradicional.md). Quest Rukia fica para depois. Garden ainda independente/sem entrega confirmada. Usuário autorizou implementação da Vollständig e definiu quatro satélites, cinco flechas por disparo e central perfurante de cinco alvos/dois blocos. Protótipo implementado e validado tecnicamente (158regressões/277GameTests e cliente real), conforme plano atual; aguarda teste/aceite humano.
 
 
 ## Estado vigente — revisão de29/10/2026
@@ -19,10 +19,10 @@ Este bloco e o checklist atualizado prevalecem sobre os registros históricos ab
 
 ### Ativo agora
 
-1. AG proteção de ativação Bankai: invencibilidade temporária aprovada, corrigir interrupção Ryūjin e término seguro da proteção. Cobrir apresentações além do commit da forma; preservar ciclos visuais aceitos e imunidades existentes.
-2. AG Ishida: projétil de energia/luz, trajetória reta e alcance V0, custo por tiro sem cobrança duplicada; preservar chuva, colisões, HUD, maestria e troca de kit.
+1. Proteção de ativação Bankai/Ryūjin: integrada e aceita pelo usuário; preservar, sem nova reformulação.
+2. Ishida: base de projéteis aceita provisoriamente. Codex entregou protótipo Vollständig com quatro satélites/cinco flechas e kit avançado; prioridade agora é playtest, refinamento visual/equilíbrio e coberturas específicas, não recriar a base.
 3. AG Garden N: segunda explosão seguida de prisão ampla com pétalas, levitação controlada e pulsos de dano; centro fixo/raio35 e janela2–6s preservados.
-4. Codex Senbon: combo pronto Better Combat implementado/publicado2b3c582;158regressões e dois ciclos Forge de6cenários com/sem partículas. Aguardar teste e aceite humano. Primeiro golpe horizontal agora substitui exigência diagonal antiga. Não restaurar clips personalizados em merge.
+4. Codex Senbon: combo pronto Better Combat implementado/publicado2b3c582;158regressões e dois ciclos Forge de6cenários com/sem partículas. Usuário aceitou o combo no retorno posterior; preservar. Primeiro golpe horizontal agora substitui exigência diagonal antiga. Não restaurar clips personalizados em merge.
 
 Coordenação, arquivos exclusivos e três prompts em [frentes29/10](antigravity-frentes-2026-10-29.md). Cada AG lê o contrato, compara refs e integra origin/Feature-Poderes-bankais na branch individual antes de implementar. Sem merge automático de retorno. QA de cliente serializado.
 
@@ -37,7 +37,7 @@ Coordenação, arquivos exclusivos e três prompts em [frentes29/10](antigravity
 
 Seguir [roadmap126](126-roadmap-personagens-npcs-lore-proximas-entregas-2026-10-26.md): auditar infraestrutura de quests/NPCs e preparar MAIN-SUB-01 “Um Hollow na área”, com Rukia e um encontro vinculado à tentativa. Conclusão automática, sem aliado canônico vencendo pelo jogador e sem prêmio inventado. Fechar ficha de acesso racial, área, inimigo e participação antes de produção. Depois expandir gradualmente; roteiro aprovado10missões Substituto/18Soul Society não equivale a campanha implementada. A revisão da main usada para essa direção foi9906486.
 
-Mentor/Proficiências aguardam equipe; aprofundamento M11/formação racial adiado no handoff. Uryū TYBW/Antithesis/Vollständig ficam para fase posterior. Aizen como kit adiado; Gin fora da fila de poderes. Photon/LDLib/Blockbench são recursos conforme necessidade demonstrada, não migração obrigatória de todos os efeitos nem motivo para instalar dependências novas agora.
+Mentor/Proficiências aguardam equipe; aprofundamento M11/formação racial adiado no handoff. Vollständig TYBW autorizada e prototipada agora; Antithesis executável e aquisição narrativa continuam para ficha própria posterior. Aizen como kit adiado; Gin fora da fila de poderes. Photon/LDLib/Blockbench são recursos conforme necessidade demonstrada, não migração obrigatória de todos os efeitos nem motivo para instalar dependências novas agora.
 
 ## Histórico de decisões e entregas
 

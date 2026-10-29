@@ -61,6 +61,7 @@ public final class SyncHelper {
             tag.put("benihimeEntrance", com.bleachmod.common.technique.BenihimeEntranceService.snapshot(player));
             tag.put("hyorinmaruCinematic", com.bleachmod.common.technique.HyorinmaruCinematicService.snapshot(player));
             tag.put("senbonzakuraCinematic", com.bleachmod.common.technique.SenbonzakuraCinematicService.snapshot(player));
+            tag.put("quincyForm",com.bleachmod.common.quincy.QuincyVollstandigService.snapshot(player));
             tag.put("ryujinBankaiEntrance", com.bleachmod.common.technique.RyujinBankaiEntranceService.snapshot(player));
             tag.put("signatureView", com.bleachmod.common.technique.SignatureAnimationService.snapshot(player));
             tag.put("elementalView", com.bleachmod.common.technique.ElementalTechniqueService.snapshot(player));
@@ -83,6 +84,7 @@ public final class SyncHelper {
             tag.put("benihimeEntrance", com.bleachmod.common.technique.BenihimeEntranceService.snapshot(subject));
             tag.put("hyorinmaruCinematic", com.bleachmod.common.technique.HyorinmaruCinematicService.snapshot(subject));
             tag.put("senbonzakuraCinematic", com.bleachmod.common.technique.SenbonzakuraCinematicService.snapshot(subject));
+            tag.put("quincyForm",com.bleachmod.common.quincy.QuincyVollstandigService.snapshot(subject));
             tag.put("ryujinBankaiEntrance", com.bleachmod.common.technique.RyujinBankaiEntranceService.snapshot(subject));
             tag.put("signatureView", com.bleachmod.common.technique.SignatureAnimationService.snapshot(subject));
             tag.put("elementalView", com.bleachmod.common.technique.ElementalTechniqueService.snapshot(subject));

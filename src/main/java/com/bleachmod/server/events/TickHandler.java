@@ -33,6 +33,7 @@ public class TickHandler {
             }
             if (!player.isAlive() || player.isSpectator()) {
                 com.bleachmod.common.technique.SenbonzakuraTechniqueService.cancel(player); com.bleachmod.common.technique.BenihimeTechniqueService.cancel(player);
+                com.bleachmod.common.quincy.QuincyVollstandigService.stop(player,data);
                 data.resetTransientState();
                 com.bleachmod.common.GuardService.publish(player, data);
                 return;
@@ -54,10 +55,13 @@ public class TickHandler {
             TechniqueService.tickFlameDash(player, data);
             com.bleachmod.common.technique.SenbonzakuraTechniqueService.tick(player, data); com.bleachmod.common.technique.BenihimeTechniqueService.tick(player,data);
             com.bleachmod.common.quincy.QuincyTechniqueService.tickServer(player, data);
+            com.bleachmod.common.quincy.QuincyVollstandigService.tick(player,data);
             FormData active = TransformationsHelper.getActiveFormData(data);
             float drain = active == null ? 0.0F : CombatBalance.formDrain((float) active.getEnergyDrain(),
                     data.getAttributes().level(AttributeData.CONTROL));
-            if (drain > 0.0F) {
+            if(com.bleachmod.common.quincy.QuincyVollstandigService.active(player)) {
+                // Quincy maintenance is owned by its form service, without base regeneration.
+            } else if (drain > 0.0F) {
                 data.getResources().addReiatsu(-drain);
                 if (!data.getResources().areCostsDisabled()
                         && data.getResources().getCurrentReiatsu() <= data.getResources().getMaxReiatsu() * Reference.REVERT_REIATSU_RATIO) {

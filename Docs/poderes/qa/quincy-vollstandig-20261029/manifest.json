@@ -1,0 +1,68 @@
+{
+  "date": "2026-10-29",
+  "branch": "Feature-Poderes-bankais",
+  "base_commit": "7b92a60",
+  "status": "technical_prototype_ready_for_human_playtest",
+  "validation": {
+    "check_build_log": "build/quincy-vollstandig-release-validation.log",
+    "regressions": 158,
+    "gametests_passed": 277,
+    "gametests_log": "build/quincy-vollstandig-release-validation-repeat.log",
+    "prior_run_note": "All seven new Quincy tests passed; one preexisting Hollow tank AI cadence test failed once (Animations started without sustained actual damage). Repeated unchanged suite: all 277 passed. No Hollow/Zaraki runtime or test changes.",
+    "client_log": "build/quincy-vollstandig-client-final.log",
+    "client_command": "gradlew runClient -PbenihimeQa=true -PquincyVollstandigQa=true -PcinematicQaFast=true -PqaAutoExit=true --offline",
+    "client_results": [
+      "tick=40 active=false arrows=0 camera=THIRD_PERSON_BACK failure=null",
+      "tick=110 active=false arrows=0 camera=THIRD_PERSON_BACK failure=null",
+      "tick=170 active=true arrows=0 camera=THIRD_PERSON_BACK failure=null",
+      "tick=205 active=true arrows=0 camera=THIRD_PERSON_FRONT failure=null",
+      "tick=229 active=true arrows=5 camera=THIRD_PERSON_FRONT failure=null",
+      "tick=270 active=false arrows=0 camera=THIRD_PERSON_FRONT failure=null"
+    ]
+  },
+  "evidence": {
+    "retained": "cliente-real.jpg",
+    "retained_bytes": 183300,
+    "capture_source": "run-benihime-qa/base/quincy-vollstandig-qa/1793313335584",
+    "frame_sha256": {
+      "40": "a54969fd3ce48983143f0a93ec40b7cb811cfa4505cdea28da2846c133e3a5c1",
+      "110": "af828cae168c7a9b88b5b4e2bb5a19847fedc16b6f2e5fd7e47720c81aaf6522",
+      "170": "2b567aae6a2bbdd4348804650122997930c67a219c3f6526b79cb22c819b7879",
+      "205": "7541b31f2b0d0bc03fc01333d5361cca6e55a17fe85d1946c755b3656c12e51f",
+      "229": "dca9a23a5ce6656177dfa2daadebdebde33d0a0be248f2ba1d967a44ef97714f",
+      "270": "a1bd31fce379c3371525aad90919dc7aaa65fe0cf9eb0a1deb864d739dadf21f"
+    },
+    "visual_review": "Four satellites visually visible in frame205; real server/client report five arrows in frame229; HUD advanced and previous camera restored; shot screenshot does not isolate all five silhouettes because HUD covers part of the view. No claim of multiplayer/observer validation."
+  },
+  "source_sha256": {
+    "src/main/java/com/bleachmod/Reference.java": "bb9dad78956d1d63f3ef90945ddbe90637a8b0573c9a54900a1de1219518950e",
+    "src/main/java/com/bleachmod/client/BleachClient.java": "3039ab561628bfbdb368054a6a3f3a203006089cb14c1e627bff22450a1fe8c1",
+    "src/main/java/com/bleachmod/client/cinematic/QuincyVollstandigQaSequence.java": "1c2402ba668dd64877bfd7ee699b600e890b2ef3246b6807d391d9561d6f848d",
+    "src/main/java/com/bleachmod/client/cinematic/QuincyVollstandigVisuals.java": "46dccabb833e29d0973f949a1152aba920704a096ae674dba7eb47d5299452d8",
+    "src/main/java/com/bleachmod/client/events/ClientForgeEvents.java": "4479fba6925ea7d8668e87e013b264556ec72a089a540dd9aa627ebdb50e4cc0",
+    "src/main/java/com/bleachmod/client/hud/QuincyHud.java": "4978c08d715f73f367e95538e132e68f6ee09f209cce22541e59f84b36e7a659",
+    "src/main/java/com/bleachmod/client/network/ClientPacketHandler.java": "be58628ccf723fa006530db3d1114195dd6d54dd694e5053facd3757ea2619fa",
+    "src/main/java/com/bleachmod/common/network/SyncHelper.java": "0a25dbb92cd83384e5e2654c95dbc6fef245eb5ef9e322da280e001ac5b95803",
+    "src/main/java/com/bleachmod/common/network/c2s/ExecuteActionC2S.java": "a4ee8089137773ce3f1ed1896a49fb2b31afcf2658985444d5d9c179c309cf7b",
+    "src/main/java/com/bleachmod/common/quincy/QuincyArrowEntity.java": "22f4c631ca249194fcf7912492e074915ca4f6e6e88a1e9ee35bfc7fd421d5c7",
+    "src/main/java/com/bleachmod/common/quincy/QuincyBowItem.java": "f1885f1607f484cb30fcc2b55125d7b86a56d26d945c061d6be1e1b9d22bbdc7",
+    "src/main/java/com/bleachmod/common/quincy/QuincyData.java": "37b4bb3fe6649fc3c5ce2a115e900a95cb33ef71a0d9c2613034eb5e6f79f84e",
+    "src/main/java/com/bleachmod/common/quincy/QuincyFormation.java": "ab16239cee9ed14ebe93adc1f42bb52ad1fe61f334dc3096b366b676b4727fec",
+    "src/main/java/com/bleachmod/common/quincy/QuincyTechniqueService.java": "2109b914b8e1d8b8a61cbbd0c13efb5ccf5090df2b457026ed552422e2ce70d8",
+    "src/main/java/com/bleachmod/common/quincy/QuincyTechniques.java": "36b362a03e6fb980c69934450991d3c2db3f2f7a8d619f9c4b1e919777a9bad8",
+    "src/main/java/com/bleachmod/common/quincy/QuincyVollstandigService.java": "787eeb4f08f408cd0380a44bc063524b2fdd885c4d2bb711f0b0c92c88cca09a",
+    "src/main/java/com/bleachmod/common/technique/MasteryPracticeService.java": "52e93933571a76c665b7fae7f5e15934aa2efa968dee4bfc3e6e93dc2945c6ef",
+    "src/main/java/com/bleachmod/gametest/QuincyVollstandigGameTests.java": "ded05099388983192dc59eccb257dcb31dd44f944bf547411aac6bbf4d9975df",
+    "src/main/java/com/bleachmod/server/commands/DevCommandTree.java": "49dc1e83ffa35dd999f084251821504c9e4905787f92354f9e773bcaeec1fc29",
+    "src/main/java/com/bleachmod/server/events/TickHandler.java": "5fec10f538eaeff7721f411e76802f25deff19183b68a999d60e5b2634dda346",
+    "src/main/resources/assets/bleachmod/lang/en_us.json": "fed6ac4b46b951bdf631a274ae3e37dfffc1855ae8bae6811ce20080ee3fd161",
+    "src/main/resources/assets/bleachmod/lang/pt_br.json": "9599ab4ca90c5775d8410b85055af2979abf90258db2efce009936d465609d2b"
+  },
+  "limitations": [
+    "Prototype geometric wings/stars and initial player pose, not final Blockbench rig.",
+    "Native crystal/beacon SFX; no new voice or music.",
+    "Antithesis acquisition is administratively provisioned only; no executable reversal ability.",
+    "Human approval of advanced kit balance/appearance and dedicated multiplayer remain pending."
+  ],
+  "fixture_correction": "First piercing tests were placed underground (negative world Y) and hit natural terrain; moved test arenas to free sky. Limits were not weakened."
+}

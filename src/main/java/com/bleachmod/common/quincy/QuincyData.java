@@ -14,6 +14,18 @@ import java.util.*;
  */
 public class QuincyData {
     private double mastery;
+    private boolean vollstandigLearned, antithesisBound, vollstandigActive;
+    private double vollstandigMastery;
+    private final double[] advancedMasteries=new double[4];
+    public boolean hasVollstandig(){return vollstandigLearned && antithesisBound;}
+    /** Administrative prototype grant; public acquisition remains a separate quest contract. */
+    public void grantVollstandig(){vollstandigLearned=true;antithesisBound=true;}
+    public boolean isVollstandigActive(){return vollstandigActive;}
+    public void setVollstandigActive(boolean value){vollstandigActive=value;}
+    public double getVollstandigMastery(){return vollstandigMastery;}
+    public double getAdvancedMastery(int slot){QuincyTechniques.slot(slot);return advancedMasteries[slot-1];}
+    public void practiceAdvanced(int slot){if(slot<0||slot>4)return;vollstandigMastery=clamp(vollstandigMastery+.5);if(slot>0)advancedMasteries[slot-1]=clamp(advancedMasteries[slot-1]+1);}
+
     private final double[] techniqueMasteries=new double[4];
     public double getMastery(){return mastery;}
     public double getTechniqueMastery(int slot){QuincyTechniques.slot(slot);return techniqueMasteries[slot-1];}
@@ -22,7 +34,7 @@ public class QuincyData {
         mastery=clamp(mastery+profileGain);
         if(slot>0)techniqueMasteries[slot-1]=clamp(techniqueMasteries[slot-1]+techniqueGain);
     }
-    public void maximizeMastery(){mastery=100;java.util.Arrays.fill(techniqueMasteries,100);}
+    public void maximizeMastery(){if(hasVollstandig()){vollstandigMastery=100;java.util.Arrays.fill(advancedMasteries,100);}mastery=100;java.util.Arrays.fill(techniqueMasteries,100);}
     private static double clamp(double value){return Double.isFinite(value)?Math.max(0,Math.min(100,value)):0;}
 
     // Sprenger state
@@ -137,11 +149,15 @@ public class QuincyData {
     public void resetTransientState() {
         clearSprenger();
         stopLichtRegen();
+        vollstandigActive=false;
     }
 
     public CompoundTag save() {
         CompoundTag tag = new CompoundTag();
         tag.putDouble("profileMastery",mastery);
+        tag.putBoolean("vollstandigLearned",vollstandigLearned);tag.putBoolean("antithesisBound",antithesisBound);
+        tag.putBoolean("vollstandigActive",vollstandigActive);tag.putDouble("vollstandigMastery",vollstandigMastery);
+        var advanced=new CompoundTag();for(var def:QuincyTechniques.ADVANCED)advanced.putDouble(def.id(),advancedMasteries[def.slot()-1]);tag.put("advancedMasteries",advanced);
         var progress=new CompoundTag();
         for(var def:QuincyTechniques.ALL)progress.putDouble(def.id(),techniqueMasteries[def.slot()-1]);
         tag.put("masteries",progress);
@@ -161,6 +177,9 @@ public class QuincyData {
     public void load(CompoundTag tag) {
         resetTransientState();
         mastery=clamp(tag.getDouble("profileMastery"));
+        vollstandigLearned=tag.getBoolean("vollstandigLearned");antithesisBound=tag.getBoolean("antithesisBound");
+        vollstandigActive=tag.getBoolean("vollstandigActive");vollstandigMastery=clamp(tag.getDouble("vollstandigMastery"));
+        var advanced=tag.getCompound("advancedMasteries");for(var def:QuincyTechniques.ADVANCED)advancedMasteries[def.slot()-1]=clamp(advanced.getDouble(def.id()));
         var progress=tag.getCompound("masteries");
         for(var def:QuincyTechniques.ALL)techniqueMasteries[def.slot()-1]=clamp(progress.getDouble(def.id()));
         if (tag.contains("sprengerActive") && tag.getBoolean("sprengerActive")) {

@@ -85,7 +85,7 @@ public final class MasteryPracticeService {
             practice.targets.values().removeIf(until -> until <= now);
             if (practice.targets.size() >= 128) return;
             practice.next = now + GLOBAL_INTERVAL; practice.targets.put(target.getUUID(), now + TARGET_INTERVAL);
-            if(quincy){data.getQuincy().addPractice(slot,FORM_GAIN,TECHNIQUE_GAIN);SyncHelper.full(owner);return;}
+            if(quincy){if(com.bleachmod.common.quincy.QuincyVollstandigService.active(owner))data.getQuincy().practiceAdvanced(slot);else data.getQuincy().addPractice(slot,FORM_GAIN,TECHNIQUE_GAIN);SyncHelper.full(owner);return;}
             var before = MasteryFeedback.snapshot(character);
             character.addMastery("zanpakuto", character.getActiveForm(), FORM_GAIN, 100);
             if (slot > 0) character.addTechniqueMastery(character.getActiveForm(), slot, TECHNIQUE_GAIN);
