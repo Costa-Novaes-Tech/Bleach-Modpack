@@ -241,4 +241,100 @@ public final class QuincyGameTests {
         h.assertTrue(!d.getQuincy().isSprengerActive(), "Sprenger cleared by clearQuincyTransientState");
         h.succeed();
     }
+
+    @GameTest(template = "empty")
+    public static void quincyArrow64BlockFlightWithoutGravityAndZeroVerticalDrop(GameTestHelper h) {
+        var p = quincyPlayer(h);
+        var arrow = new com.bleachmod.common.quincy.QuincyArrowEntity(h.getLevel(), p);
+        arrow.configureCommon(1.0F);
+
+        h.assertTrue(arrow.isNoGravity(), "Quincy common arrow must have no gravity");
+        h.assertTrue(arrow.getMaxRange() == 64.0D, "Quincy common arrow max range is 64 blocks");
+
+        // Shoot horizontally along X
+        arrow.setPos(h.absoluteVec(new Vec3(2.5, 5.0, 2.5)));
+        double initialY = arrow.getY();
+        arrow.shoot(1.0, 0.0, 0.0, 3.0F, 0.0F);
+
+        // Step arrow motion and verify zero vertical drop across ticks
+        for (int i = 0; i < 5; i++) {
+            arrow.tick();
+            h.assertTrue(Math.abs(arrow.getY() - initialY) < 0.001, "Vertical drop must be 0.0 blocks (flight without gravity)");
+            h.assertTrue(Math.abs(arrow.getDeltaMovement().y) < 0.001, "Vertical delta must remain 0.0");
+        }
+
+        // Advance arrow past 64 blocks and tick: must discard
+        arrow.setPos(arrow.position().add(70.0, 0.0, 0.0));
+        arrow.tick();
+        h.assertTrue(arrow.isRemoved(), "Arrow past 64 blocks must be discarded");
+        h.succeed();
+    }
+
+    @GameTest(template = "empty")
+    public static void quincyArrowMaxLifetimeCleanup(GameTestHelper h) {
+        var p = quincyPlayer(h);
+        var arrow = new com.bleachmod.common.quincy.QuincyArrowEntity(h.getLevel(), p);
+        arrow.configureCommon(1.0F);
+        arrow.setPos(h.absoluteVec(new Vec3(2.5, 5.0, 2.5)));
+
+        // Tick past COMMON_MAX_LIFE_TICKS (60)
+        for (int i = 0; i < 62; i++) {
+            arrow.tick();
+        }
+        h.assertTrue(arrow.isRemoved(), "Arrow must be discarded upon reaching max lifetime");
+        h.succeed();
+    }
+
+    @GameTest(template = "empty")
+    public static void quincyBowEarlyReleaseConsumesNoReiatsu(GameTestHelper h) {
+        var p = quincyPlayer(h);
+        var d = data(p);
+        var bowStack = new ItemStack(ModItems.QUINCY_BOW.get());
+        p.setItemInHand(InteractionHand.MAIN_HAND, bowStack);
+
+        // Release at 3 ticks (MIN_CHARGE_TICKS is 5)
+        QuincyBowItem bow = (QuincyBowItem) bowStack.getItem();
+        bow.releaseUsing(bowStack, h.getLevel(), p, 72000 - 3);
+
+        h.assertTrue(d.getResources().getCurrentReiatsu() == 100.0F, "Early release (< 5 ticks) must NOT consume Reiatsu");
+        h.succeed();
+    }
+
+    @GameTest(template = "empty")
+    public static void quincyLichtRegenRetains40BlockRangeAndGravityArc(GameTestHelper h) {
+        var p = quincyPlayer(h);
+        var arrow = new com.bleachmod.common.quincy.QuincyArrowEntity(h.getLevel(), p);
+        arrow.configureLichtRegen();
+
+        h.assertTrue(!arrow.isNoGravity(), "Licht Regen arrow retains gravity for descending rain arc");
+        h.assertTrue(arrow.getMaxRange() == 40.0D, "Licht Regen arrow max range is 40 blocks");
+        h.assertTrue(arrow.getSpiritualDamage() == 2.0F, "Licht Regen arrow damage is 2.0 HP");
+        h.assertTrue(arrow.isLichtRegen(), "isLichtRegen flag is true");
+        h.succeed();
+    }
+
+    @GameTest(template = "empty")
+    public static void quincyArrowWallCollisionAndTargetValidation(GameTestHelper h) {
+        var p = quincyPlayer(h);
+        var arrow = new com.bleachmod.common.quincy.QuincyArrowEntity(h.getLevel(), p);
+        arrow.configureCommon(1.0F);
+
+        // Target validation: cannot target owner
+        h.assertTrue(!com.bleachmod.common.technique.TechniqueTargets.allowed(p, p), "TechniqueTargets must reject owner");
+
+        // Target validation: hostile mob is allowed
+        var zombie = net.minecraft.world.entity.EntityType.ZOMBIE.create(h.getLevel());
+        h.assertTrue(com.bleachmod.common.technique.TechniqueTargets.allowed(p, zombie), "TechniqueTargets allows hostile mob");
+
+        // Continuous collision against solid wall: onHitBlock discards arrow immediately
+        var hit = new net.minecraft.world.phys.BlockHitResult(
+                new Vec3(10, 5, 2),
+                net.minecraft.core.Direction.WEST,
+                new BlockPos(10, 5, 2),
+                false
+        );
+        arrow.onHitBlock(hit);
+        h.assertTrue(arrow.isRemoved(), "Arrow must be discarded immediately upon solid block collision");
+        h.succeed();
+    }
 }

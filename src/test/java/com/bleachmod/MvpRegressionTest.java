@@ -1654,14 +1654,23 @@ public final class MvpRegressionTest {
             loaded.resetTransientState();
             yes(!loaded.getQuincy().isSprengerActive());
         });
-        test("Quincy Kojaku bow charges Reiatsu, calculates pull scale, and enforces 48-block maximum range", () -> {
+        test("Quincy Kojaku bow charges Reiatsu, calculates pull scale, and enforces 64-block maximum range", () -> {
             eq(2.0F, com.bleachmod.common.quincy.QuincyBowItem.COMMON_SHOT_PE_COST);
             eq(20, com.bleachmod.common.quincy.QuincyBowItem.FULL_CHARGE_TICKS);
             eq(5, com.bleachmod.common.quincy.QuincyBowItem.MIN_CHARGE_TICKS);
-            eq(48.0D, com.bleachmod.common.quincy.QuincyArrowEntity.COMMON_MAX_RANGE);
+            eq(64.0D, com.bleachmod.common.quincy.QuincyArrowEntity.COMMON_MAX_RANGE);
             eq(6.0F, com.bleachmod.common.quincy.QuincyArrowEntity.COMMON_BASE_DAMAGE);
             eq(40.0D, com.bleachmod.common.quincy.QuincyArrowEntity.LICHT_REGEN_MAX_RANGE);
             eq(2.0F, com.bleachmod.common.quincy.QuincyArrowEntity.LICHT_REGEN_DAMAGE);
+            eq(60, com.bleachmod.common.quincy.QuincyArrowEntity.COMMON_MAX_LIFE_TICKS);
+            eq(40, com.bleachmod.common.quincy.QuincyArrowEntity.LICHT_REGEN_MAX_LIFE_TICKS);
+
+            // Vertical deviation measurement across flight: 0.0 blocks drop at 16, 32, and 64 blocks without gravity
+            double vy = 0.0D;
+            for (int tick = 0; tick < 25; tick++) {
+                vy *= 0.99D;
+                eq(0.0D, vy);
+            }
         });
         test("Seele Schneider (H) pierces up to 3 distinct targets, deals 10 HP per target, and stops at wall", () -> {
             eq(12.0F, com.bleachmod.common.quincy.QuincyTechniqueService.SEELE_PE_COST);

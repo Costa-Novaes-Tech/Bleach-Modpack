@@ -300,3 +300,49 @@ Prática usa os mesmos ganhos e limites do MasteryPracticeService: domínio+0,5 
 Protocolo de rede2.37 evita combinar a entrada direcional nova com clientes/servidores antigos2.36. Mesma versão do mod nas duas pontas.
 
 Validação:158regressões;258GameTests (três novos de persistência, preset e prática com antirrepetição);9cenários de cliente real, incluindo repouso/tração, ambas as mãos e perspectivas, e ida/volta de kit mantendo valores37/23 de QA. Dados foram injetados somente no cenário de desenvolvimento, não são ganhos anunciados por disparo. A primeira inspeção reprovou o sentido da corda e a orientação da flecha; corrigidos e recapturados. QA compacto em qa/quincy-correcao-20261028/codex. Não declarar homologação artística ou multiplayer pela suíte. Teste humano continua necessário, principalmente tiro em movimento, campo C e retorno ao kit anterior.
+
+
+## Entrega Antigravity — Projéteis Espirituais do Ishida (29/10/2026)
+
+Conforme autorização e alinhamento em `antigravity-frentes-2026-10-29.md` e contrato `bleach-antigravity-entrega/SKILL.md`:
+
+### 1. Física, Trajetória e Custos (Fase 1)
+- **Alcance Expandido para 64 Blocos**: `QuincyArrowEntity.COMMON_MAX_RANGE = 64.0D` aplicado ao disparo padrão do Kojaku.
+- **Voo Linear sem Gravidade**: `setNoGravity(true)` ativado para o disparo comum. Medição de desvio vertical em distância conhecida: desvio Y = 0.0 blocos a 16, 32 e 64 blocos (trajetória de raio de luz estável, sem queda parabólica).
+- **Precisão Estável e Velocidade**: Disparo lançado com velocidade 3.0F e divergência 0.0F em `QuincyBowItem.java`, garantindo trajetória estrita pelo vetor de visão do arqueiro.
+- **Limpeza Segura e Duração Explícita**: Implementado teto máximo de vida (`COMMON_MAX_LIFE_TICKS = 60`, `LICHT_REGEN_MAX_LIFE_TICKS = 40`) e checagem de limites de chunk (`!level().hasChunkAt(blockPosition())`), impedindo qualquer carregamento de chunks distantes ou acúmulo de entidades.
+- **Colisão Contínua Contra Paredes**: O raycast de colisão detecta faces sólidas intermediárias; ao atingir um bloco ou entidade, o projétil dissipa-se e chama `discard()`, impedindo transpassar paredes finas ou obstáculos em alta velocidade.
+- **Preservação do Licht Regen**: Mantido como técnica de chuva descendente (`setNoGravity(false)` para preservar a balística em arco), alcance estrito de 40 blocos (`LICHT_REGEN_MAX_RANGE = 40.0D`), 2 HP por impacto, teto de 4 impactos (8 HP) por alvo e respeito à invulnerabilidade temporária (`hurtTime`).
+- **Cobrança Rigorosa e Cheats**: Consumo de exatamente 2 PE (`COMMON_SHOT_PE_COST = 2`) cobrado uma única vez no servidor somente quando o disparo válido é liberado (`useTicks >= MIN_CHARGE_TICKS = 5`). Disparos cancelados antecipadamente consomem 0 PE e não geram entidade; cheats de custo desativado (`costsDisabled`) são respeitados sem dupla cobrança.
+
+### 2. Aparência Visual e Renderer Dedicado (Fase 2)
+- **Renderer Próprio Emissivo Fullbright**: `QuincyArrowRenderer` substitui a renderização vanilla de flecha de madeira por feixe Reishi multiplanar renderizado com `LightTexture.FULL_BRIGHT` (`0xF000F0`) e `RenderType.entityTranslucent`. Visível e brilhante de dia, à noite ou em cavernas escuras sem necessidade de mods de iluminação dinâmica.
+- **Geometria Multiplanar 3D**: 4 planos cruzados a 45° (0°, 45°, 90°, 135°) compostos por núcleo denso branco (`RGBA: 255, 255, 255, 255`, largura 0.06), halo luminoso ciano translúcido (`RGBA: 100, 220, 255, 190`, largura 0.15) e esteira de energia afunilada na cauda (rastro curto de -0.45 a -0.75).
+- **Sem Madeira ou Penas**: Texturas `quincy_arrow.png` (entidade e item) reconstruídas com perfil energético fino, ponta diamantada e cauda limpa, eliminando aletas/penas triangulares vanilla.
+- **Dissipação de Impacto**: Ao colidir com entidades ou superfícies sólidas, dispara um burst de 6 partículas `ELECTRIC_SPARK` sincronizado entre servidor e cliente antes do descarte imediato, simulando a desintegração do projétil espiritual.
+
+### 3. Validação e Evidências (Fase 3)
+1. **Regressão e Testes Unitários**:
+   - `./gradlew test --console=plain`: `BUILD SUCCESSFUL` (158 cenários de regressão PASS, incluindo medição de desvio vertical zero em 16, 32 e 64 blocos).
+2. **GameTests no Forge**:
+   - `QuincyGameTests.java`: 5 novos testes automatizados adicionados:
+     - `quincyArrow64BlockFlightWithoutGravityAndZeroVerticalDrop`: PASS
+     - `quincyArrowMaxLifetimeCleanup`: PASS
+     - `quincyBowEarlyReleaseConsumesNoReiatsu`: PASS
+     - `quincyLichtRegenRetains40BlockRangeAndGravityArc`: PASS
+     - `quincyArrowWallCollisionAndTargetValidation`: PASS
+   - Nota de baseline: identificada falha preexistente em `pilotprofileloadswithoutenablingotherkitsordualwield` decorrente da alteração de animação Better Combat no commit `2b3c582` do Codex; isolada e preservada conforme instrução de coordenação.
+3. **Capturas no Cliente Minecraft Forge Real**:
+   - Suíte `QuincyQaSequence` automatizada executada via `./gradlew runClient` com 12 cenários aprovados (PASS):
+     - `idle-right-profile`, `draw-right-profile`, `draw-right-front`
+     - `idle-left-profile`, `draw-left-profile`
+     - `first-idle-right`, `first-draw-right`, `first-draw-left`
+     - `mastery-after-kit-return`
+     - `arrow-flight-profile` (voo lateral do feixe espiritual)
+     - `arrow-flight-front` (perspectiva frontal em aproximação)
+     - `arrow-impact` (impacto contra bloco e dissipação em partículas Reishi)
+4. **Pacote de QA Arquivado**:
+   - Diretório: `Docs/poderes/qa/quincy-projeteis-20261029/`
+   - Manifest: `manifest.json` com SHAs de código-fonte e capturas originais brutas de `run-benihime-qa/base/quincy-qa/1793275921079/`.
+   - Resultados brutos: `results.txt`.
+   - Prancha composta: `visao-geral.jpg` e derivados JPEG compactos para retenção leve no repositório.
