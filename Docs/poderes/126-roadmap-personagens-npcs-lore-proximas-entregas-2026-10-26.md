@@ -10,7 +10,7 @@ Fontes locais consultadas: Mapa modular e handoff GDD; M03 Storyline macro; M08 
 
 Há oito registros de NPCs de quests em ModEntities: Sado, Ichigo, Orihime, Uryū, Rukia, Byakuya, Urahara e Ulquiorra. Identidades registradas não provam skins/modelos adequados, diálogo narrativo, combate, rotina ou disponibilidade por era. O plano de03/10 confirma a fundação e mantém a proposta original abaixo como histórico. Arquitetura03 contém extensa referência Dragon Mine Z: não importar suas regras, exemplos, dailies, aliases, TPS ou comportamento de party como implementação atual Bleach sem conferir código.
 
-M08–M10 possuem regras conceituais e catálogos ainda em especificação. Próximo módulo GDD continua M11 com retorno M05; M12 quests, M13 narrativa, M14 interface, M15 multiplayer e M16 dados precisam de especificação no alcance necessário. Não trocar essa sequência por anúncio de campanha completa.
+Atualização de 28/10: fontes autoritativas consultadas diretamente em origin/main, commit 9906486, especialmente 00-handoff-atual.md, 00-fechamento-roteiro-substituto-soul-society-2026-10-28.md e M13. A campanha principal passou a ser a prioridade documental; aprofundamento M11, formação racial e conteúdo secundário estão adiados. A seleção/estrutura aprovada contém 10 missões Substituto e 18 Soul Society, mas M13 continua em especificação: roteiro aprovado não significa runtime implementado. O próximo arco a detalhar no GDD é Arrancar. A antiga indicação de começar por M11 foi superada.
 
 ## 2. Contratos que o roadmap preserva
 
@@ -31,15 +31,13 @@ Antes de novo NPC, testar um registro existente de ponta a ponta: spawn/persist�
 
 Saída: lista implementado/testado/ausente e uma sessão reproduzível. Não usar contagem de classes como aceite.
 
-### N1 — uma pequena sequência narrativa completa
+### N1 — abertura aprovada: MAIN-SUB-01, “Um Hollow na área”
 
-Proposta de piloto, ainda sujeita à escolha de origem/era com a equipe: contato espiritual no Mundo Humano, orientação contextual por fonte apropriada, investigação de uma ocorrência, encontro com Hollow já existente e retorno ao contato para reconhecer consequência e indicar próximo destino. Pode usar Rukia ou Urahara se a ficha da era justificar; escolher um responsável principal, não colocar todo o elenco na abertura.
+Substitui a proposta editorial PILOTO-01/02/03. Seguir M13/10.3 e 10.32: Rukia próxima da área válida, introdução breve e botão deliberado de iniciar. Um Hollow específico vinculado à tentativa; matar um Hollow aleatório não substitui o objetivo. Rukia orienta, sem combater ou entregar vitória. Conclusão automática após vitória válida, sem retorno obrigatório para receber prêmio; disponibilizar MAIN-SUB-02 sem gerar automaticamente outro encontro. Nenhuma recompensa adicional de SP, item, maestria ou Bankai foi autorizada por essa abertura.
 
-A origem precisa ser compatível com percepção e acesso: um piloto Shinigami/alma não vira automaticamente prólogo Quincy, Hollow ou Fullbringer. Começar por uma origem valida a infraestrutura; o horizonte continua multirracial.
+Antes de implementar: fechar acesso racial/contexto, área e ocupação, identidade/perfil do inimigo, contribuição em grupo, afastamento/abandono, morte/logout e retomada. Nome e visual exatos do primeiro Hollow não estão confirmados: entidade existente pode servir de placeholder explicitamente identificado, sem inventar fidelidade canônica. Wipe encerra tentativa; repetição autorizada cria encontro novo sem duplicação por cliques, reset indevido de terreno ou cura de consequências persistentes.
 
-Missões propostas, IDs apenas editoriais: PILOTO-01 conversar/entender situação; PILOTO-02 investigar local e reconhecer indícios; PILOTO-03 resolver encontro e retornar. Sem número de inimigos, recompensa, preço ou unlock inventado. Usar a capacidade existente; objetivo novo só quando indispensável. Não transformar toda missão em matar uma quantidade de mobs.
-
-Cada ficha define: era/raça, ator, motivação, objetivo, local, requisitos, início, progresso, falha, retomada, efeito persistente, recompensa solicitada e feedback. Falta de item/vida, logout, morte e afastamento não podem tornar a jornada irrecuperável.
+Conferência dirigida do runtime em 28/10: QuestService já separa conclusão e claim de recompensas; QuestEvents.onEntityKill parte do killer. Isso não comprova vínculo único de encontro nem participação de party. Auditar objetivos, persistência e autorização antes de ampliar o motor; não substituir a infraestrutura existente por outro framework.
 
 ### N2 — NPCs com presença e função
 
@@ -87,8 +85,26 @@ Não atribuir simultaneamente a ambas os mesmos registries, rede ou modelo. Só 
 
 Missão completa em save novo e recarregado; UI e diálogo indicam próximo passo; NPC continua disponível; objetivo/claim validados no servidor; recompensa não duplica; retomada após morte/logout; terreno preservado; ausência de bloqueio por NPC desaparecido. Legibilidade de modelos/animações observada no Forge real. Multiplayer, dedicado e perfis gráficos têm resultados separados, nunca presumidos pelo teste solo.
 
-## 6. Próxima decisão útil
+## 6. Próxima decisão útil — revisão de 28/10
 
-Recomendação: definir um piloto de três missões com um contato principal e um encontro Hollow, reaproveitando a base. Antes de codar: escolher origem jogável e era/local, validar qual NPC atende nessa situação e qual consequência a missão deixa. Economia/recompensas finais dependem M11; Mentor/Proficiências não são reabertos por este piloto.
+Recomendação: preparar uma entrega vertical de MAIN-SUB-01 após o aceite das correções de poderes. Não inventar outra sequência introdutória. Primeiro produzir a ficha executável e conferir quais contratos o runtime já atende; depois implementar apenas as lacunas da missão.
 
-Planejamento pode avançar enquanto124/125 são implementados. A implementação futura de NPCs/lore continua após a lista obrigatória vigente, salvo priorização explícita do usuário. Nenhum framework, download ou nova dependência foi necessário nesta revisão.
+Divisão proposta, ainda sem despacho ou autorização de implementação nesta revisão:
+
+- Codex: reconciliação controlada da main, contrato de tentativa/participação/persistência e integração. Preservar comandos, troca de kits e progressão Quincy atuais.
+- Antigravity A: Rukia de atendimento existente, postura, olhar, fala e gesto de indicação. Sem combate aliado, mentor universal ou novo sistema de diálogo. Modelo editável e capturas Forge reais.
+- Antigravity B: auditoria do encontro com Hollow existente da equipe; depois vínculo tentativa/inimigo, vitória, falha, repetição e limpeza conforme ficha aprovada. Sem duplicar modelos Hollows ou impor balanceamento definitivo.
+
+Cada frente deve partir de origin/Feature-Poderes-bankais atualizada, em checkout separado já existente, com propriedade de arquivos explícita. Rede, registries e progresso compartilhados ficam com uma única frente. Entrega por fases, commits focados e auditoria antes de merge; nenhuma mensagem foi enviada a outras conversas nesta revisão.
+
+Novidades upstream: 8df8a64 adiciona interface de seleção racial, mas ConfirmRaceScreen libera apenas Shinigami; não comprova abertura das quatro raças. c8d2229 corrige cotovelo do Hollow tanque. Nenhum desses commits foi integrado nesta revisão. Integração futura exige atenção a build.gradle, traduções e criação/troca de perfil.
+
+M11 registra Cruz Quincy física em slot dedicado e arco como manifestação manual de Reishi com duas mãos. Nosso kit de testes não equivale à integração final desse equipamento/economia; registrar a diferença sem reabrir M11 agora. Asauchi por percurso de formação/Ōetsu e preservação da Zanpakutō pessoal na morte também são contratos futuros, não implementações presumidas.
+
+Preservar: Hyōrinmaru encerrada; Zaraki intacta; Aizen como kit adiado; Gin fora da fila de poderes. Byakuya encerra Soul Society em combate contínuo Shikai/Bankai/Senkei; Aizen permanece contexto desse encerramento. Mentor/Proficiências continuam aguardando equipe. Eficiência e retenção de QA seguem tarefa transversal, sem nova exclusão de evidências aqui.
+
+Sem gameplay, merge, instalação, download ou nova dependência nesta revisão. Evidência deste registro: git show de origin/main em 9906486 e leitura dirigida de QuestService/QuestEvents locais; não é validação funcional de campanha.
+
+### Preparação anterior às novas frentes — 29/10
+
+A pedido do usuário, manter as propostas acima e priorizar [capacitação do Antigravity](plano-capacitacao-antigravity.md): contrato curto do executor, auditoria pequena, feedback e teste de transferência antes de features extensas. Não iniciar NPCs/campanha automaticamente. Nenhum exercício foi executado nem capacidade adicional comprovada nesta preparação.
