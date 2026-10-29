@@ -7,6 +7,6 @@ first-idle-right PASS using=false mastery=37.0 failure=null
 first-draw-right PASS using=true mastery=37.0 failure=null
 first-draw-left PASS using=true mastery=37.0 failure=null
 mastery-after-kit-return PASS using=false mastery=37.0 failure=null
-arrow-flight-profile PASS using=false mastery=37.0 failure=null
-arrow-flight-front PASS using=false mastery=37.0 failure=null
-arrow-impact PASS using=false mastery=37.0 failure=null
+arrow-flight-profile PASS using=false mastery=37.0 arrowId=13 pos=(12.50,-58.48,15.41) failure=null
+arrow-flight-front PASS using=false mastery=37.0 arrowId=15 pos=(12.50,-58.48,14.96) failure=null
+arrow-impact PASS using=false mastery=37.0 arrowId=17 pos=(12.50,-58.48,24.06) failure=null

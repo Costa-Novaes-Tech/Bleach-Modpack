@@ -53,6 +53,12 @@ public class QuincyArrowEntity extends AbstractArrow {
         this.spawnPos = shooter.position();
     }
 
+    @Override
+    public void shoot(double x, double y, double z, float velocity, float inaccuracy) {
+        super.shoot(x, y, z, velocity, inaccuracy);
+        this.spawnPos = position();
+    }
+
     public void configureCommon(float power) {
         this.isLichtRegen = false;
         this.maxRange = COMMON_MAX_RANGE;
@@ -109,9 +115,9 @@ public class QuincyArrowEntity extends AbstractArrow {
         }
     }
 
-    private void dissipateOnImpact() {
+    private void dissipateOnImpact(Vec3 hitPos) {
+        Vec3 pos = hitPos != null ? hitPos : position();
         if (level().isClientSide) {
-            Vec3 pos = position();
             for (int i = 0; i < 6; i++) {
                 double vx = (random.nextDouble() - 0.5) * 0.2;
                 double vy = (random.nextDouble() - 0.5) * 0.2;
@@ -119,13 +125,13 @@ public class QuincyArrowEntity extends AbstractArrow {
                 level().addParticle(ParticleTypes.ELECTRIC_SPARK, pos.x, pos.y, pos.z, vx, vy, vz);
             }
         } else if (level() instanceof ServerLevel serverLevel) {
-            serverLevel.sendParticles(ParticleTypes.ELECTRIC_SPARK, getX(), getY(), getZ(), 6, 0.1, 0.1, 0.1, 0.05);
+            serverLevel.sendParticles(ParticleTypes.ELECTRIC_SPARK, pos.x, pos.y, pos.z, 6, 0.1, 0.1, 0.1, 0.05);
         }
     }
 
     @Override
     public void onHitEntity(EntityHitResult result) {
-        dissipateOnImpact();
+        dissipateOnImpact(result.getLocation());
         if (level().isClientSide) {
             return;
         }
@@ -157,7 +163,7 @@ public class QuincyArrowEntity extends AbstractArrow {
 
     @Override
     public void onHitBlock(BlockHitResult result) {
-        dissipateOnImpact();
+        dissipateOnImpact(result.getLocation());
         super.onHitBlock(result);
         if (!level().isClientSide) {
             discard();

@@ -1,59 +1,74 @@
 {
   "date": "2026-10-29",
   "branch": "codex/quincy-projeteis-reishi",
-  "base_commit": "2b3c58284501a4db4cb30a8ea7d686f52864cb51",
+  "base_commit": "da1d2538cb3c0b1fba5b5ad86a6042ef3df792aa",
   "sourceHashes": {
-    "src/main/java/com/bleachmod/common/quincy/QuincyArrowEntity.java": "15b64aff5e5a5ef8bf67814e0b026a3e049439f7a3d91eeb411af41f117e33d2",
+    "src/main/java/com/bleachmod/common/quincy/QuincyArrowEntity.java": "e570b23de2c5b4bd7ebf61ee271b77bc8dc7779b29e04f3f8f7428191c450fcb",
     "src/main/java/com/bleachmod/client/quincy/QuincyArrowRenderer.java": "084ced7059e87b12f0a12efb6ff98100dfde6ccad27ca21178caee3a6acf0588",
     "src/main/java/com/bleachmod/common/quincy/QuincyBowItem.java": "14e5ffd97cf90fb0e9e6190db5a84df83875a046a1a19105f95c978818edd76d",
-    "src/main/java/com/bleachmod/client/cinematic/QuincyQaSequence.java": "f8f43394b71f91c2de6a01daa69e4e196e3f9fd799ec0144e72d56abc6ffc131",
-    "src/main/java/com/bleachmod/gametest/QuincyGameTests.java": "152f262e15a235d38882a7518a82195b24937bd0b839653a4f940da4f5f7babd",
+    "src/main/java/com/bleachmod/client/cinematic/QuincyQaSequence.java": "e27439a9f009c26e67328a31cfbd33f4a9d81e6c2eb344d8bd6bd89f3e1731ba",
+    "src/main/java/com/bleachmod/gametest/QuincyGameTests.java": "0386079a670e389d3b85c0012e561c1258fb441ea1a56f5786335eea3d27a5cf",
     "src/test/java/com/bleachmod/MvpRegressionTest.java": "852187da32f5009560b4413c4e611b575782497059043ee494bf496d96ad6468",
     "src/main/resources/assets/bleachmod/textures/entity/projectiles/quincy_arrow.png": "253234c4456f603b6614e76459d5b91537f05d95a41acfef301fc6f8ccf67f43",
     "src/main/resources/assets/bleachmod/textures/item/quincy_arrow.png": "253234c4456f603b6614e76459d5b91537f05d95a41acfef301fc6f8ccf67f43"
   },
-  "rawSource": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\run-benihime-qa\\base\\quincy-qa\\1793275921079\\screenshots",
+  "rawSource": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\run-benihime-qa\\base\\quincy-qa\\1793278009463\\screenshots",
   "captureType": "Minecraft framebuffer; JPEGs are scaled/compressed derivatives for compact repo retention",
   "captures": [
     {
       "name": "draw-right-profile",
-      "raw_path": "run-benihime-qa\\\\base\\\\quincy-qa\\\\1793275921079\\\\screenshots\\draw-right-profile.png",
-      "sha256": "3bc73d95d969e6e57559913efc2233c96c3215753cce5c8fa5f49a31e5a5b27c"
+      "raw_path": "run-benihime-qa\\base\\quincy-qa\\1793278009463\\screenshots\\draw-right-profile.png",
+      "sha256": "a7472458733d6ec4c66d10a4c32c5ea27d42bb7d2dd027fd5b5e39eb1b31805d"
     },
     {
       "name": "first-draw-right",
-      "raw_path": "run-benihime-qa\\\\base\\\\quincy-qa\\\\1793275921079\\\\screenshots\\first-draw-right.png",
+      "raw_path": "run-benihime-qa\\base\\quincy-qa\\1793278009463\\screenshots\\first-draw-right.png",
       "sha256": "d61932b3158f02db38ad72bbc28231fb6a9c5d100d4370c1759b497cf729cef7"
     },
     {
       "name": "arrow-flight-profile",
-      "raw_path": "run-benihime-qa\\\\base\\\\quincy-qa\\\\1793275921079\\\\screenshots\\arrow-flight-profile.png",
-      "sha256": "19e7c58a328a24fb9dcd10d6fc600b67dc67741d667405a6583950402e463ac7"
+      "raw_path": "run-benihime-qa\\base\\quincy-qa\\1793278009463\\screenshots\\arrow-flight-profile.png",
+      "sha256": "1a920daadce1483dc868b873ff77af8b4fb7a60e8cd99fa49b23cdd3edac6329"
     },
     {
       "name": "arrow-flight-front",
-      "raw_path": "run-benihime-qa\\\\base\\\\quincy-qa\\\\1793275921079\\\\screenshots\\arrow-flight-front.png",
-      "sha256": "976a4b10c2e1090ad4579de574a778f7834ffb466832b67e54673ad7032884d7"
+      "raw_path": "run-benihime-qa\\base\\quincy-qa\\1793278009463\\screenshots\\arrow-flight-front.png",
+      "sha256": "89d8c6016102f192abb766631b00406aa470d1fd6f1b9d0e58f30d42442c6228"
     },
     {
       "name": "arrow-impact",
-      "raw_path": "run-benihime-qa\\\\base\\\\quincy-qa\\\\1793275921079\\\\screenshots\\arrow-impact.png",
-      "sha256": "2462ea8d9d5f459634c69b0acdd58aa21b716310ca763573ed01cb4e944868ea"
+      "raw_path": "run-benihime-qa\\base\\quincy-qa\\1793278009463\\screenshots\\arrow-impact.png",
+      "sha256": "6c8eb6cae3b49334446a73193bc701ffd678dee1bc571f9c78d03a74c2f058e7"
     },
     {
       "name": "mastery-after-kit-return",
-      "raw_path": "run-benihime-qa\\\\base\\\\quincy-qa\\\\1793275921079\\\\screenshots\\mastery-after-kit-return.png",
-      "sha256": "e5ad6342802575d7e3877513b4ad3038a86b210f8fcd94baaf177f86a111a4be"
+      "raw_path": "run-benihime-qa\\base\\quincy-qa\\1793278009463\\screenshots\\mastery-after-kit-return.png",
+      "sha256": "2b38aecc5a4d3b60cd6449035ae5367fe1ab0a839457dfd3d120a9632684e2e4"
     }
   ],
   "measurements": {
     "common_max_range_blocks": 64.0,
+    "flight_speed_blocks_per_tick": 3.0,
+    "flight_air_drag": 0.99,
+    "measured_distance_tick_6_blocks": 17.556,
+    "measured_distance_tick_12_blocks": 34.085,
+    "measured_distance_tick_23_blocks": 61.916,
+    "measured_distance_tick_24_discard_blocks": 64.297,
     "vertical_drop_at_16b": 0.0,
     "vertical_drop_at_32b": 0.0,
     "vertical_drop_at_64b": 0.0,
     "common_max_lifetime_ticks": 60,
+    "lifetime_discard_tick": 60,
+    "lifetime_discard_distance_traveled_blocks": 0.0,
+    "wall_collision_raycast_wall_x": 6.0,
+    "target_behind_wall_damage_hp": 0.0,
     "licht_regen_range_blocks": 40.0,
     "common_shot_cost_pe": 2,
-    "quincy_qa_cases_passed": 12
+    "quincy_qa_cases_passed": 12,
+    "tracked_client_arrow_profile_id": 13,
+    "tracked_client_arrow_front_id": 15,
+    "tracked_client_arrow_impact_id": 17,
+    "unit_regression_tests_passed": 158,
+    "gametests_forge_server_passed": 263
   }
 }

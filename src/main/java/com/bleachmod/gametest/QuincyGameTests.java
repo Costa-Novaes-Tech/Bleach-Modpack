@@ -251,22 +251,47 @@ public final class QuincyGameTests {
         h.assertTrue(arrow.isNoGravity(), "Quincy common arrow must have no gravity");
         h.assertTrue(arrow.getMaxRange() == 64.0D, "Quincy common arrow max range is 64 blocks");
 
-        // Shoot horizontally along X
-        arrow.setPos(h.absoluteVec(new Vec3(2.5, 5.0, 2.5)));
+        // Set initial position and ensure flight path chunks are loaded in GameTestServer
+        Vec3 startPos = h.absoluteVec(new Vec3(2.5, 5.0, 2.5));
+        arrow.setPos(startPos);
+        BlockPos startBlock = BlockPos.containing(startPos);
+        for (int chunkOffset = 0; chunkOffset <= 4; chunkOffset++) {
+            h.getLevel().getChunk(startBlock.offset(chunkOffset * 16, 0, 0));
+        }
+
         double initialY = arrow.getY();
         arrow.shoot(1.0, 0.0, 0.0, 3.0F, 0.0F);
 
-        // Step arrow motion and verify zero vertical drop across ticks
-        for (int i = 0; i < 5; i++) {
+        // Natural tick-by-tick flight without artificial setPos teleportation
+        // At 3.0 blocks/tick with 0.99 air resistance:
+        // Tick 6: distance ~17.556m (milestone near 16m)
+        // Tick 12: distance ~34.085m (milestone near 32m)
+        // Tick 23: distance ~61.916m (milestone approaching 64m)
+        // Tick 24: distance ~64.297m (> 64.0m -> discarded)
+        for (int tick = 1; tick <= 23; tick++) {
             arrow.tick();
-            h.assertTrue(Math.abs(arrow.getY() - initialY) < 0.001, "Vertical drop must be 0.0 blocks (flight without gravity)");
-            h.assertTrue(Math.abs(arrow.getDeltaMovement().y) < 0.001, "Vertical delta must remain 0.0");
+            double currentY = arrow.getY();
+            double yDrop = Math.abs(currentY - initialY);
+            double dist = arrow.position().distanceTo(startPos);
+
+            h.assertTrue(yDrop < 0.0001D, "Vertical drop at tick " + tick + " must be 0.000 (drop: " + yDrop + ")");
+            h.assertTrue(Math.abs(arrow.getDeltaMovement().y) < 0.0001D, "Vertical delta motion must remain 0.000");
+            h.assertTrue(!arrow.isRemoved(), "Arrow must survive during flight before reaching 64m (tick " + tick + ", dist " + dist + ")");
+
+            if (tick == 6) {
+                h.assertTrue(dist >= 16.0D && dist < 20.0D, "Milestone at tick 6 must pass 16m (measured: " + dist + "m)");
+            } else if (tick == 12) {
+                h.assertTrue(dist >= 32.0D && dist < 36.0D, "Milestone at tick 12 must pass 32m (measured: " + dist + "m)");
+            } else if (tick == 23) {
+                h.assertTrue(dist >= 60.0D && dist <= 64.0D, "Milestone at tick 23 must approach 64m (measured: " + dist + "m)");
+            }
         }
 
-        // Advance arrow past 64 blocks and tick: must discard
-        arrow.setPos(arrow.position().add(70.0, 0.0, 0.0));
+        // Tick 24: natural trajectory crosses 64.0m threshold -> arrow must discard strictly by range
         arrow.tick();
-        h.assertTrue(arrow.isRemoved(), "Arrow past 64 blocks must be discarded");
+        double finalDist = arrow.position().distanceTo(startPos);
+        h.assertTrue(finalDist > 64.0D, "Distance at tick 24 must exceed 64.0m (measured: " + finalDist + "m)");
+        h.assertTrue(arrow.isRemoved(), "Arrow exceeding 64 blocks must be discarded naturally");
         h.succeed();
     }
 
@@ -275,13 +300,24 @@ public final class QuincyGameTests {
         var p = quincyPlayer(h);
         var arrow = new com.bleachmod.common.quincy.QuincyArrowEntity(h.getLevel(), p);
         arrow.configureCommon(1.0F);
-        arrow.setPos(h.absoluteVec(new Vec3(2.5, 5.0, 2.5)));
 
-        // Tick past COMMON_MAX_LIFE_TICKS (60)
-        for (int i = 0; i < 62; i++) {
+        Vec3 startPos = h.absoluteVec(new Vec3(2.5, 5.0, 2.5));
+        arrow.setPos(startPos);
+        arrow.setDeltaMovement(Vec3.ZERO);
+        h.getLevel().getChunk(arrow.blockPosition());
+
+        // Step arrow up to tick 59: arrow must stay alive in loaded chunk without moving past range
+        for (int i = 1; i <= 59; i++) {
             arrow.tick();
+            h.assertTrue(!arrow.isRemoved(), "Arrow must remain alive at tick " + i + " (< 60 ticks)");
+            h.assertTrue(arrow.getLifeTicks() == i, "lifeTicks must match elapsed tick " + i);
         }
-        h.assertTrue(arrow.isRemoved(), "Arrow must be discarded upon reaching max lifetime");
+
+        // At tick 60: reaches COMMON_MAX_LIFE_TICKS (60) and must discard strictly by lifetime expiration
+        arrow.tick();
+        h.assertTrue(arrow.isRemoved(), "Arrow must be discarded at tick 60 upon reaching COMMON_MAX_LIFE_TICKS");
+        h.assertTrue(arrow.getLifeTicks() == 60, "lifeTicks must equal 60 at discard");
+        h.assertTrue(arrow.position().distanceTo(startPos) < 1.0D, "Arrow did not exceed max range; discard was purely by lifetime");
         h.succeed();
     }
 
@@ -324,17 +360,48 @@ public final class QuincyGameTests {
 
         // Target validation: hostile mob is allowed
         var zombie = net.minecraft.world.entity.EntityType.ZOMBIE.create(h.getLevel());
+        h.assertTrue(zombie != null, "Zombie entity created");
         h.assertTrue(com.bleachmod.common.technique.TechniqueTargets.allowed(p, zombie), "TechniqueTargets allows hostile mob");
 
-        // Continuous collision against solid wall: onHitBlock discards arrow immediately
-        var hit = new net.minecraft.world.phys.BlockHitResult(
-                new Vec3(10, 5, 2),
-                net.minecraft.core.Direction.WEST,
-                new BlockPos(10, 5, 2),
-                false
-        );
-        arrow.onHitBlock(hit);
-        h.assertTrue(arrow.isRemoved(), "Arrow must be discarded immediately upon solid block collision");
+        // Build a physical solid wall of stone at X=6 in the GameTest level
+        for (int y = 1; y <= 4; y++) {
+            for (int z = 1; z <= 4; z++) {
+                h.getLevel().setBlockAndUpdate(h.absolutePos(new BlockPos(6, y, z)), net.minecraft.world.level.block.Blocks.STONE.defaultBlockState());
+            }
+        }
+
+        try {
+            // Position zombie behind the wall at X=10
+            Vec3 zombiePos = h.absoluteVec(new Vec3(10.5, 2.0, 2.5));
+            zombie.setPos(zombiePos);
+            h.getLevel().addFreshEntity(zombie);
+            float initialZombieHealth = zombie.getHealth();
+
+            // Position arrow at X=2.5 and shoot towards the wall along +X
+            Vec3 arrowStart = h.absoluteVec(new Vec3(2.5, 2.5, 2.5));
+            arrow.setPos(arrowStart);
+            arrow.shoot(1.0, 0.0, 0.0, 3.0F, 0.0F);
+
+            // Step arrow motion: continuous raycast collision must detect stone wall at X=6
+            // Tick 1: moves from X=2.5 to X=5.5 (does not reach wall at X=6 yet)
+            arrow.tick();
+            h.assertTrue(!arrow.isRemoved(), "Arrow must still be flying before reaching wall");
+
+            // Tick 2: raycast from X=5.5 to X=8.47 intersects stone wall at X=6.0
+            arrow.tick();
+            h.assertTrue(arrow.isRemoved(), "Arrow must collide with solid stone wall and be discarded immediately");
+            h.assertTrue(arrow.getX() <= h.absolutePos(new BlockPos(6, 2, 2)).getX() + 1.0D, "Arrow must stop at the wall face and not pass through");
+
+            // Prove target behind the wall took 0 damage
+            h.assertTrue(zombie.getHealth() == initialZombieHealth, "Zombie behind solid wall must take 0 damage (health: " + zombie.getHealth() + ")");
+        } finally {
+            for (int y = 1; y <= 4; y++) {
+                for (int z = 1; z <= 4; z++) {
+                    h.getLevel().setBlockAndUpdate(h.absolutePos(new BlockPos(6, y, z)), net.minecraft.world.level.block.Blocks.AIR.defaultBlockState());
+                }
+            }
+            zombie.discard();
+        }
         h.succeed();
     }
 }

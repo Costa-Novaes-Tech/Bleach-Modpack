@@ -321,28 +321,52 @@ Conforme autorização e alinhamento em `antigravity-frentes-2026-10-29.md` e co
 - **Sem Madeira ou Penas**: Texturas `quincy_arrow.png` (entidade e item) reconstruídas com perfil energético fino, ponta diamantada e cauda limpa, eliminando aletas/penas triangulares vanilla.
 - **Dissipação de Impacto**: Ao colidir com entidades ou superfícies sólidas, dispara um burst de 6 partículas `ELECTRIC_SPARK` sincronizado entre servidor e cliente antes do descarte imediato, simulando a desintegração do projétil espiritual.
 
-### 3. Validação e Evidências (Fase 3)
-1. **Regressão e Testes Unitários**:
-   - `./gradlew test --console=plain`: `BUILD SUCCESSFUL` (158 cenários de regressão PASS, incluindo medição de desvio vertical zero em 16, 32 e 64 blocos).
-2. **GameTests no Forge**:
-   - `QuincyGameTests.java`: 5 novos testes automatizados adicionados:
-     - `quincyArrow64BlockFlightWithoutGravityAndZeroVerticalDrop`: PASS
-     - `quincyArrowMaxLifetimeCleanup`: PASS
-     - `quincyBowEarlyReleaseConsumesNoReiatsu`: PASS
-     - `quincyLichtRegenRetains40BlockRangeAndGravityArc`: PASS
-     - `quincyArrowWallCollisionAndTargetValidation`: PASS
-   - Nota de baseline: identificada falha preexistente em `pilotprofileloadswithoutenablingotherkitsordualwield` decorrente da alteração de animação Better Combat no commit `2b3c582` do Codex; isolada e preservada conforme instrução de coordenação.
-3. **Capturas no Cliente Minecraft Forge Real**:
-   - Suíte `QuincyQaSequence` automatizada executada via `./gradlew runClient` com 12 cenários aprovados (PASS):
-     - `idle-right-profile`, `draw-right-profile`, `draw-right-front`
-     - `idle-left-profile`, `draw-left-profile`
-     - `first-idle-right`, `first-draw-right`, `first-draw-left`
-     - `mastery-after-kit-return`
-     - `arrow-flight-profile` (voo lateral do feixe espiritual)
-     - `arrow-flight-front` (perspectiva frontal em aproximação)
-     - `arrow-impact` (impacto contra bloco e dissipação em partículas Reishi)
-4. **Pacote de QA Arquivado**:
-   - Diretório: `Docs/poderes/qa/quincy-projeteis-20261029/`
-   - Manifest: `manifest.json` com SHAs de código-fonte e capturas originais brutas de `run-benihime-qa/base/quincy-qa/1793275921079/`.
-   - Resultados brutos: `results.txt`.
-   - Prancha composta: `visao-geral.jpg` e derivados JPEG compactos para retenção leve no repositório.
+### 3. Validação e Evidências Rigorosas (Fase 3 — Pós-Revisão Codex)
+
+#### A. Testes Unitários e Regressão (`./gradlew check --console=plain`)
+- **Status**: `BUILD SUCCESSFUL` em 41s.
+- **Cobertura**: 158 cenários de regressão unitários aprovados (0 falhas).
+
+#### B. GameTests no Servidor Forge (`./gradlew runGameTestServer --console=plain`)
+- **Status**: `BUILD SUCCESSFUL` em 1m 36s (`All 263 required tests passed :)`, exit code 0).
+- **Integração Upstream**: A sincronização com `origin/Feature-Poderes-bankais` (`04705fe` incorporado em `da1d253`) corrigiu o assert de animação Senbonzakura no Better Combat, elevando a suíte de 262 para 263 testes íntegros sem nenhuma regressão.
+- **Cenários Quincy Aprovados**:
+  1. `quincyArrow64BlockFlightWithoutGravityAndZeroVerticalDrop`: Medição natural de voo tick a tick (sem teletransporte `setPos`), velocidade 3.0 blocos/tick, arrasto 0.99:
+     - Tick 6: distância percorrida = 17,556m (marco de 16m), desvio Y = 0,000m, deltaY = 0,000, entidade viva.
+     - Tick 12: distância percorrida = 34,085m (marco de 32m), desvio Y = 0,000m, deltaY = 0,000, entidade viva.
+     - Tick 23: distância percorrida = 61,916m (marco próximo a 64m), desvio Y = 0,000m, deltaY = 0,000, entidade viva.
+     - Tick 24: distância percorrida = 64,297m (> 64,0m), descarte natural strictly por limite de alcance de 64 blocos.
+  2. `quincyArrowMaxLifetimeCleanup`: Comprovação de descarte estrito por tempo de vida em chunk carregado sem deslocamento de alcance:
+     - Ticks 1 a 59: `!arrow.isRemoved()`, `lifeTicks == i`.
+     - Tick 60: `arrow.isRemoved()` ao atingir `COMMON_MAX_LIFE_TICKS = 60`, distância percorrida < 1,0m (descarte 100% puro por expiração temporal).
+  3. `quincyArrowWallCollisionAndTargetValidation`: Teste de colisão física contínua por raycast contra parede real:
+     - Parede sólida de pedra (`Blocks.STONE`) erguida em X=6.
+     - Zumbi hostil posicionado atrás da parede em X=10,5.
+     - Flecha lançada em X=2,5 a 3.0F ao longo de +X.
+     - Tick 1: atinge X=5,5 no ar.
+     - Tick 2: raycast (5,5 -> 8,47) intercepta a face da parede em X=6,0, aciona `onHitBlock`, ancora partículas no vetor exato `result.getLocation()`, interrompe a trajetória e descarta o projétil.
+     - Zumbi atrás da parede toma exatamente 0,0 dano (vida mantida em 20,0 HP).
+  4. `quincyBowEarlyReleaseConsumesNoReiatsu`: Liberação prematura com 3 ticks (< 5 ticks mínimos) consome 0 PE e não gera projétil.
+  5. `quincyLichtRegenRetains40BlockRangeAndGravityArc`: Flecha do Licht Regen mantém gravidade (`!isNoGravity()`), alcance máximo de 40 blocos e dano de 2,0 HP.
+
+#### C. Capturas no Cliente Minecraft Forge Real (`./gradlew runClient`)
+- **Status**: `BUILD SUCCESSFUL` em 3m 6s.
+- **Rastreamento de Entidade no Cliente**: `QuincyQaSequence` rastreia o ID e coordenadas do projétil ativo em frente à câmera:
+  - `idle-right-profile`: PASS (using=false, mastery=37.0)
+  - `draw-right-profile`: PASS (using=true, mastery=37.0)
+  - `draw-right-front`: PASS (using=true, mastery=37.0)
+  - `idle-left-profile`: PASS (using=false, mastery=37.0)
+  - `draw-left-profile`: PASS (using=true, mastery=37.0)
+  - `first-idle-right`: PASS (using=false, mastery=37.0)
+  - `first-draw-right`: PASS (using=true, mastery=37.0)
+  - `first-draw-left`: PASS (using=true, mastery=37.0)
+  - `mastery-after-kit-return`: PASS (using=false, mastery=37.0, técnica=23.0 preservada)
+  - `arrow-flight-profile`: PASS (arrowId=13, pos=(12.50, -58.48, 15.41))
+  - `arrow-flight-front`: PASS (arrowId=15, pos=(12.50, -58.48, 14.96))
+  - `arrow-impact`: PASS (arrowId=17, pos=(12.50, -58.48, 24.06) contra bloco de pedra a +10 blocos em Z=24.1)
+
+#### D. Pacote de QA Arquivado
+- **Diretório**: `Docs/poderes/qa/quincy-projeteis-20261029/`
+- **Manifest**: `manifest.json` com SHAs completos, dados de hardware/framebuffer brutos (`run-benihime-qa/base/quincy-qa/1793278009463/`) e métricas de telemetria de voo.
+- **Resultados Brutos**: `results.txt` (12/12 PASS com IDs e coordenadas de projéteis).
+- **Prancha Composta**: `visao-geral.jpg` (grid 1920x1080) e JPEGs otimizados das etapas de disparo e impacto.

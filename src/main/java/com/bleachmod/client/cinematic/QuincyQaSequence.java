@@ -58,10 +58,23 @@ public final class QuincyQaSequence {
             if(draw&&wait==15&&mc.gameMode!=null)mc.gameMode.useItem(mc.player,net.minecraft.world.InteractionHand.MAIN_HAND);
             if(wait<60||prepared!=stage)return;
         }
+        int trackedArrowId = -1;
+        net.minecraft.world.phys.Vec3 trackedArrowPos = null;
+        if(isFlightStage && mc.level != null){
+            for(var entity : mc.level.entitiesForRendering()){
+                if(entity instanceof com.bleachmod.common.quincy.QuincyArrowEntity arrow){
+                    trackedArrowId = arrow.getId();
+                    trackedArrowPos = arrow.position();
+                    break;
+                }
+            }
+        }
         var d=PlayerCapability.get(mc.player).orElseThrow(()->new IllegalStateException("Missing client data"));
         boolean ok=failure==null&&d.getCharacter().getRace().equals("quincy")&&d.getQuincy().getMastery()==37&&d.getQuincy().getTechniqueMastery(1)==23;
         if(draw && !isFlightStage) ok&=mc.player.isUsingItem();
-        String row=CASES[stage]+" "+(ok?"PASS":"FAIL")+" using="+mc.player.isUsingItem()+" mastery="+d.getQuincy().getMastery()+" failure="+failure+"\n";
+        if(stage == 9 || stage == 10) ok &= (trackedArrowId != -1);
+        String arrowDetails = isFlightStage ? " arrowId=" + trackedArrowId + " pos=" + (trackedArrowPos != null ? String.format(java.util.Locale.ROOT, "(%.2f,%.2f,%.2f)", trackedArrowPos.x, trackedArrowPos.y, trackedArrowPos.z) : "impacted/dissipated") : "";
+        String row=CASES[stage]+" "+(ok?"PASS":"FAIL")+" using="+mc.player.isUsingItem()+" mastery="+d.getQuincy().getMastery()+arrowDetails+" failure="+failure+"\n";
         try{Files.writeString(out.resolve("results.txt"),row,StandardOpenOption.CREATE,StandardOpenOption.APPEND);}catch(Exception ex){throw new IllegalStateException(ex);}
         Screenshot.grab(out.toFile(),CASES[stage]+".png",mc.getMainRenderTarget(),ignored->{});
         com.mojang.logging.LogUtils.getLogger().info("QUINCY_QA {} output={}",row.trim(),out.toAbsolutePath());
