@@ -1,5 +1,7 @@
 # Ciclo 72 — revisão geral do projeto, game design e roadmap
 
+**Prioridade humana posterior29/10:** Senbon e Ryūjin aceitas no teste; flechas atuais boas provisoriamente. Próxima frente é expansão Ishida com passiva de tiro rápido/longo, habilidades e transformação TYBW, explicitamente autorizada; supera o adiamento TYBW abaixo. [Plano atual](plano-uryu-arqueiro-tradicional.md). Quest Rukia fica para depois. Garden ainda independente/sem entrega confirmada. Propostas de novo kit/custos/cinemática aguardam fechamento, sem código novo nesta rodada.
+
 
 ## Estado vigente — revisão de29/10/2026
 

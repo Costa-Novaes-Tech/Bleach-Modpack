@@ -1,5 +1,41 @@
 # Uryū Ishida — plano do arqueiro tradicional
 
+
+## Direção vigente —29/10: expansão TYBW autorizada
+
+Usuário testou e aceitou provisoriamente as flechas atuais; Senbon e Ryūjin também consideradas boas. Pediu progressão do arco com disparos mais rápidos/distantes, habilidades e transformação. Em resposta explícita escolheu “Incluir transformação Quincy de TYBW agora”. Essa decisão supera o adiamento de TYBW neste documento e no roadmap. Não renomear Quincy para Shikai/Bankai. Missão da Rukia adiada pelo usuário.
+
+Baseline integrado1aef0e1: quatro técnicas tradicionais, arco, projétil64blocos, tiro comum2Reiatsu/carga20ticks e HUD/maestrias próprios. Preservar esse estado-base aceito. Expansão TYBW ainda não implementada; parâmetros e repertório abaixo são propostas para discussão.
+
+### Estrutura proposta
+
+- Quincy base: repertório atual preservado, sem nova forma intermediária genérica inventada.
+- Vollständig de Uryū: identidade/forma própria, acionada manualmente com transição, maestria e sincronização próprias. Não usar IDs/formas zanpakutō nem reutilizar perda de poderes de Letzt Stil.
+- Schrift Antithesis: vínculo/aprendizado separados da forma. M07/8.72 exige Schrift compatível conquistada antes da Vollständig do poder. Não conceder reversão automaticamente ao equipar arco ou assumir que qualquer Vollständig concede qualquer Schrift. Sua aplicação executável exige ficha própria; não importar troca irrestrita de vida, dano, morte ou eventos do mundo.
+
+M07/8.75–8.80 preservado: ativação/encerramento manuais; energia na conclusão válida e manutenção; preparo cancelável para reagir; acabar energia encerra forma sem apagar conquistas. A nova imunidade de ativação BANKAI não se estende automaticamente à forma Quincy: definir proteção e compromisso em contrato próprio, sem alterar essa regra por herança do nome da interface.
+
+### Passiva e kit V0 sugeridos, não homologados
+
+Na Vollständig: carga completa12ticks/0,6s em vez de20ticks/1s; alcance96blocos em vez de64, com projétil reto, colisão e expiração preservadas. Velocidade/custo ajustados junto para que alcance maior não seja apenas um número inacessível. Não aumentar dano comum automaticamente, nem reduzir custo enquanto acelera o disparo sem medir economia. Custos de entrada/manutenção e duração dos buffs ainda precisam de ficha.
+
+H — Flecha concentrada: carga breve e tiro luminoso mais forte, capaz de atingir inimigos alinhados com limite de perfuração por alvo. Paredes continuam bloqueando; não ignorar toda defesa.
+N — Arsenal de Reishi: estruturas da manifestação disparam uma sequência frontal em leque, com limite de dano por alvo e silhuetas legíveis, evolução visual distinta da rajada básica.
+B — Hirenkyaku avançado: reposicionamentos curtos com cargas e rastro, sem voo permanente/teleporte através de blocos; preservar Alt+direção.
+C — Convergência de Reishi: marca uma região/alvo, converge disparos de diferentes pontos da manifestação e conclui com detonação localizada. Preparação/aviso e teto de dano; proposta de adaptação de gameplay, não técnica canônica nomeada. Antithesis não é substituída por essa proposta: definir sua aplicação em etapa própria antes de assumir equivalência.
+
+Repertório transformado proposto não deve apagar técnicas/masterias básicas. IDs estáveis independentes por técnica/variante quando houver comportamento distinto; não converter maestria Shinigami em Quincy.
+
+### Transformação e pipeline sugeridos
+
+Roteiro8–10s: enquadramento frontal/oblíquo legível → postura de arqueiro → Reishi reúne-se na cruz/mão → estruturas e asas da referência TYBW se formam atrás do corpo → abertura breve de câmera → pose final e retorno suave. Cor branco/ciano e luminosidade local de apresentação, não weather global. Modelo/rig Blockbench com peças articuladas e texturas emissivas; PlayerAnimator para corpo/tração; GeckoLib quando necessário para manifestação; renderer próprio para projéteis. Não depender de Photon ou nova biblioteca para funcionar. Áudio/voz provisórios somente definidos explicitamente; não reutilizar falas de Bankai.
+
+Primeiro fechar ficha e storyboard; depois uma prova de transformação e passiva; habilidades uma por vez e por último polimento/QA conjunto. Reusar infraestrutura de câmera/efeitos com adaptação Quincy, sem tocar cenas homologadas. Aquisição pública/quests permanece separada: modo dev pode provisionar requisitos para teste, mas não representa campanha pronta.
+
+Fonte primária consultada29/10: anúncio público Klub Outside de01/03/2025 confirma Vollständig de Uryū e primeira aparição em TYBW episódio30 “THE BETRAYER”: https://klub-outside.com/s/n136/news/detail/10500?ima=0000&link=ROBO004 . Materiais completos anunciados são restritos a membros e não foram acessados. Isso não confirma nomes de técnicas, parâmetros do mod ou detalhes visuais não examinados; não inventar um nome canônico específico da forma.
+
+### Histórico anterior
+
 27/10/2026. Estado: planejamento; sem código, assets ou branch nova. Decisão explícita do usuário: arqueiro tradicional primeiro; TYBW depois. Direção do kit aceita pelo usuário em27/10; valores iniciais autorizados para protótipo, sem homologação de balanceamento. O arco deve ser próprio; efeitos especiais finais serão discutidos depois. Hyōrinmaru concluída por aceite explícito e retirada da fila ativa.
 
 ## Contrato e recorte

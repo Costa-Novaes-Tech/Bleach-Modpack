@@ -1,5 +1,7 @@
 # 126 — Roadmap futuro: personagens, NPCs, encontros e lore
 
+**29/10 — adiamento explícito:** usuário decidiu deixar a quest Rukia para depois e antecipar expansão Ishida/TYBW. Preservar planejamento narrativo abaixo, sem iniciar campanha nesta rodada.
+
 26/10/2026. Branch Feature-Poderes-bankais. Revisão documental solicitada pelo usuário; não implementa gameplay, não executa Minecraft e não altera main. Mudanças documentais anteriores123–125 preservadas.
 
 ## 1. Estado e fontes
