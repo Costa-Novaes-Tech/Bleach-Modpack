@@ -29,7 +29,8 @@ public final class BetterCombatGameTests {
         for(var attack:profile.attacks())h.assertTrue(attack.damageMultiplier()==1,"Pilot unexpectedly changes damage multiplier");
         h.assertTrue(WeaponRegistry.getAttributes(new ItemStack(ModItems.NOZARASHI.get()))==null,"Automatic fallback enabled an unreviewed kit");
         var senbon=WeaponRegistry.getAttributes(new ItemStack(ModItems.SENBONZAKURA.get()));h.assertTrue(senbon!=null&&senbon.attacks().length==3&&senbon.attackRange()==3,"Senbonzakura fencing profile missing");
-        for(var attack:senbon.attacks())h.assertTrue(attack.animation().startsWith("bleachmod:senbonzakura_")&&attack.damageMultiplier()==1,"Senbonzakura did not use its own animation or changed basic damage");
+        var senbonClips=java.util.List.of("bettercombat:one_handed_slash_horizontal_right","bettercombat:one_handed_slash_horizontal_left","bettercombat:one_handed_stab");
+        for(int i=0;i<senbon.attacks().length;i++){var attack=senbon.attacks()[i];h.assertTrue(attack.animation().equals(senbonClips.get(i))&&attack.damageMultiplier()==1,"Senbonzakura ready-made combo order or basic damage changed");}
 
         var beni=WeaponRegistry.getAttributes(new ItemStack(ModItems.BENIHIME.get()));h.assertTrue(beni!=null&&beni.attacks().length==3&&beni.attackRange()==3,"Benihime fencing profile missing");
         for(var attack:beni.attacks())h.assertTrue(attack.animation().startsWith("bleachmod:benihime_")&&attack.damageMultiplier()==1,"Benihime did not use its own animation or changed basic damage");

@@ -25,3 +25,17 @@ Manter tapete de pétalas no interior, bordas da flor e subida da explosão. Cad
 Alvos centro/borda/fora, em cotas distintas, parede/teto, aliado/caster/espectador, múltiplos inimigos; dono olhando para outro lado e caminhando longe sem mover centro. Testar reativação antes2s/dentro2–6s/depois6s, repetição/spam, fim natural e interrupções. Verificar dano total e três pulsos sem burlar hurtTime, ausência de levitação residual e preservação de efeito externo mais forte.
 
 Forge real: visão de longe do campo inteiro e perto do alvo, primeira explosão, flor e prisão de3s; mostrar que interior preserva pétalas. Contagem de testes não aprova estética. Entregar SHA base/merge, diff restrito, testes/exit codes e capturas compactas. Sem merge final na poderes/main e sem editar docs de continuidade compartilhadas em paralelo.
+
+## Parecer sobre a especificação apresentada29/10
+
+Correto respeitar os dois checkouts ocupados; não criar terceiro worktree. A frente ainda é planejamento, sem implementação comprovada. Mesmo com checkout Quincy limpo/commitado, confirmar liberação pela conversa responsável antes de trocar sua branch: Quincy tem correções de QA solicitadas pelo Codex. Aguardar sequencialmente enquanto essa frente o utilizar.
+
+Orçamento5HP na flor +3pulsos de3HP é uma V0 coerente para14HP brutos, não garantia de14HP líquidos contra defesas/cancelamentos. Cuidados obrigatórios antes de aplicar:
+
+- Pulso emt60 precisa acontecer ANTES da limpeza port>=60; testar t59/t60/t61 e exatamente três pulsos. Não perder o último pelo early return de expiração.
+- Fase de prisão não pode morrer na expiração da janela2–6s: estado próprio, inclusive se a flor for reativada perto do sexto segundo. Preservar visual do piso durante essa fase.
+- Lease8ticks continua acelerando a entidade depois de aplicado. Zerar velocidade apenas um tick no teto não impede a levitação no seguinte. Testar teto baixo e limite de altura durante toda a lease, sem remover levitação de outra fonte. Identificar efeitos de igual potência, duração maior ou origem externa; testar só amplifier>0 não resolve preservação de efeitos externos amplifier0.
+- Medir altura relativa ao piso válido de cada alvo, não só Y do conjurador/centro. Centro fixo e clearLine devem funcionar em desnível, sem enterrar origem/fechar linha arbitrariamente. Declarar o volumevertical5blocos como parâmetro V0 e testá-lo, sem confundir raio35 horizontal com alcancevertical.
+- Os limites MAX_TARGETS, custo de busca e orçamento VFX precisam ser explícitos. Distinguir alvos elegíveis não capturados por teto de desempenho dos atingidos; não prometer todos ilimitadamente.
+
+Ao liberar checkout, atualizar refs e integrar origin/Feature-Poderes-bankais ANTES de implementar. Não apenas iniciar do antigo2b3c582: já há novas entregas Senbon/Higashi e revisão de roadmap. Manter os mesmos arquivos exclusivos e não reabrir combo da katana.
