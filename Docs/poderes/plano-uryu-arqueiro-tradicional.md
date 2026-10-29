@@ -1,6 +1,12 @@
 # Uryū Ishida — plano do arqueiro tradicional
 
 
+## Ajuste posterior29/10 — repouso do Kojaku
+
+Usuário comparou com o arco vanilla: repouso vertical atravessava a silhueta, enquanto a tração já era adequada. Rotação de repouso em terceira pessoa alterada de[90,180,0] para[0,0,90] nas duas mãos, mantendo translação/escala/forma. Gerador e display Blockbench sincronizados para evitar reversão ao regenerar. Três arquivos pulling e primeira pessoa inalterados. Modelo vanilla consultado diretamente no client.jar1.20.1; seus ângulos não foram copiados cegamente, pois seu spriteXY difere da geometriaYZ do Kojaku.
+
+Check/build158regressões e cliente Forge real executados; repouso frontal/transversal, perfis das duas mãos e tração inspecionados. QA ganhou enquadramento frontal no retorno de kit. [Comparação repouso/tração](qa/quincy-vollstandig-20261029/arco-repouso.jpg), detalhes no manifesto existente. GameTests não repetidos para esta alteração de display;277 pertencem à entrega anterior. Aceite humano do ajuste pendente. Sem mudança de kit/dano/passivas.
+
 ## Protótipo Vollständig implementado para testes — 29/10
 
 Autorizado pelo usuário após o plano TYBW: quatro estrelas/flechas flutuantes atrás do jogador, acompanhando-o. Cada disparo válido do arco cria **uma central + quatro auxiliares**. Carga completa 12 ticks (0,6 s), alcance 96 blocos, custo único de 4 Reiatsu por salva. H também recebe os quatro auxiliares dentro do custo próprio da técnica; projéteis do arsenal N não geram salvas recursivas. A central comum mantém dano-base de 6 HP; auxiliares 1,5 HP cada, sujeitas à defesa e à imunidade entre golpes do jogo: não prometem dano quíntuplo.
