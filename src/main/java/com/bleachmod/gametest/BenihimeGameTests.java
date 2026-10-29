@@ -118,9 +118,15 @@ public final class BenihimeGameTests {
             h.assertTrue(d.getResources().getCurrentReiatsu()==55 && d.getStatus().getTechniqueSlot4CooldownTicks()==200,"Hiasobi metadata mismatch");});
         h.runAfterDelay(46,()->{h.assertTrue(t.getHealth()<1000,"Detonation failed");done(h,p,t);});}
     @GameTest(template="empty",batch="beni_incision",timeoutTicks=95)
-    public static void dissectionDealsDelayedDamageAndExposureExpires(GameTestHelper h){var p=player(h,"bankai");var t=target(h,p,0,16);ticks(h,p);BenihimeTechniqueService.executeSlot(p,data(p),1);
+    public static void dissectionDealsDelayedDamageAndExposureExpires(GameTestHelper h){var p=player(h,"bankai");var t=target(h,p,0,16);
+        // This sky fixture extends beyond the tiny template. Previous test-world terrain must not
+        // turn a delayed-damage scenario into an accidental line-of-sight obstruction scenario.
+        for(var pos:BlockPos.betweenClosed(p.blockPosition().offset(-1,0,-1),t.blockPosition().offset(1,3,1)))
+            h.getLevel().setBlock(pos,net.minecraft.world.level.block.Blocks.AIR.defaultBlockState(),2);
+        h.assertTrue(p.hasLineOfSight(t),"Dissection fixture corridor is obstructed");
+        ticks(h,p);h.assertTrue(BenihimeTechniqueService.executeSlot(p,data(p),1),"Dissection cast refused before damage test");
         h.runAfterDelay(6,()->h.assertTrue(t.getHealth()==1000,"Dissection skipped its warning"));
-        h.runAfterDelay(18,()->h.assertTrue(t.getHealth()<1000 && BenihimeTechniqueService.damageBonus(p,t)>.19,"Dissection/exposure absent"));
+        h.runAfterDelay(18,()->h.assertTrue(t.getHealth()<1000 && BenihimeTechniqueService.damageBonus(p,t)>.19,"Dissection/exposure absent: hp="+t.getHealth()+", bonus="+BenihimeTechniqueService.damageBonus(p,t)+", alive="+t.isAlive()+", removed="+t.isRemoved()+", target="+t.position()+", owner="+p.position()+", tracked="+(h.getLevel().getEntity(t.getUUID())==t)+", line="+p.hasLineOfSight(t)+", guardBroken="+data(p).getGuard().broken()));
         h.runAfterDelay(88,()->{h.assertTrue(BenihimeTechniqueService.damageBonus(p,t)==0,"Exposure never expired");done(h,p,t);});}
     @GameTest(template="empty",batch="beni_self_heal",timeoutTicks=50)
     public static void reconstructionHealsInPulsesAndOnlyActiveHealingTrains(GameTestHelper h){var p=player(h,"bankai");var d=data(p);p.setHealth(10);ticks(h,p);

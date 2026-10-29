@@ -13,6 +13,8 @@ Este bloco e o checklist atualizado prevalecem sobre os registros históricos ab
 - Ryūjin: apresentação visual, Investida e Rajada aceitas; a nova frente é proteção/cancelamento da ativação, sem refazer o roteiro aprovado.
 - Comandos bleachdev, cheats, troca reversível de kits e HUD/maestria Quincy implementados. Não refazer essas bases ao melhorar o projétil. Aliases legados ainda transitórios.
 
+**Integração posterior29/10:** as frentes proteção Bankai e projéteis Quincy já foram mescladas na poderes a pedido humano (f392f79/cc5ec61) para playtest, sem conflito manual.270GameTests do conjunto passaram após corrigir cenário obstruído de teste Benihime; mecânica aceita preservada. As descrições de frentes abaixo indicam responsabilidade e pendências, não ausência dessas implementações. Garden continua sem gameplay. Ver coordenação29/10 para limites de QA.
+
 ### Ativo agora
 
 1. AG proteção de ativação Bankai: invencibilidade temporária aprovada, corrigir interrupção Ryūjin e término seguro da proteção. Cobrir apresentações além do commit da forma; preservar ciclos visuais aceitos e imunidades existentes.

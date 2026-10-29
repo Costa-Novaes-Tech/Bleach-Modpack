@@ -43,3 +43,18 @@ Cada frente atualiza seu próprio prompt com resultado curto ou um único docume
 Baseline após integração; alteração pequena; teste pertinente; Forge real; revisão das imagens/resultado; só então commit focado. Rodar um cliente pesado por vez. Evidência declara HEAD/diff, comando/exit code, cenário, tempos e origem dos arquivos. Não usar teste que injeta o resultado como prova do fluxo normal. Compilação não é homologação visual. Fazer uma primeira entrega funcional antes do polimento, sem afirmar conclusão integral se falta arte/multiplayer.
 
 Prompts: [proteção](prompt-antigravity-bankai-protecao-2026-10-29.md), [Quincy](prompt-antigravity-quincy-projeteis-2026-10-29.md), [Garden](prompt-antigravity-garden-prisao-2026-10-29.md). Arquivos de apoio não significam configuração automática do aplicativo: leitura explícita exigida em cada conversa.
+
+
+## Integração solicitada pelo usuário —29/10
+
+Autorização explícita para mesclar as duas entregas na nossa branch e resolver conflitos. Proteção a3b4357 integrada em f392f79; projéteis Quincy ed722ae integrados em cc5ec61. Os dois merges foram feitos com --no-ff na Feature-Poderes-bankais, sem conflitos manuais/unmerged paths. Main e checkouts individuais não foram alterados. Combo pronto Senbon, adaptação Higashi e comandos próprios preservados por diff com04705fe.
+
+Check/build integrados exit0,158regressões; JAR build/libs/bleachmod-0.2.0.jar gerado. GameTests integrados: primeiro ciclo terminou com1falha em dissectionDealsDelayedDamageAndExposureExpires (Benihime), log build/integracao-frentes-20261029-gametests.log; repetição sem mudança de runtime/testes reproduziu a falha no log build/integracao-frentes-20261029-gametests-recheck.log. Diagnóstico posterior e correção do fixture descritos abaixo. Não houve novo ciclo cliente nesta integração; usuário fará playtest. Resultados das branches isoladas não substituem o teste do conjunto.
+
+Limites preservados no aceite: proteção ainda precisa conciliar saída voluntária de câmera e fim no servidor, e seu evento knockback não prova bloqueio de toda colisão entre entidades. QA Quincy de impacto ainda não demonstra acertar o bloco (obstáculo à altura dos pés, flecha à altura dos olhos; PASS não exige colisão confirmada). Essas pendências não foram ocultadas nem corrigidas incidentalmente para fazer merge. Esta integração é entrega para teste, não homologação final.
+
+Garden permanece especificação sem implementação/commit de gameplay. Não há merge dessa frente. Ao liberar checkout individual, sincronizar com a poderes que agora contém as duas integrações e preservar ajustes compartilhados. Os bloqueios de QA e futuras correções devem ser auditados antes de declarar tudo concluído.
+
+Diagnóstico da falha de teste: alvo vivo/rastreado em(457.5,286,18.5), conjurador em(457.5,286,2.5), HP1000/bonus0 e hasLineOfSight=false. O fixture de céu fica fora do pequeno template e não assegurava corredor aberto. Correção restrita a BenihimeGameTests: limpar volume estreito do corredor no mundo descartável, exigir linha de visão e sucesso do cast antes de verificar dano/exposição; asserções de dano atrasado/expiração mantidas e diagnóstico ampliado. Runtime Benihime não alterado. Última suíte em build/integracao-frentes-20261029-gametests-final.log.
+
+**Resultado integrado final:** todos270GameTests requeridos aprovados, exit0, em build/integracao-frentes-20261029-gametests-final.log. As tentativas anteriores falharam e foram preservadas; a aprovação final só ocorreu após corrigir a preparação do cenário, sem enfraquecer asserções nem mudar gameplay Benihime. [Registro compacto](qa/integracao-frentes-20261029.json).
