@@ -235,9 +235,8 @@ public class QuincyBowItem extends BowItem {
 
                 Vec3 look = serverPlayer.getLookAngle();
 
-                // Velocity 2.6F travels ~48 blocks in normal flight
-
-                arrow.shoot(look.x, look.y, look.z, 2.6F * power, 0.4F);
+                // Velocity 3.0F travels ~64 blocks in straight flight without gravity, stable precision 0.0F divergence
+                arrow.shoot(look.x, look.y, look.z, 3.0F * power, 0.0F);
 
                 level.addFreshEntity(arrow);
 
