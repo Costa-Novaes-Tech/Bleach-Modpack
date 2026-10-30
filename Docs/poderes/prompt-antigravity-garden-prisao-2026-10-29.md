@@ -101,36 +101,39 @@ Entregue: branch e caminho, SHA base e merge de entrada, diff exclusivo, causa d
 
 Commit focado da sua entrega na branch individual, excluindo logs e arquivos alheios. Não mergear/pushar poderes ou main. Entregar SHA para revisão Codex e teste humano; se houver autorização humana posterior específica, respeitá-la. Não declarar Garden concluído enquanto houver somente especificação ou VFX sem comportamento.
 
-## Resultado da entrega e evidências de auditoria (30/10/2026)
+## Resultado da entrega e evidências de auditoria (30/10/2026 — Revisão pós-retorno Codex)
 
 - **Branch exclusiva**: `codex/senbon-garden-prisao`
 - **Checkout**: `C:/Users/joaop/Downloads/Projeto_Programacao_BleachMod/Bleach-Modpack-design`
-- **Base remota**: `origin/Feature-Poderes-bankais` @ `2eb3898` (merge de entrada `--no-ff` realizado e ancestralidade comprovada com `git merge-base --is-ancestor origin/Feature-Poderes-bankais HEAD`, exit 0).
-- **Arquivos modificados no patch**:
-  1. `src/main/java/com/bleachmod/common/technique/SenbonPolicy.java`
-     - Adição das constantes: `FIELD_VERTICAL_REACH = 5.0`, `FIELD_PRISON_MAX_RISE = 2.5`, `FIELD_PRISON_MAX_TARGETS = 16`, `FIELD_BLOOM_BURST_DAMAGE = 5.0F`, `FIELD_PRISON_PULSE_DAMAGE = 3.0F`. Orçamento bruto de 14 HP na 2ª fase mantido.
-  2. `src/main/java/com/bleachmod/client/particle/SenbonGardenFloor.java`
-     - Extensão do tempo de vida do piso (`f.until = Math.max(f.until, now + 75)` no `RISE` e `now + 15` nos pacotes contínuos `FIELD`), garantindo que o tapete interior de pétalas não desapareça durante os 60 ticks da prisão.
-  3. `src/main/java/com/bleachmod/common/technique/SenbonzakuraTechniqueService.java`
-     - Separação estrita de contratos: criação da classe dedicada `GardenPrison` e campo `s.gardenPrison`, mantendo `s.prison` (Convergência B) completamente intacto.
-     - Correção de prazo tardio: em `tickField`, checagem de bloom commitado ocorre antes do descarte da janela de 6s, permitindo que reativações em 5.8s cumpram todo o ciclo.
-     - Implementação da 2ª fase (`finishField`): explosão floral de 5 HP base (burst) + inicialização da prisão para até 16 alvos elegíveis ordenados por proximidade ao centro.
-     - Ciclo da prisão (`tickGardenPrison`): renovação do piso a cada 6 ticks; 3 pulsos de dano de 3 HP base nos ticks 20, 40 e 60 (totalizando 5 + 3 + 3 + 3 = 14 HP brutos / 21 HP líquidos com multiplicador 1.5x Bankai); controle de levitação clamped a `floorY + 2.5m` com verificação de colisão/teto sólido (`aboveHead`) e amortecimento com queda lenta + lentidão; preservação estrita de levitações externas preexistentes; espirais individuais `CONVERGE` em rodízio (até 4 alvos/tick); descarte seguro no tick 60 logo após o 3º pulso sem pulso residual nem dano na limpeza.
-     - Independência do conjurador: visada e alcance calculados a partir do centro elevado `center.add(0, 1.2, 0)` via `clearGardenLine`, permitindo ao dono mover-se e virar de costas sem derrubar a prisão.
-     - HUD: exportação da chave `gardenPrison` com ticks restantes; cancelamento limpo sem efeitos órfãos em `cancel(p)`.
-  4. `src/main/java/com/bleachmod/gametest/SenbonGameTests.java`
-     - Adição de 6 GameTests cobrindo todos os critérios do contrato:
-       - `gardenPrisonDealsFiveBurstPlusThreePulsesForTotalFourteen`: validação exata do burst de 5 HP base (7.5 net) + 3 pulsos de 3 HP base (4.5 net) = 14 HP base (21 net), sem dano residual após tick 60.
-       - `gardenPrisonCapturesUpToSixteenTargetsAndSortsByProximity`: cap estável em 16 alvos classificados por proximidade ao centro.
-       - `gardenPrisonCoverAndVerticalReach`: alcance vertical limitado a 5 blocos e bloqueio por cobertura sólida.
-       - `gardenPrisonLevitationClampsAtCeilingAndPreservesExternalEffects`: teto sólido bloqueia subida sem penetração; levitações externas de maior amplificador ou maior duração são preservadas.
-       - `lateGardenReactivationAtFivePointEightSecondsFinishesFullPrisonPhase`: reativação em 5.8s sobrevive aos 6s e executa os 60 ticks completos.
-       - `gardenPrisonDoesNotHarmAlliesOrCasterAndOwnerCanMoveAndLookAway`: conjurador livre de dano próprio e livre para andar/olhar para longe mantendo a prisão.
+- **Base remota**: `origin/Feature-Poderes-bankais` @ `04ef0d1` (merge de entrada `--no-ff` via commit `7a6d047`, ancestralidade comprovada por `git merge-base --is-ancestor origin/Feature-Poderes-bankais HEAD`, exit 0).
+- **Correções aplicadas do retorno Codex 30/10**:
+  1. **Revalidação de aliados e alvos a cada tick (`tickGardenPrison`)**:
+     - `TechniqueTargets.allowed(s.owner, t)` é avaliado tick a tick. Se um capturado mudar de aliança (ex: time do scoreboard), virar espectador, PvP for desligado ou se tornar NPC protegido no meio da prisão, ele é desvinculado imediatamente e deixa de receber os pulsos subsequentes e o controle de levitação.
+  2. **Controle contínuo de altura e teto em todos os ticks**:
+     - Checagem contínua a cada tick (não a cada 4 ticks).
+     - Quando o alvo atinge o limite de subida `floorY + 2.5m` ou colide com bloco sólido acima da cabeça (`aboveHead`), sua velocidade vertical é contida com `setDeltaMovement(dx, Math.min(0.0, dy), dz)`, clamped na cota máxima e amortecida com Slow Falling + Slowness.
+     - Lease de levitação reduzida para 3 ticks, permitindo que expire organicamente em 1–2 ticks sem chamar `removeEffect(LEVITATION)`.
+     - Preservação estrita de levitações externas: se o alvo já possuir Levitação externa com amplificador maior (`amplifier > 0`) ou de mesma potência mas duração longa (`duration > 4`), o serviço jamais sobrescreve, nem cancela, nem altera os efeitos externos.
+  3. **Piso do Garden monotônico e sem oscilação (`SenbonGardenFloor`)**:
+     - Eliminado o reset `f.until = now + 10`. O campo `f.until` agora é estritamente monotônico com `Math.max(f.until, now + 10)`.
+     - Durante a fase final/prisão (`f.finished`), o prazo é estendido continuamente para `Math.max(f.until, now + 25)`. Como o fade-out de 20 ticks só ocorre quando `remaining < 20`, a opacidade do tapete interno de pétalas permanece travada em exatamente 1.0 (100% de opacidade) durante todos os 60 ticks da prisão, ocorrendo o fade-out suave apenas após a dissipação da prisão.
+  4. **Alinhamento do conjunto de alvos (5 + 3 + 3 + 3)**:
+     - Em `finishField`, a ordenação por proximidade ao centro e o teto de 16 alvos elegíveis são processados PRIMEIRO.
+     - A explosão floral (burst) de 5.0 HP base é aplicada EXCLUSIVAMENTE a esses 16 alvos capturados, garantindo que o conjunto que recebe a flor seja estritamente o mesmo que recebe os 3 pulsos subsequentes de 3.0 HP base (orçamento total de 14.0 HP base / 21.0 HP líquidos no fixture com multiplicador 1.5x Bankai).
+  5. **Detecção de piso físico delimitada (`findFloorY`)**:
+     - Implementada busca física delimitada para baixo (até 5 blocos) inspecionando blocos sólidos em chunks carregados (`level.isLoaded(pos)` e `blockState.isSolid()`). Se o alvo estiver suspenso no ar sem piso a menos de 5m, utiliza a cota inicial do alvo (`t.getY()`) como referência de segurança, sem teletransportar a entidade para o chão.
+  6. **GameTests atualizados e endurecidos (`SenbonGameTests.java`)**:
+     - `gardenPrisonCapAndTargetSetStrictlySixteenWithExactDeltas`: validação de baseline pré-bloom com deltas exatos. Confirma que alvos 0..15 sofrem 21 HP de dano total e alvos distantes (16..19) ou obstruídos por parede sólida sofrem exatamente 0 de dano.
+     - `gardenPrisonAlliesSpectatorsNpcsAndMidPrisonAllianceSwitch`: validação com time real do Minecraft (`PlayerTeam`), NPC protegido e espectador; inclui conversão de inimigo em aliado durante a prisão (após t20), comprovando que o alvo convertido cessa imediatamente de receber dano nos ticks 40 e 60.
+     - `gardenPrisonContinuousHeightCeilingAndExternalLevitation`: validação contínua tick a tick em todos os ticks da prisão; comprova elevação máxima limitada a 2.5m sobre piso de apoio, bloqueio sem atravessar teto sólido, e preservação intacta de levitação externa longa.
+     - `gardenPrisonLateReactivationAtFivePointEightSecondsMeasuredDeltas`: medição de deltas referenciada ao início real da prisão (`prisonStart`), verificando ausência de dano no tick 59, aplicação do 3º pulso no tick 60 e ausência de pulso no tick 61.
+     - `gardenPrisonLifecycleCleansUpWithoutDroppingExternalEffects`: comprova que `cancel(p)` limpa o estado da prisão sem expurgar levitações externas preexistentes.
+     - `gardenPrisonDoesNotHarmCasterAndOwnerCanMoveAndLookAway`: comprova que o conjurador pode se mover e olhar para trás sem derrubar a prisão.
 - **Validação e evidências executadas**:
   - `./gradlew compileJava --offline --console=plain`: BUILD SUCCESSFUL (exit code 0).
   - `./gradlew check --console=plain`: 158/158 regression scenarios PASS (exit code 0).
   - `./gradlew runGameTestServer --console=plain`: All 283 required tests passed :) (exit code 0).
 - **Estado de homologação**:
-  - Implementado, compilado e testado no servidor autoritativo com 100% de sucesso.
-  - Testes cobrem mecânicas de combate, timing de ticks, limites de dano e física de levitação.
-  - Pendente: inspeção visual subjetiva humana in-game no cliente Minecraft para aprovação da direção artística e densidade do envoltório de partículas.
+  - Correções da revisão 30/10 totalmente integradas e verificadas.
+  - Testes do servidor autoritativo 100% aprovados.
+  - Sem merge ou push para `origin/Feature-Poderes-bankais` ou `main`.

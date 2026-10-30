@@ -36,9 +36,9 @@ public final class SenbonGardenFloor {
         var f=FIELDS.get(m.ownerId());if(f==null||f.center.distanceToSqr(m.origin())>.25||f.finished&&m.shape()==RADIAL){
             if(FIELDS.size()>=8)FIELDS.remove(FIELDS.keySet().iterator().next());int count=mc.options.particles().get()==net.minecraft.client.ParticleStatus.MINIMAL?240:mc.options.particles().get()==net.minecraft.client.ParticleStatus.DECREASED?640:1200;f=new Field(m.origin(),m.radius(),count);FIELDS.put(m.ownerId(),f);
         }
-        long now=mc.level.getGameTime();f.last=now;f.until=now+10;
+        long now=mc.level.getGameTime();f.last=now;f.until=Math.max(f.until,now+10);
         if(m.shape()==FLOWER)f.bloom=m.progress();
-        if(m.shape()==FIELD){f.opening=1;f.until=Math.max(f.until,now+15);}
+        if(m.shape()==FIELD){f.opening=1;f.until=Math.max(f.until,f.finished?now+25:now+15);}
         if(m.shape()==RADIAL)f.opening=Math.max(f.opening,m.progress());
         if(m.shape()==RISE){f.finished=true;f.until=Math.max(f.until,now+75);f.risingUntil=now+16;f.opening=1;f.bloom=1;}
     }

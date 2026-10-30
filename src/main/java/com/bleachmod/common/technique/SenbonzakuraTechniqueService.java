@@ -40,8 +40,9 @@ public final class SenbonzakuraTechniqueService {
         final Vec3 center; final long start; final Set<UUID> targets=new HashSet<>();
         Prison(Vec3 center,long start) { this.center=center;this.start=start; }
     }
+    private record TargetAnchor(double floorY, double startY) { }
     private static final class GardenPrison {
-        final Vec3 center; final long start; final Map<UUID, Double> targets=new LinkedHashMap<>();
+        final Vec3 center; final long start; final Map<UUID, TargetAnchor> targets=new LinkedHashMap<>();
         GardenPrison(Vec3 center, long start) { this.center=center; this.start=start; }
     }
     private static final class State {
@@ -350,13 +351,6 @@ public final class SenbonzakuraTechniqueService {
         if (!loadedPath(s.level,start,end)) return false;
         return s.level.clip(new ClipContext(start,end,ClipContext.Block.COLLIDER,ClipContext.Fluid.NONE,s.owner)).getType()==HitResult.Type.MISS;
     }
-    private static void pulseGarden(State s,Vec3 center,double radius,double height,float damage,int slot) {
-        for (LivingEntity t:gardenTargets(s,center,radius+2)) {
-            if (!SenbonGeometry.inside(center,t.position(),radius,height)) continue;
-            if (!clearGardenLine(s,center,t)) continue;
-            hurt(s,t,damage,slot);
-        }
-    }
     private static void tickField(State s) {
         Field field=s.field;long now=s.level.getGameTime();int age=(int)(now-field.start);Vec3 f=SenbonGeometry.forward(s.owner.getYRot());
         if (field.bloom>=0) {
@@ -385,13 +379,17 @@ public final class SenbonzakuraTechniqueService {
         while(it.hasNext()) {
             var entry=it.next();
             UUID tid=entry.getKey();
-            double floorY=entry.getValue();
+            TargetAnchor anchor=entry.getValue();
             var ent=s.level.getEntity(tid);
             if(!(ent instanceof LivingEntity t) || !t.isAlive() || t.isRemoved()) {
                 it.remove();
                 continue;
             }
-            if(Math.abs(t.getY()-floorY)>SenbonPolicy.FIELD_VERTICAL_REACH
+            if(!TechniqueTargets.allowed(s.owner,t)) {
+                it.remove();
+                continue;
+            }
+            if(Math.abs(t.getY()-anchor.floorY)>SenbonPolicy.FIELD_VERTICAL_REACH
                     || !SenbonGeometry.inside(prison.center,t.position(),SenbonPolicy.FIELD_RADIUS,SenbonPolicy.FIELD_VERTICAL_REACH+2)
                     || !clearGardenLine(s,prison.center,t)) {
                 it.remove();
@@ -402,31 +400,31 @@ public final class SenbonzakuraTechniqueService {
                 hurt(s,t,SenbonPolicy.FIELD_PRISON_PULSE_DAMAGE,2);
             }
 
-            if(age%4==0) {
-                double currentRise=t.getY()-floorY;
-                BlockPos aboveHead=BlockPos.containing(t.getX(),t.getEyeY()+.6,t.getZ());
+            var existing=t.getEffect(net.minecraft.world.effect.MobEffects.LEVITATION);
+            boolean hasExternalLevitation=existing!=null && (existing.getAmplifier()>0 || existing.getDuration()>4);
+            if(!hasExternalLevitation) {
+                double maxAllowedY=Math.max(anchor.floorY()+SenbonPolicy.FIELD_PRISON_MAX_RISE, anchor.startY());
+                BlockPos aboveHead=BlockPos.containing(t.getX(),t.getEyeY()+.4,t.getZ());
                 boolean ceilingBlocked=s.level.getBlockState(aboveHead).isSolid()
-                        || !s.level.noCollision(t.getBoundingBox().move(0,.25,0));
+                        || !s.level.noCollision(t.getBoundingBox().move(0,.15,0));
 
-                if(currentRise<SenbonPolicy.FIELD_PRISON_MAX_RISE && !ceilingBlocked) {
-                    var existing=t.getEffect(net.minecraft.world.effect.MobEffects.LEVITATION);
-                    boolean canApply=existing==null
-                            || (existing.getAmplifier()==0 && existing.getDuration()<=SenbonPolicy.CONTROL_LEASE);
-                    if(canApply) {
-                        t.addEffect(new net.minecraft.world.effect.MobEffectInstance(
-                                net.minecraft.world.effect.MobEffects.LEVITATION,SenbonPolicy.CONTROL_LEASE,0,false,false,true));
-                    }
+                if(t.getY()<maxAllowedY && !ceilingBlocked) {
                     t.addEffect(new net.minecraft.world.effect.MobEffectInstance(
-                            net.minecraft.world.effect.MobEffects.MOVEMENT_SLOWDOWN,SenbonPolicy.CONTROL_LEASE,4,false,false,true));
+                            net.minecraft.world.effect.MobEffects.LEVITATION,3,0,false,false,true));
+                    t.addEffect(new net.minecraft.world.effect.MobEffectInstance(
+                            net.minecraft.world.effect.MobEffects.MOVEMENT_SLOWDOWN,4,4,false,false,true));
                 } else {
                     if(t.getDeltaMovement().y>0) {
                         t.setDeltaMovement(t.getDeltaMovement().x,0,t.getDeltaMovement().z);
                         t.hurtMarked=true;
                     }
+                    if(t.getY()>maxAllowedY) {
+                        t.setPos(t.getX(),maxAllowedY,t.getZ());
+                    }
                     t.addEffect(new net.minecraft.world.effect.MobEffectInstance(
-                            net.minecraft.world.effect.MobEffects.MOVEMENT_SLOWDOWN,SenbonPolicy.CONTROL_LEASE,4,false,false,true));
+                            net.minecraft.world.effect.MobEffects.MOVEMENT_SLOWDOWN,4,4,false,false,true));
                     t.addEffect(new net.minecraft.world.effect.MobEffectInstance(
-                            net.minecraft.world.effect.MobEffects.SLOW_FALLING,SenbonPolicy.CONTROL_LEASE,0,false,false,true));
+                            net.minecraft.world.effect.MobEffects.SLOW_FALLING,4,0,false,false,true));
                 }
             }
         }
@@ -453,7 +451,6 @@ public final class SenbonzakuraTechniqueService {
         Field field=s.field;if(field==null)return;
         var f=SenbonGeometry.forward(s.owner.getYRot());
         s.draw(FLOWER,field.center,f,SenbonPolicy.FIELD_RADIUS,1,4);
-        pulseGarden(s,field.center,SenbonPolicy.FIELD_RADIUS,SenbonPolicy.FIELD_VERTICAL_REACH,SenbonPolicy.FIELD_BLOOM_BURST_DAMAGE,2);
         s.draw(RISE,field.center,f,SenbonPolicy.FIELD_RADIUS,1,2);
 
         GardenPrison gp=new GardenPrison(field.center,s.level.getGameTime());
@@ -464,9 +461,16 @@ public final class SenbonzakuraTechniqueService {
             candidates.add(t);
         }
         candidates.sort(Comparator.comparingDouble(t->t.distanceToSqr(field.center)));
-        for(int i=0;i<Math.min(candidates.size(),SenbonPolicy.FIELD_PRISON_MAX_TARGETS);i++) {
+        int count=Math.min(candidates.size(),SenbonPolicy.FIELD_PRISON_MAX_TARGETS);
+        for(int i=0;i<count;i++) {
             LivingEntity t=candidates.get(i);
-            gp.targets.put(t.getUUID(),t.getY());
+            hurt(s,t,SenbonPolicy.FIELD_BLOOM_BURST_DAMAGE,2);
+            double floorY=t.getY();
+            if(loadedPath(s.level,t.position(),t.position().subtract(0,SenbonPolicy.FIELD_VERTICAL_REACH,0))) {
+                var hit=s.level.clip(new ClipContext(t.position().add(0,.2,0),t.position().subtract(0,SenbonPolicy.FIELD_VERTICAL_REACH,0),ClipContext.Block.COLLIDER,ClipContext.Fluid.NONE,t));
+                if(hit.getType()!=HitResult.Type.MISS)floorY=hit.getLocation().y;
+            }
+            gp.targets.put(t.getUUID(),new TargetAnchor(floorY,t.getY()));
         }
         s.gardenPrison=gp;
         s.field=null;
