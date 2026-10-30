@@ -275,4 +275,148 @@ public final class SenbonGameTests {
         h.runAfterDelay(122,()->{h.assertTrue(t.getHealth()<initial[0],"Late reactivation lost its final explosion");
             h.assertTrue(!SenbonzakuraTechniqueService.hud(p).contains("fieldRemaining"),"Bloom survived six-second deadline");done(h,p,t);});
     }
+    @GameTest(template="empty",batch="senbon_garden_prison_damage",timeoutTicks=180)
+    public static void gardenPrisonDealsFiveBurstPlusThreePulsesForTotalFourteen(GameTestHelper h) {
+        var p=player(h,"bankai");var d=data(p);
+        loadField(h,p);
+        var t=target(h,p,0,8);
+        t.setItemSlot(EquipmentSlot.HEAD,ItemStack.EMPTY);
+        t.getAttribute(Attributes.ARMOR).setBaseValue(0);
+        ticks(h,p);
+        final float[] hp={0,0,0,0,0};
+        SenbonzakuraTechniqueService.executeSlot(p,d,2);
+        h.runAfterDelay(25,()->h.assertTrue(Math.abs(t.getHealth()-991.0F)<0.01F,"Initial burst was not 6 base / 9 net HP: health was " + t.getHealth()));
+        h.runAfterDelay(45,()->{
+            hp[0]=t.getHealth();
+            h.assertTrue(SenbonzakuraTechniqueService.executeSlot(p,d,2),"Bloom reactivation refused");
+        });
+        h.runAfterDelay(63,()->{
+            hp[1]=t.getHealth();
+            float burst=hp[0]-hp[1];
+            h.assertTrue(Math.abs(burst-7.5F)<0.01F,"Bloom burst was not 5 base / 7.5 net HP: was "+burst);
+            h.assertTrue(SenbonzakuraTechniqueService.hud(p).contains("gardenPrison"),"Garden prison state missing in HUD");
+        });
+        h.runAfterDelay(83,()->{
+            hp[2]=t.getHealth();
+            float pulse1=hp[1]-hp[2];
+            h.assertTrue(Math.abs(pulse1-4.5F)<0.01F,"Pulse 1 was not 3 base / 4.5 net HP: was "+pulse1);
+        });
+        h.runAfterDelay(103,()->{
+            hp[3]=t.getHealth();
+            float pulse2=hp[2]-hp[3];
+            h.assertTrue(Math.abs(pulse2-4.5F)<0.01F,"Pulse 2 was not 3 base / 4.5 net HP: was "+pulse2);
+        });
+        h.runAfterDelay(123,()->{
+            hp[4]=t.getHealth();
+            float pulse3=hp[3]-hp[4];
+            float totalSecondPhase=hp[0]-hp[4];
+            h.assertTrue(Math.abs(pulse3-4.5F)<0.01F,"Pulse 3 was not 3 base / 4.5 net HP: was "+pulse3);
+            h.assertTrue(Math.abs(totalSecondPhase-21.0F)<0.01F,"Total second phase damage was not 14 base / 21 net HP: was "+totalSecondPhase);
+            h.assertTrue(Math.abs(totalSecondPhase/1.5F-14.0F)<0.01F,"Total base second phase damage was not 14 HP");
+        });
+        h.runAfterDelay(128,()->{
+            h.assertTrue(t.getHealth()==hp[4],"Extra damage dealt after prison expiration");
+            h.assertTrue(!SenbonzakuraTechniqueService.hud(p).contains("gardenPrison"),"Garden prison survived expiration");
+            done(h,p,t);
+        });
+    }
+    @GameTest(template="empty",batch="senbon_garden_prison_cap",timeoutTicks=110)
+    public static void gardenPrisonCapturesUpToSixteenTargetsAndSortsByProximity(GameTestHelper h) {
+        var p=player(h,"bankai");var d=data(p);
+        loadField(h,p);
+        List<Zombie> targets=new ArrayList<>();
+        for(int i=0;i<20;i++)targets.add(target(h,p,0,2+i*1.5));
+        ticks(h,p);
+        SenbonzakuraTechniqueService.executeSlot(p,d,2);
+        h.runAfterDelay(45,()->SenbonzakuraTechniqueService.executeSlot(p,d,2));
+        h.runAfterDelay(85,()->{
+            for(int i=0;i<16;i++)h.assertTrue(targets.get(i).getHealth()<1000,"Target "+i+" within cap was not damaged");
+            for(int i=16;i<20;i++)h.assertTrue(targets.get(i).getHealth()>=targets.get(15).getHealth(),"Target "+i+" beyond cap took excess damage");
+            done(h,p,targets.toArray(new LivingEntity[0]));
+        });
+    }
+    @GameTest(template="empty",batch="senbon_garden_prison_cover",timeoutTicks=100)
+    public static void gardenPrisonCoverAndVerticalReach(GameTestHelper h) {
+        var p=player(h,"bankai");var d=data(p);
+        loadField(h,p);
+        var groundTarget=target(h,p,6,8);
+        var highTarget=EntityType.ZOMBIE.create(h.getLevel());
+        highTarget.setPos(p.position().add(0,6.5,8));highTarget.setNoAi(true);highTarget.setNoGravity(true);
+        highTarget.getAttribute(Attributes.MAX_HEALTH).setBaseValue(1000);highTarget.setHealth(1000);
+        h.getLevel().addFreshEntity(highTarget);
+        var coveredTarget=target(h,p,0,8);
+        var wall=new ArrayList<BlockPos>();
+        for(int y=0;y<3;y++)for(int x=-1;x<=1;x++){
+            var pos=p.blockPosition().offset(x,y,4);wall.add(pos);
+            h.getLevel().setBlockAndUpdate(pos,net.minecraft.world.level.block.Blocks.STONE.defaultBlockState());
+        }
+        ticks(h,p);
+        SenbonzakuraTechniqueService.executeSlot(p,d,2);
+        h.runAfterDelay(45,()->SenbonzakuraTechniqueService.executeSlot(p,d,2));
+        h.runAfterDelay(85,()->{
+            try {
+                h.assertTrue(groundTarget.getHealth()<990,"Ground target inside volume did not take bloom + pulse damage");
+                h.assertTrue(highTarget.getHealth()==1000,"High target exceeding vertical reach was captured/damaged");
+                h.assertTrue(coveredTarget.getHealth()==1000,"Covered target behind solid wall was captured/damaged");
+            } finally {
+                for(var pos:wall)h.getLevel().removeBlock(pos,false);
+            }
+            done(h,p,groundTarget,highTarget,coveredTarget);
+        });
+    }
+    @GameTest(template="empty",batch="senbon_garden_prison_levitation",timeoutTicks=90)
+    public static void gardenPrisonLevitationClampsAtCeilingAndPreservesExternalEffects(GameTestHelper h) {
+        var p=player(h,"bankai");var d=data(p);
+        var openTarget=target(h,p,0,6);
+        var ceilingTarget=target(h,p,3,6);
+        var ceilingBlock=ceilingTarget.blockPosition().above(2);
+        h.getLevel().setBlockAndUpdate(ceilingBlock,net.minecraft.world.level.block.Blocks.STONE.defaultBlockState());
+        var strongTarget=target(h,p,-3,6);
+        strongTarget.addEffect(new net.minecraft.world.effect.MobEffectInstance(net.minecraft.world.effect.MobEffects.LEVITATION,100,1));
+        var longTarget=target(h,p,-6,6);
+        longTarget.addEffect(new net.minecraft.world.effect.MobEffectInstance(net.minecraft.world.effect.MobEffects.LEVITATION,200,0));
+        ticks(h,p);
+        SenbonzakuraTechniqueService.executeSlot(p,d,2);
+        h.runAfterDelay(45,()->SenbonzakuraTechniqueService.executeSlot(p,d,2));
+        h.runAfterDelay(75,()->{
+            try {
+                h.assertTrue(openTarget.hasEffect(net.minecraft.world.effect.MobEffects.LEVITATION),"Open target missing levitation");
+                h.assertTrue(ceilingTarget.getY()<ceilingBlock.getY(),"Ceiling target penetrated ceiling block");
+                var strongEff=strongTarget.getEffect(net.minecraft.world.effect.MobEffects.LEVITATION);
+                h.assertTrue(strongEff!=null && strongEff.getAmplifier()==1,"Strong levitation amplifier was downgraded");
+                var longEff=longTarget.getEffect(net.minecraft.world.effect.MobEffects.LEVITATION);
+                h.assertTrue(longEff!=null && longEff.getDuration()>50,"Long levitation was truncated to short lease");
+            } finally {
+                h.getLevel().removeBlock(ceilingBlock,false);
+            }
+            done(h,p,openTarget,ceilingTarget,strongTarget,longTarget);
+        });
+    }
+    @GameTest(template="empty",batch="senbon_garden_late_full",timeoutTicks=220)
+    public static void lateGardenReactivationAtFivePointEightSecondsFinishesFullPrisonPhase(GameTestHelper h) {
+        var p=player(h,"bankai");var d=data(p);var t=target(h,p,0,8);ticks(h,p);
+        SenbonzakuraTechniqueService.executeSlot(p,d,2);
+        h.runAfterDelay(116,()->h.assertTrue(SenbonzakuraTechniqueService.executeSlot(p,d,2),"Reactivation at 5.8s was refused"));
+        h.runAfterDelay(125,()->h.assertTrue(SenbonzakuraTechniqueService.hud(p).contains("gardenPrison"),"Prison died at 6s deadline"));
+        h.runAfterDelay(185,()->{
+            h.assertTrue(!SenbonzakuraTechniqueService.hud(p).contains("gardenPrison"),"Late prison did not terminate after 60 ticks");
+            h.assertTrue(t.getHealth()<=980,"Late prison did not deliver full damage sequence");
+            done(h,p,t);
+        });
+    }
+    @GameTest(template="empty",batch="senbon_garden_owner_ally",timeoutTicks=100)
+    public static void gardenPrisonDoesNotHarmAlliesOrCasterAndOwnerCanMoveAndLookAway(GameTestHelper h) {
+        var p=player(h,"bankai");var d=data(p);var t=target(h,p,0,8);ticks(h,p);
+        float playerHp=p.getHealth();
+        SenbonzakuraTechniqueService.executeSlot(p,d,2);
+        h.runAfterDelay(45,()->{
+            SenbonzakuraTechniqueService.executeSlot(p,d,2);
+            p.setYRot(180);p.setPos(p.position().add(10,0,0));
+        });
+        h.runAfterDelay(85,()->{
+            h.assertTrue(p.getHealth()==playerHp,"Caster took self-damage from Garden");
+            h.assertTrue(t.getHealth()<1000,"Target was dropped when owner turned and walked away");
+            done(h,p,t);
+        });
+    }
 }

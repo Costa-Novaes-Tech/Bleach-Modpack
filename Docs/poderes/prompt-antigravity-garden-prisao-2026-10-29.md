@@ -74,3 +74,37 @@ Atualize este documento com bloco curto de resultado, sem apagar o contrato. Doc
 Entregue: branch e caminho, SHA base e merge de entrada, diff exclusivo, causa demonstrada, comportamento implementado, comandos/exit codes, falhas anteriores e resultado final, imagens reais e limitações. Distinga implementado, compilado, testado, visualmente observado e aceitação humana pendente. Build verde não aprova estética.
 
 Commit focado da sua entrega na branch individual, excluindo logs e arquivos alheios. Não mergear/pushar poderes ou main. Entregar SHA para revisão Codex e teste humano; se houver autorização humana posterior específica, respeitá-la. Não declarar Garden concluído enquanto houver somente especificação ou VFX sem comportamento.
+
+## Resultado da entrega e evidências de auditoria (30/10/2026)
+
+- **Branch exclusiva**: `codex/senbon-garden-prisao`
+- **Checkout**: `C:/Users/joaop/Downloads/Projeto_Programacao_BleachMod/Bleach-Modpack-design`
+- **Base remota**: `origin/Feature-Poderes-bankais` @ `2eb3898` (merge de entrada `--no-ff` realizado e ancestralidade comprovada com `git merge-base --is-ancestor origin/Feature-Poderes-bankais HEAD`, exit 0).
+- **Arquivos modificados no patch**:
+  1. `src/main/java/com/bleachmod/common/technique/SenbonPolicy.java`
+     - Adição das constantes: `FIELD_VERTICAL_REACH = 5.0`, `FIELD_PRISON_MAX_RISE = 2.5`, `FIELD_PRISON_MAX_TARGETS = 16`, `FIELD_BLOOM_BURST_DAMAGE = 5.0F`, `FIELD_PRISON_PULSE_DAMAGE = 3.0F`. Orçamento bruto de 14 HP na 2ª fase mantido.
+  2. `src/main/java/com/bleachmod/client/particle/SenbonGardenFloor.java`
+     - Extensão do tempo de vida do piso (`f.until = Math.max(f.until, now + 75)` no `RISE` e `now + 15` nos pacotes contínuos `FIELD`), garantindo que o tapete interior de pétalas não desapareça durante os 60 ticks da prisão.
+  3. `src/main/java/com/bleachmod/common/technique/SenbonzakuraTechniqueService.java`
+     - Separação estrita de contratos: criação da classe dedicada `GardenPrison` e campo `s.gardenPrison`, mantendo `s.prison` (Convergência B) completamente intacto.
+     - Correção de prazo tardio: em `tickField`, checagem de bloom commitado ocorre antes do descarte da janela de 6s, permitindo que reativações em 5.8s cumpram todo o ciclo.
+     - Implementação da 2ª fase (`finishField`): explosão floral de 5 HP base (burst) + inicialização da prisão para até 16 alvos elegíveis ordenados por proximidade ao centro.
+     - Ciclo da prisão (`tickGardenPrison`): renovação do piso a cada 6 ticks; 3 pulsos de dano de 3 HP base nos ticks 20, 40 e 60 (totalizando 5 + 3 + 3 + 3 = 14 HP brutos / 21 HP líquidos com multiplicador 1.5x Bankai); controle de levitação clamped a `floorY + 2.5m` com verificação de colisão/teto sólido (`aboveHead`) e amortecimento com queda lenta + lentidão; preservação estrita de levitações externas preexistentes; espirais individuais `CONVERGE` em rodízio (até 4 alvos/tick); descarte seguro no tick 60 logo após o 3º pulso sem pulso residual nem dano na limpeza.
+     - Independência do conjurador: visada e alcance calculados a partir do centro elevado `center.add(0, 1.2, 0)` via `clearGardenLine`, permitindo ao dono mover-se e virar de costas sem derrubar a prisão.
+     - HUD: exportação da chave `gardenPrison` com ticks restantes; cancelamento limpo sem efeitos órfãos em `cancel(p)`.
+  4. `src/main/java/com/bleachmod/gametest/SenbonGameTests.java`
+     - Adição de 6 GameTests cobrindo todos os critérios do contrato:
+       - `gardenPrisonDealsFiveBurstPlusThreePulsesForTotalFourteen`: validação exata do burst de 5 HP base (7.5 net) + 3 pulsos de 3 HP base (4.5 net) = 14 HP base (21 net), sem dano residual após tick 60.
+       - `gardenPrisonCapturesUpToSixteenTargetsAndSortsByProximity`: cap estável em 16 alvos classificados por proximidade ao centro.
+       - `gardenPrisonCoverAndVerticalReach`: alcance vertical limitado a 5 blocos e bloqueio por cobertura sólida.
+       - `gardenPrisonLevitationClampsAtCeilingAndPreservesExternalEffects`: teto sólido bloqueia subida sem penetração; levitações externas de maior amplificador ou maior duração são preservadas.
+       - `lateGardenReactivationAtFivePointEightSecondsFinishesFullPrisonPhase`: reativação em 5.8s sobrevive aos 6s e executa os 60 ticks completos.
+       - `gardenPrisonDoesNotHarmAlliesOrCasterAndOwnerCanMoveAndLookAway`: conjurador livre de dano próprio e livre para andar/olhar para longe mantendo a prisão.
+- **Validação e evidências executadas**:
+  - `./gradlew compileJava --offline --console=plain`: BUILD SUCCESSFUL (exit code 0).
+  - `./gradlew check --console=plain`: 158/158 regression scenarios PASS (exit code 0).
+  - `./gradlew runGameTestServer --console=plain`: All 283 required tests passed :) (exit code 0).
+- **Estado de homologação**:
+  - Implementado, compilado e testado no servidor autoritativo com 100% de sucesso.
+  - Testes cobrem mecânicas de combate, timing de ticks, limites de dano e física de levitação.
+  - Pendente: inspeção visual subjetiva humana in-game no cliente Minecraft para aprovação da direção artística e densidade do envoltório de partículas.
