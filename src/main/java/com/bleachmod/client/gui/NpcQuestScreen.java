@@ -49,12 +49,19 @@ public final class NpcQuestScreen extends Screen {
     }
 
     private Quest selectedQuest() {
-        return selected == null ? null : QuestRegistry.getQuest(selected);
+        return quests.stream().filter(q -> q.getQuestKey().equals(selected)).findFirst().orElse(null);
+    }
+
+    private List<Quest> visibleQuests() {
+        if (minecraft == null || minecraft.level == null || !(minecraft.level.getEntity(entityId) instanceof QuestNpcEntity npc)) return List.of();
+        return QuestRegistry.questsForNpc(npcId).stream()
+                .filter(q -> QuestAvailabilityChecker.isOfferedBy(q, npc) && QuestAvailabilityChecker.isVisible(data(), q))
+                .sorted(java.util.Comparator.comparingInt(Quest::getHudPriority)).toList();
     }
 
     @Override
     protected void init() {
-        quests = QuestRegistry.questsForNpc(npcId);
+        quests = visibleQuests();
         if (selectedQuest() == null && !quests.isEmpty()) {
             selected = quests.get(0).getQuestKey();
         }
@@ -87,7 +94,8 @@ public final class NpcQuestScreen extends Screen {
         accept = addRenderableWidget(Button.builder(Component.translatable("screen.bleachmod.npc_quests.accept"), button -> {
             Quest quest = selectedQuest();
             if (quest != null) {
-                NetworkHandler.sendToServer(new QuestActionC2S(QuestActionC2S.Action.START, quest.getQuestKey(), entityId));
+                boolean begin = quest.isStory() && data() != null && data().getPlayerQuestData().isAccepted(quest.getQuestKey());
+                NetworkHandler.sendToServer(new QuestActionC2S(begin ? QuestActionC2S.Action.BEGIN : QuestActionC2S.Action.START, quest.getQuestKey(), entityId));
             }
         }).bounds(left, buttonY, (panelWidth - 4) / 2, 20).build());
         addRenderableWidget(Button.builder(Component.translatable("gui.done"), button -> onClose())
@@ -106,7 +114,7 @@ public final class NpcQuestScreen extends Screen {
             onClose();
             return;
         }
-        List<Quest> current = QuestRegistry.questsForNpc(npcId);
+        List<Quest> current = visibleQuests();
         if (!current.equals(quests)) {
             quests = current;
             page = 0;
@@ -144,8 +152,11 @@ public final class NpcQuestScreen extends Screen {
         QuestProgress progress = quest == null || playerData == null ? null
                 : playerData.getPlayerQuestData().getProgress(quest.getQuestKey());
         boolean compatible = progress == null || progress.matchesDefinition(quest);
+        boolean begin = quest != null && quest.isStory() && progress != null && progress.getStatus() == QuestStatus.ACCEPTED && !progress.isEncounterStarted();
+        accept.setMessage(Component.translatable(begin ? "screen.bleachmod.journal.start" : "screen.bleachmod.npc_quests.accept"));
         accept.active = quest != null && playerData != null && compatible
-                && QuestAvailabilityChecker.isAvailable(playerData, quest.getQuestKey());
+                && (QuestAvailabilityChecker.isAvailable(playerData, quest.getQuestKey())
+                || (begin && com.bleachmod.common.quest.StoryQuestService.pendingReason(quest) == null));
     }
 
     private List<Component> details() {
@@ -160,6 +171,8 @@ public final class NpcQuestScreen extends Screen {
                 : playerData.getPlayerQuestData().getProgress(quest.getQuestKey());
         result.add(Component.translatable(quest.getTitle()));
         result.add(Component.translatable(quest.getDescription()));
+        Component pendingContent = com.bleachmod.common.quest.StoryQuestService.pendingReason(quest);
+        if (pendingContent != null) result.add(pendingContent);
         result.add(Component.empty());
         if (progress != null && !progress.matchesDefinition(quest)) {
             result.add(Component.translatable("message.bleachmod.quest.changed"));

@@ -89,6 +89,21 @@ minecraft {
         }
 
         client {
+            if (providers.gradleProperty('storyQuestQa').map { it.toBoolean() }.getOrElse(false)) {
+                workingDirectory project.file('run/story-quest-qa')
+                property 'bleachmod.storyQuestQa', 'true'
+                args '--width', '1280', '--height', '720'
+            }
+            if (providers.gradleProperty('questNavigationQa').map { it.toBoolean() }.getOrElse(false)) {
+                workingDirectory project.file('run/quest-navigation-qa')
+                property 'bleachmod.questNavigationQa', 'true'
+                args '--width', '1280', '--height', '720'
+            }
+            if (providers.gradleProperty('questHudQa').map { it.toBoolean() }.getOrElse(false)) {
+                workingDirectory project.file('run/quest-hud-qa')
+                property 'bleachmod.questHudQa', 'true'
+                args '--width', '1280', '--height', '720'
+            }
             if (providers.gradleProperty('classSelectionQa').map { it.toBoolean() }.getOrElse(false)) {
                 workingDirectory project.file('run/class-selection-qa')
                 property 'bleachmod.classSelectionQa', 'true'

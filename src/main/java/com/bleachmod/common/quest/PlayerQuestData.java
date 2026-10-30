@@ -13,6 +13,16 @@ public class PlayerQuestData {
     private final Map<String, QuestProgress> quests = new LinkedHashMap<>();
     private final Map<String, Boolean> sagaUnlocks = new LinkedHashMap<>();
     private String trackedQuestId;
+    private final Map<String, QuestWaypoint> waypoints = new LinkedHashMap<>();
+
+    public QuestWaypoint getWaypoint(String key) { return isAccepted(key) ? waypoints.get(key) : null; }
+
+    public boolean replaceWaypoints(Map<String, QuestWaypoint> values) {
+        if (waypoints.equals(values)) return false;
+        waypoints.clear();
+        waypoints.putAll(values);
+        return true;
+    }
 
     public void bindDefinitions() {
         quests.forEach((key, progress) -> {
@@ -38,12 +48,13 @@ public class PlayerQuestData {
         QuestProgress progress = getOrCreateProgress(questId);
         progress.initializeRequirements(quest);
         progress.setStatus(QuestStatus.ACCEPTED);
-        trackedQuestId = questId;
+        waypoints.remove(questId);
     }
 
     public void completeQuest(String questId) {
         QuestProgress progress = getOrCreateProgress(questId);
         progress.setStatus(QuestStatus.SUCCESS);
+        waypoints.remove(questId);
         if (questId.equals(trackedQuestId)) {
             trackedQuestId = null;
         }
@@ -52,6 +63,7 @@ public class PlayerQuestData {
     public void failQuest(String questId) {
         QuestProgress progress = getOrCreateProgress(questId);
         progress.markFailed();
+        waypoints.remove(questId);
         if (questId.equals(trackedQuestId)) {
             trackedQuestId = null;
         }
@@ -76,6 +88,16 @@ public class PlayerQuestData {
     }
 
     public String getTrackedQuestId() {
+        List<Quest> accepted = getAcceptedQuestsForHud();
+        return accepted.isEmpty() ? null : accepted.get(0).getQuestKey();
+    }
+
+    public List<Quest> getAcceptedQuestsForHud() {
+        return QuestTracking.orderedAccepted(this, QuestRegistry.allQuests());
+    }
+
+    /** Optional manual preference; importance still takes precedence. Null means automatic. */
+    public String getPreferredTrackedQuestId() {
         return trackedQuestId;
     }
 
@@ -98,6 +120,9 @@ public class PlayerQuestData {
             questList.add(progress.save());
         }
         tag.put("quests", questList);
+        CompoundTag navigation = new CompoundTag();
+        waypoints.forEach((key, target) -> navigation.put(key, target.save()));
+        tag.put("waypoints", navigation);
         CompoundTag unlocks = new CompoundTag();
         sagaUnlocks.forEach(unlocks::putBoolean);
         tag.put("sagaUnlocks", unlocks);
@@ -108,6 +133,12 @@ public class PlayerQuestData {
     }
 
     public void load(CompoundTag tag) {
+        waypoints.clear();
+        CompoundTag navigation = tag.getCompound("waypoints");
+        for (String key : navigation.getAllKeys()) {
+            QuestWaypoint target = QuestWaypoint.load(navigation.getCompound(key));
+            if (target != null) waypoints.put(key, target);
+        }
         if (tag.contains("quests")) {
             quests.clear();
             ListTag questList = tag.getList("quests", Tag.TAG_COMPOUND);

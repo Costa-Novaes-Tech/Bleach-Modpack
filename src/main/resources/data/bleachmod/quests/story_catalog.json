@@ -1,0 +1,1198 @@
+{
+  "sagas": [
+    {
+      "id": "shinigami_substitute",
+      "name": "bleachmod.saga.shinigami_substitute",
+      "requirements": {
+        "previousSaga": ""
+      },
+      "completion_quest": "shinigami_substitute:10",
+      "questFolder": "shinigami_substitute"
+    },
+    {
+      "id": "shinigami_soul_society",
+      "name": "bleachmod.saga.shinigami_soul_society",
+      "requirements": {
+        "previousSaga": "shinigami_substitute"
+      },
+      "completion_quest": "shinigami_soul_society:18",
+      "questFolder": "shinigami_soul_society"
+    }
+  ],
+  "quests": [
+    {
+      "id": 1,
+      "sagaId": "shinigami_substitute",
+      "type": "SAGA",
+      "title": "bleachmod.story.sub_01.name",
+      "description": "bleachmod.story.sub_01.desc",
+      "category": "story",
+      "story": {
+        "id": "MAIN-SUB-01",
+        "offer_context": "karakura_inicio",
+        "start_mode": "NPC",
+        "target_npc": "rukia",
+        "target_context": "karakura_inicio",
+        "dimension": "minecraft:overworld"
+      },
+      "parallel_objectives": false,
+      "prerequisites": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "type": "RACE",
+            "race": "shinigami"
+          }
+        ]
+      },
+      "objectives": [
+        {
+          "type": "KILL",
+          "entity": "bleachmod:hollow",
+          "count": 1,
+          "spawn": "QUEST",
+          "count_mode": "QUEST_SPAWNED_ONLY"
+        }
+      ],
+      "rewards": [],
+      "quest_giver": "rukia"
+    },
+    {
+      "id": 2,
+      "sagaId": "shinigami_substitute",
+      "type": "SAGA",
+      "title": "bleachmod.story.sub_02.name",
+      "description": "bleachmod.story.sub_02.desc",
+      "category": "story",
+      "story": {
+        "id": "MAIN-SUB-02",
+        "offer_context": "karakura_orihime",
+        "start_mode": "NPC",
+        "target_npc": "rukia",
+        "target_context": "karakura_orihime",
+        "dimension": "minecraft:overworld",
+        "epilogue": "bleachmod.story.sub_02.epilogue"
+      },
+      "parallel_objectives": false,
+      "prerequisites": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "type": "RACE",
+            "race": "shinigami"
+          },
+          {
+            "type": "SAGA_QUEST",
+            "sagaId": "shinigami_substitute",
+            "questId": 1
+          }
+        ]
+      },
+      "objectives": [
+        {
+          "type": "KILL",
+          "entity": "bleachmod:story_orihime_brother",
+          "count": 1,
+          "spawn": "QUEST",
+          "count_mode": "QUEST_SPAWNED_ONLY"
+        }
+      ],
+      "rewards": [],
+      "quest_giver": "rukia"
+    },
+    {
+      "id": 3,
+      "sagaId": "shinigami_substitute",
+      "type": "SAGA",
+      "title": "bleachmod.story.sub_03.name",
+      "description": "bleachmod.story.sub_03.desc",
+      "category": "story",
+      "story": {
+        "id": "MAIN-SUB-03",
+        "offer_context": "karakura_periquito",
+        "start_mode": "NPC",
+        "target_npc": "sado_yasutora",
+        "target_context": "karakura_periquito",
+        "dimension": "minecraft:overworld",
+        "epilogue": "bleachmod.story.sub_03.epilogue"
+      },
+      "parallel_objectives": false,
+      "prerequisites": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "type": "RACE",
+            "race": "shinigami"
+          },
+          {
+            "type": "SAGA_QUEST",
+            "sagaId": "shinigami_substitute",
+            "questId": 2
+          }
+        ]
+      },
+      "objectives": [
+        {
+          "type": "KILL",
+          "entity": "bleachmod:story_shrieker",
+          "count": 1,
+          "spawn": "QUEST",
+          "count_mode": "QUEST_SPAWNED_ONLY"
+        }
+      ],
+      "rewards": [],
+      "quest_giver": "sado_yasutora"
+    },
+    {
+      "id": 4,
+      "sagaId": "shinigami_substitute",
+      "type": "SAGA",
+      "title": "bleachmod.story.sub_04.name",
+      "description": "bleachmod.story.sub_04.desc",
+      "category": "story",
+      "story": {
+        "id": "MAIN-SUB-04",
+        "offer_context": "karakura_loja",
+        "start_mode": "PANEL",
+        "target_npc": "kon",
+        "target_context": "karakura_escola",
+        "dimension": "minecraft:overworld",
+        "epilogue": "bleachmod.story.sub_04.epilogue"
+      },
+      "parallel_objectives": false,
+      "prerequisites": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "type": "RACE",
+            "race": "shinigami"
+          },
+          {
+            "type": "SAGA_QUEST",
+            "sagaId": "shinigami_substitute",
+            "questId": 3
+          }
+        ]
+      },
+      "objectives": [
+        {
+          "type": "KILL",
+          "entity": "bleachmod:hollow",
+          "count": 1,
+          "spawn": "QUEST",
+          "count_mode": "QUEST_SPAWNED_ONLY"
+        }
+      ],
+      "rewards": [],
+      "quest_giver": "urahara"
+    },
+    {
+      "id": 5,
+      "sagaId": "shinigami_substitute",
+      "type": "SAGA",
+      "title": "bleachmod.story.sub_05.name",
+      "description": "bleachmod.story.sub_05.desc",
+      "category": "story",
+      "story": {
+        "id": "MAIN-SUB-05",
+        "offer_context": "karakura_cemiterio",
+        "start_mode": "NPC",
+        "target_npc": "rukia",
+        "target_context": "karakura_cemiterio",
+        "dimension": "minecraft:overworld",
+        "epilogue": "bleachmod.story.sub_05.epilogue"
+      },
+      "parallel_objectives": false,
+      "prerequisites": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "type": "RACE",
+            "race": "shinigami"
+          },
+          {
+            "type": "SAGA_QUEST",
+            "sagaId": "shinigami_substitute",
+            "questId": 4
+          }
+        ]
+      },
+      "objectives": [
+        {
+          "type": "KILL",
+          "entity": "bleachmod:story_grand_fisher",
+          "count": 1,
+          "spawn": "QUEST",
+          "count_mode": "QUEST_SPAWNED_ONLY"
+        }
+      ],
+      "rewards": [],
+      "quest_giver": "rukia"
+    },
+    {
+      "id": 6,
+      "sagaId": "shinigami_substitute",
+      "type": "SAGA",
+      "title": "bleachmod.story.sub_06a.name",
+      "description": "bleachmod.story.sub_06a.desc",
+      "category": "story",
+      "story": {
+        "id": "MAIN-SUB-06A",
+        "offer_context": "karakura_isca",
+        "start_mode": "NPC",
+        "target_npc": "uryuu",
+        "target_context": "karakura_isca",
+        "dimension": "minecraft:overworld"
+      },
+      "parallel_objectives": false,
+      "prerequisites": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "type": "RACE",
+            "race": "shinigami"
+          },
+          {
+            "type": "SAGA_QUEST",
+            "sagaId": "shinigami_substitute",
+            "questId": 5
+          }
+        ]
+      },
+      "objectives": [
+        {
+          "type": "KILL",
+          "entity": "bleachmod:hollow",
+          "count": 3,
+          "spawn": "QUEST",
+          "count_mode": "QUEST_SPAWNED_ONLY"
+        }
+      ],
+      "rewards": [],
+      "quest_giver": "uryuu"
+    },
+    {
+      "id": 7,
+      "sagaId": "shinigami_substitute",
+      "type": "SAGA",
+      "title": "bleachmod.story.sub_06b.name",
+      "description": "bleachmod.story.sub_06b.desc",
+      "category": "story",
+      "story": {
+        "id": "MAIN-SUB-06B",
+        "offer_context": "karakura_menos",
+        "start_mode": "PANEL",
+        "target_npc": "uryuu",
+        "target_context": "karakura_menos",
+        "dimension": "minecraft:overworld",
+        "epilogue": "bleachmod.story.sub_06b.epilogue"
+      },
+      "parallel_objectives": false,
+      "prerequisites": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "type": "RACE",
+            "race": "shinigami"
+          },
+          {
+            "type": "SAGA_QUEST",
+            "sagaId": "shinigami_substitute",
+            "questId": 6
+          }
+        ]
+      },
+      "objectives": [
+        {
+          "type": "KILL",
+          "entity": "bleachmod:story_menos",
+          "count": 1,
+          "spawn": "QUEST",
+          "count_mode": "QUEST_SPAWNED_ONLY"
+        }
+      ],
+      "rewards": []
+    },
+    {
+      "id": 8,
+      "sagaId": "shinigami_substitute",
+      "type": "SAGA",
+      "title": "bleachmod.story.sub_07.name",
+      "description": "bleachmod.story.sub_07.desc",
+      "category": "story",
+      "story": {
+        "id": "MAIN-SUB-07",
+        "offer_context": "karakura_prisao",
+        "start_mode": "PANEL",
+        "target_npc": "kon",
+        "target_context": "karakura_prisao",
+        "dimension": "minecraft:overworld",
+        "epilogue": "bleachmod.story.sub_07.epilogue"
+      },
+      "parallel_objectives": false,
+      "prerequisites": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "type": "RACE",
+            "race": "shinigami"
+          },
+          {
+            "type": "SAGA_QUEST",
+            "sagaId": "shinigami_substitute",
+            "questId": 7
+          }
+        ]
+      },
+      "objectives": [
+        {
+          "type": "KILL",
+          "entity": "bleachmod:story_renji_karakura",
+          "count": 1,
+          "spawn": "QUEST",
+          "count_mode": "QUEST_SPAWNED_ONLY"
+        }
+      ],
+      "rewards": []
+    },
+    {
+      "id": 9,
+      "sagaId": "shinigami_substitute",
+      "type": "SAGA",
+      "title": "bleachmod.story.sub_prep_01.name",
+      "description": "bleachmod.story.sub_prep_01.desc",
+      "category": "story",
+      "story": {
+        "id": "MAIN-SUB-PREP-01",
+        "offer_context": "karakura_campo",
+        "start_mode": "NPC",
+        "target_npc": "urahara",
+        "target_context": "karakura_campo",
+        "dimension": "minecraft:overworld",
+        "pending_content": "message.bleachmod.story.pending_pursuit"
+      },
+      "parallel_objectives": false,
+      "prerequisites": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "type": "RACE",
+            "race": "shinigami"
+          },
+          {
+            "type": "SAGA_QUEST",
+            "sagaId": "shinigami_substitute",
+            "questId": 8
+          }
+        ]
+      },
+      "objectives": [
+        {
+          "type": "STORY",
+          "action": "PURSUIT",
+          "description": "bleachmod.story.sub_prep_01.objective",
+          "count": 1
+        },
+        {
+          "type": "STORY",
+          "action": "HIT",
+          "description": "bleachmod.story.sub_prep_01.hit",
+          "count": 1
+        }
+      ],
+      "rewards": [],
+      "quest_giver": "urahara"
+    },
+    {
+      "id": 10,
+      "sagaId": "shinigami_substitute",
+      "type": "SAGA",
+      "title": "bleachmod.story.sub_08.name",
+      "description": "bleachmod.story.sub_08.desc",
+      "category": "story",
+      "story": {
+        "id": "MAIN-SUB-08",
+        "offer_context": "karakura_passagem",
+        "start_mode": "NPC",
+        "target_npc": "urahara",
+        "target_context": "karakura_passagem",
+        "dimension": "minecraft:overworld",
+        "pending_content": "message.bleachmod.story.pending_expedition"
+      },
+      "parallel_objectives": false,
+      "prerequisites": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "type": "RACE",
+            "race": "shinigami"
+          },
+          {
+            "type": "SAGA_QUEST",
+            "sagaId": "shinigami_substitute",
+            "questId": 9
+          }
+        ]
+      },
+      "objectives": [
+        {
+          "type": "STORY",
+          "action": "EXPEDITION",
+          "description": "bleachmod.story.sub_08.objective",
+          "count": 1
+        }
+      ],
+      "rewards": [],
+      "quest_giver": "urahara"
+    },
+    {
+      "id": 1,
+      "sagaId": "shinigami_soul_society",
+      "type": "SAGA",
+      "title": "bleachmod.story.ss_01.name",
+      "description": "bleachmod.story.ss_01.desc",
+      "category": "story",
+      "story": {
+        "id": "MAIN-SS-01",
+        "offer_context": "ss_portao",
+        "start_mode": "NPC",
+        "target_npc": "jidanbo",
+        "target_context": "ss_portao",
+        "dimension": "bleachmod:soul_society",
+        "epilogue": "bleachmod.story.ss_01.epilogue"
+      },
+      "parallel_objectives": false,
+      "prerequisites": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "type": "RACE",
+            "race": "shinigami"
+          },
+          {
+            "type": "SAGA_QUEST",
+            "sagaId": "shinigami_substitute",
+            "questId": 10
+          }
+        ]
+      },
+      "objectives": [
+        {
+          "type": "KILL",
+          "entity": "bleachmod:story_jidanbo",
+          "count": 1,
+          "spawn": "QUEST",
+          "count_mode": "QUEST_SPAWNED_ONLY"
+        }
+      ],
+      "rewards": [],
+      "quest_giver": "jidanbo"
+    },
+    {
+      "id": 2,
+      "sagaId": "shinigami_soul_society",
+      "type": "SAGA",
+      "title": "bleachmod.story.ss_ganju_01.name",
+      "description": "bleachmod.story.ss_ganju_01.desc",
+      "category": "story",
+      "story": {
+        "id": "MAIN-SS-GANJU-01",
+        "offer_context": "ss_rukongai",
+        "start_mode": "NPC",
+        "target_npc": "ganju",
+        "target_context": "ss_rukongai",
+        "dimension": "bleachmod:soul_society",
+        "epilogue": "bleachmod.story.ss_ganju_01.epilogue"
+      },
+      "parallel_objectives": false,
+      "prerequisites": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "type": "RACE",
+            "race": "shinigami"
+          },
+          {
+            "type": "SAGA_QUEST",
+            "sagaId": "shinigami_soul_society",
+            "questId": 1
+          }
+        ]
+      },
+      "objectives": [
+        {
+          "type": "KILL",
+          "entity": "bleachmod:story_ganju",
+          "count": 1,
+          "spawn": "QUEST",
+          "count_mode": "QUEST_SPAWNED_ONLY"
+        }
+      ],
+      "rewards": [],
+      "quest_giver": "ganju"
+    },
+    {
+      "id": 3,
+      "sagaId": "shinigami_soul_society",
+      "type": "SAGA",
+      "title": "bleachmod.story.ss_02.name",
+      "description": "bleachmod.story.ss_02.desc",
+      "category": "story",
+      "story": {
+        "id": "MAIN-SS-02",
+        "offer_context": "ss_canhao",
+        "start_mode": "NPC",
+        "target_npc": "kukaku",
+        "target_context": "ss_canhao",
+        "dimension": "bleachmod:soul_society",
+        "pending_content": "message.bleachmod.story.pending_sphere_and_launch"
+      },
+      "parallel_objectives": false,
+      "prerequisites": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "type": "RACE",
+            "race": "shinigami"
+          },
+          {
+            "type": "SAGA_QUEST",
+            "sagaId": "shinigami_soul_society",
+            "questId": 2
+          }
+        ]
+      },
+      "objectives": [
+        {
+          "type": "STORY",
+          "action": "SPHERE_AND_LAUNCH",
+          "description": "bleachmod.story.ss_02.objective",
+          "count": 1
+        }
+      ],
+      "rewards": [],
+      "quest_giver": "kukaku"
+    },
+    {
+      "id": 4,
+      "sagaId": "shinigami_soul_society",
+      "type": "SAGA",
+      "title": "bleachmod.story.ss_03a.name",
+      "description": "bleachmod.story.ss_03a.desc",
+      "category": "story",
+      "story": {
+        "id": "MAIN-SS-03A",
+        "offer_context": "ss_chegada_ikkaku",
+        "start_mode": "PANEL",
+        "target_npc": "ikkaku",
+        "target_context": "ss_chegada_ikkaku",
+        "dimension": "bleachmod:soul_society"
+      },
+      "parallel_objectives": false,
+      "prerequisites": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "type": "RACE",
+            "race": "shinigami"
+          },
+          {
+            "type": "SAGA_QUEST",
+            "sagaId": "shinigami_soul_society",
+            "questId": 3
+          }
+        ]
+      },
+      "objectives": [
+        {
+          "type": "KILL",
+          "entity": "bleachmod:story_ikkaku",
+          "count": 1,
+          "spawn": "QUEST",
+          "count_mode": "QUEST_SPAWNED_ONLY"
+        }
+      ],
+      "rewards": []
+    },
+    {
+      "id": 5,
+      "sagaId": "shinigami_soul_society",
+      "type": "SAGA",
+      "title": "bleachmod.story.ss_03b.name",
+      "description": "bleachmod.story.ss_03b.desc",
+      "category": "story",
+      "story": {
+        "id": "MAIN-SS-03B",
+        "offer_context": "ss_chegada_yumichika",
+        "start_mode": "PANEL",
+        "target_npc": "yumichika",
+        "target_context": "ss_chegada_yumichika",
+        "dimension": "bleachmod:soul_society"
+      },
+      "parallel_objectives": false,
+      "prerequisites": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "type": "RACE",
+            "race": "shinigami"
+          },
+          {
+            "type": "SAGA_QUEST",
+            "sagaId": "shinigami_soul_society",
+            "questId": 4
+          }
+        ]
+      },
+      "objectives": [
+        {
+          "type": "KILL",
+          "entity": "bleachmod:story_yumichika",
+          "count": 1,
+          "spawn": "QUEST",
+          "count_mode": "QUEST_SPAWNED_ONLY"
+        }
+      ],
+      "rewards": []
+    },
+    {
+      "id": 6,
+      "sagaId": "shinigami_soul_society",
+      "type": "SAGA",
+      "title": "bleachmod.story.ss_04.name",
+      "description": "bleachmod.story.ss_04.desc",
+      "category": "story",
+      "story": {
+        "id": "MAIN-SS-04",
+        "offer_context": "ss_jirobo",
+        "start_mode": "PANEL",
+        "target_npc": "uryuu",
+        "target_context": "ss_jirobo",
+        "dimension": "bleachmod:soul_society"
+      },
+      "parallel_objectives": false,
+      "prerequisites": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "type": "RACE",
+            "race": "shinigami"
+          },
+          {
+            "type": "SAGA_QUEST",
+            "sagaId": "shinigami_soul_society",
+            "questId": 5
+          }
+        ]
+      },
+      "objectives": [
+        {
+          "type": "KILL",
+          "entity": "bleachmod:story_jirobo",
+          "count": 1,
+          "spawn": "QUEST",
+          "count_mode": "QUEST_SPAWNED_ONLY"
+        }
+      ],
+      "rewards": []
+    },
+    {
+      "id": 7,
+      "sagaId": "shinigami_soul_society",
+      "type": "SAGA",
+      "title": "bleachmod.story.ss_05.name",
+      "description": "bleachmod.story.ss_05.desc",
+      "category": "story",
+      "story": {
+        "id": "MAIN-SS-05",
+        "offer_context": "ss_galerias",
+        "start_mode": "NPC",
+        "target_npc": "hanataro",
+        "target_context": "ss_galerias",
+        "dimension": "bleachmod:soul_society",
+        "pending_content": "message.bleachmod.story.pending_route"
+      },
+      "parallel_objectives": false,
+      "prerequisites": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "type": "RACE",
+            "race": "shinigami"
+          },
+          {
+            "type": "SAGA_QUEST",
+            "sagaId": "shinigami_soul_society",
+            "questId": 6
+          }
+        ]
+      },
+      "objectives": [
+        {
+          "type": "STORY",
+          "action": "ROUTE",
+          "description": "bleachmod.story.ss_05.objective",
+          "count": 1
+        }
+      ],
+      "rewards": [],
+      "quest_giver": "hanataro"
+    },
+    {
+      "id": 8,
+      "sagaId": "shinigami_soul_society",
+      "type": "SAGA",
+      "title": "bleachmod.story.ss_06.name",
+      "description": "bleachmod.story.ss_06.desc",
+      "category": "story",
+      "story": {
+        "id": "MAIN-SS-06",
+        "offer_context": "ss_renji",
+        "start_mode": "PANEL",
+        "target_npc": "renji",
+        "target_context": "ss_renji",
+        "dimension": "bleachmod:soul_society",
+        "epilogue": "bleachmod.story.ss_06.epilogue"
+      },
+      "parallel_objectives": false,
+      "prerequisites": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "type": "RACE",
+            "race": "shinigami"
+          },
+          {
+            "type": "SAGA_QUEST",
+            "sagaId": "shinigami_soul_society",
+            "questId": 7
+          }
+        ]
+      },
+      "objectives": [
+        {
+          "type": "KILL",
+          "entity": "bleachmod:story_renji_soul_society",
+          "count": 1,
+          "spawn": "QUEST",
+          "count_mode": "QUEST_SPAWNED_ONLY"
+        }
+      ],
+      "rewards": []
+    },
+    {
+      "id": 9,
+      "sagaId": "shinigami_soul_society",
+      "type": "SAGA",
+      "title": "bleachmod.story.ss_07.name",
+      "description": "bleachmod.story.ss_07.desc",
+      "category": "story",
+      "story": {
+        "id": "MAIN-SS-07",
+        "offer_context": "ss_oitava",
+        "start_mode": "PANEL",
+        "target_npc": "kyoraku",
+        "target_context": "ss_oitava",
+        "dimension": "bleachmod:soul_society"
+      },
+      "parallel_objectives": false,
+      "prerequisites": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "type": "RACE",
+            "race": "shinigami"
+          },
+          {
+            "type": "SAGA_QUEST",
+            "sagaId": "shinigami_soul_society",
+            "questId": 8
+          }
+        ]
+      },
+      "objectives": [
+        {
+          "type": "KILL",
+          "entity": "bleachmod:story_shunsui",
+          "count": 1,
+          "spawn": "QUEST",
+          "count_mode": "QUEST_SPAWNED_ONLY"
+        }
+      ],
+      "rewards": []
+    },
+    {
+      "id": 10,
+      "sagaId": "shinigami_soul_society",
+      "type": "SAGA",
+      "title": "bleachmod.story.ss_08.name",
+      "description": "bleachmod.story.ss_08.desc",
+      "category": "story",
+      "story": {
+        "id": "MAIN-SS-08",
+        "offer_context": "ss_kenpachi",
+        "start_mode": "PANEL",
+        "target_npc": "kenpachi",
+        "target_context": "ss_kenpachi",
+        "dimension": "bleachmod:soul_society"
+      },
+      "parallel_objectives": false,
+      "prerequisites": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "type": "RACE",
+            "race": "shinigami"
+          },
+          {
+            "type": "SAGA_QUEST",
+            "sagaId": "shinigami_soul_society",
+            "questId": 9
+          }
+        ]
+      },
+      "objectives": [
+        {
+          "type": "KILL",
+          "entity": "bleachmod:story_kenpachi_soul_society",
+          "count": 1,
+          "spawn": "QUEST",
+          "count_mode": "QUEST_SPAWNED_ONLY"
+        }
+      ],
+      "rewards": []
+    },
+    {
+      "id": 11,
+      "sagaId": "shinigami_soul_society",
+      "type": "SAGA",
+      "title": "bleachmod.story.ss_09.name",
+      "description": "bleachmod.story.ss_09.desc",
+      "category": "story",
+      "story": {
+        "id": "MAIN-SS-09",
+        "offer_context": "ss_prisao",
+        "start_mode": "PANEL",
+        "target_npc": "rukia",
+        "target_context": "ss_prisao",
+        "dimension": "bleachmod:soul_society",
+        "epilogue": "bleachmod.story.ss_09.epilogue"
+      },
+      "parallel_objectives": false,
+      "prerequisites": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "type": "RACE",
+            "race": "shinigami"
+          },
+          {
+            "type": "SAGA_QUEST",
+            "sagaId": "shinigami_soul_society",
+            "questId": 10
+          }
+        ]
+      },
+      "objectives": [
+        {
+          "type": "STORY",
+          "action": "INTERACT",
+          "description": "bleachmod.story.ss_09.objective",
+          "count": 1
+        }
+      ],
+      "rewards": []
+    },
+    {
+      "id": 12,
+      "sagaId": "shinigami_soul_society",
+      "type": "SAGA",
+      "title": "bleachmod.story.ss_10.name",
+      "description": "bleachmod.story.ss_10.desc",
+      "category": "story",
+      "story": {
+        "id": "MAIN-SS-10",
+        "offer_context": "ss_mayuri",
+        "start_mode": "PANEL",
+        "target_npc": "mayuri",
+        "target_context": "ss_mayuri",
+        "dimension": "bleachmod:soul_society",
+        "epilogue": "bleachmod.story.ss_10.epilogue"
+      },
+      "parallel_objectives": false,
+      "prerequisites": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "type": "RACE",
+            "race": "shinigami"
+          },
+          {
+            "type": "SAGA_QUEST",
+            "sagaId": "shinigami_soul_society",
+            "questId": 11
+          }
+        ]
+      },
+      "objectives": [
+        {
+          "type": "KILL",
+          "entity": "bleachmod:story_mayuri",
+          "count": 1,
+          "spawn": "QUEST",
+          "count_mode": "QUEST_SPAWNED_ONLY"
+        }
+      ],
+      "rewards": []
+    },
+    {
+      "id": 13,
+      "sagaId": "shinigami_soul_society",
+      "type": "SAGA",
+      "title": "bleachmod.story.ss_prep_01.name",
+      "description": "bleachmod.story.ss_prep_01.desc",
+      "category": "story",
+      "story": {
+        "id": "MAIN-SS-PREP-01",
+        "offer_context": "ss_treino",
+        "start_mode": "NPC",
+        "target_npc": "yoruichi",
+        "target_context": "ss_treino",
+        "dimension": "bleachmod:soul_society",
+        "pending_content": "message.bleachmod.story.pending_circuit"
+      },
+      "parallel_objectives": false,
+      "prerequisites": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "type": "RACE",
+            "race": "shinigami"
+          },
+          {
+            "type": "SAGA_QUEST",
+            "sagaId": "shinigami_soul_society",
+            "questId": 12
+          }
+        ]
+      },
+      "objectives": [
+        {
+          "type": "STORY",
+          "action": "CIRCUIT",
+          "description": "bleachmod.story.ss_prep_01.objective",
+          "count": 1
+        }
+      ],
+      "rewards": [],
+      "quest_giver": "yoruichi"
+    },
+    {
+      "id": 14,
+      "sagaId": "shinigami_soul_society",
+      "type": "SAGA",
+      "title": "bleachmod.story.ss_11a.name",
+      "description": "bleachmod.story.ss_11a.desc",
+      "category": "story",
+      "story": {
+        "id": "MAIN-SS-11A",
+        "offer_context": "ss_tosen",
+        "start_mode": "PANEL",
+        "target_npc": "tosen",
+        "target_context": "ss_tosen",
+        "dimension": "bleachmod:soul_society"
+      },
+      "parallel_objectives": false,
+      "prerequisites": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "type": "RACE",
+            "race": "shinigami"
+          },
+          {
+            "type": "SAGA_QUEST",
+            "sagaId": "shinigami_soul_society",
+            "questId": 13
+          }
+        ]
+      },
+      "objectives": [
+        {
+          "type": "KILL",
+          "entity": "bleachmod:story_tosen",
+          "count": 1,
+          "spawn": "QUEST",
+          "count_mode": "QUEST_SPAWNED_ONLY"
+        }
+      ],
+      "rewards": []
+    },
+    {
+      "id": 15,
+      "sagaId": "shinigami_soul_society",
+      "type": "SAGA",
+      "title": "bleachmod.story.ss_11b.name",
+      "description": "bleachmod.story.ss_11b.desc",
+      "category": "story",
+      "story": {
+        "id": "MAIN-SS-11B",
+        "offer_context": "ss_komamura",
+        "start_mode": "PANEL",
+        "target_npc": "komamura",
+        "target_context": "ss_komamura",
+        "dimension": "bleachmod:soul_society"
+      },
+      "parallel_objectives": false,
+      "prerequisites": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "type": "RACE",
+            "race": "shinigami"
+          },
+          {
+            "type": "SAGA_QUEST",
+            "sagaId": "shinigami_soul_society",
+            "questId": 14
+          }
+        ]
+      },
+      "objectives": [
+        {
+          "type": "KILL",
+          "entity": "bleachmod:story_komamura",
+          "count": 1,
+          "spawn": "QUEST",
+          "count_mode": "QUEST_SPAWNED_ONLY"
+        }
+      ],
+      "rewards": []
+    },
+    {
+      "id": 16,
+      "sagaId": "shinigami_soul_society",
+      "type": "SAGA",
+      "title": "bleachmod.story.ss_front_01.name",
+      "description": "bleachmod.story.ss_front_01.desc",
+      "category": "story",
+      "story": {
+        "id": "MAIN-SS-FRONT-01",
+        "offer_context": "ss_soifon",
+        "start_mode": "PANEL",
+        "target_npc": "soifon",
+        "target_context": "ss_soifon",
+        "dimension": "bleachmod:soul_society",
+        "epilogue": "bleachmod.story.ss_front_01.epilogue"
+      },
+      "parallel_objectives": false,
+      "prerequisites": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "type": "RACE",
+            "race": "shinigami"
+          },
+          {
+            "type": "SAGA_QUEST",
+            "sagaId": "shinigami_soul_society",
+            "questId": 15
+          }
+        ]
+      },
+      "objectives": [
+        {
+          "type": "KILL",
+          "entity": "bleachmod:story_soifon",
+          "count": 1,
+          "spawn": "QUEST",
+          "count_mode": "QUEST_SPAWNED_ONLY"
+        }
+      ],
+      "rewards": []
+    },
+    {
+      "id": 17,
+      "sagaId": "shinigami_soul_society",
+      "type": "SAGA",
+      "title": "bleachmod.story.ss_12.name",
+      "description": "bleachmod.story.ss_12.desc",
+      "category": "story",
+      "story": {
+        "id": "MAIN-SS-12",
+        "offer_context": "ss_execucao_rukia",
+        "start_mode": "PANEL",
+        "target_npc": "rukia",
+        "target_context": "ss_execucao_rukia",
+        "dimension": "bleachmod:soul_society",
+        "epilogue": "bleachmod.story.ss_12.epilogue"
+      },
+      "parallel_objectives": false,
+      "prerequisites": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "type": "RACE",
+            "race": "shinigami"
+          },
+          {
+            "type": "SAGA_QUEST",
+            "sagaId": "shinigami_soul_society",
+            "questId": 16
+          }
+        ]
+      },
+      "objectives": [
+        {
+          "type": "STORY",
+          "action": "INTERACT",
+          "description": "bleachmod.story.ss_12.objective",
+          "count": 1
+        }
+      ],
+      "rewards": []
+    },
+    {
+      "id": 18,
+      "sagaId": "shinigami_soul_society",
+      "type": "SAGA",
+      "title": "bleachmod.story.ss_13.name",
+      "description": "bleachmod.story.ss_13.desc",
+      "category": "story",
+      "story": {
+        "id": "MAIN-SS-13",
+        "offer_context": "ss_execucao_byakuya",
+        "start_mode": "PANEL",
+        "target_npc": "byakuya",
+        "target_context": "ss_execucao_byakuya",
+        "dimension": "bleachmod:soul_society",
+        "epilogue": "bleachmod.story.ss_13.epilogue"
+      },
+      "parallel_objectives": false,
+      "prerequisites": {
+        "operator": "AND",
+        "conditions": [
+          {
+            "type": "RACE",
+            "race": "shinigami"
+          },
+          {
+            "type": "SAGA_QUEST",
+            "sagaId": "shinigami_soul_society",
+            "questId": 17
+          }
+        ]
+      },
+      "objectives": [
+        {
+          "type": "KILL",
+          "entity": "bleachmod:story_byakuya",
+          "count": 1,
+          "spawn": "QUEST",
+          "count_mode": "QUEST_SPAWNED_ONLY"
+        }
+      ],
+      "rewards": []
+    }
+  ]
+}

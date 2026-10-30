@@ -7,6 +7,9 @@ public class Saga {
     private String name;
     private String previousSaga = "";
     private String questFolder;
+    private String completionQuest = "";
+    public String getCompletionQuest() { return completionQuest; }
+    public void setCompletionQuest(String value) { completionQuest = value; }
 
     public String getId() {
         return id;
@@ -46,6 +49,7 @@ public class Saga {
         json.addProperty("name", name);
         JsonObject requirements = new JsonObject();
         requirements.addProperty("previousSaga", previousSaga);
+        if (!completionQuest.isBlank()) json.addProperty("completion_quest", completionQuest);
         json.add("requirements", requirements);
         json.addProperty("questFolder", questFolder);
         return json;
@@ -59,6 +63,7 @@ public class Saga {
             saga.setPreviousSaga(json.getAsJsonObject("requirements").get("previousSaga").getAsString());
         }
         saga.setQuestFolder(json.get("questFolder").getAsString());
+        if (json.has("completion_quest")) saga.setCompletionQuest(json.get("completion_quest").getAsString());
         return saga;
     }
 }

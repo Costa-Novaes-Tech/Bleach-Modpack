@@ -12,7 +12,8 @@ import java.util.function.Supplier;
 
 public record QuestActionC2S(Action action, String questId, int npcEntityId) {
     public enum Action {
-        START
+        START,
+        BEGIN
     }
 
     public static void encode(QuestActionC2S msg, FriendlyByteBuf buf) {
@@ -33,19 +34,22 @@ public record QuestActionC2S(Action action, String questId, int npcEntityId) {
             }
             if (msg.action == Action.START) {
                 Quest quest = QuestRegistry.getQuest(msg.questId);
+                QuestNpcEntity giver = null;
                 if (quest != null && !quest.getQuestGiver().isBlank()) {
                     net.minecraft.world.entity.Entity entity = player.level().getEntity(msg.npcEntityId);
                     if (!(entity instanceof QuestNpcEntity npc)
-                            || !quest.getQuestGiver().equals(npc.getNpcId())
+                            || !com.bleachmod.common.quest.QuestAvailabilityChecker.isOfferedBy(quest, npc)
                             || player.distanceToSqr(npc) > 36.0D) {
                         com.bleachmod.common.network.NetworkHandler.sendToPlayer(
                                 com.bleachmod.common.network.s2c.ActionFeedbackS2C.of(
                                         net.minecraft.network.chat.Component.translatable("message.bleachmod.quest.npc_required")), player);
                         return;
                     }
+                    giver = npc;
                 }
-                QuestService.startQuest(player, msg.questId);
+                QuestService.startQuest(player, msg.questId, giver);
             }
+            if (msg.action == Action.BEGIN) com.bleachmod.common.quest.StoryQuestService.begin(player, msg.questId);
         });
         ctx.get().setPacketHandled(true);
     }

@@ -826,6 +826,90 @@ public final class MvpRegressionTest {
             Quest q=quest();q.setRepeatable(true);
             yes(QuestParser.parseQuest(q.toJson(),null).isRepeatable());
         });
+        test("story HUD priority survives accepting or pinning a sidequest",()->{
+            Quest side=quest();side.setStringId("side");
+            Quest story=quest();story.setType(QuestType.SAGA);story.setSagaId("story");story.setNumericId(1);
+            PlayerQuestData data=new PlayerQuestData();data.acceptQuest("side",side);data.acceptQuest("story:1",story);
+            data.setTrackedQuestId("side");
+            eq(List.of(story,side),QuestTracking.orderedAccepted(data,List.of(side,story)));
+            Quest later=quest();later.setStringId("later");data.acceptQuest("later",later);
+            eq(List.of(story,side,later),QuestTracking.orderedAccepted(data,List.of(later,story,side)));
+        });
+        test("HUD ties use acceptance order with manual preference within importance",()->{
+            Quest first=quest();first.setStringId("first");Quest second=quest();second.setStringId("second");
+            PlayerQuestData data=new PlayerQuestData();data.acceptQuest("first",first);data.acceptQuest("second",second);
+            eq(List.of(first,second),QuestTracking.orderedAccepted(data,List.of(second,first)));
+            data.setTrackedQuestId("second");
+            eq(List.of(second,first),QuestTracking.orderedAccepted(data,List.of(first,second)));
+            data.setTrackedQuestId(null);
+            eq(List.of(first,second),QuestTracking.orderedAccepted(data,List.of(second,first)));
+        });
+        test("HUD excludes inactive and missing definitions and falls back after completion or failure",()->{
+            Quest side=quest();side.setStringId("side");Quest other=quest();other.setStringId("other");
+            Quest story=quest();story.setType(QuestType.SAGA);story.setSagaId("story");story.setNumericId(1);
+            PlayerQuestData data=new PlayerQuestData();data.acceptQuest("side",side);data.acceptQuest("story:1",story);
+            data.acceptQuest("missing",quest());data.setTrackedQuestId("story:1");
+            var definitions=List.of(other,side,story);
+            data.completeQuest("story:1");eq(List.of(side),QuestTracking.orderedAccepted(data,definitions));
+            data.failQuest("side");eq(List.of(),QuestTracking.orderedAccepted(data,definitions));
+        });
+        test("HUD manual preference and acceptance order persist across NBT",()->{
+            Quest first=quest();first.setStringId("first");Quest second=quest();second.setStringId("second");
+            PlayerQuestData data=new PlayerQuestData();data.acceptQuest("first",first);data.acceptQuest("second",second);
+            data.setTrackedQuestId("second");PlayerQuestData copy=new PlayerQuestData();copy.load(data.save());
+            eq("second",copy.getPreferredTrackedQuestId());
+            eq(List.of(second,first),QuestTracking.orderedAccepted(copy,List.of(first,second)));
+            copy.setTrackedQuestId(null);eq(List.of(first,second),QuestTracking.orderedAccepted(copy,List.of(second,first)));
+        });
+        test("quest NPC index persists distant and cross-dimension destinations and binding",()->{
+            var overworld=new net.minecraft.resources.ResourceLocation("minecraft:overworld");
+            var nether=new net.minecraft.resources.ResourceLocation("minecraft:the_nether");
+            var id=UUID.randomUUID(); var closer=UUID.randomUUID();
+            var distant=new QuestWaypoint(id,"rukia",overworld,new net.minecraft.core.BlockPos(5000,70,-7000));
+            var near=new QuestWaypoint(closer,"rukia",overworld,new net.minecraft.core.BlockPos(1,70,1));
+            var other=new QuestWaypoint(UUID.randomUUID(),"rukia",nether,new net.minecraft.core.BlockPos(0,70,0));
+            var index=new QuestNpcLocations(); index.put(distant); index.put(near); index.put(other);
+            eq(near,index.resolve("rukia",null,overworld,0,70,0));
+            eq(distant,index.resolve("rukia",id,overworld,0,70,0));
+            eq(null,index.resolve("ichigo",id,overworld,0,70,0));
+            var restored=QuestNpcLocations.load(index.save(new CompoundTag()));
+            eq(distant,restored.resolve("rukia",id,nether,0,70,0));
+            restored.remove(id,nether); eq(distant,restored.resolve("rukia",id,overworld,0,70,0));
+            restored.remove(id,overworld); eq(null,restored.resolve("rukia",id,overworld,0,70,0));
+        });
+        test("quest compass cardinal bearings wrap with player yaw and distance includes height",()->{
+            var dimension=new net.minecraft.resources.ResourceLocation("minecraft:overworld");
+            var target=new QuestWaypoint(UUID.randomUUID(),"rukia",dimension,new net.minecraft.core.BlockPos(0,0,10));
+            yes(Math.abs(target.relativeBearing(.5,.5,0))<.00001);
+            eq(-90D,target.relativeBearing(.5,.5,90));
+            eq(-180D,target.relativeBearing(.5,.5,180));
+            eq(90D,target.relativeBearing(.5,.5,270));
+            eq(-1D,target.relativeBearing(.5,.5,361));
+            eq(10L,target.distanceMetres(.5,.5,.5));
+            eq(10L,target.distanceMetres(.5,10.5,10.5));
+            eq(0L,target.distanceMetres(.5,.5,10.5));
+        });
+        test("navigation persists per quest and clears on completion failure retry and old snapshots",()->{
+            Quest q=quest();q.setQuestGiver("rukia");var data=new PlayerQuestData();data.acceptQuest("q",q);
+            var target=new QuestWaypoint(UUID.randomUUID(),"rukia",new net.minecraft.resources.ResourceLocation("minecraft:overworld"),new net.minecraft.core.BlockPos(20,70,30));
+            data.getProgress("q").setQuestGiverUuid(target.entityId());
+            yes(data.replaceWaypoints(Map.of("q",target)));yes(!data.replaceWaypoints(Map.of("q",target)));
+            var restored=new PlayerQuestData(); restored.load(data.save());
+            eq(target,restored.getWaypoint("q"));eq(target.entityId(),restored.getProgress("q").getQuestGiverUuid());
+            restored.failQuest("q");eq(null,restored.getWaypoint("q"));
+            restored.acceptQuest("q",q);eq(null,restored.getProgress("q").getQuestGiverUuid());
+            restored.replaceWaypoints(Map.of("q",target));restored.completeQuest("q");eq(null,restored.getWaypoint("q"));
+            restored.replaceWaypoints(Map.of("q",target));restored.load(new CompoundTag());eq(null,restored.getWaypoint("q"));
+        });
+        test("Rukia catalog retires former quests and preserves the boss and other NPCs",()->{
+            Quest old=quest();old.setStringId("rukia_basic_training");yes(QuestRegistry.isRetiredRukiaQuest(old));
+            Quest future=quest();future.setStringId("future_rukia");future.setQuestGiver("rukia");yes(!QuestRegistry.isRetiredRukiaQuest(future));
+            Quest boss=quest();boss.setStringId("rukia_npc_test");boss.setQuestGiver("rukia");yes(!QuestRegistry.isRetiredRukiaQuest(boss));
+            Quest other=quest();other.setQuestGiver("ichigo");yes(!QuestRegistry.isRetiredRukiaQuest(other));
+            JsonArray array=new JsonArray();array.add(old.toJson());array.add(boss.toJson());array.add(other.toJson());array.add(future.toJson());
+            var snapshot=QuestRegistry.parse("[]",array.toString());
+            eq(Set.of("rukia_npc_test","q","future_rukia"),snapshot.quests().keySet());
+        });
         test("quest giver survives JSON roundtrip",()->{
             Quest q=quest();q.setQuestGiver("rukia");
             eq("rukia",QuestParser.parseQuest(q.toJson(),null).getQuestGiver());
@@ -1464,6 +1548,82 @@ public final class MvpRegressionTest {
                 yes(com.bleachmod.common.visual.HollowBossEntrance.hand(t,true).planted());
                 yes(com.bleachmod.common.visual.HollowBossEntrance.foot(t,false).planted());
             }
+        });
+        test("story catalog follows the 28 approved M13 missions exactly", () -> {
+            try {
+                JsonObject catalog = StoryQuestDefaults.bundled();
+                var snapshot = QuestRegistry.parse(catalog.get("sagas").toString(), catalog.get("quests").toString());
+                eq(28, snapshot.quests().size());
+                eq(10, snapshot.order().get("shinigami_substitute").size());
+                eq(18, snapshot.order().get("shinigami_soul_society").size());
+                String doc = java.nio.file.Files.readString(java.nio.file.Path.of("Docs/game-design/13-campanhas-e-sidequests.md"));
+                doc = doc.substring(doc.indexOf("### 10.32."), doc.indexOf("### 10.33."));
+                var matcher = java.util.regex.Pattern.compile("\\| \\d+ \\| (MAIN-[A-Z0-9-]+) \\|").matcher(doc);
+                List<String> expected = new ArrayList<>(); while (matcher.find()) expected.add(matcher.group(1));
+                eq(expected, snapshot.quests().values().stream().map(q -> q.getStory().id()).toList());
+                yes(snapshot.quests().values().stream().allMatch(q -> q.getRewards().isEmpty() && !q.isRepeatable()));
+            } catch (java.io.IOException failure) { throw new AssertionError(failure); }
+        });
+        test("story visibility advances personally in order and failed retries still require Shinigami", () -> {
+            try {
+                var catalog = StoryQuestDefaults.bundled();
+                QuestRegistry.replaceFromNetwork(catalog.get("sagas").toString(), catalog.get("quests").toString());
+                PlayerData first = player(), second = player();
+                var sequence = List.copyOf(QuestRegistry.allQuests());
+                for (int i = 0; i < sequence.size(); i++) {
+                    Quest current = sequence.get(i);
+                    yes(QuestAvailabilityChecker.isAvailable(first, current.getQuestKey()));
+                    eq(i + 1L, sequence.stream().filter(q -> QuestAvailabilityChecker.isVisible(first, q)).count());
+                    eq(1L, sequence.stream().filter(q -> QuestAvailabilityChecker.isVisible(second, q)).count());
+                    first.getPlayerQuestData().completeQuest(current.getQuestKey());
+                }
+                String key = sequence.get(0).getQuestKey();
+                second.getPlayerQuestData().acceptQuest(key, sequence.get(0)); second.getPlayerQuestData().failQuest(key);
+                second.getCharacter().setRace("hollow");
+                yes(!QuestAvailabilityChecker.isAvailable(second, key));
+                yes(!QuestAvailabilityChecker.isVisible(second, sequence.get(0)));
+            } catch (java.io.IOException failure) { throw new AssertionError(failure); }
+            finally { QuestRegistry.clearClient(); }
+        });
+        test("story JSON roundtrip retains contexts and rejects an absent or optional race requirement", () -> {
+            try {
+                var catalog = StoryQuestDefaults.bundled();
+                for (var element : catalog.getAsJsonArray("quests")) {
+                    var json = element.getAsJsonObject(); var q = QuestParser.parseQuest(json, json.get("sagaId").getAsString());
+                    eq(q.progressDefinition(), QuestParser.parseQuest(q.toJson(), q.getSagaId()).progressDefinition());
+                    var changed = json.deepCopy(); changed.getAsJsonObject("prerequisites").addProperty("operator", "OR");
+                    rejects(() -> QuestParser.parseQuest(changed, q.getSagaId()));
+                }
+            } catch (java.io.IOException failure) { throw new AssertionError(failure); }
+        });
+        test("story waypoint lookup never falls back to another context or dimension", () -> {
+            var index = new QuestNpcLocations(); var dimension = com.bleachmod.Reference.id("soul_society");
+            var id = UUID.randomUUID();
+            var target = new QuestWaypoint(id, "rukia", dimension, new net.minecraft.core.BlockPos(2000,70,1000), "ss_prisao");
+            index.put(target);
+            index.put(new QuestWaypoint(UUID.randomUUID(), "rukia", dimension, net.minecraft.core.BlockPos.ZERO, "ss_execucao_rukia"));
+            eq(target, index.resolveContext("rukia", "ss_prisao", dimension, null, 0, 0, 0));
+            eq(null, index.resolveContext("rukia", "karakura_inicio", dimension, null, 0, 0, 0));
+            eq(null, index.resolveContext("rukia", "ss_prisao", new net.minecraft.resources.ResourceLocation("minecraft:overworld"), null, 0, 0, 0));
+            eq(target, QuestNpcLocations.load(index.save(new CompoundTag())).resolveContext("rukia", "ss_prisao", dimension, id, 0, 0, 0));
+        });
+        test("story encounter state and target survive NBT but a fresh attempt resets them", () -> {
+            Quest q = quest(); QuestProgress p = new QuestProgress("q"); p.initializeRequirements(q);
+            UUID target = UUID.randomUUID(); p.setStoryTargetUuid(target); p.setEncounterStarted(true);
+            QuestProgress copy = QuestProgress.load(p.save()); yes(copy.isEncounterStarted()); eq(target, copy.getStoryTargetUuid());
+            eq(p.getAttemptId(), copy.getAttemptId()); var previousAttempt = copy.getAttemptId();
+            copy.initializeRequirements(q); yes(!copy.isEncounterStarted()); eq(null, copy.getStoryTargetUuid());
+            yes(!previousAttempt.equals(copy.getAttemptId()));
+        });
+        test("approved story has maximum HUD priority even over manually preferred legacy sagas", () -> {
+            try {
+                var json = StoryQuestDefaults.bundled().getAsJsonArray("quests").get(0).getAsJsonObject();
+                Quest story = QuestParser.parseQuest(json, "shinigami_substitute"), legacy = quest(), side = quest();
+                legacy.setType(QuestType.SAGA); legacy.setSagaId("legacy"); legacy.setNumericId(1); side.setStringId("side");
+                var data = new PlayerQuestData(); data.acceptQuest(legacy.getQuestKey(), legacy); data.acceptQuest("side", side);
+                data.acceptQuest(story.getQuestKey(), story); data.setTrackedQuestId(legacy.getQuestKey());
+                eq(List.of(story, legacy, side), QuestTracking.orderedAccepted(data, List.of(side, legacy, story)));
+            } catch (java.io.IOException failure) { throw new AssertionError(failure); }
         });
         System.out.println("PASS: "+count+" regression scenarios");
     }

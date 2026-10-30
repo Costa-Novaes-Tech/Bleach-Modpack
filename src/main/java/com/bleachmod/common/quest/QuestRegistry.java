@@ -58,6 +58,7 @@ public final class QuestRegistry {
         for(JsonElement el:JsonParser.parseString(questsJson).getAsJsonArray()) {
             JsonObject obj=el.getAsJsonObject();
             Quest q=QuestParser.parseQuest(obj,obj.has("sagaId")?obj.get("sagaId").getAsString():null);
+            if (isRetiredRukiaQuest(q)) continue;
             requireId(q.getQuestKey());
             if(q.getType()==QuestType.SAGA&&!sagas.containsKey(q.getSagaId())) throw new IllegalArgumentException("Missing saga: "+q.getQuestKey());
             if(quests.putIfAbsent(q.getQuestKey(),q)!=null) throw new IllegalArgumentException("Duplicate quest "+q.getQuestKey());
@@ -73,6 +74,15 @@ public final class QuestRegistry {
                 if(current==null||!order.containsKey(previous)) throw new IllegalArgumentException("Missing previous saga: "+previous);
             }
         }
+        Set<String> storyIds = new HashSet<>();
+        for (Quest q : quests.values()) if (q.isStory()) {
+            if (!storyIds.add(q.getStory().id())) throw new IllegalArgumentException("Duplicate story id: " + q.getStory().id());
+            if (q.getStory().startMode() == StoryQuestInfo.StartMode.NPC && q.getQuestGiver().isBlank())
+                throw new IllegalArgumentException("NPC-started story needs a giver: " + q.getQuestKey());
+        }
+        for (Saga saga : sagas.values()) if (!saga.getCompletionQuest().isBlank()
+                && (!quests.containsKey(saga.getCompletionQuest()) || !saga.getId().equals(quests.get(saga.getCompletionQuest()).getSagaId())))
+            throw new IllegalArgumentException("Invalid saga completion milestone: " + saga.getId());
         for(Quest q:quests.values()) for(var c:q.getPrerequisites().getConditions()) {
             String key=switch(c.type()) { case QUEST->c.questKey(); case SAGA_QUEST->c.sagaId()+":"+c.questId(); default->null; };
             if((c.type()==QuestPrerequisites.ConditionType.QUEST||c.type()==QuestPrerequisites.ConditionType.SAGA_QUEST)
@@ -80,10 +90,42 @@ public final class QuestRegistry {
                 throw new IllegalArgumentException("Invalid prerequisite: "+q.getQuestKey());
         }
         order.replaceAll((k,v)->v.stream().sorted(Comparator.comparingInt(id->quests.get(id).getNumericId())).toList());
+        Map<String, Set<String>> dependencies = new HashMap<>();
+        for (Quest q : quests.values()) {
+            Set<String> required = new HashSet<>();
+            for (var c : q.getPrerequisites().getConditions()) {
+                if (c.type() == QuestPrerequisites.ConditionType.QUEST) required.add(c.questKey());
+                if (c.type() == QuestPrerequisites.ConditionType.SAGA_QUEST) required.add(c.sagaId() + ":" + c.questId());
+            }
+            if (q.getType() == QuestType.SAGA) {
+                var sequence = order.get(q.getSagaId()); int index = sequence.indexOf(q.getQuestKey());
+                if (index > 0) required.add(sequence.get(index - 1));
+                Saga saga = sagas.get(q.getSagaId());
+                if (!saga.getPreviousSaga().isBlank()) {
+                    Saga previous = sagas.get(saga.getPreviousSaga());
+                    if (!previous.getCompletionQuest().isBlank()) required.add(previous.getCompletionQuest());
+                    else required.addAll(order.getOrDefault(saga.getPreviousSaga(), List.of()));
+                }
+            }
+            dependencies.put(q.getQuestKey(), required);
+        }
+        Set<String> done = new HashSet<>();
+        for (String key : quests.keySet()) validateDependencies(key, dependencies, new HashSet<>(), done);
         return new Snapshot(Collections.unmodifiableMap(sagas),Collections.unmodifiableMap(quests),Collections.unmodifiableMap(order));
+    }
+    private static void validateDependencies(String key, Map<String, Set<String>> dependencies, Set<String> active, Set<String> done) {
+        if (done.contains(key)) return;
+        if (!active.add(key)) throw new IllegalArgumentException("Quest dependency cycle: " + key);
+        for (String parent : dependencies.getOrDefault(key, Set.of())) validateDependencies(parent, dependencies, active, done);
+        active.remove(key); done.add(key);
     }
     private static void requireId(String id) {
         if(id==null||!id.matches("[a-z0-9_:/.-]{1,128}")) throw new IllegalArgumentException("Invalid id: "+id);
+    }
+    /** Retire from both old saves and fresh catalogs without deleting authored JSON or player history. */
+    public static boolean isRetiredRukiaQuest(Quest quest) {
+        // Explicit legacy IDs leave room for newly authored Rukia quests later on.
+        return "rukia_basic_training".equals(quest.getQuestKey());
     }
     public static void installServer(Snapshot snapshot) { serverState=snapshot; }
     public static void loadAll(MinecraftServer server) {

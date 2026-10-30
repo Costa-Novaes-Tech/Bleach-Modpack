@@ -13,6 +13,12 @@ import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 /** Compact right-hand guide; requirements come from installed form definitions, not invented mastery tiers. */
 public final class ZanpakutoHud {
     private ZanpakutoHud() { }
+
+    /** Upper edge in GUI pixels, also reserved by the quest tracker. */
+    public static float topEdge(int width, int height) {
+        float scale = Math.min(0.85F, Math.min(width / 500F, height / 260F));
+        return Math.max(110 * scale, height - 233 * scale);
+    }
     public static String abilityKey(String identity, String form, int slot) {
         if (CharacterData.ASAUCHI.equals(identity)) return "message.bleachmod.asauchi.no_techniques";
         return TechniqueDefinitions.find(identity, form, slot).map(TechniqueDefinitions.Definition::nameKey).orElse("message.bleachmod."+identity+".sealed");
@@ -40,8 +46,8 @@ public final class ZanpakutoHud {
             String form = d.getCharacter().getActiveForm(), identity = d.getCharacter().getZanpakutoIdentity();
             float scale = Math.min(0.85F, Math.min(w / 500F, h / 260F));
             int width = 188, height = 167;
-            float x = w / scale - width - 8, y = h / scale - height - 66;
-            g.pose().pushPose(); g.pose().scale(scale, scale, 1); g.pose().translate(x, Math.max(110, y), 0);
+            float x = w / scale - width - 8;
+            g.pose().pushPose(); g.pose().scale(scale, scale, 1); g.pose().translate(x, topEdge(w, h) / scale, 0);
             g.fill(0,0,width,height,0xCC102333); g.fill(0,0,2,height,0xFF85D7F0);
             g.drawString(mc.font, Component.translatable("item.bleachmod." + identity), 8, 6, 0xDFF7FF, false);
             String mastery = com.bleachmod.common.evolution.FormNames.of(identity, form).getString() + " · " + MasteryFeedback.value(d.getCharacter().getMastery("zanpakuto", form)) + "/100";

@@ -81,6 +81,13 @@ public class QuestEvents {
                 if (progress == null || progress.getStatus() != QuestStatus.ACCEPTED) {
                     continue;
                 }
+                if (quest.isStory() && (!progress.isEncounterStarted()
+                        || !"shinigami".equals(data.getCharacter().getRace())
+                        || !quest.getStory().dimension().equals(killed.level().dimension().location())
+                        || !killed.getPersistentData().hasUUID(Reference.TAG_QUEST_OWNER)
+                        || !killer.getUUID().equals(killed.getPersistentData().getUUID(Reference.TAG_QUEST_OWNER))
+                        || !killed.getPersistentData().hasUUID("blc_quest_attempt")
+                        || !killed.getPersistentData().getUUID("blc_quest_attempt").equals(progress.getAttemptId()))) continue;
                 for (int i = 0; i < quest.getObjectives().size(); i++) {
                     if (!(quest.getObjectives().get(i) instanceof KillObjective kill)) {
                         continue;
@@ -105,6 +112,21 @@ public class QuestEvents {
                     QuestService.failQuest(deadPlayer, data, questKey);
                 }
             }
+        });
+    }
+
+    @SubscribeEvent public static void discardStaleStoryActor(net.minecraftforge.event.entity.EntityJoinLevelEvent event) {
+        if (!(event.getLevel() instanceof net.minecraft.server.level.ServerLevel level)) return;
+        var tag = event.getEntity().getPersistentData();
+        if (!tag.hasUUID("blc_quest_attempt") || !tag.hasUUID(Reference.TAG_QUEST_OWNER)) return;
+        Quest quest = QuestRegistry.getQuest(tag.getString(Reference.TAG_QUEST_KEY));
+        if (quest == null || !quest.isStory()) return;
+        var owner = level.getServer().getPlayerList().getPlayer(tag.getUUID(Reference.TAG_QUEST_OWNER));
+        if (owner == null) return;
+        PlayerCapability.get(owner).ifPresent(data -> {
+            var progress = data.getPlayerQuestData().getProgress(quest.getQuestKey());
+            if (progress == null || progress.getStatus() != QuestStatus.ACCEPTED
+                    || !tag.getUUID("blc_quest_attempt").equals(progress.getAttemptId())) event.setCanceled(true);
         });
     }
 }

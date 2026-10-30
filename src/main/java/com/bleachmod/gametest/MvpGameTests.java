@@ -55,7 +55,9 @@ public final class MvpGameTests {
     public static void batchRewardsAreDeliveredOnce(GameTestHelper helper) {
         FakePlayer player=player(helper);
         PlayerData data=data(player);
-        Quest quest=QuestRegistry.allQuests().stream().filter(q->"rukia_basic_training".equals(q.getStringId())).findFirst().orElseThrow();
+        Quest quest=QuestRegistry.getQuest("sado_yasutora_npc_test");
+        boolean repeatable=quest.isRepeatable();
+        quest.setRepeatable(true);
         var original=new ArrayList<>(quest.getRewards());
         try {
             quest.getRewards().add(new ItemReward("minecraft:diamond",2));
@@ -70,8 +72,8 @@ public final class MvpGameTests {
             helper.assertTrue(player.getInventory().countItem(Items.DIAMOND)==2,"Duplicate or missing items");
             helper.assertTrue(data.getCharacter().isFormDiscovered("shikai"),"Missing transformation reward");
             helper.assertTrue(data.getCharacter().getMastery("zanpakuto","shikai")==0,"Unexpected mastery");
-            helper.assertTrue(data.getPlayerQuestData().getProgress(quest.getQuestKey()).canRepeat(quest),"Training cannot repeat");
-        } finally { quest.getRewards().clear(); quest.getRewards().addAll(original); }
+            helper.assertTrue(data.getPlayerQuestData().getProgress(quest.getQuestKey()).canRepeat(quest),"Test quest cannot repeat");
+        } finally { quest.setRepeatable(repeatable); quest.getRewards().clear(); quest.getRewards().addAll(original); }
         helper.succeed();
     }
 

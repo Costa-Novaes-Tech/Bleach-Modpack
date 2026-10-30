@@ -22,7 +22,7 @@ public final class QuestAvailabilityChecker {
         if (status == QuestStatus.ACCEPTED || (status == QuestStatus.SUCCESS && (progress == null || !progress.canRepeat(quest)))) {
             return false;
         }
-        if (status == QuestStatus.FAILED) {
+        if (status == QuestStatus.FAILED && !quest.isStory()) {
             return true;
         }
         if (quest.getType() == QuestType.SAGA) {
@@ -36,12 +36,33 @@ public final class QuestAvailabilityChecker {
         return quest.getPrerequisites().evaluate(data);
     }
 
+    public static boolean isVisible(PlayerData data, Quest quest) {
+        if (!quest.isStory()) return true;
+        if (data == null || !data.getStatus().hasCreatedCharacter()
+                || !"shinigami".equals(data.getCharacter().getRace())) return false;
+        if (data.getPlayerQuestData().getStatus(quest.getQuestKey()) != QuestStatus.NOT_STARTED) return true;
+        return quest.getPrerequisites().evaluate(data) && previousSagaComplete(data, quest.getSagaId())
+                && previousSagaQuestComplete(data, quest);
+    }
+
+    public static boolean isOfferedBy(Quest quest, com.bleachmod.entity.QuestNpcEntity npc) {
+        if (!quest.getQuestGiver().equals(npc.getNpcId())) return false;
+        // Unscoped legacy/test offers must not leak into a story representation of the character.
+        if (!quest.isStory()) return npc.getQuestContext().isEmpty()
+                && (!"rukia_npc_test".equals(quest.getQuestKey()) || npc.level().dimension() == net.minecraft.world.level.Level.OVERWORLD);
+        return quest.getStory().offerContext().equals(npc.getQuestContext())
+                && quest.getStory().dimension().equals(npc.level().dimension().location());
+    }
+
     public static boolean previousSagaComplete(PlayerData data, String sagaId) {
         Saga saga = QuestRegistry.getSaga(sagaId);
         if (saga == null || saga.getPreviousSaga() == null || saga.getPreviousSaga().isBlank()) {
             return true;
         }
         List<String> previous = QuestRegistry.sagaQuestKeys(saga.getPreviousSaga());
+        Saga previousSaga = QuestRegistry.getSaga(saga.getPreviousSaga());
+        if (previousSaga != null && !previousSaga.getCompletionQuest().isBlank())
+            return data.getPlayerQuestData().isCompleted(previousSaga.getCompletionQuest());
         if (previous.isEmpty()) {
             return true;
         }

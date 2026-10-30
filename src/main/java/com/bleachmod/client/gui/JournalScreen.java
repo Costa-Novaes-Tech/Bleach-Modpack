@@ -33,19 +33,23 @@ public final class JournalScreen extends LayoutScreen {
     }
 
     private Quest quest() {
-        return selected == null ? null : QuestRegistry.getQuest(selected);
+        return quests.stream().filter(q -> q.getQuestKey().equals(selected)).findFirst().orElse(null);
+    }
+    private List<Quest> visibleQuests() {
+        return QuestRegistry.allQuests().stream().filter(q -> QuestAvailabilityChecker.isVisible(data(), q))
+                .sorted(java.util.Comparator.comparingInt(Quest::getHudPriority)).toList();
     }
 
     @Override
     protected void init() {
-        quests = List.copyOf(QuestRegistry.allQuests());
+        quests = visibleQuests();
         if (quest() == null && !quests.isEmpty()) selected = quests.get(0).getQuestKey();
         clampScroll();
     }
 
     @Override
     public void tick() {
-        List<Quest> current = List.copyOf(QuestRegistry.allQuests());
+        List<Quest> current = visibleQuests();
         if (!current.equals(quests)) {
             quests = current;
             first = 0;
@@ -98,6 +102,7 @@ public final class JournalScreen extends LayoutScreen {
             ctx.text("quest_title", Component.translatable(q.getTitle()));
             ctx.text("quest_desc", Component.translatable(q.getDescription()));
             Component notice = null;
+            if (status != QuestStatus.SUCCESS) notice = StoryQuestService.pendingReason(q);
             if (p != null && !p.matchesDefinition(q)) notice = Component.translatable("message.bleachmod.quest.changed");
             else if (d != null && status == QuestStatus.NOT_STARTED && !QuestAvailabilityChecker.isAvailable(d, selected))
                 notice = Component.translatable("screen.bleachmod.quest_locked");
@@ -126,11 +131,13 @@ public final class JournalScreen extends LayoutScreen {
 
         QuestProgress p = valid ? d.getPlayerQuestData().getProgress(selected) : null;
         boolean compatible = p == null || p.matchesDefinition(q);
-        ctx.flag("can_start", valid && compatible && q.getQuestGiver().isBlank() && QuestAvailabilityChecker.isAvailable(d, selected));
+        boolean begin = valid && q.isStory() && p != null && p.getStatus() == QuestStatus.ACCEPTED && !p.isEncounterStarted();
+        ctx.flag("can_start", valid && compatible && ((q.getQuestGiver().isBlank() && QuestAvailabilityChecker.isAvailable(d, selected))
+                || (begin && StoryQuestService.pendingReason(q) == null)));
         ctx.flag("can_claim", valid && compatible && d.getPlayerQuestData().isCompleted(selected) && pending(d, q));
         ctx.flag("can_track", valid && d.getPlayerQuestData().isAccepted(selected));
-        boolean tracked = valid && selected.equals(d.getPlayerQuestData().getTrackedQuestId());
-        ctx.text("track_label", Component.translatable(tracked ? "screen.bleachmod.untrack" : "screen.bleachmod.journal.track"));
+        boolean tracked = valid && selected.equals(d.getPlayerQuestData().getPreferredTrackedQuestId());
+        ctx.text("track_label", Component.translatable(tracked ? "hud.bleachmod.quests.automatic" : "screen.bleachmod.journal.track"));
         boolean portuguese = minecraft != null && minecraft.getLanguageManager().getSelected().toLowerCase(Locale.ROOT).startsWith("pt");
         boolean success = q != null && d != null && d.getPlayerQuestData().getStatus(selected) == QuestStatus.SUCCESS;
         ctx.flag("stamp_pt", success && portuguese);
@@ -152,7 +159,10 @@ public final class JournalScreen extends LayoutScreen {
             case "page_prev" -> first -= ROWS;
             case "page_next" -> first += ROWS;
             case "start" -> {
-                if (quest() != null) NetworkHandler.sendToServer(new QuestActionC2S(QuestActionC2S.Action.START, selected, -1));
+                if (quest() != null) {
+                    boolean begin = quest().isStory() && d != null && d.getPlayerQuestData().isAccepted(selected);
+                    NetworkHandler.sendToServer(new QuestActionC2S(begin ? QuestActionC2S.Action.BEGIN : QuestActionC2S.Action.START, selected, -1));
+                }
             }
             case "claim" -> {
                 if (d != null && quest() != null && d.getPlayerQuestData().getProgress(selected) != null)
@@ -160,7 +170,7 @@ public final class JournalScreen extends LayoutScreen {
             }
             case "track" -> {
                 if (d != null && quest() != null)
-                    NetworkHandler.sendToServer(new SetTrackedQuestC2S(selected.equals(d.getPlayerQuestData().getTrackedQuestId()) ? "" : selected));
+                    NetworkHandler.sendToServer(new SetTrackedQuestC2S(selected.equals(d.getPlayerQuestData().getPreferredTrackedQuestId()) ? "" : selected));
             }
             case "character" -> minecraft.setScreen(new StatusScreen());
             default -> {

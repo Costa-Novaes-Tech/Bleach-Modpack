@@ -16,7 +16,9 @@ public final class RegistryReload {
                     if (!net.minecraftforge.registries.ForgeRegistries.ITEMS.containsKey(id)) throw new IOException(quest.getQuestKey() + ": unknown item " + id);
                 } else if (objective instanceof com.bleachmod.common.quest.objectives.KillObjective kill && !kill.getEntityId().startsWith("#")) {
                     var id = com.bleachmod.common.util.ResourceIds.parse(kill.getEntityId());
-                    if (!net.minecraftforge.registries.ForgeRegistries.ENTITY_TYPES.containsKey(id)) throw new IOException(quest.getQuestKey() + ": unknown entity " + id);
+                    if (!net.minecraftforge.registries.ForgeRegistries.ENTITY_TYPES.containsKey(id)
+                            && !(quest.isStory() && kill.getEntityId().startsWith("bleachmod:story_")))
+                        throw new IOException(quest.getQuestKey() + ": unknown entity " + id);
                 }
             }
             for (var reward : quest.getRewards()) {

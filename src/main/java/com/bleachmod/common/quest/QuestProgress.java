@@ -19,6 +19,18 @@ public class QuestProgress {
     private final Map<Integer, Integer> objectiveRequirements = new HashMap<>();
     private final Map<Integer, Boolean> rewards = new HashMap<>();
     private int failureCount;
+    private java.util.UUID questGiverUuid;
+    private java.util.UUID storyTargetUuid;
+    private boolean encounterStarted;
+    private java.util.UUID attemptId;
+    public java.util.UUID getAttemptId() { return attemptId; }
+    public java.util.UUID getStoryTargetUuid() { return storyTargetUuid; }
+    public void setStoryTargetUuid(java.util.UUID value) { storyTargetUuid = value; }
+    public boolean isEncounterStarted() { return encounterStarted; }
+    public void setEncounterStarted(boolean value) { encounterStarted = value; }
+
+    public java.util.UUID getQuestGiverUuid() { return questGiverUuid; }
+    public void setQuestGiverUuid(java.util.UUID value) { questGiverUuid = value; }
 
     public QuestProgress(String questId) {
         this.questId = questId;
@@ -81,6 +93,10 @@ public class QuestProgress {
         rewards.clear();
         objectives.clear();
         objectiveRequirements.clear();
+        questGiverUuid = null;
+        storyTargetUuid = null;
+        encounterStarted = false;
+        attemptId = java.util.UUID.randomUUID();
         for (int i = 0; i < quest.getObjectives().size(); i++) {
             objectiveRequirements.put(i, quest.getObjectives().get(i).getRequired());
             objectives.put(i, 0);
@@ -100,6 +116,10 @@ public class QuestProgress {
     public CompoundTag save() {
         CompoundTag tag = new CompoundTag();
         tag.putString("questId", questId);
+        if (questGiverUuid != null) tag.putUUID("questGiverUuid", questGiverUuid);
+        if (storyTargetUuid != null) tag.putUUID("storyTargetUuid", storyTargetUuid);
+        tag.putBoolean("encounterStarted", encounterStarted);
+        if (attemptId != null) tag.putUUID("attemptId", attemptId);
         tag.putString("definition", definition);
         tag.putString("status", status.name());
         tag.putInt("failureCount", failureCount);
@@ -113,6 +133,10 @@ public class QuestProgress {
 
     public static QuestProgress load(CompoundTag tag) {
         QuestProgress progress = new QuestProgress(tag.getString("questId"));
+        if (tag.hasUUID("questGiverUuid")) progress.questGiverUuid = tag.getUUID("questGiverUuid");
+        if (tag.hasUUID("storyTargetUuid")) progress.storyTargetUuid = tag.getUUID("storyTargetUuid");
+        progress.encounterStarted = tag.getBoolean("encounterStarted");
+        if (tag.hasUUID("attemptId")) progress.attemptId = tag.getUUID("attemptId");
         progress.definition = tag.getString("definition");
         progress.status = QuestStatus.fromName(tag.getString("status"));
         progress.failureCount = tag.getInt("failureCount");

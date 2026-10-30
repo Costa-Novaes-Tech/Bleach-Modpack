@@ -71,6 +71,8 @@ public class ModEntityRenderers {
 
         @Override
         public ResourceLocation getTextureLocation(QuestNpcEntity entity) {
+            if (java.util.Set.of("jidanbo", "ganju", "kukaku", "hanataro", "ururu", "kon").contains(entity.getNpcId()))
+                return new ResourceLocation("minecraft", "textures/entity/player/wide/steve.png");
             return Reference.id("textures/entity/" + entity.getNpcId() + ".png");
         }
     }

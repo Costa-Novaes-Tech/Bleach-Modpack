@@ -60,6 +60,12 @@ public class ModEntities {
     public static final RegistryObject<EntityType<QuestNpcEntity>> NPC_BYAKUYA = registerNpc("byakuya");
     public static final RegistryObject<EntityType<QuestNpcEntity>> NPC_URAHARA = registerNpc("urahara");
     public static final RegistryObject<EntityType<QuestNpcEntity>> NPC_ULQUIORRA = registerNpc("ulquiorra");
+    public static final RegistryObject<EntityType<QuestNpcEntity>> NPC_JIDANBO = registerNpc("jidanbo");
+    public static final RegistryObject<EntityType<QuestNpcEntity>> NPC_GANJU = registerNpc("ganju");
+    public static final RegistryObject<EntityType<QuestNpcEntity>> NPC_KUKAKU = registerNpc("kukaku");
+    public static final RegistryObject<EntityType<QuestNpcEntity>> NPC_HANATARO = registerNpc("hanataro");
+    public static final RegistryObject<EntityType<QuestNpcEntity>> NPC_URURU = registerNpc("ururu");
+    public static final RegistryObject<EntityType<QuestNpcEntity>> NPC_KON = registerNpc("kon");
 
     static {
         // Skin-only NPCs from the roster; the quest givers above keep their fields for direct references.

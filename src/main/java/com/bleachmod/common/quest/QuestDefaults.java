@@ -3,7 +3,6 @@ package com.bleachmod.common.quest;
 import com.bleachmod.Reference;
 import com.bleachmod.common.quest.objectives.ItemObjective;
 import com.bleachmod.common.quest.objectives.KillObjective;
-import com.bleachmod.common.quest.rewards.SkillReward;
 import com.bleachmod.common.quest.rewards.TpsReward;
 import com.bleachmod.common.quest.rewards.TransformationReward;
 import com.google.gson.Gson;
@@ -21,6 +20,7 @@ public final class QuestDefaults {
     }
 
     public static void writeIfMissing(Path root) throws IOException {
+        StoryQuestDefaults.writeIfMissing(root);
         Path sagaFile = root.resolve("sagas").resolve("soul_society.json");
         if (!Files.exists(sagaFile)) {
             Saga saga = new Saga();
@@ -36,10 +36,6 @@ public final class QuestDefaults {
         writeQuest(questFolder.resolve("1.json"), soulSociety1());
         writeQuest(questFolder.resolve("2.json"), soulSociety2());
         writeQuest(questFolder.resolve("3.json"), soulSociety3());
-
-        Path sideFolder = root.resolve("sidequests").resolve("training");
-        Files.createDirectories(sideFolder);
-        writeQuest(sideFolder.resolve("rukia_basic_training.json"), rukiaTraining());
 
         Path npcFolder = root.resolve("sidequests").resolve("npc_test");
         Files.createDirectories(npcFolder);
@@ -108,19 +104,6 @@ public final class QuestDefaults {
         quest.getObjectives().add(new KillObjective("minecraft:zombie", 8, KillObjective.SpawnMode.NATURAL, KillObjective.CountMode.ANY_MATCHING));
         quest.getRewards().add(new TpsReward(600));
         quest.getRewards().add(new TransformationReward(Reference.GROUP_ZANPAKUTO, Reference.FORM_BANKAI, 0));
-        return quest;
-    }
-
-    private static Quest rukiaTraining() {
-        Quest quest = new Quest();
-        quest.setStringId("rukia_basic_training");
-        quest.setRepeatable(true);
-        quest.setType(QuestType.SIDEQUEST);
-        quest.setTitle("bleachmod.quest.rukia_basic_training.name");
-        quest.setDescription("bleachmod.quest.rukia_basic_training.desc");
-        quest.setCategory("training");
-        quest.getObjectives().add(new KillObjective("minecraft:zombie", 10, KillObjective.SpawnMode.NATURAL, KillObjective.CountMode.ANY_MATCHING));
-        quest.getRewards().add(new TpsReward(150));
         return quest;
     }
 

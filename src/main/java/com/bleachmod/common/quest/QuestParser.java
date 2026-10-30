@@ -54,6 +54,14 @@ public final class QuestParser {
         if (json.has("prerequisites")) {
             quest.setPrerequisites(QuestPrerequisites.fromJson(json.getAsJsonObject("prerequisites")));
         }
+        if (json.has("story")) {
+            quest.setStory(StoryQuestInfo.fromJson(json.getAsJsonObject("story")));
+            if (quest.getType() != QuestType.SAGA) throw new IllegalArgumentException("Story must belong to a saga");
+            if (quest.getPrerequisites().getOperator() != QuestPrerequisites.Operator.AND
+                    || quest.getPrerequisites().getConditions().stream().noneMatch(c ->
+                    c.type() == QuestPrerequisites.ConditionType.RACE && "shinigami".equals(c.race())))
+                throw new IllegalArgumentException("Story requires Shinigami");
+        }
         if (json.has("objectives")) {
             json.getAsJsonArray("objectives").forEach(el -> quest.getObjectives().add(parseObjective(el.getAsJsonObject())));
         }
@@ -70,6 +78,10 @@ public final class QuestParser {
         if (json.get("count").getAsInt() < 1 || json.get("count").getAsInt() > 10000)
             throw new IllegalArgumentException("Objective count must be 1..10000");
 
+        if ("STORY".equals(json.get("type").getAsString()))
+            return new com.bleachmod.common.quest.objectives.StoryObjective(
+                    com.bleachmod.common.quest.objectives.StoryObjective.Action.valueOf(json.get("action").getAsString()),
+                    json.get("description").getAsString());
         String id = json.has("entity")
                 ? json.get("entity").getAsString()
                 : json.get("item").getAsString();
