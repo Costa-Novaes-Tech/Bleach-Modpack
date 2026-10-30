@@ -87,7 +87,7 @@ public final class QuincyQaSequence {
         var p=Minecraft.getInstance().player;var focus=p.position().add(0,1.2,0);
         net.minecraft.world.phys.Vec3 eye;
         net.minecraft.world.phys.Vec3 targetFocus = focus;
-        if(stage == 2){
+        if(stage == 2 || stage == 8){
             eye = focus.add(0, .2, 4);
         } else if(stage == 9){
             targetFocus = focus.add(0, 0, 5);

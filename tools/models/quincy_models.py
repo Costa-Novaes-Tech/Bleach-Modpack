@@ -193,8 +193,8 @@ def generate_seele_texture(width=32, height=64) -> bytes:
 # The 3D bow lies in YZ, unlike vanilla's generated XY sprite.
 # Keep its centre (the physical grip) at the hand pivot, not vanilla sprite offsets.
 COMMON_DISPLAY = {
-    "thirdperson_righthand": {"rotation": [90, 180, 0], "translation": [0, -2, -1], "scale": [0.72]*3},
-    "thirdperson_lefthand": {"rotation": [90, 180, 0], "translation": [0, -2, -1], "scale": [0.72]*3},
+    "thirdperson_righthand": {"rotation": [0, 0, 90], "translation": [0, -2, -1], "scale": [0.72]*3},
+    "thirdperson_lefthand": {"rotation": [0, 0, 90], "translation": [0, -2, -1], "scale": [0.72]*3},
     "firstperson_righthand": {"rotation": [0, 0, -8], "translation": [1, -1, -1], "scale": [0.35]*3},
     "firstperson_lefthand": {"rotation": [0, 0, -8], "translation": [1, -1, -1], "scale": [0.35]*3},
     "gui": {"rotation": [0, 0, -45], "translation": [0, 0, 0], "scale": [0.45]*3},

@@ -64,5 +64,27 @@
     "Antithesis acquisition is administratively provisioned only; no executable reversal ability.",
     "Human approval of advanced kit balance/appearance and dedicated multiplayer remain pending."
   ],
-  "fixture_correction": "First piercing tests were placed underground (negative world Y) and hit natural terrain; moved test arenas to free sky. Limits were not weakened."
+  "fixture_correction": "First piercing tests were placed underground (negative world Y) and hit natural terrain; moved test arenas to free sky. Limits were not weakened.",
+  "idle_bow_fix": {
+    "base_commit": "2bba36f",
+    "scope": "Idle third-person rotation only: [90,180,0] -> [0,0,90], both hands. Geometry, draw/first-person transforms and gameplay unchanged. Generator and Blockbench display metadata synchronized.",
+    "check_build_log": "build/quincy-idle-bow-check.log",
+    "regressions": 158,
+    "gametests": "Not repeated for display-only adjustment; previous277 do not represent a new run.",
+    "client_log": "build/quincy-idle-bow-client.log",
+    "capture_source": "run-benihime-qa/base/quincy-qa/1793316481911",
+    "visual_review": [
+      "Front idle transverse bow at waist, grip at hand",
+      "Idle right and left profiles",
+      "Draw front/profile retained"
+    ],
+    "evidence": "arco-repouso.jpg",
+    "limitations": "Static pose inspection, not continuous-motion proof. Old arrow-impact QA remains insufficient to prove collision and is not part of this claim.",
+    "asset_sha256": {
+      "src/main/resources/assets/bleachmod/models/item/quincy_bow.json": "be398c0db3e297d603d48a333e6e4ca13a66c0b7ee6808e5faaebf6f43b6b7e7",
+      "src/main/resources/assets/bleachmod/models/item/quincy_bow_pulling_0.json": "fea73ab338d430786c95edd2637fb9e41ca259d1bb39e386f14c51e7d6005993",
+      "src/main/resources/assets/bleachmod/models/item/quincy_bow_pulling_1.json": "8aabf54d46b2b83d0107fbf5906fa0c062a4add51ed70c8a11d645d5a06747bf",
+      "src/main/resources/assets/bleachmod/models/item/quincy_bow_pulling_2.json": "b7a8e90a582b214dbdcf0b1778ba774d3596c6a2a9b568d552134ce933a0aa13"
+    }
+  }
 }
