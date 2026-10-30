@@ -2,6 +2,32 @@
 
 Prompt executivo atualizado29/10 após a entrega Quincy4185558. Esta versão substitui a espera e as instruções antigas deste arquivo. Copie a seção seguinte ou mande a IA ler o arquivo integralmente.
 
+## Retorno Codex30/10 ao commit7750815 — correção antes de integrar
+
+Esta revisão é mais recente que o resultado relatado na branch. Ainda NÃO houve merge para a poderes. Preserve seu trabalho; leia este bloco da origin/Feature-Poderes-bankais atualizada antes de implementar. O log run-gametest/base/logs/latest.log do checkout design confirma All283requiredtestspassed em30/10/2026 14:00:54; não foi uma nova execução do Codex nem prova de cliente real. Fonte7750815 revisada por diff. Base2eb3898 já está atrás da documentação5fb4c9a/844d02d; faça novamente o merge de entrada da poderes remota atualizada na SUA branch, preservando Garden e o resultado documentado.
+
+**Acertos a preservar:** estado gardenPrison independente de B, commit tardio antes de expirar janela, pulsos20/40/60 antes da limpeza, posição fixa,14HP base repartidos. Os21HP no fixture vêm do multiplicador1,5 da Bankai sem defesa naquele cenário: não chamar de dano líquido garantido em qualquer alvo. Não mexer no combo/transformação/Quincy.
+
+**Correções obrigatórias desta rodada:**
+
+1. Em tickGardenPrison revalidar TechniqueTargets.allowed a cada atualização, inclusive mudança de aliança/PvP/espectador/NPC protegido depois da captura. O laço atual só remove mortos/ausentes/fora de volume/sem linha; um capturado que se torne aliado pode continuar recebendo controle/dano.
+2. Controle de altura: checagem a cada4ticks e Vy=0 apenas nessa checagem não demonstram limite2,5 durante a lease8. Impedir aplicação/continuação do controle próprio quando colisão/limite ocorrer, mantendo o limite durante TODOS os ticks pertinentes e distinguindo a origem do efeito. Não truncar/remover efeito externo nem amortecer sua velocidade como se pertencesse à prisão. Testar subida efetiva, teto que surge durante lease, transição para limite, término/cancelamento e efeito externo forte/igual longo.
+3. FIELD do piso: accept começa com f.until=now+10 e só depois max(now+15); isso apaga o prazo75 de RISE. Como finished continua true, o fade de20ticks pode oscilar a cada renovação. Preservar extensão monotônica adequada enquanto prisão existir, separar piso persistente de fade final e provar visualmente duração real. Não assumir que max após um reset preserva a duração anterior.
+4. Destinatários: pulseGarden dá5HP a todos os elegíveis ANTES de escolher16 para os pulsos. Isso não é o mesmo conjunto recebendo5+3+3+3. Na segunda fase V0, capture primeiro os16 válidos, então aplique burst e pulsos a esse conjunto; primeira explosão6HP mantém sua regra atual. Se propor burst para mais alvos, declarar como mudança de contrato em vez de afirmar orçamento completo para todos.
+5. floorY hoje é o Y inicial do alvo, não piso terreno consultado. Declare a referência corretamente e teste capturados já elevados/relevo; se implementar busca de piso, limite-a, respeite chunks/colisão e não teletransporte o alvo para o chão.
+
+**Os seis testes atuais NÃO cobrem todo o contrato anunciado:**
+
+- Cap: health<1000 pode ser satisfeita apenas pela primeira explosão; a comparação dos distantes com alvo15 não prova exatamente16capturados/praticando pulsos. Registre saúde logo antes do bloom, deltas por fase, conjunto de UUIDs e exclusões exatas. Incluir casos de empate e volume/parede próximos antes do teto.
+- AlliesOrCaster não cria aliado. Crie aliado real/team, NPC protegido e espectador quando aplicável; teste também inimigo que vira aliado DEPOIS da captura. Não renomear teste para esconder ausência de cobertura.
+- Levitação/teto observa só tick75, no início da prisão. Isso não prova limite2,5 ao longo da subida ou preservação da lease completa. Observe posição, colisão, Vy e efeitos a cada tick até depois da expiração. Não fixar posição/velocidade manualmente para fabricar sucesso.
+- Late5,8s aceita health<=980: primeira explosão +burst+um pulso já podem satisfazer esse limiar. Meça os três deltas20/40/60 e t59/t60/t61, referenciados ao início REAL da prisão. Não usar só atraso global do cenário.
+- Inclua ciclo de vida: sair/morrer/dimensão/trocar kit/fim da forma e prisão B independente. Não apagar levitação externa ao limpar.
+
+**QA visual ainda ausente:** executar cliente Forge em mundo descartável, com primeira explosão/flor/prisão/fade reais, perfil distante e alvo próximo, teto baixo e reativação tardia. Inspecionar o tapete interior e envoltórios, não somente log de emissão. Retenção compacta: origem/hash/tempos e poucas capturas, idealmente trecho curto contínuo para demonstrar transição; só quadros não comprovam fluidez. Nenhum cliente pesado em paralelo com o outro checkout. Informe reserva de uso antes de iniciar.
+
+Entregue correção focada e relato honesto: problemas corrigidos, testes realmente executados, falhas, contagens verificadas e limitações. Não afirmar cobertura de aliado/altura/todos os critérios por nome do teste. Commit somente sua branch codex/senbon-garden-prisao; sem merge de retorno na poderes/main nesta rodada.
+
 ## Missão e resultado esperado
 
 Implemente o Garden N da Bankai como prisão ampla após a segunda explosão: pétalas continuam cobrindo o interior, a flor se forma, inimigos capturados levitam de maneira limitada, envolvidos em pétalas, e recebem pulsos de dano. O usuário já aprovou o combo atual da Senbon: preserve arma, empunhadura, animações prontas Better Combat, rastro de combate e transformação. Não reabra os antigos JSONs para tentar melhorar uma pendência já aceita.

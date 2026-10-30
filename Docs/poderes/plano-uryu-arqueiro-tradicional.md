@@ -1,6 +1,174 @@
 # Uryū Ishida — plano do arqueiro tradicional
 
 
+## Análise da ramificação e storyboards30/10 — proposta para revisão
+
+**Esclarecimento humano posterior:** a Vollständig realmente ativa; a insatisfação é com o kit incompleto e sua apresentação. Isso supera a leitura anterior de possível ausência total de troca. Não há evidência nesta rodada de que H/N/B/C estejam despachando para o kit-base quando a forma está ativa. Usuário apoia mais ameaça no C e considera destruição de blocos; números/política abaixo continuam propostas. Sem implementação de runtime nesta rodada.
+
+### Cadeia confirmada por leitura de código
+
+ExecuteTechniqueSlotC2S.handle valida slot/entrada e encaminha Quincy para QuincyTechniqueService.executeSlot; após authorize, active(player) chama QuincyVollstandigService.execute. Base e avançado têm caminhos diferentes. A preparação bloqueia técnicas até180ticks, embora active seja marcado no160; isso também precisa aparecer claramente em estado/HUD.
+
+- H avançado já cria central12HP e quatro auxiliares. Não tem preparação/gesto próprios; é disparado diretamente pelo serviço.
+- N já agenda12projéteis em intervalos de3ticks. Asas são geometria de apresentação, sem animação articulada associada às emissões.
+- B chama HirenkyakuService existente e contabiliza três cargas; não possui a linguagem corporal nova desenhada aqui.
+- C marca ponto, aguarda30ticks, aplica área18HP e emite END_ROD/som. Não executa a convergência corporal/armamento das pranchas e não destrói blocos.
+- QuincyVollstandigVisuals.View só recebe entrada/âncora/forma/cargas/último tiro; não recebe tipo/fase/aim/tempo de H/N/B/C. Pose.isActive só cobre idade<180. Isso sustenta falta de direção visual por técnica, não falha comprovada do despacho.
+- No C, a lista é limitada a16 antes de testar linha de visão. Alvos próximos bloqueados podem consumir vagas de alvos válidos. Filtrar elegibilidade espacial/linha primeiro, ordenar e limitar depois, mantendo validação no impacto.
+
+A futura correção precisa de contexto de ação sincronizado (ação/castId/fase/start/aim/ponto/forma), um relógio autoritativo, separação de animação de corpo/arma/asas e decisões de interrupção. Não resolver apenas com mais partículas. G/CHARGE/INSTANT continuam entradas a conciliar na seleção racial, mas não são a causa demonstrada do kit pouco expressivo. Preparo sensível a dano/reação e limpeza indiscriminada de disparos seguem divergências M07 a corrigir.
+
+### Pranchas de conceito — imagegen integrado
+
+- [Transformação, seis marcos](media/quincy-storyboards-20261030/transformacao.png).
+- [H/N/B, nove marcos](media/quincy-storyboards-20261030/tecnicas-h-n-b.png).
+- [C, oito marcos](media/quincy-storyboards-20261030/convergencia-c.png).
+- [Proveniência, prompts e limites](media/quincy-storyboards-20261030/manifest.json).
+
+São ilustrações geradas para discutir linguagem, não capturas Forge, modelo/rig pronto ou prova de fluidez/colisão. Os ticks/contagens/regras escritos abaixo prevalecem sobre omissões da arte. Foi feita revisão direcionada de continuidade do N e das cargas B. Ainda há imprecisões de mão/empunhadura e o arco fica pouco legível/omitido em N/t30: a implementação NÃO deve copiá-las. Exigir prova nativa de contato antes de reproduzir partículas. Roupa e rosto ilustrativos não autorizam substituir a skin do jogador nem dar armadura/voo por aparência.
+
+### Referencial comum para os marcos
+
+Personagem das artes exemplifica mão ESQUERDA segurando o centro do arco e DIREITA na corda; implementação espelha conjunto para a mão principal do jogador, mantendo a identidade da mão de suporte. Não trocar o arco de mão entre quadros nem espelhar só o braço. O ponto de empunhadura permanece na palma; asa não é pai do arco. Punho, antebraço, corda e flecha têm referenciais identificados no rig, sem Euler copiado de desenho2D. Tracionar com ombro/cotovelo e mão da corda, não transladar o arco através do peito. Pés apoiados, quadril acompanha rotação do tronco sem giração arbitrária.
+
+Tempos abaixo são ticks nominais20TPS de um futuro roteiro, não frames de vídeo nem durações já implementadas. Quadros são marcos; gerar interpolação/animatic e comparar também intervalos. Câmeras de perfil/aéreas nos ataques são vistas de estudo/QA, não aprovação de sequestrar a câmera do jogador em cada técnica. Transformação pode usar direção cinematográfica; ataques comuns preservam mira/controle.
+
+### Transformação — roteiro visual candidato de180ticks/9s
+
+- t0: arco em repouso transversal, pés estáveis; plano frontal médio, mão de suporte relaxada. Sem dano de área incidental.
+- t20: arco sobe numa curva contínua até frente do peito; mão da corda se aproxima, ombros iniciam ajuste; Reishi discreto em mão/costas.
+- t50: perfil para estudar duas mãos; braço do arco aponta ao setor frontal, cotovelo da corda recua perto da face; não cruzar flecha pelo próprio braço. Raízes das asas aparecem separadas.
+- t90: abertura segmentada das duas asas, quatro núcleos destacados; plano frontal amplia para mostrar corpo inteiro, sem cortar pontas.
+- t140: silhueta completa, quatro estrelas independentes em pares; asas assentam com atraso suave, revestimentos luminosos leves em mãos/pernas. Continua sem ataque automático de invocação.
+- t180: baixa o arco para guarda e devolve câmera com suavidade; quatro estrelas seguem o jogador. Não termina com braços rígidos abertos ou postura de tração presa.
+
+Este é tempo de apresentação para discussão. O preparo/compromisso real deve respeitar M07 e ser especificado separadamente antes de implementar: não aprovar nove segundos de imobilidade/imunidade universal por causa da prancha. Voz/áudio serão fornecidos pelo usuário; alinhar marcadores à duração real, sem inventar fala de Bankai. Se o arco não estiver manifestado/empunhado, usar variante de gesto válida sem criar item/foco nem trocar inventário automaticamente.
+
+### H — precisão e perfuração
+
+Objetivo: leitura de atirador preciso. Manter central +4auxiliares, central no máximo5alvos distintos/2blocos sólidos no voo inteiro; auxiliares não herdam perfuração e não geram salvas recursivas.
+
+- t0: levanta arco, abre base dos pés sem passo artificial para trás; estrelas aproximam suas orientações do eixo da mira.
+- t6: mão da corda recua; arco continua rigidamente preso à outra palma. Flecha forma um núcleo estreito, sem esfera cobrindo o rosto.
+- t12: tração completa e emissão autoritativa candidata; dedo/mão da corda libera, outra mão permanece no cabo. Uma central e quatro auxiliares, todas rumo ao setor frontal. Fonte do tiro e fonte do VFX são a mesma pose/ponto sincronizado.
+- t16: passagem do projétil pelo primeiro trecho/alvo se houver contato real; rastro fino acompanha trajetória, não um arco melee fixo. Quadro da prancha mostra voo, não outro disparo.
+- t28: braço da corda volta à guarda, ombros relaxam; estrelas reconstituem brilho após descarga. Dano de cada entidade vem da colisão, não do tick ilustrado16.
+
+Custo/dano/CD atuais são referência V0, sem buff numérico autorizado por estes quadros. Preparação nova precisa de teste comparativo contra H instantâneo atual.
+
+### N — arsenal das asas
+
+Objetivo: cobertura frontal em duas sequências alternadas, sem repetir a linha estreita de H nem virar chuva genérica ou disparar para trás.
+
+- t0: confirma setor escolhido, arco permanece na mão, inclinação breve do tronco; não transferir arma para uma asa ou fazê-la desaparecer.
+- t4: segmentos emissores da asa esquerda orientam-se para esse setor; direita prepara com atraso.
+- t12/t15/t18/t21/t24/t27: seis emissões da primeira sequência; trajetórias partem dos pontos articulados e seguem à mesma região frontal, não à lateral oposta da câmera.
+- t30/t33/t36/t39/t42/t45: seis emissões da asa direita rumo ao MESMO setor; rotação da asa, e não giro180° do corpo, muda o lado de origem.
+- t54: asas retornam à posição ambiente e arco continua na mão. Quatro satélites permanecem identificáveis; não contar partículas decorativas como novos emissores.
+
+Total12, sem multiplicar cada emissão por outras4. Decidir/validar se o setor permanece fixo ou aceita ajuste limitado durante a sequência, em vez de autoaim irrestrito. Verificar alcance, dano por alvo/hurtTime e resposta a bloqueio, troca de arma e interrupção. Separar emissões já autônomas de preparação ainda cancelável.
+
+### B — Hirenkyaku de três cargas
+
+- t0: três cargas disponíveis; flexiona joelhos, projeta peso para direção válida, mantém arco fora do trajeto do próprio corpo.
+- t2: pé de apoio impulsiona, asa recolhe ligeiramente; trajetória horizontal validada contra terreno, sem invulnerabilidade nova.
+- t4: corpo real desloca até6blocos conforme colisões; uma pós-imagem curta indica a posição anterior, sem entidade independente/boneco. Não usar corrida vanilla como toda animação nem deixar o corpo voando.
+- t10: apoio dos pés e estabilização; duas cargas restantes após um uso. Rastro desaparece e postura volta à guarda.
+
+Sem ignorar paredes/penhascos/regras de terreno por aparência. Três cargas e recarga continuam o protótipo de referência; não inventar voo ou verticalidade agora. Pós-imagem é exclusivamente visual e tem fim curto.
+
+### C — Convergência de Reishi: ameaça antes do impacto
+
+Usuário apoiou maior ameaça e considera destruição. Proposta temporal de64ticks para leitura, em vez de apenas esperar30ticks e emitir explosão genérica. Arco e quatro origens participam; valores abaixo precisam de revisão visual/humana antes de implementar.
+
+- t0: escolhe ponto válido em região carregada e linha permitida, plano lateral de estudo; corpo faz preparação de arqueiro, não golpe de katana.
+- t8: braço do arco estende e mão da corda aproxima a face; estrelas abrem distribuição atrás. Som de tensão crescente candidato, não áudio já produzido.
+- t16: aviso no piso, raio de dano6blocos como referência atual. Quatro entalhes/linhas mostram direção de convergência, deixando alvos e centro visíveis. Ainda não há dano nem cratera.
+- t20: emissão/compromisso candidato, alvo central fixado; flecha principal e quatro trajetórias de alimentação avançam. Distinguir telegraph de compromisso e custo da técnica, sem cobrar por frame. Não permitir dano extra de cinco instâncias além da área contratada.
+- t28: trajetórias chegam a quatro pontos de retransmissão visuais e se voltam para o centro. Isso não cria entidades atacantes adicionais, não atravessa toda parede e não move o ponto para acompanhar inimigo.
+- t36: concentração curta num núcleo compacto; contraste/queda momentânea de ruído e brilho nas linhas aumenta ameaça. Alvos continuam distinguíveis; sem flash de tela inteira ou esfera opaca gigante.
+- t40: impacto autoritativo único, coluna estreita ascendente e onda radial. Selecionar elegíveis antes do teto16 e confirmar linha de visão ANTES de alterar terreno. Dano18HP/raio6/custo40/CD20s permanecem referência do protótipo, não aumento aprovado. Aparência maior não amplia hitbox escondida.
+- t64: poeira/luz dissipam, arco baixa para guarda, estrelas recompõem formação e controle normal permanece. Sem manter pose de disparo por todo cooldown.
+
+**Destruição candidata, não implementada/aprovada em números:** raio central até3blocos, uma camada superficial, teto32blocos naturais elegíveis por cast; sem drops/XP/farming e sem escombros que acabem colocando blocos em construções. Área de dano raio6 continua separada. Requer configuração explícita por mundo/servidor; caso desligada/negada, usar rachaduras e fragmentos puramente visuais. Não chamar explosão vanilla irrestrita.
+
+Existe BerserkTerrain, compartilhado com Zaraki/Benihime, com seleção natural e BreakEvent; não chamar/alterar cegamente esse helper: orçamento global420, escombros FallingBlockEntity e seleção de terreno não representam o contrato32 deste C. Extrair/adaptar um caminho com orçamento próprio só na implementação e sem alterar o comportamento aceito da Zaraki. Consultar proteções, world border, permissões reais por bloco, recipientes/blocos com entidade, inquebráveis, minérios e estruturas. Pedra/terra colocadas por jogadores podem ser construções: a classificação natural por tag NÃO prova origem de geração; precisam de proteção/regra adicional ou recusa segura. BreakEvent não comprova suporte universal a todo plugin de claim. Paredes removidas não devem retroativamente liberar dano no mesmo impacto a alvos antes protegidos; sem carregar chunks nem varrer grandes volumes.
+
+### Ordem proposta de implementação após discutir os storyboards
+
+1. Conciliar entradas/seleção racial e estados solicitada/preparando/ativa/encerrando; resolver contrato de reação, projéteis autônomos e elegibilidade do C. Não culpar input por falha que o esclarecimento humano não confirma.
+2. Fechar ficha H/N/B/C (custos, compromisso, mãos/locomoção, interrupção e dano) e gesto comum de arco. Não travar/cancelar toda ação indiscriminadamente; H/C ocupam duas mãos na tração, N pode ter parte autônoma após emissão, B exige compatibilidade da fase.
+3. Modelo/rig nativo com empunhadura auditada, asas articuladas e quatro estrelas; comparar guarda/preparo/liberação/recuperação de perfil/frente antes de partículas.
+4. Prova vertical H e N, depois B e C; anexar ação/castId/tempo/aim aos snapshots e VFX. Manter identidade/origem da prática no disparo para não creditar a forma errada após transição.
+5. Só depois adicionar terreno C atrás de configuração e limite, com medição de custo por cast. Guardar Fonte→adaptação→teste sem reabrir poderes aceitos.
+6. QA Forge de sequência contínua, duas mãos dominantes, obstáculos, multidão, observers/cancelamento; comparar com pranchas e aceitar diferenças apenas se documentadas. Estas artes não substituem essas provas.
+
+Nenhum código, nova animação executável, biblioteca, teste Forge, merge ou mudança na main foi realizado nesta revisão. Imagens são propostas de design geradas por imagegen; somente as três versões selecionadas foram copiadas para Docs/poderes.
+
+## Revisão arquitetural30/10 — discussão, sem implementação
+
+Pedido humano: revisar raças/GDD, relatar que a Vollständig testada não demonstrou mudança de kit, reaproveitar seleção de estágios com nomenclaturas raciais, propor aprimoramento intermediário, refinar técnicas/transformação e só depois criar storyboards/protótipos. Falas/áudio serão buscados pelo usuário. Propostas abaixo NÃO são novas decisões aprovadas nem substituem automaticamente regras do GDD.
+
+### Fontes e o que permanece aprovado
+
+Revisão de origin/main9906486 consultada por git show após fetch, sem checkout/merge: M04, M07, M11 e handoff28/10. O handoff local ainda reflete23/10; usar a versão upstream para o horizonte atualizado. M11/formação racial estão adiados no roadmap global, portanto esta proposta registra compatibilidade e não inicia quests/economia/equipamentos.
+
+- M04: Shinigami/Hollow/Quincy/Fullbringer como origens; origem, evolução, afiliação/cargo, principal e forma não são sinônimos. Arrancarização é transição conquistada, não botão cosmético de troca racial.
+- M05/REV-SP-02: SP adquire skills/formas sob requisitos; Mastery vem de prática, não de compra.
+- M06-09: armamento espiritual, mobilidade e Gintō são campos distintos; Blut Vene/Arterie têm domínios próprios e incompatibilidade simultânea. Não acrescentar um sistema novo de Proficiências nesta rodada: equipe ainda decidirá sua implementação.
+- M07-07C: Schrift compatível conquistada/vinculada antes da Vollständig associada, como adaptação aprovada de progressão. Schrift não equivale à forma e não entrega automaticamente todas as habilidades.
+- M07-07F–J: forma manual, ativação paga na conclusão/manutenção, instrumento não universal, arma e forma separados, itens compatíveis quando mãos/fase permitirem. Dano isolado NÃO cancela automaticamente o preparo; reação válida disponível cancela antes de executar. Não herdar invencibilidade Bankai por nomenclatura de UI.
+- M11/8.17 upstream: Cruz real em slot próprio; arco manifestado manualmente, de duas mãos. O item de teste atual não representa essa integração pronta. Não instalar biblioteca de acessórios por inferência.
+- M07-C12: distinguir projéteis autônomos de efeitos dependentes da manifestação; desligar forma não significa apagar toda flecha já lançada.
+
+### Diagnóstico pendente do protótipo atual
+
+O relato humano “não muda nada” prevalece como ausência de aceite funcional/perceptível. Há ramificação server-side QuincyTechniqueService.executeSlot → QuincyVollstandigService.execute e passiva no arco, mas isso não comprova que o jogador chegou ao estado pretendido no build testado. Antes de criar mais efeitos: reproduzir pelo mesmo controle/UI usado, registrar versão do artefato, seleção, fase solicitada/confirmada, HUD, repertório, custo e resultado de H/N/B/C. Não atribuir a instalação antiga ou erro de uso sem prova.
+
+Divergência observável na entrada: G/CYCLE_FORM foi adaptado para toggle Quincy, enquanto caminhos CHARGE/INSTANT_TRANSFORM ainda encaminham ao mecanismo de formas existente. Não há seleção intermediária Quincy no protótipo. Hipótese de contratos de entrada divergentes, não causa confirmada do relato.
+
+Outras divergências concretas para a futura refatoração: preparação cancela por hurtTime e não permite que as próprias ações Quincy interrompam o preparo para reagir; isso diverge de M07-07J. stop descarta todos os projéteis avançados rastreados, sem separar disparos autônomos de efeitos dependentes. Estes são itens de conciliação, não motivo para mudar regras aprovadas do GDD em silêncio. Nenhum código alterado nesta revisão.
+
+### Proposta de três perfis na interface existente
+
+Recomendação para o Uryū: **Kojaku → Armamento aprimorado/Ginrei Kojaku → Vollständig**. Reaproveitar painel/roda, seleção, requisitos, confirmação, barra, HUD e maestrias. O estágio intermediário é um aprimoramento da manifestação do arco; não afirmar que Ginrei Kojaku é uma transformação corporal canônica ou “Shikai Quincy”. A sequência em três seleções reutilizáveis é adaptação de gameplay, não sequência universal da obra.
+
+Ginrei Kojaku é identificado pelo glossário oficial Pierrot como arco de Uryū após recuperar seus poderes. Letzt Stil envolve remoção da luva Sanrei e perda de poderes: reservar como ramo especial com consequência/recuperação, não intermediário livre entre Base e Vollständig. Sanrei pode inspirar conteúdo de treinamento futuro, sem conceder seus resultados por equipar uma luva.
+
+O domínio deve separar: raça/poder principal; armamento aprendido/selecionado; manifestação temporária aprendida/ativa; Schrift aprendida/vinculada; domínio de cada técnica. O seletor pode apresentar combinações coerentes desses dados. Perfil final pode combinar Ginrei e Vollständig; guardar o arco não desliga automaticamente a forma. Não gravar “shikai/bankai” em dados Quincy nem converter o arquivo Shinigami. Sem trocar raça, duplicar foco ou conceder arco real ao ativar uma cena.
+
+Aplicação às outras raças: Shinigami mantém selada/Shikai/Bankai; Hollow tem evolução permanente, com Arrancar e Resurrección em contratos próprios; Fullbringer possui manifestação/completude particulares, sem três transformações universais. Interface aceita quantidade/tipo de estágios por perfil, em vez de forçar todos ao mesmo grafo. Hierarquia visual compartilhada, sem uniformizar custos, consequências e retorno.
+
+### Repertório candidato — papéis antes de números
+
+Manter H/N/B/C como posições de acesso, com habilidades e aparências próprias por perfil. Evitar inflar12botões novos só para preencher três estágios; variantes podem compartilhar uma técnica/domínio quando forem realmente a mesma execução. Quando comportamento/requisitos mudarem, ter ID e domínio pertinentes. Números atuais servem de comparação, sem novo balanceamento aprovado.
+
+**Kojaku/base:** preservar o conjunto tradicional testado: H Seele Schneider; N Licht Regen; B Hirenkyaku; C Sprenger. Auditar nomes e apresentações: Seele é ferramenta espiritual de corte que também pode ser disparada, não Zanpakutō; Sprenger depende de preparação com Seele/Gintō na referência, logo a conjuração automática de nós atual é uma adaptação de protótipo, não economia final.
+
+**Ginrei/aprimorado:** foco em precisão, pressão sustentada e preparação técnica. H variante concentrada de Seele, com preparação/contato bem legíveis; N chuva de flechas com arco de emissão aéreo e zona de aterrissagem identificável, diferenciando-a de um cone frontal; B Hirenkyaku com recuperação/reposicionamento mais controlados, sem voo automático; C Sprenger com cinco âncoras/linhas de preparação e detonação reconhecíveis. Esses são candidatos, não nomes de técnicas novas atribuídos à obra. Considerar Blut como aprendizado racial separado, não concedê-lo como passiva de Uryū ou substituir um slot sem ficha.
+
+**Vollständig:** combate a longa distância com manifestação ativa participando dos ataques. Preservar a solicitação humana de quatro estrelas, cinco flechas por disparo e central com cinco alvos/dois blocos máximos. H tiro de precisão com concentração no arco e quatro auxiliares; N bateria das asas/estrelas em ondas alternadas, distinta de chuva/rajada comum; B Hirenkyaku de três cargas com pós-imagem curta, sem boneco autônomo nem voo concedido só por asas; C convergência de Reishi visível, com linhas/projéteis chegando de pontos da manifestação e conclusão localizada. Não depender de uma explosão genérica após espera para transmitir essa identidade. H/N/C concentram papéis: linha precisa, cobertura e área preparada. Sem autoaim ilimitado, chuva de dano por frame ou quebra de blocos por aparência.
+
+Antithesis permanece técnica da Schrift com ficha própria: selecionar dois vínculos/alvos elegíveis, definir evento/dano realmente registrado, janela, teto e interação com defesa/PvP. Não tratar como swap irrestrito de HP/morte, cura coletiva ou cópia de especial de outro jogo. Discutir sua integração depois de estabilizar armamento/forma; não substituir a suprema atual por ela nesta rodada.
+
+### Direção visual e preparação dos futuros storyboards
+
+Visual de Ginrei: arco próprio distinguível por silhueta, empunhadura preservada, fio/tensão de Reishi e formação de flecha legíveis; manifestação breve de armamento, sem fingir uma segunda Bankai. Vollständig: ritual/controladoria do corpo, estrutura das asas abre em segmentos, revestimentos de Reishi em mãos/pernas onde fundamentados, quatro estrelas se destacam e entram em órbita limitada; transformação termina em pose de combate e devolução suave do controle. As quatro estrelas são adaptação expressamente pedida pelo usuário, não contagem canônica comprovada nesta pesquisa.
+
+Planejar relógios separados: fase autoritativa de preparo/compromisso e tempo da apresentação/câmera/áudio, sem atrasar gameplay à força por uma trilha longa. Voz recebida posteriormente terá marcador real de início/fim; não sintetizar nomes/falas ou fazer lipsync a um áudio imaginário. Reação/cancelamento/ciclo de vida e observadores precisam de apresentação coerente.
+
+Depois de fechar repertório: ficha de cada técnica → roteiro temporal → storyboard de guarda, preparação, passagem/contato, impacto, recuperação e retorno. Cada quadro declara referencial, mão dominante, ponto de empunhadura, orientação/ponta da arma, pés/quadril/braços, alvo, câmera, trajetória, VFX, som e tick autoritativo. Incluir frente/perfil e trajetória contínua entre marcos; quadros isolados não demonstram fluidez. Então animatic/protótipo visual, modelo/rig editável e prova vertical no Forge antes de reproduzir o kit todo. Nenhum storyboard/imagem/animação nova criado nesta revisão.
+
+### Pesquisa primária consultada30/10 e limites
+
+- Pierrot, glossário ka: https://pierrot.jp/title/bleach/keyword_ka.html — Ginrei Kojaku, Sanrei/Letzt Stil e consequência; arquivo da época do anime, sem importar automaticamente toda sua redação antiga para todas as eras.
+- Pierrot, glossário sa: https://pierrot.jp/title/bleach/keyword_sa.html — Seele Schneider, preparação de Sprenger e Shikai. Não generalizar a antiga frase de exclusividade de arma com lâmina a todo TYBW.
+- Klub Outside, notícia pública01/03/2025: https://klub-outside.com/s/n136/news/detail/10500?ima=0000&link=ROBO004 — manifestação Vollständig de Uryū no animeTYBW30 e anúncio de material restrito; área de membros não acessada.
+- Tamashii Nations/Bandai, produto oficial: https://tamashiiweb.com/item/15155/ — referência visual licenciada com asas abertas e revestimentos transparentes em mãos/pernas. É apoio de design, não ficha técnica de combate nem regra numérica.
+- Glossário TYBW https://bleach-anime.com/keyword/ — abertura direta retornou403; snippets e leituras antigas do GDD não substituem leitura atual integral. Não derivei daí novas capacidades. Não assisti episódios completos nem li capítulos integrais nesta rodada; propostas de técnicas são adaptações identificadas, não catálogo canônico exaustivo.
+
+Próxima decisão estrutural proposta: aceitar o intermediário como **armamento Ginrei**, mantendo Letzt Stil especial e Schrift independente; em seguida detalhar primeiro os quatro papéis do kit Vollständig. Esta revisão não aprova parâmetros, não despacha frente Antigravity, não altera código nem faz merge/main.
+
 ## Ajuste posterior29/10 — repouso do Kojaku
 
 Usuário comparou com o arco vanilla: repouso vertical atravessava a silhueta, enquanto a tração já era adequada. Rotação de repouso em terceira pessoa alterada de[90,180,0] para[0,0,90] nas duas mãos, mantendo translação/escala/forma. Gerador e display Blockbench sincronizados para evitar reversão ao regenerar. Três arquivos pulling e primeira pessoa inalterados. Modelo vanilla consultado diretamente no client.jar1.20.1; seus ângulos não foram copiados cegamente, pois seu spriteXY difere da geometriaYZ do Kojaku.

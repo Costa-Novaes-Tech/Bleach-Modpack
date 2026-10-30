@@ -1,0 +1,33 @@
+{
+  "date": "2026-10-30",
+  "tool": "image_gen built-in, no CLI/API fallback",
+  "type": "Concept storyboards, not gameplay or animation QA",
+  "authoritative_reference": "../../plano-uryu-arqueiro-tradicional.md — Storyboards30/10",
+  "files": {
+    "convergencia-c.png": {
+      "sha256": "5f08aaf57c27f1a0b0e8a251a9e13d3c557935e4cac99db35b2b3b613b3fb3aa",
+      "bytes": 2637717
+    },
+    "tecnicas-h-n-b.png": {
+      "sha256": "a40f3c8989957287e0fd4b48e527d322c3825a1685a70d22a942acc70961eaf2",
+      "bytes": 2012491
+    },
+    "transformacao.png": {
+      "sha256": "640ac2df1c352ac83b5c75635de3b22495bef23f1651cc6c98a9e82a51c6aa95",
+      "bytes": 2125435
+    }
+  },
+  "review_limits": [
+    "Generated illustrations express design intent, not exact skeletal poses, collisions or continuous animation.",
+    "Hands/grip and satellite continuity must be rebuilt from the written contract in the native rig; do not infer bone transforms from raster pixels.",
+    "H projectile count is one central + four auxiliary; N projectiles always forward into one selected sector.",
+    "B starts three full charges and ends with two; no independent decoy entity.",
+    "C terrain radius/depth/block budget are proposals; illustrated stone arena does not authorize destroying structures.",
+    "Final N/t30 does not clearly retain the held bow; native animation must retain the bow throughout. This is a known concept-board omission, not permission to hide it."
+  ],
+  "prompts_final": {
+    "transformacao": "Refine this storyboard, keeping exactly the six panels, labels, actor, wings, four satellites, dark blue background and beautiful voxel design. CRITICAL CONTINUITY CORRECTION: in EVERY panel the character's LEFT HAND holds the bow grip, the character's RIGHT HAND pulls or approaches the bowstring. In frontal views LEFT HAND appears on the viewer's RIGHT. Panels 2, 4 and 5 already demonstrate this arrangement; use those as the hand-continuity reference. Correct panels 1 and 6 so the LEFT HAND (on viewer's right) visibly grips the single central bow handle at the waist; right hand relaxed away from the handle in these resting panels. In side panel3 preserve the same left-bow/right-string identity. No extra hands, no switching bow to opposite hand during the transition. Keep feet and believable weight. Preserve exactly four separated floating stars in panels4/5/6. These are conceptual LEFT-HANDED archer reference poses that the mod can mirror for right-dominant players. All other details and timing labels unchanged.",
+    "tecnicas-h-n-b": "Technical correction pass on this exact 9-panel storyboard, preserve style, grid, title and labels. MAIN CORRECTION middle N row: in ALL THREE N PANELS the actor must face toward the RIGHT edge of the panel, same world-forward direction throughout. BOTH the first and second wave must fly to the RIGHT toward ONE shared frontal target sector. Do not rotate actor 180 degrees between N/t12 and N/t30. Show firing from alternate wings but into the SAME rightward direction; curved cyan arrow paths can bend from far wing into the forward sector. Four satellites MAXIMUM in each panel, two per side, no extra decorative star-shaped particles mistaken for emitters. Top H/t16: exactly FIVE distinct projectile paths total, one strong central straight ray and four thinner rays, no sixth ray. Bottom B/t0: exactly THREE filled charge diamonds before spending. B/t10: TWO filled and ONE empty after spending. Keep body and bow contacts, remain grounded, no sword. Fix only these continuity/count issues; do not change camera grid or visual quality.",
+    "convergencia-c": "Create a premium TECHNICAL CONCEPT STORYBOARD for a Minecraft Java Bleach mod Quincy archer ultimate skill C, named REISHI CONVERGENCE. Eight panels, four columns and two rows, grounded left-bow/right-string archer. Timings t0 stance, t8 draw, t16 warning radius6, t20 release central+four, t28 four trajectories converge, t36 core before impact, t40 bounded light impact and shallow optional radius3/depth1 crater, t64 recovery. Same character and grip, exactly four satellites, no sword or giant crater. Concept, not gameplay; written contract governs implementation."
+  }
+}
