@@ -9,6 +9,20 @@ public class QuestProgress {
     private String definition = "";
     /** Legacy saves bind to the definitions loaded on their first upgraded login. */
     public boolean bindDefinition(Quest quest) {
+        if (!matchesDefinition(quest) && RukiaOpeningQuest.isOpening(quest)) {
+            try {
+                if (RukiaOpeningQuest.legacyDefinition(com.google.gson.JsonParser.parseString(definition).getAsJsonObject())) {
+                    definition = quest.progressDefinition();
+                    objectives.clear(); objectiveRequirements.clear();
+                    for (int i = 0; i < quest.getObjectives().size(); i++) {
+                        objectiveRequirements.put(i, quest.getObjectives().get(i).getRequired());
+                        objectives.put(i, status == QuestStatus.SUCCESS ? 1 : 0);
+                    }
+                    encounterStarted = false;
+                    attemptId = java.util.UUID.randomUUID();
+                }
+            } catch (RuntimeException ignored) { return false; }
+        }
         if (definition.isEmpty()) definition = quest.progressDefinition();
         return definition.equals(quest.progressDefinition());
     }
@@ -22,6 +36,9 @@ public class QuestProgress {
     private java.util.UUID questGiverUuid;
     private java.util.UUID storyTargetUuid;
     private boolean encounterStarted;
+    private boolean starterAsauchiGranted;
+    public boolean isStarterAsauchiGranted() { return starterAsauchiGranted; }
+    public void markStarterAsauchiGranted() { starterAsauchiGranted = true; }
     private java.util.UUID attemptId;
     public java.util.UUID getAttemptId() { return attemptId; }
     public java.util.UUID getStoryTargetUuid() { return storyTargetUuid; }
@@ -88,6 +105,16 @@ public class QuestProgress {
         status = QuestStatus.FAILED;
     }
 
+    /** A quest-specific checkpoint policy may restart an objective without erasing earlier work. */
+    public void restartObjectiveAttempt(int index) {
+        if (status != QuestStatus.ACCEPTED || !objectiveRequirements.containsKey(index))
+            throw new IllegalStateException("Cannot restart inactive objective");
+        objectives.put(index, 0);
+        encounterStarted = false;
+        attemptId = java.util.UUID.randomUUID();
+        failureCount++;
+    }
+
     public void initializeRequirements(Quest quest) {
         if (!bindDefinition(quest)) throw new IllegalArgumentException("Quest definition changed");
         rewards.clear();
@@ -119,6 +146,7 @@ public class QuestProgress {
         if (questGiverUuid != null) tag.putUUID("questGiverUuid", questGiverUuid);
         if (storyTargetUuid != null) tag.putUUID("storyTargetUuid", storyTargetUuid);
         tag.putBoolean("encounterStarted", encounterStarted);
+        tag.putBoolean("starterAsauchiGranted", starterAsauchiGranted);
         if (attemptId != null) tag.putUUID("attemptId", attemptId);
         tag.putString("definition", definition);
         tag.putString("status", status.name());
@@ -136,6 +164,7 @@ public class QuestProgress {
         if (tag.hasUUID("questGiverUuid")) progress.questGiverUuid = tag.getUUID("questGiverUuid");
         if (tag.hasUUID("storyTargetUuid")) progress.storyTargetUuid = tag.getUUID("storyTargetUuid");
         progress.encounterStarted = tag.getBoolean("encounterStarted");
+        progress.starterAsauchiGranted = tag.getBoolean("starterAsauchiGranted");
         if (tag.hasUUID("attemptId")) progress.attemptId = tag.getUUID("attemptId");
         progress.definition = tag.getString("definition");
         progress.status = QuestStatus.fromName(tag.getString("status"));

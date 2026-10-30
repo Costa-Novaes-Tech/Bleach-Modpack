@@ -36,8 +36,8 @@ public final class JournalScreen extends LayoutScreen {
         return quests.stream().filter(q -> q.getQuestKey().equals(selected)).findFirst().orElse(null);
     }
     private List<Quest> visibleQuests() {
-        return QuestRegistry.allQuests().stream().filter(q -> QuestAvailabilityChecker.isVisible(data(), q))
-                .sorted(java.util.Comparator.comparingInt(Quest::getHudPriority)).toList();
+        return com.bleachmod.common.quest.QuestTracking.orderedJournal(QuestRegistry.allQuests().stream()
+                .filter(q -> QuestAvailabilityChecker.isVisible(data(), q)).toList());
     }
 
     @Override
@@ -110,7 +110,7 @@ public final class JournalScreen extends LayoutScreen {
             if (notice != null) ctx.text("notice", notice);
 
             for (int i = 0; i < OBJECTIVES; i++) {
-                boolean visible = i < q.getObjectives().size();
+                boolean visible = i < q.getObjectives().size() && RukiaOpeningQuest.visibleObjective(q, p, i);
                 ctx.flag("obj" + i + "_visible", visible);
                 if (!visible) continue;
                 var o = q.getObjectives().get(i);
@@ -131,7 +131,11 @@ public final class JournalScreen extends LayoutScreen {
 
         QuestProgress p = valid ? d.getPlayerQuestData().getProgress(selected) : null;
         boolean compatible = p == null || p.matchesDefinition(q);
-        boolean begin = valid && q.isStory() && p != null && p.getStatus() == QuestStatus.ACCEPTED && !p.isEncounterStarted();
+        boolean retryOpening = valid && RukiaOpeningQuest.isOpening(q) && RukiaOpeningQuest.isRetryPending(p);
+        boolean begin = valid && q.isStory() && p != null && p.getStatus() == QuestStatus.ACCEPTED && !p.isEncounterStarted()
+                && (!RukiaOpeningQuest.isOpening(q) || retryOpening);
+        ctx.text("start_label", Component.translatable(RukiaOpeningQuest.isOpening(q)
+                ? retryOpening ? "bleachmod.story.sub_01.retry" : "screen.bleachmod.npc_quests.accept" : "screen.bleachmod.journal.start"));
         ctx.flag("can_start", valid && compatible && ((q.getQuestGiver().isBlank() && QuestAvailabilityChecker.isAvailable(d, selected))
                 || (begin && StoryQuestService.pendingReason(q) == null)));
         ctx.flag("can_claim", valid && compatible && d.getPlayerQuestData().isCompleted(selected) && pending(d, q));

@@ -24,7 +24,13 @@ public final class StoryQuestDefaults {
         for (var entry : catalog.getAsJsonArray("quests")) {
             JsonObject json = entry.getAsJsonObject().deepCopy();
             String sagaId = json.remove("sagaId").getAsString();
-            write(root.resolve("quests").resolve(sagaId).resolve(String.format("%02d.json", json.get("id").getAsInt())), json);
+            Path path = root.resolve("quests").resolve(sagaId).resolve(String.format("%02d.json", json.get("id").getAsInt()));
+            if ("shinigami_substitute".equals(sagaId) && json.get("id").getAsInt() == 1 && Files.exists(path)
+                    && RukiaOpeningQuest.legacyDefinition(JsonParser.parseString(Files.readString(path)).getAsJsonObject())) {
+                Path backup = path.resolveSibling(path.getFileName() + ".pre-stages.bak");
+                if (!Files.exists(backup)) Files.copy(path, backup);
+                Files.writeString(path, new com.google.gson.GsonBuilder().setPrettyPrinting().create().toJson(json), StandardCharsets.UTF_8);
+            } else write(path, json);
         }
     }
     private static void write(Path path, JsonObject json) throws IOException {

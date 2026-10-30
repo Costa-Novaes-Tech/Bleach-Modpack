@@ -154,7 +154,7 @@ public final class TrackedQuestHud {
 
     private static List<FormattedCharSequence> objectiveLines(Minecraft mc, Quest quest, QuestProgress progress, int width) {
         List<FormattedCharSequence> lines = new ArrayList<>();
-        if (quest.isStory() && !progress.isEncounterStarted()) {
+        if (quest.isStory() && !com.bleachmod.common.quest.RukiaOpeningQuest.isOpening(quest) && !progress.isEncounterStarted()) {
             var pending = com.bleachmod.common.quest.StoryQuestService.pendingReason(quest);
             return mc.font.split(Component.translatable(pending != null ? "hud.bleachmod.quests.content_pending" : "hud.bleachmod.quests.begin"), width);
         }
@@ -162,7 +162,8 @@ public final class TrackedQuestHud {
             var objective = quest.getObjectives().get(i);
             int required = progress.getRequired(i, objective.getRequired());
             int done = progress.getObjectiveProgress(i);
-            if (done >= required || !QuestService.isObjectiveActive(quest, progress, i)) continue;
+            if (done >= required || (!com.bleachmod.common.quest.RukiaOpeningQuest.isOpening(quest) && !QuestService.isObjectiveActive(quest, progress, i))
+                    || !com.bleachmod.common.quest.RukiaOpeningQuest.visibleObjective(quest, progress, i)) continue;
             lines.addAll(mc.font.split(Component.literal("[" + done + "/" + required + "] ").append(objective.describe()), width));
         }
         return lines;

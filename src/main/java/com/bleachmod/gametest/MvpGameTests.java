@@ -55,11 +55,12 @@ public final class MvpGameTests {
     public static void batchRewardsAreDeliveredOnce(GameTestHelper helper) {
         FakePlayer player=player(helper);
         PlayerData data=data(player);
-        Quest quest=QuestRegistry.getQuest("sado_yasutora_npc_test");
+        Quest quest=QuestRegistry.getQuest("shinigami_substitute:3");
         boolean repeatable=quest.isRepeatable();
         quest.setRepeatable(true);
         var original=new ArrayList<>(quest.getRewards());
         try {
+            quest.getRewards().add(new TpsReward(100));
             quest.getRewards().add(new ItemReward("minecraft:diamond",2));
             quest.getRewards().add(new TransformationReward("zanpakuto","shikai",0));
             data.getPlayerQuestData().acceptQuest(quest.getQuestKey(),quest);

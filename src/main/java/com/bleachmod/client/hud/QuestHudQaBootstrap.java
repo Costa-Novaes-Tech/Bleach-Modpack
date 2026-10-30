@@ -67,14 +67,14 @@ public final class QuestHudQaBootstrap {
                 PlayerCapability.get(player).ifPresent(data -> {
                     data.initializeShinigami();
                     var quests = data.getPlayerQuestData();
-                    for (String key : java.util.List.of("sado_yasutora_npc_test", "orihime_npc_test", "soul_society:1", "ichigo_npc_test")) {
+                    for (String key : java.util.List.of("shinigami_substitute:3", "shinigami_substitute:4", "shinigami_substitute:1", "shinigami_substitute:6")) {
                         var quest = QuestRegistry.getQuest(key);
                         if (quest == null) throw new IllegalStateException("Missing QA quest " + key);
                         quests.acceptQuest(key, quest);
                     }
-                    quests.getProgress("soul_society:1").setObjectiveProgress(0, 2);
-                    quests.setTrackedQuestId("orihime_npc_test");
-                    if (!"soul_society:1".equals(quests.getTrackedQuestId())) throw new IllegalStateException("Story priority");
+                    quests.getProgress("shinigami_substitute:1").setObjectiveProgress(0, 2);
+                    quests.setTrackedQuestId("shinigami_substitute:4");
+                    if (!"shinigami_substitute:1".equals(quests.getTrackedQuestId())) throw new IllegalStateException("Story priority");
                     SyncHelper.full(player);
                 });
             });
@@ -90,14 +90,14 @@ public final class QuestHudQaBootstrap {
             mc.getSingleplayerServer().execute(() -> {
                 var player = mc.getSingleplayerServer().getPlayerList().getPlayer(mc.player.getUUID());
                 PlayerCapability.get(player).ifPresent(data -> {
-                    data.getPlayerQuestData().completeQuest("soul_society:1");
-                    if (!"orihime_npc_test".equals(data.getPlayerQuestData().getTrackedQuestId()))
+                    data.getPlayerQuestData().completeQuest("shinigami_substitute:1");
+                    if (!"shinigami_substitute:4".equals(data.getPlayerQuestData().getTrackedQuestId()))
                         throw new IllegalStateException("Tracking fallback");
                     SyncHelper.full(player);
                 });
             });
         }
-        if (ticks == 170) capture = "04-fallback-sidequest";
+        if (ticks == 170) capture = "04-fallback-next-story";
         if (ticks == 185) mc.options.hideGui = true;
         if (ticks == 195) capture = "05-hidden-hud";
         if (ticks == 205) mc.options.hideGui = false;

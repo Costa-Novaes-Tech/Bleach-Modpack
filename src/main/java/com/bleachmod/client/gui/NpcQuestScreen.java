@@ -9,6 +9,7 @@ import com.bleachmod.common.quest.QuestAvailabilityChecker;
 import com.bleachmod.common.quest.QuestProgress;
 import com.bleachmod.common.quest.QuestRegistry;
 import com.bleachmod.common.quest.QuestStatus;
+import com.bleachmod.common.quest.RukiaOpeningQuest;
 import com.bleachmod.entity.QuestNpcEntity;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
@@ -96,6 +97,7 @@ public final class NpcQuestScreen extends Screen {
             if (quest != null) {
                 boolean begin = quest.isStory() && data() != null && data().getPlayerQuestData().isAccepted(quest.getQuestKey());
                 NetworkHandler.sendToServer(new QuestActionC2S(begin ? QuestActionC2S.Action.BEGIN : QuestActionC2S.Action.START, quest.getQuestKey(), entityId));
+                if (begin && RukiaOpeningQuest.isOpening(quest)) onClose();
             }
         }).bounds(left, buttonY, (panelWidth - 4) / 2, 20).build());
         addRenderableWidget(Button.builder(Component.translatable("gui.done"), button -> onClose())
@@ -153,6 +155,14 @@ public final class NpcQuestScreen extends Screen {
                 : playerData.getPlayerQuestData().getProgress(quest.getQuestKey());
         boolean compatible = progress == null || progress.matchesDefinition(quest);
         boolean begin = quest != null && quest.isStory() && progress != null && progress.getStatus() == QuestStatus.ACCEPTED && !progress.isEncounterStarted();
+        if (RukiaOpeningQuest.isOpening(quest)) {
+            boolean talking = minecraft.level.getEntity(entityId) instanceof QuestNpcEntity npc && RukiaOpeningQuest.canTalk(progress, npc);
+            accept.setMessage(Component.translatable(RukiaOpeningQuest.stage(progress) == 2
+                    ? "bleachmod.story.sub_01.receive" : RukiaOpeningQuest.isRetryPending(progress)
+                    ? "bleachmod.story.sub_01.retry" : "bleachmod.story.sub_01.fight"));
+            accept.active = compatible && talking;
+            return;
+        }
         accept.setMessage(Component.translatable(begin ? "screen.bleachmod.journal.start" : "screen.bleachmod.npc_quests.accept"));
         accept.active = quest != null && playerData != null && compatible
                 && (QuestAvailabilityChecker.isAvailable(playerData, quest.getQuestKey())
@@ -171,6 +181,10 @@ public final class NpcQuestScreen extends Screen {
                 : playerData.getPlayerQuestData().getProgress(quest.getQuestKey());
         result.add(Component.translatable(quest.getTitle()));
         result.add(Component.translatable(quest.getDescription()));
+        if (RukiaOpeningQuest.isOpening(quest) && progress != null && progress.getStatus() == QuestStatus.ACCEPTED) {
+            result.add(Component.empty());
+            result.add(Component.translatable("bleachmod.story.sub_01.dialogue_" + RukiaOpeningQuest.stage(progress)));
+        }
         Component pendingContent = com.bleachmod.common.quest.StoryQuestService.pendingReason(quest);
         if (pendingContent != null) result.add(pendingContent);
         result.add(Component.empty());
@@ -182,6 +196,7 @@ public final class NpcQuestScreen extends Screen {
         }
         result.add(Component.translatable("screen.bleachmod.journal.objectives"));
         for (int i = 0; i < quest.getObjectives().size(); i++) {
+            if (!RukiaOpeningQuest.visibleObjective(quest, progress, i)) continue;
             var objective = quest.getObjectives().get(i);
             int current = progress == null ? 0 : progress.getObjectiveProgress(i);
             int required = progress == null ? objective.getRequired() : progress.getRequired(i, objective.getRequired());

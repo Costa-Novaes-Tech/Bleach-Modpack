@@ -9,6 +9,7 @@ import com.bleachmod.common.quest.QuestProgress;
 import com.bleachmod.common.quest.QuestRegistry;
 import com.bleachmod.common.quest.QuestService;
 import com.bleachmod.common.quest.QuestStatus;
+import com.bleachmod.common.quest.RukiaOpeningQuest;
 import com.bleachmod.common.quest.objectives.ItemObjective;
 import com.bleachmod.common.quest.objectives.KillObjective;
 import com.bleachmod.common.quest.objectives.QuestObjective;
@@ -109,7 +110,8 @@ public class QuestEvents {
             for (String questKey : pqd.getAcceptedQuestIds()) {
                 Quest quest = QuestRegistry.getQuest(questKey);
                 if (quest != null && quest.hasKillObjective()) {
-                    QuestService.failQuest(deadPlayer, data, questKey);
+                    if (RukiaOpeningQuest.isOpening(quest)) RukiaOpeningQuest.onPlayerDeath(deadPlayer);
+                    else QuestService.failQuest(deadPlayer, data, questKey);
                 }
             }
         });

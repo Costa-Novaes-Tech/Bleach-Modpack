@@ -23,6 +23,7 @@
     {
       "id": 1,
       "sagaId": "shinigami_substitute",
+      "version": 2,
       "type": "SAGA",
       "title": "bleachmod.story.sub_01.name",
       "description": "bleachmod.story.sub_01.desc",
@@ -30,7 +31,7 @@
       "story": {
         "id": "MAIN-SUB-01",
         "offer_context": "karakura_inicio",
-        "start_mode": "NPC",
+        "start_mode": "PANEL",
         "target_npc": "rukia",
         "target_context": "karakura_inicio",
         "dimension": "minecraft:overworld"
@@ -47,15 +48,26 @@
       },
       "objectives": [
         {
+          "type": "STORY",
+          "action": "INTERACT",
+          "description": "bleachmod.story.sub_01.meet",
+          "count": 1
+        },
+        {
           "type": "KILL",
-          "entity": "bleachmod:hollow",
+          "entity": "bleachmod:hollow_boss",
           "count": 1,
           "spawn": "QUEST",
           "count_mode": "QUEST_SPAWNED_ONLY"
+        },
+        {
+          "type": "STORY",
+          "action": "INTERACT",
+          "description": "bleachmod.story.sub_01.return",
+          "count": 1
         }
       ],
-      "rewards": [],
-      "quest_giver": "rukia"
+      "rewards": []
     },
     {
       "id": 2,

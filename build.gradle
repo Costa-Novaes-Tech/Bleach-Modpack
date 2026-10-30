@@ -153,8 +153,12 @@ minecraft {
         // By default, the server will crash when no gametests are provided.
         // The gametest system is also enabled by default for other run configs under the /test command.
         gameTestServer {
+            if (providers.gradleProperty('storyQuestQa').map { it.toBoolean() }.getOrElse(false)) {
+                workingDirectory project.file('run-gametest/story-quest-start')
+            } else {
             // Keep optional-mod registry entries out of the baseline test save.
             workingDirectory project.file(providers.gradleProperty('bossQa').map { it.toBoolean() }.getOrElse(false) ? 'run-gametest/boss-remaster' : (providers.gradleProperty('photonPilot').map { it.toBoolean() }.getOrElse(false) ? 'run-gametest/photon' : 'run-gametest/base'))
+            }
             property 'forge.enabledGameTestNamespaces', mod_id
         }
 

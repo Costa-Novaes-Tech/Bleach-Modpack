@@ -39,6 +39,13 @@ public final class StoryQuestService {
     }
 
     public static void begin(ServerPlayer player, String key) {
+        if (RukiaOpeningQuest.isOpening(QuestRegistry.getQuest(key))) return;
+        beginEncounter(player, key);
+    }
+
+    static void beginOpening(ServerPlayer player, String key) { cleanup(player, key); beginEncounter(player, key); }
+
+    private static void beginEncounter(ServerPlayer player, String key) {
         var data = PlayerCapability.get(player).orElse(null);
         Quest quest = QuestRegistry.getQuest(key);
         if (data == null || quest == null || !quest.isStory() || !"shinigami".equals(data.getCharacter().getRace())) return;
@@ -59,6 +66,7 @@ public final class StoryQuestService {
         }
         progress.setStoryTargetUuid(target.entityId());
         progress.setEncounterStarted(true);
+        if (RukiaOpeningQuest.isOpening(quest)) QuestService.incrementObjective(player, data, key, quest, 0, 1);
         com.bleachmod.server.events.QuestNavigationEvents.refresh(player);
         SyncHelper.progression(player);
     }
@@ -117,6 +125,7 @@ public final class StoryQuestService {
             Quest quest = QuestRegistry.getQuest(key);
             if (quest == null || !quest.isStory()) continue;
             QuestProgress progress = data.getPlayerQuestData().getProgress(key);
+            if (RukiaOpeningQuest.isOpening(quest)) continue; // Dialogue advances only on explicit UI confirmation.
             if (!progress.isEncounterStarted() || !npc.getUUID().equals(progress.getStoryTargetUuid())
                     || !npc.getQuestContext().equals(quest.getStory().targetContext())
                     || !quest.getStory().dimension().equals(npc.level().dimension().location())) continue;

@@ -63,6 +63,7 @@ public final class QuestNavigationQaBootstrap {
     private static QuestNpcEntity npc(ServerPlayer player, EntityType<QuestNpcEntity> type, double x, double z) {
         var npc = type.create(player.serverLevel());
         npc.moveTo(x, -60, z, 180, 0);
+        npc.setQuestContext(type == ModEntities.NPC_RUKIA.get() ? "karakura_inicio" : "karakura_escola");
         player.serverLevel().addFreshEntity(npc);
         return npc;
     }
@@ -95,9 +96,9 @@ public final class QuestNavigationQaBootstrap {
         if (ticks == 285 || ticks == 325 || ticks == 365) {
             var quests = PlayerCapability.get(mc.player).orElseThrow(() -> new IllegalStateException("Missing QA capability")).getPlayerQuestData();
             var target = quests.getWaypoint(quests.getTrackedQuestId());
-            boolean ready = ticks == 285 ? target != null && target.dimension().equals(Level.NETHER.location())
-                    : ticks == 325 ? "ichigo_npc_test".equals(quests.getTrackedQuestId()) && target == null
-                    : "orihime_npc_test".equals(quests.getTrackedQuestId()) && target != null;
+            boolean ready = ticks == 285 ? target != null && target.dimension().equals(Level.OVERWORLD.location()) && mc.level.dimension() == Level.NETHER
+                    : ticks == 325 ? "shinigami_substitute:3".equals(quests.getTrackedQuestId()) && target == null
+                    : "shinigami_substitute:4".equals(quests.getTrackedQuestId()) && target != null;
             if (!ready) {
                 if (++waitingForSync > 200) throw new IllegalStateException("QA synchronization timeout at " + ticks);
                 ticks--; return;
@@ -112,20 +113,20 @@ public final class QuestNavigationQaBootstrap {
                 player.teleportTo(.5, -60, 78.5);
                 var giver = npc(player, ModEntities.NPC_RUKIA.get(), .5, 80.5);
                 rukia = giver.getUUID();
-                QuestService.startQuest(player, "rukia_npc_test", giver);
+                QuestService.startQuest(player, "shinigami_substitute:1", giver);
                 // Exercise real acceptance, then remove only the QA-spawned fight from this visual fixture.
                 for (var entity : player.serverLevel().getAllEntities())
-                    if ("rukia_npc_test".equals(entity.getPersistentData().getString(Reference.TAG_QUEST_KEY))) entity.discard();
+                    if ("shinigami_substitute:1".equals(entity.getPersistentData().getString(Reference.TAG_QUEST_KEY))) entity.discard();
                 npc(player, ModEntities.NPC_RUKIA.get(), 4.5, .5);
-                npc(player, ModEntities.NPC_ORIHIME.get(), 40.5, 40.5);
+                npc(player, ModEntities.NPC_KON.get(), 40.5, 40.5);
                 var quests = data.getPlayerQuestData();
-                for (String key : java.util.List.of("orihime_npc_test", "ichigo_npc_test"))
+                for (String key : java.util.List.of("shinigami_substitute:4", "shinigami_substitute:3"))
                     quests.acceptQuest(key, QuestRegistry.getQuest(key));
-                if (QuestRegistry.getQuest("rukia_basic_training") != null || QuestRegistry.getQuest("rukia_npc_test") == null)
+                if (QuestRegistry.allQuests().size() != 28 || QuestRegistry.getQuest("rukia_npc_test") != null)
                     throw new IllegalStateException("Rukia catalog retirement failed");
                 player.connection.teleport(.5, -60, .5, 0, 0);
                 QuestNavigationEvents.refresh(player);
-                if (!rukia.equals(quests.getWaypoint("rukia_npc_test").entityId())) throw new IllegalStateException("Giver switched to duplicate");
+                if (!rukia.equals(quests.getWaypoint("shinigami_substitute:1").entityId())) throw new IllegalStateException("Giver switched to duplicate");
                 SyncHelper.full(player);
             }));
         }
@@ -145,29 +146,21 @@ public final class QuestNavigationQaBootstrap {
         if (ticks == 255) {
             mc.options.guiScale().set(2); mc.resizeDisplay();
             server(p -> {
-                var giver = (QuestNpcEntity) p.serverLevel().getEntity(rukia);
                 var nether = p.server.getLevel(Level.NETHER);
-                var movedGiver = giver.changeDimension(nether, new net.minecraftforge.common.util.ITeleporter() {
-                    @Override public net.minecraft.world.entity.Entity placeEntity(net.minecraft.world.entity.Entity entity,
-                            net.minecraft.server.level.ServerLevel current, net.minecraft.server.level.ServerLevel destination,
-                            float yaw, java.util.function.Function<Boolean, net.minecraft.world.entity.Entity> reposition) {
-                        var moved = reposition.apply(false); moved.moveTo(.5, 70, 80.5); return moved;
-                    }
-                });
-                if (!(movedGiver instanceof QuestNpcEntity moved)) throw new IllegalStateException("QA NPC dimension transfer failed");
-                QuestNpcLocations.get(p.server).update(moved);
+                p.teleportTo(nether, .5, 70, .5, 0, 0);
             });
         }
         if (ticks == 285) capture = "07-other-dimension";
         if (ticks == 300) server(p -> PlayerCapability.get(p).ifPresent(data -> {
-            var quests = data.getPlayerQuestData(); quests.completeQuest("rukia_npc_test");
-            quests.setTrackedQuestId("ichigo_npc_test"); SyncHelper.progression(p);
+            p.teleportTo(p.server.overworld(), .5, -60, .5, 0, 0);
+            var quests = data.getPlayerQuestData(); quests.completeQuest("shinigami_substitute:1");
+            quests.setTrackedQuestId("shinigami_substitute:3"); SyncHelper.progression(p);
         }));
         if (ticks == 325) capture = "08-unknown-location";
         if (ticks == 340) server(p -> PlayerCapability.get(p).ifPresent(data -> {
-            data.getPlayerQuestData().setTrackedQuestId("orihime_npc_test"); SyncHelper.progression(p);
+            data.getPlayerQuestData().setTrackedQuestId("shinigami_substitute:4"); SyncHelper.progression(p);
         }));
-        if (ticks == 365) capture = "09-fallback-orihime";
+        if (ticks == 365) capture = "09-fallback-next-story";
         if (ticks == 380) mc.options.hideGui = true;
         if (ticks == 395) capture = "10-hidden-hud";
         if (ticks == 410) { mc.options.hideGui = false; com.mojang.logging.LogUtils.getLogger().info("Quest navigation QA complete: {}", evidence); mc.stop(); }

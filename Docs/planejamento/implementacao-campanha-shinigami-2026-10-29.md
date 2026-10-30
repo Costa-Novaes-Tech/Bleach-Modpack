@@ -4,6 +4,28 @@ Data: 29/10/2026. Base: M13/10.32, commit `99064862`. Esta entrega implementa o 
 
 ## Regras implementadas
 
+### Direção atual — primeira quest da Rukia por etapas (30/10/2026)
+
+**Retomada após morte — ajuste posterior de 30/10/2026:** somente `MAIN-SUB-01` mantém checkpoints das etapas concluídas. Morte antes da introdução mantém o aceite e o destino; morte durante o boss remove o alvo anterior, renova a tentativa e permite **Tentar novamente** pelo Journal ou pela mesma Rukia, sem repetir a introdução. Morte depois da vitória mantém o objetivo de retorno, sem refazer o boss. Estado e vínculo persistem no respawn e no save. A regra padrão de falha completa das demais quests não foi alterada; outras missões poderão definir políticas próprias.
+
+Nesta conversa, "iniciar o jogo/mundo" passa a significar um personagem da classe Shinigami. Ao começar sem progresso, apenas `MAIN-SUB-01` aparece no Journal. Aceitar pelo Journal registra a missão e fixa a navegação na Rukia `karakura_inicio`, sem combate. Interagir abre o diálogo introdutório sobre Shinigamis e Hollows; confirmar "Enfrentar o Hollow" cria o Hollow Boss. A vitória libera a etapa de voltar à mesma instância de Rukia, sem concluir a missão. O diálogo final apresenta o papel de Shinigami temporário; "Receber Asauchi e concluir" entrega a espada uma única vez e libera `MAIN-SUB-02` no Journal. Objetivos futuros ficam ocultos até a etapa anterior terminar. Isso substitui a entrega da Asauchi no início descrita abaixo.
+
+Uma Rukia inicial autorada tem preferência. Se o mundo não possui esse contexto conhecido, o servidor usa uma Rukia próxima sem contexto ou procura chão livre próximo ao jogador para criar uma persistente. Não altera terreno nem força carregamento de chunks; se não houver chão válido, tenta novamente. A instância é compartilhada no mundo, e o progresso é individual. FakePlayers não disparam essa provisão automática.
+
+A versão 2 migra a definição antiga reconhecida de um único Hollow/Boss, guardando `01.json.pre-stages.bak`. Ao vincular o progresso no login, uma tentativa antiga incompleta reinicia na apresentação com nova identidade de tentativa; conclusões e marcas de entrega anteriores permanecem. Não remove espadas de personagens existentes. Outras definições customizadas não recebem migração genérica.
+
+### Ajuste solicitado em 30/10/2026 — Catálogo somente da campanha
+
+O catálogo ativo fica limitado às 28 missões de M13/10.32. `QuestDefaults` deixa de gerar as três missões antigas de demonstração e as oito quests de teste dos NPCs. O carregamento usa somente as duas sagas e os arquivos numerados previstos no catálogo oficial, sem reativar missões extras presentes em saves antigos. Arquivos antigos e registros pessoais permanecem em disco, mas essas quests não aparecem no diário, no HUD ou nas ofertas dos NPCs. Esta direção substitui a preservação ativa do boss legado da Rukia descrita no relatório histórico abaixo.
+
+A história principal mantém a prioridade máxima do HUD, acima de outras categorias e de fixações antigas. O Mission Journal ordena explicitamente pelo catálogo: 10 missões Substituto, depois 18 Soul Society, independentemente da ordem de leitura ou sincronização. A visibilidade pessoal por pré-requisitos permanece; missões concluídas ficam no histórico em sua posição cronológica.
+
+### Ajuste solicitado em 30/10/2026 — Asauchi da abertura
+
+A seleção de Shinigami não entrega mais a Asauchi. No primeiro início válido de `MAIN-SUB-01` ("Um Hollow na área"), Rukia entrega uma Asauchi e o catálogo novo usa `bleachmod:hollow_boss`. A entrega ocorre somente após validar o local e criar o encontro. Inventário cheio deixa a espada no chão; uma Asauchi já carregada dispensa outra cópia. A marca de entrega persiste no progresso, inclusive após falha/reentrada, evitando obter espadas reiniciando a missão. Não é recompensa de conclusão nem libera forma/skill.
+
+Os JSONs já existentes em saves continuam preservados por `writeIfMissing`: o novo alvo do catálogo vale para mundos que ainda não receberam essa definição. Não há migração automática do objetivo ou do progresso antigo; a mudança de entrega da espada se aplica também ao início válido da definição anterior. Personagens existentes não perdem espadas.
+
 - Por direção explícita do usuário em 29/10/2026, todas as novas missões exigem personagem criado e raça `shinigami`, inclusive após falha e ao iniciar o encontro.
 - Futuras missões ficam ocultas na conversa e no diário até seus pré-requisitos. Progresso e visibilidade pertencem ao jogador.
 - `shinigami_substitute` tem 10 missões; `shinigami_soul_society`, 18. O marco final do primeiro arco libera o segundo. Sem quests de Aizen, Don Kanonji ou Yamamoto acrescentadas ao roteiro.

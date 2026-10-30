@@ -1,5 +1,9 @@
 # M13 — Campanhas e sidequests
 
+> **Retomada de MAIN-SUB-01 após morte — 30/10/2026:** preservar as etapas já concluídas dessa missão. Morte no boss reinicia somente o confronto; morte no retorno mantém a vitória. Não exigir novo aceite ou repetir a introdução. Esta política é exclusiva da primeira quest da Rukia; as demais missões conservam suas próprias regras de falha.
+
+> **Revisão de implementação solicitada em 30/10/2026 — MAIN-SUB-01:** aceitar a abertura pelo Mission Journal → localizar a primeira Rukia pela bússola → diálogo sobre Hollows/Shinigamis → confronto com Hollow Boss → retornar à mesma Rukia → diálogo de Shinigami temporário e entrega da Asauchi → conclusão e disponibilidade de MAIN-SUB-02. As etapas futuras ficam ocultas até concluir a anterior. Esta direção revisa somente a abertura; as fichas e decisões de 28/10 abaixo ficam como histórico no que divergirem. [Fluxo atual e migração](../planejamento/implementacao-campanha-shinigami-2026-10-29.md).
+
 ## 1. Estado do módulo
 
 | Campo | Estado em 28/10/2026 |

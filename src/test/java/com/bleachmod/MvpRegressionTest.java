@@ -1564,6 +1564,92 @@ public final class MvpRegressionTest {
                 yes(snapshot.quests().values().stream().allMatch(q -> q.getRewards().isEmpty() && !q.isRepeatable()));
             } catch (java.io.IOException failure) { throw new AssertionError(failure); }
         });
+        test("world catalog excludes obsolete quests and journal follows chronological order", () -> {
+            try {
+                var root = java.nio.file.Files.createTempDirectory("campaign-catalog");
+                QuestDefaults.writeIfMissing(root);
+                java.nio.file.Files.createDirectories(root.resolve("sidequests"));
+                java.nio.file.Files.writeString(root.resolve("sidequests/obsolete.json"), "not valid json");
+                java.nio.file.Files.writeString(root.resolve("sagas/soul_society.json"), "obsolete saga");
+                java.nio.file.Files.writeString(root.resolve("quests/shinigami_substitute/99.json"), "obsolete quest");
+                var snapshot = QuestRegistry.prepare(root);
+                eq(28, snapshot.quests().size()); eq(2, snapshot.sagas().size());
+                yes(snapshot.quests().values().stream().allMatch(Quest::isStory));
+                yes(!snapshot.quests().containsKey("rukia_npc_test"));
+                var reversed = new ArrayList<>(snapshot.quests().values());
+                java.util.Collections.reverse(reversed);
+                var ordered = QuestTracking.orderedJournal(reversed);
+                eq(new ArrayList<>(snapshot.quests().values()), ordered);
+                eq("shinigami_substitute:1", ordered.get(0).getQuestKey());
+                eq("shinigami_soul_society:18", ordered.get(27).getQuestKey());
+                yes(java.nio.file.Files.exists(root.resolve("sidequests/obsolete.json")));
+            } catch (java.io.IOException failure) { throw new AssertionError(failure); }
+        });
+        test("Rukia opening stages persist and migrate the previous single-boss definition", () -> {
+            try {
+                var json = StoryQuestDefaults.bundled().getAsJsonArray("quests").get(0).getAsJsonObject();
+                Quest current = QuestParser.parseQuest(json, "shinigami_substitute");
+                eq(3, current.getObjectives().size()); yes(current.getQuestGiver().isBlank());
+                QuestProgress p = new QuestProgress(current.getQuestKey()); p.initializeRequirements(current);
+                p.setStatus(QuestStatus.ACCEPTED);
+                eq(0, RukiaOpeningQuest.stage(p));
+                yes(RukiaOpeningQuest.visibleObjective(current, p, 0));
+                yes(!RukiaOpeningQuest.visibleObjective(current, p, 1));
+                p.setEncounterStarted(true); p.setObjectiveProgress(0, 1);
+                QuestProgress loaded = QuestProgress.load(p.save());
+                eq(1, RukiaOpeningQuest.stage(loaded)); yes(!RukiaOpeningQuest.visibleObjective(current, loaded, 2));
+                loaded.setObjectiveProgress(1, 1);
+                eq(2, RukiaOpeningQuest.stage(QuestProgress.load(loaded.save())));
+                yes(!loaded.allObjectivesComplete(current));
+                var legacy = json.deepCopy(); legacy.addProperty("version", 1);
+                legacy.addProperty("quest_giver", "rukia"); legacy.getAsJsonObject("story").addProperty("start_mode", "NPC");
+                legacy.getAsJsonArray("objectives").remove(2); legacy.getAsJsonArray("objectives").remove(0);
+                var oldQuest = QuestParser.parseQuest(legacy, "shinigami_substitute");
+                QuestProgress old = new QuestProgress(current.getQuestKey()); old.initializeRequirements(oldQuest);
+                old.setStatus(QuestStatus.ACCEPTED); old.setEncounterStarted(true);
+                var oldAttempt = old.getAttemptId(); yes(old.bindDefinition(current));
+                eq(0, RukiaOpeningQuest.stage(old)); yes(!old.isEncounterStarted()); yes(!oldAttempt.equals(old.getAttemptId()));
+                QuestProgress completed = new QuestProgress(current.getQuestKey()); completed.initializeRequirements(oldQuest);
+                completed.setStatus(QuestStatus.SUCCESS); completed.markStarterAsauchiGranted();
+                yes(completed.bindDefinition(current)); eq(QuestStatus.SUCCESS, completed.getStatus()); yes(completed.isStarterAsauchiGranted());
+                var root = java.nio.file.Files.createTempDirectory("rukia-migration");
+                QuestDefaults.writeIfMissing(root);
+                var path = root.resolve("quests/shinigami_substitute/01.json");
+                java.nio.file.Files.writeString(path, legacy.toString());
+                QuestDefaults.writeIfMissing(root);
+                yes(java.nio.file.Files.exists(path.resolveSibling("01.json.pre-stages.bak")));
+                eq(3, QuestRegistry.prepare(root).quests().get(current.getQuestKey()).getObjectives().size());
+            } catch (java.io.IOException failure) { throw new AssertionError(failure); }
+        });
+        test("Rukia combat checkpoint preserves completed steps destination and persistence", () -> {
+            try {
+                var json = StoryQuestDefaults.bundled().getAsJsonArray("quests").get(0).getAsJsonObject();
+                Quest q = QuestParser.parseQuest(json, "shinigami_substitute");
+                QuestProgress p = new QuestProgress(q.getQuestKey()); p.initializeRequirements(q); p.setStatus(QuestStatus.ACCEPTED);
+                var target = UUID.randomUUID(); p.setStoryTargetUuid(target);
+                p.setObjectiveProgress(0, 1); p.setEncounterStarted(true);
+                var attempt = p.getAttemptId(); p.restartObjectiveAttempt(1);
+                eq(QuestStatus.ACCEPTED, p.getStatus()); eq(1, p.getObjectiveProgress(0));
+                eq(0, p.getObjectiveProgress(1)); eq(target, p.getStoryTargetUuid());
+                yes(!attempt.equals(p.getAttemptId())); yes(RukiaOpeningQuest.isRetryPending(p));
+                var loaded = QuestProgress.load(p.save());
+                yes(RukiaOpeningQuest.isRetryPending(loaded)); eq(target, loaded.getStoryTargetUuid());
+                eq(1, loaded.getObjectiveProgress(0)); eq(p.getAttemptId(), loaded.getAttemptId());
+                loaded.markFailed(); eq(0, loaded.getObjectiveProgress(0)); eq(QuestStatus.FAILED, loaded.getStatus());
+            } catch (java.io.IOException failure) { throw new AssertionError(failure); }
+        });
+        test("starter Asauchi grant survives save and failed quest retries", () -> {
+            Quest q = quest();
+            QuestProgress progress = new QuestProgress("shinigami_substitute:1");
+            progress.initializeRequirements(q);
+            yes(!progress.isStarterAsauchiGranted());
+            progress.markStarterAsauchiGranted();
+            QuestProgress loaded = QuestProgress.load(progress.save());
+            yes(loaded.isStarterAsauchiGranted());
+            loaded.markFailed(); loaded.initializeRequirements(q);
+            yes(loaded.isStarterAsauchiGranted());
+            yes(!QuestProgress.load(new CompoundTag()).isStarterAsauchiGranted());
+        });
         test("story visibility advances personally in order and failed retries still require Shinigami", () -> {
             try {
                 var catalog = StoryQuestDefaults.bundled();
