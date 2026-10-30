@@ -1,6 +1,70 @@
 # Uryū Ishida — plano do arqueiro tradicional
 
 
+## Revisão arquitetural30/10 — discussão, sem implementação
+
+Pedido humano: revisar raças/GDD, relatar que a Vollständig testada não demonstrou mudança de kit, reaproveitar seleção de estágios com nomenclaturas raciais, propor aprimoramento intermediário, refinar técnicas/transformação e só depois criar storyboards/protótipos. Falas/áudio serão buscados pelo usuário. Propostas abaixo NÃO são novas decisões aprovadas nem substituem automaticamente regras do GDD.
+
+### Fontes e o que permanece aprovado
+
+Revisão de origin/main9906486 consultada por git show após fetch, sem checkout/merge: M04, M07, M11 e handoff28/10. O handoff local ainda reflete23/10; usar a versão upstream para o horizonte atualizado. M11/formação racial estão adiados no roadmap global, portanto esta proposta registra compatibilidade e não inicia quests/economia/equipamentos.
+
+- M04: Shinigami/Hollow/Quincy/Fullbringer como origens; origem, evolução, afiliação/cargo, principal e forma não são sinônimos. Arrancarização é transição conquistada, não botão cosmético de troca racial.
+- M05/REV-SP-02: SP adquire skills/formas sob requisitos; Mastery vem de prática, não de compra.
+- M06-09: armamento espiritual, mobilidade e Gintō são campos distintos; Blut Vene/Arterie têm domínios próprios e incompatibilidade simultânea. Não acrescentar um sistema novo de Proficiências nesta rodada: equipe ainda decidirá sua implementação.
+- M07-07C: Schrift compatível conquistada/vinculada antes da Vollständig associada, como adaptação aprovada de progressão. Schrift não equivale à forma e não entrega automaticamente todas as habilidades.
+- M07-07F–J: forma manual, ativação paga na conclusão/manutenção, instrumento não universal, arma e forma separados, itens compatíveis quando mãos/fase permitirem. Dano isolado NÃO cancela automaticamente o preparo; reação válida disponível cancela antes de executar. Não herdar invencibilidade Bankai por nomenclatura de UI.
+- M11/8.17 upstream: Cruz real em slot próprio; arco manifestado manualmente, de duas mãos. O item de teste atual não representa essa integração pronta. Não instalar biblioteca de acessórios por inferência.
+- M07-C12: distinguir projéteis autônomos de efeitos dependentes da manifestação; desligar forma não significa apagar toda flecha já lançada.
+
+### Diagnóstico pendente do protótipo atual
+
+O relato humano “não muda nada” prevalece como ausência de aceite funcional/perceptível. Há ramificação server-side QuincyTechniqueService.executeSlot → QuincyVollstandigService.execute e passiva no arco, mas isso não comprova que o jogador chegou ao estado pretendido no build testado. Antes de criar mais efeitos: reproduzir pelo mesmo controle/UI usado, registrar versão do artefato, seleção, fase solicitada/confirmada, HUD, repertório, custo e resultado de H/N/B/C. Não atribuir a instalação antiga ou erro de uso sem prova.
+
+Divergência observável na entrada: G/CYCLE_FORM foi adaptado para toggle Quincy, enquanto caminhos CHARGE/INSTANT_TRANSFORM ainda encaminham ao mecanismo de formas existente. Não há seleção intermediária Quincy no protótipo. Hipótese de contratos de entrada divergentes, não causa confirmada do relato.
+
+Outras divergências concretas para a futura refatoração: preparação cancela por hurtTime e não permite que as próprias ações Quincy interrompam o preparo para reagir; isso diverge de M07-07J. stop descarta todos os projéteis avançados rastreados, sem separar disparos autônomos de efeitos dependentes. Estes são itens de conciliação, não motivo para mudar regras aprovadas do GDD em silêncio. Nenhum código alterado nesta revisão.
+
+### Proposta de três perfis na interface existente
+
+Recomendação para o Uryū: **Kojaku → Armamento aprimorado/Ginrei Kojaku → Vollständig**. Reaproveitar painel/roda, seleção, requisitos, confirmação, barra, HUD e maestrias. O estágio intermediário é um aprimoramento da manifestação do arco; não afirmar que Ginrei Kojaku é uma transformação corporal canônica ou “Shikai Quincy”. A sequência em três seleções reutilizáveis é adaptação de gameplay, não sequência universal da obra.
+
+Ginrei Kojaku é identificado pelo glossário oficial Pierrot como arco de Uryū após recuperar seus poderes. Letzt Stil envolve remoção da luva Sanrei e perda de poderes: reservar como ramo especial com consequência/recuperação, não intermediário livre entre Base e Vollständig. Sanrei pode inspirar conteúdo de treinamento futuro, sem conceder seus resultados por equipar uma luva.
+
+O domínio deve separar: raça/poder principal; armamento aprendido/selecionado; manifestação temporária aprendida/ativa; Schrift aprendida/vinculada; domínio de cada técnica. O seletor pode apresentar combinações coerentes desses dados. Perfil final pode combinar Ginrei e Vollständig; guardar o arco não desliga automaticamente a forma. Não gravar “shikai/bankai” em dados Quincy nem converter o arquivo Shinigami. Sem trocar raça, duplicar foco ou conceder arco real ao ativar uma cena.
+
+Aplicação às outras raças: Shinigami mantém selada/Shikai/Bankai; Hollow tem evolução permanente, com Arrancar e Resurrección em contratos próprios; Fullbringer possui manifestação/completude particulares, sem três transformações universais. Interface aceita quantidade/tipo de estágios por perfil, em vez de forçar todos ao mesmo grafo. Hierarquia visual compartilhada, sem uniformizar custos, consequências e retorno.
+
+### Repertório candidato — papéis antes de números
+
+Manter H/N/B/C como posições de acesso, com habilidades e aparências próprias por perfil. Evitar inflar12botões novos só para preencher três estágios; variantes podem compartilhar uma técnica/domínio quando forem realmente a mesma execução. Quando comportamento/requisitos mudarem, ter ID e domínio pertinentes. Números atuais servem de comparação, sem novo balanceamento aprovado.
+
+**Kojaku/base:** preservar o conjunto tradicional testado: H Seele Schneider; N Licht Regen; B Hirenkyaku; C Sprenger. Auditar nomes e apresentações: Seele é ferramenta espiritual de corte que também pode ser disparada, não Zanpakutō; Sprenger depende de preparação com Seele/Gintō na referência, logo a conjuração automática de nós atual é uma adaptação de protótipo, não economia final.
+
+**Ginrei/aprimorado:** foco em precisão, pressão sustentada e preparação técnica. H variante concentrada de Seele, com preparação/contato bem legíveis; N chuva de flechas com arco de emissão aéreo e zona de aterrissagem identificável, diferenciando-a de um cone frontal; B Hirenkyaku com recuperação/reposicionamento mais controlados, sem voo automático; C Sprenger com cinco âncoras/linhas de preparação e detonação reconhecíveis. Esses são candidatos, não nomes de técnicas novas atribuídos à obra. Considerar Blut como aprendizado racial separado, não concedê-lo como passiva de Uryū ou substituir um slot sem ficha.
+
+**Vollständig:** combate a longa distância com manifestação ativa participando dos ataques. Preservar a solicitação humana de quatro estrelas, cinco flechas por disparo e central com cinco alvos/dois blocos máximos. H tiro de precisão com concentração no arco e quatro auxiliares; N bateria das asas/estrelas em ondas alternadas, distinta de chuva/rajada comum; B Hirenkyaku de três cargas com pós-imagem curta, sem boneco autônomo nem voo concedido só por asas; C convergência de Reishi visível, com linhas/projéteis chegando de pontos da manifestação e conclusão localizada. Não depender de uma explosão genérica após espera para transmitir essa identidade. H/N/C concentram papéis: linha precisa, cobertura e área preparada. Sem autoaim ilimitado, chuva de dano por frame ou quebra de blocos por aparência.
+
+Antithesis permanece técnica da Schrift com ficha própria: selecionar dois vínculos/alvos elegíveis, definir evento/dano realmente registrado, janela, teto e interação com defesa/PvP. Não tratar como swap irrestrito de HP/morte, cura coletiva ou cópia de especial de outro jogo. Discutir sua integração depois de estabilizar armamento/forma; não substituir a suprema atual por ela nesta rodada.
+
+### Direção visual e preparação dos futuros storyboards
+
+Visual de Ginrei: arco próprio distinguível por silhueta, empunhadura preservada, fio/tensão de Reishi e formação de flecha legíveis; manifestação breve de armamento, sem fingir uma segunda Bankai. Vollständig: ritual/controladoria do corpo, estrutura das asas abre em segmentos, revestimentos de Reishi em mãos/pernas onde fundamentados, quatro estrelas se destacam e entram em órbita limitada; transformação termina em pose de combate e devolução suave do controle. As quatro estrelas são adaptação expressamente pedida pelo usuário, não contagem canônica comprovada nesta pesquisa.
+
+Planejar relógios separados: fase autoritativa de preparo/compromisso e tempo da apresentação/câmera/áudio, sem atrasar gameplay à força por uma trilha longa. Voz recebida posteriormente terá marcador real de início/fim; não sintetizar nomes/falas ou fazer lipsync a um áudio imaginário. Reação/cancelamento/ciclo de vida e observadores precisam de apresentação coerente.
+
+Depois de fechar repertório: ficha de cada técnica → roteiro temporal → storyboard de guarda, preparação, passagem/contato, impacto, recuperação e retorno. Cada quadro declara referencial, mão dominante, ponto de empunhadura, orientação/ponta da arma, pés/quadril/braços, alvo, câmera, trajetória, VFX, som e tick autoritativo. Incluir frente/perfil e trajetória contínua entre marcos; quadros isolados não demonstram fluidez. Então animatic/protótipo visual, modelo/rig editável e prova vertical no Forge antes de reproduzir o kit todo. Nenhum storyboard/imagem/animação nova criado nesta revisão.
+
+### Pesquisa primária consultada30/10 e limites
+
+- Pierrot, glossário ka: https://pierrot.jp/title/bleach/keyword_ka.html — Ginrei Kojaku, Sanrei/Letzt Stil e consequência; arquivo da época do anime, sem importar automaticamente toda sua redação antiga para todas as eras.
+- Pierrot, glossário sa: https://pierrot.jp/title/bleach/keyword_sa.html — Seele Schneider, preparação de Sprenger e Shikai. Não generalizar a antiga frase de exclusividade de arma com lâmina a todo TYBW.
+- Klub Outside, notícia pública01/03/2025: https://klub-outside.com/s/n136/news/detail/10500?ima=0000&link=ROBO004 — manifestação Vollständig de Uryū no animeTYBW30 e anúncio de material restrito; área de membros não acessada.
+- Tamashii Nations/Bandai, produto oficial: https://tamashiiweb.com/item/15155/ — referência visual licenciada com asas abertas e revestimentos transparentes em mãos/pernas. É apoio de design, não ficha técnica de combate nem regra numérica.
+- Glossário TYBW https://bleach-anime.com/keyword/ — abertura direta retornou403; snippets e leituras antigas do GDD não substituem leitura atual integral. Não derivei daí novas capacidades. Não assisti episódios completos nem li capítulos integrais nesta rodada; propostas de técnicas são adaptações identificadas, não catálogo canônico exaustivo.
+
+Próxima decisão estrutural proposta: aceitar o intermediário como **armamento Ginrei**, mantendo Letzt Stil especial e Schrift independente; em seguida detalhar primeiro os quatro papéis do kit Vollständig. Esta revisão não aprova parâmetros, não despacha frente Antigravity, não altera código nem faz merge/main.
+
 ## Ajuste posterior29/10 — repouso do Kojaku
 
 Usuário comparou com o arco vanilla: repouso vertical atravessava a silhueta, enquanto a tração já era adequada. Rotação de repouso em terceira pessoa alterada de[90,180,0] para[0,0,90] nas duas mãos, mantendo translação/escala/forma. Gerador e display Blockbench sincronizados para evitar reversão ao regenerar. Três arquivos pulling e primeira pessoa inalterados. Modelo vanilla consultado diretamente no client.jar1.20.1; seus ângulos não foram copiados cegamente, pois seu spriteXY difere da geometriaYZ do Kojaku.
