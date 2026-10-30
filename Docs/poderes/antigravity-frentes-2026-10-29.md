@@ -2,6 +2,16 @@
 
 Autorização humana: três frentes Antigravity (proteção de ativação Bankai, projéteis Quincy, Garden N); Codex troca combo Senbon por animações prontas. Frentes de NPCs/lore preservadas para depois. Documentos de29/10 que propunham dano normal durante a cena ficam superados: usuário aprovou invencibilidade temporária.
 
+## Organização vigente30/10 — três frentes, substitui a fila anterior
+
+- **Codex / Feature-Poderes-bankais:** controles e estados Quincy, conciliação M07, preparação/reação, ações H/N/B/C, snapshots e integração final dos assets. Autoridade exclusiva sobre common/quincy, pacotes/SyncHelper, ClientForgeEvents, QuincyVollstandigVisuals, HUD/commands e conexões compartilhadas. Nesta rodada só organização/auditoria; transformação intermediária Ginrei e parâmetros/destruição C continuam propostas para discutir, não implementação aprovada por esta divisão.
+- **Antigravity A / codex/quincy-rig-manifestacao:** fontes/modelo/rig/texturas/animações de asas/quatro estrelas e prova em bancada Forge. [Prompt específico](prompt-antigravity-quincy-rig-2026-10-30.md). Não tocar gameplay/rede/arquivos cliente compartilhados. Usar checkout individual existente liberado; o checkout benihime é candidato, não disponibilidade presumida.
+- **Antigravity B / codex/senbon-garden-prisao:** corrigir a entrega7750815 e produzir QA real. [Retorno corretivo no prompt Garden](prompt-antigravity-garden-prisao-2026-10-29.md). Checkout design já está nessa branch; sem alternar para Quincy em outra conversa simultânea. Não tocar combo aceito, Quincy ou docs compartilhados.
+
+Antes de qualquer implementação, cada AG lê tudo, atualiza/compara refs e integra poderes NA SUA branch conforme regra abaixo. Mesmo Garden precisa trazer a documentação posterior a2eb3898. Nenhuma frente faz merge de retorno automaticamente. Sem novo diretório/worktree, sem duas IAs no mesmo checkout e sem dois clientes pesados simultâneos.
+
+Auditoria7750815: seis GameTests novos e283PASS confirmados no log da branch, mas escopo dos testes é menor que o relatório. Falta revalidar aliados durante prisão, assegurar limite de altura durante lease inteira, renovar prazo do piso sem resetar e provar destinatários/deltas por fase. Testes intitulados aliados não criam aliado; teste tardio pode passar antes do terceiro pulso. Imagem/clip Forge Garden ausentes do pacote apresentado. Não integrado/homologado nesta revisão.
+
 ## Regra obrigatória de início, comum aos três prompts
 
 Depois de ler integralmente seu prompt e o contrato Docs/poderes/skills/bleach-antigravity-entrega/SKILL.md, antes de implementar:

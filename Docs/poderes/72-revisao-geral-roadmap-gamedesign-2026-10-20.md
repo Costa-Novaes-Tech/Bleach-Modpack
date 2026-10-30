@@ -21,10 +21,14 @@ Este bloco e o checklist atualizado prevalecem sobre os registros históricos ab
 
 1. Proteção de ativação Bankai/Ryūjin: integrada e aceita pelo usuário; preservar, sem nova reformulação.
 2. Ishida: base de projéteis aceita provisoriamente. Codex entregou protótipo Vollständig com quatro satélites/cinco flechas e kit avançado; prioridade agora é playtest, refinamento visual/equilíbrio e coberturas específicas, não recriar a base.
-3. AG Garden N: segunda explosão seguida de prisão ampla com pétalas, levitação controlada e pulsos de dano; centro fixo/raio35 e janela2–6s preservados.
+3. AG Garden N: entrega7750815 existe na branch individual;283GameTests confirmados no log. Auditoria30/10 pede correções de revalidação de aliados, lease/altura, prazo do piso e testes específicos, além de QA visual real. Não integrado/homologado. Centro fixo/raio35/janela2–6s preservados.
 4. Codex Senbon: combo pronto Better Combat implementado/publicado2b3c582;158regressões e dois ciclos Forge de6cenários com/sem partículas. Usuário aceitou o combo no retorno posterior; preservar. Primeiro golpe horizontal agora substitui exigência diagonal antiga. Não restaurar clips personalizados em merge.
 
 Coordenação, arquivos exclusivos e três prompts em [frentes29/10](antigravity-frentes-2026-10-29.md). Cada AG lê o contrato, compara refs e integra origin/Feature-Poderes-bankais na branch individual antes de implementar. Sem merge automático de retorno. QA de cliente serializado.
+
+### Distribuição de desenvolvimento30/10
+
+Codex: estados/controles/ações e integração Quincy. AG A: rig/modelo/animações da manifestação Quincy, assets exclusivos. AG B: correções e QA do Garden7750815. [Coordenação atualizada](antigravity-frentes-2026-10-29.md) e dois prompts executivos. Compartilhados de Java/rede/HUD permanecem com Codex para evitar sobreposição. Storyboards Quincy são proposta; Ginrei e destruição C não entram em produção automaticamente por esta organização. Checkouts existentes e liberados, sincronização poderes→branch individual e clientes QA serializados.
 
 ### Fechamento e trabalho transversal
 
@@ -215,7 +219,7 @@ Medição preliminar de25/10, antes da integração: checkout design com aproxim
 - [ ] 6. Mentor e Proficiências: aguardando equipe, sem implementação ativa.
 - [x] 7. Hyōrinmaru concluída e homologada; fora da fila ativa.
 - [ ] 8. Eficiência/consolidação/QA: frente transversal em andamento; sem nova exclusão automática.
-- [ ] 9. Senbon: combo aceito e preservado; prioridade AG é Garden N prisão. [Prompt executivo atualizado](prompt-antigravity-garden-prisao-2026-10-29.md), fases sincronização → estado/dano → VFX → QA → auditoria; sem retorno automático à poderes.
+- [ ] 9. Senbon: combo aceito e preservado; Garden7750815 em correção/auditoria, não integrado. [Prompt executivo atualizado](prompt-antigravity-garden-prisao-2026-10-29.md), fases sincronização → estado/dano → VFX → QA → auditoria; sem retorno automático à poderes.
 - [x] 10. Proteção temporária Bankai/cancelamento Ryūjin integrados e aceitos pelo usuário; preservar.
 
 **Aceites posteriores de25/10:** entrada Benihime validada pelo usuário, incluindo o refinamento102; Investida/Rajada aprovadas. Higashi será validada depois. A substituição da boneca do kit selado Benihime foi solicitada, mas a alternativa ainda não foi fechada. Esses aceites atualizam os registros históricos acima; não significam homologação de todas as técnicas, áudio em observadores ou multiplayer. Integração e validações combinadas serão registradas no105.
