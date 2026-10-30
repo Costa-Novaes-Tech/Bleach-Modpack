@@ -1,0 +1,6 @@
+emergence-back PASS stage=0 bones=11 cubes=28 satellites=4 failure=null
+idle-back PASS stage=1 bones=11 cubes=28 satellites=4 failure=null
+idle-profile PASS stage=2 bones=11 cubes=28 satellites=4 failure=null
+arsenal-left-front PASS stage=3 bones=11 cubes=28 satellites=4 failure=null
+arsenal-right-front PASS stage=4 bones=11 cubes=28 satellites=4 failure=null
+settle-recoil PASS stage=5 bones=11 cubes=28 satellites=4 failure=null

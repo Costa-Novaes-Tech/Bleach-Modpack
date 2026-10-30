@@ -1,0 +1,150 @@
+{
+  "date": "2026-10-30",
+  "front": "Antigravity A \u2014 modelo/rig Quincy, sem sobrepor gameplay",
+  "branch": "codex/quincy-rig-manifestacao",
+  "base_commit": "04ef0d115fe7e7c59f258debc1f80b04732bb44d",
+  "status": "V0_assets_and_bench_proof_delivered_partial_codex_integration_pending",
+  "hierarchy": {
+    "root": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "wing_left_root": [
+      2.0,
+      20.0,
+      2.0
+    ],
+    "wing_left_mid": [
+      8.0,
+      24.0,
+      2.0
+    ],
+    "wing_left_tip": [
+      16.0,
+      28.0,
+      1.5
+    ],
+    "wing_right_root": [
+      -2.0,
+      20.0,
+      2.0
+    ],
+    "wing_right_mid": [
+      -8.0,
+      24.0,
+      2.0
+    ],
+    "wing_right_tip": [
+      -16.0,
+      28.0,
+      1.5
+    ],
+    "satellite_0": [
+      17.6,
+      28.8,
+      11.2
+    ],
+    "satellite_1": [
+      32.0,
+      41.6,
+      16.0
+    ],
+    "satellite_2": [
+      -17.6,
+      28.8,
+      11.2
+    ],
+    "satellite_3": [
+      -32.0,
+      41.6,
+      16.0
+    ]
+  },
+  "clips": {
+    "emergence": {
+      "duration_seconds": 2.0,
+      "ticks": 40,
+      "loop": false,
+      "role": "Wing & satellite outward flare and formation unfolding"
+    },
+    "idle": {
+      "duration_seconds": 3.0,
+      "ticks": 60,
+      "loop": true,
+      "role": "Organic breathing wave on wings, dual-phase floating satellites"
+    },
+    "arsenal_left": {
+      "duration_seconds": 1.0,
+      "ticks": 20,
+      "loop": false,
+      "role": "Left wing & satellites 0/1 sweep into frontal sector (-Z)"
+    },
+    "arsenal_right": {
+      "duration_seconds": 1.0,
+      "ticks": 20,
+      "loop": false,
+      "role": "Right wing & satellites 2/3 sweep into frontal sector (-Z)"
+    },
+    "recoil": {
+      "duration_seconds": 0.6,
+      "ticks": 12,
+      "loop": false,
+      "role": "Dynamic impulse snapback upon heavy release"
+    },
+    "settle": {
+      "duration_seconds": 1.2,
+      "ticks": 24,
+      "loop": false,
+      "role": "Damped recovery from combat flare back to stable idle"
+    }
+  },
+  "contract_integration_pending_codex": {
+    "status": "PARCIAL",
+    "pending_points": [
+      "Codex will provide action type/castId/time/aim/form context in production QuincyVollstandigService / QuincyVollstandigVisuals.",
+      "Codex will bind execution of H/N/B/C to the corresponding manifestation clips (e.g. N -> alternating arsenal_left / arsenal_right).",
+      "Codex will govern server-side damage, cooldowns, and collision; mesh and animation remain purely visual and decoupled from hitboxes."
+    ]
+  },
+  "sources": {
+    "tools/models/lab/antigravity/quincy_vollstandig/quincy_manifestation_pipeline.py": "d91b802b5f54a340df3b75991503e7db1a9a67953846ce982607b01406e3ce2c",
+    "tools/models/lab/antigravity/quincy_vollstandig/quincy_manifestation.bbmodel": "b052d4cbe16f0f03fff856a6dff6265be9d12b00f7bfaf8bbbc7a4398becbb9c",
+    "src/main/resources/assets/bleachmod/geo/quincy_manifestation.geo.json": "b0f227e4d08c99da941eba16e6801941e671755dab9ad7c79055bdbb0b272d0b",
+    "src/main/resources/assets/bleachmod/animations/quincy_manifestation.animation.json": "5318ca526bf84c669417137b45687f3b70cbfc0ded82e094f951c355588fea20",
+    "src/main/resources/assets/bleachmod/textures/entity/quincy_manifestation.png": "b619c94b498c0ea438fc0e24ce55a0158cd55f889655c0de9df696341915fdaa",
+    "src/main/java/com/bleachmod/client/cinematic/QuincyManifestationQa.java": "21474f72c9b8b2fe8ec9aad4f6a7c8c354c523d888374461b49d77a7487f712c"
+  },
+  "captures": [
+    {
+      "name": "emergence-back",
+      "raw_path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-benihime\\run-benihime-qa\\base\\quincy-manifestation-qa\\1793384765904\\screenshots\\emergence-back.png",
+      "sha256": "daf1139972aea758d5db12942ff67d457b244366533e6cb72b587bd1970491ec"
+    },
+    {
+      "name": "idle-back",
+      "raw_path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-benihime\\run-benihime-qa\\base\\quincy-manifestation-qa\\1793384765904\\screenshots\\idle-back.png",
+      "sha256": "f59d9d766086181e88be1ff359a8385624911061fbb0496741109db99f3a6abf"
+    },
+    {
+      "name": "idle-profile",
+      "raw_path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-benihime\\run-benihime-qa\\base\\quincy-manifestation-qa\\1793384765904\\screenshots\\idle-profile.png",
+      "sha256": "cd19c778d64d3310a176f01b92c8b89602b1777a214a57206a2cfe3b3ce116d2"
+    },
+    {
+      "name": "arsenal-left-front",
+      "raw_path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-benihime\\run-benihime-qa\\base\\quincy-manifestation-qa\\1793384765904\\screenshots\\arsenal-left-front.png",
+      "sha256": "0e1307914d0370c56690b1e9bed538673515305bd91ee827ad5c69728e022a55"
+    },
+    {
+      "name": "arsenal-right-front",
+      "raw_path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-benihime\\run-benihime-qa\\base\\quincy-manifestation-qa\\1793384765904\\screenshots\\arsenal-right-front.png",
+      "sha256": "9df538be30f8226efda3cbf3aeace18554b1955716b2672327ceec425227e6fc"
+    },
+    {
+      "name": "settle-recoil",
+      "raw_path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-benihime\\run-benihime-qa\\base\\quincy-manifestation-qa\\1793384765904\\screenshots\\settle-recoil.png",
+      "sha256": "d3c624b15cb95c8f96ee575ab1492bdf5fc9c039b16ee191f7e8fe8363a71e39"
+    }
+  ]
+}
