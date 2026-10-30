@@ -89,6 +89,11 @@ minecraft {
         }
 
         client {
+            if (providers.gradleProperty('originQa').map { it.toBoolean() }.getOrElse(false)) {
+                workingDirectory project.file('run/origin-qa')
+                property 'bleachmod.originQa', 'true'
+                args '--width', '1280', '--height', '720'
+            }
             if (providers.gradleProperty('classSelectionQa').map { it.toBoolean() }.getOrElse(false)) {
                 workingDirectory project.file('run/class-selection-qa')
                 property 'bleachmod.classSelectionQa', 'true'

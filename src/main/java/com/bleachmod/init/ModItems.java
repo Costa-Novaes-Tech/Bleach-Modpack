@@ -18,6 +18,8 @@ public final class ModItems {
     private static final Map<String, RegistryObject<Item>> NPC_SPAWN_EGGS = new LinkedHashMap<>();
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Reference.MOD_ID);
 
+    public static final RegistryObject<Item> STORY_JOURNAL=ITEMS.register("story_journal",com.bleachmod.common.item.StoryJournalItem::new);
+
     public static final RegistryObject<Item> ASAUCHI = ITEMS.register("asauchi",
             ZanpakutoItem::new);
 

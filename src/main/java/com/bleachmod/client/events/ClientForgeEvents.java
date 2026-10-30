@@ -33,6 +33,10 @@ public class ClientForgeEvents {
             return;
         }
         Minecraft mc = Minecraft.getInstance();
+        if (com.bleachmod.client.cinematic.OriginCinematicClient.active()) {
+            guardHeld=lastCharging=instantHeld=dodgeHeld=false;
+            return;
+        }
         boolean dodgePressed = ModKeybinds.DODGE.isDown() && !dodgeHeld;
         dodgeHeld = ModKeybinds.DODGE.isDown();
         if (mc.player == null) {

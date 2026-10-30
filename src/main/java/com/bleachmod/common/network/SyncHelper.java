@@ -45,6 +45,8 @@ public final class SyncHelper {
         PlayerCapability.get(player).ifPresent(data -> {
             CompoundTag tag = new CompoundTag();
             tag.put("skills", data.getSkills().save());
+            tag.put("academy", data.getAcademy().save());
+            tag.put("origin", data.getOrigin().save());
             tag.put("playerQuestData", data.getPlayerQuestData().save());
             tag.put("status", data.getStatus().save());
             NetworkHandler.sendToPlayer(new ProgressionSyncS2C(player.getId(), tag), player);

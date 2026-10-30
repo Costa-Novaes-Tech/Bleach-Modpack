@@ -40,6 +40,7 @@ public final class HollowBossModel extends GeoModel<HollowBossEntity> {
 
     @Override public void setCustomAnimations(HollowBossEntity boss,long id,AnimationState<HollowBossEntity> state) {
         super.setCustomAnimations(boss,id,state);
+        getBone("right_arm").ifPresent(arm->{arm.setHidden(boss.isOriginArmLost());arm.setChildrenHidden(boss.isOriginArmLost());});
         if(!boss.isEntering()) return;
         float t=boss.getEntranceAge(state.getPartialTick()),fade=HollowBossEntrance.settle(t);
         var body=rotate("body",HollowBossEntrance.bodyPitch(t),HollowBossEntrance.bodyYaw(t),HollowBossEntrance.bodyRoll(t));

@@ -1,0 +1,10 @@
+{
+  "world": "Origin-QA-1793211684909",
+  "source": "Minecraft Screenshot.grab framebuffer",
+  "video": "Tick-timed sequence of 130 real framebuffer screenshots, not a continuous screen recording",
+  "initialYaw": 67,
+  "audio": "The same provisional SAPI Ogg asset, mixed into the preview at 1900ms; game SFX were not recorded",
+  "profile": "Forge 1.20.1 / 47.4.10, base, no Photon, 1280x720, GUI scale 2, render and simulation distance 5",
+  "gpu": "AMD Radeon RX 7600",
+  "performance": "FPS and frame times were not measured"
+}

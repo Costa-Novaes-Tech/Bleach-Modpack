@@ -1,0 +1,52 @@
+ M build.gradle
+ M logs/debug-1.log.gz
+ M logs/debug-2.log.gz
+ M logs/debug-3.log.gz
+ M logs/debug-4.log.gz
+ M logs/debug-5.log.gz
+ M src/main/java/com/bleachmod/Reference.java
+ M src/main/java/com/bleachmod/client/BleachClient.java
+ M src/main/java/com/bleachmod/client/events/ClientForgeEvents.java
+ M src/main/java/com/bleachmod/client/events/ModEntityRenderers.java
+ M src/main/java/com/bleachmod/client/gui/ClassSelectionQaBootstrap.java
+ M src/main/java/com/bleachmod/client/gui/JournalScreen.java
+ M src/main/java/com/bleachmod/client/model/HollowBossModel.java
+ M src/main/java/com/bleachmod/common/GuardService.java
+ M src/main/java/com/bleachmod/common/data/PlayerData.java
+ M src/main/java/com/bleachmod/common/data/StatusData.java
+ M src/main/java/com/bleachmod/common/network/NetworkHandler.java
+ M src/main/java/com/bleachmod/common/network/SyncHelper.java
+ M src/main/java/com/bleachmod/common/network/c2s/ConfirmCharacterC2S.java
+ M src/main/java/com/bleachmod/common/quest/QuestAvailabilityChecker.java
+ M src/main/java/com/bleachmod/common/quest/QuestDefaults.java
+ M src/main/java/com/bleachmod/common/quest/QuestService.java
+ M src/main/java/com/bleachmod/entity/HollowBossEntity.java
+ M src/main/java/com/bleachmod/entity/QuestNpcEntity.java
+ M src/main/java/com/bleachmod/init/ModCreativeTabs.java
+ M src/main/java/com/bleachmod/init/ModItems.java
+ M src/main/java/com/bleachmod/server/events/QuestEvents.java
+ M src/main/resources/assets/bleachmod/lang/en_us.json
+ M src/main/resources/assets/bleachmod/lang/pt_br.json
+ M src/main/resources/assets/bleachmod/sounds.json
+ M src/main/resources/bleachmod.mixins.json
+?? Docs/planejamento/abertura-shinigami-e-livro-2026-10-28.md
+?? Docs/planejamento/etapa-2-academia-shinigami-2026-10-28.md
+?? Docs/planejamento/etapa-2-base-implementada-2026-10-28.md
+?? Docs/qa/academia/
+?? Docs/qa/origem-shinigami/
+?? src/main/java/com/bleachmod/client/cinematic/OriginCinematicClient.java
+?? src/main/java/com/bleachmod/client/cinematic/OriginQaBootstrap.java
+?? src/main/java/com/bleachmod/client/gui/AcademyScreen.java
+?? src/main/java/com/bleachmod/client/gui/StoryBookScreen.java
+?? src/main/java/com/bleachmod/common/data/AcademyData.java
+?? src/main/java/com/bleachmod/common/data/OriginData.java
+?? src/main/java/com/bleachmod/common/item/StoryJournalItem.java
+?? src/main/java/com/bleachmod/common/network/s2c/OriginSceneS2C.java
+?? src/main/java/com/bleachmod/common/story/
+?? src/main/java/com/bleachmod/common/visual/OriginTimeline.java
+?? src/main/java/com/bleachmod/gametest/AcademyGameTests.java
+?? src/main/java/com/bleachmod/gametest/OriginGameTests.java
+?? src/main/java/com/bleachmod/mixin/client/OriginTurnMixin.java
+?? src/main/resources/assets/bleachmod/models/item/story_journal.json
+?? src/main/resources/assets/bleachmod/sounds/story/
+?? src/main/resources/data/bleachmod/recipes/story_journal.json

@@ -19,6 +19,7 @@ import net.minecraftforge.fml.common.Mod;
 public final class GuardService {
     private GuardService() { }
     public static boolean eligible(ServerPlayer p, PlayerData d) {
+        if(com.bleachmod.common.story.ShinigamiOriginService.locked(p))return false;
         if (com.bleachmod.common.technique.ReleaseAnimationService.busy(p) || com.bleachmod.common.technique.ElementalTechniqueService.busy(p)) return false;
         return d.getStatus().hasCreatedCharacter() && p.isAlive() && !p.isSpectator()
                 && !p.isSleeping() && !p.isPassenger() && !p.getAbilities().flying && !p.isFallFlying()

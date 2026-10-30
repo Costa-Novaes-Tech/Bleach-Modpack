@@ -10,6 +10,7 @@
     "BetterCombatHandMixin"
   ],
   "client": [
+    "client.OriginTurnMixin",
     "client.AbstractClientPlayerMixin",
     "client.HigashiDeathParticleMixin"
   ],

@@ -110,7 +110,38 @@ public final class ClassSelectionQaBootstrap {
         if (ticks == 195) capture = "06-large-scale1";
         if (ticks == 205) { mc.options.guiScale().set(2); mc.resizeDisplay(); }
         if (ticks == 225) capture = "07-final";
-        if (ticks == 245) {
+        if (ticks == 235) {
+            var server = mc.getSingleplayerServer();
+            var uuid = mc.player.getUUID();
+            server.execute(() -> {
+                var player = server.getPlayerList().getPlayer(uuid);
+                com.bleachmod.common.data.PlayerCapability.get(player).ifPresent(data -> {
+                    data.initializeShinigami();
+                    com.bleachmod.common.network.SyncHelper.full(player);
+                });
+            });
+        }
+        if (ticks == 255) {
+            require(com.bleachmod.common.data.PlayerCapability.get(mc.player).map(d ->
+                    d.getAcademy().stage() == com.bleachmod.common.data.AcademyData.Stage.AWAITING_GUIDANCE).orElse(false),
+                    "formation synced from server");
+            mc.setScreen(new JournalScreen());
+        }
+        if (ticks == 265) {
+            var button = mc.screen.children().stream().filter(c -> c instanceof Button).map(c -> (Button)c)
+                    .filter(b -> b.getMessage().getString().equals(net.minecraft.network.chat.Component.translatable("item.bleachmod.story_journal").getString()))
+                    .findFirst().orElseThrow();
+            button.onPress();
+            require(mc.screen instanceof StoryBookScreen, "journal opens live story book");
+        }
+        if (ticks == 280) capture = "09-academy-record";
+        if (ticks == 285) { mc.options.guiScale().set(3); mc.resizeDisplay(); }
+        if (ticks == 300) capture = "10-academy-compact";
+        if (ticks == 305) {
+            mc.screen.onClose();
+            require(mc.screen instanceof JournalScreen, "formation returns to journal");
+        }
+        if (ticks == 320) {
             com.mojang.logging.LogUtils.getLogger().info("Class selection QA complete: {}", evidence);
             mc.stop();
         }

@@ -9,6 +9,10 @@ import java.util.Optional;
 
 public class PlayerData {
     private final CharacterData character = new CharacterData();
+    private final AcademyData academy = new AcademyData();
+    private final OriginData origin = new OriginData();
+    public OriginData getOrigin() { return origin; }
+    public AcademyData getAcademy() { return academy; }
     private final ResourcesData resources = new ResourcesData();
     private final SkillsData skills = new SkillsData();
     private final StatusData status = new StatusData();
@@ -73,6 +77,7 @@ public class PlayerData {
     public void initializeShinigami() {
         guard.reset();
         character.initializeShinigami();
+        academy.startJourney();
         status.setHasCreatedCharacter(true);
         updateTransformationSkillLimits(Reference.RACE_SHINIGAMI);
         resources.setMaxReiatsu(Reference.BASE_REIATSU);
@@ -102,6 +107,8 @@ public class PlayerData {
         tag.put("guard", guard.save());
         tag.put("attributes", attributes.save());
         tag.put("character", character.save());
+        tag.put("academy", academy.save());
+        tag.put("origin", origin.save());
         tag.put("appearance", appearance.save());
         tag.put("resources", resources.save());
         tag.put("skills", skills.save());
@@ -127,6 +134,14 @@ public class PlayerData {
         if (tag.contains("status")) {
             status.load(tag.getCompound("status"));
         }
+        if (tag.contains("academy", net.minecraft.nbt.Tag.TAG_COMPOUND)) {
+            academy.load(tag.getCompound("academy"));
+        } else if (tag.contains("schemaVersion") || (tag.contains("character") && tag.contains("status"))) {
+            academy.loadLegacy(status.hasCreatedCharacter()
+                    && Reference.RACE_SHINIGAMI.equals(character.getRace()));
+        }
+        if (tag.contains("origin", net.minecraft.nbt.Tag.TAG_COMPOUND)) origin.load(tag.getCompound("origin"));
+        else if (tag.contains("schemaVersion")) origin.load(new CompoundTag());
         if (tag.contains("playerQuestData")) {
             playerQuestData.load(tag.getCompound("playerQuestData"));
         }

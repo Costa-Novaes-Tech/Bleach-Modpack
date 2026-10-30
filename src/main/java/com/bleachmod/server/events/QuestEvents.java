@@ -71,6 +71,8 @@ public class QuestEvents {
     }
 
     private static void creditQuestKill(ServerPlayer killer, LivingEntity killed) {
+        String owner=com.bleachmod.common.story.ShinigamiOriginService.OWNER;
+        if(killed.getPersistentData().hasUUID(owner)&&!killed.getPersistentData().getUUID(owner).equals(killer.getUUID()))return;
         PlayerCapability.get(killer).ifPresent(data -> {
             for (String questKey : data.getPlayerQuestData().getAcceptedQuestIds()) {
                 Quest quest = QuestRegistry.getQuest(questKey);

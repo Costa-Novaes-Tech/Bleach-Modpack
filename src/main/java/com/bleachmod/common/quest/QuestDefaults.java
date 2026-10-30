@@ -40,6 +40,7 @@ public final class QuestDefaults {
         Path sideFolder = root.resolve("sidequests").resolve("training");
         Files.createDirectories(sideFolder);
         writeQuest(sideFolder.resolve("rukia_basic_training.json"), rukiaTraining());
+        writeQuest(root.resolve("sidequests/story/shinigami_awakening.json"),shinigamiAwakening());
 
         Path npcFolder = root.resolve("sidequests").resolve("npc_test");
         Files.createDirectories(npcFolder);
@@ -121,6 +122,13 @@ public final class QuestDefaults {
         quest.setCategory("training");
         quest.getObjectives().add(new KillObjective("minecraft:zombie", 10, KillObjective.SpawnMode.NATURAL, KillObjective.CountMode.ANY_MATCHING));
         quest.getRewards().add(new TpsReward(150));
+        return quest;
+    }
+
+    private static Quest shinigamiAwakening() {
+        Quest quest=new Quest();quest.setStringId("shinigami_awakening");quest.setType(QuestType.SIDEQUEST);
+        quest.setTitle("story.bleachmod.origin.quest");quest.setDescription("story.bleachmod.origin.fight");quest.setCategory("story");
+        quest.getObjectives().add(new KillObjective("bleachmod:hollow_boss",1,KillObjective.SpawnMode.NATURAL,KillObjective.CountMode.QUEST_SPAWNED_ONLY));
         return quest;
     }
 

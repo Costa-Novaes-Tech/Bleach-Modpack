@@ -100,7 +100,10 @@ public class StatusData {
     private final Set<BlockPos> flameFanGroundPositions = new HashSet<>();
     private int flameFanGroundTicks;
 
+    private boolean originLocked;
+    public void setOriginLocked(boolean locked) { originLocked=locked; }
     public boolean allowAction(long tick) {
+        if(originLocked)return false;
         if (lastActionTick != Long.MIN_VALUE && tick >= lastActionTick && tick - lastActionTick < 4) return false;
         lastActionTick = tick;
         return true;
@@ -108,6 +111,7 @@ public class StatusData {
 
     /** Menu requests (forms, quests, attributes, skills) have their own window so combat never swallows them. */
     public boolean allowUiAction(long tick) {
+        if(originLocked)return false;
         if (lastUiActionTick != Long.MIN_VALUE && tick >= lastUiActionTick && tick - lastUiActionTick < 4) return false;
         lastUiActionTick = tick;
         return true;

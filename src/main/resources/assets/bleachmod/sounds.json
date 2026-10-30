@@ -100,5 +100,21 @@
       }
     ]
   },
-  "hyorinmaru.theme": {"sounds": [{"name": "bleachmod:hyorinmaru_theme", "stream": true}]}
+  "hyorinmaru.theme": {
+    "sounds": [
+      {
+        "name": "bleachmod:hyorinmaru_theme",
+        "stream": true
+      }
+    ]
+  },
+  "rukia_origin": {
+    "subtitle": "subtitles.bleachmod.rukia_origin",
+    "sounds": [
+      {
+        "name": "bleachmod:story/rukia_origin",
+        "stream": true
+      }
+    ]
+  }
 }

@@ -73,6 +73,7 @@ public final class QuestNpcEntity extends Mob {
 
     @Override
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
+        if(getPersistentData().getBoolean(com.bleachmod.common.story.ShinigamiOriginService.TEMP))return InteractionResult.sidedSuccess(level().isClientSide);
         if (hand != InteractionHand.MAIN_HAND) {
             return InteractionResult.PASS;
         }

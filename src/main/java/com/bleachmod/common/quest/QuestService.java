@@ -25,6 +25,8 @@ public final class QuestService {
     }
 
     public static void startQuest(ServerPlayer player, String questKey) {
+        // This encounter is staged exactly once by the origin service, never through the generic spawn/retry path.
+        if(com.bleachmod.common.story.ShinigamiOriginService.QUEST.equals(questKey))return;
         PlayerData data = PlayerCapability.get(player).orElse(null);
         if (data == null) {
             return;

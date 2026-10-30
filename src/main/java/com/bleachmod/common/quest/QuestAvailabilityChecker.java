@@ -9,6 +9,7 @@ public final class QuestAvailabilityChecker {
     }
 
     public static boolean isAvailable(PlayerData data, String questKey) {
+        if(com.bleachmod.common.story.ShinigamiOriginService.QUEST.equals(questKey))return false;
         if (!data.getStatus().hasCreatedCharacter()) {
             return false;
         }

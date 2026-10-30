@@ -1,0 +1,21 @@
+{
+  "world": "Origin-QA-1793214605480",
+  "source": "Minecraft Screenshot.grab framebuffer",
+  "frames": 130,
+  "video": "Tick-timed sequence of original framebuffer frames, not a continuous recording",
+  "audioSource": {
+    "url": "https://www.youtube.com/watch?v=73WQsPv-RK8",
+    "title": "Ichigo Become a Shinigami",
+    "channel": "BleachTube HD",
+    "startSeconds": 87,
+    "endSeconds": 90,
+    "durationSeconds": 3,
+    "codec": "Ogg Vorbis mono 48000 Hz",
+    "sha256": "671a6d480c16a2b74ae862b967769bbc3e3576312123595c9d2e5fba7c3d7bbe"
+  },
+  "previewAudio": "Same in-game Ogg asset mixed at the dialogue tick; game SFX not recorded",
+  "initialYaw": 67,
+  "client": "Minecraft 1.20.1 / Forge 47.4.10, base without Photon; 1280x720 GUI 2",
+  "gpu": "AMD Radeon RX 7600",
+  "fps": "not measured"
+}

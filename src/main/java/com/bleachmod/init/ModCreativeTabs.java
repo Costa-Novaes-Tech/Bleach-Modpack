@@ -16,6 +16,7 @@ public final class ModCreativeTabs {
             .title(Component.translatable("itemGroup.bleachmod"))
             .icon(() -> ModItems.ASAUCHI.get().getDefaultInstance())
             .displayItems((params, output) -> {
+                output.accept(ModItems.STORY_JOURNAL.get());
                 output.accept(ModItems.ASAUCHI.get());
                 output.accept(ModItems.RYUJIN_JAKKA.get());
                 output.accept(ModItems.HYORINMARU.get());

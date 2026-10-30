@@ -38,6 +38,13 @@ public final class JournalScreen extends LayoutScreen {
 
     @Override
     protected void init() {
+        PlayerData player = data();
+        if (player != null && com.bleachmod.Reference.RACE_SHINIGAMI.equals(player.getCharacter().getRace())) {
+            addRenderableWidget(net.minecraft.client.gui.components.Button.builder(
+                    Component.translatable("item.bleachmod.story_journal"),
+                    button -> minecraft.setScreen(new StoryBookScreen(this)))
+                    .bounds(width - 160, height - 24, 152, 20).build());
+        }
         quests = List.copyOf(QuestRegistry.allQuests());
         if (quest() == null && !quests.isEmpty()) selected = quests.get(0).getQuestKey();
         clampScroll();

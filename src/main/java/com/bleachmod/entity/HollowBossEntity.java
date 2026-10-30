@@ -33,6 +33,11 @@ public class HollowBossEntity extends HollowEntity {
     private static final EntityDataAccessor<Integer> ATTACK_TICK = SynchedEntityData.defineId(HollowBossEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> INTRO_TICK = SynchedEntityData.defineId(HollowBossEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Float> INTRO_YAW = SynchedEntityData.defineId(HollowBossEntity.class, EntityDataSerializers.FLOAT);
+    private static final EntityDataAccessor<Boolean> ORIGIN_ARM_LOST=SynchedEntityData.defineId(HollowBossEntity.class,EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> ORIGIN_RUSHING=SynchedEntityData.defineId(HollowBossEntity.class,EntityDataSerializers.BOOLEAN);
+    public boolean isOriginArmLost() { return entityData.get(ORIGIN_ARM_LOST); }
+    public void setOriginArmLost(boolean value) { entityData.set(ORIGIN_ARM_LOST,value); }
+    public void setOriginRushing(boolean value) { entityData.set(ORIGIN_RUSHING,value); }
     private boolean entranceAdded;
     private long introSyncTime;
     private static final RawAnimation IDLE = RawAnimation.begin().thenLoop("animation.boss.idle");
@@ -55,6 +60,7 @@ public class HollowBossEntity extends HollowEntity {
         entityData.define(ATTACK_TICK, 0);
         entityData.define(INTRO_TICK, 0);
         entityData.define(INTRO_YAW, 0F);
+        entityData.define(ORIGIN_ARM_LOST,false);entityData.define(ORIGIN_RUSHING,false);
     }
     public boolean isEntering() { return isAlive() && getEntranceTick() < HollowBossEntrance.DURATION; }
     public int getEntranceTick() { return entityData.get(INTRO_TICK); }
@@ -117,7 +123,13 @@ public class HollowBossEntity extends HollowEntity {
 
     private boolean validTarget(LivingEntity target) {
         return target != null && target.isAlive() && target.level() == level()
+                && (!getPersistentData().hasUUID(com.bleachmod.common.story.ShinigamiOriginService.OWNER)
+                || getPersistentData().getUUID(com.bleachmod.common.story.ShinigamiOriginService.OWNER).equals(target.getUUID()))
                 && (!(target instanceof Player p) || !p.isCreative() && !p.isSpectator());
+    }
+    @Override public boolean canAttack(LivingEntity target) {
+        return (!getPersistentData().hasUUID(com.bleachmod.common.story.ShinigamiOriginService.OWNER)
+                ||getPersistentData().getUUID(com.bleachmod.common.story.ShinigamiOriginService.OWNER).equals(target.getUUID()))&&super.canAttack(target);
     }
     private double meleeReach(LivingEntity target) { return getBbWidth() / 2 + target.getBbWidth() / 2 + 1.25; }
     public boolean beginAttack(Attack attack, LivingEntity target) {
@@ -298,7 +310,7 @@ public class HollowBossEntity extends HollowEntity {
     }
     @Override public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(new AnimationController<>(this, "boss", 0, state -> {
-            if (getAttack() == Attack.IDLE) return state.setAndContinue(state.isMoving() ? WALK : IDLE);
+            if (getAttack() == Attack.IDLE) return state.setAndContinue(state.isMoving() || entityData.get(ORIGIN_RUSHING) ? WALK : IDLE);
             return state.setAndContinue(ACTIONS[getAttack().ordinal()]);
         }));
     }
@@ -309,9 +321,11 @@ public class HollowBossEntity extends HollowEntity {
         tag.putInt("BossMeleeCooldown", basicCooldown);
         tag.putInt("BossEntranceTick", getEntranceTick());
         tag.putFloat("BossEntranceYaw", getEntranceYaw());
+        tag.putBoolean("OriginArmLost",isOriginArmLost());
     }
     @Override public void readAdditionalSaveData(CompoundTag tag) {
         super.readAdditionalSaveData(tag);
+        setOriginArmLost(tag.getBoolean("OriginArmLost"));setOriginRushing(false);
         cancelBossAttack();
         // Persistent vanilla saves carry UUID. A fresh /summon NBT payload does not.
         // Established legacy bosses must not replay an entrance when their chunk reloads.

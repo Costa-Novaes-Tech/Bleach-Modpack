@@ -37,13 +37,7 @@ public record ConfirmCharacterC2S(String race, net.minecraft.nbt.CompoundTag app
                 }
                 data.initializeShinigami();
                 com.bleachmod.common.appearance.AppearanceService.apply(player, data, msg.appearance);
-                ItemStack asauchi = new ItemStack(ModItems.ASAUCHI.get());
-                if (!player.getInventory().contains(asauchi)) {
-                    if (!player.getInventory().add(asauchi)) {
-                        player.drop(asauchi, false);
-                    }
-                }
-                SyncHelper.full(player);
+                com.bleachmod.common.story.ShinigamiOriginService.request(player,data);
             });
         });
         ctx.get().setPacketHandled(true);
