@@ -156,9 +156,30 @@ public final class StoryQuestQaBootstrap {
             var progress = d.getPlayerQuestData().getProgress(RukiaOpeningQuest.KEY);
             require(progress.isEncounterStarted() && progress.getObjectiveProgress(0) == 1, "Retry failed to retain introduction");
         }));
+        if (ticks == 385) server(p -> PlayerCapability.get(p).ifPresent(d -> {
+            net.minecraft.world.entity.LivingEntity actor = null;
+            for (var entity : p.serverLevel().getAllEntities()) if (entity.isAlive()
+                    && RukiaOpeningQuest.KEY.equals(entity.getPersistentData().getString(Reference.TAG_QUEST_KEY))
+                    && p.getUUID().equals(entity.getPersistentData().getUUID(Reference.TAG_QUEST_OWNER)))
+                actor = (net.minecraft.world.entity.LivingEntity) entity;
+            require(actor instanceof com.bleachmod.entity.HollowBossEntity, "Boss missing before lava death");
+            ((com.bleachmod.entity.HollowBossEntity) actor).finishEntrance();
+            actor.hurt(p.damageSources().lava(), 100000);
+            var progress = d.getPlayerQuestData().getProgress(RukiaOpeningQuest.KEY);
+            require(RukiaOpeningQuest.isRetryPending(progress) && progress.getObjectiveProgress(0) == 1,
+                    "Lava stranded the encounter or reset introduction");
+            require(!QuestAvailabilityChecker.isVisible(d, QuestRegistry.getQuest("shinigami_substitute:2")), "Lava granted victory");
+        }));
+        if (ticks == 400) mc.setScreen(new com.bleachmod.client.gui.JournalScreen());
+        if (ticks == 410) capture = "04b-lava-death-retry";
+        if (ticks == 420) {
+            mc.setScreen(null);
+            NetworkHandler.sendToServer(new com.bleachmod.common.network.c2s.QuestActionC2S(
+                    com.bleachmod.common.network.c2s.QuestActionC2S.Action.BEGIN, RukiaOpeningQuest.KEY, openingId));
+        }
         if (ticks == 440) server(p -> {
             net.minecraft.world.entity.LivingEntity actor = null;
-            for (var entity : p.serverLevel().getAllEntities()) if ("shinigami_substitute:1".equals(entity.getPersistentData().getString(Reference.TAG_QUEST_KEY))
+            for (var entity : p.serverLevel().getAllEntities()) if (entity.isAlive() && "shinigami_substitute:1".equals(entity.getPersistentData().getString(Reference.TAG_QUEST_KEY))
                     && p.getUUID().equals(entity.getPersistentData().getUUID(Reference.TAG_QUEST_OWNER))) actor = (net.minecraft.world.entity.LivingEntity) entity;
             require(actor instanceof com.bleachmod.entity.HollowBossEntity, "Opening boss missing");
             require(p.getInventory().countItem(com.bleachmod.init.ModItems.ASAUCHI.get()) == 0, "Asauchi given before return");

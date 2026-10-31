@@ -47,6 +47,18 @@ public class QuestEvents {
         }
     }
 
+    @SubscribeEvent(priority = net.minecraftforge.eventbus.api.EventPriority.LOWEST)
+    public static void openingBossDiedWithoutCredit(LivingDeathEvent event) {
+        if (!(event.getEntity().level() instanceof net.minecraft.server.level.ServerLevel level)) return;
+        var tag = event.getEntity().getPersistentData();
+        if (!RukiaOpeningQuest.KEY.equals(tag.getString(com.bleachmod.Reference.TAG_QUEST_KEY))
+                || !tag.hasUUID(com.bleachmod.Reference.TAG_QUEST_OWNER)) return;
+        var ownerId = tag.getUUID(com.bleachmod.Reference.TAG_QUEST_OWNER);
+        ServerPlayer owner = level.getServer().getPlayerList().getPlayer(ownerId);
+        if (owner == null && level.getPlayerByUUID(ownerId) instanceof ServerPlayer localOwner) owner = localOwner;
+        if (owner != null) RukiaOpeningQuest.onUncreditedBossDeath(owner, event.getEntity());
+    }
+
     private static void processItemObjectives(ServerPlayer player, PlayerData data) {
         for (String questKey : data.getPlayerQuestData().getAcceptedQuestIds()) {
             Quest quest = QuestRegistry.getQuest(questKey);

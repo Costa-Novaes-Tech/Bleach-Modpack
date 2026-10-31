@@ -1,5 +1,7 @@
 # M13 — Campanhas e sidequests
 
+> **Alvo da abertura morto sem vitória válida — 30/10/2026:** em MAIN-SUB-01, se o Fishbone morrer sem validar a vitória do jogador proprietário, reiniciar somente a etapa do confronto. Preservar a introdução e permitir nova tentativa com Rukia/Journal. Não conceder conclusão por lava, morte por outro jogador ou ausência do alvo. Interagir com a mesma Rukia também permite recuperar uma tentativa antiga sem boss vivo carregado. A vitória legítima mantém a etapa de retorno.
+
 > **Retomada de MAIN-SUB-01 após morte — 30/10/2026:** preservar as etapas já concluídas dessa missão. Morte no boss reinicia somente o confronto; morte no retorno mantém a vitória. Não exigir novo aceite ou repetir a introdução. Esta política é exclusiva da primeira quest da Rukia; as demais missões conservam suas próprias regras de falha.
 
 > **Revisão de implementação solicitada em 30/10/2026 — MAIN-SUB-01:** aceitar a abertura pelo Mission Journal → localizar a primeira Rukia pela bússola → diálogo sobre Hollows/Shinigamis → confronto com Hollow Boss → retornar à mesma Rukia → diálogo de Shinigami temporário e entrega da Asauchi → conclusão e disponibilidade de MAIN-SUB-02. As etapas futuras ficam ocultas até concluir a anterior. Esta direção revisa somente a abertura; as fichas e decisões de 28/10 abaixo ficam como histórico no que divergirem. [Fluxo atual e migração](../planejamento/implementacao-campanha-shinigami-2026-10-29.md).

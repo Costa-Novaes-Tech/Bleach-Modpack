@@ -189,6 +189,68 @@ public final class StoryQuestGameTests {
     }
 
     @GameTest(template = "empty")
+    public static void environmentalOrForeignBossDeathAllowsRetryWithoutGrantingVictory(GameTestHelper helper) {
+        var player = player(helper); helper.getLevel().addNewPlayer(player);
+        var npc = rukia(helper, "karakura_inicio"); player.setPos(npc.position());
+        var data = PlayerCapability.get(player).orElseThrow(() -> new IllegalStateException("Missing capability"));
+        String key = RukiaOpeningQuest.KEY;
+        QuestService.startQuest(player, key);
+        for (int x = 4; x <= 10; x++) for (int z = -2; z <= 4; z++) helper.setBlock(new BlockPos(x, 2, z), Blocks.STONE);
+        RukiaOpeningQuest.dialogue(player, npc);
+        var p = data.getPlayerQuestData().getProgress(key);
+        var boss = ownedBoss(helper, player);
+        var canceled = new net.minecraftforge.event.entity.living.LivingDeathEvent(boss, helper.getLevel().damageSources().lava());
+        canceled.setCanceled(true); net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(canceled);
+        helper.assertTrue(p.isEncounterStarted() && boss.isAlive(), "Canceled death reset encounter");
+        var oldAttempt = p.getAttemptId();
+        boss.finishEntrance(); boss.hurt(helper.getLevel().damageSources().lava(), 100000);
+        helper.assertTrue(RukiaOpeningQuest.isRetryPending(p) && p.getObjectiveProgress(0) == 1 && p.getObjectiveProgress(1) == 0, "Lava death stranded or completed quest");
+        helper.assertTrue(!oldAttempt.equals(p.getAttemptId()) && npc.getUUID().equals(p.getStoryTargetUuid()), "Lava death lost checkpoint identity");
+        helper.assertTrue(!QuestAvailabilityChecker.isVisible(data, QuestRegistry.getQuest("shinigami_substitute:2")), "Lava unlocked next mission");
+        RukiaOpeningQuest.dialogue(player, npc);
+        var retry = ownedBoss(helper, player); var retryAttempt = p.getAttemptId();
+        RukiaOpeningQuest.onUncreditedBossDeath(player, boss);
+        helper.assertTrue(p.isEncounterStarted() && retryAttempt.equals(p.getAttemptId()), "Old death reset new attempt");
+        var stranger = player(helper); retry.finishEntrance();
+        retry.hurt(helper.getLevel().damageSources().playerAttack(stranger), 100000);
+        helper.assertTrue(RukiaOpeningQuest.isRetryPending(p), "Another player's kill stranded or completed quest");
+        RukiaOpeningQuest.retry(player);
+        var legitimate = ownedBoss(helper, player); legitimate.finishEntrance();
+        legitimate.hurt(helper.getLevel().damageSources().playerAttack(player), 100000);
+        helper.assertTrue(RukiaOpeningQuest.stage(p) == 2 && p.isEncounterStarted(), "Legitimate victory was reset");
+        RukiaOpeningQuest.dialogue(player, npc);
+        helper.assertTrue(data.getPlayerQuestData().isCompleted(key) && player.getInventory().countItem(com.bleachmod.init.ModItems.ASAUCHI.get()) == 1, "Retry could not complete normally");
+        npc.discard(); player.discard(); helper.succeed();
+    }
+
+    private static com.bleachmod.entity.HollowBossEntity ownedBoss(GameTestHelper helper, FakePlayer player) {
+        for (var entity : helper.getLevel().getAllEntities())
+            if (entity instanceof com.bleachmod.entity.HollowBossEntity boss && boss.isAlive()
+                    && entity.getPersistentData().hasUUID(Reference.TAG_QUEST_OWNER)
+                    && player.getUUID().equals(entity.getPersistentData().getUUID(Reference.TAG_QUEST_OWNER))) return boss;
+        throw new IllegalStateException("Missing owned boss");
+    }
+
+    @GameTest(template = "empty")
+    public static void talkingToRukiaRecoversAnAlreadyMissingBoss(GameTestHelper helper) {
+        var player = player(helper); var npc = rukia(helper, "karakura_inicio"); player.setPos(npc.position());
+        var data = PlayerCapability.get(player).orElseThrow(() -> new IllegalStateException("Missing capability"));
+        QuestService.startQuest(player, RukiaOpeningQuest.KEY);
+        for (int x = 4; x <= 10; x++) for (int z = -2; z <= 4; z++) helper.setBlock(new BlockPos(x, 2, z), Blocks.STONE);
+        RukiaOpeningQuest.dialogue(player, npc);
+        var p = data.getPlayerQuestData().getProgress(RukiaOpeningQuest.KEY);
+        var attempt = p.getAttemptId();
+        RukiaOpeningQuest.recoverMissingEncounter(player, npc);
+        helper.assertTrue(p.isEncounterStarted() && attempt.equals(p.getAttemptId()), "Talking reset a living boss");
+        ownedBoss(helper, player).discard();
+        npc.mobInteract(player, net.minecraft.world.InteractionHand.MAIN_HAND);
+        helper.assertTrue(RukiaOpeningQuest.isRetryPending(p) && p.getObjectiveProgress(0) == 1, "Missing boss remained stuck");
+        RukiaOpeningQuest.dialogue(player, npc);
+        helper.assertTrue(p.isEncounterStarted() && ownedBoss(helper, player).isAlive(), "Rukia could not restart missing fight");
+        StoryQuestService.cleanup(player, RukiaOpeningQuest.KEY); npc.discard(); helper.succeed();
+    }
+
+    @GameTest(template = "empty")
     public static void failedStartGivesNothingAndRetryCannotFarmAsauchi(GameTestHelper helper) {
         var player = player(helper); var npc = rukia(helper, "karakura_inicio");
         var data = PlayerCapability.get(player).orElseThrow(() -> new IllegalStateException("Missing capability"));

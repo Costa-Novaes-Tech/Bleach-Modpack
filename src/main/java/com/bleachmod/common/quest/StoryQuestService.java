@@ -141,10 +141,14 @@ public final class StoryQuestService {
     }
 
     public static void cleanup(ServerPlayer player, String key) {
+        List<net.minecraft.world.entity.Entity> pendingRemoval = new ArrayList<>();
         for (var level : player.server.getAllLevels()) for (var entity : level.getAllEntities()) {
+            if (entity == null) continue;
             var tag = entity.getPersistentData();
             if (key.equals(tag.getString(Reference.TAG_QUEST_KEY)) && tag.hasUUID(Reference.TAG_QUEST_OWNER)
-                    && player.getUUID().equals(tag.getUUID(Reference.TAG_QUEST_OWNER))) entity.discard();
+                    && player.getUUID().equals(tag.getUUID(Reference.TAG_QUEST_OWNER))) pendingRemoval.add(entity);
         }
+        // Removing entities while traversing the live level collection can invalidate its iterator.
+        pendingRemoval.forEach(net.minecraft.world.entity.Entity::discard);
     }
 }

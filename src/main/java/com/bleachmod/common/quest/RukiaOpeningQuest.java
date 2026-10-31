@@ -57,6 +57,38 @@ public final class RukiaOpeningQuest {
         com.bleachmod.server.events.QuestNavigationEvents.refresh(player);
         SyncHelper.progression(player);
     }
+    /** Called after normal kill credit, so a legitimate victory cannot be turned into a retry. */
+    public static void onUncreditedBossDeath(ServerPlayer owner, net.minecraft.world.entity.LivingEntity boss) {
+        var data = PlayerCapability.get(owner).orElse(null);
+        var q = QuestRegistry.getQuest(KEY);
+        if (data == null || !isOpening(q)) return;
+        var p = data.getPlayerQuestData().getProgress(KEY);
+        var tag = boss.getPersistentData();
+        if (p == null || p.getStatus() != QuestStatus.ACCEPTED || !p.matchesDefinition(q) || !p.isEncounterStarted() || stage(p) != 1
+                || !tag.hasUUID(com.bleachmod.Reference.TAG_QUEST_OWNER) || !owner.getUUID().equals(tag.getUUID(com.bleachmod.Reference.TAG_QUEST_OWNER))
+                || !tag.hasUUID("blc_quest_attempt") || !tag.getUUID("blc_quest_attempt").equals(p.getAttemptId())
+                || !(q.getObjectives().get(1) instanceof com.bleachmod.common.quest.objectives.KillObjective kill)
+                || !kill.matches(boss, KEY, 1)) return;
+        onPlayerDeath(owner); // Same combat checkpoint policy; does not require the owner to die.
+        owner.displayClientMessage(net.minecraft.network.chat.Component.translatable("bleachmod.story.sub_01.encounter_lost"), false);
+    }
+
+    /** Also repairs a save already stranded before this fix, without forcing any chunks to load. */
+    public static void recoverMissingEncounter(ServerPlayer player, QuestNpcEntity npc) {
+        var data = PlayerCapability.get(player).orElse(null);
+        if (data == null || player.level() != npc.level() || player.distanceToSqr(npc) > 36 || !isRukia(npc)) return;
+        var p = data.getPlayerQuestData().getProgress(KEY);
+        var q = QuestRegistry.getQuest(KEY);
+        if (!isOpening(q) || p == null || !p.matchesDefinition(q) || p.getStatus() != QuestStatus.ACCEPTED
+                || !p.isEncounterStarted() || stage(p) != 1 || !npc.getUUID().equals(p.getStoryTargetUuid())) return;
+        for (var level : player.server.getAllLevels()) for (var entity : level.getAllEntities()) {
+            var tag = entity.getPersistentData();
+            if (entity.isAlive() && KEY.equals(tag.getString(com.bleachmod.Reference.TAG_QUEST_KEY))
+                    && tag.hasUUID(com.bleachmod.Reference.TAG_QUEST_OWNER) && player.getUUID().equals(tag.getUUID(com.bleachmod.Reference.TAG_QUEST_OWNER))
+                    && tag.hasUUID("blc_quest_attempt") && p.getAttemptId().equals(tag.getUUID("blc_quest_attempt"))) return;
+        }
+        onPlayerDeath(player);
+    }
     public static void dialogue(ServerPlayer player, QuestNpcEntity npc) {
         var data = PlayerCapability.get(player).orElse(null);
         Quest q = QuestRegistry.getQuest(KEY);
