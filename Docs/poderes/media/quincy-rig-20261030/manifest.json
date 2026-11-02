@@ -1,9 +1,20 @@
 {
-  "date": "2026-10-30",
-  "front": "Antigravity A \u2014 modelo/rig Quincy, sem sobrepor gameplay",
+  "revision_date": "2026-11-02",
+  "front": "Antigravity A - modelo/rig Quincy Vollstandig (Revisao Corretiva 02/11)",
   "branch": "codex/quincy-rig-manifestacao",
+  "base_target_branch": "Feature-Poderes-bankais",
   "base_commit": "04ef0d115fe7e7c59f258debc1f80b04732bb44d",
-  "status": "V0_assets_and_bench_proof_delivered_partial_codex_integration_pending",
+  "status": "PARCIAL",
+  "status_note": "GeckoLib 4.8.4 runtime verified natively. Merge to Feature-Poderes-bankais withheld pending Garden front merge as per coordination.",
+  "runtime": {
+    "engine": "GeckoLib 4.8.4 (GeoModel, GeoObjectRenderer, GeoAnimatable)",
+    "bones_loaded": 11,
+    "cubes_loaded": 34,
+    "satellites": 4,
+    "gametests_total": 278,
+    "gametests_passed": 278,
+    "regressions_passed": 158
+  },
   "hierarchy": {
     "root": [
       0.0,
@@ -63,49 +74,41 @@
   },
   "clips": {
     "emergence": {
-      "duration_seconds": 2.0,
+      "duration_s": 2.0,
       "ticks": 40,
       "loop": false,
-      "role": "Wing & satellite outward flare and formation unfolding"
+      "role": "Outward flare and satellite unfolding"
     },
     "idle": {
-      "duration_seconds": 3.0,
+      "duration_s": 3.0,
       "ticks": 60,
       "loop": true,
-      "role": "Organic breathing wave on wings, dual-phase floating satellites"
+      "role": "Continuous breathing wing wave, dual-phase hovering satellites"
     },
     "arsenal_left": {
-      "duration_seconds": 1.0,
+      "duration_s": 1.0,
       "ticks": 20,
       "loop": false,
-      "role": "Left wing & satellites 0/1 sweep into frontal sector (-Z)"
+      "role": "Left wing and satellites 0/1 sweep into frontal firing sector"
     },
     "arsenal_right": {
-      "duration_seconds": 1.0,
+      "duration_s": 1.0,
       "ticks": 20,
       "loop": false,
-      "role": "Right wing & satellites 2/3 sweep into frontal sector (-Z)"
+      "role": "Right wing and satellites 2/3 sweep into frontal firing sector"
     },
     "recoil": {
-      "duration_seconds": 0.6,
+      "duration_s": 0.6,
       "ticks": 12,
       "loop": false,
       "role": "Dynamic impulse snapback upon heavy release"
     },
     "settle": {
-      "duration_seconds": 1.2,
+      "duration_s": 1.2,
       "ticks": 24,
       "loop": false,
       "role": "Damped recovery from combat flare back to stable idle"
     }
-  },
-  "contract_integration_pending_codex": {
-    "status": "PARCIAL",
-    "pending_points": [
-      "Codex will provide action type/castId/time/aim/form context in production QuincyVollstandigService / QuincyVollstandigVisuals.",
-      "Codex will bind execution of H/N/B/C to the corresponding manifestation clips (e.g. N -> alternating arsenal_left / arsenal_right).",
-      "Codex will govern server-side damage, cooldowns, and collision; mesh and animation remain purely visual and decoupled from hitboxes."
-    ]
   },
   "sources": {
     "tools/models/lab/antigravity/quincy_vollstandig/quincy_manifestation_pipeline.py": "d91b802b5f54a340df3b75991503e7db1a9a67953846ce982607b01406e3ce2c",
@@ -113,38 +116,153 @@
     "src/main/resources/assets/bleachmod/geo/quincy_manifestation.geo.json": "b0f227e4d08c99da941eba16e6801941e671755dab9ad7c79055bdbb0b272d0b",
     "src/main/resources/assets/bleachmod/animations/quincy_manifestation.animation.json": "5318ca526bf84c669417137b45687f3b70cbfc0ded82e094f951c355588fea20",
     "src/main/resources/assets/bleachmod/textures/entity/quincy_manifestation.png": "b619c94b498c0ea438fc0e24ce55a0158cd55f889655c0de9df696341915fdaa",
-    "src/main/java/com/bleachmod/client/cinematic/QuincyManifestationQa.java": "21474f72c9b8b2fe8ec9aad4f6a7c8c354c523d888374461b49d77a7487f712c"
+    "src/main/java/com/bleachmod/client/cinematic/QuincyManifestationQa.java": "9bdc7c0390913dca899d21e4edd599f5712e2ae8582e5ac003144bd84a530865",
+    "src/main/java/com/bleachmod/gametest/QuincyVollstandigGameTests.java": "0c86f1ef25e0a678e6b3610e509dabcf7dc2a5951db6d24f00b3b1886e8ad554"
   },
-  "captures": [
+  "raw_captures_png": [
     {
-      "name": "emergence-back",
-      "raw_path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-benihime\\run-benihime-qa\\base\\quincy-manifestation-qa\\1793384765904\\screenshots\\emergence-back.png",
-      "sha256": "daf1139972aea758d5db12942ff67d457b244366533e6cb72b587bd1970491ec"
+      "file": "emergence-back-f10.png",
+      "case": "emergence-back",
+      "frame": "f10",
+      "sha256": "7293790b1b9355daa190b3ec0ac79f6df4c8911514dd86b7c0369e11a1bf33b9",
+      "size_bytes": 36970
     },
     {
-      "name": "idle-back",
-      "raw_path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-benihime\\run-benihime-qa\\base\\quincy-manifestation-qa\\1793384765904\\screenshots\\idle-back.png",
-      "sha256": "f59d9d766086181e88be1ff359a8385624911061fbb0496741109db99f3a6abf"
+      "file": "emergence-back-f20.png",
+      "case": "emergence-back",
+      "frame": "f20",
+      "sha256": "ded6ee64b045906a9ad6348c591adce3b9f2253043cd3491c51b179f54802032",
+      "size_bytes": 83387
     },
     {
-      "name": "idle-profile",
-      "raw_path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-benihime\\run-benihime-qa\\base\\quincy-manifestation-qa\\1793384765904\\screenshots\\idle-profile.png",
-      "sha256": "cd19c778d64d3310a176f01b92c8b89602b1777a214a57206a2cfe3b3ce116d2"
+      "file": "emergence-back.png",
+      "case": "emergence-back",
+      "frame": "f30_settle",
+      "sha256": "531a31248ea166990a2856c43310a0b32195c5ae79941dfeb9071d0577f9f547",
+      "size_bytes": 95223
     },
     {
-      "name": "arsenal-left-front",
-      "raw_path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-benihime\\run-benihime-qa\\base\\quincy-manifestation-qa\\1793384765904\\screenshots\\arsenal-left-front.png",
-      "sha256": "0e1307914d0370c56690b1e9bed538673515305bd91ee827ad5c69728e022a55"
+      "file": "idle-back-f10.png",
+      "case": "idle-back",
+      "frame": "f10",
+      "sha256": "b448044c5a2b9ae81b596c9365daa636b15c96cd4361544820de31916348f2d3",
+      "size_bytes": 74650
     },
     {
-      "name": "arsenal-right-front",
-      "raw_path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-benihime\\run-benihime-qa\\base\\quincy-manifestation-qa\\1793384765904\\screenshots\\arsenal-right-front.png",
-      "sha256": "9df538be30f8226efda3cbf3aeace18554b1955716b2672327ceec425227e6fc"
+      "file": "idle-back-f20.png",
+      "case": "idle-back",
+      "frame": "f20",
+      "sha256": "2ea5265c34c9281c07cd06f2ade73ad39aaff6f184c96cd7f8cb97d5f0f6508a",
+      "size_bytes": 203163
     },
     {
-      "name": "settle-recoil",
-      "raw_path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-benihime\\run-benihime-qa\\base\\quincy-manifestation-qa\\1793384765904\\screenshots\\settle-recoil.png",
-      "sha256": "d3c624b15cb95c8f96ee575ab1492bdf5fc9c039b16ee191f7e8fe8363a71e39"
+      "file": "idle-back.png",
+      "case": "idle-back",
+      "frame": "f30_settle",
+      "sha256": "3b31f65a24966a38a01008cd02e785e7eb1354cb6b8768ba3fdb1bd25a9ea009",
+      "size_bytes": 205222
+    },
+    {
+      "file": "idle-profile-f10.png",
+      "case": "idle-profile",
+      "frame": "f10",
+      "sha256": "8f57d4a8a46230ca05c565c7114f0b1300d7b5568a0e12d2d52309c229b8b942",
+      "size_bytes": 217624
+    },
+    {
+      "file": "idle-profile-f20.png",
+      "case": "idle-profile",
+      "frame": "f20",
+      "sha256": "523734dffe7c400423de4b81e17a822f26c6eb677ef1f3f0367482d94348e736",
+      "size_bytes": 218003
+    },
+    {
+      "file": "idle-profile.png",
+      "case": "idle-profile",
+      "frame": "f30_settle",
+      "sha256": "8ce6df7237644ced74a06f0db9f08fc8b08621055aac8ad040bbef2f3e6731b3",
+      "size_bytes": 217803
+    },
+    {
+      "file": "arsenal-left-front-f10.png",
+      "case": "arsenal-left-front",
+      "frame": "f10",
+      "sha256": "e4b16f1411f602e29e390bf512952c17eae5b69bf88decf88d4c46d6ee307f63",
+      "size_bytes": 312720
+    },
+    {
+      "file": "arsenal-left-front-f20.png",
+      "case": "arsenal-left-front",
+      "frame": "f20",
+      "sha256": "c8f702da801542dee582fd6e9244306a6fe3898fcd66da16d516df46f259feca",
+      "size_bytes": 309071
+    },
+    {
+      "file": "arsenal-left-front.png",
+      "case": "arsenal-left-front",
+      "frame": "f30_settle",
+      "sha256": "b5ff56b8c376120a55db78eb275897bffcd8a5f854b764b2a186854e3fab24ef",
+      "size_bytes": 311870
+    },
+    {
+      "file": "arsenal-right-front-f10.png",
+      "case": "arsenal-right-front",
+      "frame": "f10",
+      "sha256": "e532ec73c7aed1719897bc9f29512bff7ce46ebd20c8c44676d36bb18cac8334",
+      "size_bytes": 313241
+    },
+    {
+      "file": "arsenal-right-front-f20.png",
+      "case": "arsenal-right-front",
+      "frame": "f20",
+      "sha256": "3de3d51bf57ebdfe22c0b5607dcecd011fd88a3f004c97204c4788b246f28a2b",
+      "size_bytes": 309793
+    },
+    {
+      "file": "arsenal-right-front.png",
+      "case": "arsenal-right-front",
+      "frame": "f30_settle",
+      "sha256": "5ac718fa45f4dd1fa37aac8131197bd91ec8020d95c9c29e8af9c762d44ca78d",
+      "size_bytes": 313072
+    },
+    {
+      "file": "settle-recoil-f10.png",
+      "case": "settle-recoil",
+      "frame": "f10",
+      "sha256": "f1f5b633db4f7ec3240b5ea38cae3e9c0361ff671ea06c3c91af3daa70b9f319",
+      "size_bytes": 352333
+    },
+    {
+      "file": "settle-recoil-f20.png",
+      "case": "settle-recoil",
+      "frame": "f20",
+      "sha256": "ff02076a7f22d349db53784e83b22be617bf7d6ce1d3b2389274e1c1371391b6",
+      "size_bytes": 345021
+    },
+    {
+      "file": "settle-recoil.png",
+      "case": "settle-recoil",
+      "frame": "f30_settle",
+      "sha256": "458c772f4a8dbc0fcaad6d6bc9e3b78d55f8ea6ed7ca8b570d3b8bc6e141196f",
+      "size_bytes": 344348
     }
-  ]
+  ],
+  "media_artifacts": {
+    "contact_sheet": {
+      "file": "prancha_interpolacao_geckolib.png",
+      "sha256": "cba154034a906638315a227e03db59d726385fec88aeb689027a56e94bdb343d"
+    },
+    "results_txt": {
+      "file": "results.txt",
+      "sha256": "00a99b41cd91aa118eb8babcfa08b355b19b3390507d75a50ff2b7d725530393"
+    },
+    "gifs": {
+      "emergence-back.gif": "7607aeaee03f4d3eab714503124b6671e298087845c750845ca2fef17f5fda12",
+      "idle-back.gif": "53242e24283f75edcfe022bbc2ad71edd676282beb2cbe9fe282573141281a61",
+      "idle-profile.gif": "756a438925bc4cb1d6e5dcf566bf94fd01b2d2e8f678b81b6a1b8bf103cad698",
+      "arsenal-left-front.gif": "386a3e713c8816e442e75d702a73f48659b1286987892bcc9657e1ed0c88554e",
+      "arsenal-right-front.gif": "ff06374f9ecefea70e35c614ec7bf07becd74cf731104c6da371ab1a6ea8b0c2",
+      "settle-recoil.gif": "d3a24318fb013f9978ae63d9973a554e672b47438342abe9e9aacd5dca43d26b"
+    }
+  }
 }

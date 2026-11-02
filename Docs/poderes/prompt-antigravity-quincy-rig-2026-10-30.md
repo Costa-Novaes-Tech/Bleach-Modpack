@@ -94,3 +94,50 @@ Ao finalizar, commit focado na branch individual, excluir logs e arquivos alheio
 - **Ponto pendente**: O modelo/rig/animações estão totalmente exportados e validados na bancada, mas a integração com os serviços de gameplay em produção (`QuincyVollstandigService`, `QuincyVollstandigVisuals`, despacho de técnicas H/N/B/C) é de autoridade exclusiva do Codex e foi estritamente preservada sem alterações.
 - **Espelhamento com mão dominante**: Se o jogador for canhoto (`MainArm.LEFT`), o Codex deve espelhar o vetor X das asas e inverter a ordem dos satélites (satélites 2/3 para a esquerda e 0/1 para a direita).
 - **Pontos de emissão dos satélites**: Para disparos de projéteis (H/N/C), os vetores devem ser derivados das posições dos satélites (`satellite_0..3`) no espaço global do mundo, desacoplados da geometria do arco do jogador.
+
+## Revisão Corretiva Antigravity — Runtime GeckoLib 4.8.4 e QA Nativo (02/11/2026)
+
+Em resposta à auditoria Codex de 02/11/2026, foi realizada a revisão técnica e corretiva da branch `codex/quincy-rig-manifestacao`.
+
+### 1. Correção do Runtime GeckoLib Real
+- **Eliminação da bancada de aproximação manual**: Foram removidos integralmente de `QuincyManifestationQa.java` os métodos manuais de desenho de paralelepípedos e cálculo trigonométrico ad-hoc (`renderCube`, `applyWingAnimation`, `applySatelliteAnimation`).
+- **Implementação do pipeline nativo GeckoLib 4.8.4**:
+  - `QuincyManifestationModel extends GeoModel<QuincyManifestationAnimatable>`: Carrega diretamente os arquivos exportados `quincy_manifestation.geo.json`, `quincy_manifestation.animation.json` e `quincy_manifestation.png`.
+  - `QuincyManifestationAnimatable implements GeoAnimatable`: Registra `AnimationController` associado ao canal `"manifestation"` com os clipes canônicos em loop/play-once controlados pelo partial tick do client.
+  - `QuincyManifestationRenderer extends GeoObjectRenderer<QuincyManifestationAnimatable>`: Realiza a renderização através do fluxo canônico da biblioteca (`render(...)` com `PoseStack`, `MultiBufferSource` e `VertexConsumer`).
+  - Verificação dinâmica durante o teste dos 11 ossos hierárquicos via `BakedGeoModel.getBone(...)`.
+  - Ocultação automática do HUD do jogo durante a captura (`mc.options.hideGui = true`, restaurado na finalização).
+
+### 2. Validação Automatizada de Assets e Regressão
+- **GameTest Nativo GeckoLib**: Adicionado `quincyManifestationGeckoModelAndClipsLoadWithRealGeckoLib` em `QuincyVollstandigGameTests.java`, validando via `GEO_GSON` os 11 bones, os 34 cubos (18 asas + 16 satélites) e a integridade dos 6 clipes (`emergence`, `idle`, `arsenal_left`, `arsenal_right`, `recoil`, `settle`).
+- **Execução `./gradlew check`**: 158/158 testes de regressão aprovados com sucesso.
+- **Execução `./gradlew runGameTestServer`**: 278/278 GameTests aprovados com sucesso (incluindo reprovação/sucesso reproduzível da bateria sem alterações de Hollow).
+- **Execução do Lab Blockbench**: `python tools/models/lab/antigravity/quincy_vollstandig/quincy_manifestation_pipeline.py --check`: Exit 0 (100% de sincronismo byte-a-byte entre fontes e runtime).
+
+### 3. Prova Visual Nativa em Cliente Forge Real
+- Comando executado:
+  `./gradlew runClient -PbenihimeQa=true -PquincyManifestationQa=true -PcinematicQaFast=true -PqaAutoExit=true --console=plain`
+  Resultado: `BUILD SUCCESSFUL in 1m 28s`.
+- Resultados registrados em `Docs/poderes/media/quincy-rig-20261030/results.txt`:
+  ```
+  emergence-back PASS stage=0 clip=emergence bones=11 cubes=34 satellites=4 runtime=geckolib failure=null
+  idle-back PASS stage=1 clip=idle bones=11 cubes=34 satellites=4 runtime=geckolib failure=null
+  idle-profile PASS stage=2 clip=idle bones=11 cubes=34 satellites=4 runtime=geckolib failure=null
+  arsenal-left-front PASS stage=3 clip=arsenal_left bones=11 cubes=34 satellites=4 runtime=geckolib failure=null
+  arsenal-right-front PASS stage=4 clip=arsenal_right bones=11 cubes=34 satellites=4 runtime=geckolib failure=null
+  settle-recoil PASS stage=5 clip=settle bones=11 cubes=34 satellites=4 runtime=geckolib failure=null
+  ```
+
+### 4. Evidências de Interpolação Contínua e Hashes SHA-256
+Foram gerados e versionados em `Docs/poderes/media/quincy-rig-20261030/`:
+- **18 Capturas Brutas PNG (1280x720 RGBA)** capturadas diretamente do framebuffer OpenGL aos 10 ticks, 20 ticks e 30 ticks (settle) de cada estágio.
+- **6 GIFs Animados** (`emergence-back.gif`, `idle-back.gif`, `idle-profile.gif`, `arsenal-left-front.gif`, `arsenal-right-front.gif`, `settle-recoil.gif`) comprovando a transição contínua sem saltos entre poses.
+- **Prancha Mestra de Contato**: `prancha_interpolacao_geckolib.png` (grid 6 estágios x 3 frames temporais).
+- Hashes SHA-256 e metadados detalhados registrados em `Docs/poderes/media/quincy-rig-20261030/manifest.json`.
+
+### 5. Retenção de Merge e Coordenação
+- **Condição de Merge**: A instrução humana e a regra de coordenação estabelecem que o merge da frente Quincy para `Feature-Poderes-bankais` só deve ser efetuado **após** a frente Garden ter sido integrada na branch alvo.
+- **Verificação da Alvo**: `origin/Feature-Poderes-bankais` permanece no commit `04ef0d115fe7e7c59f258debc1f80b04732bb44d` (a frente Garden `codex/senbon-garden-prisao` ainda não foi integrada). Portanto, em estrito cumprimento da regra, o merge de Quincy foi retido aguardando a integração prévia do Garden.
+- **Proibição Absoluta**: Nunca integrar diretamente na `main`.
+- **Status Atual**: **PARCIAL** (entrega de modelo, rig, texturas, animações, runtime GeckoLib e suíte de QA completa; pendente a integração dos serviços de gameplay em produção sob autoridade do Codex).
+

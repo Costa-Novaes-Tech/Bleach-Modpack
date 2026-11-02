@@ -55,7 +55,7 @@ public final class QuincyVollstandigGameTests {
         var saved=d.getQuincy().save();var copy=new QuincyData();copy.load(saved);h.assertTrue(copy.hasVollstandig()&&!copy.isVollstandigActive(),"Learned form persists independently of activation");h.succeed();
     }
     @GameTest(template="empty") public static void mainArrowHitsFiveDistinctTargetsAndStopsBeforeSixth(GameTestHelper h){
-        var p=player(h);Vec3 start=h.absoluteVec(new Vec3(2.5,160,2.5));List<Zombie> targets=new ArrayList<>();
+        var p=player(h);var origin=h.absoluteVec(new Vec3(2.5,0,2.5));Vec3 start=new Vec3(origin.x,h.getLevel().getMaxBuildHeight()-100,origin.z);List<Zombie> targets=new ArrayList<>();
         for(int i=0;i<6;i++)targets.add(target(h,start.add(3+i*2, -.5,0)));
         var a=arrow(h,p,start);try{
             for(int i=0;i<8&&!a.isRemoved();i++)a.tick();
@@ -64,7 +64,7 @@ public final class QuincyVollstandigGameTests {
         }finally{a.discard();targets.forEach(z->z.discard());}h.succeed();
     }
     @GameTest(template="empty") public static void twoSeparatedBlocksPassThirdStopsAndTerrainRemains(GameTestHelper h){
-        var p=player(h);Vec3 start=h.absoluteVec(new Vec3(2.5,170.5,2.5));var wall1=BlockPos.containing(start.add(3,0,0));var wall2=BlockPos.containing(start.add(7,0,0));var wall3=BlockPos.containing(start.add(11,0,0));
+        var p=player(h);var origin=h.absoluteVec(new Vec3(2.5,0,2.5));Vec3 start=new Vec3(origin.x,h.getLevel().getMaxBuildHeight()-90,origin.z);var wall1=BlockPos.containing(start.add(3,0,0));var wall2=BlockPos.containing(start.add(7,0,0));var wall3=BlockPos.containing(start.add(11,0,0));
         var z1=target(h,start.add(9,-.5,0));var z2=target(h,start.add(14,-.5,0));var a=arrow(h,p,start);
         try{for(var b:List.of(wall1,wall2,wall3))h.getLevel().setBlockAndUpdate(b,Blocks.STONE.defaultBlockState());
             for(int i=0;i<8&&!a.isRemoved();i++)a.tick();
@@ -74,7 +74,7 @@ public final class QuincyVollstandigGameTests {
         }finally{a.discard();z1.discard();z2.discard();for(var b:List.of(wall1,wall2,wall3))h.getLevel().setBlockAndUpdate(b,Blocks.AIR.defaultBlockState());}h.succeed();
     }
     @GameTest(template="empty") public static void satellitesCannotInheritMainPiercing(GameTestHelper h){
-        var p=player(h);Vec3 start=h.absoluteVec(new Vec3(2.5,180.5,2.5));var wall=BlockPos.containing(start.add(3,0,0));var a=arrow(h,p,start);a.configureSatellite(1.5F);
+        var p=player(h);var origin=h.absoluteVec(new Vec3(2.5,0,2.5));Vec3 start=new Vec3(origin.x,h.getLevel().getMaxBuildHeight()-80,origin.z);var wall=BlockPos.containing(start.add(3,0,0));var a=arrow(h,p,start);a.configureSatellite(1.5F);
         try{h.getLevel().setBlockAndUpdate(wall,Blocks.STONE.defaultBlockState());for(int i=0;i<4&&!a.isRemoved();i++)a.tick();h.assertTrue(!a.isVollstandigArrow()&&a.isRemoved(),"Auxiliary dissipates on first solid block: start="+start+" pos="+a.position()+" removed="+a.isRemoved()+" piercing="+a.isVollstandigArrow());}
         finally{a.discard();h.getLevel().setBlockAndUpdate(wall,Blocks.AIR.defaultBlockState());}h.succeed();
     }
@@ -103,5 +103,44 @@ public final class QuincyVollstandigGameTests {
             h.assertTrue(!QuincyVollstandigService.active(p)&&!d.getQuincy().isVollstandigActive(),"Exhaustion returns to base immediately");
             h.assertTrue(d.getQuincy().hasVollstandig()&&d.getQuincy().getAdvancedMastery(1)==1,"Learning and mastery preserved");h.succeed();
         });
+    }
+
+    @GameTest(template="empty",batch="quincy_manifestation_geckolib")
+    public static void quincyManifestationGeckoModelAndClipsLoadWithRealGeckoLib(GameTestHelper h) {
+        try(var modelStream=Objects.requireNonNull(QuincyVollstandigGameTests.class.getResourceAsStream("/assets/bleachmod/geo/quincy_manifestation.geo.json"),"Missing geo.json");
+            var animStream=Objects.requireNonNull(QuincyVollstandigGameTests.class.getResourceAsStream("/assets/bleachmod/animations/quincy_manifestation.animation.json"),"Missing animation.json");
+            var texStream=Objects.requireNonNull(QuincyVollstandigGameTests.class.getResourceAsStream("/assets/bleachmod/textures/entity/quincy_manifestation.png"),"Missing texture.png")) {
+            var gson=software.bernie.geckolib.util.JsonUtil.GEO_GSON;
+            var modelJson=com.google.gson.JsonParser.parseReader(new java.io.InputStreamReader(modelStream,java.nio.charset.StandardCharsets.UTF_8)).getAsJsonObject();
+            var geometry=gson.fromJson(modelJson,software.bernie.geckolib.loading.json.raw.Model.class);
+            h.assertTrue(geometry.minecraftGeometry()!=null && geometry.minecraftGeometry().length>0,"Geometry empty");
+            var bones=geometry.minecraftGeometry()[0].bones();
+            h.assertTrue(bones.length==11,"Expected 11 bones, found "+bones.length);
+            int totalCubes=0;
+            Set<String> boneNames=new HashSet<>();
+            for(var b:bones){boneNames.add(b.name());if(b.cubes()!=null)totalCubes+=b.cubes().length;}
+            h.assertTrue(totalCubes==34,"Expected 34 cubes, found "+totalCubes);
+            h.assertTrue(boneNames.contains("root")
+                    && boneNames.contains("wing_left_root") && boneNames.contains("wing_left_mid") && boneNames.contains("wing_left_tip")
+                    && boneNames.contains("wing_right_root") && boneNames.contains("wing_right_mid") && boneNames.contains("wing_right_tip")
+                    && boneNames.contains("satellite_0") && boneNames.contains("satellite_1") && boneNames.contains("satellite_2") && boneNames.contains("satellite_3"),
+                    "Missing expected rig bone hierarchy");
+            var animJson=com.google.gson.JsonParser.parseReader(new java.io.InputStreamReader(animStream,java.nio.charset.StandardCharsets.UTF_8)).getAsJsonObject();
+            var clips=gson.fromJson(animJson.getAsJsonObject("animations"),software.bernie.geckolib.loading.object.BakedAnimations.class);
+            String[] requiredClips={
+                "animation.quincy_manifestation.emergence",
+                "animation.quincy_manifestation.idle",
+                "animation.quincy_manifestation.arsenal_left",
+                "animation.quincy_manifestation.arsenal_right",
+                "animation.quincy_manifestation.recoil",
+                "animation.quincy_manifestation.settle"
+            };
+            for(String c:requiredClips){
+                h.assertTrue(clips.getAnimation(c)!=null,"Missing clip "+c);
+            }
+            byte[] texBytes=texStream.readAllBytes();
+            h.assertTrue(texBytes.length>500,"Texture corrupted or empty");
+        }catch(Exception ex){throw new IllegalStateException("Quincy manifestation GeckoLib asset verification failed",ex);}
+        h.succeed();
     }
 }
