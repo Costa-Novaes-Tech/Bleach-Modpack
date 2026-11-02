@@ -1,0 +1,95 @@
+{
+  "run_id": "1793660389053",
+  "date": "2026-11-02",
+  "command": "runClient -PbenihimeQa=true -PsenbonGardenQa=true -PcinematicQaFast=true -PqaAutoExit=true --offline --console=plain",
+  "environment": "Minecraft 1.20.1 Forge 47.4.10, disposable flat world Benihime-QA-68, noon clear",
+  "resolution": "1280x720",
+  "frames": [
+    {
+      "file": "frame-010.png",
+      "tick": 10,
+      "description": "t010: Cast inicial Garden N - expansão do tapete de pétalas (raio 35)",
+      "sha256": "777ef5f60b48ba5d01276da8cc0131f70dcfa3a4ab4a0bffe789f72abbb3ebd8",
+      "size_bytes": 103746
+    },
+    {
+      "file": "frame-025.png",
+      "tick": 25,
+      "description": "t025: Tapete interno ativo e primeira explosão de pétalas",
+      "sha256": "835023f5178374a21bc8570d148eb39e84238b8368bda09453498c7ee60d59b8",
+      "size_bytes": 105270
+    },
+    {
+      "file": "frame-045.png",
+      "tick": 45,
+      "description": "t045: Reativação commitada dentro da janela (bloom: 1)",
+      "sha256": "d8df269ef79b456d57e469f2d73b1fdd420e726b06de8818f1a1df92aaae4586",
+      "size_bytes": 201513
+    },
+    {
+      "file": "frame-055.png",
+      "tick": 55,
+      "description": "t055: Animação de formação e elevação da flor central",
+      "sha256": "40a841b31fe6c2a95220ca09dec779b0073b22c0af8fe26a23580a1ad44746e7",
+      "size_bytes": 210973
+    },
+    {
+      "file": "frame-062.png",
+      "tick": 62,
+      "description": "t062: 2ª explosão floral / burst 5 HP - inicialização da prisão (60 ticks)",
+      "sha256": "1cc19a3e9f5693c943f4dd7388fab1bc60adb89e996f0c774bfeb5d05e807330",
+      "size_bytes": 211043
+    },
+    {
+      "file": "frame-070.png",
+      "tick": 70,
+      "description": "t070: Alvos capturados levitam até 2.5m sob envoltório espiral de pétalas",
+      "sha256": "ad34519e19fd68c2091a90a0deae2891ddc6bcf010a045e3c4c79a875c3589a3",
+      "size_bytes": 209564
+    },
+    {
+      "file": "frame-082.png",
+      "tick": 82,
+      "description": "t082: Pulso 1 de dano (3 HP base) e contenção vertical sob teto",
+      "sha256": "df7df57fe8f154fa31327f3ee7148ff0c25bb81358de94f5e5e297083b95a5fa",
+      "size_bytes": 193920
+    },
+    {
+      "file": "frame-102.png",
+      "tick": 102,
+      "description": "t102: Pulso 2 de dano (3 HP base) - close frontal dos alvos e teto",
+      "sha256": "519e9f41d3b5c4dded2c746afb50ccd9bd2b449646ef1a297fed8abc0067426d",
+      "size_bytes": 182587
+    },
+    {
+      "file": "frame-122.png",
+      "tick": 122,
+      "description": "t122: Pulso 3 de dano (3 HP base) - encerramento dos 60 ticks de prisão",
+      "sha256": "c6519cf544558a5d2df331dc265daaf83fd1a9f5087de82d20556bc0b412587c",
+      "size_bytes": 182286
+    },
+    {
+      "file": "frame-140.png",
+      "tick": 140,
+      "description": "t140: Dissipação da prisão e início do fade-out monotônico do piso",
+      "sha256": "e02e6a27556c11671ae555d5a366a39a83db709bdcc2753d79e95b8f4031b2ac",
+      "size_bytes": 184026
+    },
+    {
+      "file": "frame-160.png",
+      "tick": 160,
+      "description": "t160: Fade-out suave (20 ticks) preservando o chão sem cortes secos",
+      "sha256": "3b877ecc8fde75bd4e4d3064e09f1483b950d2e1668f221704669e916ae187e4",
+      "size_bytes": 181700
+    },
+    {
+      "file": "frame-180.png",
+      "tick": 180,
+      "description": "t180: Conclusão do ciclo de vida sem efeitos órfãos nem resíduos",
+      "sha256": "0a9f85ab5d7c15af95d248df077a610ce85e431a77308a0eb523e813e171c3da",
+      "size_bytes": 181513
+    }
+  ],
+  "gif_sha256": "7a1f7384132d8034e4be6548a1e1a1e7ab0271187a0154a27aa4164536a98554",
+  "contact_sha256": "09a1dbb8a5c26e1abf941a0eb14c7d469e15010fa8c17e4dbad646d9fbd7c1ed"
+}

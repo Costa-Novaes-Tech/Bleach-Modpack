@@ -320,13 +320,21 @@ public final class SenbonGameTests {
             done(h,p,t);
         });
     }
-    @GameTest(template="empty",batch="senbon_garden_prison_cap",timeoutTicks=110)
+    @GameTest(template="empty",batch="senbon_garden_prison_cap",timeoutTicks=140)
     public static void gardenPrisonCapturesUpToSixteenTargetsAndSortsByProximity(GameTestHelper h) {
         var p=player(h,"bankai");var d=data(p);
         loadField(h,p);
         List<Zombie> targets=new ArrayList<>();
-        for(int i=0;i<20;i++)targets.add(target(h,p,0,2+i*1.5));
+        for(int i=0;i<20;i++) {
+            var t=target(h,p,0,2+i*1.5);
+            t.setItemSlot(EquipmentSlot.HEAD,ItemStack.EMPTY);
+            t.getAttribute(Attributes.ARMOR).setBaseValue(0);
+            targets.add(t);
+        }
         var occludedTarget=target(h,p,4,3);
+        occludedTarget.setItemSlot(EquipmentSlot.HEAD,ItemStack.EMPTY);
+        occludedTarget.getAttribute(Attributes.ARMOR).setBaseValue(0);
+
         var wall=new ArrayList<BlockPos>();
         for(int y=0;y<3;y++)for(int z=-1;z<=1;z++){
             var pos=p.blockPosition().offset(2,y,3+z);wall.add(pos);
@@ -341,11 +349,12 @@ public final class SenbonGameTests {
             beforeBloomWall[0]=occludedTarget.getHealth();
         });
         h.runAfterDelay(45,()->SenbonzakuraTechniqueService.executeSlot(p,d,2));
-        h.runAfterDelay(85,()->{
+        h.runAfterDelay(125,()->{
             try {
                 for(int i=0;i<16;i++){
                     float delta=beforeBloom[i]-targets.get(i).getHealth();
-                    h.assertTrue(delta>0,"Target "+i+" within cap of 16 took no bloom/pulse damage (delta="+delta+")");
+                    h.assertTrue(Math.abs(delta-21.0F)<0.01F,
+                        "Target "+i+" within cap took delta "+delta+", expected exactly 21.0 net HP (14 base * 1.5 Bankai multiplier)");
                 }
                 for(int i=16;i<20;i++){
                     float delta=beforeBloom[i]-targets.get(i).getHealth();
@@ -413,69 +422,126 @@ public final class SenbonGameTests {
         var p=player(h,"bankai");var d=data(p);loadField(h,p);
         var floorBlocks=new ArrayList<BlockPos>();
 
+        java.util.function.BiConsumer<BlockPos,List<BlockPos>> makeFloor=(center,list)->{
+            for(int dx=-1;dx<=1;dx++)for(int dz=-1;dz<=1;dz++){
+                var b=center.offset(dx,0,dz);
+                list.add(b);
+                h.getLevel().setBlockAndUpdate(b,net.minecraft.world.level.block.Blocks.STONE.defaultBlockState());
+            }
+        };
+
         var openTarget=target(h,p,0,6);
         openTarget.setNoAi(false);openTarget.setNoGravity(false);openTarget.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0);
-        var openFloor=openTarget.blockPosition().below();floorBlocks.add(openFloor);
-        h.getLevel().setBlockAndUpdate(openFloor,net.minecraft.world.level.block.Blocks.STONE.defaultBlockState());
+        makeFloor.accept(openTarget.blockPosition().below(),floorBlocks);
 
         var ceilingTarget=target(h,p,3,6);
         ceilingTarget.setNoAi(false);ceilingTarget.setNoGravity(false);ceilingTarget.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0);
-        var ceilingFloor=ceilingTarget.blockPosition().below();floorBlocks.add(ceilingFloor);
-        h.getLevel().setBlockAndUpdate(ceilingFloor,net.minecraft.world.level.block.Blocks.STONE.defaultBlockState());
+        makeFloor.accept(ceilingTarget.blockPosition().below(),floorBlocks);
         var ceilingBlock=ceilingTarget.blockPosition().above(2);
         h.getLevel().setBlockAndUpdate(ceilingBlock,net.minecraft.world.level.block.Blocks.STONE.defaultBlockState());
 
         var strongTarget=target(h,p,-3,6);
         strongTarget.setNoAi(false);strongTarget.setNoGravity(false);strongTarget.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0);
-        var strongFloor=strongTarget.blockPosition().below();floorBlocks.add(strongFloor);
-        h.getLevel().setBlockAndUpdate(strongFloor,net.minecraft.world.level.block.Blocks.STONE.defaultBlockState());
-        strongTarget.addEffect(new net.minecraft.world.effect.MobEffectInstance(net.minecraft.world.effect.MobEffects.LEVITATION,100,1));
+        makeFloor.accept(strongTarget.blockPosition().below(),floorBlocks);
 
         var longTarget=target(h,p,-6,6);
         longTarget.setNoAi(false);longTarget.setNoGravity(false);longTarget.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0);
-        var longFloor=longTarget.blockPosition().below();floorBlocks.add(longFloor);
-        h.getLevel().setBlockAndUpdate(longFloor,net.minecraft.world.level.block.Blocks.STONE.defaultBlockState());
-        longTarget.addEffect(new net.minecraft.world.effect.MobEffectInstance(net.minecraft.world.effect.MobEffects.LEVITATION,200,0));
+        makeFloor.accept(longTarget.blockPosition().below(),floorBlocks);
+
+        var strongCeilingTarget=target(h,p,6,6);
+        strongCeilingTarget.setNoAi(false);strongCeilingTarget.setNoGravity(false);strongCeilingTarget.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0);
+        makeFloor.accept(strongCeilingTarget.blockPosition().below(),floorBlocks);
+        var strongCeilingBlock=strongCeilingTarget.blockPosition().above(2);
+        h.getLevel().setBlockAndUpdate(strongCeilingBlock,net.minecraft.world.level.block.Blocks.STONE.defaultBlockState());
 
         ticks(h,p);
-        double openY0=openTarget.getY();
+        double openX=openTarget.getX(), openZ=openTarget.getZ(), openFloorY=openTarget.getY();
+        double strongX=strongTarget.getX(), strongZ=strongTarget.getZ(), strongFloorY=strongTarget.getY();
+        double longX=longTarget.getX(), longZ=longTarget.getZ(), longFloorY=longTarget.getY();
+        double ceilX=ceilingTarget.getX(), ceilZ=ceilingTarget.getZ();
+        double scX=strongCeilingTarget.getX(), scZ=strongCeilingTarget.getZ();
+
         final double[] maxRise={0};
+        final double[] strongMaxRise={0};
+        final double[] longMaxRise={0};
         final boolean[] violatedMaxRise={false};
+        final boolean[] strongViolatedMaxRise={false};
+        final boolean[] longViolatedMaxRise={false};
         final boolean[] penetratedCeiling={false};
+        final boolean[] strongPenetratedCeiling={false};
         final boolean[] strongDowngraded={false};
+        final boolean[] strongCeilingDowngraded={false};
         final boolean[] longTruncated={false};
 
         h.onEachTick(()->{
-            double rise=openTarget.getY()-openY0;
+            // Restrain horizontal wander off the stone platform
+            openTarget.setPos(openX,openTarget.getY(),openZ);
+            openTarget.setDeltaMovement(0,openTarget.getDeltaMovement().y,0);
+            strongTarget.setPos(strongX,strongTarget.getY(),strongZ);
+            strongTarget.setDeltaMovement(0,strongTarget.getDeltaMovement().y,0);
+            longTarget.setPos(longX,longTarget.getY(),longZ);
+            longTarget.setDeltaMovement(0,longTarget.getDeltaMovement().y,0);
+            ceilingTarget.setPos(ceilX,ceilingTarget.getY(),ceilZ);
+            ceilingTarget.setDeltaMovement(0,ceilingTarget.getDeltaMovement().y,0);
+            strongCeilingTarget.setPos(scX,strongCeilingTarget.getY(),scZ);
+            strongCeilingTarget.setDeltaMovement(0,strongCeilingTarget.getDeltaMovement().y,0);
+
+            double rise=openTarget.getY()-openFloorY;
             maxRise[0]=Math.max(maxRise[0],rise);
             if(rise>2.55)violatedMaxRise[0]=true;
 
+            double sRise=strongTarget.getY()-strongFloorY;
+            strongMaxRise[0]=Math.max(strongMaxRise[0],sRise);
+            if(sRise>2.55)strongViolatedMaxRise[0]=true;
+
+            double lRise=longTarget.getY()-longFloorY;
+            longMaxRise[0]=Math.max(longMaxRise[0],lRise);
+            if(lRise>2.55)longViolatedMaxRise[0]=true;
+
             if(ceilingTarget.getBoundingBox().intersects(new net.minecraft.world.phys.AABB(ceilingBlock)))penetratedCeiling[0]=true;
+            if(strongCeilingTarget.getBoundingBox().intersects(new net.minecraft.world.phys.AABB(strongCeilingBlock)))strongPenetratedCeiling[0]=true;
 
             var sEff=strongTarget.getEffect(net.minecraft.world.effect.MobEffects.LEVITATION);
             if(sEff!=null && sEff.getAmplifier()!=1)strongDowngraded[0]=true;
+
+            var scEff=strongCeilingTarget.getEffect(net.minecraft.world.effect.MobEffects.LEVITATION);
+            if(scEff!=null && scEff.getAmplifier()!=1)strongCeilingDowngraded[0]=true;
 
             var lEff=longTarget.getEffect(net.minecraft.world.effect.MobEffects.LEVITATION);
             if(lEff!=null && lEff.getDuration()<=SenbonPolicy.CONTROL_LEASE)longTruncated[0]=true;
         });
 
         SenbonzakuraTechniqueService.executeSlot(p,d,2);
-        h.runAfterDelay(45,()->SenbonzakuraTechniqueService.executeSlot(p,d,2));
+        h.runAfterDelay(45,()->{
+            strongTarget.addEffect(new net.minecraft.world.effect.MobEffectInstance(net.minecraft.world.effect.MobEffects.LEVITATION,200,1));
+            longTarget.addEffect(new net.minecraft.world.effect.MobEffectInstance(net.minecraft.world.effect.MobEffects.LEVITATION,250,0));
+            strongCeilingTarget.addEffect(new net.minecraft.world.effect.MobEffectInstance(net.minecraft.world.effect.MobEffects.LEVITATION,200,1));
+            SenbonzakuraTechniqueService.executeSlot(p,d,2);
+        });
 
         h.runAfterDelay(125,()->{
             try {
                 h.assertTrue(!violatedMaxRise[0],"Open target exceeded 2.5m rise across ticks: max was "+maxRise[0]);
                 h.assertTrue(maxRise[0]>0.3,"Open target never rose above ground: max was "+maxRise[0]);
                 h.assertTrue(!penetratedCeiling[0],"Ceiling target penetrated ceiling block bounding box");
+                h.assertTrue(!strongViolatedMaxRise[0],"Strong levitation target exceeded 2.5m rise: max was "+strongMaxRise[0]);
+                h.assertTrue(strongMaxRise[0]>0.3,"Strong levitation target never rose: max was "+strongMaxRise[0]);
                 h.assertTrue(!strongDowngraded[0],"Strong external levitation was downgraded during prison");
+                h.assertTrue(!longViolatedMaxRise[0],"Long levitation target exceeded 2.5m rise: max was "+longMaxRise[0]);
+                h.assertTrue(longMaxRise[0]>0.3,"Long levitation target never rose: max was "+longMaxRise[0]);
                 h.assertTrue(!longTruncated[0],"Long external levitation was truncated to short lease");
+                h.assertTrue(!strongPenetratedCeiling[0],"Strong levitation target penetrated ceiling block bounding box");
+                h.assertTrue(!strongCeilingDowngraded[0],"Strong ceiling levitation was downgraded");
                 h.assertTrue(!openTarget.hasEffect(net.minecraft.world.effect.MobEffects.LEVITATION),"Open target levitation lingered after expiration");
+                h.assertTrue(strongTarget.hasEffect(net.minecraft.world.effect.MobEffects.LEVITATION),"Strong external levitation was dropped on expiration");
                 h.assertTrue(longTarget.hasEffect(net.minecraft.world.effect.MobEffects.LEVITATION),"Long external levitation was dropped on expiration");
+                h.assertTrue(strongCeilingTarget.hasEffect(net.minecraft.world.effect.MobEffects.LEVITATION),"Strong ceiling external levitation was dropped on expiration");
             } finally {
                 h.getLevel().removeBlock(ceilingBlock,false);
+                h.getLevel().removeBlock(strongCeilingBlock,false);
                 for(var b:floorBlocks)h.getLevel().removeBlock(b,false);
             }
-            done(h,p,openTarget,ceilingTarget,strongTarget,longTarget);
+            done(h,p,openTarget,ceilingTarget,strongTarget,longTarget,strongCeilingTarget);
         });
     }
     @GameTest(template="empty",batch="senbon_garden_late_deltas",timeoutTicks=220)

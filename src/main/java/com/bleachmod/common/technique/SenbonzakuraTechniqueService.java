@@ -400,32 +400,42 @@ public final class SenbonzakuraTechniqueService {
                 hurt(s,t,SenbonPolicy.FIELD_PRISON_PULSE_DAMAGE,2);
             }
 
+            double maxAllowedY=Math.max(anchor.floorY()+SenbonPolicy.FIELD_PRISON_MAX_RISE, anchor.startY());
+            BlockPos aboveHead=BlockPos.containing(t.getX(),t.getEyeY()+.4,t.getZ());
+            boolean ceilingBlocked=s.level.getBlockState(aboveHead).isSolid()
+                    || !s.level.noCollision(t.getBoundingBox().move(0,.15,0))
+                    || !s.level.noCollision(t.getBoundingBox().move(0,Math.max(0.1,t.getDeltaMovement().y),0));
+
             var existing=t.getEffect(net.minecraft.world.effect.MobEffects.LEVITATION);
             boolean hasExternalLevitation=existing!=null && (existing.getAmplifier()>0 || existing.getDuration()>4);
-            if(!hasExternalLevitation) {
-                double maxAllowedY=Math.max(anchor.floorY()+SenbonPolicy.FIELD_PRISON_MAX_RISE, anchor.startY());
-                BlockPos aboveHead=BlockPos.containing(t.getX(),t.getEyeY()+.4,t.getZ());
-                boolean ceilingBlocked=s.level.getBlockState(aboveHead).isSolid()
-                        || !s.level.noCollision(t.getBoundingBox().move(0,.15,0));
+            double targetThresholdY = hasExternalLevitation ? (maxAllowedY - 0.12) : maxAllowedY;
 
-                if(t.getY()<maxAllowedY && !ceilingBlocked) {
+            if(t.getY()<targetThresholdY && !ceilingBlocked) {
+                if(!hasExternalLevitation) {
                     t.addEffect(new net.minecraft.world.effect.MobEffectInstance(
                             net.minecraft.world.effect.MobEffects.LEVITATION,3,0,false,false,true));
-                    t.addEffect(new net.minecraft.world.effect.MobEffectInstance(
-                            net.minecraft.world.effect.MobEffects.MOVEMENT_SLOWDOWN,4,4,false,false,true));
-                } else {
-                    if(t.getDeltaMovement().y>0) {
-                        t.setDeltaMovement(t.getDeltaMovement().x,0,t.getDeltaMovement().z);
-                        t.hurtMarked=true;
-                    }
-                    if(t.getY()>maxAllowedY) {
-                        t.setPos(t.getX(),maxAllowedY,t.getZ());
-                    }
-                    t.addEffect(new net.minecraft.world.effect.MobEffectInstance(
-                            net.minecraft.world.effect.MobEffects.MOVEMENT_SLOWDOWN,4,4,false,false,true));
-                    t.addEffect(new net.minecraft.world.effect.MobEffectInstance(
-                            net.minecraft.world.effect.MobEffects.SLOW_FALLING,4,0,false,false,true));
                 }
+                t.addEffect(new net.minecraft.world.effect.MobEffectInstance(
+                        net.minecraft.world.effect.MobEffects.MOVEMENT_SLOWDOWN,4,4,false,false,true));
+                if(t.getDeltaMovement().y>0 && t.getY()+t.getDeltaMovement().y>targetThresholdY) {
+                    t.setDeltaMovement(t.getDeltaMovement().x,Math.max(0.0,targetThresholdY-t.getY()),t.getDeltaMovement().z);
+                    t.hurtMarked=true;
+                }
+            } else {
+                if(t.getDeltaMovement().y>0) {
+                    t.setDeltaMovement(t.getDeltaMovement().x,0,t.getDeltaMovement().z);
+                    t.hurtMarked=true;
+                }
+                if(t.getY()>maxAllowedY) {
+                    t.setPos(t.getX(),maxAllowedY,t.getZ());
+                }
+                while(!s.level.noCollision(t.getBoundingBox()) && t.getY()>anchor.floorY()) {
+                    t.setPos(t.getX(),t.getY()-0.05,t.getZ());
+                }
+                t.addEffect(new net.minecraft.world.effect.MobEffectInstance(
+                        net.minecraft.world.effect.MobEffects.MOVEMENT_SLOWDOWN,4,4,false,false,true));
+                t.addEffect(new net.minecraft.world.effect.MobEffectInstance(
+                        net.minecraft.world.effect.MobEffects.SLOW_FALLING,4,0,false,false,true));
             }
         }
 

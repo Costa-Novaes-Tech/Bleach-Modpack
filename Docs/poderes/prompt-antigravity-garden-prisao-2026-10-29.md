@@ -137,3 +137,16 @@ Commit focado da sua entrega na branch individual, excluindo logs e arquivos alh
   - Correções da revisão 30/10 totalmente integradas e verificadas.
   - Testes do servidor autoritativo 100% aprovados.
   - Sem merge ou push para `origin/Feature-Poderes-bankais` ou `main`.
+
+## Conclusão da Revisão Corretiva Codex (02/11/2026)
+
+- **Documento detalhado**: [`revisao-corretiva-garden-senbon-2026-11-02.md`](revisao-corretiva-garden-senbon-2026-11-02.md)
+- **Lacunas 02/11 100% resolvidas**:
+  1. *Cap 16*: fixture desarmurado valida exatamente 21.0 net HP (14 base * 1.5 Bankai) em cada um dos 16 alvos capturados; zero estrito nos alvos 16..19 e alvo atrás de parede de pedra.
+  2. *Contenção com Levitação externa*: contenção vertical antecipada universal neutraliza impulsos sem alterar ou expurgar efeitos externos de Levitação; monitoramento contínuo em tick a tick comprova elevação $\le 2.55	ext{m}$, contenção sob teto e preservação dos efeitos externos.
+  3. *Evidência visual cliente Forge*: sequência autoritativa `SenbonzakuraGardenQaSequence` executada via `runClient` em mundo descartável; 12 frames gravados com SHA-256 no manifesto, prancha composta `garden-senbon-contact.jpg` e animação contínua `garden-senbon-sequence.gif` em `Docs/poderes/qa/garden-senbon-20261102/`.
+- **Validações autoritativas**:
+  - `compileJava`: BUILD SUCCESSFUL (exit 0)
+  - `check`: 158/158 PASS (exit 0)
+  - `runGameTestServer`: 284/284 PASS (exit 0)
+  - `runClient`: BUILD SUCCESSFUL (exit 0)
