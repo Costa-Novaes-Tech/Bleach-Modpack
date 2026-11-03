@@ -252,7 +252,8 @@ public final class QuincyGameTests {
         h.assertTrue(arrow.getMaxRange() == 64.0D, "Quincy common arrow max range is 64 blocks");
 
         // Set initial position and ensure flight path chunks are loaded in GameTestServer
-        Vec3 startPos = h.absoluteVec(new Vec3(2.5, 5.0, 2.5));
+        var origin = h.absoluteVec(new Vec3(2.5, 0.0, 2.5));
+        Vec3 startPos = new Vec3(origin.x, h.getLevel().getMaxBuildHeight() - 110, origin.z);
         arrow.setPos(startPos);
         BlockPos startBlock = BlockPos.containing(startPos);
         for (int chunkOffset = 0; chunkOffset <= 4; chunkOffset++) {

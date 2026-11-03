@@ -122,6 +122,7 @@ minecraft {
                 property 'bleachmod.senbonGardenQa', providers.gradleProperty('senbonGardenQa').getOrElse('false')
                 property 'bleachmod.quincyVollstandigQa', providers.gradleProperty('quincyVollstandigQa').getOrElse('false')
                 property 'bleachmod.quincyQa', providers.gradleProperty('quincyQa').getOrElse('false')
+                property 'bleachmod.quincyManifestationQa', providers.gradleProperty('quincyManifestationQa').getOrElse('false')
                 property 'bleachmod.devCommandsQa', providers.gradleProperty('devCommandsQa').getOrElse('false')
                 property 'bleachmod.qaAutoExit', providers.gradleProperty('qaAutoExit').getOrElse('false')
                 property 'bleachmod.cinematicQaFast', providers.gradleProperty('cinematicQaFast').getOrElse('false')
