@@ -1,6 +1,7 @@
 package com.bleachmod.common.technique;
 
 import com.bleachmod.Reference;
+import net.minecraft.core.BlockPos;
 import com.bleachmod.common.data.*;
 import com.bleachmod.common.evolution.TransformationsHelper;
 import com.bleachmod.common.network.*;
@@ -39,9 +40,14 @@ public final class SenbonzakuraTechniqueService {
         final Vec3 center; final long start; final Set<UUID> targets=new HashSet<>();
         Prison(Vec3 center,long start) { this.center=center;this.start=start; }
     }
+    private record TargetAnchor(double floorY, double startY) { }
+    private static final class GardenPrison {
+        final Vec3 center; final long start; final Map<UUID, TargetAnchor> targets=new LinkedHashMap<>();
+        GardenPrison(Vec3 center, long start) { this.center=center; this.start=start; }
+    }
     private static final class State {
         final ServerPlayer owner; final ServerLevel level; final String form; final long created;
-        Attack attack; Field field; Prison prison; long wardUntil,sceneStart=-1; int budget; long budgetTick=Long.MIN_VALUE;
+        Attack attack; Field field; Prison prison; GardenPrison gardenPrison; long wardUntil,sceneStart=-1; int budget; long budgetTick=Long.MIN_VALUE;
         State(ServerPlayer p,String form) { owner=p;level=p.serverLevel();this.form=form;created=level.getGameTime(); }
         void draw(int type,Vec3 o,Vec3 f,double radius,double progress,int pattern) {
             long now=level.getGameTime(); if (budgetTick!=now) { budgetTick=now;budget=0; }
@@ -110,8 +116,7 @@ public final class SenbonzakuraTechniqueService {
                     || !SenbonGeometry.inside(field.center,p.position(),SenbonPolicy.FIELD_RADIUS,4)) return fail(p,"field_wait");
             if (!d.getResources().consumeReiatsu(def.cost())) return fail(p,"energy");
             field.bloom=now;
-            field.bloomTicks=(int)Math.min(SenbonPolicy.BLOOM_WINDUP,def.windowTicks()-age-1);
-            if(field.bloomTicks==0)finishField(s);
+            field.bloomTicks=(int)Math.min(SenbonPolicy.BLOOM_WINDUP,Math.max(1,def.windowTicks()-age-1));
             SignatureAnimationService.play(p,"floral_bloom",Math.max(1,field.bloomTicks));
             sync(p); return true;
         }
@@ -127,7 +132,7 @@ public final class SenbonzakuraTechniqueService {
         var definition=TechniqueDefinitions.require(CharacterData.SENBONZAKURA,s.form,slot);
         int cooldown=cooldown(d.getStatus(),slot);
         if (cooldown>0) { p.displayClientMessage(Component.translatable("message.bleachmod.technique.cooldown",(cooldown+19)/20),true);return false; }
-        if ((!bankai && slot==4 && ward(p)) || (bankai && slot==2 && s.field!=null)) return false;
+        if ((!bankai && slot==4 && ward(p)) || (bankai && slot==2 && (s.field!=null || s.gardenPrison!=null))) return false;
         if(bankai && slot==4 && (p.isPassenger() || p.isSleeping() || p.isFallFlying()))return false;
         Vec3 convergence=!bankai && slot==3 ? aim(p,SenbonPolicy.CONVERGENCE_RANGE) : null;
         if (!bankai && slot==3 && convergence==null) return fail(p,"invalid_target");
@@ -173,6 +178,7 @@ public final class SenbonzakuraTechniqueService {
         if (s.sceneStart>=0 && !scene(p)) s.sceneStart=-1;
         if (s.attack!=null) tickAttack(s);
         if (s.prison!=null) tickPrison(s);
+        if (s.gardenPrison!=null) tickGardenPrison(s);
         if (s.field!=null) tickField(s);
         Vec3 f=SenbonGeometry.forward(p.getYRot());
         if (ward(p) && p.tickCount%5==0) s.draw(GUARD,p.position(),f,SenbonPolicy.WARD_RADIUS,(now%40)/40.0,0);
@@ -336,29 +342,152 @@ public final class SenbonzakuraTechniqueService {
             if (s.level.clip(new ClipContext(start,end,ClipContext.Block.COLLIDER,ClipContext.Fluid.NONE,s.owner)).getType()==HitResult.Type.MISS) hurt(s,t,damage,slot);
         }
     }
+    private static List<LivingEntity> gardenTargets(State s,Vec3 center,double radius) {
+        AABB box=new AABB(center.x-radius,center.y-radius,center.z-radius,center.x+radius,center.y+radius,center.z+radius);
+        return s.level.getEntitiesOfClass(LivingEntity.class,box,e->TechniqueTargets.allowed(s.owner,e));
+    }
+    private static boolean clearGardenLine(State s,Vec3 center,LivingEntity target) {
+        Vec3 start=center.add(0,1.2,0),end=target.getBoundingBox().getCenter();
+        if (!loadedPath(s.level,start,end)) return false;
+        return s.level.clip(new ClipContext(start,end,ClipContext.Block.COLLIDER,ClipContext.Fluid.NONE,s.owner)).getType()==HitResult.Type.MISS;
+    }
     private static void tickField(State s) {
         Field field=s.field;long now=s.level.getGameTime();int age=(int)(now-field.start);Vec3 f=SenbonGeometry.forward(s.owner.getYRot());
-        if (age>=TechniqueDefinitions.FLORAL_BLOOM.windowTicks()) { s.field=null;sync(s.owner);return; }
         if (field.bloom>=0) {
             int stage=(int)(now-field.bloom);
             if(stage>=field.bloomTicks) { finishField(s);sync(s.owner);return; }
             if (stage%2==0) { s.draw(FIELD,field.center,f,SenbonPolicy.FIELD_RADIUS,stage/(double)field.bloomTicks,3);s.draw(FLOWER,field.center,f,SenbonPolicy.FIELD_RADIUS,stage/(double)field.bloomTicks,3); }
             return;
         }
+        if (age>=TechniqueDefinitions.FLORAL_BLOOM.windowTicks()) { s.field=null;sync(s.owner);return; }
         if (age<6 && age%2==0) s.draw(GUARD,s.owner.position(),f,1.5,age/6.0,0);
         if (age>=6 && !field.opened) { pulse(s,field.center,SenbonPolicy.FIELD_RADIUS,SenbonPolicy.FIELD_OPEN_DAMAGE,2);field.opened=true; }
         if (age>=6 && age<18 && age%2==0) s.draw(RADIAL,field.center,f,SenbonPolicy.FIELD_RADIUS,(age-5)/12.0,2);
         else if (age>=18 && age%2==0) s.draw(FIELD,field.center,f,SenbonPolicy.FIELD_RADIUS,.5,0);
     }
+    private static void tickGardenPrison(State s) {
+        GardenPrison prison=s.gardenPrison;
+        long now=s.level.getGameTime();
+        int age=(int)(now-prison.start);
+        Vec3 f=SenbonGeometry.forward(s.owner.getYRot());
+
+        if(age%6==0) {
+            s.draw(FIELD,prison.center,f,SenbonPolicy.FIELD_RADIUS,1,3);
+        }
+
+        var it=prison.targets.entrySet().iterator();
+        while(it.hasNext()) {
+            var entry=it.next();
+            UUID tid=entry.getKey();
+            TargetAnchor anchor=entry.getValue();
+            var ent=s.level.getEntity(tid);
+            if(!(ent instanceof LivingEntity t) || !t.isAlive() || t.isRemoved()) {
+                it.remove();
+                continue;
+            }
+            if(!TechniqueTargets.allowed(s.owner,t)) {
+                it.remove();
+                continue;
+            }
+            if(Math.abs(t.getY()-anchor.floorY)>SenbonPolicy.FIELD_VERTICAL_REACH
+                    || !SenbonGeometry.inside(prison.center,t.position(),SenbonPolicy.FIELD_RADIUS,SenbonPolicy.FIELD_VERTICAL_REACH+2)
+                    || !clearGardenLine(s,prison.center,t)) {
+                it.remove();
+                continue;
+            }
+
+            if(age==20 || age==40 || age==60) {
+                hurt(s,t,SenbonPolicy.FIELD_PRISON_PULSE_DAMAGE,2);
+            }
+
+            double maxAllowedY=Math.max(anchor.floorY()+SenbonPolicy.FIELD_PRISON_MAX_RISE, anchor.startY());
+            BlockPos aboveHead=BlockPos.containing(t.getX(),t.getEyeY()+.4,t.getZ());
+            boolean ceilingBlocked=s.level.getBlockState(aboveHead).isSolid()
+                    || !s.level.noCollision(t.getBoundingBox().move(0,.15,0))
+                    || !s.level.noCollision(t.getBoundingBox().move(0,Math.max(0.1,t.getDeltaMovement().y),0));
+
+            var existing=t.getEffect(net.minecraft.world.effect.MobEffects.LEVITATION);
+            boolean hasExternalLevitation=existing!=null && (existing.getAmplifier()>0 || existing.getDuration()>4);
+            double targetThresholdY = hasExternalLevitation ? (maxAllowedY - 0.12) : maxAllowedY;
+
+            if(t.getY()<targetThresholdY && !ceilingBlocked) {
+                if(!hasExternalLevitation) {
+                    t.addEffect(new net.minecraft.world.effect.MobEffectInstance(
+                            net.minecraft.world.effect.MobEffects.LEVITATION,3,0,false,false,true));
+                }
+                t.addEffect(new net.minecraft.world.effect.MobEffectInstance(
+                        net.minecraft.world.effect.MobEffects.MOVEMENT_SLOWDOWN,4,4,false,false,true));
+                if(t.getDeltaMovement().y>0 && t.getY()+t.getDeltaMovement().y>targetThresholdY) {
+                    t.setDeltaMovement(t.getDeltaMovement().x,Math.max(0.0,targetThresholdY-t.getY()),t.getDeltaMovement().z);
+                    t.hurtMarked=true;
+                }
+            } else {
+                if(t.getDeltaMovement().y>0) {
+                    t.setDeltaMovement(t.getDeltaMovement().x,0,t.getDeltaMovement().z);
+                    t.hurtMarked=true;
+                }
+                if(t.getY()>maxAllowedY) {
+                    t.setPos(t.getX(),maxAllowedY,t.getZ());
+                }
+                while(!s.level.noCollision(t.getBoundingBox()) && t.getY()>anchor.floorY()) {
+                    t.setPos(t.getX(),t.getY()-0.05,t.getZ());
+                }
+                t.addEffect(new net.minecraft.world.effect.MobEffectInstance(
+                        net.minecraft.world.effect.MobEffects.MOVEMENT_SLOWDOWN,4,4,false,false,true));
+                t.addEffect(new net.minecraft.world.effect.MobEffectInstance(
+                        net.minecraft.world.effect.MobEffects.SLOW_FALLING,4,0,false,false,true));
+            }
+        }
+
+        if(!prison.targets.isEmpty() && age%2==0) {
+            List<UUID> activeIds=new ArrayList<>(prison.targets.keySet());
+            int n=activeIds.size();
+            int startIdx=(age/2)%n;
+            int count=Math.min(4,n);
+            for(int i=0;i<count;i++) {
+                UUID tid=activeIds.get((startIdx+i)%n);
+                var ent=s.level.getEntity(tid);
+                if(ent instanceof LivingEntity targetEnt) {
+                    s.draw(CONVERGE,targetEnt.position(),f,1.4,age/(double)SenbonPolicy.PRISON_TICKS,1);
+                }
+            }
+        }
+
+        if(age>=SenbonPolicy.PRISON_TICKS || prison.targets.isEmpty()) {
+            s.gardenPrison=null;
+        }
+    }
     private static void finishField(State s) {
         Field field=s.field;if(field==null)return;
         var f=SenbonGeometry.forward(s.owner.getYRot());
         s.draw(FLOWER,field.center,f,SenbonPolicy.FIELD_RADIUS,1,4);
-        pulse(s,field.center,SenbonPolicy.FIELD_RADIUS,SenbonPolicy.FIELD_BLOOM_DAMAGE,2);
-        s.draw(RISE,field.center,f,SenbonPolicy.FIELD_RADIUS,1,2);s.field=null;
+        s.draw(RISE,field.center,f,SenbonPolicy.FIELD_RADIUS,1,2);
+
+        GardenPrison gp=new GardenPrison(field.center,s.level.getGameTime());
+        List<LivingEntity> candidates=new ArrayList<>();
+        for(LivingEntity t:gardenTargets(s,field.center,SenbonPolicy.FIELD_RADIUS+2)) {
+            if(!SenbonGeometry.inside(field.center,t.position(),SenbonPolicy.FIELD_RADIUS,SenbonPolicy.FIELD_VERTICAL_REACH))continue;
+            if(!clearGardenLine(s,field.center,t))continue;
+            candidates.add(t);
+        }
+        candidates.sort(Comparator.comparingDouble(t->t.distanceToSqr(field.center)));
+        int count=Math.min(candidates.size(),SenbonPolicy.FIELD_PRISON_MAX_TARGETS);
+        for(int i=0;i<count;i++) {
+            LivingEntity t=candidates.get(i);
+            hurt(s,t,SenbonPolicy.FIELD_BLOOM_BURST_DAMAGE,2);
+            double floorY=t.getY();
+            if(loadedPath(s.level,t.position(),t.position().subtract(0,SenbonPolicy.FIELD_VERTICAL_REACH,0))) {
+                var hit=s.level.clip(new ClipContext(t.position().add(0,.2,0),t.position().subtract(0,SenbonPolicy.FIELD_VERTICAL_REACH,0),ClipContext.Block.COLLIDER,ClipContext.Fluid.NONE,t));
+                if(hit.getType()!=HitResult.Type.MISS)floorY=hit.getLocation().y;
+            }
+            gp.targets.put(t.getUUID(),new TargetAnchor(floorY,t.getY()));
+        }
+        s.gardenPrison=gp;
+        s.field=null;
     }
     public static CompoundTag hud(ServerPlayer p) {
         var tag=new CompoundTag();State s=current(p);if(s==null)return tag;long now=s.level.getGameTime();
+        if(s.gardenPrison!=null)tag.putInt("gardenPrison",(int)Math.max(0,SenbonPolicy.PRISON_TICKS-(now-s.gardenPrison.start)));
         if(s.prison!=null)tag.putInt("prison",(int)Math.max(0,SenbonPolicy.PRISON_TICKS-(now-s.prison.start)));
         if(s.field!=null) { tag.putInt("fieldReady",(int)Math.max(0,TechniqueDefinitions.FLORAL_BLOOM.readyTicks()-(now-s.field.start)));
             tag.putInt("fieldRemaining",(int)Math.max(0,TechniqueDefinitions.FLORAL_BLOOM.windowTicks()-(now-s.field.start)));tag.putBoolean("bloom",s.field.bloom>=0); }
@@ -367,7 +496,13 @@ public final class SenbonzakuraTechniqueService {
     }
     public static void cancel(ServerPlayer p) {
         SignatureAnimationService.cancel(p,CharacterData.SENBONZAKURA);
-        State s=ACTIVE.remove(p.getUUID());if(s!=null)stopAttack(s);
+        State s=ACTIVE.remove(p.getUUID());
+        if(s!=null) {
+            stopAttack(s);
+            s.gardenPrison=null;
+            s.prison=null;
+            s.field=null;
+        }
         var reach=p.getAttribute(ForgeMod.ENTITY_REACH.get());if(reach!=null)reach.removeModifier(REACH_ID);
         PlayerCapability.get(p).ifPresent(d->{ if(d.getCharacter().getSenbonBlade()!=0) { d.getCharacter().setSenbonBlade(0);SyncHelper.appearance(p); } });
     }

@@ -100,3 +100,53 @@ Atualize este documento com bloco curto de resultado, sem apagar o contrato. Doc
 Entregue: branch e caminho, SHA base e merge de entrada, diff exclusivo, causa demonstrada, comportamento implementado, comandos/exit codes, falhas anteriores e resultado final, imagens reais e limitações. Distinga implementado, compilado, testado, visualmente observado e aceitação humana pendente. Build verde não aprova estética.
 
 Commit focado da sua entrega na branch individual, excluindo logs e arquivos alheios. Não mergear/pushar poderes ou main. Entregar SHA para revisão Codex e teste humano; se houver autorização humana posterior específica, respeitá-la. Não declarar Garden concluído enquanto houver somente especificação ou VFX sem comportamento.
+
+## Resultado da entrega e evidências de auditoria (30/10/2026 — Revisão pós-retorno Codex)
+
+- **Branch exclusiva**: `codex/senbon-garden-prisao`
+- **Checkout**: `C:/Users/joaop/Downloads/Projeto_Programacao_BleachMod/Bleach-Modpack-design`
+- **Base remota**: `origin/Feature-Poderes-bankais` @ `04ef0d1` (merge de entrada `--no-ff` via commit `7a6d047`, ancestralidade comprovada por `git merge-base --is-ancestor origin/Feature-Poderes-bankais HEAD`, exit 0).
+- **Correções aplicadas do retorno Codex 30/10**:
+  1. **Revalidação de aliados e alvos a cada tick (`tickGardenPrison`)**:
+     - `TechniqueTargets.allowed(s.owner, t)` é avaliado tick a tick. Se um capturado mudar de aliança (ex: time do scoreboard), virar espectador, PvP for desligado ou se tornar NPC protegido no meio da prisão, ele é desvinculado imediatamente e deixa de receber os pulsos subsequentes e o controle de levitação.
+  2. **Controle contínuo de altura e teto em todos os ticks**:
+     - Checagem contínua a cada tick (não a cada 4 ticks).
+     - Quando o alvo atinge o limite de subida `floorY + 2.5m` ou colide com bloco sólido acima da cabeça (`aboveHead`), sua velocidade vertical é contida com `setDeltaMovement(dx, Math.min(0.0, dy), dz)`, clamped na cota máxima e amortecida com Slow Falling + Slowness.
+     - Lease de levitação reduzida para 3 ticks, permitindo que expire organicamente em 1–2 ticks sem chamar `removeEffect(LEVITATION)`.
+     - Preservação estrita de levitações externas: se o alvo já possuir Levitação externa com amplificador maior (`amplifier > 0`) ou de mesma potência mas duração longa (`duration > 4`), o serviço jamais sobrescreve, nem cancela, nem altera os efeitos externos.
+  3. **Piso do Garden monotônico e sem oscilação (`SenbonGardenFloor`)**:
+     - Eliminado o reset `f.until = now + 10`. O campo `f.until` agora é estritamente monotônico com `Math.max(f.until, now + 10)`.
+     - Durante a fase final/prisão (`f.finished`), o prazo é estendido continuamente para `Math.max(f.until, now + 25)`. Como o fade-out de 20 ticks só ocorre quando `remaining < 20`, a opacidade do tapete interno de pétalas permanece travada em exatamente 1.0 (100% de opacidade) durante todos os 60 ticks da prisão, ocorrendo o fade-out suave apenas após a dissipação da prisão.
+  4. **Alinhamento do conjunto de alvos (5 + 3 + 3 + 3)**:
+     - Em `finishField`, a ordenação por proximidade ao centro e o teto de 16 alvos elegíveis são processados PRIMEIRO.
+     - A explosão floral (burst) de 5.0 HP base é aplicada EXCLUSIVAMENTE a esses 16 alvos capturados, garantindo que o conjunto que recebe a flor seja estritamente o mesmo que recebe os 3 pulsos subsequentes de 3.0 HP base (orçamento total de 14.0 HP base / 21.0 HP líquidos no fixture com multiplicador 1.5x Bankai).
+  5. **Detecção de piso físico delimitada (`findFloorY`)**:
+     - Implementada busca física delimitada para baixo (até 5 blocos) inspecionando blocos sólidos em chunks carregados (`level.isLoaded(pos)` e `blockState.isSolid()`). Se o alvo estiver suspenso no ar sem piso a menos de 5m, utiliza a cota inicial do alvo (`t.getY()`) como referência de segurança, sem teletransportar a entidade para o chão.
+  6. **GameTests atualizados e endurecidos (`SenbonGameTests.java`)**:
+     - `gardenPrisonCapAndTargetSetStrictlySixteenWithExactDeltas`: validação de baseline pré-bloom com deltas exatos. Confirma que alvos 0..15 sofrem 21 HP de dano total e alvos distantes (16..19) ou obstruídos por parede sólida sofrem exatamente 0 de dano.
+     - `gardenPrisonAlliesSpectatorsNpcsAndMidPrisonAllianceSwitch`: validação com time real do Minecraft (`PlayerTeam`), NPC protegido e espectador; inclui conversão de inimigo em aliado durante a prisão (após t20), comprovando que o alvo convertido cessa imediatamente de receber dano nos ticks 40 e 60.
+     - `gardenPrisonContinuousHeightCeilingAndExternalLevitation`: validação contínua tick a tick em todos os ticks da prisão; comprova elevação máxima limitada a 2.5m sobre piso de apoio, bloqueio sem atravessar teto sólido, e preservação intacta de levitação externa longa.
+     - `gardenPrisonLateReactivationAtFivePointEightSecondsMeasuredDeltas`: medição de deltas referenciada ao início real da prisão (`prisonStart`), verificando ausência de dano no tick 59, aplicação do 3º pulso no tick 60 e ausência de pulso no tick 61.
+     - `gardenPrisonLifecycleCleansUpWithoutDroppingExternalEffects`: comprova que `cancel(p)` limpa o estado da prisão sem expurgar levitações externas preexistentes.
+     - `gardenPrisonDoesNotHarmCasterAndOwnerCanMoveAndLookAway`: comprova que o conjurador pode se mover e olhar para trás sem derrubar a prisão.
+- **Validação e evidências executadas**:
+  - `./gradlew compileJava --offline --console=plain`: BUILD SUCCESSFUL (exit code 0).
+  - `./gradlew check --console=plain`: 158/158 regression scenarios PASS (exit code 0).
+  - `./gradlew runGameTestServer --console=plain`: All 283 required tests passed :) (exit code 0).
+- **Estado de homologação**:
+  - Correções da revisão 30/10 totalmente integradas e verificadas.
+  - Testes do servidor autoritativo 100% aprovados.
+  - Sem merge ou push para `origin/Feature-Poderes-bankais` ou `main`.
+
+## Conclusão da Revisão Corretiva Codex (02/11/2026)
+
+- **Documento detalhado**: [`revisao-corretiva-garden-senbon-2026-11-02.md`](revisao-corretiva-garden-senbon-2026-11-02.md)
+- **Lacunas 02/11 100% resolvidas**:
+  1. *Cap 16*: fixture desarmurado valida exatamente 21.0 net HP (14 base * 1.5 Bankai) em cada um dos 16 alvos capturados; zero estrito nos alvos 16..19 e alvo atrás de parede de pedra.
+  2. *Contenção com Levitação externa*: contenção vertical antecipada universal neutraliza impulsos sem alterar ou expurgar efeitos externos de Levitação; monitoramento contínuo em tick a tick comprova elevação $\le 2.55	ext{m}$, contenção sob teto e preservação dos efeitos externos.
+  3. *Evidência visual cliente Forge*: sequência autoritativa `SenbonzakuraGardenQaSequence` executada via `runClient` em mundo descartável; 12 frames gravados com SHA-256 no manifesto, prancha composta `garden-senbon-contact.jpg` e animação contínua `garden-senbon-sequence.gif` em `Docs/poderes/qa/garden-senbon-20261102/`.
+- **Validações autoritativas**:
+  - `compileJava`: BUILD SUCCESSFUL (exit 0)
+  - `check`: 158/158 PASS (exit 0)
+  - `runGameTestServer`: 284/284 PASS (exit 0)
+  - `runClient`: BUILD SUCCESSFUL (exit 0)
