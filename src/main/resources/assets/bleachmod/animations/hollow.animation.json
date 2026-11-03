@@ -316,23 +316,23 @@
         },
         "left_arm": {
           "rotation": [
-            "0 + math.sin(query.anim_time * 288 + -22) * -10",
-            "0 + math.sin(query.anim_time * 288 + 0) * 4",
-            "0 + math.sin(query.anim_time * 288 + -30) * 2"
+            "0 + math.sin(query.anim_time * 288 + 0) * -14",
+            "0 + math.sin(query.anim_time * 288 + 0) * 1.5",
+            "0 + math.sin(query.anim_time * 288 + -30) * 1"
           ]
         },
         "left_arm_lower": {
           "rotation": [
-            "0 + math.sin(query.anim_time * 288 + -58) * 7",
+            "-2 + math.sin(query.anim_time * 288 + -20) * -4",
             0,
             0
           ]
         },
         "left_hand": {
           "rotation": [
-            "0 + math.sin(query.anim_time * 288 + -85) * -6",
+            "0 + math.sin(query.anim_time * 288 + -40) * 2",
             0,
-            "0 + math.sin(query.anim_time * 288 + -60) * 3"
+            "0 + math.sin(query.anim_time * 288 + -40) * 1"
           ]
         },
         "left_finger_0": {
@@ -379,23 +379,23 @@
         },
         "right_arm": {
           "rotation": [
-            "0 + math.sin(query.anim_time * 288 + 158) * -10",
-            "0 + math.sin(query.anim_time * 288 + 180) * 4",
-            "0 + math.sin(query.anim_time * 288 + 150) * -2"
+            "0 + math.sin(query.anim_time * 288 + 180) * -14",
+            "0 + math.sin(query.anim_time * 288 + 180) * 1.5",
+            "0 + math.sin(query.anim_time * 288 + 150) * -1"
           ]
         },
         "right_arm_lower": {
           "rotation": [
-            "0 + math.sin(query.anim_time * 288 + 122) * 7",
+            "-2 + math.sin(query.anim_time * 288 + 160) * -4",
             0,
             0
           ]
         },
         "right_hand": {
           "rotation": [
-            "0 + math.sin(query.anim_time * 288 + 95) * -6",
+            "0 + math.sin(query.anim_time * 288 + 140) * 2",
             0,
-            "0 + math.sin(query.anim_time * 288 + 120) * 3"
+            "0 + math.sin(query.anim_time * 288 + 140) * 1"
           ]
         },
         "right_finger_0": {

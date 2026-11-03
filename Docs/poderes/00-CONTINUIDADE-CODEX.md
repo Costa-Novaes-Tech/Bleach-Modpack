@@ -1,3 +1,5 @@
+> **26/10/2026 — fontes de áudio na main:** [originais WAV versionados e caminhos de importação](audios-fontes-versionadas-2026-10-26.md). Pasta tools/audio/source; manifesto com SHA-256 e verificador somente de leitura. Migração autorizada pelo usuário; não altera OGGs/runtime nem encerra pendências artísticas.
+
 # Continuidade do projeto — leia primeiro
 
 **30/10 — auditoria Senbon7750815 e nova divisão:** diff5arquivos inspecionado e log da branch confirma283GameTests. Estado Garden separado e pulso60 preservados; ainda faltam revalidar alianças, garantir altura/lease todos os ticks, corrigir reset de prazo do piso e testes que realmente comprovem cap/aliados/reativação tardia. Sem evidência visual Forge entregue. [Prompt Garden atualizado](prompt-antigravity-garden-prisao-2026-10-29.md), sem merge nesta rodada. [Coordenação](antigravity-frentes-2026-10-29.md): Codex gameplay/estados Quincy; [AG A rig Quincy](prompt-antigravity-quincy-rig-2026-10-30.md); AG B Garden. Só organização documental, sem runtime/despacho automático. Storyboards e destruição C continuam propostas.

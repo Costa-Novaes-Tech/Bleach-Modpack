@@ -17,7 +17,7 @@ def main():
     args = parser.parse_args()
     args.output.mkdir(parents=True, exist_ok=True)
     metadata = [json.loads(line) for line in (args.source / "frames.jsonl").read_text().splitlines()]
-    for prefix in ["tank-", "flight-", "swift-"]:
+    for prefix in ["tank-", "flight-", "swift-", "gait-side-", "gait-front-", "gait-rear-"]:
         frames = [row for row in metadata if Path(row["file"]).name.startswith(prefix)]
         if not frames:
             continue

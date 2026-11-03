@@ -1,0 +1,20 @@
+{
+  "brute": {
+    "starts": [],
+    "intervalsTicks": [],
+    "successfulHits": 0
+  },
+  "swift": {
+    "starts": [],
+    "intervalsTicks": [],
+    "successfulHits": 0
+  },
+  "flying": {
+    "starts": [],
+    "intervalsTicks": [],
+    "successfulHits": 0,
+    "transitions": [],
+    "passes": 0,
+    "retreats": []
+  }
+}

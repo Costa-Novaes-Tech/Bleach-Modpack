@@ -462,6 +462,12 @@ domínio desenvolvido pela prática → Mastery
 
 **Referência local consultada:** [Sistema de Habilidades herdado do Dragon Mine Z](../arquitetura/05-sistema-habilidades.md), seções “Skills vs Techniques”, “Fluxo de funcionamento” e “Ciclo de vida”; [Sistema de Evolução](../arquitetura/04-sistema-evolucao.md), “Requisitos de transição” e “Unlock de longo prazo”. A documentação da engenharia reversa do original descreve TP comprando skills/form-skills e Mastery como registro separado. É referência histórica local (original 2.1.3), não verificação da versão mais recente do Dragon Mine Z. Não importar números, Mastery passiva/AFK, recompensas que maximizam domínio ou regras de Dragon Ball apenas por usar o mesmo princípio de compra.
 
+## 11.3. M11-01A — Comércio material separado da progressão — 23/10/2026
+
+**DECIDIDO. Resposta:** “Comércio material; SP para progressão (recomendado)”. [M11/8.1](11-itens-e-economia.md#81-m11-01a--comércio-material-sp-para-progressão--decidido) coordena a regra: comida, materiais e reposições negociados no comércio comum usam itens/moeda material, sem gastar SP. Atributos, skills e transformações continuam no circuito de SP; Mastery pela prática e Energia/Stamina no uso, conforme REV-SP-02/M06/M07. Comprar ou receber equipamento não entrega a skill, e a compra da skill não fornece automaticamente seu instrumento.
+
+Moeda/preço, primeira obtenção, estoques, transferência/conversão e reposição concreta continuam nas fichas; não inferir entrega gratuita ou equivalência de SP com dinheiro. Retorno dirigido M05/M11 tem escolhas gerais de alimentação/fome e recursos ao renascer decididas em 17.1–17.3; fichas de taxas/quantidades e integração continuam antes de especificar consumíveis como executáveis.
+
 ---
 
 # 12. Crescimento por prática
@@ -643,6 +649,39 @@ derrota/morte normal de gameplay
 ```
 
 Morrer normalmente não altera raça, origem ou natureza espiritual narrativa do personagem.
+
+---
+
+## 17.1. Retorno M05/M11 — efeito da comida comum — 23/10/2026
+
+**M11-02A DECIDIDO**, em [M11/12.5](11-itens-e-economia.md#125-m11-02a--decidido--alimentação-comum-e-recursos). Resposta: “Comida comum sem recarga de recursos (recomendado)”. Alimento comum compatível repõe alimentação/saciedade, sem recarga direta de Vida/Stamina/Energia ao consumir nem aceleração direta de Energia fora de combate; a recuperação normal elegível continua nos ritmos próprios. Alternativa de acelerar Energia por comida comum não adotada. Isso não implementa a integração ou escolhe taxas.
+
+**M11-02B DECIDIDO**, em [M11/12.6](11-itens-e-economia.md#126-m11-02b--decidido--alimentação-dos-corpos-humanos-jogáveis). Resposta: “Preservar alimentação e fome nos corpos humanos (recomendado)”. Quincy e Fullbringer em corpo humano material mantêm alimentação/barra de fome vanilla, separadas de Stamina/Energia e com recuperação de Vida conforme M05. Sem dieta comum a todos os corpos por associação.
+
+**M11-02C DECIDIDO COM AJUSTE**, em [M11/12.7](11-itens-e-economia.md#127-m11-02c--decidido-com-ajuste--alimentação-shinigami-em-corpo-espiritual): Shinigami em corpo espiritual também aceitam comida vanilla para nutrir a barra existente. Alimentos específicos podem nutrir e ter funções adicionais conforme a obra e sua ficha; não ganham todos o mesmo efeito. Resposta literal no M11/histórico. Mantém 02A e recuperação de M05.
+
+**M11-02D DECIDIDO**, em [M11/12.8](11-itens-e-economia.md#128-m11-02d--decidido--nutrição-ambiental-hollow). Resposta em 23/10/2026: “Nutrição ambiental em Hueco Mundo (recomendado)”. Hollow comum inicial nutrido pelo ambiente de Hueco Mundo enquanto simulado; sem necessidade de comida recorrente ali, cura direta, reposição de Stamina/Energia ou avanço evolutivo. ITEM-S10 sustenta o caso geral; o recorte no estágio inicial é adaptação aprovada.
+
+**M11-02E DECIDIDO**, em [M11/12.9](11-itens-e-economia.md#129-m11-02e--decidido--alimentação-hollowarrancar-e-função-nutricional-da-devoração). Resposta em 23/10/2026: “Comida comum + devoração nutritiva (recomendado)”. Os perfis restantes Hollow/Arrancar usam a barra de fome existente e comida vanilla; devoração evolutiva já elegível também repõe saciedade. Sem nova lista de presas, cura/refill de recursos ou regressão racial. Não concede evolução Arrancar nem estende o sustento ambiental além de 02D.
+
+02A define o efeito comum; 02B–E cobrem os perfis jogáveis humanos indicados, Shinigami e Hollow/Arrancar. M11-03A/B decidiram em 28/10/2026 a condição nutricional da recuperação e as consequências gerais da fome, em 17.2. Limiares e taxas/quantidades permanecem por fechar; recursos ao renascer foram decididos depois em 04A/17.3. Outros corpos futuros precisam de cobertura explícita. M05 coordena essas regras; M11 os consumíveis/fontes. Técnicas de cura, comidas especiais, maçãs douradas e poções não recebem proibição de efeitos por associação. Não mudar gamerules globais, custos ou taxas nesta tarefa documental.
+
+## 17.2. Retorno M05/M11 — recuperação e fome — DECIDIDO — 28/10/2026
+
+**Propostas de 23/10/2026, aprovadas em 28/10/2026.** Respostas literais: 1. “Sim”; 2. “Concordo com a recomendação”. [Perguntas apresentadas e aplicação](historico/2026-10-28-decisoes-m11-03ab-recuperacao-e-inanicao.md). As alternativas abaixo são históricas, não perguntas pendentes.
+
+| Decisão | Regra aprovada | Alternativa não adotada |
+|---|---|---|
+| [M11-03A](11-itens-e-economia.md#1210-m11-03a--decidido--nutrição-e-recuperação-natural) | Recuperação natural lenta de Vida exige nutrição suficiente e mantém as restrições de combate; Stamina/Energia continuam com seus critérios, sem bloqueio só por fome | Recuperação natural de Vida sem condição nutricional |
+| [M11-03B](11-itens-e-economia.md#1211-m11-03b--decidido--consequências-da-fome-no-survival) | Fome baixa impede corrida comum; barra vazia causa inanição conforme dificuldade, podendo matar no Difícil; não bloqueia toda ação por si | Mesmo bloqueio de corrida, sem dano de inanição |
+
+Sustento de 02D conta como nutrição no perfil aprovado, sem cura direta; devoração de 02E preserva elegibilidade. Comida comum não cria cura rápida adicional. Caminhada, ataques, Dodge e técnicas de mobilidade conservam seus requisitos/fases/recursos; fome não retira estágios nem reduz automaticamente atributos. Taxas, limiares, tratamento por dificuldade e integração Java 1.20.1/gamerules continuam por ficha antes da implementação. Perigo de fome sem agressor não é Combat State por si, conforme M06a; perigo em curso ainda pode impedir uma operação. Creative/Spectator não herdam obrigação alimentar. Nenhuma alteração de runtime ou cenário de jogo executado nesta aprovação documental.
+
+## 17.3. Retorno M05/M11 — recursos ao renascer — DECIDIDO — 28/10/2026
+
+[M11-04A](11-itens-e-economia.md#1212-m11-04a--decidido--recursos-ao-renascer-após-morte-comum) aprovado em 28/10/2026. Resposta literal: “Vida, Stamina, Energia e fome cheias (recomendado)”. Vida/Stamina/Energia retornam cheias nos limites válidos do corpo-base permanente e a barra de fome retorna cheia no renascimento após morte comum. Saciedade oculta inicial ainda precisa de ficha; não implica saturação máxima. Alternativa não adotada: Vida/fome cheias, Stamina/Energia parciais e recuperação normal. [Pergunta e aprovação](historico/2026-10-28-proposta-m11-04a-recursos-ao-renascer.md).
+
+M10 preserva local/corpo, M07 encerra manifestações temporárias e conserva consequências especiais; M06/M06a mantêm os tempos legítimos. A decisão não concede recuperação de poder suspenso, reparo de Bankai, itens/XP, imunidade ou uma vida em Hardcore. Login, viagem, sono e correção de posição não recebem esse abastecimento. Saciedade inicial e integração executável precisam de ficha; nenhuma alteração de recursos ou testes realizada.
 
 ---
 
