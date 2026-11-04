@@ -15,8 +15,8 @@ public final class RyujinBankaiTimeline {
     // Keep the persisted client preference compatible; both paths now use the same short score.
     public static final int COMPACT_DURATION = DURATION;
     public static final int AUTHORED_END = 140;
-    private static final double[] REAL_BEATS={0,40,90,140,160,210,240};
-    private static final double[] STORY_BEATS={0,12,30,52,60,112,140};
+    private static final double[] REAL_BEATS={0,40,70,84,112,116,142,160,210,240};
+    private static final double[] STORY_BEATS={0,12,20,24,30,32,52,60,112,140};
 
     /** Real scene ticks -> authored beats. Linear intervals preserve continuous motion;
      * the individual pose/camera curves apply their own easing. Never used for gameplay. */
@@ -35,8 +35,10 @@ public final class RyujinBankaiTimeline {
         return duration;
     }
     public static final int CUE_BANKAI = 12;
+    public static final int FLAME_BURST = 20;
+    public static final int SUN_FULL = 30;
     public static final int CUE_NAME = 60;
-    public static final int ABSORPTION_START = 30;
+    public static final int ABSORPTION_START = 32;
     public static final int ABSORPTION_END = 52;
     public static final int RETURN_START = 112;
 
@@ -48,8 +50,8 @@ public final class RyujinBankaiTimeline {
 
     public enum Phase {
         GROWTH(0),
-        SUSTAINED_SUN(12),
-        ABSORPTION(30),
+        SUSTAINED_SUN(SUN_FULL),
+        ABSORPTION(ABSORPTION_START),
         CARBONIZATION_HOLD(52),
         NAME_PRONUNCIATION(60),
         RETURN(RETURN_START);
@@ -88,13 +90,15 @@ public final class RyujinBankaiTimeline {
     /** Scenic sun scale radius: ~9 blocks maximum (18 blocks diameter). */
     public static double sunRadius(double ticks) {
         double age = clamp(ticks);
-        if (age < 12) {
-            return 1.5 + 7.5 * progress(age, 0, 12);
-        } else if (age < 30) {
+        if (age < FLAME_BURST) {
+            return 0;
+        } else if (age < SUN_FULL) {
+            return 9.0 * progress(age, FLAME_BURST, SUN_FULL);
+        } else if (age < ABSORPTION_START) {
             double pulse = Math.sin(age * 0.4) * 0.15;
             return 9.0 + pulse;
         } else if (age < 52) {
-            double p = progress(age, 30, 52);
+            double p = progress(age, ABSORPTION_START, ABSORPTION_END);
             return 9.0 * (1.0 - p);
         }
         return 0.0;
@@ -103,8 +107,8 @@ public final class RyujinBankaiTimeline {
     /** 0.0 to 1.0 intensity of flame absorption into the sword blade. */
     public static double absorption(double ticks) {
         double age = clamp(ticks);
-        if (age < 30 || age > 52) return 0.0;
-        return progress(age, 30, 48) * (1.0 - progress(age, 50, 52));
+        if (age < ABSORPTION_START || age > ABSORPTION_END) return 0.0;
+        return progress(age, ABSORPTION_START, 48) * (1.0 - progress(age, 50, ABSORPTION_END));
     }
 
     /** 0.0 to 1.0 carbonization level of the katana blade. */

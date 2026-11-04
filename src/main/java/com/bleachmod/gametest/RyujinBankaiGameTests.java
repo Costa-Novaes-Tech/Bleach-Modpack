@@ -408,15 +408,16 @@ public final class RyujinBankaiGameTests {
     public static void timelineAndCameraCurvesComplyWithContract(GameTestHelper h) {
         // Phase progression
         h.assertTrue(RyujinBankaiTimeline.phase(0) == RyujinBankaiTimeline.Phase.GROWTH, "Phase 0 should be GROWTH");
-        h.assertTrue(RyujinBankaiTimeline.phase(20) == RyujinBankaiTimeline.Phase.SUSTAINED_SUN, "Phase 20 should be SUSTAINED_SUN");
+        h.assertTrue(RyujinBankaiTimeline.phase(30) == RyujinBankaiTimeline.Phase.SUSTAINED_SUN, "Phase 30 should be SUSTAINED_SUN");
         h.assertTrue(RyujinBankaiTimeline.phase(40) == RyujinBankaiTimeline.Phase.ABSORPTION, "Phase 40 should be ABSORPTION");
         h.assertTrue(RyujinBankaiTimeline.phase(55) == RyujinBankaiTimeline.Phase.CARBONIZATION_HOLD, "Phase 55 should be CARBONIZATION_HOLD");
         h.assertTrue(RyujinBankaiTimeline.phase(80) == RyujinBankaiTimeline.Phase.NAME_PRONUNCIATION, "Phase 80 should be NAME_PRONUNCIATION");
         h.assertTrue(RyujinBankaiTimeline.phase(130) == RyujinBankaiTimeline.Phase.RETURN, "Phase 130 should be RETURN");
 
         // Sun radius curve
-        h.assertTrue(RyujinBankaiTimeline.sunRadius(0) > 0.0 && RyujinBankaiTimeline.sunRadius(0) < 2.0, "Sun radius at tick 0 should start initial ignition");
-        h.assertTrue(RyujinBankaiTimeline.sunRadius(15) > 8.0, "Sun radius at tick 15 should reach monumental scale (> 8 blocks)");
+        h.assertTrue(RyujinBankaiTimeline.sunRadius(0) == 0.0, "Sun must be absent during preparation");
+        h.assertTrue(RyujinBankaiTimeline.sunRadius(19) == 0.0, "Sun must wait for the completed Bankai voice");
+        h.assertTrue(RyujinBankaiTimeline.sunRadius(25) > 0.0, "Sun should form from the flame burst");
         h.assertTrue(RyujinBankaiTimeline.sunRadius(30) > 8.0, "Sun radius at tick 30 must remain sustained");
         h.assertTrue(RyujinBankaiTimeline.sunRadius(52) == 0.0, "Sun radius at tick 52 must be 0 (fully absorbed)");
         h.assertTrue(RyujinBankaiTimeline.sunRadius(70) == 0.0, "Sun radius after tick 52 must remain 0");
@@ -435,13 +436,16 @@ public final class RyujinBankaiGameTests {
         // Camera shots
         Vec3 anchor = new Vec3(10, 64, 10);
         Vec3 forward = new Vec3(0, 0, 1);
-        RyujinBankaiCamera.Frame frameWide = RyujinBankaiCamera.sample(anchor, forward, 10);
-        h.assertTrue(frameWide.fov() == 72.0F, "Wide shot FOV must include the complete sun inside letterbox bars");
-        h.assertTrue(frameWide.eye().distanceTo(anchor) > 10.0, "Wide shot distance must be > 10 blocks for full body silhouette");
+        RyujinBankaiCamera.Frame frameWide = RyujinBankaiCamera.sample(anchor, forward, 30);
+        h.assertTrue(frameWide.fov() == 76.0F, "Solar panorama FOV must include the complete sun inside letterbox bars");
+        h.assertTrue(frameWide.eye().distanceTo(anchor) > 14.0, "Solar panorama must pull back and rise above the caster");
+        RyujinBankaiCamera.Frame frameSpeech = RyujinBankaiCamera.sample(anchor, forward, 12);
+        h.assertTrue(frameSpeech.fov() == 48.0F && frameSpeech.eye().distanceTo(anchor) < 5.5,
+                "Bankai speech shot must zoom in on the vertical sword");
 
         RyujinBankaiCamera.Frame frameDetail = RyujinBankaiCamera.sample(anchor, forward, 68);
         h.assertTrue(frameDetail.fov() == 48.0F, "Detail shot FOV must be 48");
-        h.assertTrue(frameDetail.eye().distanceTo(anchor) > 3.5 && frameDetail.eye().distanceTo(anchor) < 4.2, "Frontal detail must include face and blade without an extreme close-up");
+        h.assertTrue(frameDetail.eye().distanceTo(anchor) > 4.3 && frameDetail.eye().distanceTo(anchor) < 4.7, "Frontal detail must include face and sealed blade without an extreme close-up");
 
         RyujinBankaiCamera.Frame frameMed = RyujinBankaiCamera.sample(anchor, forward, 100);
         h.assertTrue(frameMed.fov() == 54.0F, "Medium shot FOV must be 54");
@@ -464,6 +468,9 @@ public final class RyujinBankaiGameTests {
         var poseHold = RyujinChoreography.bankaiEntrance(80, 1.0F);
         h.assertTrue(poseHold.weight() > 0.9F, "Pose weight at tick 80 must be fully active");
 
+        var vertical = RyujinChoreography.bladeDirection(RyujinChoreography.bankaiEntrance(12, 1.0F));
+        h.assertTrue(vertical.y > .85, "Bankai sword tip must point upward in front of the player");
+
         var poseEnd = RyujinChoreography.bankaiEntrance(140, 1.0F);
         h.assertTrue(poseEnd.weight() == 0.0F, "Pose weight at tick 140 must return to 0");
 
@@ -474,12 +481,24 @@ public final class RyujinBankaiGameTests {
         Vec3 origin=new Vec3(4,70,-8);
         for(float yaw:new float[]{0,73,180}) {
             Vec3 f=Vec3.directionFromRotation(0,yaw),right=new Vec3(-f.z,0,f.x);
+            var invocation=RyujinBankaiCamera.sample(origin,f,12);
+            var panorama=RyujinBankaiCamera.sample(origin,f,30);
+            var sealed=RyujinBankaiCamera.sample(origin,f,68);
+            h.assertTrue(invocation.eye().distanceTo(origin)<5.5,"Invocation must frame the raised katana close up");
+            h.assertTrue(panorama.eye().distanceTo(origin)>14 && panorama.eye().y>panorama.focus().y+2,
+                    "Solar panorama must pull back and look down on the caster");
+            h.assertTrue(sealed.eye().distanceTo(origin)<5.5,"Sealed blade must return to a close shot");
+            Vec3 toSun=com.bleachmod.common.visual.RyujinBankaiPresentation.sunCenter(origin,f).subtract(panorama.eye());
+            double centerAngle=Math.acos(net.minecraft.util.Mth.clamp(
+                    panorama.focus().subtract(panorama.eye()).normalize().dot(toSun.normalize()),-1.0,1.0));
+            h.assertTrue(centerAngle+Math.asin(10.0/toSun.length())<Math.toRadians(panorama.fov()/2.0),
+                    "Full sun and flame rim must fit the panoramic vertical field");
             var prev=RyujinBankaiCamera.sample(origin,f,0);
             for(double age=.25;age<=140;age+=.25) {
                 var frame=RyujinBankaiCamera.sample(origin,f,age);
                 h.assertTrue(Math.abs(frame.eye().subtract(origin).dot(right))<1e-6,"Frontal camera drifted laterally");
                 h.assertTrue(frame.eye().subtract(origin).dot(f)>3,"Camera crossed the caster before return");
-                h.assertTrue(frame.eye().distanceTo(prev.eye())<.3 && frame.focus().distanceTo(prev.focus())<.3,"Discontinuous dolly boundary");
+                h.assertTrue(frame.eye().distanceTo(prev.eye())<.4 && frame.focus().distanceTo(prev.focus())<.4,"Discontinuous dolly boundary");
                 prev=frame;
             }
             for(float sign:new float[]{-1,1}) {

@@ -45,29 +45,18 @@ public final class RyujinSunVisual {
         Vec3 side = new Vec3(forward.z, 0, -forward.x);
         Vec3 center = RyujinBankaiPresentation.sunCenter(anchor, forward);
         double radius = RyujinBankaiTimeline.sunRadius(age);
-        double absorption = RyujinBankaiTimeline.absorption(age);
+        double absorption = blade == null ? 0 : RyujinBankaiTimeline.absorption(age);
 
         var flames = new ArrayList<Flame>(MAX_FIRE_CARDS);
 
-        // 1. Scenic Sun Disk & Corona (behind the player)
+        // The GeckoLib model supplies the sun disk and corona; sprites add moving fire only.
         if (radius > 0.08) {
-            // Golden-angle distribution with depth
-            for (int i = 0; i < 112; i++) {
-                double a = i * 2.3999632297;
-                double r = Math.sqrt((i + 0.5) / 112.0) * radius * 0.88;
-                double drift = Math.sin(age * 0.19 + i * 1.7) * radius * 0.025;
-                Vec3 at = center.add(side.scale(Math.cos(a) * r + drift))
-                        .add(0, Math.sin(a) * r * 0.85 + Math.sin(age * 0.23 + i) * radius * 0.035, 0)
-                        .add(forward.scale((hash(i) - 0.5) * radius * 0.65));
-                flames.add(new Flame(at, radius * (0.22 + hash(i + 3) * 0.10), radius * (0.34 + hash(i + 9) * 0.14), 225, i % 2 == 0));
-            }
-            // Rising tongues around the corona
-            for (int i = 0; i < 20; i++) {
-                double a = i * Math.PI * 2 / 20;
+            for (int i = 0; i < 36; i++) {
+                double a = i * Math.PI * 2 / 36;
                 double r = radius * (0.82 + 0.06 * Math.sin(age * 0.21 + i));
                 Vec3 at = center.add(side.scale(Math.cos(a) * r)).add(0, Math.sin(a) * r * 0.85, 0)
                         .add(forward.scale(Math.sin(i * 1.9) * radius * 0.18));
-                flames.add(new Flame(at, radius * 0.20, radius * (0.38 + 0.12 * hash(i)), 205, i % 2 == 0));
+                flames.add(new Flame(at, radius * 0.13, radius * (0.26 + 0.10 * hash(i)), 205, i % 2 == 0));
             }
         }
 
@@ -75,11 +64,45 @@ public final class RyujinSunVisual {
         // Active from beat 0 to 52 (0s to 7s), fully extinguishes on absorption finish
         double baseIntensity = 0.0;
         if (age < 12) {
-            baseIntensity = RyujinBankaiTimeline.progress(age, 0, 12);
+            baseIntensity = .12 * RyujinBankaiTimeline.progress(age, 0, 12);
+        } else if (age < 20) {
+            baseIntensity = .38;
         } else if (age < 30) {
             baseIntensity = 1.0 + Math.sin(age * 0.35) * 0.06;
         } else if (age < 52) {
-            baseIntensity = 1.0 - RyujinBankaiTimeline.progress(age, 30, 52);
+            baseIntensity = 1.0 - RyujinBankaiTimeline.progress(age, 32, 52);
+        }
+
+        double voiceField = RyujinBankaiTimeline.progress(age, 11.5, 12.2)
+                * (1 - RyujinBankaiTimeline.progress(age, 19, 23));
+        if (voiceField > .01) {
+            for (int i = 0; i < 48; i++) {
+                double x = (hash(i * 5 + 1) * 2 - 1) * 5.2;
+                double y = .25 + hash(i * 7 + 4) * 3.7 +
+                        RyujinBankaiTimeline.progress(age, 12, 20) * 2.2;
+                Vec3 at = anchor.subtract(forward.scale(3.0 + hash(i + 8) * 3.0))
+                        .add(side.scale(x)).add(0, y, 0);
+                flames.add(new Flame(at, (0.55 + hash(i + 3) * 0.6) * voiceField,
+                        (1.1 + hash(i + 11) * 1.6) * voiceField,
+                        (int)(170 * voiceField), i % 2 == 0));
+            }
+        }
+
+        // First fire mass rises behind the actor before it curls into the modeled sun.
+        double blast = RyujinBankaiTimeline.progress(age, 20, 23)
+                * (1 - RyujinBankaiTimeline.progress(age, 26, 31));
+        if (blast > .02) {
+            for (int i = 0; i < 84; i++) {
+                double a = (i + .5) / 84.0;
+                double x = (a * 2 - 1) * 7.5;
+                double rise = RyujinBankaiTimeline.progress(age, 20, 26);
+                double y = .6 + hash(i * 5) * 4.0 + rise * (3.0 + hash(i + 33) * 7.0);
+                Vec3 at = anchor.subtract(forward.scale(4.5 + hash(i + 13) * 3.0))
+                        .add(side.scale(x)).add(0, y, 0);
+                double width = (1.1 + hash(i + 4) * 1.4) * blast;
+                double height = (2.0 + hash(i + 7) * 4.0) * blast;
+                flames.add(new Flame(at, width, height, (int)(215 * blast), i % 2 == 0));
+            }
         }
 
         if (baseIntensity > 0.02) {
@@ -91,13 +114,13 @@ public final class RyujinSunVisual {
                 double r = baseRadius * (0.45 + 0.55 * hash(i * 3 + 1));
                 // Maintain foot support legibility: lower flame height in front, higher on sides and rear
                 boolean isFront = cos > 0.15;
-                double flameH = baseIntensity * (isFront ? 0.38 : 0.82) * (0.8 + 0.4 * hash(i + 5));
-                double flameW = baseIntensity * 0.42 * (0.75 + 0.35 * hash(i + 2));
+                double flameH = baseIntensity * (isFront ? 0.20 : 0.82) * (0.8 + 0.4 * hash(i + 5));
+                double flameW = baseIntensity * (isFront ? 0.24 : 0.42) * (0.75 + 0.35 * hash(i + 2));
                 double yDrift = 0.05 + Math.sin(age * 0.25 + i * 1.3) * 0.03;
                 Vec3 at = anchor.add(side.scale(sin * r))
                         .add(forward.scale(cos * r))
                         .add(0, yDrift, 0);
-                int alpha = (int) (215 * Math.min(1.0, baseIntensity) * (isFront ? 0.72 : 1.0));
+                int alpha = (int) (215 * Math.min(1.0, baseIntensity) * (isFront ? 0.42 : 1.0));
                 flames.add(new Flame(at, flameW, flameH, alpha, i % 2 == 0));
             }
         }
@@ -105,17 +128,17 @@ public final class RyujinSunVisual {
         // 3. Helical Heat Vortex (Turbilhão de calor em faixas helicoidais largas ao redor do corpo)
         // Begins during ignition, reaches full swirl in sustained sun, contracts into blade during sealing
         double vortexIntensity = 0.0;
-        if (age < 12) {
-            vortexIntensity = RyujinBankaiTimeline.progress(age, 2, 12);
+        if (age < 20) {
+            vortexIntensity = 0;
         } else if (age < 30) {
-            vortexIntensity = 1.0;
+            vortexIntensity = RyujinBankaiTimeline.progress(age, 23, 30);
         } else if (age < 52) {
-            vortexIntensity = 1.0 - RyujinBankaiTimeline.progress(age, 30, 52);
+            vortexIntensity = 1.0 - RyujinBankaiTimeline.progress(age, 32, 52);
         }
 
         if (vortexIntensity > 0.02) {
-            double absorbP = (age >= 30 && age <= 52) ? RyujinBankaiTimeline.progress(age, 30, 52) : 0.0;
-            Vec3 bladeTarget = blade.hand().lerp(blade.tip(), 0.5);
+            double absorbP = (age >= 32 && age <= 52) ? RyujinBankaiTimeline.progress(age, 32, 52) : 0.0;
+            Vec3 bladeTarget = blade == null ? anchor.add(0, 1.5, 0) : blade.hand().lerp(blade.tip(), 0.5);
 
             for (int strand = 0; strand < 2; strand++) {
                 double strandOffset = strand * Math.PI;
@@ -201,6 +224,8 @@ public final class RyujinSunVisual {
         if (mc.level == null || mc.isPaused() || mc.player == null || mc.player.distanceToSqr(anchor) > 96 * 96) return 0;
 
         int limit = Math.min(MAX_PARTICLES_PER_SCENE_TICK, allowance);
+        if (age < 12) limit = Math.min(3, limit);
+        else if (age < 20) limit = Math.min(7, limit);
         if (mc.options.particles().get() == net.minecraft.client.ParticleStatus.MINIMAL) limit = Math.min(3, limit);
         else if (mc.options.particles().get() == net.minecraft.client.ParticleStatus.DECREASED) limit = Math.min(6, limit);
         if (limit <= 0) return 0;
@@ -218,12 +243,12 @@ public final class RyujinSunVisual {
             Vec3 p, velocity;
             net.minecraft.core.particles.SimpleParticleType particle;
 
-            if (age < 12) {
-                // 0-2s (Ignição): Chamas e brasas ao redor dos pés, apoio visível, sem parede diante do rosto
+            if (age < 20) {
+                // Sparse preheat; the sun and large fire burst must wait until after Bankai.
                 if (i % 2 == 0) {
                     double a = rng.nextDouble() * Math.PI * 2;
                     double cos = Math.cos(a);
-                    double r = 0.8 + rng.nextDouble() * 1.8 * (age / 12.0);
+                    double r = 0.8 + rng.nextDouble() * 0.5;
                     // Avoid spawning right in front of player's face
                     boolean isFront = cos > 0.3;
                     p = anchor.add(side.scale(Math.sin(a) * r))
@@ -232,20 +257,20 @@ public final class RyujinSunVisual {
                     particle = (i % 4 == 0) ? ParticleTypes.LAVA : ParticleTypes.FLAME;
                     velocity = new Vec3(0, 0.04 + rng.nextDouble() * 0.05, 0);
                 } else {
-                    // Scenic sun igniting behind
-                    p = center.add(side.scale((rng.nextDouble() - 0.5) * radius * 0.8))
-                            .add(0, (rng.nextDouble() - 0.5) * radius * 0.8, 0);
-                    particle = (i % 3 == 0) ? ParticleTypes.LARGE_SMOKE : ParticleTypes.FLAME;
+                    p = anchor.subtract(forward.scale(2.5 + rng.nextDouble()))
+                            .add(side.scale((rng.nextDouble() - 0.5) * 2))
+                            .add(0, rng.nextDouble() * 1.5, 0);
+                    particle = (i % 3 == 0) ? ParticleTypes.SMOKE : ParticleTypes.FLAME;
                     velocity = new Vec3(0, 0.06 + rng.nextDouble() * 0.04, 0);
                 }
-            } else if (age < 30) {
-                // 2-4.5s (Sol pleno): Turbilhão helicoidal largo de calor e fumaça ao redor do corpo
-                if (i < limit * 2 / 3) {
+            } else if (age < 32) {
+                // The blast climbs behind the body, then curls into the sun.
+                if (i < limit / 2) {
                     double a = rng.nextDouble() * Math.PI * 2;
-                    double h = 0.3 + rng.nextDouble() * 3.4;
-                    double r = 2.1 + rng.nextDouble() * 0.7; // Wide swirl with space around actor
+                    double h = 0.3 + rng.nextDouble() * (age < 24 ? 8.0 : 3.4);
+                    double r = 2.1 + rng.nextDouble() * (age < 24 ? 4.0 : 0.7);
                     p = anchor.add(side.scale(Math.cos(a) * r))
-                            .add(forward.scale(Math.sin(a) * r))
+                            .add(forward.scale(age < 24 ? -4.5 : Math.sin(a) * r))
                             .add(0, h, 0);
                     // Tangential swirl + upward heat velocity
                     velocity = side.scale(-Math.sin(a) * 0.06)
@@ -253,16 +278,19 @@ public final class RyujinSunVisual {
                             .add(0, 0.065 + rng.nextDouble() * 0.035, 0);
                     particle = (i % 3 == 0) ? ParticleTypes.SMOKE : (i % 3 == 1 ? ParticleTypes.ASH : ParticleTypes.FLAME);
                 } else {
-                    // Monumental sun behind
-                    p = center.add(side.scale((rng.nextDouble() - 0.5) * radius * 0.9))
-                            .add(0, (rng.nextDouble() - 0.5) * radius * 0.9, 0);
+                    // Fire tongues trace the rim of the forming modeled sun.
+                    double theta = rng.nextDouble() * Math.PI * 2;
+                    double r = radius * (.7 + rng.nextDouble() * .3);
+                    p = center.add(side.scale(Math.cos(theta) * r))
+                            .add(0, Math.sin(theta) * r, 0);
                     particle = ParticleTypes.FLAME;
                     velocity = new Vec3(0, 0.07 + rng.nextDouble() * 0.05, 0);
                 }
             } else if (age < 52) {
+                if (blade == null) break;
                 // 4.5-7s (Selamento): O turbilhão e brasas se contraem e convergem para a espada
                 Vec3 target = blade.hand().lerp(blade.tip(), 0.2 + rng.nextDouble() * 0.7);
-                double contract = 1.0 - RyujinBankaiTimeline.progress(age, 30, 52);
+                double contract = 1.0 - RyujinBankaiTimeline.progress(age, 32, 52);
                 double a = rng.nextDouble() * Math.PI * 2;
                 double r = (1.6 + rng.nextDouble() * 1.0) * contract;
                 double h = 0.2 + rng.nextDouble() * 2.2;

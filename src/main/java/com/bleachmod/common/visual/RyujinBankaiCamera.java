@@ -21,13 +21,20 @@ public final class RyujinBankaiCamera {
     }
     public static Frame sample(Vec3 anchor, Vec3 forward, double age, float sign) {
         age=RyujinBankaiTimeline.clamp(age);
-        Frame wide=frame(anchor,forward,12.5,4.2,5.6,-2.2,72);
-        Frame seal=frame(anchor,forward,7.2,2.5,1.8,0,60);
-        // Includes the face, wrist and entire outward blade, in either hand.
-        Frame detail=frame(anchor,forward,3.6,1.35,1.02,0,48);
+        // All shots stay on the caster's front axis. The high wide eye sees over the
+        // shoulders while leaving the full rear sun and flame corona in frame.
+        Frame opening=frame(anchor,forward,7.8,2.5,1.45,0,58);
+        Frame speech=frame(anchor,forward,4.3,2.65,1.65,0,48);
+        Frame wide=frame(anchor,forward,12.5,8.2,5.0,-2.2,76);
+        Frame seal=frame(anchor,forward,7.2,3.4,2.2,0,60);
+        // Close again only as the sun finishes sealing into the outward blade.
+        Frame detail=frame(anchor,forward,3.8,2.35,1.25,0,48);
         Frame name=frame(anchor,forward,5.2,1.5,1.15,0,54);
-        if(age<=30)return wide;
-        if(age<52)return blend(wide,seal,age,30,52);
+        if(age<10)return blend(opening,speech,age,0,10);
+        if(age<16)return speech;
+        if(age<26)return blend(speech,wide,age,16,26);
+        if(age<=34)return wide;
+        if(age<52)return blend(wide,seal,age,34,52);
         if(age<64)return blend(seal,detail,age,52,64);
         if(age<=72)return detail;
         if(age<88)return blend(detail,name,age,72,88);

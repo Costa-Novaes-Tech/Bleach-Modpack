@@ -29,6 +29,7 @@ import java.util.*;
 @Mod.EventBusSubscriber(modid=Reference.MOD_ID,value=Dist.CLIENT)
 public final class RyujinBankaiQaSequence {
     private static final String[] CASES={"day_back","night_front","first_return","left_front","near_wall","move_after_commit","cancel_before_commit","cancel_after_commit","army_and_supreme","supreme_front","supreme_profile","supreme_left_profile"};
+    private static final Set<Integer> CUE_FRAMES=Set.of(40,67,70,84,112,116,130,142,160,205,210,240);
     private record Trial(UUID owner,long start,int index) { }
     private static volatile Trial trial;
     private static int stage,wait,lastFrame=-1;
@@ -135,7 +136,7 @@ public final class RyujinBankaiQaSequence {
         boolean ending=age>=duration-10 && age<=duration+2 && age%2==0;
         if(t.index>=8)mc.options.hideGui=age>=140 && age<=198;
         if(t.index>=8 && age>=140)mc.options.setCameraType(t.index==9?CameraType.THIRD_PERSON_FRONT:CameraType.THIRD_PERSON_BACK);
-        if(age<0 || age>endTick(t.index) || !(age%10==0 || detail || ending) || age==lastFrame || mc.screen!=null)return;lastFrame=age;
+        if(age<0 || age>endTick(t.index) || !(age%10==0 || CUE_FRAMES.contains(age) || detail || ending) || age==lastFrame || mc.screen!=null)return;lastFrame=age;
         String file=String.format(Locale.ROOT,"frame-t%03d.png",age);
         try {
             Files.createDirectories(folder);Screenshot.grab(folder.toFile(),file,mc.getMainRenderTarget(),message->{});

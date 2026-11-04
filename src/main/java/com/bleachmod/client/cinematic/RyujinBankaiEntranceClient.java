@@ -3,6 +3,7 @@ package com.bleachmod.client.cinematic;
 import com.bleachmod.Reference;
 import com.bleachmod.client.model.RyujinActionVisuals;
 import com.bleachmod.client.model.RyujinSunVisual;
+import com.bleachmod.client.model.RyujinBankaiSunModel;
 import com.bleachmod.common.visual.RyujinBankaiCamera;
 import com.bleachmod.common.visual.RyujinBankaiPresentation;
 import net.minecraft.client.renderer.LightTexture;
@@ -105,6 +106,7 @@ public final class RyujinBankaiEntranceClient {
 
     private static void finish(int id) {
         SCENES.remove(id);
+        RyujinBankaiSunModel.remove(id);
         RyujinBankaiAudio.stop(id);
         if (Minecraft.getInstance().player != null && Minecraft.getInstance().player.getId() == id) restore();
     }
@@ -147,6 +149,7 @@ public final class RyujinBankaiEntranceClient {
         restore();
         RyujinBankaiAudio.clear();
         SCENES.clear();
+        RyujinBankaiSunModel.clear();
         lastEmissionTick = Long.MIN_VALUE;
         hidePlayerUntil = Long.MIN_VALUE;
         world = null;
@@ -183,7 +186,9 @@ public final class RyujinBankaiEntranceClient {
             int budget = 48;
             for (var entry : SCENES.entrySet()) {
                 var scene = entry.getValue();
-                budget -= RyujinSunVisual.emit(scene.anchor, scene.forward, age(scene, 0), blade(scene, entry.getKey(), 0), budget);
+                boolean posed = entry.getKey() != mc.player.getId() || cameraEnabled;
+                budget -= RyujinSunVisual.emit(scene.anchor, scene.forward, age(scene, 0),
+                        posed ? blade(scene, entry.getKey(), 0) : null, budget);
                 if (budget <= 0) break;
             }
         }
@@ -257,6 +262,10 @@ public final class RyujinBankaiEntranceClient {
         var hit = world.clip(new ClipContext(safeOrigin, eye, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, mc.player));
         if (hit.getType() != HitResult.Type.MISS) {
             eye = hit.getLocation().add(safeOrigin.subtract(eye).normalize().scale(0.25));
+            // A nearby wall shortens the dolly. Bring the gaze down to the caster
+            // so the player remains in frame instead of filling it with rear fire.
+            double close = Mth.clamp((10.0 - eye.distanceTo(s.anchor)) / 5.0, 0.0, 1.0);
+            focus = focus.lerp(s.anchor.add(0, 1.8, 0), close);
         }
 
         if (eye.distanceToSqr(focus) < 0.25) {
@@ -355,7 +364,8 @@ public final class RyujinBankaiEntranceClient {
         }
         if(s==null || reenteringPlayerRender)return;
         double weight=RyujinBankaiTimeline.progress(age,0,10)*(1-RyujinBankaiTimeline.progress(age,110,138));
-        int old=e.getPackedLight(),block=LightTexture.block(old),target=Math.max(block,(int)(11*weight));
+        int old=e.getPackedLight(),block=LightTexture.block(old);
+        int target=Math.max(block,(int)(15*RyujinBankaiPresentation.heat(age)*weight));
         if(target<=block || !(e.getEntity() instanceof AbstractClientPlayer actor))return;
         reenteringPlayerRender=true;
         try {
@@ -378,7 +388,11 @@ public final class RyujinBankaiEntranceClient {
             float sign = (entity instanceof AbstractClientPlayer p && p.getMainArm() == HumanoidArm.LEFT) ? -1.0F : 1.0F;
             double age = age(scene, e.getPartialTick());
             if (age >= 0 && age < RyujinBankaiTimeline.AUTHORED_END) {
-                RyujinSunVisual.render(e.getPoseStack(), cameraPos, scene.anchor, scene.forward, age, blade(scene,entry.getKey(),e.getPartialTick()));
+                boolean posed = entry.getKey() != mc.player.getId() || cameraEnabled;
+                RyujinBankaiSunModel.render(e.getPoseStack(), cameraPos, scene.anchor, scene.forward,
+                        entry.getKey(), rawAge(scene, e.getPartialTick()));
+                RyujinSunVisual.render(e.getPoseStack(), cameraPos, scene.anchor, scene.forward, age,
+                        posed ? blade(scene,entry.getKey(),e.getPartialTick()) : null);
             }
         }
     }

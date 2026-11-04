@@ -21,8 +21,21 @@ public final class MvpRegressionTest {
             eq(240,com.bleachmod.common.visual.RyujinBankaiTimeline.COMPACT_DURATION);
             eq(40D,com.bleachmod.common.visual.RyujinBankaiTimeline.realAge(12,240));
             eq(160D,com.bleachmod.common.visual.RyujinBankaiTimeline.realAge(60,240));
-            eq(90D,com.bleachmod.common.visual.RyujinBankaiTimeline.realAge(30,240));
-            eq(140D,com.bleachmod.common.visual.RyujinBankaiTimeline.realAge(52,240));
+            eq(70D,com.bleachmod.common.visual.RyujinBankaiTimeline.realAge(20,240));
+            eq(112D,com.bleachmod.common.visual.RyujinBankaiTimeline.realAge(30,240));
+            eq(116D,com.bleachmod.common.visual.RyujinBankaiTimeline.realAge(32,240));
+            eq(142D,com.bleachmod.common.visual.RyujinBankaiTimeline.realAge(52,240));
+            eq(0D,com.bleachmod.common.visual.RyujinBankaiTimeline.sunRadius(19));
+            for(int tick=0;tick<70;tick++)
+                eq(0D,com.bleachmod.common.visual.RyujinBankaiTimeline.sunRadius(
+                        com.bleachmod.common.visual.RyujinBankaiTimeline.storyAge(tick,240)));
+            double lastRadius=Double.POSITIVE_INFINITY;
+            for(int tick=116;tick<=142;tick++){
+                double radius=com.bleachmod.common.visual.RyujinBankaiTimeline.sunRadius(
+                        com.bleachmod.common.visual.RyujinBankaiTimeline.storyAge(tick,240));
+                yes(radius<=lastRadius+1e-9);
+                lastRadius=radius;
+            }
             double previous=-1;
             for(int t=0;t<=240;t++){
                 double beat=com.bleachmod.common.visual.RyujinBankaiTimeline.storyAge(t,240);
