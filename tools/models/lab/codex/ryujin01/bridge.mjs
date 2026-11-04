@@ -28,7 +28,12 @@ try {
   const results = [];
   for (let i = 0; i < requests.length; i++) {
     const request = requests[i];
-    const result = await client.callTool({ name: request.name, arguments: request.arguments ?? {} });
+    // Large GeckoLib geometry exports can exceed the SDK's 60 s default.
+    const result = await client.callTool(
+      { name: request.name, arguments: request.arguments ?? {} },
+      undefined,
+      { timeout: 180000 },
+    );
     const summary = { index: i, name: request.name, isError: Boolean(result.isError), text: [], images: [] };
     for (let j = 0; j < (result.content ?? []).length; j++) {
       const item = result.content[j];
@@ -37,6 +42,14 @@ try {
         const path = join(outputDir, `${String(i).padStart(2, '0')}-${request.name}-${j}.png`);
         await writeFile(path, Buffer.from(item.data, 'base64'));
         summary.images.push(path);
+      }
+    }
+    if (request.expect_project) {
+      const actual = JSON.parse(summary.text[0] || '{}').project;
+      const wanted = request.expect_project;
+      if (!actual || actual.name !== wanted.name || actual.cubes !== wanted.cubes
+          || actual.textures !== wanted.textures) {
+        throw new Error(`Active Blockbench project mismatch: expected ${JSON.stringify(wanted)}, got ${JSON.stringify(actual)}`);
       }
     }
     results.push(summary);

@@ -1,0 +1,11 @@
+[
+  {"name":"get_status","expect_project":{"name":"ryujin_bankai_activation_scene_v6_lab","cubes":220,"textures":1}},
+  {"name":"edit_element","arguments":{"element":"heat_chest","to":[3.7,22.8,-1.75]}},
+  {"name":"edit_element","arguments":{"element":"heat_face","to":[3.5,30.9,-3.34]}},
+  {"name":"edit_element","arguments":{"element":"heat_arm_right","to":[7.75,22.3,-1.47]}},
+  {"name":"edit_element","arguments":{"element":"heat_arm_left","to":[-4.25,22.3,-1.47]}},
+  {"name":"check_model"},
+  {"name":"preview_animation","arguments":{"animation":"animation.ryujin.bankai_activation_scene_lab","times":[3.55,5.8,6.6,7.2],"views":["front"],"width":900,"height":900}},
+  {"name":"save_project","arguments":{"path":"C:/Users/joaop/Downloads/Projeto_Programacao_BleachMod/Bleach-Modpack/tools/models/lab/codex/ryujin01/ryujin_bankai_activation_scene_v6_lab.bbmodel"}},
+  {"name":"export_model","arguments":{"codec":"bedrock","path":"C:/Users/joaop/Downloads/Projeto_Programacao_BleachMod/Bleach-Modpack/tools/models/lab/codex/ryujin01/ryujin_bankai_activation_scene_v6_lab.geo.json"}}
+]

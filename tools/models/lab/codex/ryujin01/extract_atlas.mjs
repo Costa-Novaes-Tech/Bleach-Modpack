@@ -6,6 +6,8 @@ const here = 'C:/Users/joaop/Downloads/Projeto_Programacao_BleachMod/Bleach-Modp
 for (const [name, texture] of [
   ['ryujin_sun_formation_lab', 'sun_core.png'],
   ['ryujin_bankai_pose_lab', 'pose_atlas.png'],
+  ['ryujin_sun_vortex_lab', 'ryujin_sun_vortex_lab.png'],
+  ['ryujin_sun_vortex_alpha_lab', 'ryujin_sun_vortex_lab.png'],
 ]) {
   const model = JSON.parse(await readFile(join(here, `${name}.bbmodel`), 'utf8'));
   const atlas = model.textures.find((entry) => entry.name === texture);

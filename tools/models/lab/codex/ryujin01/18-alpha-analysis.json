@@ -1,0 +1,1 @@
+[{"name":"get_status"},{"name":"analyze_animation","arguments":{"animation":"animation.ryujin.sun_vortex_formation_lab","expect":"formation","samples":24}},{"name":"audit_complexity","arguments":{"target":"prop","min_cubes":120}},{"name":"check_model"}]
