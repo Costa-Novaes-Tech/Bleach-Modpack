@@ -52,7 +52,8 @@ public final class SenbonzakuraHakuteikenQaSequence {
     private static final String[] PASS_NAMES = {
             "pass0-back",
             "pass1-side",
-            "pass2-front"
+            "pass2-front",
+            "pass3-top"
     };
 
     private record Trial(UUID owner, long start, int passIndex) {
@@ -70,6 +71,7 @@ public final class SenbonzakuraHakuteikenQaSequence {
     private static volatile boolean serverFlightGranted = false;
     private static volatile double serverReachLimit = 0.0;
     private static volatile float serverOffensiveBonus = 0.0F;
+    private static volatile boolean serverSlotExecuted = false;
     private static volatile boolean serverEvaluated = false;
     private static volatile int clientSyncWaitTicks = 0;
 
@@ -121,7 +123,7 @@ public final class SenbonzakuraHakuteikenQaSequence {
         }
 
         if (trial == null) {
-            if (++waitTicks < 25) {
+            if (++waitTicks < (pass == 0 ? 60 : 25)) {
                 return;
             }
             waitTicks = 0;
@@ -134,6 +136,7 @@ public final class SenbonzakuraHakuteikenQaSequence {
             serverFlightGranted = false;
             serverReachLimit = 0.0;
             serverOffensiveBonus = 0.0F;
+            serverSlotExecuted = false;
             serverEvaluated = false;
 
             int currentPass = pass;
@@ -155,7 +158,7 @@ public final class SenbonzakuraHakuteikenQaSequence {
         }
 
         long age = mc.level.getGameTime() - trial.start();
-        if (age >= 38 && serverEvaluated) {
+        if (age >= 52 && serverEvaluated) {
             int expectedBones = SenbonHakuteikenVisuals.EXPECTED_BONES.length;
             int bonesFound = SenbonHakuteikenVisuals.verifyBakedBones();
             boolean playerAnimLoaded = PlayerAnimationRegistry.getAnimation(SenbonHakuteikenVisuals.DASH_ANIM) != null;
@@ -166,7 +169,7 @@ public final class SenbonzakuraHakuteikenQaSequence {
                     && (bonesFound == expectedBones)
                     && playerAnimLoaded
                     && layerRegistered
-                    && (serverPeakLeapY >= 2.5)
+                    && (serverPeakLeapY >= 4.5)
                     && (serverDistMoved >= 14.0)
                     && (serverDamageDealt >= 19.0F)
                     && serverTransformActive
@@ -233,9 +236,10 @@ public final class SenbonzakuraHakuteikenQaSequence {
             p.serverLevel().setDayTime(6000);
             SenbonzakuraTechniqueService.cancel(p);
 
-            double baseX = passIndex * 32.0 + 0.5;
+            double baseX = (passIndex + 1) * 32.0 + 0.5;
             double baseY = -60.0;
             double baseZ = 0.5;
+            startOrigin = new Vec3(baseX, baseY, baseZ);
 
             p.teleportTo(p.serverLevel(), baseX, baseY, baseZ, 180.0F, 0.0F);
             p.setYRot(180.0F);
@@ -285,9 +289,57 @@ public final class SenbonzakuraHakuteikenQaSequence {
                 targetInitialHp = target.getHealth();
             }
 
+            var sLevel = p.serverLevel();
+            if (passIndex == 2) {
+                // Scenario: Enclosed Chamber with solid stone ceiling at Y+8 and side columns
+                // Verifies upward 5.0m leap and diagonal swoop dive operate with zero block collision jamming
+                net.minecraft.core.BlockPos bOrigin = net.minecraft.core.BlockPos.containing(baseX, baseY, baseZ);
+                for (int dx = -6; dx <= 6; dx++) {
+                    for (int dz = -18; dz <= 6; dz++) {
+                        sLevel.setBlockAndUpdate(bOrigin.offset(dx, 8, dz), net.minecraft.world.level.block.Blocks.STONE_BRICKS.defaultBlockState());
+                    }
+                }
+                for (int y = 0; y <= 7; y++) {
+                    for (int dz = -16; dz <= 4; dz += 4) {
+                        sLevel.setBlockAndUpdate(bOrigin.offset(-5, y, dz), net.minecraft.world.level.block.Blocks.STONE_BRICKS.defaultBlockState());
+                        sLevel.setBlockAndUpdate(bOrigin.offset(5, y, dz), net.minecraft.world.level.block.Blocks.STONE_BRICKS.defaultBlockState());
+                    }
+                }
+                var zombie = EntityType.ZOMBIE.create(sLevel);
+                if (zombie != null) {
+                    zombie.moveTo(baseX + 2.5, baseY, baseZ - 4.0, 0.0F, 0.0F);
+                    zombie.setNoAi(true);
+                    zombie.setNoGravity(true);
+                    zombie.setSilent(true);
+                    sLevel.addFreshEntity(zombie);
+                }
+                var skel = EntityType.SKELETON.create(sLevel);
+                if (skel != null) {
+                    skel.moveTo(baseX - 2.5, baseY, baseZ - 4.0, 0.0F, 0.0F);
+                    skel.setNoAi(true);
+                    skel.setNoGravity(true);
+                    skel.setSilent(true);
+                    sLevel.addFreshEntity(skel);
+                }
+            } else if (passIndex == 3) {
+                // Scenario: Multi-Entity Interference Arena
+                for (int i = 0; i < 3; i++) {
+                    var flanker = EntityType.HUSK.create(sLevel);
+                    if (flanker != null) {
+                        double fx = baseX + (i == 0 ? 2.8 : (i == 1 ? -2.8 : 0.0));
+                        double fz = baseZ - (i == 2 ? 12.0 : 6.0);
+                        flanker.moveTo(fx, baseY, fz, 0.0F, 0.0F);
+                        flanker.setNoAi(true);
+                        flanker.setNoGravity(true);
+                        flanker.setSilent(true);
+                        sLevel.addFreshEntity(flanker);
+                    }
+                }
+            }
+
             // Allow 15 server ticks for teleport confirmation to settle before casting Slot 4
             clientSyncWaitTicks = 2;
-            trial = new Trial(uuid, p.level().getGameTime() + 15, passIndex);
+            trial = new Trial(uuid, p.level().getGameTime() + 25, passIndex);
             LogUtils.getLogger().info("[SENBON_HAKUTEIKEN_QA] Prepared pass {} ({}) at ({}, {}, {})",
                     passIndex, PASS_NAMES[passIndex], baseX, baseY, baseZ);
         } catch (Exception ex) {
@@ -311,7 +363,7 @@ public final class SenbonzakuraHakuteikenQaSequence {
             return;
         }
         long age = p.level().getGameTime() - t.start();
-        if (age < 0) {
+        if (age < 0 || (age >= 28 && age <= 44)) {
             p.setYRot(180.0F);
             p.setXRot(0.0F);
             p.setYHeadRot(180.0F);
@@ -328,12 +380,13 @@ public final class SenbonzakuraHakuteikenQaSequence {
             }
             return;
         }
-        if (age == 0) {
+        if (age >= 0 && !serverSlotExecuted) {
+            serverSlotExecuted = true;
             p.setYRot(180.0F);
             p.setXRot(0.0F);
             p.setYHeadRot(180.0F);
             p.setYBodyRot(180.0F);
-            startOrigin = p.position();
+            startOrigin = new Vec3((t.passIndex() + 1) * 32.0 + 0.5, -60.0, 0.5);
             PlayerCapability.get(p).ifPresent(d -> {
                 d.getStatus().clearCooldowns();
                 boolean accepted = SenbonzakuraTechniqueService.executeSlot(p, d, 4);
@@ -344,10 +397,10 @@ public final class SenbonzakuraHakuteikenQaSequence {
             LogUtils.getLogger().info("[SENBON_HAKUTEIKEN_QA] Executed Hakuteiken Slot 4 on pass {} from {}",
                     t.passIndex(), startOrigin);
         }
-        if (age >= 1 && age <= 26) {
+        if (age >= 1 && age <= 35) {
             serverPeakLeapY = Math.max(serverPeakLeapY, p.getY() - startOrigin.y);
         }
-        if (age < 0 || (age >= 15 && age <= 26)) {
+        if (age < 0) {
             long deadline = System.currentTimeMillis() + 500L;
             while (hasPendingTeleport(p) && System.currentTimeMillis() < deadline) {
                 if (!server.pollTask()) {
@@ -359,7 +412,7 @@ public final class SenbonzakuraHakuteikenQaSequence {
                 }
             }
         }
-        if (age == 34 && !serverEvaluated) {
+        if (age >= 46 && serverSlotExecuted && !serverEvaluated) {
             serverDistMoved = p.position().subtract(startOrigin).horizontalDistance();
             float hpAfter = targetInitialHp;
             if (targetId != null) {
@@ -392,9 +445,9 @@ public final class SenbonzakuraHakuteikenQaSequence {
         if (age == lastCapturedAge) {
             return;
         }
-        if (age == 4 || age == 10 || age == 15 || age == 18 || age == 22 || age == 25 || age == 26 || age == 32) {
+        if (age == 6 || age == 12 || age == 20 || age == 28 || age == 34 || age == 40 || age == 46) {
             lastCapturedAge = age;
-            String phase = age < 16 ? "windup" : (age <= 25 ? "dash" : (age == 26 ? "impact" : "transform"));
+            String phase = age < 10 ? "leap" : (age < 30 ? "hover" : (age < 40 ? "rasante" : (age == 40 ? "impact" : "transform")));
             String fileName = String.format(Locale.ROOT, "%s-t%02d-%s.png", PASS_NAMES[t.passIndex()], age, phase);
             saveScreenshot(mc, fileName);
         }
@@ -416,7 +469,8 @@ public final class SenbonzakuraHakuteikenQaSequence {
         switch (t.passIndex()) {
             case 0 -> eye = focus.add(0.0, 0.55, 4.2);       // Back view (+Z looking North toward -Z)
             case 1 -> eye = focus.add(4.4, 0.35, -0.4);      // Side profile (+X looking West toward player)
-            default -> eye = focus.add(2.2, 0.45, -4.0);     // Three-quarter frontal (-Z, +X looking back at player & blade)
+            case 2 -> eye = focus.add(2.2, 0.45, -4.0);     // Three-quarter frontal (-Z, +X looking back at player & blade)
+            default -> eye = focus.add(0.0, 5.0, 0.05);     // Top-down view (+Y looking directly down at player & wings)
         }
 
         Vec3 delta = focus.subtract(eye);

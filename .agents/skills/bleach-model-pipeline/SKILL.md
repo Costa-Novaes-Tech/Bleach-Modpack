@@ -126,3 +126,18 @@ Antes de concluir qualquer entrega de design ou modelo:
 5. **Arquivamento de Evidências**:
    - Extrair capturas e arquivos `.jsonl` em `Docs/poderes/qa/antigravity/<subpasta>/`.
    - Registrar relatório formal detalhado em `Docs/poderes/<num>-<descricao>.md`.
+
+
+---
+
+## 8. Padrão de Engenharia de VFX, Materiais Emissivos e Câmeras (Atualização 04/11/2026)
+
+1. **Camadas Emissivas & Atlas Duplo**:
+   - Para entidades e adereços de Reishi (Quincy Vollständig) ou Bankai (Senbonzakura Hakuteiken), separar a geometria difusa (`textura.png`) da camada emissiva (`textura_glow.png`).
+   - A camada de brilho é renderizada via `RenderType.entityTranslucentEmissive(texture)` ou `RenderType.eyes(texture)` com `LightTexture.FULL_BRIGHT`, garantindo emissividade pura e ausência de sombras ambientais que prejudiquem a leitura da energia espiritual.
+2. **Trilhas Contínuas de Lâmina e Projéteis (*Ribbon Trails*)**:
+   - Golpes cortantes e salvas de flechas (Licht Regen) devem utilizar buffers circulares de interpolação temporal conectados por tiras de triângulos (`TRIANGLE_STRIP` no `VertexConsumer`).
+   - Elimina o uso de partículas pontuais desconectadas em favor de arcos contínuos de corte e feixes esticados de energia com desvanecimento exponencial de transparência (alfa 1.0 $\to$ 0.0).
+3. **Coreografia Cinemática de Câmeras**:
+   - Habilidades de alto impacto utilizam a integração com `CinematicDirector` no evento `ViewportEvent.ComputeCameraAngles`.
+   - Estruturação em múltiplos planos (*Shots*): plano baixo de lançamento, plano orbital heróico em ângulo holandês (*Dutch angle* de 3°–5°), mergulho rasante com zoom de FOV (teleobjetiva de 50°–60°) e plano aberto de impacto no solo com *Screen Shake* quadrático e retorno suave ao controle do jogador.

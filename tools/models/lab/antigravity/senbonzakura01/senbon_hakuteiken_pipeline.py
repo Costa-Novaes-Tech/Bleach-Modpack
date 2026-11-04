@@ -197,6 +197,7 @@ def clean_and_convert_bbmodel():
             bone["rotation"] = [round(-float(rotation[0]), 3), round(-float(rotation[1]), 3), round(float(rotation[2]), 3)]
 
         cubes_list = []
+        child_groups = []
         for child in node.get("children", []):
             if isinstance(child, str):
                 c = cube_map.get(child)
@@ -234,10 +235,13 @@ def clean_and_convert_bbmodel():
                         cube_entry["pivot"] = [round(-float(c_origin[0]), 3), round(float(c_origin[1]), 3), round(float(c_origin[2]), 3)]
                     cubes_list.append(cube_entry)
             elif isinstance(child, dict):
-                process_group(child, parent_name=name)
+                child_groups.append(child)
 
         bone["cubes"] = cubes_list
         bones.append(bone)
+
+        for child in child_groups:
+            process_group(child, parent_name=name)
 
     for o in bbdata.get("outliner", []):
         process_group(o)
@@ -311,9 +315,9 @@ def build_player_animator_dash_pose():
     torso_track = {
         "rotation": {
             "0.0": {"vector": [6, 0, 0], "easing": "easeInOutSine"},
-            "0.45": {"vector": [-10, 14, 0], "easing": "easeInOutSine"},
-            "0.8": {"vector": [22, -10, 0], "easing": "easeOutExpo"},
-            "1.15": {"vector": [24, -10, 0], "easing": "linear"},
+            "0.45": {"vector": [-10, 0, 0], "easing": "easeInOutSine"},
+            "0.8": {"vector": [22, 0, 0], "easing": "easeOutExpo"},
+            "1.15": {"vector": [24, 0, 0], "easing": "linear"},
             "1.3": {"vector": [0, 0, 0], "easing": "easeInOutSine"}
         }
     }

@@ -280,23 +280,31 @@ public final class SenbonzakuraTechniqueService {
                 if(age<SenbonPolicy.HAKU_WINDUP) {
                     ServerPlayer p=s.owner;
                     a.forward=SenbonGeometry.forward(p.getYRot());
-                    double leapFrac=Math.sin(((age+1.0)/SenbonPolicy.HAKU_WINDUP)*(Math.PI/2.0));
-                    double targetY=a.groundY+leapFrac*SenbonPolicy.HAKU_LEAP_HEIGHT;
+                    double targetY;
+                    if (age < SenbonPolicy.HAKU_LEAP_TICKS) {
+                        double leapFrac=Math.sin(((age+1.0)/SenbonPolicy.HAKU_LEAP_TICKS)*(Math.PI/2.0));
+                        targetY=a.groundY+leapFrac*SenbonPolicy.HAKU_LEAP_HEIGHT;
+                    } else {
+                        targetY=a.groundY+SenbonPolicy.HAKU_LEAP_HEIGHT;
+                    }
                     double dy=targetY-p.getY();
-                    if(dy>1e-4) {
-                        AABB upSweep=p.getBoundingBox().expandTowards(0,dy,0);
-                        if(s.level.noCollision(p,upSweep) && s.level.getWorldBorder().isWithinBounds(upSweep)) {
+                    if(Math.abs(dy)>1e-4) {
+                        AABB sweep=p.getBoundingBox().expandTowards(0,dy,0);
+                        if(s.level.noCollision(p,sweep) && s.level.getWorldBorder().isWithinBounds(sweep)) {
                             p.move(net.minecraft.world.entity.MoverType.SELF,new Vec3(0,dy,0));
                         }
                     }
                     p.fallDistance=0;
                     p.setDeltaMovement(0,0,0);
                     p.hurtMarked=true;
-                    if(age==SenbonPolicy.HAKU_WINDUP-1) p.connection.teleport(p.getX(),p.getY(),p.getZ(),p.getYRot(),p.getXRot());
+                    if(age < SenbonPolicy.HAKU_LEAP_TICKS || age == SenbonPolicy.HAKU_WINDUP - 1) p.connection.teleport(p.getX(),p.getY(),p.getZ(),p.getYRot(),p.getXRot());
                     a.lastPosition=p.position();
                     a.origin=p.position().add(0,1.2,0);
-                    if(age%2==0)s.draw(WINGS,p.position(),a.forward,4,age/(double)SenbonPolicy.HAKU_WINDUP,0);
-                    if(age%4==0)s.draw(RISE,new Vec3(p.getX(),a.groundY,p.getZ()),a.forward,2.2,age/(double)SenbonPolicy.HAKU_WINDUP,0);
+                    double wingProg = age < SenbonPolicy.HAKU_LEAP_TICKS
+                            ? age / (double) SenbonPolicy.HAKU_LEAP_TICKS
+                            : 1.0;
+                    if(age%2==0)s.draw(WINGS,p.position(),a.forward,5.0,wingProg,0);
+                    if(age%3==0)s.draw(RISE,new Vec3(p.getX(),a.groundY,p.getZ()),a.forward,3.0,wingProg,0);
                 } else tickHakuDash(s,a);
             }
         }

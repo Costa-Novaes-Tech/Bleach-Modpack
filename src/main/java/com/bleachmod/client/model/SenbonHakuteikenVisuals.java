@@ -31,6 +31,7 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ClientPlayerNetworkEvent;
 import net.minecraftforge.client.event.RenderLevelStageEvent;
+import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.level.LevelEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -149,13 +150,8 @@ public final class SenbonHakuteikenVisuals {
         }
 
         if (newlyEnteredTransform) {
+            existing.phaseBornTick = now;
             spawnImpactPetalSea(mc.level, m.origin());
-            if (mc.level.getEntity(ownerId) instanceof AbstractClientPlayer clientPlayer) {
-                var layer = getLayer(clientPlayer);
-                if (layer != null) {
-                    layer.setAnimation(null);
-                }
-            }
         } else if (existing.pattern != 2 && !existing.poseTriggered && mc.level.getEntity(ownerId) instanceof AbstractClientPlayer clientPlayer) {
             triggerPlayerPose(clientPlayer);
             existing.poseTriggered = true;
@@ -163,15 +159,15 @@ public final class SenbonHakuteikenVisuals {
     }
 
     private static void spawnImpactPetalSea(net.minecraft.client.multiplayer.ClientLevel level, Vec3 impact) {
-        for (int i = 0; i < 48; i++) {
-            double angle = (i / 48.0) * Math.PI * 2.0 + (level.random.nextDouble() - 0.5) * 0.15;
-            double dist = 0.4 + level.random.nextDouble() * 4.2;
+        for (int i = 0; i < 128; i++) {
+            double angle = (i / 128.0) * Math.PI * 2.0 + (level.random.nextDouble() - 0.5) * 0.15;
+            double dist = 0.4 + level.random.nextDouble() * 6.6;
             double px = impact.x + Math.cos(angle) * dist;
-            double py = impact.y + 0.08 + level.random.nextDouble() * 0.85;
+            double py = impact.y + 0.05 + level.random.nextDouble() * 0.45;
             double pz = impact.z + Math.sin(angle) * dist;
-            double speed = 0.06 + level.random.nextDouble() * 0.14;
+            double speed = 0.04 + level.random.nextDouble() * 0.16;
             double vx = Math.cos(angle) * speed;
-            double vy = 0.04 + level.random.nextDouble() * 0.12;
+            double vy = 0.02 + level.random.nextDouble() * 0.08;
             double vz = Math.sin(angle) * speed;
             level.addParticle(ModParticles.SENBON_PETAL.get(), px, py, pz, vx, vy, vz);
         }
@@ -209,21 +205,22 @@ public final class SenbonHakuteikenVisuals {
             ).orElse(false);
             if (hakuActive) {
                 ActiveState state = STATES.get(player.getId());
-                if (state != null) {
-                    state.untilTick = Math.max(state.untilTick, now + 3);
-                    if (state.pattern != 2 && !state.poseTriggered) {
-                        triggerPlayerPose(player);
-                        state.poseTriggered = true;
-                    }
-                    spawnAngelWingPetals(mc.level, player, state, now);
+                if (state == null) {
+                    Vec3 fwd = player.getForward();
+                    state = new ActiveState(player.getId(), player.position(), fwd, 1.0F, 2, now, now + 20);
+                    STATES.put(player.getId(), state);
+                } else {
+                    state.untilTick = Math.max(state.untilTick, now + 20);
+                    state.pattern = 2;
                 }
+                spawnAngelWingPetals(mc.level, player, state, now);
             }
         }
     }
 
     private static void spawnAngelWingPetals(net.minecraft.client.multiplayer.ClientLevel level, AbstractClientPlayer player, ActiveState state, long now) {
         Vec3 pos = player.position();
-        float yawRad = (float) Math.toRadians(player.getYRot());
+        float yawRad = (float) Math.toRadians(player.yBodyRot);
         // Player right vector (+X local) and back vector (+Z local) in world space
         double rx = -Math.cos(yawRad);
         double rz = -Math.sin(yawRad);
@@ -256,103 +253,65 @@ public final class SenbonHakuteikenVisuals {
     }
 
     @SubscribeEvent
-    public static void render(RenderLevelStageEvent event) {
-        if (event.getStage() != RenderLevelStageEvent.Stage.AFTER_ENTITIES) {
+    public static void onRenderPlayer(RenderPlayerEvent.Post event) {
+        if (!(event.getEntity() instanceof AbstractClientPlayer player)) {
+            return;
+        }
+        if (player.isInvisible() || player.isSpectator() || !player.isAlive()) {
+            return;
+        }
+        ActiveState state = STATES.get(player.getId());
+        if (state == null) {
             return;
         }
         var mc = Minecraft.getInstance();
-        if (mc.level == null || mc.player == null || STATES.isEmpty()) {
+        if (mc.level == null) {
             return;
         }
         long now = mc.level.getGameTime();
-        STATES.values().removeIf(s -> s.untilTick < now);
-        if (STATES.isEmpty()) {
-            return;
-        }
+        float pt = event.getPartialTick();
 
         if (RENDERER == null) {
             RENDERER = new HakuteikenRenderer();
         }
 
-        float pt = event.getPartialTick();
-        Vec3 cameraPos = event.getCamera().getPosition();
+        String clip = state.pattern == 1 ? "dash" : (state.pattern == 0 && state.progress >= 0.0F ? "windup" : "idle");
+        double animTick = Math.max(0.0, (now - state.phaseBornTick) + pt);
+        state.animatable.setClip(clip);
+        state.animatable.setTick(animTick);
+
         PoseStack pose = event.getPoseStack();
-        MultiBufferSource.BufferSource buffers = mc.renderBuffers().bufferSource();
+        pose.pushPose();
+
+        // 1. Apply LivingEntityRenderer setupRotations so wings rotate 1:1 with player body yaw!
+        float bodyYaw = Mth.rotLerp(pt, player.yBodyRotO, player.yBodyRot);
+        pose.mulPose(Axis.YP.rotationDegrees(180.0F - bodyYaw));
+        pose.scale(-1.0F, -1.0F, 1.0F);
+        pose.scale(0.9375F, 0.9375F, 0.9375F);
+        pose.translate(0.0F, -1.501F, 0.0F);
+
+        // 2. Lock directly to the player's torso model part (exact Elytra architecture):
+        // Transfers 100% of player torso pitch, roll, crouching, and PlayerAnimator pose,
+        // eliminating any air gap and guaranteeing strict mathematical symmetry at X=0.00!
+        event.getRenderer().getModel().body.translateAndRotate(pose);
+
+        // 3. Map from Minecraft body space to Blockbench space (neck at Y=24):
+        pose.translate(0.0, -1.5, 0.0);
+
+        // Windup emergence scaling if pattern == 0
+        if (state.pattern == 0) {
+            float windupScale = Mth.clamp(0.78F + 0.22F * state.progress, 0.78F, 1.0F);
+            pose.translate(0.0, 1.3125, 0.128);
+            pose.scale(windupScale, windupScale, windupScale);
+            pose.translate(0.0, -1.3125, -0.128);
+        }
+
+        MultiBufferSource buffers = event.getMultiBufferSource();
         RenderType rt = RenderType.entityTranslucent(HakuteikenModel.TEX);
-        BakedGeoModel baked = RENDERER.getGeoModel().getBakedModel(HakuteikenModel.GEO);
+        VertexConsumer consumer = buffers.getBuffer(rt);
+        RENDERER.render(pose, state.animatable, buffers, rt, consumer, event.getPackedLight());
 
-        for (ActiveState state : STATES.values()) {
-            Entity owner = mc.level.getEntity(state.ownerId);
-            Vec3 worldPos = owner != null ? owner.getPosition(pt) : state.origin;
-            if (mc.player.distanceToSqr(worldPos) > 96 * 96) {
-                continue;
-            }
-
-            Vec3 fwd = state.forward;
-            if (owner != null && state.pattern == 0) {
-                float viewYaw = owner.getViewYRot(pt);
-                Vec3 liveFwd = Vec3.directionFromRotation(0.0F, viewYaw);
-                if (liveFwd.lengthSqr() > 1.0E-4) {
-                    fwd = liveFwd.normalize();
-                }
-            } else if (owner instanceof LivingEntity living && state.pattern == 2) {
-                float bodyYaw = Mth.rotLerp(pt, living.yBodyRotO, living.yBodyRot);
-                fwd = Vec3.directionFromRotation(0.0F, bodyYaw);
-            }
-            float yawDeg = (float) Math.toDegrees(Math.atan2(-fwd.x, -fwd.z));
-
-            String clip = state.pattern == 1 ? "dash" : (state.pattern == 0 && state.progress >= 0.0F ? "windup" : "idle");
-            double animTick = Math.max(0.0, (now - state.phaseBornTick) + pt);
-            state.animatable.setClip(clip);
-            state.animatable.setTick(animTick);
-
-            Vec3 rel = worldPos.subtract(cameraPos);
-            pose.pushPose();
-            pose.translate(rel.x, rel.y, rel.z);
-
-            // Align model local forward (-Z) with player body orientation
-            pose.mulPose(Axis.YP.rotationDegrees(yawDeg));
-
-            // Match vanilla PlayerRenderer 0.9375F scale so Blockbench pixel heights [0..24] match the player torso
-            float scale = (state.pattern == 0
-                    ? Mth.clamp(0.78F + 0.22F * state.progress, 0.78F, 1.0F)
-                    : 1.0F) * 0.9375F;
-            pose.scale(scale, scale, scale);
-
-            // Couple the wing construct directly to the player's torso waist pivot (y = 0.75m) so when the torso
-            // leans forward during the diagonal rasante or crouching, the wings tilt in 1:1 physical union with the back.
-            Vec3f torsoRot = computeTorsoRotation(owner, state, now, pt);
-            if (owner != null && owner.isCrouching()) {
-                pose.translate(0.0, -0.125, 0.0);
-            }
-            pose.translate(0.0, 1.35, 0.0);
-            pose.mulPose(Axis.XP.rotation(-torsoRot.getX()));
-            pose.mulPose(Axis.YP.rotation(-torsoRot.getY()));
-            pose.translate(0.0, -1.35, 0.0);
-
-            VertexConsumer consumer = buffers.getBuffer(rt);
-            RENDERER.render(pose, state.animatable, buffers, rt, consumer, LightTexture.FULL_BRIGHT);
-            pose.popPose();
-        }
-
-        buffers.endBatch(rt);
-    }
-
-    private static Vec3f computeTorsoRotation(Entity owner, ActiveState state, long now, float pt) {
-        if (state.pattern == 2) {
-            float crouchPitch = (owner != null && owner.isCrouching()) ? 0.5F : 0.0F;
-            return new Vec3f(crouchPitch, 0.0F, 0.0F);
-        }
-        float sign = (owner instanceof LivingEntity living && living.getMainArm() == HumanoidArm.LEFT) ? -1.0F : 1.0F;
-        boolean isDash = state.pattern == 1;
-        float phaseAge = (float) (now - state.phaseBornTick) + pt;
-        float coil = isDash ? 1.0F : smooth(phaseAge / 11.0F);
-        float lock = isDash ? 1.0F : smooth((phaseAge - 11.0F) / 4.5F);
-        float dash = isDash ? smooth(phaseAge / 2.5F) : 0.0F;
-        float w = isDash ? Mth.clamp(1.0F - smooth((phaseAge - 9.0F) / 3.0F), 0.0F, 1.0F) : smooth(phaseAge / 2.0F);
-        float rx = Mth.lerp(dash, Mth.lerp(lock, -0.17F * coil, 0.28F), 0.38F) * w;
-        float ry = sign * Mth.lerp(dash, Mth.lerp(lock, 0.26F * coil, -0.12F), -0.16F) * w;
-        return new Vec3f(rx, ry, 0.0F);
+        pose.popPose();
     }
 
     public static HakuteikenRenderer getOrCreateRenderer() {
@@ -429,7 +388,7 @@ public final class SenbonHakuteikenVisuals {
         @Override
         public boolean isActive() {
             ActiveState s = STATES.get(player.getId());
-            return s != null && s.pattern != 2 && !ZanpakutoReleaseAnimation.active(player);
+            return s != null && !ZanpakutoReleaseAnimation.active(player);
         }
 
         @Override
@@ -444,7 +403,7 @@ public final class SenbonHakuteikenVisuals {
         @Override
         public Vec3f get3DTransform(String part, TransformType type, float partialTick, Vec3f value) {
             ActiveState state = STATES.get(player.getId());
-            if (state == null || state.pattern == 2 || player.level() == null) {
+            if (state == null || player.level() == null) {
                 return value;
             }
             float sign = player.getMainArm() == HumanoidArm.RIGHT ? 1.0F : -1.0F;
@@ -454,50 +413,100 @@ public final class SenbonHakuteikenVisuals {
             boolean backLeg = part.equals(sign > 0 ? "leftLeg" : "rightLeg");
             boolean mainItem = part.equals(sign > 0 ? "rightItem" : "leftItem");
 
+            if (state.pattern == 2) {
+                // Authentic Chūdan-no-kamae Kenjutsu stance during Winged Mode
+                boolean isMoving = player.getDeltaMovement().horizontalDistanceSqr() > 0.005;
+                if (type == TransformType.ROTATION) {
+                    if (part.equals("body") || part.equals("torso")) {
+                        // Alert forward combat incline (8.5 deg)
+                        return mix(value, 0.15F, 0.0F, 0.0F, 0.95F);
+                    }
+                    if (part.equals("head")) {
+                        // Sharp forward eye lock on opponent
+                        return mix(value, -0.10F, 0.0F, 0.0F, 0.90F);
+                    }
+                    if (mainArm) {
+                        // Right arm holds tsuka forward at mid-chest height, elbow slightly flexed (-76 deg)
+                        return mix(value, -1.32F, -0.18F * sign, 0.10F * sign, 0.95F);
+                    }
+                    if (supportArm) {
+                        // Left arm reaches across to grip tsuka base (kashira) forming triangular guard
+                        return mix(value, -1.22F, 0.38F * sign, -0.16F * sign, 0.95F);
+                    }
+                    if (mainItem || part.equals("rightItem") || part.equals("leftItem")) {
+                        // Katana kissaki (tip) points STRICTLY FORWARD along -Z at opponent throat
+                        return mix(value, -0.32F, 0.0F, -0.22F * sign, 0.95F);
+                    }
+                    if (!isMoving) {
+                        // Dynamic martial kamae: forward leg flexed, back leg braced
+                        if (mainLeg) {
+                            return mix(value, -0.42F, 0.12F * sign, 0.08F * sign, 0.90F);
+                        }
+                        if (backLeg) {
+                            return mix(value, 0.38F, -0.12F * sign, -0.08F * sign, 0.90F);
+                        }
+                    }
+                }
+                if (type == TransformType.POSITION && (part.equals("rightItem") || part.equals("leftItem"))) {
+                    // Position katana tsuka centrally in front of chest
+                    return mix(value, -0.10F * sign, -0.05F, 0.15F, 0.95F);
+                }
+                if (type == TransformType.BEND && (mainArm || supportArm)) {
+                    return mix(value, 0.0F, 0.0F, 0.0F, 0.95F);
+                }
+                return value;
+            }
+
             boolean isDash = state.pattern == 1;
             float phaseAge = (float) (player.level().getGameTime() - state.phaseBornTick) + partialTick;
-            float coil = isDash ? 1.0F : smooth(phaseAge / 11.0F);
-            float lock = isDash ? 1.0F : smooth((phaseAge - 11.0F) / 4.5F);
+            float leap = smooth(phaseAge / 10.0F);
+            float hover = smooth((phaseAge - 10.0F) / 18.0F);
             float dash = isDash ? smooth(phaseAge / 2.5F) : 0.0F;
             float w = isDash ? Mth.clamp(1.0F - smooth((phaseAge - 9.0F) / 3.0F), 0.0F, 1.0F) : smooth(phaseAge / 2.0F);
 
             if (type == TransformType.ROTATION) {
                 if (part.equals("body")) {
-                    float rx = Mth.lerp(dash, Mth.lerp(lock, -0.17F * coil, 0.28F), 0.38F);
-                    float ry = sign * Mth.lerp(dash, Mth.lerp(lock, 0.26F * coil, -0.12F), -0.16F);
-                    return mix(value, rx, ry, 0.0F, w);
+                    float rx = isDash
+                            ? 0.38F
+                            : Mth.lerp(hover, -0.18F * (1.0F - leap) + 0.04F * leap, 0.18F);
+                    return mix(value, rx, 0.0F, 0.0F, w);
                 }
                 if (part.equals("head")) {
-                    float rx = Mth.lerp(dash, Mth.lerp(lock, -0.18F * coil, 0.14F), -0.16F);
-                    float ry = sign * Mth.lerp(dash, Mth.lerp(lock, -0.22F * coil, 0.12F), 0.16F);
-                    return mix(value, rx, ry, 0.0F, w);
+                    float rx = isDash
+                            ? -0.14F
+                            : Mth.lerp(hover, -0.22F * (1.0F - leap), 0.16F);
+                    return mix(value, rx, 0.0F, 0.0F, w);
                 }
                 if (mainArm) {
-                    // Upward leap: raises katana high overhead (-2.25 rad), then snaps to diagonal downward rasante thrust (-1.36 rad)
-                    float rx = Mth.lerp(dash, Mth.lerp(lock, -2.25F * coil - 0.50F * (1.0F - coil), -1.28F), -1.36F);
-                    float ry = sign * Mth.lerp(dash, Mth.lerp(lock, -0.28F * coil, 0.18F), 0.22F);
-                    float rz = sign * Mth.lerp(dash, Mth.lerp(lock, 0.24F * coil, -0.12F), -0.14F);
+                    float rx = isDash
+                            ? -1.36F
+                            : Mth.lerp(hover, -2.25F * (1.0F - leap) - 1.85F * leap, -1.65F);
+                    float ry = sign * (isDash ? 0.12F : Mth.lerp(hover, 0.05F, 0.10F));
+                    float rz = sign * (isDash ? -0.10F : Mth.lerp(hover, 0.15F, 0.25F));
                     return mix(value, rx, ry, rz, w);
                 }
                 if (supportArm) {
-                    float rx = Mth.lerp(dash, Mth.lerp(lock, -0.85F * coil, 0.45F), 0.72F);
-                    float ry = sign * Mth.lerp(dash, Mth.lerp(lock, 0.38F * coil, 0.28F), 0.36F);
-                    float rz = sign * Mth.lerp(dash, Mth.lerp(lock, -0.31F * coil, -0.38F), -0.46F);
+                    float rx = isDash
+                            ? 0.72F
+                            : Mth.lerp(hover, -0.85F * (1.0F - leap), -0.65F);
+                    float ry = sign * (isDash ? 0.25F : 0.35F);
+                    float rz = sign * (isDash ? -0.35F : -0.55F);
                     return mix(value, rx, ry, rz, w);
                 }
                 if (mainItem) {
-                    // Pitch the held white Hakuteiken katana along the diagonal rasante dive vector (-1.32 rad = -76 deg)
-                    float rx = Mth.lerp(dash, Mth.lerp(lock, 0.18F * coil, -1.18F), -1.32F);
+                    float rx = isDash
+                            ? -1.32F
+                            : Mth.lerp(hover, 0.18F * (1.0F - leap), -0.85F);
                     return mix(value, rx, 0.0F, 0.0F, w);
                 }
                 if (mainLeg) {
-                    float rx = Mth.lerp(dash, 0.36F * coil, -0.46F);
-                    float rz = sign * Mth.lerp(dash, 0.10F * coil, 0.09F);
+                    float rx = isDash ? -0.46F : Mth.lerp(hover, 0.36F * (1.0F - leap), -0.15F);
+                    float rz = sign * (isDash ? 0.09F : 0.08F);
                     return mix(value, rx, 0.0F, rz, w);
                 }
                 if (backLeg) {
-                    float rx = Mth.lerp(dash, -0.38F * coil, 0.56F);
-                    float rz = sign * Mth.lerp(dash, -0.10F * coil, -0.10F);
+                    float rx = isDash ? 0.56F : Mth.lerp(hover, -0.38F * (1.0F - leap), 0.15F);
+                    float rz = sign * (isDash ? -0.10F : -0.08F);
                     return mix(value, rx, 0.0F, rz, w);
                 }
             }
@@ -577,6 +586,14 @@ public final class SenbonHakuteikenVisuals {
     public static final class HakuteikenRenderer extends GeoObjectRenderer<HakuteikenAnimatable> {
         public HakuteikenRenderer() {
             super(new HakuteikenModel());
+        }
+
+        @Override
+        public void preRender(PoseStack poseStack, HakuteikenAnimatable animatable, BakedGeoModel model, MultiBufferSource bufferSource, VertexConsumer buffer, boolean isReRender, float partialTick, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+            super.preRender(poseStack, animatable, model, bufferSource, buffer, isReRender, partialTick, packedLight, packedOverlay, red, green, blue, alpha);
+            // Cancel GeoObjectRenderer's default block-centering translation (+0.5, +0.51, +0.5)
+            // so the model origin stays exactly at (0, 0, 0) centered on the player spine!
+            poseStack.translate(-0.5F, -0.51F, -0.5F);
         }
     }
 }

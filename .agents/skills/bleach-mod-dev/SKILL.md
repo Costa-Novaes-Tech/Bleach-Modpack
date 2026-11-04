@@ -66,3 +66,15 @@ Armazene novos artefatos em `Docs/qa/benihime/` ou pasta de QA equivalente já u
 
 ## Delegação de trabalho
 A **conversa principal do Codex** coordena implementação e pode delegar QA ao subagente de projeto `.codex/agents/bleach_visual_qa.toml` (`bleach_visual_qa`), se suportado pela versão local. O subagente herda permissões da conversa e **não deve editar os mesmos arquivos simultaneamente**. A ficha `references/perfil-agente.md` descreve o contrato operacional. Um `AGENTS.md` existente nunca deve ser sobrescrito automaticamente. A ativação explícita da skill é `$bleach-mod-dev`.
+
+
+## Diretrizes Cinemáticas de Câmera, VFX e Poses de Combate (Atualização 04/11/2026)
+1. **Direção Cinemática em Habilidades de Bankai e Transformações**:
+   - As cinemáticas de combate e habilidades especiais (Ataque C do Hakuteiken e ativação do Quincy Vollständig) devem orquestrar a câmera através de `CinematicDirector` e `ViewportEvent.ComputeCameraAngles`.
+   - Implementar progressão de enquadramentos por beats com interpolação suave (`smooth()` / Catmull-Rom) entre o ponto de vista da câmera (`eye`) e o ponto focal do alvo (`target`).
+   - Evitar clipping em paredes com raycast de proteção via `world.clip()`.
+2. **Dinâmica de FOV e Recuo de Impacto**:
+   - Ajustar o campo de visão dinâmico com `ComputeFovModifierEvent`: enquadramentos heroicos usam FOV comprimido (45°–55°) para close-up dramático e FOV amplo (85°–95°) para abertura total de asas.
+   - Aplicar recuo de impacto (*FOV punch* e *Screen Shake*) acoplado a colisões com o solo e golpes letais.
+3. **Validação Visual Obrigatória**:
+   - Toda cinemática de câmera deve ser auditada em cliente Forge real com verificação de restauração da câmera anterior do jogador (`previousCamera`) em qualquer caso de interrupção ou cancelamento, garantindo zero desorientação após o término da habilidade.

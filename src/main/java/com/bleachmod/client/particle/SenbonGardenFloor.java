@@ -40,7 +40,7 @@ public final class SenbonGardenFloor {
         if(m.shape()==FLOWER)f.bloom=m.progress();
         if(m.shape()==FIELD){f.opening=1;f.until=Math.max(f.until,f.finished?now+25:now+15);}
         if(m.shape()==RADIAL)f.opening=Math.max(f.opening,m.progress());
-        if(m.shape()==RISE){f.finished=true;f.until=Math.max(f.until,now+75);f.risingUntil=now+16;f.opening=1;f.bloom=1;}
+        if(m.shape()==RISE){f.finished=true;long stay=m.pattern()==2||m.radius()>=6.5?100:75;f.until=Math.max(f.until,now+stay);f.risingUntil=now+(m.pattern()==2?30:16);f.opening=1;f.bloom=1;}
     }
     @SubscribeEvent public static void tick(TickEvent.ClientTickEvent e){if(e.phase!=TickEvent.Phase.END)return;var mc=Minecraft.getInstance();if(mc.level==null||world!=mc.level){FIELDS.clear();world=mc.level;return;}if(mc.isPaused())return;
         FIELDS.values().removeIf(f->f.until<mc.level.getGameTime());int rays=128;
