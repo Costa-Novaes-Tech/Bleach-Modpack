@@ -5,7 +5,27 @@ description: Pipeline completo de modelagem, rig, texturização procedural, tes
 
 # Pipeline Completo de Modelagem, Laboratório e Integração — Bleach Mod
 
-Este documento sintetiza o método consolidado de desenvolvimento de entidades e habilidades do Bleach Modpack no checkout de design (`Bleach-Modpack-design`, branch `codex/design-poderes-criaturas`), estabelecendo o percurso obrigatório da concepção até a validação em jogo.
+Este documento orienta modelagem e animação no Bleach-Modpack. Não presume um checkout/branch específico nem concede permissão para instalar ferramentas ou alterar gameplay. Confira a raiz, branch, HEAD, alterações locais e disponibilidade real das ferramentas em cada tarefa.
+
+## 0. Limites do runtime e camadas de animação — revisado em 02/11/2026
+
+- Antes de editar, confira se o MCP Blockbench está realmente exposto nesta sessão. Catálogo, instalação/configuração no host e conexão operacional são estados distintos. Não invente nomes de ferramentas nem substitua um MCP desconectado por chamadas arbitrárias de shell/HTTP. Se faltar conexão, relate-a e use somente uma alternativa já acessível e autorizada.
+- Distinga três peças na preparação do laboratório: a dependência GeckoLib do mod declarada no Gradle, o plugin **GeckoLib Models & Animations** dentro do Blockbench para autoria/exportação e a ponte Blockbench MCP com servidor registrado no cliente Codex. Uma não instala nem prova as outras. Confira plugin, processo, porta e ferramentas expostas antes de afirmar que o editor está operável.
+- Em QA visual, hash do arquivo confirma integridade da captura, não o conteúdo alegado na legenda. Verifique se enquadramento mostra alvo/efeito e se a amostragem temporal basta para julgar fluidez; poucos quadros repetidos num GIF não provam transição contínua.
+- Uma prova GeckoLib deve carregar os mesmos `.geo.json`, textura e `.animation.json` que serão usados pelo mod. Um harness que redesenha geometria e poses à mão pode validar câmera/fixture, mas **não** valida parser, rig, clipes ou playback dos exports.
+- A existência de um clipe no JSON ou num GameTest só prova que o recurso foi encontrado. Se `bones` estiver vazio, trate-o como marcador temporal até confirmar o movimento no renderer e no cliente; neste repo, `ice_hydra.emerge`, `assault` e `roar` são clipes vazios enquanto a Hydra também tem lógica procedural (`tools/models/hydra_organic.py`, `IceDragonRenderer`).
+- Na GeckoLib 4, cada `AnimationController` toca uma animação por vez. Controllers podem atuar ao mesmo tempo, mas não devem disputar os mesmos bones/canais: controllers registrados depois têm precedência na resolução. Planeje propriedade dos bones e valide blend/retorno ao repouso no runtime.
+- Ações de combate continuam autoritativas no servidor. Use sincronização/trigger do servidor para iniciar animações de ação quando a classe animável permitir; keyframes de som/partículas são apresentação do cliente e não devem determinar dano, alvo ou colisão.
+- O editor de animação do Blockbench oferece timeline, keyframes, interpolation/graph editor e canais de Animate Effects. Isso ajuda na autoria, mas preview do editor continua separado do playback em GeckoLib/Forge.
+
+Referências primárias consultadas para estas regras: [GeckoLib 4 Animation Controller](https://github.com/bernie-g/geckolib/wiki/The-Animation-Controller-%28Geckolib4%29), [GeckoLib 4 Triggerable Animations](https://github.com/bernie-g/geckolib/wiki/Triggerable-Animations-%28Geckolib4%29), [GeckoLib 4 Keyframe Triggers](https://github.com/bernie-g/geckolib/wiki/Keyframe-Triggers-%28Geckolib4%29) e [Blockbench Animation Overview](https://blockbench.net/wiki/guides/blockbench-overview-tips/).
+
+### Lição verificada no laboratório Codex em 04/11/2026
+
+- Se outra IA usa o Blockbench, confira projeto ativo antes de qualquer mutação. Para ensaio próprio, use perfil/processo separado e porta MCP diferente; neste ensaio, Antigravity permaneceu em `8787` e Codex operou em `8788`. Desative `execute_script` no editor e no cadastro MCP.
+- No formato `geckolib_model` do plugin GeckoLib 4.2.5, `single_texture` e `box_uv` estavam ativos. Seis texturas de cores sólidas colocadas em `add_cubes` acabaram referenciadas como textura `0` no `.bbmodel`; o preview ficou todo amarelo. Para este modelo, `pack_uv` + `detail_cubes` num atlas único coloriu 139 cubos, e `check_model` caiu de 26 conflitos de faces para zero após deslocar planos coincidentes.
+- Nesta combinação Blockbench 5.2.2 / BlockbenchMCP 0.3.1 / GeckoLib 4.2.5, `export_project` chamou o codec de **projeto** e gravou conteúdo `.bbmodel` apesar do caminho `.geo.json`. Para geometria real, `export_model` com `codec: "bedrock"` acionou o codec que o plugin GeckoLib estende: confira `minecraft:geometry`, identificador e bones antes de confiar na extensão do arquivo. Na criação, passe `geometry_name` sem o prefixo `geometry.` para evitar `geometry.geometry.*`.
+- O clipe foi exportado pelo menu **File → Export → Export GeckoLib Animations** do editor; valide `format_version`, `animation_length` e bones no JSON salvo. O atlas PNG foi extraído sem transformação da textura embutida no `.bbmodel`. Mesmo com ambos válidos, ainda falta reproduzir os assets exatos no cliente Forge.
 
 ---
 

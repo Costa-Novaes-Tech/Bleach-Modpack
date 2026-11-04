@@ -1,5 +1,11 @@
 # Uryū Ishida — plano do arqueiro tradicional
 
+## Próxima etapa — storyboards de combate Vollständig — 02/11/2026
+
+O detalhamento visual inicial do kit Vollständig está em [storyboards-vollstandig-2026-11-02.md](storyboards-vollstandig-2026-11-02.md). É uma proposta de autoria para revisar antes de qualquer implementação. Mantém os contratos e limites registrados abaixo: não altera custos, dano, cargas, alcance, seleção de alvos, destruição de terreno ou progressão; não depende da decisão estrutural sobre Ginrei; e não substitui prova Forge por arte conceitual.
+
+Para revisão técnica das frentes retornadas, ver [prompt de revisão do Garden](prompt-antigravity-revisao-garden-2026-11-02.md) e [prompt de revisão do rig Quincy](prompt-antigravity-revisao-quincy-rig-2026-11-02.md). A sequência de integração proposta é Garden primeiro e Quincy depois.
+
 
 ## Análise da ramificação e storyboards30/10 — proposta para revisão
 

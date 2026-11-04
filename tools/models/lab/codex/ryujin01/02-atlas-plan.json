@@ -1,0 +1,9 @@
+[
+  {"name":"get_status"},
+  {"name":"pack_uv","arguments":{"cubes":"all","padding":1,"auto_resize":true}},
+  {"name":"detail_cubes","arguments":{"cubes":"all","texture":"sun_core.png","base":"#e66b1f","colors":[{"match":"^core_","color":"#ffe4a0"},{"match":"^mantle_","color":"#ff9b31"},{"match":"^sulcus_","color":"#a6361b"},{"match":"^corona_","color":"#b7431c"},{"match":"_root$","color":"#f66b1e"},{"match":"_middle$","color":"#da4117"},{"match":"_tip$","color":"#ffb94d"},{"match":"_ember$","color":"#ffe27e"}],"noise":0.035,"blur":0.2,"top_light":0.1,"bottom_dark":0.18,"edge_darken":0}},
+  {"name":"screenshot_views","arguments":{"views":["front","left","front_right"],"width":640,"height":640}},
+  {"name":"preview_animation","arguments":{"animation":"animation.ryujin.sun_formation_lab","times":[0.03,0.52,1.2,2.2],"views":["front"],"width":640,"height":640}},
+  {"name":"check_model"},
+  {"name":"save_project","arguments":{"path":"C:/Users/joaop/Downloads/Projeto_Programacao_BleachMod/Bleach-Modpack/tools/models/lab/codex/ryujin01/ryujin_sun_formation_lab.bbmodel"}}
+]

@@ -1,0 +1,5 @@
+[
+  {"name":"get_status"},
+  {"name":"list_formats"},
+  {"name":"get_guide","arguments":{"topic":"detailing"}}
+]

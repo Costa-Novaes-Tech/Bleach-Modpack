@@ -1,0 +1,172 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.ryujin_bankai_pose_lab",
+				"texture_width": 128,
+				"texture_height": 128,
+				"visible_bounds_width": 3,
+				"visible_bounds_height": 3.5,
+				"visible_bounds_offset": [0, 1.25, 0]
+			},
+			"bones": [
+				{
+					"name": "root",
+					"pivot": [0, 0, 0]
+				},
+				{
+					"name": "hips",
+					"parent": "root",
+					"pivot": [0, 12, 0]
+				},
+				{
+					"name": "spine",
+					"parent": "hips",
+					"pivot": [0, 12.5, 0],
+					"cubes": [
+						{"origin": [-4, 12, -2.3], "size": [8, 6.6, 4.6], "uv": [40, 0]}
+					]
+				},
+				{
+					"name": "chest",
+					"parent": "spine",
+					"pivot": [0, 18.5, 0],
+					"cubes": [
+						{"origin": [-4.2, 18.4, -2.2], "size": [8.4, 5.6, 4.4], "uv": [67, 0]}
+					]
+				},
+				{
+					"name": "neck",
+					"parent": "chest",
+					"pivot": [0, 23, 0]
+				},
+				{
+					"name": "head",
+					"parent": "neck",
+					"pivot": [0, 24, 0],
+					"cubes": [
+						{"origin": [-4, 24, -4], "size": [8, 8, 8], "uv": [7, 0]}
+					]
+				},
+				{
+					"name": "shoulder_right",
+					"parent": "chest",
+					"pivot": [-4, 22, 0]
+				},
+				{
+					"name": "arm_upper_right",
+					"parent": "shoulder_right",
+					"pivot": [-5, 22, 0],
+					"cubes": [
+						{"origin": [-8, 16.8, -2], "size": [4, 5.8, 4], "uv": [17, 27]}
+					]
+				},
+				{
+					"name": "arm_lower_right",
+					"parent": "arm_upper_right",
+					"pivot": [-5, 17, 0],
+					"cubes": [
+						{"origin": [-7.8, 12.8, -1.8], "size": [3.6, 4.5, 3.6], "uv": [85, 27]}
+					]
+				},
+				{
+					"name": "hand_right",
+					"parent": "arm_lower_right",
+					"pivot": [-5, 13, 0],
+					"cubes": [
+						{"origin": [-7.9, 10.6, -2], "size": [3.8, 2.6, 4], "uv": [0, 39]}
+					]
+				},
+				{
+					"name": "katana",
+					"parent": "hand_right",
+					"pivot": [-6, 11, -5],
+					"cubes": [
+						{"origin": [-6.9, 9.3, -5.8], "size": [1.8, 4.7, 1.6], "uv": [72, 39]},
+						{"origin": [-8.4, 13.4, -6.1], "size": [4.8, 1.2, 2.2], "uv": [81, 39]},
+						{"origin": [-6.5, 14.3, -5.7], "size": [1, 23.7, 1.1], "uv": [0, 0]},
+						{"origin": [-6.5, 38, -5.8], "size": [1, 2, 1.2], "uv": [98, 39]}
+					]
+				},
+				{
+					"name": "shoulder_left",
+					"parent": "chest",
+					"pivot": [4, 22, 0]
+				},
+				{
+					"name": "arm_upper_left",
+					"parent": "shoulder_left",
+					"pivot": [5, 22, 0],
+					"cubes": [
+						{"origin": [4, 16.8, -2], "size": [4, 5.8, 4], "uv": [51, 27]}
+					]
+				},
+				{
+					"name": "arm_lower_left",
+					"parent": "arm_upper_left",
+					"pivot": [5, 17, 0],
+					"cubes": [
+						{"origin": [4.2, 12.8, -1.8], "size": [3.6, 4.5, 3.6], "uv": [102, 27]}
+					]
+				},
+				{
+					"name": "hand_left",
+					"parent": "arm_lower_left",
+					"pivot": [5, 13, 0],
+					"cubes": [
+						{"origin": [4.1, 10.6, -2], "size": [3.8, 2.6, 4], "uv": [36, 39]}
+					]
+				},
+				{
+					"name": "leg_upper_right",
+					"parent": "hips",
+					"pivot": [-2, 12, 0],
+					"cubes": [
+						{"origin": [-3.9, 6, -2], "size": [3.8, 6.2, 4], "uv": [96, 0]}
+					]
+				},
+				{
+					"name": "leg_lower_right",
+					"parent": "leg_upper_right",
+					"pivot": [-2, 6.5, 0],
+					"cubes": [
+						{"origin": [-3.7, 1.4, -1.8], "size": [3.4, 5.3, 3.6], "uv": [34, 27]}
+					]
+				},
+				{
+					"name": "foot_right",
+					"parent": "leg_lower_right",
+					"pivot": [-2, 1.5, 0],
+					"cubes": [
+						{"origin": [-3.65, 0, -3.4], "size": [3.3, 1.7, 5], "uv": [17, 39]}
+					]
+				},
+				{
+					"name": "leg_upper_left",
+					"parent": "hips",
+					"pivot": [2, 12, 0],
+					"cubes": [
+						{"origin": [0.1, 6, -2], "size": [3.8, 6.2, 4], "uv": [0, 27]}
+					]
+				},
+				{
+					"name": "leg_lower_left",
+					"parent": "leg_upper_left",
+					"pivot": [2, 6.5, 0],
+					"cubes": [
+						{"origin": [0.3, 1.4, -1.8], "size": [3.4, 5.3, 3.6], "uv": [68, 27]}
+					]
+				},
+				{
+					"name": "foot_left",
+					"parent": "leg_lower_left",
+					"pivot": [2, 1.5, 0],
+					"cubes": [
+						{"origin": [0.35, 0, -3.4], "size": [3.3, 1.7, 5], "uv": [53, 39]}
+					]
+				}
+			]
+		}
+	]
+}

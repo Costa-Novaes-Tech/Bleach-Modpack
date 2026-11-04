@@ -1,0 +1,11 @@
+[
+  {
+    "index": 0,
+    "name": "export_model",
+    "isError": false,
+    "text": [
+      "{\n  \"exported\": true,\n  \"path\": \"C:/Users/joaop/Downloads/Projeto_Programacao_BleachMod/Bleach-Modpack/tools/models/lab/codex/ryujin01/ryujin_sun_formation_lab.geo.json\",\n  \"codec\": \"bedrock\",\n  \"bytes\": 18782\n}"
+    ],
+    "images": []
+  }
+]
