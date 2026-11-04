@@ -1,0 +1,3 @@
+pass0-back PASS bones=11/11 playerAnimLoaded=true layerRegistered=true leapY=3.20 distMoved=16.00 damageDealt=30.0 transform=true mayfly=true reach=6.05 offBonus=0.35 failure=null
+pass1-side PASS bones=11/11 playerAnimLoaded=true layerRegistered=true leapY=3.20 distMoved=16.00 damageDealt=30.0 transform=true mayfly=true reach=6.05 offBonus=0.35 failure=null
+pass2-front PASS bones=11/11 playerAnimLoaded=true layerRegistered=true leapY=3.12 distMoved=16.00 damageDealt=30.0 transform=true mayfly=true reach=6.05 offBonus=0.35 failure=null
