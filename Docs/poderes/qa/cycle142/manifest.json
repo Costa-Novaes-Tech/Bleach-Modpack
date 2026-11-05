@@ -1,0 +1,35 @@
+{
+  "cycle": 142,
+  "date": "2026-10-27",
+  "branch": "codex/design-poderes-criaturas",
+  "baseCommit": "6e4d767",
+  "scope": "Correcao isolada da orientacao real do S1 (diagonal descendente) da Senbonzakura",
+  "clientExit": 0,
+  "runProfile": "senbonCombatQa=true, senbonVfxDisable=true, cinematicQaFast=true, qaAutoExit=true, offline=true",
+  "java": "17.0.20.1",
+  "forge": "1.20.1-47.4.10",
+  "verdict": {
+    "S1_F02_preparacao": "PASS - Ponta elevada fora do rosto, mão no ombro direito, lâmina para cima/frente",
+    "S1_F04_travessia": "PASS - Corte diagonal atravessando a linha central do peito",
+    "S1_F06_final": "PASS - Espada termina baixa à esquerda anatômica, pronta para retorno",
+    "recuperacao_input": "PASS - Cessado o input único, o jogador recupera a guarda nobre sem disparar novos golpes"
+  },
+  "telemetrySampleAtF02": {
+    "age": 33,
+    "worldTick": 234,
+    "partialTick": 0.60,
+    "rightArm": "-1.6398, 0.3180, -0.2985",
+    "rightItem": "-2.8423, 0.1464, -2.5484",
+    "body": "0.0791, -0.2956, 0.0297",
+    "resultingBladeVectorInMcSpace": [0.324, -0.923, -0.206],
+    "targetBladeVectorInMcSpace": [0.325, -0.924, -0.203],
+    "vectorError": 0.0036
+  },
+  "evidenceFiles": {
+    "preparacaoVsReference": "diagonal-preparacao-reference-vs-forge.png",
+    "travessiaCentroVsReference": "diagonal-travessia-centro-reference-vs-forge.png",
+    "finalEsquerdoVsReference": "diagonal-final-esquerdo-reference-vs-forge.png",
+    "tresVistasPreparacao": "diagonal-3vistas-preparacao.png",
+    "gifSampling": "diagonal-sampling-s1.gif"
+  }
+}

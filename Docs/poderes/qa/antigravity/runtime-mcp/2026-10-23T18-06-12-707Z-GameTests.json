@@ -1,0 +1,11 @@
+{
+  "job_id": "2026-10-23T18-06-12-707Z-GameTests",
+  "mode": "GameTests",
+  "pid": 25412,
+  "state": "passed",
+  "started": "2026-10-23T18:06:12.735Z",
+  "log": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\Docs\\poderes\\qa\\antigravity\\runtime-mcp\\2026-10-23T18-06-12-707Z-GameTests.log",
+  "exit_code": 0,
+  "signal": null,
+  "finished": "2026-10-23T18:08:24.820Z"
+}

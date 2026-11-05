@@ -19,7 +19,7 @@ public final class TechniqueDefinitionGameTests {
     public static void everyKitCastUsesItsDefinitionAndKeepsTestOverrides(GameTestHelper h) {
         for (var definition : TechniqueDefinitions.all()) {
             // Supported three-charge corridor has its own terrain and cooldown-batch fixtures.
-            if(definition.identity().equals("benihime") && java.util.List.of("path","gigai","six_rods").contains(definition.id()))continue;
+            if(definition.identity().equals("benihime") && java.util.List.of("path","senju_koten_taiho","six_rods").contains(definition.id()))continue;
             var p = new FakePlayer(h.getLevel(), new GameProfile(UUID.randomUUID(), "DefinitionTest"));
             var pos = h.absolutePos(new BlockPos(1, 1, 1)); p.setPos(pos.getX() + .5, h.getLevel().getMaxBuildHeight() - 20, pos.getZ() + .5);
             h.getLevel().getChunkAt(p.blockPosition());

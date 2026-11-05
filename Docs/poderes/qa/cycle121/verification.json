@@ -1,0 +1,11 @@
+{
+  "date": "2026-10-26",
+  "scope": "documentation review only",
+  "source_remote": "26b73b3742681bfeee694c23a6e92007fd7f44ba",
+  "source_local_main": "84738aeff63a04a6cc007fe7f1b2bdac86397d90",
+  "new_report_local_links_checked": 16,
+  "new_report_missing_local_links": [],
+  "runtime_tests": "not executed; no runtime change",
+  "main_changes": "none",
+  "main_merged": "no"
+}

@@ -89,6 +89,21 @@ minecraft {
         }
 
         client {
+            if (providers.gradleProperty('storyQuestQa').map { it.toBoolean() }.getOrElse(false)) {
+                workingDirectory project.file('run/story-quest-qa')
+                property 'bleachmod.storyQuestQa', 'true'
+                args '--width', '1280', '--height', '720'
+            }
+            if (providers.gradleProperty('questNavigationQa').map { it.toBoolean() }.getOrElse(false)) {
+                workingDirectory project.file('run/quest-navigation-qa')
+                property 'bleachmod.questNavigationQa', 'true'
+                args '--width', '1280', '--height', '720'
+            }
+            if (providers.gradleProperty('questHudQa').map { it.toBoolean() }.getOrElse(false)) {
+                workingDirectory project.file('run/quest-hud-qa')
+                property 'bleachmod.questHudQa', 'true'
+                args '--width', '1280', '--height', '720'
+            }
             if (providers.gradleProperty('classSelectionQa').map { it.toBoolean() }.getOrElse(false)) {
                 workingDirectory project.file('run/class-selection-qa')
                 property 'bleachmod.classSelectionQa', 'true'
@@ -108,14 +123,29 @@ minecraft {
                 args '--width', '1280', '--height', '720'
             }
             if (providers.gradleProperty('benihimeQa').map { it.toBoolean() }.getOrElse(false)) {
-                workingDirectory project.file(providers.gradleProperty('photonPilot').map { it.toBoolean() }.getOrElse(false) ? 'run-benihime-qa/photon' : 'run-benihime-qa/base')
+                workingDirectory project.file(providers.gradleProperty('ryujinV7Qa').map { it.toBoolean() }.getOrElse(false) ? 'run-benihime-qa/ryujin-v7' : (providers.gradleProperty('photonPilot').map { it.toBoolean() }.getOrElse(false) ? 'run-benihime-qa/photon' : 'run-benihime-qa/base'))
                 property 'bleachmod.benihimeQa', 'true'
                 property 'bleachmod.cinematicQa', providers.gradleProperty('cinematicQa').getOrElse('false')
                 property 'bleachmod.higashiPoseQa', providers.gradleProperty('higashiPoseQa').getOrElse('false')
                 property 'bleachmod.benihimeMeleeQa', providers.gradleProperty('benihimeMeleeQa').getOrElse('false')
                 property 'bleachmod.benihimeCombatQa', providers.gradleProperty('benihimeCombatQa').getOrElse('false')
                 property 'bleachmod.ryujinQa', providers.gradleProperty('ryujinQa').getOrElse('false')
+                property 'bleachmod.ryujinBankaiQa', providers.gradleProperty('ryujinBankaiQa').getOrElse('false')
+                property 'bleachmod.ryujinBankaiQaFocus', providers.gradleProperty('ryujinBankaiQaFocus').getOrElse('false')
+                property 'bleachmod.ryujinBankaiQaKit', providers.gradleProperty('ryujinBankaiQaKit').getOrElse('false')
+                property 'bleachmod.ryujinBankaiQaCase', providers.gradleProperty('ryujinBankaiQaCase').getOrElse('-1')
                 property 'bleachmod.hyorinmaruQa', providers.gradleProperty('hyorinmaruQa').getOrElse('false')
+                property 'bleachmod.senbonzakuraQa', providers.gradleProperty('senbonzakuraQa').getOrElse('false')
+                property 'bleachmod.senbonCombatQa', providers.gradleProperty('senbonCombatQa').getOrElse('false')
+                property 'bleachmod.senbonComboQa', providers.gradleProperty('senbonComboQa').getOrElse('false')
+                property 'bleachmod.senbonQaRunId', providers.gradleProperty('senbonQaRunId').getOrElse('run-' + System.currentTimeMillis())
+                property 'bleachmod.senbonVfxDisable', providers.gradleProperty('senbonVfxDisable').getOrElse('false')
+                property 'bleachmod.senbonGardenQa', providers.gradleProperty('senbonGardenQa').getOrElse('false')
+                property 'bleachmod.senbonHakuteikenQa', providers.gradleProperty('senbonHakuteikenQa').getOrElse('false')
+                property 'bleachmod.quincyVollstandigQa', providers.gradleProperty('quincyVollstandigQa').getOrElse('false')
+                property 'bleachmod.quincyQa', providers.gradleProperty('quincyQa').getOrElse('false')
+                property 'bleachmod.quincyManifestationQa', providers.gradleProperty('quincyManifestationQa').getOrElse('false')
+                property 'bleachmod.devCommandsQa', providers.gradleProperty('devCommandsQa').getOrElse('false')
                 property 'bleachmod.qaAutoExit', providers.gradleProperty('qaAutoExit').getOrElse('false')
                 property 'bleachmod.cinematicQaFast', providers.gradleProperty('cinematicQaFast').getOrElse('false')
                 property 'bleachmod.benihimeStageQa', providers.gradleProperty('benihimeStageQa').getOrElse('false')
@@ -138,8 +168,12 @@ minecraft {
         // By default, the server will crash when no gametests are provided.
         // The gametest system is also enabled by default for other run configs under the /test command.
         gameTestServer {
+            if (providers.gradleProperty('storyQuestQa').map { it.toBoolean() }.getOrElse(false)) {
+                workingDirectory project.file('run-gametest/story-quest-start')
+            } else {
             // Keep optional-mod registry entries out of the baseline test save.
-            workingDirectory project.file(providers.gradleProperty('bossQa').map { it.toBoolean() }.getOrElse(false) ? 'run-gametest/boss-remaster' : (providers.gradleProperty('photonPilot').map { it.toBoolean() }.getOrElse(false) ? 'run-gametest/photon' : 'run-gametest/base'))
+            workingDirectory project.file(providers.gradleProperty('ryujinV7GameTest').map { it.toBoolean() }.getOrElse(false) ? 'run-gametest/ryujin-v7' : (providers.gradleProperty('bossQa').map { it.toBoolean() }.getOrElse(false) ? 'run-gametest/boss-remaster' : (providers.gradleProperty('photonPilot').map { it.toBoolean() }.getOrElse(false) ? 'run-gametest/photon' : 'run-gametest/base')))
+            }
             property 'forge.enabledGameTestNamespaces', mod_id
         }
 

@@ -1,0 +1,8691 @@
+[
+  {
+    "name": "new_project",
+    "arguments": {
+      "format": "geckolib_model",
+      "name": "ryujin_bankai_activation_scene_lab",
+      "geometry_name": "ryujin_bankai_activation_scene_lab",
+      "texture_width": 256,
+      "texture_height": 4096
+    }
+  },
+  {
+    "name": "create_texture",
+    "arguments": {
+      "name": "ryujin_bankai_activation_scene_lab.png",
+      "width": 256,
+      "height": 4096,
+      "fill": "#241a1a"
+    }
+  },
+  {
+    "name": "add_groups",
+    "arguments": {
+      "groups": [
+        {
+          "name": "root",
+          "origin": [
+            0,
+            0,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "hips",
+          "parent": "root",
+          "origin": [
+            0,
+            12,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "spine",
+          "parent": "hips",
+          "origin": [
+            0,
+            12.5,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "chest",
+          "parent": "spine",
+          "origin": [
+            0,
+            18.5,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "neck",
+          "parent": "chest",
+          "origin": [
+            0,
+            23,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "head",
+          "parent": "neck",
+          "origin": [
+            0,
+            24,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "shoulder_right",
+          "parent": "chest",
+          "origin": [
+            4,
+            22,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "arm_upper_right",
+          "parent": "shoulder_right",
+          "origin": [
+            5,
+            22,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "arm_lower_right",
+          "parent": "arm_upper_right",
+          "origin": [
+            5,
+            17,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "hand_right",
+          "parent": "arm_lower_right",
+          "origin": [
+            5,
+            13,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "katana",
+          "parent": "hand_right",
+          "origin": [
+            6,
+            11,
+            -5
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "shoulder_left",
+          "parent": "chest",
+          "origin": [
+            -4,
+            22,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "arm_upper_left",
+          "parent": "shoulder_left",
+          "origin": [
+            -5,
+            22,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "arm_lower_left",
+          "parent": "arm_upper_left",
+          "origin": [
+            -5,
+            17,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "hand_left",
+          "parent": "arm_lower_left",
+          "origin": [
+            -5,
+            13,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "leg_upper_right",
+          "parent": "hips",
+          "origin": [
+            2,
+            12,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "leg_lower_right",
+          "parent": "leg_upper_right",
+          "origin": [
+            2,
+            6.5,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "foot_right",
+          "parent": "leg_lower_right",
+          "origin": [
+            2,
+            1.5,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "leg_upper_left",
+          "parent": "hips",
+          "origin": [
+            -2,
+            12,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "leg_lower_left",
+          "parent": "leg_upper_left",
+          "origin": [
+            -2,
+            6.5,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "foot_left",
+          "parent": "leg_lower_left",
+          "origin": [
+            -2,
+            1.5,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "sun_root",
+          "origin": [
+            0,
+            20,
+            50
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "sun_core",
+          "parent": "sun_root",
+          "origin": [
+            0,
+            20,
+            50
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "inner_swirl",
+          "parent": "sun_root",
+          "origin": [
+            0,
+            20,
+            42.8
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "mid_swirl",
+          "parent": "sun_root",
+          "origin": [
+            0,
+            20,
+            50
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "outer_swirl",
+          "parent": "sun_root",
+          "origin": [
+            0,
+            20,
+            57.2
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "broken_rim",
+          "parent": "sun_root",
+          "origin": [
+            0,
+            20,
+            38.6
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "flame_00",
+          "parent": "sun_root",
+          "origin": [
+            47.32,
+            -8.43,
+            50
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "flame_01",
+          "parent": "sun_root",
+          "origin": [
+            55.06,
+            5.25,
+            50
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "flame_02",
+          "parent": "sun_root",
+          "origin": [
+            58.58,
+            25.12,
+            50
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "flame_03",
+          "parent": "sun_root",
+          "origin": [
+            50.81,
+            41.57,
+            50
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "flame_04",
+          "parent": "sun_root",
+          "origin": [
+            41.69,
+            58.87,
+            50
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "flame_05",
+          "parent": "sun_root",
+          "origin": [
+            27.61,
+            71.92,
+            50
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "flame_06",
+          "parent": "sun_root",
+          "origin": [
+            7.68,
+            74.66,
+            50
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "flame_07",
+          "parent": "sun_root",
+          "origin": [
+            -12.82,
+            75.54,
+            50
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "flame_08",
+          "parent": "sun_root",
+          "origin": [
+            -30.28,
+            70.4,
+            50
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "flame_09",
+          "parent": "sun_root",
+          "origin": [
+            -42.9,
+            54.74,
+            50
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "flame_10",
+          "parent": "sun_root",
+          "origin": [
+            -54.51,
+            36.67,
+            50
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "flame_11",
+          "parent": "sun_root",
+          "origin": [
+            -58.58,
+            14.88,
+            50
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "flame_12",
+          "parent": "sun_root",
+          "origin": [
+            -50.03,
+            -3.33,
+            50
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "flash_corona",
+          "parent": "sun_root",
+          "origin": [
+            0,
+            20,
+            50
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "name": "add_cubes",
+    "arguments": {
+      "cubes": [
+        {
+          "name": "head_box",
+          "parent": "head",
+          "from": [
+            -4,
+            24,
+            -4
+          ],
+          "to": [
+            4,
+            32,
+            4
+          ],
+          "origin": [
+            0,
+            24,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "hand_right",
+          "parent": "hand_right",
+          "from": [
+            4.1,
+            10.6,
+            -2
+          ],
+          "to": [
+            7.9,
+            13.2,
+            2
+          ],
+          "origin": [
+            5,
+            13,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "katana_grip",
+          "parent": "katana",
+          "from": [
+            5.1,
+            9.3,
+            -5.8
+          ],
+          "to": [
+            6.9,
+            14,
+            -4.2
+          ],
+          "origin": [
+            5.1,
+            9.3,
+            -5.8
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "katana_guard",
+          "parent": "katana",
+          "from": [
+            3.6,
+            13.4,
+            -6.1
+          ],
+          "to": [
+            8.4,
+            14.6,
+            -3.9
+          ],
+          "origin": [
+            3.6,
+            13.4,
+            -6.1
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "katana_blade",
+          "parent": "katana",
+          "from": [
+            5.5,
+            14.3,
+            -5.7
+          ],
+          "to": [
+            6.5,
+            38,
+            -4.6
+          ],
+          "origin": [
+            5.5,
+            14.3,
+            -5.7
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "katana_tip",
+          "parent": "katana",
+          "from": [
+            5.5,
+            38,
+            -5.8
+          ],
+          "to": [
+            6.5,
+            40,
+            -4.6
+          ],
+          "origin": [
+            5.5,
+            38,
+            -5.8
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "arm_lower_right",
+          "parent": "arm_lower_right",
+          "from": [
+            4.2,
+            12.8,
+            -1.8
+          ],
+          "to": [
+            7.8,
+            17.3,
+            1.8
+          ],
+          "origin": [
+            5,
+            17,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "arm_upper_right",
+          "parent": "arm_upper_right",
+          "from": [
+            4,
+            16.8,
+            -2
+          ],
+          "to": [
+            8,
+            22.6,
+            2
+          ],
+          "origin": [
+            5,
+            22,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "hand_left",
+          "parent": "hand_left",
+          "from": [
+            -7.9,
+            10.6,
+            -2
+          ],
+          "to": [
+            -4.1,
+            13.2,
+            2
+          ],
+          "origin": [
+            -5,
+            13,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "arm_lower_left",
+          "parent": "arm_lower_left",
+          "from": [
+            -7.8,
+            12.8,
+            -1.8
+          ],
+          "to": [
+            -4.2,
+            17.3,
+            1.8
+          ],
+          "origin": [
+            -5,
+            17,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "arm_upper_left",
+          "parent": "arm_upper_left",
+          "from": [
+            -8,
+            16.8,
+            -2
+          ],
+          "to": [
+            -4,
+            22.6,
+            2
+          ],
+          "origin": [
+            -5,
+            22,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "body_chest",
+          "parent": "chest",
+          "from": [
+            -4.2,
+            18.4,
+            -2.2
+          ],
+          "to": [
+            4.2,
+            24,
+            2.2
+          ],
+          "origin": [
+            0,
+            18.5,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "body_lower",
+          "parent": "spine",
+          "from": [
+            -4,
+            12,
+            -2.3
+          ],
+          "to": [
+            4,
+            18.6,
+            2.3
+          ],
+          "origin": [
+            0,
+            12.5,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "foot_right",
+          "parent": "foot_right",
+          "from": [
+            0.35,
+            0,
+            -3.4
+          ],
+          "to": [
+            3.65,
+            1.7,
+            1.6
+          ],
+          "origin": [
+            2,
+            1.5,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "leg_lower_right",
+          "parent": "leg_lower_right",
+          "from": [
+            0.3,
+            1.4,
+            -1.8
+          ],
+          "to": [
+            3.7,
+            6.7,
+            1.8
+          ],
+          "origin": [
+            2,
+            6.5,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "leg_upper_right",
+          "parent": "leg_upper_right",
+          "from": [
+            0.1,
+            6,
+            -2
+          ],
+          "to": [
+            3.9,
+            12.2,
+            2
+          ],
+          "origin": [
+            2,
+            12,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "foot_left",
+          "parent": "foot_left",
+          "from": [
+            -3.65,
+            0,
+            -3.4
+          ],
+          "to": [
+            -0.35,
+            1.7,
+            1.6
+          ],
+          "origin": [
+            -2,
+            1.5,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "leg_lower_left",
+          "parent": "leg_lower_left",
+          "from": [
+            -3.7,
+            1.4,
+            -1.8
+          ],
+          "to": [
+            -0.3,
+            6.7,
+            1.8
+          ],
+          "origin": [
+            -2,
+            6.5,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "leg_upper_left",
+          "parent": "leg_upper_left",
+          "from": [
+            -3.9,
+            6,
+            -2
+          ],
+          "to": [
+            -0.1,
+            12.2,
+            2
+          ],
+          "origin": [
+            -2,
+            12,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "heart_0_-3_glow",
+          "parent": "sun_core",
+          "from": [
+            -6.64,
+            8.35,
+            36.16
+          ],
+          "to": [
+            6.64,
+            11.64,
+            41.56
+          ],
+          "origin": [
+            -6.64,
+            8.35,
+            36.16
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "heart_0_-2_glow",
+          "parent": "sun_core",
+          "from": [
+            -9.98,
+            11.69,
+            36.27
+          ],
+          "to": [
+            9.98,
+            14.98,
+            41.67
+          ],
+          "origin": [
+            -9.98,
+            11.69,
+            36.27
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "heart_0_-1_glow",
+          "parent": "sun_core",
+          "from": [
+            -11.53,
+            15.02,
+            36.39
+          ],
+          "to": [
+            11.53,
+            18.31,
+            41.79
+          ],
+          "origin": [
+            -11.53,
+            15.02,
+            36.39
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "heart_0_0_glow",
+          "parent": "sun_core",
+          "from": [
+            -12,
+            18.36,
+            36.5
+          ],
+          "to": [
+            12,
+            21.64,
+            41.9
+          ],
+          "origin": [
+            -12,
+            18.36,
+            36.5
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "heart_0_1_glow",
+          "parent": "sun_core",
+          "from": [
+            -11.53,
+            21.69,
+            36.61
+          ],
+          "to": [
+            11.53,
+            24.98,
+            42.01
+          ],
+          "origin": [
+            -11.53,
+            21.69,
+            36.61
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "heart_0_2_glow",
+          "parent": "sun_core",
+          "from": [
+            -9.98,
+            25.02,
+            36.73
+          ],
+          "to": [
+            9.98,
+            28.31,
+            42.13
+          ],
+          "origin": [
+            -9.98,
+            25.02,
+            36.73
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "heart_0_3_glow",
+          "parent": "sun_core",
+          "from": [
+            -6.64,
+            28.36,
+            36.84
+          ],
+          "to": [
+            6.64,
+            31.65,
+            42.24
+          ],
+          "origin": [
+            -6.64,
+            28.36,
+            36.84
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "heart_1_-3_glow",
+          "parent": "sun_core",
+          "from": [
+            -10.94,
+            0.79,
+            42.16
+          ],
+          "to": [
+            10.94,
+            6.21,
+            47.56
+          ],
+          "origin": [
+            -10.94,
+            0.79,
+            42.16
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "heart_1_-2_glow",
+          "parent": "sun_core",
+          "from": [
+            -16.46,
+            6.29,
+            42.27
+          ],
+          "to": [
+            16.46,
+            11.71,
+            47.67
+          ],
+          "origin": [
+            -16.46,
+            6.29,
+            42.27
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "heart_1_-1_glow",
+          "parent": "sun_core",
+          "from": [
+            -19.02,
+            11.79,
+            42.39
+          ],
+          "to": [
+            19.02,
+            17.21,
+            47.79
+          ],
+          "origin": [
+            -19.02,
+            11.79,
+            42.39
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "heart_1_0_glow",
+          "parent": "sun_core",
+          "from": [
+            -19.8,
+            17.29,
+            42.5
+          ],
+          "to": [
+            19.8,
+            22.71,
+            47.9
+          ],
+          "origin": [
+            -19.8,
+            17.29,
+            42.5
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "heart_1_1_glow",
+          "parent": "sun_core",
+          "from": [
+            -19.02,
+            22.79,
+            42.61
+          ],
+          "to": [
+            19.02,
+            28.21,
+            48.01
+          ],
+          "origin": [
+            -19.02,
+            22.79,
+            42.61
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "heart_1_2_glow",
+          "parent": "sun_core",
+          "from": [
+            -16.46,
+            28.29,
+            42.73
+          ],
+          "to": [
+            16.46,
+            33.71,
+            48.13
+          ],
+          "origin": [
+            -16.46,
+            28.29,
+            42.73
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "heart_1_3_glow",
+          "parent": "sun_core",
+          "from": [
+            -10.94,
+            33.79,
+            42.84
+          ],
+          "to": [
+            10.94,
+            39.21,
+            48.24
+          ],
+          "origin": [
+            -10.94,
+            33.79,
+            42.84
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "heart_2_-3_glow",
+          "parent": "sun_core",
+          "from": [
+            -12.27,
+            -1.54,
+            49.36
+          ],
+          "to": [
+            12.27,
+            4.54,
+            54.76
+          ],
+          "origin": [
+            -12.27,
+            -1.54,
+            49.36
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "heart_2_-2_glow",
+          "parent": "sun_core",
+          "from": [
+            -18.46,
+            4.63,
+            49.47
+          ],
+          "to": [
+            18.46,
+            10.71,
+            54.87
+          ],
+          "origin": [
+            -18.46,
+            4.63,
+            49.47
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "heart_2_-1_glow",
+          "parent": "sun_core",
+          "from": [
+            -21.32,
+            10.79,
+            49.59
+          ],
+          "to": [
+            21.32,
+            16.87,
+            54.99
+          ],
+          "origin": [
+            -21.32,
+            10.79,
+            49.59
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "heart_2_0_glow",
+          "parent": "sun_core",
+          "from": [
+            -22.2,
+            16.96,
+            49.7
+          ],
+          "to": [
+            22.2,
+            23.04,
+            55.1
+          ],
+          "origin": [
+            -22.2,
+            16.96,
+            49.7
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "heart_2_1_glow",
+          "parent": "sun_core",
+          "from": [
+            -21.32,
+            23.13,
+            49.81
+          ],
+          "to": [
+            21.32,
+            29.21,
+            55.21
+          ],
+          "origin": [
+            -21.32,
+            23.13,
+            49.81
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "heart_2_2_glow",
+          "parent": "sun_core",
+          "from": [
+            -18.46,
+            29.29,
+            49.93
+          ],
+          "to": [
+            18.46,
+            35.37,
+            55.33
+          ],
+          "origin": [
+            -18.46,
+            29.29,
+            49.93
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "heart_2_3_glow",
+          "parent": "sun_core",
+          "from": [
+            -12.27,
+            35.46,
+            50.04
+          ],
+          "to": [
+            12.27,
+            41.54,
+            55.44
+          ],
+          "origin": [
+            -12.27,
+            35.46,
+            50.04
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "heart_3_-3_glow",
+          "parent": "sun_core",
+          "from": [
+            -9.29,
+            3.7,
+            56.56
+          ],
+          "to": [
+            9.29,
+            8.3,
+            61.96
+          ],
+          "origin": [
+            -9.29,
+            3.7,
+            56.56
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "heart_3_-2_glow",
+          "parent": "sun_core",
+          "from": [
+            -13.97,
+            8.37,
+            56.67
+          ],
+          "to": [
+            13.97,
+            12.97,
+            62.07
+          ],
+          "origin": [
+            -13.97,
+            8.37,
+            56.67
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "heart_3_-1_glow",
+          "parent": "sun_core",
+          "from": [
+            -16.14,
+            13.03,
+            56.79
+          ],
+          "to": [
+            16.14,
+            17.64,
+            62.19
+          ],
+          "origin": [
+            -16.14,
+            13.03,
+            56.79
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "heart_3_0_glow",
+          "parent": "sun_core",
+          "from": [
+            -16.8,
+            17.7,
+            56.9
+          ],
+          "to": [
+            16.8,
+            22.3,
+            62.3
+          ],
+          "origin": [
+            -16.8,
+            17.7,
+            56.9
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "heart_3_1_glow",
+          "parent": "sun_core",
+          "from": [
+            -16.14,
+            22.36,
+            57.01
+          ],
+          "to": [
+            16.14,
+            26.97,
+            62.41
+          ],
+          "origin": [
+            -16.14,
+            22.36,
+            57.01
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "heart_3_2_glow",
+          "parent": "sun_core",
+          "from": [
+            -13.97,
+            27.03,
+            57.13
+          ],
+          "to": [
+            13.97,
+            31.63,
+            62.53
+          ],
+          "origin": [
+            -13.97,
+            27.03,
+            57.13
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "heart_3_3_glow",
+          "parent": "sun_core",
+          "from": [
+            -9.29,
+            31.7,
+            57.24
+          ],
+          "to": [
+            9.29,
+            36.3,
+            62.64
+          ],
+          "origin": [
+            -9.29,
+            31.7,
+            57.24
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "name": "inner_swirl_00",
+          "parent": "inner_swirl",
+          "from": [
+            13.79,
+            1.16,
+            41.15
+          ],
+          "to": [
+            19.21,
+            5.38,
+            44.45
+          ],
+          "origin": [
+            16.51,
+            3.27,
+            42.8
+          ],
+          "rotation": [
+            0,
+            0,
+            39.22
+          ]
+        },
+        {
+          "name": "inner_swirl_01",
+          "parent": "inner_swirl",
+          "from": [
+            18,
+            3.46,
+            41.29
+          ],
+          "to": [
+            23.78,
+            8.8,
+            44.59
+          ],
+          "origin": [
+            20.89,
+            6.13,
+            42.94
+          ],
+          "rotation": [
+            0,
+            0,
+            51.36
+          ]
+        },
+        {
+          "name": "inner_swirl_02",
+          "parent": "inner_swirl",
+          "from": [
+            19.61,
+            8.41,
+            41.44
+          ],
+          "to": [
+            25.18,
+            13.69,
+            44.74
+          ],
+          "origin": [
+            22.39,
+            11.05,
+            43.09
+          ],
+          "rotation": [
+            0,
+            0,
+            62.96
+          ]
+        },
+        {
+          "name": "inner_swirl_03",
+          "parent": "inner_swirl",
+          "from": [
+            20.71,
+            13.27,
+            41.15
+          ],
+          "to": [
+            26.2,
+            18.48,
+            44.45
+          ],
+          "origin": [
+            23.45,
+            15.87,
+            42.8
+          ],
+          "rotation": [
+            0,
+            0,
+            74.69
+          ]
+        },
+        {
+          "name": "inner_swirl_04",
+          "parent": "inner_swirl",
+          "from": [
+            22.88,
+            18.25,
+            41.29
+          ],
+          "to": [
+            28.84,
+            23.39,
+            44.59
+          ],
+          "origin": [
+            25.86,
+            20.82,
+            42.94
+          ],
+          "rotation": [
+            0,
+            0,
+            86.91
+          ]
+        },
+        {
+          "name": "inner_swirl_05",
+          "parent": "inner_swirl",
+          "from": [
+            22.85,
+            23.74,
+            41.44
+          ],
+          "to": [
+            28.99,
+            28.81,
+            44.74
+          ],
+          "origin": [
+            25.92,
+            26.28,
+            43.09
+          ],
+          "rotation": [
+            0,
+            0,
+            98.85
+          ]
+        },
+        {
+          "name": "inner_swirl_06",
+          "parent": "inner_swirl",
+          "from": [
+            20.03,
+            28.96,
+            41.15
+          ],
+          "to": [
+            25.9,
+            32.86,
+            44.45
+          ],
+          "origin": [
+            22.96,
+            30.91,
+            42.8
+          ],
+          "rotation": [
+            0,
+            0,
+            110.43
+          ]
+        },
+        {
+          "name": "inner_swirl_07",
+          "parent": "inner_swirl",
+          "from": [
+            17.69,
+            33.24,
+            41.29
+          ],
+          "to": [
+            23.68,
+            38.17,
+            44.59
+          ],
+          "origin": [
+            20.68,
+            35.71,
+            42.94
+          ],
+          "rotation": [
+            0,
+            0,
+            122.33
+          ]
+        },
+        {
+          "name": "inner_swirl_08",
+          "parent": "inner_swirl",
+          "from": [
+            15.19,
+            38.77,
+            41.44
+          ],
+          "to": [
+            21.67,
+            43.64,
+            44.74
+          ],
+          "origin": [
+            18.43,
+            41.2,
+            43.09
+          ],
+          "rotation": [
+            0,
+            0,
+            134.49
+          ]
+        },
+        {
+          "name": "inner_swirl_09",
+          "parent": "inner_swirl",
+          "from": [
+            10.44,
+            42.07,
+            41.15
+          ],
+          "to": [
+            16.9,
+            46.87,
+            44.45
+          ],
+          "origin": [
+            13.67,
+            44.47,
+            42.8
+          ],
+          "rotation": [
+            0,
+            0,
+            146.28
+          ]
+        },
+        {
+          "name": "inner_swirl_10",
+          "parent": "inner_swirl",
+          "from": [
+            4.95,
+            43.35,
+            41.29
+          ],
+          "to": [
+            11.15,
+            48.07,
+            44.59
+          ],
+          "origin": [
+            8.05,
+            45.71,
+            42.94
+          ],
+          "rotation": [
+            0,
+            0,
+            157.9
+          ]
+        },
+        {
+          "name": "inner_swirl_11",
+          "parent": "inner_swirl",
+          "from": [
+            -0.5,
+            45.85,
+            41.44
+          ],
+          "to": [
+            6.02,
+            50.51,
+            44.74
+          ],
+          "origin": [
+            2.76,
+            48.18,
+            43.09
+          ],
+          "rotation": [
+            0,
+            0,
+            169.93
+          ]
+        },
+        {
+          "name": "inner_swirl_12",
+          "parent": "inner_swirl",
+          "from": [
+            -6.71,
+            48.1,
+            41.15
+          ],
+          "to": [
+            0.21,
+            51.69,
+            44.45
+          ],
+          "origin": [
+            -3.25,
+            49.89,
+            42.8
+          ],
+          "rotation": [
+            0,
+            0,
+            -178.02
+          ]
+        },
+        {
+          "name": "inner_swirl_13",
+          "parent": "inner_swirl",
+          "from": [
+            -12.41,
+            45.57,
+            41.29
+          ],
+          "to": [
+            -5.68,
+            50.1,
+            44.59
+          ],
+          "origin": [
+            -9.05,
+            47.83,
+            42.94
+          ],
+          "rotation": [
+            0,
+            0,
+            -166.33
+          ]
+        },
+        {
+          "name": "inner_swirl_14",
+          "parent": "inner_swirl",
+          "from": [
+            -17.6,
+            42.71,
+            41.44
+          ],
+          "to": [
+            -10.98,
+            47.17,
+            44.74
+          ],
+          "origin": [
+            -14.29,
+            44.94,
+            43.09
+          ],
+          "rotation": [
+            0,
+            0,
+            -154.61
+          ]
+        },
+        {
+          "name": "inner_swirl_15",
+          "parent": "inner_swirl",
+          "from": [
+            -23.92,
+            40.76,
+            41.15
+          ],
+          "to": [
+            -16.85,
+            45.15,
+            44.45
+          ],
+          "origin": [
+            -20.38,
+            42.96,
+            42.8
+          ],
+          "rotation": [
+            0,
+            0,
+            -142.53
+          ]
+        },
+        {
+          "name": "inner_swirl_16",
+          "parent": "inner_swirl",
+          "from": [
+            -29.14,
+            36.76,
+            41.29
+          ],
+          "to": [
+            -21.83,
+            41.08,
+            44.59
+          ],
+          "origin": [
+            -25.48,
+            38.92,
+            42.94
+          ],
+          "rotation": [
+            0,
+            0,
+            -130.6
+          ]
+        },
+        {
+          "name": "inner_swirl_17",
+          "parent": "inner_swirl",
+          "from": [
+            -31.24,
+            30.68,
+            41.44
+          ],
+          "to": [
+            -24.2,
+            34.93,
+            44.74
+          ],
+          "origin": [
+            -27.72,
+            32.81,
+            43.09
+          ],
+          "rotation": [
+            0,
+            0,
+            -118.95
+          ]
+        },
+        {
+          "name": "inner_swirl_18",
+          "parent": "inner_swirl",
+          "from": [
+            -33.59,
+            25.3,
+            41.15
+          ],
+          "to": [
+            -26.49,
+            28.57,
+            44.45
+          ],
+          "origin": [
+            -30.04,
+            26.94,
+            42.8
+          ],
+          "rotation": [
+            0,
+            0,
+            -107.11
+          ]
+        },
+        {
+          "name": "inner_swirl_19",
+          "parent": "inner_swirl",
+          "from": [
+            -36.77,
+            18.63,
+            41.29
+          ],
+          "to": [
+            -29.18,
+            22.75,
+            44.59
+          ],
+          "origin": [
+            -32.98,
+            20.69,
+            42.94
+          ],
+          "rotation": [
+            0,
+            0,
+            -95.05
+          ]
+        },
+        {
+          "name": "inner_swirl_20",
+          "parent": "inner_swirl",
+          "from": [
+            -36.41,
+            11.88,
+            41.44
+          ],
+          "to": [
+            -28.78,
+            15.93,
+            44.74
+          ],
+          "origin": [
+            -32.59,
+            13.9,
+            43.09
+          ],
+          "rotation": [
+            0,
+            0,
+            -83.23
+          ]
+        },
+        {
+          "name": "inner_swirl_21",
+          "parent": "inner_swirl",
+          "from": [
+            -33.25,
+            5.82,
+            41.15
+          ],
+          "to": [
+            -25.89,
+            9.8,
+            44.45
+          ],
+          "origin": [
+            -29.57,
+            7.81,
+            42.8
+          ],
+          "rotation": [
+            0,
+            0,
+            -71.57
+          ]
+        },
+        {
+          "name": "inner_swirl_22",
+          "parent": "inner_swirl",
+          "from": [
+            -31.21,
+            -0.58,
+            41.29
+          ],
+          "to": [
+            -23.59,
+            3.33,
+            44.59
+          ],
+          "origin": [
+            -27.4,
+            1.38,
+            42.94
+          ],
+          "rotation": [
+            0,
+            0,
+            -59.63
+          ]
+        },
+        {
+          "name": "inner_swirl_23",
+          "parent": "inner_swirl",
+          "from": [
+            -28.37,
+            -7.12,
+            41.44
+          ],
+          "to": [
+            -20.31,
+            -3.28,
+            44.74
+          ],
+          "origin": [
+            -24.34,
+            -5.2,
+            43.09
+          ],
+          "rotation": [
+            0,
+            0,
+            -47.63
+          ]
+        },
+        {
+          "name": "inner_swirl_24",
+          "parent": "inner_swirl",
+          "from": [
+            -22.3,
+            -10.59,
+            41.15
+          ],
+          "to": [
+            -14.38,
+            -7.65,
+            44.45
+          ],
+          "origin": [
+            -18.34,
+            -9.12,
+            42.8
+          ],
+          "rotation": [
+            0,
+            0,
+            -35.89
+          ]
+        },
+        {
+          "name": "mid_swirl_00",
+          "parent": "mid_swirl",
+          "from": [
+            -21.74,
+            49.53,
+            48.35
+          ],
+          "to": [
+            -14.53,
+            54.19,
+            51.65
+          ],
+          "origin": [
+            -18.13,
+            51.86,
+            50
+          ],
+          "rotation": [
+            0,
+            0,
+            -154.09
+          ]
+        },
+        {
+          "name": "mid_swirl_01",
+          "parent": "mid_swirl",
+          "from": [
+            -28.19,
+            46.41,
+            48.49
+          ],
+          "to": [
+            -20.67,
+            52.33,
+            51.79
+          ],
+          "origin": [
+            -24.43,
+            49.37,
+            50.14
+          ],
+          "rotation": [
+            0,
+            0,
+            -143.83
+          ]
+        },
+        {
+          "name": "mid_swirl_02",
+          "parent": "mid_swirl",
+          "from": [
+            -32.11,
+            41.06,
+            48.64
+          ],
+          "to": [
+            -24.79,
+            46.9,
+            51.94
+          ],
+          "origin": [
+            -28.45,
+            43.98,
+            50.29
+          ],
+          "rotation": [
+            0,
+            0,
+            -133.82
+          ]
+        },
+        {
+          "name": "mid_swirl_03",
+          "parent": "mid_swirl",
+          "from": [
+            -35.55,
+            35.56,
+            48.35
+          ],
+          "to": [
+            -28.29,
+            41.33,
+            51.65
+          ],
+          "origin": [
+            -31.92,
+            38.44,
+            50
+          ],
+          "rotation": [
+            0,
+            0,
+            -123.74
+          ]
+        },
+        {
+          "name": "mid_swirl_04",
+          "parent": "mid_swirl",
+          "from": [
+            -40.4,
+            30.39,
+            48.49
+          ],
+          "to": [
+            -32.74,
+            36.1,
+            51.79
+          ],
+          "origin": [
+            -36.58,
+            33.25,
+            50.14
+          ],
+          "rotation": [
+            0,
+            0,
+            -113.44
+          ]
+        },
+        {
+          "name": "mid_swirl_05",
+          "parent": "mid_swirl",
+          "from": [
+            -42.99,
+            23.94,
+            48.64
+          ],
+          "to": [
+            -35.18,
+            29.57,
+            51.94
+          ],
+          "origin": [
+            -39.08,
+            26.75,
+            50.29
+          ],
+          "rotation": [
+            0,
+            0,
+            -103.26
+          ]
+        },
+        {
+          "name": "mid_swirl_06",
+          "parent": "mid_swirl",
+          "from": [
+            -42.16,
+            17.62,
+            48.35
+          ],
+          "to": [
+            -34.61,
+            21.96,
+            51.65
+          ],
+          "origin": [
+            -38.38,
+            19.79,
+            50
+          ],
+          "rotation": [
+            0,
+            0,
+            -93.26
+          ]
+        },
+        {
+          "name": "mid_swirl_07",
+          "parent": "mid_swirl",
+          "from": [
+            -42.08,
+            10.21,
+            48.49
+          ],
+          "to": [
+            -34.43,
+            15.71,
+            51.79
+          ],
+          "origin": [
+            -38.26,
+            12.96,
+            50.14
+          ],
+          "rotation": [
+            0,
+            0,
+            -83.1
+          ]
+        },
+        {
+          "name": "mid_swirl_08",
+          "parent": "mid_swirl",
+          "from": [
+            -42.43,
+            2.91,
+            48.64
+          ],
+          "to": [
+            -34.36,
+            8.34,
+            51.94
+          ],
+          "origin": [
+            -38.39,
+            5.62,
+            50.29
+          ],
+          "rotation": [
+            0,
+            0,
+            -72.81
+          ]
+        },
+        {
+          "name": "mid_swirl_09",
+          "parent": "mid_swirl",
+          "from": [
+            -39.2,
+            -3.52,
+            48.35
+          ],
+          "to": [
+            -31.16,
+            1.84,
+            51.65
+          ],
+          "origin": [
+            -35.18,
+            -0.84,
+            50
+          ],
+          "rotation": [
+            0,
+            0,
+            -62.71
+          ]
+        },
+        {
+          "name": "mid_swirl_10",
+          "parent": "mid_swirl",
+          "from": [
+            -34.04,
+            -8.61,
+            48.49
+          ],
+          "to": [
+            -26.21,
+            -3.32,
+            51.79
+          ],
+          "origin": [
+            -30.13,
+            -5.96,
+            50.14
+          ],
+          "rotation": [
+            0,
+            0,
+            -52.69
+          ]
+        },
+        {
+          "name": "mid_swirl_11",
+          "parent": "mid_swirl",
+          "from": [
+            -29.99,
+            -14.49,
+            48.64
+          ],
+          "to": [
+            -21.9,
+            -9.28,
+            51.94
+          ],
+          "origin": [
+            -25.94,
+            -11.89,
+            50.29
+          ],
+          "rotation": [
+            0,
+            0,
+            -42.47
+          ]
+        },
+        {
+          "name": "mid_swirl_12",
+          "parent": "mid_swirl",
+          "from": [
+            -25,
+            -19.46,
+            48.35
+          ],
+          "to": [
+            -16.57,
+            -15.45,
+            51.65
+          ],
+          "origin": [
+            -20.78,
+            -17.46,
+            50
+          ],
+          "rotation": [
+            0,
+            0,
+            -32.23
+          ]
+        },
+        {
+          "name": "mid_swirl_13",
+          "parent": "mid_swirl",
+          "from": [
+            -17.75,
+            -22.27,
+            48.49
+          ],
+          "to": [
+            -9.48,
+            -17.19,
+            51.79
+          ],
+          "origin": [
+            -13.61,
+            -19.73,
+            50.14
+          ],
+          "rotation": [
+            0,
+            0,
+            -22.18
+          ]
+        },
+        {
+          "name": "mid_swirl_14",
+          "parent": "mid_swirl",
+          "from": [
+            -10.42,
+            -23.45,
+            48.64
+          ],
+          "to": [
+            -2.26,
+            -18.45,
+            51.94
+          ],
+          "origin": [
+            -6.34,
+            -20.95,
+            50.29
+          ],
+          "rotation": [
+            0,
+            0,
+            -12.11
+          ]
+        },
+        {
+          "name": "mid_swirl_15",
+          "parent": "mid_swirl",
+          "from": [
+            -3.28,
+            -25.82,
+            48.35
+          ],
+          "to": [
+            5.26,
+            -20.89,
+            51.65
+          ],
+          "origin": [
+            0.99,
+            -23.36,
+            50
+          ],
+          "rotation": [
+            0,
+            0,
+            -1.85
+          ]
+        },
+        {
+          "name": "mid_swirl_16",
+          "parent": "mid_swirl",
+          "from": [
+            4.42,
+            -25.93,
+            48.49
+          ],
+          "to": [
+            13.15,
+            -21.07,
+            51.79
+          ],
+          "origin": [
+            8.78,
+            -23.5,
+            50.14
+          ],
+          "rotation": [
+            0,
+            0,
+            8.33
+          ]
+        },
+        {
+          "name": "mid_swirl_17",
+          "parent": "mid_swirl",
+          "from": [
+            11.59,
+            -22.52,
+            48.64
+          ],
+          "to": [
+            20.08,
+            -17.73,
+            51.94
+          ],
+          "origin": [
+            15.83,
+            -20.13,
+            50.29
+          ],
+          "rotation": [
+            0,
+            0,
+            18.35
+          ]
+        },
+        {
+          "name": "mid_swirl_18",
+          "parent": "mid_swirl",
+          "from": [
+            18.5,
+            -18.78,
+            48.35
+          ],
+          "to": [
+            27.04,
+            -15.1,
+            51.65
+          ],
+          "origin": [
+            22.76,
+            -16.94,
+            50
+          ],
+          "rotation": [
+            0,
+            0,
+            28.48
+          ]
+        },
+        {
+          "name": "mid_swirl_19",
+          "parent": "mid_swirl",
+          "from": [
+            25.83,
+            -16.29,
+            48.49
+          ],
+          "to": [
+            34.79,
+            -11.63,
+            51.79
+          ],
+          "origin": [
+            30.31,
+            -13.96,
+            50.14
+          ],
+          "rotation": [
+            0,
+            0,
+            38.74
+          ]
+        },
+        {
+          "name": "mid_swirl_20",
+          "parent": "mid_swirl",
+          "from": [
+            31.42,
+            -10.49,
+            48.64
+          ],
+          "to": [
+            40.41,
+            -5.91,
+            51.94
+          ],
+          "origin": [
+            35.92,
+            -8.2,
+            50.29
+          ],
+          "rotation": [
+            0,
+            0,
+            48.86
+          ]
+        },
+        {
+          "name": "mid_swirl_21",
+          "parent": "mid_swirl",
+          "from": [
+            34.87,
+            -3.14,
+            48.35
+          ],
+          "to": [
+            43.61,
+            1.37,
+            51.65
+          ],
+          "origin": [
+            39.24,
+            -0.89,
+            50
+          ],
+          "rotation": [
+            0,
+            0,
+            58.89
+          ]
+        },
+        {
+          "name": "mid_swirl_22",
+          "parent": "mid_swirl",
+          "from": [
+            38.87,
+            3.76,
+            48.49
+          ],
+          "to": [
+            47.84,
+            8.2,
+            51.79
+          ],
+          "origin": [
+            43.36,
+            5.98,
+            50.14
+          ],
+          "rotation": [
+            0,
+            0,
+            69.07
+          ]
+        },
+        {
+          "name": "mid_swirl_23",
+          "parent": "mid_swirl",
+          "from": [
+            42.34,
+            11.37,
+            48.64
+          ],
+          "to": [
+            51.67,
+            15.75,
+            51.94
+          ],
+          "origin": [
+            47,
+            13.56,
+            50.29
+          ],
+          "rotation": [
+            0,
+            0,
+            79.3
+          ]
+        },
+        {
+          "name": "mid_swirl_24",
+          "parent": "mid_swirl",
+          "from": [
+            42.15,
+            20.2,
+            48.35
+          ],
+          "to": [
+            51.35,
+            23.56,
+            51.65
+          ],
+          "origin": [
+            46.75,
+            21.88,
+            50
+          ],
+          "rotation": [
+            0,
+            0,
+            89.37
+          ]
+        },
+        {
+          "name": "mid_swirl_25",
+          "parent": "mid_swirl",
+          "from": [
+            40.43,
+            27.78,
+            48.49
+          ],
+          "to": [
+            49.48,
+            32.02,
+            51.79
+          ],
+          "origin": [
+            44.96,
+            29.9,
+            50.14
+          ],
+          "rotation": [
+            0,
+            0,
+            99.44
+          ]
+        },
+        {
+          "name": "mid_swirl_26",
+          "parent": "mid_swirl",
+          "from": [
+            39.47,
+            36.24,
+            48.64
+          ],
+          "to": [
+            48.88,
+            40.41,
+            51.94
+          ],
+          "origin": [
+            44.18,
+            38.32,
+            50.29
+          ],
+          "rotation": [
+            0,
+            0,
+            109.66
+          ]
+        },
+        {
+          "name": "outer_swirl_00",
+          "parent": "outer_swirl",
+          "from": [
+            -32.26,
+            -25.25,
+            55.55
+          ],
+          "to": [
+            -23.46,
+            -20.36,
+            58.85
+          ],
+          "origin": [
+            -27.86,
+            -22.8,
+            57.2
+          ],
+          "rotation": [
+            0,
+            0,
+            -36.48
+          ]
+        },
+        {
+          "name": "outer_swirl_01",
+          "parent": "outer_swirl",
+          "from": [
+            -26.13,
+            -31.14,
+            55.69
+          ],
+          "to": [
+            -17.06,
+            -24.94,
+            58.99
+          ],
+          "origin": [
+            -21.59,
+            -28.04,
+            57.34
+          ],
+          "rotation": [
+            0,
+            0,
+            -27.52
+          ]
+        },
+        {
+          "name": "outer_swirl_02",
+          "parent": "outer_swirl",
+          "from": [
+            -18.14,
+            -32.94,
+            55.84
+          ],
+          "to": [
+            -9.23,
+            -26.81,
+            59.14
+          ],
+          "origin": [
+            -13.69,
+            -29.88,
+            57.49
+          ],
+          "rotation": [
+            0,
+            0,
+            -18.72
+          ]
+        },
+        {
+          "name": "outer_swirl_03",
+          "parent": "outer_swirl",
+          "from": [
+            -10.24,
+            -34.13,
+            55.55
+          ],
+          "to": [
+            -1.38,
+            -28.07,
+            58.85
+          ],
+          "origin": [
+            -5.81,
+            -31.1,
+            57.2
+          ],
+          "rotation": [
+            0,
+            0,
+            -9.89
+          ]
+        },
+        {
+          "name": "outer_swirl_04",
+          "parent": "outer_swirl",
+          "from": [
+            -2.4,
+            -36.46,
+            55.69
+          ],
+          "to": [
+            6.82,
+            -30.47,
+            58.99
+          ],
+          "origin": [
+            2.21,
+            -33.47,
+            57.34
+          ],
+          "rotation": [
+            0,
+            0,
+            -0.9
+          ]
+        },
+        {
+          "name": "outer_swirl_05",
+          "parent": "outer_swirl",
+          "from": [
+            5.9,
+            -36.25,
+            55.84
+          ],
+          "to": [
+            15.26,
+            -30.33,
+            59.14
+          ],
+          "origin": [
+            10.58,
+            -33.29,
+            57.49
+          ],
+          "rotation": [
+            0,
+            0,
+            8.01
+          ]
+        },
+        {
+          "name": "outer_swirl_06",
+          "parent": "outer_swirl",
+          "from": [
+            13.66,
+            -32.15,
+            55.55
+          ],
+          "to": [
+            22.81,
+            -27.59,
+            58.85
+          ],
+          "origin": [
+            18.23,
+            -29.87,
+            57.2
+          ],
+          "rotation": [
+            0,
+            0,
+            16.79
+          ]
+        },
+        {
+          "name": "outer_swirl_07",
+          "parent": "outer_swirl",
+          "from": [
+            21.34,
+            -29.85,
+            55.69
+          ],
+          "to": [
+            30.59,
+            -24.07,
+            58.99
+          ],
+          "origin": [
+            25.96,
+            -26.96,
+            57.34
+          ],
+          "rotation": [
+            0,
+            0,
+            25.68
+          ]
+        },
+        {
+          "name": "outer_swirl_08",
+          "parent": "outer_swirl",
+          "from": [
+            29.39,
+            -26.95,
+            55.84
+          ],
+          "to": [
+            39.01,
+            -21.24,
+            59.14
+          ],
+          "origin": [
+            34.2,
+            -24.1,
+            57.49
+          ],
+          "rotation": [
+            0,
+            0,
+            34.66
+          ]
+        },
+        {
+          "name": "outer_swirl_09",
+          "parent": "outer_swirl",
+          "from": [
+            35.74,
+            -21.09,
+            55.55
+          ],
+          "to": [
+            45.34,
+            -15.45,
+            58.85
+          ],
+          "origin": [
+            40.54,
+            -18.27,
+            57.2
+          ],
+          "rotation": [
+            0,
+            0,
+            43.52
+          ]
+        },
+        {
+          "name": "outer_swirl_10",
+          "parent": "outer_swirl",
+          "from": [
+            40.36,
+            -13.74,
+            55.69
+          ],
+          "to": [
+            49.78,
+            -8.18,
+            58.99
+          ],
+          "origin": [
+            45.07,
+            -10.96,
+            57.34
+          ],
+          "rotation": [
+            0,
+            0,
+            52.31
+          ]
+        },
+        {
+          "name": "outer_swirl_11",
+          "parent": "outer_swirl",
+          "from": [
+            45.72,
+            -7,
+            55.84
+          ],
+          "to": [
+            55.38,
+            -1.51,
+            59.14
+          ],
+          "origin": [
+            50.55,
+            -4.26,
+            57.49
+          ],
+          "rotation": [
+            0,
+            0,
+            61.25
+          ]
+        },
+        {
+          "name": "outer_swirl_12",
+          "parent": "outer_swirl",
+          "from": [
+            50.4,
+            1.19,
+            55.55
+          ],
+          "to": [
+            60.37,
+            5.42,
+            58.85
+          ],
+          "origin": [
+            55.39,
+            3.3,
+            57.2
+          ],
+          "rotation": [
+            0,
+            0,
+            70.2
+          ]
+        },
+        {
+          "name": "outer_swirl_13",
+          "parent": "outer_swirl",
+          "from": [
+            51.6,
+            9.46,
+            55.69
+          ],
+          "to": [
+            61.43,
+            14.82,
+            58.99
+          ],
+          "origin": [
+            56.51,
+            12.14,
+            57.34
+          ],
+          "rotation": [
+            0,
+            0,
+            79.02
+          ]
+        },
+        {
+          "name": "outer_swirl_14",
+          "parent": "outer_swirl",
+          "from": [
+            51.67,
+            18.28,
+            55.84
+          ],
+          "to": [
+            61.41,
+            23.56,
+            59.14
+          ],
+          "origin": [
+            56.54,
+            20.92,
+            57.49
+          ],
+          "rotation": [
+            0,
+            0,
+            87.85
+          ]
+        },
+        {
+          "name": "outer_swirl_15",
+          "parent": "outer_swirl",
+          "from": [
+            52.63,
+            27.35,
+            55.55
+          ],
+          "to": [
+            62.71,
+            32.56,
+            58.85
+          ],
+          "origin": [
+            57.67,
+            29.95,
+            57.2
+          ],
+          "rotation": [
+            0,
+            0,
+            96.81
+          ]
+        },
+        {
+          "name": "outer_swirl_16",
+          "parent": "outer_swirl",
+          "from": [
+            51.32,
+            36.49,
+            55.69
+          ],
+          "to": [
+            61.59,
+            41.62,
+            58.99
+          ],
+          "origin": [
+            56.46,
+            39.06,
+            57.34
+          ],
+          "rotation": [
+            0,
+            0,
+            105.72
+          ]
+        },
+        {
+          "name": "outer_swirl_17",
+          "parent": "outer_swirl",
+          "from": [
+            46.76,
+            44.44,
+            55.84
+          ],
+          "to": [
+            56.82,
+            49.5,
+            59.14
+          ],
+          "origin": [
+            51.79,
+            46.97,
+            57.49
+          ],
+          "rotation": [
+            0,
+            0,
+            114.52
+          ]
+        },
+        {
+          "name": "outer_swirl_18",
+          "parent": "outer_swirl",
+          "from": [
+            42.21,
+            52.86,
+            55.55
+          ],
+          "to": [
+            52.33,
+            56.76,
+            58.85
+          ],
+          "origin": [
+            47.27,
+            54.81,
+            57.2
+          ],
+          "rotation": [
+            0,
+            0,
+            123.39
+          ]
+        },
+        {
+          "name": "outer_swirl_19",
+          "parent": "outer_swirl",
+          "from": [
+            37.64,
+            60.75,
+            55.69
+          ],
+          "to": [
+            48.12,
+            65.68,
+            58.99
+          ],
+          "origin": [
+            42.88,
+            63.21,
+            57.34
+          ],
+          "rotation": [
+            0,
+            0,
+            132.35
+          ]
+        },
+        {
+          "name": "outer_swirl_20",
+          "parent": "outer_swirl",
+          "from": [
+            30.57,
+            67.03,
+            55.84
+          ],
+          "to": [
+            41.08,
+            71.88,
+            59.14
+          ],
+          "origin": [
+            35.83,
+            69.45,
+            57.49
+          ],
+          "rotation": [
+            0,
+            0,
+            141.22
+          ]
+        },
+        {
+          "name": "outer_swirl_21",
+          "parent": "outer_swirl",
+          "from": [
+            22.1,
+            70.95,
+            55.55
+          ],
+          "to": [
+            32.41,
+            75.74,
+            58.85
+          ],
+          "origin": [
+            27.25,
+            73.35,
+            57.2
+          ],
+          "rotation": [
+            0,
+            0,
+            150.02
+          ]
+        },
+        {
+          "name": "outer_swirl_22",
+          "parent": "outer_swirl",
+          "from": [
+            13.82,
+            75.66,
+            55.69
+          ],
+          "to": [
+            24.34,
+            80.37,
+            58.99
+          ],
+          "origin": [
+            19.08,
+            78.01,
+            57.34
+          ],
+          "rotation": [
+            0,
+            0,
+            158.93
+          ]
+        },
+        {
+          "name": "outer_swirl_23",
+          "parent": "outer_swirl",
+          "from": [
+            4.81,
+            79.84,
+            55.84
+          ],
+          "to": [
+            15.66,
+            84.48,
+            59.14
+          ],
+          "origin": [
+            10.24,
+            82.16,
+            57.49
+          ],
+          "rotation": [
+            0,
+            0,
+            167.88
+          ]
+        },
+        {
+          "name": "outer_swirl_24",
+          "parent": "outer_swirl",
+          "from": [
+            -4.84,
+            80.61,
+            55.55
+          ],
+          "to": [
+            5.91,
+            84.18,
+            58.85
+          ],
+          "origin": [
+            0.53,
+            82.39,
+            57.2
+          ],
+          "rotation": [
+            0,
+            0,
+            176.71
+          ]
+        },
+        {
+          "name": "outer_swirl_25",
+          "parent": "outer_swirl",
+          "from": [
+            -14.29,
+            78.78,
+            55.69
+          ],
+          "to": [
+            -3.66,
+            83.28,
+            58.99
+          ],
+          "origin": [
+            -8.98,
+            81.03,
+            57.34
+          ],
+          "rotation": [
+            0,
+            0,
+            -174.47
+          ]
+        },
+        {
+          "name": "outer_swirl_26",
+          "parent": "outer_swirl",
+          "from": [
+            -24.28,
+            78.46,
+            55.84
+          ],
+          "to": [
+            -13.34,
+            82.9,
+            59.14
+          ],
+          "origin": [
+            -18.81,
+            80.68,
+            57.49
+          ],
+          "rotation": [
+            0,
+            0,
+            -165.53
+          ]
+        },
+        {
+          "name": "outer_swirl_27",
+          "parent": "outer_swirl",
+          "from": [
+            -34.08,
+            76.05,
+            55.55
+          ],
+          "to": [
+            -22.91,
+            80.4,
+            58.85
+          ],
+          "origin": [
+            -28.49,
+            78.22,
+            57.2
+          ],
+          "rotation": [
+            0,
+            0,
+            -156.62
+          ]
+        },
+        {
+          "name": "rim_char_0",
+          "parent": "broken_rim",
+          "from": [
+            35.18,
+            -6.92,
+            37.4
+          ],
+          "to": [
+            48.08,
+            -3.92,
+            39.8
+          ],
+          "origin": [
+            41.63,
+            -5.42,
+            38.6
+          ],
+          "rotation": [
+            0,
+            0,
+            53.21
+          ]
+        },
+        {
+          "name": "rim_char_1",
+          "parent": "broken_rim",
+          "from": [
+            42.43,
+            11.83,
+            37.58
+          ],
+          "to": [
+            55.49,
+            15.43,
+            39.98
+          ],
+          "origin": [
+            48.96,
+            13.63,
+            38.78
+          ],
+          "rotation": [
+            0,
+            0,
+            77.27
+          ]
+        },
+        {
+          "name": "rim_char_3",
+          "parent": "broken_rim",
+          "from": [
+            30.59,
+            50.24,
+            37.94
+          ],
+          "to": [
+            43.49,
+            53.24,
+            40.34
+          ],
+          "origin": [
+            37.04,
+            51.74,
+            39.14
+          ],
+          "rotation": [
+            0,
+            0,
+            125.21
+          ]
+        },
+        {
+          "name": "rim_char_4",
+          "parent": "broken_rim",
+          "from": [
+            14.66,
+            62.8,
+            37.4
+          ],
+          "to": [
+            27.71,
+            66.4,
+            39.8
+          ],
+          "origin": [
+            21.19,
+            64.6,
+            38.6
+          ],
+          "rotation": [
+            0,
+            0,
+            149.27
+          ]
+        },
+        {
+          "name": "rim_char_5",
+          "parent": "broken_rim",
+          "from": [
+            -5.38,
+            67.86,
+            37.58
+          ],
+          "to": [
+            7.84,
+            72.06,
+            39.98
+          ],
+          "origin": [
+            1.23,
+            69.96,
+            38.78
+          ],
+          "rotation": [
+            0,
+            0,
+            173.33
+          ]
+        },
+        {
+          "name": "rim_char_6",
+          "parent": "broken_rim",
+          "from": [
+            -25.19,
+            63.54,
+            37.76
+          ],
+          "to": [
+            -12.29,
+            66.54,
+            40.16
+          ],
+          "origin": [
+            -18.74,
+            65.04,
+            38.96
+          ],
+          "rotation": [
+            0,
+            0,
+            -162.79
+          ]
+        },
+        {
+          "name": "rim_char_7",
+          "parent": "broken_rim",
+          "from": [
+            -42.4,
+            52.13,
+            37.94
+          ],
+          "to": [
+            -29.34,
+            55.73,
+            40.34
+          ],
+          "origin": [
+            -35.87,
+            53.93,
+            39.14
+          ],
+          "rotation": [
+            0,
+            0,
+            -138.73
+          ]
+        },
+        {
+          "name": "rim_char_9",
+          "parent": "broken_rim",
+          "from": [
+            -55.07,
+            14.59,
+            37.58
+          ],
+          "to": [
+            -42.17,
+            17.59,
+            39.98
+          ],
+          "origin": [
+            -48.62,
+            16.09,
+            38.78
+          ],
+          "rotation": [
+            0,
+            0,
+            -90.79
+          ]
+        },
+        {
+          "name": "rim_char_10",
+          "parent": "broken_rim",
+          "from": [
+            -49.88,
+            -5.43,
+            37.76
+          ],
+          "to": [
+            -36.83,
+            -1.83,
+            40.16
+          ],
+          "origin": [
+            -43.36,
+            -3.63,
+            38.96
+          ],
+          "rotation": [
+            0,
+            0,
+            -66.73
+          ]
+        },
+        {
+          "name": "rim_char_11",
+          "parent": "broken_rim",
+          "from": [
+            -36.96,
+            -21.79,
+            37.94
+          ],
+          "to": [
+            -23.75,
+            -17.59,
+            40.34
+          ],
+          "origin": [
+            -30.35,
+            -19.69,
+            39.14
+          ],
+          "rotation": [
+            0,
+            0,
+            -42.67
+          ]
+        },
+        {
+          "name": "rim_char_13",
+          "parent": "broken_rim",
+          "from": [
+            2.55,
+            -30.33,
+            37.58
+          ],
+          "to": [
+            15.6,
+            -26.73,
+            39.98
+          ],
+          "origin": [
+            9.07,
+            -28.53,
+            38.78
+          ],
+          "rotation": [
+            0,
+            0,
+            5.27
+          ]
+        },
+        {
+          "name": "rim_char_14",
+          "parent": "broken_rim",
+          "from": [
+            21.76,
+            -23.24,
+            37.76
+          ],
+          "to": [
+            34.97,
+            -19.04,
+            40.16
+          ],
+          "origin": [
+            28.37,
+            -21.14,
+            38.96
+          ],
+          "rotation": [
+            0,
+            0,
+            29.33
+          ]
+        },
+        {
+          "name": "flame_00_base",
+          "parent": "flame_00",
+          "from": [
+            46.97,
+            -15.15,
+            41.3
+          ],
+          "to": [
+            66.03,
+            -6.75,
+            46.1
+          ],
+          "origin": [
+            56.5,
+            -10.95,
+            43.7
+          ],
+          "rotation": [
+            0,
+            0,
+            -15.34
+          ]
+        },
+        {
+          "name": "flame_00_mid",
+          "parent": "flame_00",
+          "from": [
+            56.98,
+            -25.9,
+            42.09
+          ],
+          "to": [
+            77.24,
+            -21.1,
+            45.69
+          ],
+          "origin": [
+            67.1,
+            -23.5,
+            43.89
+          ],
+          "rotation": [
+            0,
+            0,
+            -81.98
+          ]
+        },
+        {
+          "name": "flame_00_tip",
+          "parent": "flame_00",
+          "from": [
+            59.79,
+            -42.35,
+            43.03
+          ],
+          "to": [
+            75.42,
+            -40.25,
+            45.13
+          ],
+          "origin": [
+            67.6,
+            -41.3,
+            44.08
+          ],
+          "rotation": [
+            0,
+            0,
+            -96.73
+          ]
+        },
+        {
+          "name": "flame_01_base",
+          "parent": "flame_01",
+          "from": [
+            55.06,
+            0.56,
+            45.5
+          ],
+          "to": [
+            74.76,
+            10.16,
+            50.3
+          ],
+          "origin": [
+            64.91,
+            5.36,
+            47.9
+          ],
+          "rotation": [
+            0,
+            0,
+            0.64
+          ]
+        },
+        {
+          "name": "flame_01_mid",
+          "parent": "flame_01",
+          "from": [
+            73.91,
+            6.79,
+            46.29
+          ],
+          "to": [
+            93.7,
+            12.19,
+            49.89
+          ],
+          "origin": [
+            83.8,
+            9.49,
+            48.09
+          ],
+          "rotation": [
+            0,
+            0,
+            23.96
+          ]
+        },
+        {
+          "name": "flame_01_tip",
+          "parent": "flame_01",
+          "from": [
+            88.94,
+            19.98,
+            47.23
+          ],
+          "to": [
+            108.5,
+            22.68,
+            49.33
+          ],
+          "origin": [
+            98.72,
+            21.33,
+            48.28
+          ],
+          "rotation": [
+            0,
+            0,
+            53.08
+          ]
+        },
+        {
+          "name": "flame_02_base",
+          "parent": "flame_02",
+          "from": [
+            57.9,
+            22.99,
+            49.7
+          ],
+          "to": [
+            74.3,
+            33.79,
+            54.5
+          ],
+          "origin": [
+            66.1,
+            28.39,
+            52.1
+          ],
+          "rotation": [
+            0,
+            0,
+            23.48
+          ]
+        },
+        {
+          "name": "flame_02_mid",
+          "parent": "flame_02",
+          "from": [
+            70.64,
+            21.28,
+            50.49
+          ],
+          "to": [
+            91.91,
+            27.28,
+            54.09
+          ],
+          "origin": [
+            81.28,
+            24.28,
+            52.29
+          ],
+          "rotation": [
+            0,
+            0,
+            -43.95
+          ]
+        },
+        {
+          "name": "flame_02_tip",
+          "parent": "flame_02",
+          "from": [
+            84.98,
+            8.2,
+            51.43
+          ],
+          "to": [
+            101.46,
+            11.5,
+            53.53
+          ],
+          "origin": [
+            93.22,
+            9.85,
+            52.48
+          ],
+          "rotation": [
+            0,
+            0,
+            -58.72
+          ]
+        },
+        {
+          "name": "flame_03_base",
+          "parent": "flame_03",
+          "from": [
+            48.51,
+            44.38,
+            53.9
+          ],
+          "to": [
+            72.18,
+            52.78,
+            58.7
+          ],
+          "origin": [
+            60.34,
+            48.58,
+            56.3
+          ],
+          "rotation": [
+            0,
+            0,
+            36.36
+          ]
+        },
+        {
+          "name": "flame_03_mid",
+          "parent": "flame_03",
+          "from": [
+            64.37,
+            62.12,
+            54.69
+          ],
+          "to": [
+            87.4,
+            68.72,
+            58.29
+          ],
+          "origin": [
+            75.89,
+            65.42,
+            56.49
+          ],
+          "rotation": [
+            0,
+            0,
+            58.53
+          ]
+        },
+        {
+          "name": "flame_03_tip",
+          "parent": "flame_03",
+          "from": [
+            71.35,
+            85.24,
+            55.63
+          ],
+          "to": [
+            93.48,
+            87.34,
+            57.73
+          ],
+          "origin": [
+            82.42,
+            86.29,
+            56.68
+          ],
+          "rotation": [
+            0,
+            0,
+            87.31
+          ]
+        },
+        {
+          "name": "flame_04_base",
+          "parent": "flame_04",
+          "from": [
+            37.13,
+            62.07,
+            41.3
+          ],
+          "to": [
+            55.72,
+            71.67,
+            46.1
+          ],
+          "origin": [
+            46.43,
+            66.87,
+            43.7
+          ],
+          "rotation": [
+            0,
+            0,
+            59.35
+          ]
+        },
+        {
+          "name": "flame_04_mid",
+          "parent": "flame_04",
+          "from": [
+            51.13,
+            71.55,
+            42.09
+          ],
+          "to": [
+            73.03,
+            76.35,
+            45.69
+          ],
+          "origin": [
+            62.08,
+            73.95,
+            43.89
+          ],
+          "rotation": [
+            0,
+            0,
+            -4.82
+          ]
+        },
+        {
+          "name": "flame_04_tip",
+          "parent": "flame_04",
+          "from": [
+            72.49,
+            68.83,
+            43.03
+          ],
+          "to": [
+            89.5,
+            71.53,
+            45.13
+          ],
+          "origin": [
+            80.99,
+            70.18,
+            44.08
+          ],
+          "rotation": [
+            0,
+            0,
+            -19.61
+          ]
+        },
+        {
+          "name": "flame_05_base",
+          "parent": "flame_05",
+          "from": [
+            19.98,
+            75.87,
+            45.5
+          ],
+          "to": [
+            39.06,
+            86.67,
+            50.3
+          ],
+          "origin": [
+            29.52,
+            81.27,
+            47.9
+          ],
+          "rotation": [
+            0,
+            0,
+            78.41
+          ]
+        },
+        {
+          "name": "flame_05_mid",
+          "parent": "flame_05",
+          "from": [
+            19.04,
+            98.47,
+            46.29
+          ],
+          "to": [
+            40.44,
+            103.87,
+            49.89
+          ],
+          "origin": [
+            29.74,
+            101.17,
+            48.09
+          ],
+          "rotation": [
+            0,
+            0,
+            99.12
+          ]
+        },
+        {
+          "name": "flame_05_tip",
+          "parent": "flame_05",
+          "from": [
+            11.2,
+            118.29,
+            47.23
+          ],
+          "to": [
+            32.04,
+            121.59,
+            49.33
+          ],
+          "origin": [
+            21.62,
+            119.94,
+            48.28
+          ],
+          "rotation": [
+            0,
+            0,
+            128.08
+          ]
+        },
+        {
+          "name": "flame_06_base",
+          "parent": "flame_06",
+          "from": [
+            -6.08,
+            83.14,
+            49.7
+          ],
+          "to": [
+            19.36,
+            91.54,
+            54.5
+          ],
+          "origin": [
+            6.64,
+            87.34,
+            52.1
+          ],
+          "rotation": [
+            0,
+            0,
+            94.71
+          ]
+        },
+        {
+          "name": "flame_06_mid",
+          "parent": "flame_06",
+          "from": [
+            1.7,
+            106.88,
+            50.49
+          ],
+          "to": [
+            30.62,
+            112.88,
+            54.09
+          ],
+          "origin": [
+            16.16,
+            109.88,
+            52.29
+          ],
+          "rotation": [
+            0,
+            0,
+            43.05
+          ]
+        },
+        {
+          "name": "flame_06_tip",
+          "parent": "flame_06",
+          "from": [
+            25.4,
+            124.06,
+            51.43
+          ],
+          "to": [
+            48.22,
+            126.16,
+            53.53
+          ],
+          "origin": [
+            36.81,
+            125.11,
+            52.48
+          ],
+          "rotation": [
+            0,
+            0,
+            27.98
+          ]
+        },
+        {
+          "name": "flame_07_base",
+          "parent": "flame_07",
+          "from": [
+            -27.5,
+            79.46,
+            53.9
+          ],
+          "to": [
+            -7.64,
+            89.06,
+            58.7
+          ],
+          "origin": [
+            -17.57,
+            84.26,
+            56.3
+          ],
+          "rotation": [
+            0,
+            0,
+            118.55
+          ]
+        },
+        {
+          "name": "flame_07_mid",
+          "parent": "flame_07",
+          "from": [
+            -40.18,
+            95.89,
+            54.69
+          ],
+          "to": [
+            -20.16,
+            102.49,
+            58.29
+          ],
+          "origin": [
+            -30.17,
+            99.19,
+            56.49
+          ],
+          "rotation": [
+            0,
+            0,
+            141.68
+          ]
+        },
+        {
+          "name": "flame_07_tip",
+          "parent": "flame_07",
+          "from": [
+            -57.64,
+            105.63,
+            55.63
+          ],
+          "to": [
+            -37.9,
+            108.33,
+            57.73
+          ],
+          "origin": [
+            -47.77,
+            106.98,
+            56.68
+          ],
+          "rotation": [
+            0,
+            0,
+            170.78
+          ]
+        },
+        {
+          "name": "flame_08_base",
+          "parent": "flame_08",
+          "from": [
+            -47.86,
+            71.99,
+            41.3
+          ],
+          "to": [
+            -27.5,
+            82.79,
+            46.1
+          ],
+          "origin": [
+            -37.68,
+            77.39,
+            43.7
+          ],
+          "rotation": [
+            0,
+            0,
+            136.63
+          ]
+        },
+        {
+          "name": "flame_08_mid",
+          "parent": "flame_08",
+          "from": [
+            -56.04,
+            95.1,
+            42.09
+          ],
+          "to": [
+            -29.38,
+            99.9,
+            45.69
+          ],
+          "origin": [
+            -42.71,
+            97.5,
+            43.89
+          ],
+          "rotation": [
+            0,
+            0,
+            79.78
+          ]
+        },
+        {
+          "name": "flame_08_tip",
+          "parent": "flame_08",
+          "from": [
+            -46.36,
+            118.45,
+            43.03
+          ],
+          "to": [
+            -25.4,
+            121.75,
+            45.13
+          ],
+          "origin": [
+            -35.89,
+            120.1,
+            44.08
+          ],
+          "rotation": [
+            0,
+            0,
+            64.81
+          ]
+        },
+        {
+          "name": "flame_09_base",
+          "parent": "flame_09",
+          "from": [
+            -61.76,
+            54.5,
+            45.5
+          ],
+          "to": [
+            -42.07,
+            62.9,
+            50.3
+          ],
+          "origin": [
+            -51.91,
+            58.7,
+            47.9
+          ],
+          "rotation": [
+            0,
+            0,
+            156.28
+          ]
+        },
+        {
+          "name": "flame_09_mid",
+          "parent": "flame_09",
+          "from": [
+            -78.23,
+            59.43,
+            46.29
+          ],
+          "to": [
+            -60.91,
+            64.83,
+            49.89
+          ],
+          "origin": [
+            -69.57,
+            62.13,
+            48.09
+          ],
+          "rotation": [
+            0,
+            0,
+            -176.45
+          ]
+        },
+        {
+          "name": "flame_09_tip",
+          "parent": "flame_09",
+          "from": [
+            -94.45,
+            55.76,
+            47.23
+          ],
+          "to": [
+            -76.81,
+            57.86,
+            49.33
+          ],
+          "origin": [
+            -85.63,
+            56.81,
+            48.28
+          ],
+          "rotation": [
+            0,
+            0,
+            -147.2
+          ]
+        },
+        {
+          "name": "flame_10_base",
+          "parent": "flame_10",
+          "from": [
+            -75,
+            32.19,
+            49.7
+          ],
+          "to": [
+            -54.5,
+            41.79,
+            54.5
+          ],
+          "origin": [
+            -64.75,
+            36.99,
+            52.1
+          ],
+          "rotation": [
+            0,
+            0,
+            178.19
+          ]
+        },
+        {
+          "name": "flame_10_mid",
+          "parent": "flame_10",
+          "from": [
+            -93.17,
+            45,
+            50.49
+          ],
+          "to": [
+            -68.71,
+            51,
+            54.09
+          ],
+          "origin": [
+            -80.94,
+            48,
+            52.29
+          ],
+          "rotation": [
+            0,
+            0,
+            119.1
+          ]
+        },
+        {
+          "name": "flame_10_tip",
+          "parent": "flame_10",
+          "from": [
+            -98.81,
+            66.61,
+            51.43
+          ],
+          "to": [
+            -79.67,
+            69.31,
+            53.53
+          ],
+          "origin": [
+            -89.24,
+            67.96,
+            52.48
+          ],
+          "rotation": [
+            0,
+            0,
+            104.22
+          ]
+        },
+        {
+          "name": "flame_11_base",
+          "parent": "flame_11",
+          "from": [
+            -74.77,
+            6.17,
+            53.9
+          ],
+          "to": [
+            -57.9,
+            16.97,
+            58.7
+          ],
+          "origin": [
+            -66.34,
+            11.57,
+            56.3
+          ],
+          "rotation": [
+            0,
+            0,
+            -156.93
+          ]
+        },
+        {
+          "name": "flame_11_mid",
+          "parent": "flame_11",
+          "from": [
+            -89.52,
+            -1.6,
+            54.69
+          ],
+          "to": [
+            -71.3,
+            5,
+            58.29
+          ],
+          "origin": [
+            -80.41,
+            1.7,
+            56.49
+          ],
+          "rotation": [
+            0,
+            0,
+            -133.87
+          ]
+        },
+        {
+          "name": "flame_11_tip",
+          "parent": "flame_11",
+          "from": [
+            -98.2,
+            -15.38,
+            55.63
+          ],
+          "to": [
+            -79.87,
+            -12.08,
+            57.73
+          ],
+          "origin": [
+            -89.04,
+            -13.73,
+            56.68
+          ],
+          "rotation": [
+            0,
+            0,
+            -104.65
+          ]
+        },
+        {
+          "name": "flame_12_base",
+          "parent": "flame_12",
+          "from": [
+            -66.64,
+            -13.7,
+            41.3
+          ],
+          "to": [
+            -47.74,
+            -5.3,
+            46.1
+          ],
+          "origin": [
+            -57.19,
+            -9.5,
+            43.7
+          ],
+          "rotation": [
+            0,
+            0,
+            -139.24
+          ]
+        },
+        {
+          "name": "flame_12_mid",
+          "parent": "flame_12",
+          "from": [
+            -83.35,
+            -13.61,
+            42.09
+          ],
+          "to": [
+            -63.29,
+            -8.81,
+            45.69
+          ],
+          "origin": [
+            -73.33,
+            -11.21,
+            43.89
+          ],
+          "rotation": [
+            0,
+            0,
+            153.59
+          ]
+        },
+        {
+          "name": "flame_12_tip",
+          "parent": "flame_12",
+          "from": [
+            -95.86,
+            -2.7,
+            43.03
+          ],
+          "to": [
+            -80.4,
+            -0.6,
+            45.13
+          ],
+          "origin": [
+            -88.13,
+            -1.65,
+            44.08
+          ],
+          "rotation": [
+            0,
+            0,
+            138.84
+          ]
+        },
+        {
+          "name": "ember_0",
+          "parent": "sun_root",
+          "from": [
+            86.86,
+            38.97,
+            42.2
+          ],
+          "to": [
+            92.23,
+            40.17,
+            43.4
+          ],
+          "origin": [
+            89.54,
+            39.57,
+            42.8
+          ],
+          "rotation": [
+            0,
+            0,
+            63.43
+          ]
+        },
+        {
+          "name": "ember_1",
+          "parent": "sun_root",
+          "from": [
+            81.09,
+            67.28,
+            47
+          ],
+          "to": [
+            88.34,
+            69.08,
+            48.2
+          ],
+          "origin": [
+            84.72,
+            68.18,
+            47.6
+          ],
+          "rotation": [
+            0,
+            0,
+            114.44
+          ]
+        },
+        {
+          "name": "ember_2",
+          "parent": "sun_root",
+          "from": [
+            71.93,
+            96.12,
+            51.8
+          ],
+          "to": [
+            80.67,
+            97.32,
+            53
+          ],
+          "origin": [
+            76.3,
+            96.72,
+            52.4
+          ],
+          "rotation": [
+            0,
+            0,
+            74.05
+          ]
+        },
+        {
+          "name": "ember_3",
+          "parent": "sun_root",
+          "from": [
+            50.62,
+            118.63,
+            56.6
+          ],
+          "to": [
+            56.29,
+            120.43,
+            57.8
+          ],
+          "origin": [
+            53.45,
+            119.53,
+            57.2
+          ],
+          "rotation": [
+            0,
+            0,
+            122.01
+          ]
+        },
+        {
+          "name": "ember_4",
+          "parent": "sun_root",
+          "from": [
+            17.93,
+            110.4,
+            42.2
+          ],
+          "to": [
+            24.96,
+            111.6,
+            43.4
+          ],
+          "origin": [
+            21.44,
+            111,
+            42.8
+          ],
+          "rotation": [
+            0,
+            0,
+            70.02
+          ]
+        },
+        {
+          "name": "ember_5",
+          "parent": "sun_root",
+          "from": [
+            -11.89,
+            120.32,
+            47
+          ],
+          "to": [
+            -2.98,
+            122.12,
+            48.2
+          ],
+          "origin": [
+            -7.43,
+            121.22,
+            47.6
+          ],
+          "rotation": [
+            0,
+            0,
+            109.65
+          ]
+        },
+        {
+          "name": "ember_6",
+          "parent": "sun_root",
+          "from": [
+            -37.19,
+            119.91,
+            51.8
+          ],
+          "to": [
+            -31.82,
+            121.11,
+            53
+          ],
+          "origin": [
+            -34.51,
+            120.51,
+            52.4
+          ],
+          "rotation": [
+            0,
+            0,
+            63.43
+          ]
+        },
+        {
+          "name": "ember_7",
+          "parent": "sun_root",
+          "from": [
+            -71.51,
+            112.11,
+            56.6
+          ],
+          "to": [
+            -64.26,
+            113.91,
+            57.8
+          ],
+          "origin": [
+            -67.88,
+            113.01,
+            57.2
+          ],
+          "rotation": [
+            0,
+            0,
+            114.44
+          ]
+        },
+        {
+          "name": "ember_8",
+          "parent": "sun_root",
+          "from": [
+            -75.05,
+            77.76,
+            42.2
+          ],
+          "to": [
+            -66.31,
+            78.96,
+            43.4
+          ],
+          "origin": [
+            -70.68,
+            78.36,
+            42.8
+          ],
+          "rotation": [
+            0,
+            0,
+            74.05
+          ]
+        },
+        {
+          "name": "ember_9",
+          "parent": "sun_root",
+          "from": [
+            -95.38,
+            55.54,
+            47
+          ],
+          "to": [
+            -89.71,
+            57.34,
+            48.2
+          ],
+          "origin": [
+            -92.54,
+            56.44,
+            47.6
+          ],
+          "rotation": [
+            0,
+            0,
+            122.01
+          ]
+        },
+        {
+          "name": "ember_10",
+          "parent": "sun_root",
+          "from": [
+            -106.46,
+            29.98,
+            51.8
+          ],
+          "to": [
+            -99.43,
+            31.18,
+            53
+          ],
+          "origin": [
+            -102.95,
+            30.58,
+            52.4
+          ],
+          "rotation": [
+            0,
+            0,
+            70.02
+          ]
+        },
+        {
+          "name": "ember_11",
+          "parent": "sun_root",
+          "from": [
+            -114.91,
+            -0.86,
+            56.6
+          ],
+          "to": [
+            -106,
+            0.94,
+            57.8
+          ],
+          "origin": [
+            -110.45,
+            0.04,
+            57.2
+          ],
+          "rotation": [
+            0,
+            0,
+            109.65
+          ]
+        },
+        {
+          "name": "flash_ray_00",
+          "parent": "flash_corona",
+          "from": [
+            33.36,
+            -7.71,
+            48
+          ],
+          "to": [
+            78.36,
+            -0.11,
+            52
+          ],
+          "origin": [
+            55.86,
+            -3.91,
+            50
+          ],
+          "rotation": [
+            0,
+            0,
+            -4
+          ]
+        },
+        {
+          "name": "flash_ray_01",
+          "parent": "flash_corona",
+          "from": [
+            24.66,
+            21.8,
+            48.24
+          ],
+          "to": [
+            81.66,
+            29.4,
+            52.24
+          ],
+          "origin": [
+            53.16,
+            25.6,
+            50.24
+          ],
+          "rotation": [
+            0,
+            0,
+            25.71
+          ]
+        },
+        {
+          "name": "flash_ray_02",
+          "parent": "flash_corona",
+          "from": [
+            0.68,
+            47.25,
+            48.48
+          ],
+          "to": [
+            69.68,
+            54.85,
+            52.48
+          ],
+          "origin": [
+            35.18,
+            51.05,
+            50.48
+          ],
+          "rotation": [
+            0,
+            0,
+            55.43
+          ]
+        },
+        {
+          "name": "flash_ray_03",
+          "parent": "flash_corona",
+          "from": [
+            -24.26,
+            49.79,
+            48
+          ],
+          "to": [
+            56.74,
+            57.39,
+            52
+          ],
+          "origin": [
+            16.24,
+            53.59,
+            50
+          ],
+          "rotation": [
+            0,
+            0,
+            73.14
+          ]
+        },
+        {
+          "name": "flash_ray_04",
+          "parent": "flash_corona",
+          "from": [
+            -35.63,
+            53.72,
+            48.24
+          ],
+          "to": [
+            9.37,
+            61.32,
+            52.24
+          ],
+          "origin": [
+            -13.13,
+            57.52,
+            50.24
+          ],
+          "rotation": [
+            0,
+            0,
+            102.86
+          ]
+        },
+        {
+          "name": "flash_ray_05",
+          "parent": "flash_corona",
+          "from": [
+            -70.44,
+            41.86,
+            48.48
+          ],
+          "to": [
+            -13.44,
+            49.46,
+            52.48
+          ],
+          "origin": [
+            -41.94,
+            45.66,
+            50.48
+          ],
+          "rotation": [
+            0,
+            0,
+            132.57
+          ]
+        },
+        {
+          "name": "flash_ray_06",
+          "parent": "flash_corona",
+          "from": [
+            -83.14,
+            23.96,
+            48
+          ],
+          "to": [
+            -14.14,
+            31.56,
+            52
+          ],
+          "origin": [
+            -48.64,
+            27.76,
+            50
+          ],
+          "rotation": [
+            0,
+            0,
+            150.29
+          ]
+        },
+        {
+          "name": "flash_ray_07",
+          "parent": "flash_corona",
+          "from": [
+            -99.5,
+            -3.8,
+            48.24
+          ],
+          "to": [
+            -18.5,
+            3.8,
+            52.24
+          ],
+          "origin": [
+            -59,
+            0,
+            50.24
+          ],
+          "rotation": [
+            0,
+            0,
+            180
+          ]
+        },
+        {
+          "name": "flash_ray_08",
+          "parent": "flash_corona",
+          "from": [
+            -76.35,
+            -34.53,
+            48.48
+          ],
+          "to": [
+            -31.35,
+            -26.93,
+            52.48
+          ],
+          "origin": [
+            -53.85,
+            -30.73,
+            50.48
+          ],
+          "rotation": [
+            0,
+            0,
+            209.71
+          ]
+        },
+        {
+          "name": "flash_ray_09",
+          "parent": "flash_corona",
+          "from": [
+            -66.38,
+            -45.04,
+            48
+          ],
+          "to": [
+            -9.38,
+            -37.44,
+            52
+          ],
+          "origin": [
+            -37.88,
+            -41.24,
+            50
+          ],
+          "rotation": [
+            0,
+            0,
+            227.43
+          ]
+        },
+        {
+          "name": "flash_ray_10",
+          "parent": "flash_corona",
+          "from": [
+            -47.63,
+            -61.32,
+            48.24
+          ],
+          "to": [
+            21.37,
+            -53.72,
+            52.24
+          ],
+          "origin": [
+            -13.13,
+            -57.52,
+            50.24
+          ],
+          "rotation": [
+            0,
+            0,
+            257.14
+          ]
+        },
+        {
+          "name": "flash_ray_11",
+          "parent": "flash_corona",
+          "from": [
+            -22.52,
+            -63.14,
+            48.48
+          ],
+          "to": [
+            58.48,
+            -55.54,
+            52.48
+          ],
+          "origin": [
+            17.98,
+            -59.34,
+            50.48
+          ],
+          "rotation": [
+            0,
+            0,
+            286.86
+          ]
+        },
+        {
+          "name": "flash_ray_12",
+          "parent": "flash_corona",
+          "from": [
+            9.28,
+            -49.91,
+            48
+          ],
+          "to": [
+            54.28,
+            -42.31,
+            52
+          ],
+          "origin": [
+            31.78,
+            -46.11,
+            50
+          ],
+          "rotation": [
+            0,
+            0,
+            304.57
+          ]
+        },
+        {
+          "name": "flash_ray_13",
+          "parent": "flash_corona",
+          "from": [
+            24.66,
+            -29.4,
+            48.24
+          ],
+          "to": [
+            81.66,
+            -21.8,
+            52.24
+          ],
+          "origin": [
+            53.16,
+            -25.6,
+            50.24
+          ],
+          "rotation": [
+            0,
+            0,
+            334.29
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "name": "pack_uv",
+    "arguments": {
+      "padding": 1,
+      "auto_resize": true
+    }
+  },
+  {
+    "name": "detail_cubes",
+    "arguments": {
+      "texture": "ryujin_bankai_activation_scene_lab.png",
+      "base": "#322527",
+      "blur": 0.5,
+      "noise": 0.025,
+      "colors": [
+        {
+          "match": "^body_|^leg_|^foot_|^arm_",
+          "color": "#211c23"
+        },
+        {
+          "match": "^head_box",
+          "color": "#d3ad88"
+        },
+        {
+          "match": "^hand_",
+          "color": "#c99d77"
+        },
+        {
+          "match": "^katana_grip",
+          "color": "#694020"
+        },
+        {
+          "match": "^katana_guard",
+          "color": "#d99c2b"
+        },
+        {
+          "match": "^katana_blade|^katana_tip",
+          "color": "#e3e6e9"
+        },
+        {
+          "match": "^heart_",
+          "color": "#ffe59c"
+        },
+        {
+          "match": "^inner_swirl",
+          "color": "#ffb94d"
+        },
+        {
+          "match": "^mid_swirl",
+          "color": "#e56a24"
+        },
+        {
+          "match": "^outer_swirl",
+          "color": "#ad331a"
+        },
+        {
+          "match": "^rim_char",
+          "color": "#702119"
+        },
+        {
+          "match": "^flame_\\d+_base",
+          "color": "#f9761d"
+        },
+        {
+          "match": "^flame_\\d+_mid",
+          "color": "#d94b1d"
+        },
+        {
+          "match": "^flame_\\d+_tip",
+          "color": "#b92d18"
+        },
+        {
+          "match": "^ember_",
+          "color": "#ffd34f"
+        },
+        {
+          "match": "^flash_ray",
+          "color": "#ffe284"
+        }
+      ]
+    }
+  },
+  {
+    "name": "create_animation",
+    "arguments": {
+      "name": "animation.ryujin.bankai_activation_scene_lab",
+      "loop": "once",
+      "length": 12
+    }
+  },
+  {
+    "name": "add_keyframes",
+    "arguments": {
+      "animation": "animation.ryujin.bankai_activation_scene_lab",
+      "keyframes": [
+        {
+          "bone": "chest",
+          "channel": "rotation",
+          "time": 0,
+          "value": [
+            0,
+            0,
+            0
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "chest",
+          "channel": "rotation",
+          "time": 1.58,
+          "value": [
+            5,
+            0,
+            0
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "chest",
+          "channel": "rotation",
+          "time": 2,
+          "value": [
+            5,
+            0,
+            0
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "chest",
+          "channel": "rotation",
+          "time": 3.42,
+          "value": [
+            5,
+            0,
+            0
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "chest",
+          "channel": "rotation",
+          "time": 3.71,
+          "value": [
+            -4,
+            0,
+            0
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "chest",
+          "channel": "rotation",
+          "time": 4.42,
+          "value": [
+            -1,
+            0,
+            0
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "chest",
+          "channel": "rotation",
+          "time": 5.79,
+          "value": [
+            0,
+            0,
+            0
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "chest",
+          "channel": "rotation",
+          "time": 8,
+          "value": [
+            0,
+            0,
+            0
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "chest",
+          "channel": "rotation",
+          "time": 12,
+          "value": [
+            0,
+            0,
+            0
+          ],
+          "interpolation": "linear"
+        },
+        {
+          "bone": "head",
+          "channel": "rotation",
+          "time": 0,
+          "value": [
+            0,
+            0,
+            0
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "head",
+          "channel": "rotation",
+          "time": 1.58,
+          "value": [
+            -3,
+            0,
+            0
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "head",
+          "channel": "rotation",
+          "time": 2,
+          "value": [
+            -2,
+            0,
+            0
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "head",
+          "channel": "rotation",
+          "time": 3.42,
+          "value": [
+            -2,
+            0,
+            0
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "head",
+          "channel": "rotation",
+          "time": 3.71,
+          "value": [
+            4,
+            0,
+            0
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "head",
+          "channel": "rotation",
+          "time": 4.42,
+          "value": [
+            0,
+            0,
+            0
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "head",
+          "channel": "rotation",
+          "time": 8,
+          "value": [
+            0,
+            0,
+            0
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "head",
+          "channel": "rotation",
+          "time": 12,
+          "value": [
+            0,
+            0,
+            0
+          ],
+          "interpolation": "linear"
+        },
+        {
+          "bone": "arm_upper_right",
+          "channel": "rotation",
+          "time": 0,
+          "value": [
+            0,
+            0,
+            0
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "arm_upper_right",
+          "channel": "rotation",
+          "time": 0.58,
+          "value": [
+            8,
+            0,
+            -5
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "arm_upper_right",
+          "channel": "rotation",
+          "time": 1.58,
+          "value": [
+            -58,
+            0,
+            -9
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "arm_upper_right",
+          "channel": "rotation",
+          "time": 2,
+          "value": [
+            -65,
+            0,
+            -8
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "arm_upper_right",
+          "channel": "rotation",
+          "time": 3.42,
+          "value": [
+            -65,
+            0,
+            -8
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "arm_upper_right",
+          "channel": "rotation",
+          "time": 4,
+          "value": [
+            -53,
+            0,
+            -8
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "arm_upper_right",
+          "channel": "rotation",
+          "time": 5.21,
+          "value": [
+            -15,
+            0,
+            -5
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "arm_upper_right",
+          "channel": "rotation",
+          "time": 6.21,
+          "value": [
+            0,
+            0,
+            0
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "arm_upper_right",
+          "channel": "rotation",
+          "time": 8,
+          "value": [
+            0,
+            0,
+            0
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "arm_upper_right",
+          "channel": "rotation",
+          "time": 12,
+          "value": [
+            0,
+            0,
+            0
+          ],
+          "interpolation": "linear"
+        },
+        {
+          "bone": "arm_lower_right",
+          "channel": "rotation",
+          "time": 0,
+          "value": [
+            0,
+            0,
+            0
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "arm_lower_right",
+          "channel": "rotation",
+          "time": 0.58,
+          "value": [
+            8,
+            0,
+            0
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "arm_lower_right",
+          "channel": "rotation",
+          "time": 1.58,
+          "value": [
+            -40,
+            0,
+            0
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "arm_lower_right",
+          "channel": "rotation",
+          "time": 2,
+          "value": [
+            -45,
+            0,
+            0
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "arm_lower_right",
+          "channel": "rotation",
+          "time": 3.42,
+          "value": [
+            -45,
+            0,
+            0
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "arm_lower_right",
+          "channel": "rotation",
+          "time": 4,
+          "value": [
+            -30,
+            0,
+            0
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "arm_lower_right",
+          "channel": "rotation",
+          "time": 5.21,
+          "value": [
+            -8,
+            0,
+            0
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "arm_lower_right",
+          "channel": "rotation",
+          "time": 6.21,
+          "value": [
+            0,
+            0,
+            0
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "arm_lower_right",
+          "channel": "rotation",
+          "time": 8,
+          "value": [
+            0,
+            0,
+            0
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "arm_lower_right",
+          "channel": "rotation",
+          "time": 12,
+          "value": [
+            0,
+            0,
+            0
+          ],
+          "interpolation": "linear"
+        },
+        {
+          "bone": "hand_right",
+          "channel": "rotation",
+          "time": 0,
+          "value": [
+            0,
+            0,
+            0
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "hand_right",
+          "channel": "rotation",
+          "time": 0.58,
+          "value": [
+            -8,
+            0,
+            0
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "hand_right",
+          "channel": "rotation",
+          "time": 1.58,
+          "value": [
+            30,
+            0,
+            0
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "hand_right",
+          "channel": "rotation",
+          "time": 2,
+          "value": [
+            35,
+            0,
+            0
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "hand_right",
+          "channel": "rotation",
+          "time": 3.42,
+          "value": [
+            35,
+            0,
+            0
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "hand_right",
+          "channel": "rotation",
+          "time": 4,
+          "value": [
+            30,
+            0,
+            0
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "hand_right",
+          "channel": "rotation",
+          "time": 5.21,
+          "value": [
+            10,
+            0,
+            0
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "hand_right",
+          "channel": "rotation",
+          "time": 6.21,
+          "value": [
+            0,
+            0,
+            0
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "hand_right",
+          "channel": "rotation",
+          "time": 8,
+          "value": [
+            0,
+            0,
+            0
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "hand_right",
+          "channel": "rotation",
+          "time": 12,
+          "value": [
+            0,
+            0,
+            0
+          ],
+          "interpolation": "linear"
+        },
+        {
+          "bone": "katana",
+          "channel": "rotation",
+          "time": 0,
+          "value": [
+            0,
+            0,
+            -110
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "katana",
+          "channel": "rotation",
+          "time": 0.58,
+          "value": [
+            0,
+            0,
+            -105
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "katana",
+          "channel": "rotation",
+          "time": 1.58,
+          "value": [
+            68,
+            0,
+            -18
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "katana",
+          "channel": "rotation",
+          "time": 2,
+          "value": [
+            75,
+            0,
+            0
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "katana",
+          "channel": "rotation",
+          "time": 3.42,
+          "value": [
+            75,
+            0,
+            0
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "katana",
+          "channel": "rotation",
+          "time": 4,
+          "value": [
+            53,
+            0,
+            -28
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "katana",
+          "channel": "rotation",
+          "time": 5.21,
+          "value": [
+            13,
+            0,
+            -105
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "katana",
+          "channel": "rotation",
+          "time": 6.21,
+          "value": [
+            0,
+            0,
+            -110
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "katana",
+          "channel": "rotation",
+          "time": 8,
+          "value": [
+            0,
+            0,
+            -110
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "katana",
+          "channel": "rotation",
+          "time": 12,
+          "value": [
+            0,
+            0,
+            -110
+          ],
+          "interpolation": "linear"
+        },
+        {
+          "bone": "sun_core",
+          "channel": "scale",
+          "time": 3.4,
+          "value": [
+            0.03,
+            0.03,
+            0.03
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "sun_core",
+          "channel": "scale",
+          "time": 4.03,
+          "value": [
+            0.03,
+            0.03,
+            0.03
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "sun_core",
+          "channel": "scale",
+          "time": 4.36,
+          "value": [
+            0.34,
+            0.34,
+            0.34
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "sun_core",
+          "channel": "scale",
+          "time": 4.9,
+          "value": [
+            1.04,
+            1.04,
+            1.04
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "sun_core",
+          "channel": "scale",
+          "time": 5.82,
+          "value": [
+            1,
+            1,
+            1
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "inner_swirl",
+          "channel": "scale",
+          "time": 3.4,
+          "value": [
+            0.03,
+            0.03,
+            0.03
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "inner_swirl",
+          "channel": "scale",
+          "time": 4.19,
+          "value": [
+            0.03,
+            0.03,
+            0.03
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "inner_swirl",
+          "channel": "scale",
+          "time": 4.61,
+          "value": [
+            0.48,
+            0.48,
+            0.48
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "inner_swirl",
+          "channel": "scale",
+          "time": 5.44,
+          "value": [
+            1.04,
+            1.04,
+            1.04
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "inner_swirl",
+          "channel": "scale",
+          "time": 5.82,
+          "value": [
+            1,
+            1,
+            1
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "mid_swirl",
+          "channel": "scale",
+          "time": 3.4,
+          "value": [
+            0.03,
+            0.03,
+            0.03
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "mid_swirl",
+          "channel": "scale",
+          "time": 4.32,
+          "value": [
+            0.03,
+            0.03,
+            0.03
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "mid_swirl",
+          "channel": "scale",
+          "time": 4.73,
+          "value": [
+            0.48,
+            0.48,
+            0.48
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "mid_swirl",
+          "channel": "scale",
+          "time": 5.44,
+          "value": [
+            1.04,
+            1.04,
+            1.04
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "mid_swirl",
+          "channel": "scale",
+          "time": 5.82,
+          "value": [
+            1,
+            1,
+            1
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "outer_swirl",
+          "channel": "scale",
+          "time": 3.4,
+          "value": [
+            0.03,
+            0.03,
+            0.03
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "outer_swirl",
+          "channel": "scale",
+          "time": 4.4,
+          "value": [
+            0.03,
+            0.03,
+            0.03
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "outer_swirl",
+          "channel": "scale",
+          "time": 4.86,
+          "value": [
+            0.48,
+            0.48,
+            0.48
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "outer_swirl",
+          "channel": "scale",
+          "time": 5.44,
+          "value": [
+            1.04,
+            1.04,
+            1.04
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "outer_swirl",
+          "channel": "scale",
+          "time": 5.82,
+          "value": [
+            1,
+            1,
+            1
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "broken_rim",
+          "channel": "scale",
+          "time": 3.4,
+          "value": [
+            0.03,
+            0.03,
+            0.03
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "broken_rim",
+          "channel": "scale",
+          "time": 4.48,
+          "value": [
+            0.03,
+            0.03,
+            0.03
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "broken_rim",
+          "channel": "scale",
+          "time": 4.9,
+          "value": [
+            0.48,
+            0.48,
+            0.48
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "broken_rim",
+          "channel": "scale",
+          "time": 5.44,
+          "value": [
+            1.04,
+            1.04,
+            1.04
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "broken_rim",
+          "channel": "scale",
+          "time": 5.82,
+          "value": [
+            1,
+            1,
+            1
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_00",
+          "channel": "rotation",
+          "time": 3.4,
+          "value": [
+            0,
+            0,
+            0
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_00",
+          "channel": "rotation",
+          "time": 3.73,
+          "value": [
+            0,
+            0,
+            -7
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_00",
+          "channel": "rotation",
+          "time": 4.57,
+          "value": [
+            0,
+            0,
+            5
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_00",
+          "channel": "rotation",
+          "time": 5.82,
+          "value": [
+            0,
+            0,
+            0
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_00",
+          "channel": "scale",
+          "time": 3.4,
+          "value": [
+            0.03,
+            0.03,
+            0.03
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_00",
+          "channel": "scale",
+          "time": 3.53,
+          "value": [
+            0.46,
+            0.46,
+            0.46
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_00",
+          "channel": "scale",
+          "time": 3.73,
+          "value": [
+            1.26,
+            1.26,
+            1.26
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_00",
+          "channel": "scale",
+          "time": 4.28,
+          "value": [
+            1.14,
+            1.14,
+            1.14
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_00",
+          "channel": "scale",
+          "time": 4.98,
+          "value": [
+            1.04,
+            1.04,
+            1.04
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_00",
+          "channel": "scale",
+          "time": 5.82,
+          "value": [
+            1,
+            1,
+            1
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_01",
+          "channel": "rotation",
+          "time": 3.4,
+          "value": [
+            0,
+            0,
+            0
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_01",
+          "channel": "rotation",
+          "time": 3.78,
+          "value": [
+            0,
+            0,
+            8
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_01",
+          "channel": "rotation",
+          "time": 4.57,
+          "value": [
+            0,
+            0,
+            -4
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_01",
+          "channel": "rotation",
+          "time": 5.82,
+          "value": [
+            0,
+            0,
+            0
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_01",
+          "channel": "scale",
+          "time": 3.4,
+          "value": [
+            0.03,
+            0.03,
+            0.03
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_01",
+          "channel": "scale",
+          "time": 3.53,
+          "value": [
+            0.46,
+            0.46,
+            0.46
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_01",
+          "channel": "scale",
+          "time": 3.78,
+          "value": [
+            1.34,
+            1.34,
+            1.34
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_01",
+          "channel": "scale",
+          "time": 4.28,
+          "value": [
+            1.14,
+            1.14,
+            1.14
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_01",
+          "channel": "scale",
+          "time": 4.98,
+          "value": [
+            1.04,
+            1.04,
+            1.04
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_01",
+          "channel": "scale",
+          "time": 5.82,
+          "value": [
+            1,
+            1,
+            1
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_02",
+          "channel": "rotation",
+          "time": 3.4,
+          "value": [
+            0,
+            0,
+            0
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_02",
+          "channel": "rotation",
+          "time": 3.82,
+          "value": [
+            0,
+            0,
+            -7
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_02",
+          "channel": "rotation",
+          "time": 4.57,
+          "value": [
+            0,
+            0,
+            5
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_02",
+          "channel": "rotation",
+          "time": 5.82,
+          "value": [
+            0,
+            0,
+            0
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_02",
+          "channel": "scale",
+          "time": 3.4,
+          "value": [
+            0.03,
+            0.03,
+            0.03
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_02",
+          "channel": "scale",
+          "time": 3.53,
+          "value": [
+            0.46,
+            0.46,
+            0.46
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_02",
+          "channel": "scale",
+          "time": 3.82,
+          "value": [
+            1.42,
+            1.42,
+            1.42
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_02",
+          "channel": "scale",
+          "time": 4.28,
+          "value": [
+            1.14,
+            1.14,
+            1.14
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_02",
+          "channel": "scale",
+          "time": 4.98,
+          "value": [
+            1.04,
+            1.04,
+            1.04
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_02",
+          "channel": "scale",
+          "time": 5.82,
+          "value": [
+            1,
+            1,
+            1
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_03",
+          "channel": "rotation",
+          "time": 3.4,
+          "value": [
+            0,
+            0,
+            0
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_03",
+          "channel": "rotation",
+          "time": 3.86,
+          "value": [
+            0,
+            0,
+            8
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_03",
+          "channel": "rotation",
+          "time": 4.57,
+          "value": [
+            0,
+            0,
+            -4
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_03",
+          "channel": "rotation",
+          "time": 5.82,
+          "value": [
+            0,
+            0,
+            0
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_03",
+          "channel": "scale",
+          "time": 3.4,
+          "value": [
+            0.03,
+            0.03,
+            0.03
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_03",
+          "channel": "scale",
+          "time": 3.53,
+          "value": [
+            0.46,
+            0.46,
+            0.46
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_03",
+          "channel": "scale",
+          "time": 3.86,
+          "value": [
+            1.26,
+            1.26,
+            1.26
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_03",
+          "channel": "scale",
+          "time": 4.28,
+          "value": [
+            1.14,
+            1.14,
+            1.14
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_03",
+          "channel": "scale",
+          "time": 4.98,
+          "value": [
+            1.04,
+            1.04,
+            1.04
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_03",
+          "channel": "scale",
+          "time": 5.82,
+          "value": [
+            1,
+            1,
+            1
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_04",
+          "channel": "rotation",
+          "time": 3.4,
+          "value": [
+            0,
+            0,
+            0
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_04",
+          "channel": "rotation",
+          "time": 3.73,
+          "value": [
+            0,
+            0,
+            -7
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_04",
+          "channel": "rotation",
+          "time": 4.57,
+          "value": [
+            0,
+            0,
+            5
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_04",
+          "channel": "rotation",
+          "time": 5.82,
+          "value": [
+            0,
+            0,
+            0
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_04",
+          "channel": "scale",
+          "time": 3.4,
+          "value": [
+            0.03,
+            0.03,
+            0.03
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_04",
+          "channel": "scale",
+          "time": 3.53,
+          "value": [
+            0.46,
+            0.46,
+            0.46
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_04",
+          "channel": "scale",
+          "time": 3.73,
+          "value": [
+            1.34,
+            1.34,
+            1.34
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_04",
+          "channel": "scale",
+          "time": 4.28,
+          "value": [
+            1.14,
+            1.14,
+            1.14
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_04",
+          "channel": "scale",
+          "time": 4.98,
+          "value": [
+            1.04,
+            1.04,
+            1.04
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_04",
+          "channel": "scale",
+          "time": 5.82,
+          "value": [
+            1,
+            1,
+            1
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_05",
+          "channel": "rotation",
+          "time": 3.4,
+          "value": [
+            0,
+            0,
+            0
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_05",
+          "channel": "rotation",
+          "time": 3.78,
+          "value": [
+            0,
+            0,
+            8
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_05",
+          "channel": "rotation",
+          "time": 4.57,
+          "value": [
+            0,
+            0,
+            -4
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_05",
+          "channel": "rotation",
+          "time": 5.82,
+          "value": [
+            0,
+            0,
+            0
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_05",
+          "channel": "scale",
+          "time": 3.4,
+          "value": [
+            0.03,
+            0.03,
+            0.03
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_05",
+          "channel": "scale",
+          "time": 3.53,
+          "value": [
+            0.46,
+            0.46,
+            0.46
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_05",
+          "channel": "scale",
+          "time": 3.78,
+          "value": [
+            1.42,
+            1.42,
+            1.42
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_05",
+          "channel": "scale",
+          "time": 4.28,
+          "value": [
+            1.14,
+            1.14,
+            1.14
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_05",
+          "channel": "scale",
+          "time": 4.98,
+          "value": [
+            1.04,
+            1.04,
+            1.04
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_05",
+          "channel": "scale",
+          "time": 5.82,
+          "value": [
+            1,
+            1,
+            1
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_06",
+          "channel": "rotation",
+          "time": 3.4,
+          "value": [
+            0,
+            0,
+            0
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_06",
+          "channel": "rotation",
+          "time": 3.82,
+          "value": [
+            0,
+            0,
+            -7
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_06",
+          "channel": "rotation",
+          "time": 4.57,
+          "value": [
+            0,
+            0,
+            5
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_06",
+          "channel": "rotation",
+          "time": 5.82,
+          "value": [
+            0,
+            0,
+            0
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_06",
+          "channel": "scale",
+          "time": 3.4,
+          "value": [
+            0.03,
+            0.03,
+            0.03
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_06",
+          "channel": "scale",
+          "time": 3.53,
+          "value": [
+            0.46,
+            0.46,
+            0.46
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_06",
+          "channel": "scale",
+          "time": 3.82,
+          "value": [
+            1.26,
+            1.26,
+            1.26
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_06",
+          "channel": "scale",
+          "time": 4.28,
+          "value": [
+            1.14,
+            1.14,
+            1.14
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_06",
+          "channel": "scale",
+          "time": 4.98,
+          "value": [
+            1.04,
+            1.04,
+            1.04
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_06",
+          "channel": "scale",
+          "time": 5.82,
+          "value": [
+            1,
+            1,
+            1
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_07",
+          "channel": "rotation",
+          "time": 3.4,
+          "value": [
+            0,
+            0,
+            0
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_07",
+          "channel": "rotation",
+          "time": 3.86,
+          "value": [
+            0,
+            0,
+            8
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_07",
+          "channel": "rotation",
+          "time": 4.57,
+          "value": [
+            0,
+            0,
+            -4
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_07",
+          "channel": "rotation",
+          "time": 5.82,
+          "value": [
+            0,
+            0,
+            0
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_07",
+          "channel": "scale",
+          "time": 3.4,
+          "value": [
+            0.03,
+            0.03,
+            0.03
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_07",
+          "channel": "scale",
+          "time": 3.53,
+          "value": [
+            0.46,
+            0.46,
+            0.46
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_07",
+          "channel": "scale",
+          "time": 3.86,
+          "value": [
+            1.34,
+            1.34,
+            1.34
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_07",
+          "channel": "scale",
+          "time": 4.28,
+          "value": [
+            1.14,
+            1.14,
+            1.14
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_07",
+          "channel": "scale",
+          "time": 4.98,
+          "value": [
+            1.04,
+            1.04,
+            1.04
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_07",
+          "channel": "scale",
+          "time": 5.82,
+          "value": [
+            1,
+            1,
+            1
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_08",
+          "channel": "rotation",
+          "time": 3.4,
+          "value": [
+            0,
+            0,
+            0
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_08",
+          "channel": "rotation",
+          "time": 3.73,
+          "value": [
+            0,
+            0,
+            -7
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_08",
+          "channel": "rotation",
+          "time": 4.57,
+          "value": [
+            0,
+            0,
+            5
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_08",
+          "channel": "rotation",
+          "time": 5.82,
+          "value": [
+            0,
+            0,
+            0
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_08",
+          "channel": "scale",
+          "time": 3.4,
+          "value": [
+            0.03,
+            0.03,
+            0.03
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_08",
+          "channel": "scale",
+          "time": 3.53,
+          "value": [
+            0.46,
+            0.46,
+            0.46
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_08",
+          "channel": "scale",
+          "time": 3.73,
+          "value": [
+            1.42,
+            1.42,
+            1.42
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_08",
+          "channel": "scale",
+          "time": 4.28,
+          "value": [
+            1.14,
+            1.14,
+            1.14
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_08",
+          "channel": "scale",
+          "time": 4.98,
+          "value": [
+            1.04,
+            1.04,
+            1.04
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_08",
+          "channel": "scale",
+          "time": 5.82,
+          "value": [
+            1,
+            1,
+            1
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_09",
+          "channel": "rotation",
+          "time": 3.4,
+          "value": [
+            0,
+            0,
+            0
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_09",
+          "channel": "rotation",
+          "time": 3.78,
+          "value": [
+            0,
+            0,
+            8
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_09",
+          "channel": "rotation",
+          "time": 4.57,
+          "value": [
+            0,
+            0,
+            -4
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_09",
+          "channel": "rotation",
+          "time": 5.82,
+          "value": [
+            0,
+            0,
+            0
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_09",
+          "channel": "scale",
+          "time": 3.4,
+          "value": [
+            0.03,
+            0.03,
+            0.03
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_09",
+          "channel": "scale",
+          "time": 3.53,
+          "value": [
+            0.46,
+            0.46,
+            0.46
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_09",
+          "channel": "scale",
+          "time": 3.78,
+          "value": [
+            1.26,
+            1.26,
+            1.26
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_09",
+          "channel": "scale",
+          "time": 4.28,
+          "value": [
+            1.14,
+            1.14,
+            1.14
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_09",
+          "channel": "scale",
+          "time": 4.98,
+          "value": [
+            1.04,
+            1.04,
+            1.04
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_09",
+          "channel": "scale",
+          "time": 5.82,
+          "value": [
+            1,
+            1,
+            1
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_10",
+          "channel": "rotation",
+          "time": 3.4,
+          "value": [
+            0,
+            0,
+            0
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_10",
+          "channel": "rotation",
+          "time": 3.82,
+          "value": [
+            0,
+            0,
+            -7
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_10",
+          "channel": "rotation",
+          "time": 4.57,
+          "value": [
+            0,
+            0,
+            5
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_10",
+          "channel": "rotation",
+          "time": 5.82,
+          "value": [
+            0,
+            0,
+            0
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_10",
+          "channel": "scale",
+          "time": 3.4,
+          "value": [
+            0.03,
+            0.03,
+            0.03
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_10",
+          "channel": "scale",
+          "time": 3.53,
+          "value": [
+            0.46,
+            0.46,
+            0.46
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_10",
+          "channel": "scale",
+          "time": 3.82,
+          "value": [
+            1.34,
+            1.34,
+            1.34
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_10",
+          "channel": "scale",
+          "time": 4.28,
+          "value": [
+            1.14,
+            1.14,
+            1.14
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_10",
+          "channel": "scale",
+          "time": 4.98,
+          "value": [
+            1.04,
+            1.04,
+            1.04
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_10",
+          "channel": "scale",
+          "time": 5.82,
+          "value": [
+            1,
+            1,
+            1
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_11",
+          "channel": "rotation",
+          "time": 3.4,
+          "value": [
+            0,
+            0,
+            0
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_11",
+          "channel": "rotation",
+          "time": 3.86,
+          "value": [
+            0,
+            0,
+            8
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_11",
+          "channel": "rotation",
+          "time": 4.57,
+          "value": [
+            0,
+            0,
+            -4
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_11",
+          "channel": "rotation",
+          "time": 5.82,
+          "value": [
+            0,
+            0,
+            0
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_11",
+          "channel": "scale",
+          "time": 3.4,
+          "value": [
+            0.03,
+            0.03,
+            0.03
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_11",
+          "channel": "scale",
+          "time": 3.53,
+          "value": [
+            0.46,
+            0.46,
+            0.46
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_11",
+          "channel": "scale",
+          "time": 3.86,
+          "value": [
+            1.42,
+            1.42,
+            1.42
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_11",
+          "channel": "scale",
+          "time": 4.28,
+          "value": [
+            1.14,
+            1.14,
+            1.14
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_11",
+          "channel": "scale",
+          "time": 4.98,
+          "value": [
+            1.04,
+            1.04,
+            1.04
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_11",
+          "channel": "scale",
+          "time": 5.82,
+          "value": [
+            1,
+            1,
+            1
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_12",
+          "channel": "rotation",
+          "time": 3.4,
+          "value": [
+            0,
+            0,
+            0
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_12",
+          "channel": "rotation",
+          "time": 3.73,
+          "value": [
+            0,
+            0,
+            -7
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_12",
+          "channel": "rotation",
+          "time": 4.57,
+          "value": [
+            0,
+            0,
+            5
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_12",
+          "channel": "rotation",
+          "time": 5.82,
+          "value": [
+            0,
+            0,
+            0
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_12",
+          "channel": "scale",
+          "time": 3.4,
+          "value": [
+            0.03,
+            0.03,
+            0.03
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_12",
+          "channel": "scale",
+          "time": 3.53,
+          "value": [
+            0.46,
+            0.46,
+            0.46
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_12",
+          "channel": "scale",
+          "time": 3.73,
+          "value": [
+            1.26,
+            1.26,
+            1.26
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_12",
+          "channel": "scale",
+          "time": 4.28,
+          "value": [
+            1.14,
+            1.14,
+            1.14
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_12",
+          "channel": "scale",
+          "time": 4.98,
+          "value": [
+            1.04,
+            1.04,
+            1.04
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flame_12",
+          "channel": "scale",
+          "time": 5.82,
+          "value": [
+            1,
+            1,
+            1
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "inner_swirl",
+          "channel": "rotation",
+          "time": 0,
+          "value": [
+            0,
+            0,
+            0
+          ],
+          "interpolation": "linear"
+        },
+        {
+          "bone": "inner_swirl",
+          "channel": "rotation",
+          "time": 3.4,
+          "value": [
+            0,
+            0,
+            0
+          ],
+          "interpolation": "linear"
+        },
+        {
+          "bone": "inner_swirl",
+          "channel": "rotation",
+          "time": 4.2,
+          "value": [
+            0,
+            0,
+            -36
+          ],
+          "interpolation": "linear"
+        },
+        {
+          "bone": "inner_swirl",
+          "channel": "rotation",
+          "time": 4.8,
+          "value": [
+            0,
+            0,
+            -100.8
+          ],
+          "interpolation": "linear"
+        },
+        {
+          "bone": "inner_swirl",
+          "channel": "rotation",
+          "time": 5.5,
+          "value": [
+            0,
+            0,
+            -183.6
+          ],
+          "interpolation": "linear"
+        },
+        {
+          "bone": "inner_swirl",
+          "channel": "rotation",
+          "time": 6.2,
+          "value": [
+            0,
+            0,
+            -270
+          ],
+          "interpolation": "linear"
+        },
+        {
+          "bone": "inner_swirl",
+          "channel": "rotation",
+          "time": 7.1,
+          "value": [
+            0,
+            0,
+            -360
+          ],
+          "interpolation": "linear"
+        },
+        {
+          "bone": "mid_swirl",
+          "channel": "rotation",
+          "time": 0,
+          "value": [
+            0,
+            0,
+            0
+          ],
+          "interpolation": "linear"
+        },
+        {
+          "bone": "mid_swirl",
+          "channel": "rotation",
+          "time": 3.4,
+          "value": [
+            0,
+            0,
+            0
+          ],
+          "interpolation": "linear"
+        },
+        {
+          "bone": "mid_swirl",
+          "channel": "rotation",
+          "time": 4.2,
+          "value": [
+            0,
+            0,
+            45
+          ],
+          "interpolation": "linear"
+        },
+        {
+          "bone": "mid_swirl",
+          "channel": "rotation",
+          "time": 4.8,
+          "value": [
+            0,
+            0,
+            126
+          ],
+          "interpolation": "linear"
+        },
+        {
+          "bone": "mid_swirl",
+          "channel": "rotation",
+          "time": 5.5,
+          "value": [
+            0,
+            0,
+            229.5
+          ],
+          "interpolation": "linear"
+        },
+        {
+          "bone": "mid_swirl",
+          "channel": "rotation",
+          "time": 6.2,
+          "value": [
+            0,
+            0,
+            337.5
+          ],
+          "interpolation": "linear"
+        },
+        {
+          "bone": "mid_swirl",
+          "channel": "rotation",
+          "time": 7.1,
+          "value": [
+            0,
+            0,
+            450
+          ],
+          "interpolation": "linear"
+        },
+        {
+          "bone": "outer_swirl",
+          "channel": "rotation",
+          "time": 0,
+          "value": [
+            0,
+            0,
+            0
+          ],
+          "interpolation": "linear"
+        },
+        {
+          "bone": "outer_swirl",
+          "channel": "rotation",
+          "time": 3.4,
+          "value": [
+            0,
+            0,
+            0
+          ],
+          "interpolation": "linear"
+        },
+        {
+          "bone": "outer_swirl",
+          "channel": "rotation",
+          "time": 4.2,
+          "value": [
+            0,
+            0,
+            -54
+          ],
+          "interpolation": "linear"
+        },
+        {
+          "bone": "outer_swirl",
+          "channel": "rotation",
+          "time": 4.8,
+          "value": [
+            0,
+            0,
+            -151.2
+          ],
+          "interpolation": "linear"
+        },
+        {
+          "bone": "outer_swirl",
+          "channel": "rotation",
+          "time": 5.5,
+          "value": [
+            0,
+            0,
+            -275.4
+          ],
+          "interpolation": "linear"
+        },
+        {
+          "bone": "outer_swirl",
+          "channel": "rotation",
+          "time": 6.2,
+          "value": [
+            0,
+            0,
+            -405
+          ],
+          "interpolation": "linear"
+        },
+        {
+          "bone": "outer_swirl",
+          "channel": "rotation",
+          "time": 7.1,
+          "value": [
+            0,
+            0,
+            -540
+          ],
+          "interpolation": "linear"
+        },
+        {
+          "bone": "broken_rim",
+          "channel": "rotation",
+          "time": 0,
+          "value": [
+            0,
+            0,
+            0
+          ],
+          "interpolation": "linear"
+        },
+        {
+          "bone": "broken_rim",
+          "channel": "rotation",
+          "time": 3.4,
+          "value": [
+            0,
+            0,
+            0
+          ],
+          "interpolation": "linear"
+        },
+        {
+          "bone": "broken_rim",
+          "channel": "rotation",
+          "time": 4.2,
+          "value": [
+            0,
+            0,
+            27
+          ],
+          "interpolation": "linear"
+        },
+        {
+          "bone": "broken_rim",
+          "channel": "rotation",
+          "time": 4.8,
+          "value": [
+            0,
+            0,
+            75.6
+          ],
+          "interpolation": "linear"
+        },
+        {
+          "bone": "broken_rim",
+          "channel": "rotation",
+          "time": 5.5,
+          "value": [
+            0,
+            0,
+            137.7
+          ],
+          "interpolation": "linear"
+        },
+        {
+          "bone": "broken_rim",
+          "channel": "rotation",
+          "time": 6.2,
+          "value": [
+            0,
+            0,
+            202.5
+          ],
+          "interpolation": "linear"
+        },
+        {
+          "bone": "broken_rim",
+          "channel": "rotation",
+          "time": 7.1,
+          "value": [
+            0,
+            0,
+            270
+          ],
+          "interpolation": "linear"
+        },
+        {
+          "bone": "sun_root",
+          "channel": "scale",
+          "time": 0,
+          "value": [
+            1,
+            1,
+            1
+          ],
+          "interpolation": "linear"
+        },
+        {
+          "bone": "sun_root",
+          "channel": "position",
+          "time": 0,
+          "value": [
+            0,
+            0,
+            0
+          ],
+          "interpolation": "linear"
+        },
+        {
+          "bone": "sun_root",
+          "channel": "scale",
+          "time": 3.4,
+          "value": [
+            1,
+            1,
+            1
+          ],
+          "interpolation": "linear"
+        },
+        {
+          "bone": "sun_root",
+          "channel": "position",
+          "time": 3.4,
+          "value": [
+            0,
+            0,
+            0
+          ],
+          "interpolation": "linear"
+        },
+        {
+          "bone": "sun_root",
+          "channel": "scale",
+          "time": 5.8,
+          "value": [
+            1,
+            1,
+            1
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "sun_root",
+          "channel": "position",
+          "time": 5.8,
+          "value": [
+            0,
+            0,
+            0
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "sun_root",
+          "channel": "scale",
+          "time": 6.25,
+          "value": [
+            0.8,
+            0.8,
+            0.8
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "sun_root",
+          "channel": "position",
+          "time": 6.25,
+          "value": [
+            3,
+            -2,
+            -12
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "sun_root",
+          "channel": "scale",
+          "time": 6.65,
+          "value": [
+            0.38,
+            0.38,
+            0.38
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "sun_root",
+          "channel": "position",
+          "time": 6.65,
+          "value": [
+            9,
+            -7,
+            -31
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "sun_root",
+          "channel": "scale",
+          "time": 7.1,
+          "value": [
+            0.03,
+            0.03,
+            0.03
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "sun_root",
+          "channel": "position",
+          "time": 7.1,
+          "value": [
+            18,
+            -14,
+            -56
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "sun_root",
+          "channel": "scale",
+          "time": 12,
+          "value": [
+            0.03,
+            0.03,
+            0.03
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "sun_root",
+          "channel": "position",
+          "time": 12,
+          "value": [
+            18,
+            -14,
+            -56
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flash_corona",
+          "channel": "scale",
+          "time": 0,
+          "value": [
+            0.02,
+            0.02,
+            0.02
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flash_corona",
+          "channel": "scale",
+          "time": 3.35,
+          "value": [
+            0.02,
+            0.02,
+            0.02
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flash_corona",
+          "channel": "scale",
+          "time": 3.52,
+          "value": [
+            1.36,
+            1.36,
+            1.36
+          ],
+          "interpolation": "linear"
+        },
+        {
+          "bone": "flash_corona",
+          "channel": "scale",
+          "time": 3.78,
+          "value": [
+            0.93,
+            0.93,
+            0.93
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flash_corona",
+          "channel": "scale",
+          "time": 4.03,
+          "value": [
+            0.36,
+            0.36,
+            0.36
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flash_corona",
+          "channel": "scale",
+          "time": 4.32,
+          "value": [
+            0.02,
+            0.02,
+            0.02
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flash_corona",
+          "channel": "scale",
+          "time": 12,
+          "value": [
+            0.02,
+            0.02,
+            0.02
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "flash_corona",
+          "channel": "rotation",
+          "time": 0,
+          "value": [
+            0,
+            0,
+            0
+          ],
+          "interpolation": "linear"
+        },
+        {
+          "bone": "flash_corona",
+          "channel": "rotation",
+          "time": 3.35,
+          "value": [
+            0,
+            0,
+            0
+          ],
+          "interpolation": "linear"
+        },
+        {
+          "bone": "flash_corona",
+          "channel": "rotation",
+          "time": 3.52,
+          "value": [
+            0,
+            0,
+            16
+          ],
+          "interpolation": "linear"
+        },
+        {
+          "bone": "flash_corona",
+          "channel": "rotation",
+          "time": 3.9,
+          "value": [
+            0,
+            0,
+            28
+          ],
+          "interpolation": "linear"
+        },
+        {
+          "bone": "flash_corona",
+          "channel": "rotation",
+          "time": 4.32,
+          "value": [
+            0,
+            0,
+            34
+          ],
+          "interpolation": "linear"
+        },
+        {
+          "bone": "flash_corona",
+          "channel": "rotation",
+          "time": 12,
+          "value": [
+            0,
+            0,
+            34
+          ],
+          "interpolation": "linear"
+        },
+        {
+          "bone": "sun_core",
+          "channel": "scale",
+          "time": 5.82,
+          "value": [
+            1,
+            1,
+            1
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "sun_core",
+          "channel": "scale",
+          "time": 6.08,
+          "value": [
+            1.07,
+            1.07,
+            1.07
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "sun_core",
+          "channel": "scale",
+          "time": 6.28,
+          "value": [
+            0.96,
+            0.96,
+            0.96
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "sun_core",
+          "channel": "scale",
+          "time": 6.5,
+          "value": [
+            1.05,
+            1.05,
+            1.05
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "sun_core",
+          "channel": "scale",
+          "time": 6.8,
+          "value": [
+            0.98,
+            0.98,
+            0.98
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "sun_core",
+          "channel": "scale",
+          "time": 7.1,
+          "value": [
+            1,
+            1,
+            1
+          ],
+          "interpolation": "catmullrom"
+        },
+        {
+          "bone": "sun_core",
+          "channel": "scale",
+          "time": 12,
+          "value": [
+            1,
+            1,
+            1
+          ],
+          "interpolation": "catmullrom"
+        }
+      ],
+      "length": 12
+    }
+  },
+  {
+    "name": "check_model"
+  },
+  {
+    "name": "check_rig"
+  },
+  {
+    "name": "analyze_animation",
+    "arguments": {
+      "animation": "animation.ryujin.bankai_activation_scene_lab",
+      "expect": "cast",
+      "samples": 32
+    }
+  },
+  {
+    "name": "screenshot_views",
+    "arguments": {
+      "views": [
+        "front",
+        "front_right",
+        "left"
+      ],
+      "width": 720,
+      "height": 720
+    }
+  },
+  {
+    "name": "preview_animation",
+    "arguments": {
+      "animation": "animation.ryujin.bankai_activation_scene_lab",
+      "times": [
+        0,
+        2,
+        3.3,
+        3.55,
+        4.4,
+        5.8,
+        6.6,
+        7.2,
+        8,
+        12
+      ],
+      "views": [
+        "front"
+      ],
+      "width": 720,
+      "height": 720
+    }
+  },
+  {
+    "name": "preview_animation",
+    "arguments": {
+      "animation": "animation.ryujin.bankai_activation_scene_lab",
+      "times": [
+        2,
+        3.55,
+        5.8,
+        6.6,
+        7.2
+      ],
+      "views": [
+        "front_right"
+      ],
+      "width": 720,
+      "height": 720
+    }
+  },
+  {
+    "name": "save_project",
+    "arguments": {
+      "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\tools\\models\\lab\\codex\\ryujin01\\ryujin_bankai_activation_scene_lab.bbmodel"
+    }
+  },
+  {
+    "name": "export_model",
+    "arguments": {
+      "codec": "bedrock",
+      "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\tools\\models\\lab\\codex\\ryujin01\\ryujin_bankai_activation_scene_lab.geo.json"
+    }
+  }
+]

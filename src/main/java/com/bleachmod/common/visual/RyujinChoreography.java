@@ -44,12 +44,23 @@ public final class RyujinChoreography {
                     key(2,v(-2.95,.08,-.08),v(-2.85,-.08,.08),Vec3.ZERO,Vec3.ZERO,Vec3.ZERO,v(-.04,-.04,-.16),v(-.15,0,0)),
                     key(13,v(-2.95,.08,-.08),v(-2.85,-.08,.08),Vec3.ZERO,Vec3.ZERO,Vec3.ZERO,v(-.04,-.04,-.16),v(-.15,0,0)),neutral(16));
             // Coiled at the outside hip; short whole-body rotation, not Rajada's overhead swing.
-            case "higashi"->curve(age,sign,neutral(0),higashiHip(6),higashiHip(10),higashiCross(12),higashiEnd(16),neutral(22));
+            case "higashi"->curve(age,sign,neutral(0),higashiHip(10),higashiCross(12),higashiEnd(16),neutral(22));
             case "minami"->curve(age,sign,neutral(0),k(7,-2.15,.2,-.3,-.05,-.1,-.18,-.65,0,.2),k(16,-.3,.15,-.15,.3,-.1,.4,.7,0,-.25),k(18,-.3,.15,-.15,.28,-.1,.35,.65,0,-.2),neutral(22));
-            case "steam_cut"->curve(age,sign,neutral(0),k(9,-2.8,.2,-.2,-.08,-.2,-.2,-1.05,0,.1),k(16,-2.75,.25,-.25,-.1,-.25,-.25,-1.1,0,.15),k(18,-.5,-.2,.1,.22,.3,.4,.8,0,-.3),k(24,.05,-.4,.2,.15,.35,.25,.3,0,-.25),neutral(32));
+            case "steam_cut"->curve(age,sign,neutral(0),
+                steamReady(10),steamReady(27),steamLift(34),steamLift(35),
+                steamGround(40),steamGround(46),
+                key(51,v(-1.72,-.53,0),v(-1.5,.53,0),Vec3.ZERO,v(.08,0,.04),v(.2,0,0),Vec3.ZERO,Vec3.ZERO),neutral(56));
             default->interpolate(neutral(0),neutral(0),0,sign,0);
         };
     }
+    /** Wrists meet in front of the sternum; yaw solves the grip without moving shoulder pivots. */
+    private static Key steamReady(float time){return key(time,v(-1.745,-.533,0),v(-1.50,.526,0),
+            v(.015,0,0),v(.14,0,.04),Vec3.ZERO,v(-.12,.06,-.16),v(-.15,0,0));}
+    private static Key steamLift(float time){return key(time,v(-2.65,-.53,.32),v(-2.45,.53,-.24),
+            v(-.04,0,0),v(-.12,0,.04),v(-.17,0,0),v(-.10,.16,-.16),v(-.6,0,0));}
+    /** Blade points down; authored length1.35 reaches ground at contact, not a diagonal swipe. */
+    private static Key steamGround(float time){return key(time,v(-1.55,-.524,0),v(-1.65,.526,0),
+            Vec3.ZERO,v(.2,0,.04),v(2.947,0,0),v(-.08,-.20,-.25),v(1.4,0,0));}
     private static Key dashKey(float age,double stride,double lean){
         return key(age,v(-.48,.10,-.10),v(-.72,-.35,.38),v(lean,-.08,0),v(stride,0,.04),
                 Vec3.ZERO,v(-.04,-.06,-.18),v(-.18,.08,-.02));
@@ -67,11 +78,34 @@ public final class RyujinChoreography {
         return key(tick,v(-.98,-.45,-.16),v(-.8,.18,.14),v(-.06,.50,0),v(-.14,0,.05),Vec3.ZERO,
                 v(-.10,.12,-.12),v(-.55,.22,.38));
     }
-    /** Same draw and rising blade as the normal strike, followed by the confirmed dramatic hold. */
+    /** Confirmed replay: wrist-local rotations include vanilla's hand basis, not world Euler angles. */
     public static Pose execution(float age,float sign){
-        return curve(age,sign,neutral(0),higashiHip(6),higashiHip(10),higashiCross(12),
-                higashiEnd(16),higashiEnd(HigashiCinematicPath.IGNITE),
+        return curve(age,sign,neutral(0),executionHip(7),executionHip(10),
+                key(12,v(-1.05,-.18,.06),v(-.65,.10,.08),v(.02,-.12,0),v(.04,0,.05),
+                        v(-.684624,-.036927,-.064953),v(.03,-.06,-.12),v(-.18,.08,.12)),
+                executionFinish(16),executionFinish(HigashiCinematicPath.IGNITE),
                 k(HigashiCinematicPath.END-8,-.65,-.15,.06,0,.16,-.03,0,0,0),neutral(HigashiCinematicPath.END));
+    }
+    private static Key executionHip(float tick){
+        return key(tick,v(.18,.04,.24),v(-.5,.18,-.12),v(.06,-.45,0),v(.12,0,.06),
+                v(-.091963,-.006051,-.026991),v(.10,-.20,.04),v(.16,-.10,-.18));
+    }
+    private static Key executionFinish(float tick){
+        return key(tick,v(-1.65,-.65,-.30),v(-.8,.18,.14),v(-.06,.50,0),v(-.14,0,.05),
+                v(-.762852,-.115709,-.185898),v(-.10,.12,-.12),v(-.55,.22,.38));
+    }
+    /** Runtime held-item chain: arm -> vanilla Rx(-90) Ry(180) -> item -> model/display. */
+    public static Vec3 executionBladeDirection(Pose pose){
+        Vec3 r=modelRotation(v(0,Math.cos(Math.toRadians(10)),-Math.sin(Math.toRadians(10))),pose.item);
+        r=modelRotation(modelRotation(r,v(0,Math.PI,0)),v(-Math.PI/2,0,0));
+        // Global body precedes the renderer's negative X/Y scale; arm/item follow it.
+        r=modelRotation(modelRotation(r,pose.arm),v(-pose.body.x,-pose.body.y,pose.body.z));
+        return r.scale(-1).normalize();
+    }
+    public static Vec3 executionItemPosition(Pose pose){
+        Vec3 grip=v(0,.25-.85*4.5/16*Math.cos(Math.toRadians(10)),
+                .5/16+.85*4.5/16*Math.sin(Math.toRadians(10)));
+        return grip.subtract(modelRotation(grip,pose.item)).scale(16);
     }
     /** No idle layer: outward pose exists only inside the 60-tick release and fades out by tick 60. */
     public static Pose release(float age,float sign){
@@ -81,6 +115,31 @@ public final class RyujinChoreography {
                 key(47,v(-.25,1.2,-.03),Vec3.ZERO,Vec3.ZERO,Vec3.ZERO,Vec3.ZERO,v(.12,-.10,-.08),v(-.1,.35,-.65)),
                 key(53,v(-.25,1.2,-.03),Vec3.ZERO,Vec3.ZERO,Vec3.ZERO,Vec3.ZERO,v(.12,-.10,-.08),v(-.1,.35,-.65)),neutral(60));
     }
+
+    /**
+     * Authored 140-tick transformation stance for Ryūjin Bankai / Zanka no Tachi.
+     * Planted stance; one-handed vertical katana in front for the spoken Bankai,
+     * then lowering to the wielding side as the sun forms behind the player.
+     * Fades weight smoothly to 0 between ticks 120 and 140.
+     */
+    public static Pose bankaiEntrance(float age, float sign) {
+        float breathe = (float) Math.sin(age * 0.15) * 0.015F;
+        return curve(age, sign, neutral(0),
+                bankaiVertical(8), bankaiVertical(12), bankaiVertical(20),
+                key(30, v(-.48, .80, -.18), v(-.9, .15, .18), v(.03, -.12, 0), v(.10, 0, .04), Vec3.ZERO, v(.06, -.06, -.12), v(-.18, .20, -.40)),
+                key(44, v(-.35, 1.05, -.08), v(-.65, .10, .12), v(.02, -.06, 0), v(.08, 0, .04), Vec3.ZERO, v(.10, -.08, -.10), v(-.12, .3, -.55)),
+                key(52, v(-.25, 1.2, -.03), v(-.2, -.1, .05), v(0, 0, 0), v(.05, 0, .04), Vec3.ZERO, v(.12, -.10, -.08), v(-.1, .35, -.65)),
+                key(60, v(-.25, 1.22, -.03), v(-.18, -.1, .05), v(0, 0, 0), v(.05, 0, .04), Vec3.ZERO, v(.12, -.10, -.08), v(-.08, .35, -.65)),
+                key(120, v(-.25, 1.22, -.03), v(-.18, -.1, .05), v(breathe, 0, 0), v(.05, 0, .04), Vec3.ZERO, v(.12, -.10, -.08), v(-.08, .35, -.65)),
+                neutral(140));
+    }
+    private static Key bankaiVertical(float tick) {
+        // Held-item direction is solved through the same arm/item chain used for blade VFX.
+        return key(tick, v(-1.75, -.25, .10), v(-.38, .12, -.08),
+                v(0, 0, 0), v(.04, 0, .02), Vec3.ZERO,
+                v(-.04, -.08, -.18), v(-.12, 0, 0));
+    }
+
     private static Vec3 modelRotation(Vec3 vector,Vec3 angles){
         double x=vector.x,y=vector.y*Math.cos(angles.x)-vector.z*Math.sin(angles.x),z=vector.y*Math.sin(angles.x)+vector.z*Math.cos(angles.x);
         double xx=x*Math.cos(angles.y)+z*Math.sin(angles.y),zz=-x*Math.sin(angles.y)+z*Math.cos(angles.y);
@@ -89,8 +148,12 @@ public final class RyujinChoreography {
     /** Local coordinates: anatomical right, up, forward. Accounts for the authored katana's
      * -45° element / 55° third-person display and vanilla held-item rotations. */
     public static Vec3 bladeDirection(Pose pose){
-        Vec3 r=modelRotation(v(0,Math.sin(Math.toRadians(10)),-Math.cos(Math.toRadians(10))),pose.arm);
+        Vec3 r=modelRotation(modelRotation(v(0,Math.sin(Math.toRadians(10)),-Math.cos(Math.toRadians(10))),pose.item),pose.arm);
         return v(-r.x,-r.y,-r.z).normalize();
+    }
+    public static Vec3 supportHand(Pose pose,float sign){
+        Vec3 r=modelRotation(v(0,.625,0),pose.support);
+        return v(-.3125*sign-r.x,1.375-r.y,-r.z);
     }
     public static Vec3 bladeHand(Pose pose,float sign){
         Vec3 r=modelRotation(v(0,.625,0),pose.arm);

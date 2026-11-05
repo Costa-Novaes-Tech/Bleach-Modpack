@@ -1,0 +1,83 @@
+{
+  "date": "2026-10-26",
+  "custom": [
+    {
+      "path": "src\\main\\resources\\assets\\bleachmod\\attack_animations\\benihime_diagonal.json",
+      "sha256": "fb69f1347d48ebe234bcd25b5f0ed3846bebd3fc9458de09766bb36396489c81",
+      "boneKeyframeCounts": {
+        "rightArm": 9,
+        "leftArm": 9,
+        "rightItem": 0,
+        "leftItem": 0,
+        "torso": 9
+      }
+    },
+    {
+      "path": "src\\main\\resources\\assets\\bleachmod\\attack_animations\\benihime_return.json",
+      "sha256": "bc772fa65b7b81f17463b1760ba89713b5eac4fd54624e6f323cf6fec9e284c6",
+      "boneKeyframeCounts": {
+        "rightArm": 9,
+        "leftArm": 9,
+        "rightItem": 0,
+        "leftItem": 0,
+        "torso": 9
+      }
+    },
+    {
+      "path": "src\\main\\resources\\assets\\bleachmod\\attack_animations\\benihime_thrust.json",
+      "sha256": "20efb0afc9bfb2fec2f3086797120bd9fb361a21316ece18cbc7c3fac192f169",
+      "boneKeyframeCounts": {
+        "rightArm": 9,
+        "leftArm": 9,
+        "rightItem": 0,
+        "leftItem": 0,
+        "torso": 9
+      }
+    },
+    {
+      "path": "src\\main\\resources\\assets\\bleachmod\\attack_animations\\senbonzakura_diagonal.json",
+      "sha256": "83696dacad418ad3ba3657a33fbfd7ddbf1592235571397830c57b6cedc28d46",
+      "boneKeyframeCounts": {
+        "rightArm": 9,
+        "leftArm": 9,
+        "rightItem": 0,
+        "leftItem": 0,
+        "torso": 9
+      }
+    },
+    {
+      "path": "src\\main\\resources\\assets\\bleachmod\\attack_animations\\senbonzakura_return.json",
+      "sha256": "516d5c4cebfca52a23c38b64577492aa37427fe4e60dac9f8076aab5e2fee0fe",
+      "boneKeyframeCounts": {
+        "rightArm": 9,
+        "leftArm": 9,
+        "rightItem": 0,
+        "leftItem": 0,
+        "torso": 9
+      }
+    },
+    {
+      "path": "src\\main\\resources\\assets\\bleachmod\\attack_animations\\senbonzakura_thrust.json",
+      "sha256": "74424c5fd8be709cffe155d22b7f44f17c7fc7baa755ef7e0a563e92c38723b1",
+      "boneKeyframeCounts": {
+        "rightArm": 9,
+        "leftArm": 9,
+        "rightItem": 0,
+        "leftItem": 0,
+        "torso": 9
+      }
+    }
+  ],
+  "nativeReference": {
+    "jar": "C:\\Users\\joaop\\.gradle\\caches\\modules-2\\files-2.1\\maven.modrinth\\better-combat\\1.9.0+1.20.1-forge\\ea7e7247132cb3acacadd96b2b6b635c4cc63a74\\better-combat-1.9.0+1.20.1-forge.jar",
+    "resource": "assets/bettercombat/attack_animations/one_handed_slash_horizontal_right.json",
+    "boneKeyframeCounts": {
+      "rightArm": 18,
+      "leftArm": 18,
+      "rightItem": 12,
+      "leftItem": 0,
+      "torso": 24
+    }
+  },
+  "conclusion": "Confirmed structural difference, not proof of a unique root cause. No runtime fix in this audit."
+}

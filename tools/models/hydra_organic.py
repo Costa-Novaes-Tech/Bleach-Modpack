@@ -4264,12 +4264,12 @@ JAW_CUBES = [
     },
     {
         "origin": [
-            -7.4,
+            -6.8,
             -16.5,
             -46
         ],
         "size": [
-            14.8,
+            13.6,
             7.0,
             12
         ],
@@ -5490,12 +5490,12 @@ def build_neck_link_cubes(i: int):
         }
     ))
 
-    # 7. Articulated interlocking collar at base of link
+    # 7. Articulated interlocking collar at base of link (overlapping scute ring)
     w_collar = round(r * 1.72, 2)
     d_collar = round(r * 1.45, 2)
     cubes.append(box_custom(
-        [-w_collar / 2, -0.75, -d_collar / 2],
-        [w_collar, 3.5, d_collar],
+        [-w_collar / 2, -2.5, -d_collar / 2],
+        [w_collar, 6.0, d_collar],
         {
             'north': face_uv(96, 48, 16, 8),
             'south': face_uv(112, 48, 16, 8),
@@ -5535,18 +5535,15 @@ def build_geo_json():
 
 def build_anim_json():
     idle = {}
-    emerge = {}
     for index, name in enumerate(NAMES):
         for i in range(LINKS):
             y = 8 + i * 13
             idle[f'neck_{name}_{i+1}'] = {'position': {'0.0': [index * 18 - 18, y, 0], '1.5': [index * 18 - 18, y, 3], '3.0': [index * 18 - 18, y, 0]}}
-        emerge['head_' + name] = {'position': {'0.0': [0, 0, 0], '2.5': [0, 160, 0], '7.6': [0, 160, 0]},
-                                  'scale': {'0.0': [.01, .01, .01], '2.5': [1, 1, 1], '7.6': [1, 1, 1]}}
-        emerge['jaw_' + name] = {'rotation': {'0.0': [0, 0, 0], '2.4': [-1.5, 0, 0], '3.2': [24, 0, 0], '4.0': [34, 0, 0], '5.5': [32.5, 0, 0], '6.6': [6, 0, 0], '7.6': [0, 0, 0]}}
+    # Head and jaw rotations/positions are authored procedurally in IceDragonRenderer
+    # to maintain strict single-controller ownership and avoid GeckoLib fighting.
     return {'format_version': '1.8.0', 'animations': {
         'animation.ice_hydra.flight': {'loop': True, 'animation_length': 3, 'bones': idle},
-        'animation.ice_hydra.emerge': {'loop': False, 'animation_length': 7.6, 'bones': emerge},
+        'animation.ice_hydra.emerge': {'loop': False, 'animation_length': 7.6, 'bones': {}},
         'animation.ice_hydra.assault': {'loop': False, 'animation_length': 2.8, 'bones': {}},
-        'animation.ice_hydra.roar': {'loop': False, 'animation_length': 1, 'bones': {
-            'jaw_' + n: {'rotation': {'0.0': [0, 0, 0], '0.4': [34, 0, 0], '1.0': [0, 0, 0]}} for n in NAMES}}
+        'animation.ice_hydra.roar': {'loop': False, 'animation_length': 1, 'bones': {}}
     }}

@@ -1,0 +1,429 @@
+[
+  {
+    "name": "set_project_meta",
+    "arguments": {
+      "name": "ryujin_sun_vortex_flame_lab",
+      "geometry_name": "ryujin_sun_vortex_flame_lab"
+    }
+  },
+  {
+    "name": "add_groups",
+    "arguments": {
+      "groups": [
+        {
+          "name": "flame_backdrop",
+          "origin": [
+            0,
+            -100,
+            45
+          ],
+          "parent": "sun_root"
+        }
+      ]
+    }
+  },
+  {
+    "name": "create_vfx_texture",
+    "arguments": {
+      "name": "vortex_flame_sheet.png",
+      "style": "flame",
+      "preset": "fire",
+      "width": 64,
+      "height": 96,
+      "frames": 1,
+      "seed": 803,
+      "soft_edge": false,
+      "render_mode": "additive",
+      "render_sides": "double"
+    }
+  },
+  {
+    "name": "add_plane",
+    "arguments": {
+      "name": "flame_sheet_00",
+      "parent": "flame_backdrop",
+      "from": [
+        -160,
+        -87,
+        35
+      ],
+      "width": 88,
+      "height": 143,
+      "origin": [
+        -116,
+        -87,
+        35
+      ],
+      "rotation": [
+        0,
+        -12,
+        0
+      ],
+      "texture": "vortex_flame_sheet.png"
+    }
+  },
+  {
+    "name": "add_plane",
+    "arguments": {
+      "name": "flame_sheet_01",
+      "parent": "flame_backdrop",
+      "from": [
+        -117,
+        -96,
+        38
+      ],
+      "width": 94,
+      "height": 169,
+      "origin": [
+        -70,
+        -96,
+        38
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "texture": "vortex_flame_sheet.png"
+    }
+  },
+  {
+    "name": "add_plane",
+    "arguments": {
+      "name": "flame_sheet_02",
+      "parent": "flame_backdrop",
+      "from": [
+        -74,
+        -91,
+        41
+      ],
+      "width": 76,
+      "height": 136,
+      "origin": [
+        -36,
+        -91,
+        41
+      ],
+      "rotation": [
+        0,
+        12,
+        0
+      ],
+      "texture": "vortex_flame_sheet.png"
+    }
+  },
+  {
+    "name": "add_plane",
+    "arguments": {
+      "name": "flame_sheet_03",
+      "parent": "flame_backdrop",
+      "from": [
+        -33,
+        -92,
+        44
+      ],
+      "width": 100,
+      "height": 186,
+      "origin": [
+        17,
+        -92,
+        44
+      ],
+      "rotation": [
+        0,
+        -12,
+        0
+      ],
+      "texture": "vortex_flame_sheet.png"
+    }
+  },
+  {
+    "name": "add_plane",
+    "arguments": {
+      "name": "flame_sheet_04",
+      "parent": "flame_backdrop",
+      "from": [
+        17,
+        -92,
+        47
+      ],
+      "width": 91,
+      "height": 152,
+      "origin": [
+        62.5,
+        -92,
+        47
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "texture": "vortex_flame_sheet.png"
+    }
+  },
+  {
+    "name": "add_plane",
+    "arguments": {
+      "name": "flame_sheet_05",
+      "parent": "flame_backdrop",
+      "from": [
+        57,
+        -95,
+        50
+      ],
+      "width": 96,
+      "height": 184,
+      "origin": [
+        105,
+        -95,
+        50
+      ],
+      "rotation": [
+        0,
+        12,
+        0
+      ],
+      "texture": "vortex_flame_sheet.png"
+    }
+  },
+  {
+    "name": "add_plane",
+    "arguments": {
+      "name": "flame_sheet_06",
+      "parent": "flame_backdrop",
+      "from": [
+        103,
+        -88,
+        53
+      ],
+      "width": 89,
+      "height": 140,
+      "origin": [
+        147.5,
+        -88,
+        53
+      ],
+      "rotation": [
+        0,
+        -12,
+        0
+      ],
+      "texture": "vortex_flame_sheet.png"
+    }
+  },
+  {
+    "name": "add_plane",
+    "arguments": {
+      "name": "flame_sheet_07",
+      "parent": "flame_backdrop",
+      "from": [
+        -122,
+        -74,
+        58
+      ],
+      "width": 74,
+      "height": 133,
+      "origin": [
+        -85,
+        -74,
+        58
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "texture": "vortex_flame_sheet.png"
+    }
+  },
+  {
+    "name": "add_plane",
+    "arguments": {
+      "name": "flame_sheet_08",
+      "parent": "flame_backdrop",
+      "from": [
+        -64,
+        -84,
+        61
+      ],
+      "width": 77,
+      "height": 162,
+      "origin": [
+        -25.5,
+        -84,
+        61
+      ],
+      "rotation": [
+        0,
+        12,
+        0
+      ],
+      "texture": "vortex_flame_sheet.png"
+    }
+  },
+  {
+    "name": "add_plane",
+    "arguments": {
+      "name": "flame_sheet_09",
+      "parent": "flame_backdrop",
+      "from": [
+        1,
+        -83,
+        64
+      ],
+      "width": 88,
+      "height": 173,
+      "origin": [
+        45,
+        -83,
+        64
+      ],
+      "rotation": [
+        0,
+        -12,
+        0
+      ],
+      "texture": "vortex_flame_sheet.png"
+    }
+  },
+  {
+    "name": "add_plane",
+    "arguments": {
+      "name": "flame_sheet_10",
+      "parent": "flame_backdrop",
+      "from": [
+        72,
+        -80,
+        67
+      ],
+      "width": 81,
+      "height": 146,
+      "origin": [
+        112.5,
+        -80,
+        67
+      ],
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "texture": "vortex_flame_sheet.png"
+    }
+  },
+  {
+    "name": "add_keyframes",
+    "arguments": {
+      "animation": "animation.ryujin.sun_vortex_formation_lab",
+      "length": 2.4,
+      "keyframes": [
+        {
+          "bone": "flame_backdrop",
+          "channel": "scale",
+          "time": 0,
+          "value": [
+            0.02,
+            0.02,
+            0.02
+          ]
+        },
+        {
+          "bone": "flame_backdrop",
+          "channel": "scale",
+          "time": 0.12,
+          "value": [
+            0.45,
+            0.6,
+            1
+          ]
+        },
+        {
+          "bone": "flame_backdrop",
+          "channel": "scale",
+          "time": 0.4,
+          "value": [
+            1.2,
+            1.35,
+            1
+          ]
+        },
+        {
+          "bone": "flame_backdrop",
+          "channel": "scale",
+          "time": 0.8,
+          "value": [
+            1.1,
+            1.12,
+            1
+          ]
+        },
+        {
+          "bone": "flame_backdrop",
+          "channel": "scale",
+          "time": 1.55,
+          "value": [
+            1.02,
+            1.02,
+            1
+          ]
+        },
+        {
+          "bone": "flame_backdrop",
+          "channel": "scale",
+          "time": 2.4,
+          "value": [
+            1,
+            1,
+            1
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "name": "check_model"
+  },
+  {
+    "name": "screenshot_views",
+    "arguments": {
+      "views": [
+        "front",
+        "front_right",
+        "left"
+      ],
+      "width": 640,
+      "height": 640
+    }
+  },
+  {
+    "name": "preview_animation",
+    "arguments": {
+      "animation": "animation.ryujin.sun_vortex_formation_lab",
+      "times": [
+        0.34,
+        0.95,
+        1.55,
+        2.4
+      ],
+      "views": [
+        "front"
+      ],
+      "width": 640,
+      "height": 640
+    }
+  },
+  {
+    "name": "save_project",
+    "arguments": {
+      "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\tools\\models\\lab\\codex\\ryujin01\\ryujin_sun_vortex_flame_lab.bbmodel"
+    }
+  },
+  {
+    "name": "export_model",
+    "arguments": {
+      "codec": "bedrock",
+      "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\tools\\models\\lab\\codex\\ryujin01\\ryujin_sun_vortex_flame_lab.geo.json"
+    }
+  }
+]

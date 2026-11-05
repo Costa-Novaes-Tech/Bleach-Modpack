@@ -26,7 +26,7 @@ import java.util.*;
 /** Opt-in development QA. Actual vanilla attacks/technique service, no release-scene changes. */
 @Mod.EventBusSubscriber(modid=Reference.MOD_ID,value=Dist.CLIENT)
 public final class BenihimeCombatQaSequence {
-    private static final String[] CASES={"sealed-melee","shikai-melee","bankai-melee","shikai-first-person","nake","shield","shibari","hiasobi","dissection","reconstruction","path","final-stitch","hiasobi-standalone","sealed-draw","sealed-byakurai","sealed-rods","sealed-gigai","entrance-walk"};
+    private static final String[] CASES={"sealed-melee","shikai-melee","bankai-melee","shikai-first-person","nake","shield","shibari","hiasobi","dissection","reconstruction","path","final-stitch","hiasobi-standalone","sealed-draw","sealed-byakurai","sealed-rods","sealed-hado91","entrance-walk"};
     private record Trial(UUID owner,UUID target,long start,int index,Vec3 origin) { }
     private static volatile Trial trial;
     private static int stage,wait,lastFrame=-1;
@@ -74,7 +74,7 @@ public final class BenihimeCombatQaSequence {
         p.setItemSlot(EquipmentSlot.MAINHAND,new ItemStack(ModItems.BENIHIME.get()));p.setItemSlot(EquipmentSlot.OFFHAND,ItemStack.EMPTY);
         p.setHealth(index==9?Math.max(1,p.getMaxHealth()-8):p.getMaxHealth());
         Husk h=EntityType.HUSK.create(p.serverLevel());if(h==null)return;
-        h.setPos(p.position().add(0,0,index==8||index==11?12:index==14||index==15?6:2));h.setNoAi(true);h.setNoGravity(true);h.setPersistenceRequired();
+        h.setPos(p.position().add(0,0,index==8||index==11?12:index==14||index==15||index==16?6:2));h.setNoAi(true);h.setNoGravity(true);h.setPersistenceRequired();
         h.getAttribute(Attributes.MAX_HEALTH).setBaseValue(1000);h.setHealth(1000);h.setYRot(180);p.serverLevel().addFreshEntity(h);
         SyncHelper.full(p);SyncHelper.appearance(p);
         trial=new Trial(p.getUUID(),h.getUUID(),p.level().getGameTime(),index,p.position());

@@ -1,0 +1,31 @@
+{
+  "base": "04705fe",
+  "merges": {
+    "bankai": "f392f79",
+    "quincy": "cc5ec61"
+  },
+  "testFixtureChange": "Clear disposable Benihime corridor and assert line-of-sight/cast; delayed damage/exposure checks unchanged.",
+  "regressions": 158,
+  "gameTests": 270,
+  "gameTestsFinalExitCode": 0,
+  "firstAttempts": "Failed with obstructed Benihime fixture, preserved in logs; not claimed as passes.",
+  "logs": {
+    "build/integracao-frentes-20261029-build.log": "10bf5d95ad55b9fab746315c26178c528eeec7a09dcb2f22c704d7234673f902",
+    "build/integracao-frentes-20261029-gametests.log": "98db4fc45a87365e2bd6dcc5f6c025ff0862f1e7ea2b649d3a1731eded4fd09d",
+    "build/integracao-frentes-20261029-gametests-recheck.log": "ad9fbe5142e525237b9ee5a59bdefedd97af1d4d8b0e1336343150c4fcc748c2",
+    "build/integracao-frentes-20261029-gametests-diagnostic.log": "3f5b2c468e80ae4a7a1c47d4eff3c68f73644e68a491b20e1ae76031c20ec069",
+    "build/integracao-frentes-20261029-gametests-final.log": "c008a766d6710f23c44115169a0470db71c86ca3b54d6f2f755b55981e636fe8"
+  },
+  "limits": [
+    "No new client QA during merge; human playtest pending.",
+    "Voluntary camera/server protection exit remains review item.",
+    "Quincy visual impact proof remains partial.",
+    "Garden has no implementation in this integration."
+  ],
+  "additionalRuntimeFixesBeyondMergedBranches": false,
+  "buildFinalExitCode": 0,
+  "finalArtifacts": {
+    "build/integracao-frentes-20261029-build-final.log": "5f491e8a613f5a18d649c4438070957f80d8e38e7498775286d921f0bf5efa5e",
+    "build/libs/bleachmod-0.2.0.jar": "d75aca691cfd24a52c76ef7d8864120fd555ddfe475daabb508ace1a8223f5d7"
+  }
+}

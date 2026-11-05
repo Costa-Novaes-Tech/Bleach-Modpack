@@ -5,7 +5,36 @@ description: Pipeline completo de modelagem, rig, texturização procedural, tes
 
 # Pipeline Completo de Modelagem, Laboratório e Integração — Bleach Mod
 
-Este documento sintetiza o método consolidado de desenvolvimento de entidades e habilidades do Bleach Modpack no checkout de design (`Bleach-Modpack-design`, branch `codex/design-poderes-criaturas`), estabelecendo o percurso obrigatório da concepção até a validação em jogo.
+Este documento orienta modelagem e animação no Bleach-Modpack. Não presume um checkout/branch específico nem concede permissão para instalar ferramentas ou alterar gameplay. Confira a raiz, branch, HEAD, alterações locais e disponibilidade real das ferramentas em cada tarefa.
+
+## 0. Limites do runtime e camadas de animação — revisado em 02/11/2026
+
+- Antes de editar, confira se o MCP Blockbench está realmente exposto nesta sessão. Catálogo, instalação/configuração no host e conexão operacional são estados distintos. Não invente nomes de ferramentas nem substitua um MCP desconectado por chamadas arbitrárias de shell/HTTP. Se faltar conexão, relate-a e use somente uma alternativa já acessível e autorizada.
+- Distinga três peças na preparação do laboratório: a dependência GeckoLib do mod declarada no Gradle, o plugin **GeckoLib Models & Animations** dentro do Blockbench para autoria/exportação e a ponte Blockbench MCP com servidor registrado no cliente Codex. Uma não instala nem prova as outras. Confira plugin, processo, porta e ferramentas expostas antes de afirmar que o editor está operável.
+- Em QA visual, hash do arquivo confirma integridade da captura, não o conteúdo alegado na legenda. Verifique se enquadramento mostra alvo/efeito e se a amostragem temporal basta para julgar fluidez; poucos quadros repetidos num GIF não provam transição contínua.
+- Uma prova GeckoLib deve carregar os mesmos `.geo.json`, textura e `.animation.json` que serão usados pelo mod. Um harness que redesenha geometria e poses à mão pode validar câmera/fixture, mas **não** valida parser, rig, clipes ou playback dos exports.
+- A existência de um clipe no JSON ou num GameTest só prova que o recurso foi encontrado. Se `bones` estiver vazio, trate-o como marcador temporal até confirmar o movimento no renderer e no cliente; neste repo, `ice_hydra.emerge`, `assault` e `roar` são clipes vazios enquanto a Hydra também tem lógica procedural (`tools/models/hydra_organic.py`, `IceDragonRenderer`).
+- Na GeckoLib 4, cada `AnimationController` toca uma animação por vez. Controllers podem atuar ao mesmo tempo, mas não devem disputar os mesmos bones/canais: controllers registrados depois têm precedência na resolução. Planeje propriedade dos bones e valide blend/retorno ao repouso no runtime.
+- Ações de combate continuam autoritativas no servidor. Use sincronização/trigger do servidor para iniciar animações de ação quando a classe animável permitir; keyframes de som/partículas são apresentação do cliente e não devem determinar dano, alvo ou colisão.
+- O editor de animação do Blockbench oferece timeline, keyframes, interpolation/graph editor e canais de Animate Effects. Isso ajuda na autoria, mas preview do editor continua separado do playback em GeckoLib/Forge.
+
+Referências primárias consultadas para estas regras: [GeckoLib 4 Animation Controller](https://github.com/bernie-g/geckolib/wiki/The-Animation-Controller-%28Geckolib4%29), [GeckoLib 4 Triggerable Animations](https://github.com/bernie-g/geckolib/wiki/Triggerable-Animations-%28Geckolib4%29), [GeckoLib 4 Keyframe Triggers](https://github.com/bernie-g/geckolib/wiki/Keyframe-Triggers-%28Geckolib4%29) e [Blockbench Animation Overview](https://blockbench.net/wiki/guides/blockbench-overview-tips/).
+
+### Lição verificada no laboratório Codex em 04/11/2026
+
+- Se outra IA usa o Blockbench, confira projeto ativo antes de qualquer mutação. Para ensaio próprio, use perfil/processo separado e porta MCP diferente; neste ensaio, Antigravity permaneceu em `8787` e Codex operou em `8788`. Desative `execute_script` no editor e no cadastro MCP.
+- No formato `geckolib_model` do plugin GeckoLib 4.2.5, `single_texture` e `box_uv` estavam ativos. Seis texturas de cores sólidas colocadas em `add_cubes` acabaram referenciadas como textura `0` no `.bbmodel`; o preview ficou todo amarelo. Para este modelo, `pack_uv` + `detail_cubes` num atlas único coloriu 139 cubos, e `check_model` caiu de 26 conflitos de faces para zero após deslocar planos coincidentes.
+- Nesta combinação Blockbench 5.2.2 / BlockbenchMCP 0.3.1 / GeckoLib 4.2.5, `export_project` chamou o codec de **projeto** e gravou conteúdo `.bbmodel` apesar do caminho `.geo.json`. Para geometria real, `export_model` com `codec: "bedrock"` acionou o codec que o plugin GeckoLib estende: confira `minecraft:geometry`, identificador e bones antes de confiar na extensão do arquivo. Na criação, passe `geometry_name` sem o prefixo `geometry.` para evitar `geometry.geometry.*`.
+- O clipe foi exportado pelo menu **File → Export → Export GeckoLib Animations** do editor; valide `format_version`, `animation_length` e bones no JSON salvo. O atlas PNG foi extraído sem transformação da textura embutida no `.bbmodel`. Mesmo com ambos válidos, ainda falta reproduzir os assets exatos no cliente Forge.
+- Antes de `set_project_meta`, `paint_texture` ou `save_project`, exija `get_status` da **mesma ponte** e confira nome, contagem de cubos e textura. Trocar a aba na UI não foi suficiente neste ensaio: uma tentativa atingiu o projeto de pose em memória; o nome foi restaurado sem salvar, e `load_project` da fonte correta resolveu a seleção. Salve variantes com nomes novos e valide a fonte no disco.
+- Em `geckolib_model` com textura única, `add_plane` + `create_vfx_texture` gerou retângulos visíveis e 99 alertas (`no_texture`, `zero_uv`, `degenerate_size`) em 11 planos. Não promova essa variante a asset. A pintura alfa de faces no atlas já empacotado produziu chamas recortadas com `check_model=0`, mas transparência/renderização ainda exigem prova no cliente Forge.
+- `analyze_animation` reportou `no_visible_motion` no sol apesar de 171 keyframes e previews com escala/rotação: o analisador mede deslocamento de extremidades de rigs, que este VFX não tem. Para props e efeitos, combine amostragem visual temporal com verificação dos canais/bones exportados; não trate esse veredito isolado como prova de ausência de movimento.
+- A exportação `export_model` do atlas 256×4096 levou 70 s, acima do timeout de 60 s do cliente MCP, mas gravou o arquivo. Ajuste o timeout da ponte e confirme conteúdo/identificador no disco antes de repetir uma exportação que parece ter falhado.
+- Para ensaiar uma cena conjunta sem alterar gameplay, componha manequim, arma e VFX no mesmo projeto GeckoLib, com `sun_root` separado e fases de preparação, fala, explosão, formação, giro, absorção e retorno. Amostre quadros em tempos nomeados; keyframes exportados mostram movimento programado, mas não provam leitura visual nem sincronização no cliente.
+- Cubos de reflexo com espessura inferior a 1 unidade geraram quatro avisos de Box UV e 16 `zero_uv`; ampliar a espessura para 1 e repintar o atlas nas novas coordenadas UV eliminou ambos. Inspecione o validador **do editor** além do `check_model` da ponte, pois eles não reportaram a mesma coisa na primeira passagem.
+- Para brilho seletivo no GeckoLib 4, gere `<textura>_glowmask.png` transparente fora das faces quentes e registre a necessidade da camada `AutoGlowingGeoLayer` no renderer. O preview do Blockbench mostra textura e animação, não iluminação dinâmica do mundo. Só chame o efeito de luz concluído após prova no cliente Forge, incluindo dia/noite e desempenho.
+- Retorno humano da Ryūjin v6: uma separação correta no eixo (`get_orientation`: frente `-Z`, sol em `+Z`) ainda pode parecer invertida numa câmera traseira, pois o sol atrás do ator entra entre jogador e observador. Capture `front`, `front_right`, `back`/`back_right` com rótulos e inspecione a sobreposição na cabeça; marque frente do manequim se o placeholder não tiver rosto legível. Não descarte a percepção do usuário por causa de coordenadas corretas.
+- Absorção por escala em poucos pontos foi rejeitada visualmente. No ensaio v7, preserve o sol até a formação, use contração monotônica amostrada em intervalos curtos, acelere a rotação de aros alternados, torça línguas e alinhe faíscas ao ponto de partida deslocado; compare quadros adjacentes e o destino na katana. Previews e `analyze_animation=0` não substituem o efeito contínuo de chamas/partículas e a câmera no cliente.
 
 ---
 
@@ -126,3 +155,18 @@ Antes de concluir qualquer entrega de design ou modelo:
 5. **Arquivamento de Evidências**:
    - Extrair capturas e arquivos `.jsonl` em `Docs/poderes/qa/antigravity/<subpasta>/`.
    - Registrar relatório formal detalhado em `Docs/poderes/<num>-<descricao>.md`.
+
+
+---
+
+## 8. Padrão de Engenharia de VFX, Materiais Emissivos e Câmeras (Atualização 04/11/2026)
+
+1. **Camadas Emissivas & Atlas Duplo**:
+   - Para entidades e adereços de Reishi (Quincy Vollständig) ou Bankai (Senbonzakura Hakuteiken), separar a geometria difusa (`textura.png`) da camada emissiva (`textura_glow.png`).
+   - A camada de brilho é renderizada via `RenderType.entityTranslucentEmissive(texture)` ou `RenderType.eyes(texture)` com `LightTexture.FULL_BRIGHT`, garantindo emissividade pura e ausência de sombras ambientais que prejudiquem a leitura da energia espiritual.
+2. **Trilhas Contínuas de Lâmina e Projéteis (*Ribbon Trails*)**:
+   - Golpes cortantes e salvas de flechas (Licht Regen) devem utilizar buffers circulares de interpolação temporal conectados por tiras de triângulos (`TRIANGLE_STRIP` no `VertexConsumer`).
+   - Elimina o uso de partículas pontuais desconectadas em favor de arcos contínuos de corte e feixes esticados de energia com desvanecimento exponencial de transparência (alfa 1.0 $\to$ 0.0).
+3. **Coreografia Cinemática de Câmeras**:
+   - Habilidades de alto impacto utilizam a integração com `CinematicDirector` no evento `ViewportEvent.ComputeCameraAngles`.
+   - Estruturação em múltiplos planos (*Shots*): plano baixo de lançamento, plano orbital heróico em ângulo holandês (*Dutch angle* de 3°–5°), mergulho rasante com zoom de FOV (teleobjetiva de 50°–60°) e plano aberto de impacto no solo com *Screen Shake* quadrático e retorno suave ao controle do jogador.

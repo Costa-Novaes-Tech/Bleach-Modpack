@@ -1,0 +1,65 @@
+[
+  {
+    "index": 0,
+    "name": "get_status",
+    "isError": false,
+    "text": [
+      "{\n  \"blockbench_version\": \"5.2.2\",\n  \"has_project\": true,\n  \"project\": {\n    \"name\": \"ryujin_bankai_activation_scene_v6_lab\",\n    \"format\": \"geckolib_model\",\n    \"format_name\": \"GeckoLib Animated Model\",\n    \"texture_width\": 256,\n    \"texture_height\": 4096,\n    \"cubes\": 220,\n    \"groups\": 54,\n    \"textures\": 1,\n    \"animations\": 1,\n    \"mode\": \"animate\"\n  },\n  \"orientation\": {\n    \"facing\": \"-z\",\n    \"model_right_is\": \"+x\",\n    \"model_left_is\": \"-x\",\n    \"reminder\": \"The model faces -z. Its own RIGHT hand/arm/leg is at +x, its LEFT at -x. On a front-view render you see it mirrored, so its right hand appears on the LEFT of the image. Use get_orientation / which_side / check_sides instead of judging by eye.\"\n  },\n  \"pending_user_requests\": 0\n}"
+    ],
+    "images": []
+  },
+  {
+    "index": 1,
+    "name": "paint_texture",
+    "isError": false,
+    "text": [
+      "{\n  \"painted\": true,\n  \"ops\": 14,\n  \"texture\": {\n    \"uuid\": \"b217c1bb-de56-1b64-76d4-a8a9343462c6\",\n    \"name\": \"ryujin_bankai_activation_scene_v5_lab.png\",\n    \"width\": 256,\n    \"height\": 4096,\n    \"uv_width\": 256,\n    \"uv_height\": 4096,\n    \"particle\": false,\n    \"render_mode\": \"default\",\n    \"render_sides\": \"auto\",\n    \"frame_time\": 1,\n    \"frame_interpolate\": false,\n    \"path\": null\n  }\n}"
+    ],
+    "images": []
+  },
+  {
+    "index": 2,
+    "name": "check_model",
+    "isError": false,
+    "text": [
+      "{\n  \"cubes\": 220,\n  \"groups\": 54,\n  \"textures\": 1,\n  \"texture_size\": [\n    256,\n    4096\n  ],\n  \"animation_format\": true,\n  \"orientation\": \"The model FACES -z. Its own RIGHT is +x, its own LEFT is -x.\",\n  \"issue_count\": 0,\n  \"by_type\": {},\n  \"issues\": []\n}"
+    ],
+    "images": []
+  },
+  {
+    "index": 3,
+    "name": "preview_animation",
+    "isError": false,
+    "text": [
+      "animation.ryujin.bankai_activation_scene_lab (12s) — 4 pose(s)",
+      "t=3.55s View: front (the model's FRONT (its face)) — model's RIGHT is on the IMAGE LEFT (mirrored — you face it)",
+      "t=5.8s View: front (the model's FRONT (its face)) — model's RIGHT is on the IMAGE LEFT (mirrored — you face it)",
+      "t=6.6s View: front (the model's FRONT (its face)) — model's RIGHT is on the IMAGE LEFT (mirrored — you face it)",
+      "t=7.2s View: front (the model's FRONT (its face)) — model's RIGHT is on the IMAGE LEFT (mirrored — you face it)"
+    ],
+    "images": [
+      "tools\\models\\lab\\codex\\ryujin01\\qa\\activation-scene-v6-heat-uv-fix\\03-preview_animation-2.png",
+      "tools\\models\\lab\\codex\\ryujin01\\qa\\activation-scene-v6-heat-uv-fix\\03-preview_animation-4.png",
+      "tools\\models\\lab\\codex\\ryujin01\\qa\\activation-scene-v6-heat-uv-fix\\03-preview_animation-6.png",
+      "tools\\models\\lab\\codex\\ryujin01\\qa\\activation-scene-v6-heat-uv-fix\\03-preview_animation-8.png"
+    ]
+  },
+  {
+    "index": 4,
+    "name": "save_project",
+    "isError": false,
+    "text": [
+      "{\n  \"saved\": true,\n  \"path\": \"C:\\\\Users\\\\joaop\\\\Downloads\\\\Projeto_Programacao_BleachMod\\\\Bleach-Modpack\\\\tools\\\\models\\\\lab\\\\codex\\\\ryujin01\\\\ryujin_bankai_activation_scene_v6_lab.bbmodel\"\n}"
+    ],
+    "images": []
+  },
+  {
+    "index": 5,
+    "name": "export_model",
+    "isError": false,
+    "text": [
+      "{\n  \"exported\": true,\n  \"path\": \"C:\\\\Users\\\\joaop\\\\Downloads\\\\Projeto_Programacao_BleachMod\\\\Bleach-Modpack\\\\tools\\\\models\\\\lab\\\\codex\\\\ryujin01\\\\ryujin_bankai_activation_scene_v6_lab.geo.json\",\n  \"codec\": \"bedrock\",\n  \"bytes\": 35105\n}"
+    ],
+    "images": []
+  }
+]

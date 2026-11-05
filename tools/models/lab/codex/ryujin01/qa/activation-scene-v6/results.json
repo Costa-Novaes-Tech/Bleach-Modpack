@@ -1,0 +1,129 @@
+[
+  {
+    "index": 0,
+    "name": "get_status",
+    "isError": false,
+    "text": [
+      "{\n  \"blockbench_version\": \"5.2.2\",\n  \"has_project\": true,\n  \"project\": {\n    \"name\": \"ryujin_bankai_activation_scene_v5_lab\",\n    \"format\": \"geckolib_model\",\n    \"format_name\": \"GeckoLib Animated Model\",\n    \"texture_width\": 256,\n    \"texture_height\": 4096,\n    \"cubes\": 220,\n    \"groups\": 54,\n    \"textures\": 1,\n    \"animations\": 1,\n    \"mode\": \"edit\"\n  },\n  \"orientation\": {\n    \"facing\": \"-z\",\n    \"model_right_is\": \"+x\",\n    \"model_left_is\": \"-x\",\n    \"reminder\": \"The model faces -z. Its own RIGHT hand/arm/leg is at +x, its LEFT at -x. On a front-view render you see it mirrored, so its right hand appears on the LEFT of the image. Use get_orientation / which_side / check_sides instead of judging by eye.\"\n  },\n  \"pending_user_requests\": 0\n}"
+    ],
+    "images": []
+  },
+  {
+    "index": 1,
+    "name": "set_project_meta",
+    "isError": false,
+    "text": [
+      "{\n  \"name\": \"ryujin_bankai_activation_scene_v6_lab\",\n  \"format\": \"geckolib_model\",\n  \"format_name\": \"GeckoLib Animated Model\",\n  \"texture_width\": 256,\n  \"texture_height\": 4096,\n  \"cubes\": 220,\n  \"groups\": 54,\n  \"textures\": 1,\n  \"animations\": 1,\n  \"mode\": \"edit\"\n}"
+    ],
+    "images": []
+  },
+  {
+    "index": 2,
+    "name": "paint_texture",
+    "isError": false,
+    "text": [
+      "{\n  \"painted\": true,\n  \"ops\": 510,\n  \"texture\": {\n    \"uuid\": \"b217c1bb-de56-1b64-76d4-a8a9343462c6\",\n    \"name\": \"ryujin_bankai_activation_scene_v5_lab.png\",\n    \"width\": 256,\n    \"height\": 4096,\n    \"uv_width\": 256,\n    \"uv_height\": 4096,\n    \"particle\": false,\n    \"render_mode\": \"default\",\n    \"render_sides\": \"auto\",\n    \"frame_time\": 1,\n    \"frame_interpolate\": false,\n    \"path\": null\n  }\n}"
+    ],
+    "images": []
+  },
+  {
+    "index": 3,
+    "name": "check_model",
+    "isError": false,
+    "text": [
+      "{\n  \"cubes\": 220,\n  \"groups\": 54,\n  \"textures\": 1,\n  \"texture_size\": [\n    256,\n    4096\n  ],\n  \"animation_format\": true,\n  \"orientation\": \"The model FACES -z. Its own RIGHT is +x, its own LEFT is -x.\",\n  \"issue_count\": 16,\n  \"by_type\": {\n    \"zero_uv\": 16\n  },\n  \"issues\": [\n    {\n      \"cube\": \"heat_chest\",\n      \"face\": \"east\",\n      \"issue\": \"zero_uv\",\n      \"uv\": [\n        218,\n        423,\n        218,\n        430\n      ]\n    },\n    {\n      \"cube\": \"heat_chest\",\n      \"face\": \"west\",\n      \"issue\": \"zero_uv\",\n      \"uv\": [\n        225,\n        423,\n        225,\n        430\n      ]\n    },\n    {\n      \"cube\": \"heat_chest\",\n      \"face\": \"up\",\n      \"issue\": \"zero_uv\",\n      \"uv\": [\n        225,\n        423,\n        218,\n        423\n      ]\n    },\n    {\n      \"cube\": \"heat_chest\",\n      \"face\": \"down\",\n      \"issue\": \"zero_uv\",\n      \"uv\": [\n        232,\n        423,\n        225,\n        423\n      ]\n    },\n    {\n      \"cube\": \"heat_face\",\n      \"face\": \"east\",\n      \"issue\": \"zero_uv\",\n      \"uv\": [\n        184,\n        459,\n        184,\n        464\n      ]\n    },\n    {\n      \"cube\": \"heat_face\",\n      \"face\": \"west\",\n      \"issue\": \"zero_uv\",\n      \"uv\": [\n        191,\n        459,\n        191,\n        464\n      ]\n    },\n    {\n      \"cube\": \"heat_face\",\n      \"face\": \"up\",\n      \"issue\": \"zero_uv\",\n      \"uv\": [\n        191,\n        459,\n        184,\n        459\n      ]\n    },\n    {\n      \"cube\": \"heat_face\",\n      \"face\": \"down\",\n      \"issue\": \"zero_uv\",\n      \"uv\": [\n        198,\n        459,\n        191,\n        459\n      ]\n    },\n    {\n      \"cube\": \"heat_arm_right\",\n      \"face\": \"east\",\n      \"issue\": \"zero_uv\",\n      \"uv\": [\n        201,\n        459,\n        201,\n        464\n      ]\n    },\n    {\n      \"cube\": \"heat_arm_right\",\n      \"face\": \"west\",\n      \"issue\": \"zero_uv\",\n      \"uv\": [\n        204,\n        459,\n        204,\n        464\n      ]\n    },\n    {\n      \"cube\": \"heat_arm_right\",\n      \"face\": \"up\",\n      \"issue\": \"zero_uv\",\n      \"uv\": [\n        204,\n        459,\n        201,\n        459\n      ]\n    },\n    {\n      \"cube\": \"heat_arm_right\",\n      \"face\": \"down\",\n      \"issue\": \"zero_uv\",\n      \"uv\": [\n        207,\n        459,\n        204,\n        459\n      ]\n    },\n    {\n      \"cube\": \"heat_arm_left\",\n      \"face\": \"east\",\n      \"issue\": \"zero_uv\",\n      \"uv\": [\n        212,\n        459,\n        212,\n        464\n      ]\n    },\n    {\n      \"cube\": \"heat_arm_left\",\n      \"face\": \"west\",\n      \"issue\": \"zero_uv\",\n      \"uv\": [\n        215,\n        459,\n        215,\n        464\n      ]\n    },\n    {\n      \"cube\": \"heat_arm_left\",\n      \"face\": \"up\",\n      \"issue\": \"zero_uv\",\n      \"uv\": [\n        215,\n        459,\n        212,\n        459\n      ]\n    },\n    {\n      \"cube\": \"heat_arm_left\",\n      \"face\": \"down\",\n      \"issue\": \"zero_uv\",\n      \"uv\": [\n        218,\n        459,\n        215,\n        459\n      ]\n    }\n  ]\n}"
+    ],
+    "images": []
+  },
+  {
+    "index": 4,
+    "name": "analyze_animation",
+    "isError": false,
+    "text": [
+      "{\n  \"animation\": \"animation.ryujin.bankai_activation_scene_lab\",\n  \"length\": 12,\n  \"loop\": \"once\",\n  \"orientation\": \"The model FACES -z. Its own RIGHT is +x, its own LEFT is -x.\",\n  \"samples\": 41,\n  \"bones_with_keyframes\": 39,\n  \"total_keyframes\": 481,\n  \"per_bone\": [\n    {\n      \"bone\": \"chest\",\n      \"keyframes\": 9,\n      \"channels\": [\n        \"rotation\"\n      ]\n    },\n    {\n      \"bone\": \"head\",\n      \"keyframes\": 8,\n      \"channels\": [\n        \"rotation\"\n      ]\n    },\n    {\n      \"bone\": \"arm_upper_right\",\n      \"keyframes\": 10,\n      \"channels\": [\n        \"rotation\"\n      ]\n    },\n    {\n      \"bone\": \"arm_lower_right\",\n      \"keyframes\": 10,\n      \"channels\": [\n        \"rotation\"\n      ]\n    },\n    {\n      \"bone\": \"hand_right\",\n      \"keyframes\": 10,\n      \"channels\": [\n        \"rotation\"\n      ]\n    },\n    {\n      \"bone\": \"katana\",\n      \"keyframes\": 10,\n      \"channels\": [\n        \"rotation\"\n      ]\n    },\n    {\n      \"bone\": \"sun_root\",\n      \"keyframes\": 20,\n      \"channels\": [\n        \"position\",\n        \"scale\"\n      ]\n    },\n    {\n      \"bone\": \"sun_core\",\n      \"keyframes\": 12,\n      \"channels\": [\n        \"scale\"\n      ]\n    },\n    {\n      \"bone\": \"inner_swirl\",\n      \"keyframes\": 12,\n      \"channels\": [\n        \"rotation\",\n        \"scale\"\n      ]\n    },\n    {\n      \"bone\": \"mid_swirl\",\n      \"keyframes\": 12,\n      \"channels\": [\n        \"rotation\",\n        \"scale\"\n      ]\n    },\n    {\n      \"bone\": \"outer_swirl\",\n      \"keyframes\": 12,\n      \"channels\": [\n        \"rotation\",\n        \"scale\"\n      ]\n    },\n    {\n      \"bone\": \"broken_rim\",\n      \"keyframes\": 12,\n      \"channels\": [\n        \"rotation\",\n        \"scale\"\n      ]\n    },\n    {\n      \"bone\": \"flame_00\",\n      \"keyframes\": 10,\n      \"channels\": [\n        \"rotation\",\n        \"scale\"\n      ]\n    },\n    {\n      \"bone\": \"flame_01\",\n      \"keyframes\": 10,\n      \"channels\": [\n        \"rotation\",\n        \"scale\"\n      ]\n    },\n    {\n      \"bone\": \"flame_02\",\n      \"keyframes\": 10,\n      \"channels\": [\n        \"rotation\",\n        \"scale\"\n      ]\n    },\n    {\n      \"bone\": \"flame_03\",\n      \"keyframes\": 10,\n      \"channels\": [\n        \"rotation\",\n        \"scale\"\n      ]\n    },\n    {\n      \"bone\": \"flame_04\",\n      \"keyframes\": 10,\n      \"channels\": [\n        \"rotation\",\n        \"scale\"\n      ]\n    },\n    {\n      \"bone\": \"flame_05\",\n      \"keyframes\": 10,\n      \"channels\": [\n        \"rotation\",\n        \"scale\"\n      ]\n    },\n    {\n      \"bone\": \"flame_06\",\n      \"keyframes\": 10,\n      \"channels\": [\n        \"rotation\",\n        \"scale\"\n      ]\n    },\n    {\n      \"bone\": \"flame_07\",\n      \"keyframes\": 10,\n      \"channels\": [\n        \"rotation\",\n        \"scale\"\n      ]\n    },\n    {\n      \"bone\": \"flame_08\",\n      \"keyframes\": 10,\n      \"channels\": [\n        \"rotation\",\n        \"scale\"\n      ]\n    },\n    {\n      \"bone\": \"flame_09\",\n      \"keyframes\": 10,\n      \"channels\": [\n        \"rotation\",\n        \"scale\"\n      ]\n    },\n    {\n      \"bone\": \"flame_10\",\n      \"keyframes\": 10,\n      \"channels\": [\n        \"rotation\",\n        \"scale\"\n      ]\n    },\n    {\n      \"bone\": \"flame_11\",\n      \"keyframes\": 10,\n      \"channels\": [\n        \"rotation\",\n        \"scale\"\n      ]\n    },\n    {\n      \"bone\": \"flame_12\",\n      \"keyframes\": 10,\n      \"channels\": [\n        \"rotation\",\n        \"scale\"\n      ]\n    },\n    {\n      \"bone\": \"player_fire_light\",\n      \"keyframes\": 9,\n      \"channels\": [\n        \"scale\"\n      ]\n    },\n    {\n      \"bone\": \"flash_corona\",\n      \"keyframes\": 13,\n      \"channels\": [\n        \"rotation\",\n        \"scale\"\n      ]\n    },\n    {\n      \"bone\": \"absorb_spark_00\",\n      \"keyframes\": 16,\n      \"channels\": [\n        \"position\",\n        \"scale\"\n      ]\n    },\n    {\n      \"bone\": \"absorb_spark_01\",\n      \"keyframes\": 16,\n      \"channels\": [\n        \"position\",\n        \"scale\"\n      ]\n    },\n    {\n      \"bone\": \"absorb_spark_02\",\n      \"keyframes\": 16,\n      \"channels\": [\n        \"position\",\n        \"scale\"\n      ]\n    },\n    {\n      \"bone\": \"absorb_spark_03\",\n      \"keyframes\": 16,\n      \"channels\": [\n        \"position\",\n        \"scale\"\n      ]\n    },\n    {\n      \"bone\": \"absorb_spark_04\",\n      \"keyframes\": 16,\n      \"channels\": [\n        \"position\",\n        \"scale\"\n      ]\n    },\n    {\n      \"bone\": \"absorb_spark_05\",\n      \"keyframes\": 16,\n      \"channels\": [\n        \"position\",\n        \"scale\"\n      ]\n    },\n    {\n      \"bone\": \"absorb_spark_06\",\n      \"keyframes\": 16,\n      \"channels\": [\n        \"position\",\n        \"scale\"\n      ]\n    },\n    {\n      \"bone\": \"absorb_spark_07\",\n      \"keyframes\": 16,\n      \"channels\": [\n        \"position\",\n        \"scale\"\n      ]\n    },\n    {\n      \"bone\": \"absorb_spark_08\",\n      \"keyframes\": 16,\n      \"channels\": [\n        \"position\",\n        \"scale\"\n      ]\n    },\n    {\n      \"bone\": \"absorb_spark_09\",\n      \"keyframes\": 16,\n      \"channels\": [\n        \"position\",\n        \"scale\"\n      ]\n    },\n    {\n      \"bone\": \"absorb_spark_10\",\n      \"keyframes\": 16,\n      \"channels\": [\n        \"position\",\n        \"scale\"\n      ]\n    },\n    {\n      \"bone\": \"absorb_spark_11\",\n      \"keyframes\": 16,\n      \"channels\": [\n        \"position\",\n        \"scale\"\n      ]\n    }\n  ],\n  \"motion\": {\n    \"head\": {\n      \"travel\": 0.54,\n      \"max_forward\": 0.38,\n      \"at_forward_time\": 3.9,\n      \"max_backward\": 0.54,\n      \"at_backward_time\": 3,\n      \"rise\": 0,\n      \"drop\": -0.03,\n      \"loop_gap\": 0\n    },\n    \"hips\": {\n      \"travel\": 0,\n      \"max_forward\": 0,\n      \"at_forward_time\": 0,\n      \"max_backward\": 0,\n      \"at_backward_time\": 0,\n      \"rise\": 0,\n      \"drop\": 0,\n      \"loop_gap\": 0\n    },\n    \"hand_right\": {\n      \"travel\": 14.46,\n      \"max_forward\": 2.15,\n      \"at_forward_time\": 0.3,\n      \"max_backward\": 13.8,\n      \"at_backward_time\": 2.7,\n      \"rise\": 4.45,\n      \"drop\": -0.73,\n      \"loop_gap\": 0\n    },\n    \"hand_left\": {\n      \"travel\": 0.54,\n      \"max_forward\": 0.54,\n      \"at_forward_time\": 3,\n      \"max_backward\": 0.38,\n      \"at_backward_time\": 3.9,\n      \"rise\": 0.03,\n      \"drop\": 0,\n      \"loop_gap\": 0\n    },\n    \"foot_right\": {\n      \"travel\": 0,\n      \"max_forward\": 0,\n      \"at_forward_time\": 0,\n      \"max_backward\": 0,\n      \"at_backward_time\": 0,\n      \"rise\": 0,\n      \"drop\": 0,\n      \"loop_gap\": 0\n    },\n    \"foot_left\": {\n      \"travel\": 0,\n      \"max_forward\": 0,\n      \"at_forward_time\": 0,\n      \"max_backward\": 0,\n      \"at_backward_time\": 0,\n      \"rise\": 0,\n      \"drop\": 0,\n      \"loop_gap\": 0\n    }\n  },\n  \"motion_legend\": \"Distances are in model units along the model's own axes. \\\"forward\\\" = -z (the way it faces).\",\n  \"direction_check\": null,\n  \"issue_count\": 0,\n  \"by_type\": {},\n  \"issues\": [],\n  \"verdict\": \"The motion measures clean. Now preview_animation and request_review so a human confirms it.\"\n}"
+    ],
+    "images": []
+  },
+  {
+    "index": 5,
+    "name": "screenshot_views",
+    "isError": false,
+    "text": [
+      "Captured 3 view(s). The model FACES -z. Its own RIGHT is +x, its own LEFT is -x.",
+      "View: front (the model's FRONT (its face)) — model's RIGHT is on the IMAGE LEFT (mirrored — you face it)",
+      "View: front_right (the model's FRONT (its face)) — model's RIGHT is on the IMAGE LEFT (mirrored — you face it)",
+      "View: left (the model's LEFT side) — model's left/right are edge-on here"
+    ],
+    "images": [
+      "tools\\models\\lab\\codex\\ryujin01\\qa\\activation-scene-v6\\05-screenshot_views-2.png",
+      "tools\\models\\lab\\codex\\ryujin01\\qa\\activation-scene-v6\\05-screenshot_views-4.png",
+      "tools\\models\\lab\\codex\\ryujin01\\qa\\activation-scene-v6\\05-screenshot_views-6.png"
+    ]
+  },
+  {
+    "index": 6,
+    "name": "preview_animation",
+    "isError": false,
+    "text": [
+      "animation.ryujin.bankai_activation_scene_lab (12s) — 9 pose(s)",
+      "t=2s View: front (the model's FRONT (its face)) — model's RIGHT is on the IMAGE LEFT (mirrored — you face it)",
+      "t=3.3s View: front (the model's FRONT (its face)) — model's RIGHT is on the IMAGE LEFT (mirrored — you face it)",
+      "t=3.55s View: front (the model's FRONT (its face)) — model's RIGHT is on the IMAGE LEFT (mirrored — you face it)",
+      "t=4.4s View: front (the model's FRONT (its face)) — model's RIGHT is on the IMAGE LEFT (mirrored — you face it)",
+      "t=5.8s View: front (the model's FRONT (its face)) — model's RIGHT is on the IMAGE LEFT (mirrored — you face it)",
+      "t=6.6s View: front (the model's FRONT (its face)) — model's RIGHT is on the IMAGE LEFT (mirrored — you face it)",
+      "t=7.2s View: front (the model's FRONT (its face)) — model's RIGHT is on the IMAGE LEFT (mirrored — you face it)",
+      "t=8s View: front (the model's FRONT (its face)) — model's RIGHT is on the IMAGE LEFT (mirrored — you face it)",
+      "t=12s View: front (the model's FRONT (its face)) — model's RIGHT is on the IMAGE LEFT (mirrored — you face it)"
+    ],
+    "images": [
+      "tools\\models\\lab\\codex\\ryujin01\\qa\\activation-scene-v6\\06-preview_animation-2.png",
+      "tools\\models\\lab\\codex\\ryujin01\\qa\\activation-scene-v6\\06-preview_animation-4.png",
+      "tools\\models\\lab\\codex\\ryujin01\\qa\\activation-scene-v6\\06-preview_animation-6.png",
+      "tools\\models\\lab\\codex\\ryujin01\\qa\\activation-scene-v6\\06-preview_animation-8.png",
+      "tools\\models\\lab\\codex\\ryujin01\\qa\\activation-scene-v6\\06-preview_animation-10.png",
+      "tools\\models\\lab\\codex\\ryujin01\\qa\\activation-scene-v6\\06-preview_animation-12.png",
+      "tools\\models\\lab\\codex\\ryujin01\\qa\\activation-scene-v6\\06-preview_animation-14.png",
+      "tools\\models\\lab\\codex\\ryujin01\\qa\\activation-scene-v6\\06-preview_animation-16.png",
+      "tools\\models\\lab\\codex\\ryujin01\\qa\\activation-scene-v6\\06-preview_animation-18.png"
+    ]
+  },
+  {
+    "index": 7,
+    "name": "preview_animation",
+    "isError": false,
+    "text": [
+      "animation.ryujin.bankai_activation_scene_lab (12s) — 5 pose(s)",
+      "t=2s View: front_right (the model's FRONT (its face)) — model's RIGHT is on the IMAGE LEFT (mirrored — you face it)",
+      "t=3.55s View: front_right (the model's FRONT (its face)) — model's RIGHT is on the IMAGE LEFT (mirrored — you face it)",
+      "t=5.8s View: front_right (the model's FRONT (its face)) — model's RIGHT is on the IMAGE LEFT (mirrored — you face it)",
+      "t=6.6s View: front_right (the model's FRONT (its face)) — model's RIGHT is on the IMAGE LEFT (mirrored — you face it)",
+      "t=7.2s View: front_right (the model's FRONT (its face)) — model's RIGHT is on the IMAGE LEFT (mirrored — you face it)"
+    ],
+    "images": [
+      "tools\\models\\lab\\codex\\ryujin01\\qa\\activation-scene-v6\\07-preview_animation-2.png",
+      "tools\\models\\lab\\codex\\ryujin01\\qa\\activation-scene-v6\\07-preview_animation-4.png",
+      "tools\\models\\lab\\codex\\ryujin01\\qa\\activation-scene-v6\\07-preview_animation-6.png",
+      "tools\\models\\lab\\codex\\ryujin01\\qa\\activation-scene-v6\\07-preview_animation-8.png",
+      "tools\\models\\lab\\codex\\ryujin01\\qa\\activation-scene-v6\\07-preview_animation-10.png"
+    ]
+  },
+  {
+    "index": 8,
+    "name": "save_project",
+    "isError": false,
+    "text": [
+      "{\n  \"saved\": true,\n  \"path\": \"C:\\\\Users\\\\joaop\\\\Downloads\\\\Projeto_Programacao_BleachMod\\\\Bleach-Modpack\\\\tools\\\\models\\\\lab\\\\codex\\\\ryujin01\\\\ryujin_bankai_activation_scene_v6_lab.bbmodel\"\n}"
+    ],
+    "images": []
+  },
+  {
+    "index": 9,
+    "name": "export_model",
+    "isError": false,
+    "text": [
+      "{\n  \"exported\": true,\n  \"path\": \"C:\\\\Users\\\\joaop\\\\Downloads\\\\Projeto_Programacao_BleachMod\\\\Bleach-Modpack\\\\tools\\\\models\\\\lab\\\\codex\\\\ryujin01\\\\ryujin_bankai_activation_scene_v6_lab.geo.json\",\n  \"codec\": \"bedrock\",\n  \"bytes\": 35117\n}"
+    ],
+    "images": []
+  }
+]

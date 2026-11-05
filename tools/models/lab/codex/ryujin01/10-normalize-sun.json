@@ -1,0 +1,5 @@
+[
+  {"name":"get_status"},
+  {"name":"set_project_meta","arguments":{"name":"ryujin_sun_formation_lab","geometry_name":"ryujin_sun_formation_lab"}},
+  {"name":"save_project","arguments":{"path":"C:/Users/joaop/Downloads/Projeto_Programacao_BleachMod/Bleach-Modpack/tools/models/lab/codex/ryujin01/ryujin_sun_formation_lab.bbmodel"}}
+]

@@ -9,6 +9,7 @@ import com.bleachmod.common.quest.QuestProgress;
 import com.bleachmod.common.quest.QuestRegistry;
 import com.bleachmod.common.quest.QuestService;
 import com.bleachmod.common.quest.QuestStatus;
+import com.bleachmod.common.quest.RukiaOpeningQuest;
 import com.bleachmod.common.quest.objectives.ItemObjective;
 import com.bleachmod.common.quest.objectives.KillObjective;
 import com.bleachmod.common.quest.objectives.QuestObjective;
@@ -46,6 +47,18 @@ public class QuestEvents {
         }
     }
 
+    @SubscribeEvent(priority = net.minecraftforge.eventbus.api.EventPriority.LOWEST)
+    public static void openingBossDiedWithoutCredit(LivingDeathEvent event) {
+        if (!(event.getEntity().level() instanceof net.minecraft.server.level.ServerLevel level)) return;
+        var tag = event.getEntity().getPersistentData();
+        if (!RukiaOpeningQuest.KEY.equals(tag.getString(com.bleachmod.Reference.TAG_QUEST_KEY))
+                || !tag.hasUUID(com.bleachmod.Reference.TAG_QUEST_OWNER)) return;
+        var ownerId = tag.getUUID(com.bleachmod.Reference.TAG_QUEST_OWNER);
+        ServerPlayer owner = level.getServer().getPlayerList().getPlayer(ownerId);
+        if (owner == null && level.getPlayerByUUID(ownerId) instanceof ServerPlayer localOwner) owner = localOwner;
+        if (owner != null) RukiaOpeningQuest.onUncreditedBossDeath(owner, event.getEntity());
+    }
+
     private static void processItemObjectives(ServerPlayer player, PlayerData data) {
         for (String questKey : data.getPlayerQuestData().getAcceptedQuestIds()) {
             Quest quest = QuestRegistry.getQuest(questKey);
@@ -81,6 +94,13 @@ public class QuestEvents {
                 if (progress == null || progress.getStatus() != QuestStatus.ACCEPTED) {
                     continue;
                 }
+                if (quest.isStory() && (!progress.isEncounterStarted()
+                        || !"shinigami".equals(data.getCharacter().getRace())
+                        || !quest.getStory().dimension().equals(killed.level().dimension().location())
+                        || !killed.getPersistentData().hasUUID(Reference.TAG_QUEST_OWNER)
+                        || !killer.getUUID().equals(killed.getPersistentData().getUUID(Reference.TAG_QUEST_OWNER))
+                        || !killed.getPersistentData().hasUUID("blc_quest_attempt")
+                        || !killed.getPersistentData().getUUID("blc_quest_attempt").equals(progress.getAttemptId()))) continue;
                 for (int i = 0; i < quest.getObjectives().size(); i++) {
                     if (!(quest.getObjectives().get(i) instanceof KillObjective kill)) {
                         continue;
@@ -102,9 +122,25 @@ public class QuestEvents {
             for (String questKey : pqd.getAcceptedQuestIds()) {
                 Quest quest = QuestRegistry.getQuest(questKey);
                 if (quest != null && quest.hasKillObjective()) {
-                    QuestService.failQuest(deadPlayer, data, questKey);
+                    if (RukiaOpeningQuest.isOpening(quest)) RukiaOpeningQuest.onPlayerDeath(deadPlayer);
+                    else QuestService.failQuest(deadPlayer, data, questKey);
                 }
             }
+        });
+    }
+
+    @SubscribeEvent public static void discardStaleStoryActor(net.minecraftforge.event.entity.EntityJoinLevelEvent event) {
+        if (!(event.getLevel() instanceof net.minecraft.server.level.ServerLevel level)) return;
+        var tag = event.getEntity().getPersistentData();
+        if (!tag.hasUUID("blc_quest_attempt") || !tag.hasUUID(Reference.TAG_QUEST_OWNER)) return;
+        Quest quest = QuestRegistry.getQuest(tag.getString(Reference.TAG_QUEST_KEY));
+        if (quest == null || !quest.isStory()) return;
+        var owner = level.getServer().getPlayerList().getPlayer(tag.getUUID(Reference.TAG_QUEST_OWNER));
+        if (owner == null) return;
+        PlayerCapability.get(owner).ifPresent(data -> {
+            var progress = data.getPlayerQuestData().getProgress(quest.getQuestKey());
+            if (progress == null || progress.getStatus() != QuestStatus.ACCEPTED
+                    || !tag.getUUID("blc_quest_attempt").equals(progress.getAttemptId())) event.setCanceled(true);
         });
     }
 }

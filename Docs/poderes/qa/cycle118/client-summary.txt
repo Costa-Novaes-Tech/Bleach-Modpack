@@ -1,0 +1,29 @@
+[14:02:43] [Server thread/INFO] [co.bl.cl.ci.RyujinBankaiQaSequence/]: Ryujin Bankai QA result day_back releaseBusy=false scene={} form=bankai
+[14:02:43] [Render thread/INFO] [co.bl.cl.ci.RyujinBankaiQaSequence/]: Ryujin Bankai QA completed day_back perspective=THIRD_PERSON_BACK
+[14:02:59] [Server thread/INFO] [co.bl.cl.ci.RyujinBankaiQaSequence/]: Ryujin Bankai QA result night_front releaseBusy=false scene={} form=bankai
+[14:03:00] [Render thread/INFO] [co.bl.cl.ci.RyujinBankaiQaSequence/]: Ryujin Bankai QA completed night_front perspective=THIRD_PERSON_FRONT
+[14:03:16] [Server thread/INFO] [co.bl.cl.ci.RyujinBankaiQaSequence/]: Ryujin Bankai QA result first_return releaseBusy=false scene={} form=bankai
+[14:03:16] [Render thread/INFO] [co.bl.cl.ci.RyujinBankaiQaSequence/]: Ryujin Bankai QA completed first_return perspective=FIRST_PERSON
+[14:03:32] [Server thread/INFO] [co.bl.cl.ci.RyujinBankaiQaSequence/]: Ryujin Bankai QA result left_front releaseBusy=false scene={} form=bankai
+[14:03:33] [Render thread/INFO] [co.bl.cl.ci.RyujinBankaiQaSequence/]: Ryujin Bankai QA completed left_front perspective=THIRD_PERSON_FRONT
+[14:03:49] [Server thread/INFO] [co.bl.cl.ci.RyujinBankaiQaSequence/]: Ryujin Bankai QA result near_wall releaseBusy=false scene={} form=bankai
+[14:03:49] [Render thread/INFO] [co.bl.cl.ci.RyujinBankaiQaSequence/]: Ryujin Bankai QA completed near_wall perspective=THIRD_PERSON_FRONT
+[14:04:06] [Server thread/INFO] [co.bl.cl.ci.RyujinBankaiQaSequence/]: Ryujin Bankai QA result move_after_commit releaseBusy=false scene={} form=bankai
+[14:04:06] [Render thread/INFO] [co.bl.cl.ci.RyujinBankaiQaSequence/]: Ryujin Bankai QA completed move_after_commit perspective=THIRD_PERSON_BACK
+[14:04:22] [Server thread/INFO] [co.bl.cl.ci.RyujinBankaiQaSequence/]: Ryujin Bankai QA result cancel_before_commit releaseBusy=false scene={} form=shikai
+[14:04:23] [Render thread/INFO] [co.bl.cl.ci.RyujinBankaiQaSequence/]: Ryujin Bankai QA completed cancel_before_commit perspective=THIRD_PERSON_BACK
+[14:04:39] [Server thread/INFO] [co.bl.cl.ci.RyujinBankaiQaSequence/]: Ryujin Bankai QA result cancel_after_commit releaseBusy=false scene={} form=bankai
+[14:04:39] [Render thread/INFO] [co.bl.cl.ci.RyujinBankaiQaSequence/]: Ryujin Bankai QA completed cancel_after_commit perspective=THIRD_PERSON_BACK
+[14:04:52] [Server thread/INFO] [co.bl.co.te.TechniqueService/]: Ryujin steam cut terrain columns=3845 serverMs=438.8222
+[14:04:54] [Server thread/INFO] [co.bl.cl.ci.RyujinBankaiQaSequence/]: Ryujin Bankai QA result army_and_supreme releaseBusy=false scene={} form=bankai
+[14:04:54] [Render thread/INFO] [co.bl.cl.ci.RyujinBankaiQaSequence/]: Ryujin Bankai QA completed army_and_supreme perspective=THIRD_PERSON_BACK
+[14:05:06] [Server thread/INFO] [co.bl.co.te.TechniqueService/]: Ryujin steam cut terrain columns=3845 serverMs=5.9551
+[14:05:08] [Server thread/INFO] [co.bl.cl.ci.RyujinBankaiQaSequence/]: Ryujin Bankai QA result supreme_front releaseBusy=false scene={} form=bankai
+[14:05:09] [Render thread/INFO] [co.bl.cl.ci.RyujinBankaiQaSequence/]: Ryujin Bankai QA completed supreme_front perspective=THIRD_PERSON_FRONT
+[14:05:21] [Server thread/INFO] [co.bl.co.te.TechniqueService/]: Ryujin steam cut terrain columns=3845 serverMs=7.8522
+[14:05:23] [Server thread/INFO] [co.bl.cl.ci.RyujinBankaiQaSequence/]: Ryujin Bankai QA result supreme_profile releaseBusy=false scene={} form=bankai
+[14:05:23] [Render thread/INFO] [co.bl.cl.ci.RyujinBankaiQaSequence/]: Ryujin Bankai QA completed supreme_profile perspective=THIRD_PERSON_BACK
+[14:05:35] [Server thread/INFO] [co.bl.co.te.TechniqueService/]: Ryujin steam cut terrain columns=3845 serverMs=8.9618
+[14:05:37] [Server thread/INFO] [co.bl.cl.ci.RyujinBankaiQaSequence/]: Ryujin Bankai QA result supreme_left_profile releaseBusy=false scene={} form=bankai
+[14:05:38] [Render thread/INFO] [co.bl.cl.ci.RyujinBankaiQaSequence/]: Ryujin Bankai QA completed supreme_left_profile perspective=THIRD_PERSON_BACK
+BUILD SUCCESSFUL in 5m 24s

@@ -1,0 +1,711 @@
+[
+  {
+    "index": 0,
+    "name": "set_project_meta",
+    "isError": false,
+    "text": [
+      "{\n  \"name\": \"ryujin_sun_formation_lab\",\n  \"format\": \"geckolib_model\",\n  \"format_name\": \"GeckoLib Animated Model\",\n  \"texture_width\": 256,\n  \"texture_height\": 2048,\n  \"cubes\": 139,\n  \"groups\": 16,\n  \"textures\": 6,\n  \"animations\": 1,\n  \"mode\": \"edit\"\n}"
+    ],
+    "images": []
+  },
+  {
+    "index": 1,
+    "name": "edit_element",
+    "isError": false,
+    "text": [
+      "{\n  \"uuid\": \"a828189b-6c10-3d7b-7384-c31206201da4\",\n  \"name\": \"core_0_-3_glow\",\n  \"type\": \"cube\",\n  \"parent\": \"9a387ed4-22b3-2c87-ab5d-c6ba94b3f0f0\",\n  \"from\": [\n    -13.9,\n    -25.69,\n    -26.51\n  ],\n  \"to\": [\n    13.9,\n    -18.26,\n    -16.51\n  ],\n  \"origin\": [\n    -13.9,\n    -25.69,\n    -26\n  ],\n  \"rotation\": [\n    0,\n    0,\n    0\n  ],\n  \"inflate\": 0,\n  \"box_uv\": true,\n  \"uv_offset\": [\n    0,\n    963\n  ],\n  \"autouv\": 0,\n  \"faces\": {\n    \"north\": {\n      \"uv\": [\n        10,\n        973,\n        37,\n        980\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"east\": {\n      \"uv\": [\n        0,\n        973,\n        10,\n        980\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"south\": {\n      \"uv\": [\n        47,\n        973,\n        74,\n        980\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"west\": {\n      \"uv\": [\n        37,\n        973,\n        47,\n        980\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"up\": {\n      \"uv\": [\n        37,\n        973,\n        10,\n        963\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"down\": {\n      \"uv\": [\n        64,\n        963,\n        37,\n        973\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    }\n  }\n}"
+    ],
+    "images": []
+  },
+  {
+    "index": 2,
+    "name": "edit_element",
+    "isError": false,
+    "text": [
+      "{\n  \"uuid\": \"02e43382-2bbc-ad3e-e54a-f1065b5f60aa\",\n  \"name\": \"core_0_-2_glow\",\n  \"type\": \"cube\",\n  \"parent\": \"9a387ed4-22b3-2c87-ab5d-c6ba94b3f0f0\",\n  \"from\": [\n    -21.48,\n    -18.36,\n    -26.34\n  ],\n  \"to\": [\n    21.48,\n    -10.93,\n    -16.34\n  ],\n  \"origin\": [\n    -21.48,\n    -18.36,\n    -26\n  ],\n  \"rotation\": [\n    0,\n    0,\n    0\n  ],\n  \"inflate\": 0,\n  \"box_uv\": true,\n  \"uv_offset\": [\n    77,\n    963\n  ],\n  \"autouv\": 0,\n  \"faces\": {\n    \"north\": {\n      \"uv\": [\n        87,\n        973,\n        129,\n        980\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"east\": {\n      \"uv\": [\n        77,\n        973,\n        87,\n        980\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"south\": {\n      \"uv\": [\n        139,\n        973,\n        181,\n        980\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"west\": {\n      \"uv\": [\n        129,\n        973,\n        139,\n        980\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"up\": {\n      \"uv\": [\n        129,\n        973,\n        87,\n        963\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"down\": {\n      \"uv\": [\n        171,\n        963,\n        129,\n        973\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    }\n  }\n}"
+    ],
+    "images": []
+  },
+  {
+    "index": 3,
+    "name": "edit_element",
+    "isError": false,
+    "text": [
+      "{\n  \"uuid\": \"607a1dc3-2591-5dc2-1f87-d78ee34319b1\",\n  \"name\": \"core_0_-1_glow\",\n  \"type\": \"cube\",\n  \"parent\": \"9a387ed4-22b3-2c87-ab5d-c6ba94b3f0f0\",\n  \"from\": [\n    -24.95,\n    -11.04,\n    -26.17\n  ],\n  \"to\": [\n    24.95,\n    -3.61,\n    -16.17\n  ],\n  \"origin\": [\n    -24.95,\n    -11.04,\n    -26\n  ],\n  \"rotation\": [\n    0,\n    0,\n    0\n  ],\n  \"inflate\": 0,\n  \"box_uv\": true,\n  \"uv_offset\": [\n    0,\n    982\n  ],\n  \"autouv\": 0,\n  \"faces\": {\n    \"north\": {\n      \"uv\": [\n        10,\n        992,\n        59,\n        999\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"east\": {\n      \"uv\": [\n        0,\n        992,\n        10,\n        999\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"south\": {\n      \"uv\": [\n        69,\n        992,\n        118,\n        999\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"west\": {\n      \"uv\": [\n        59,\n        992,\n        69,\n        999\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"up\": {\n      \"uv\": [\n        59,\n        992,\n        10,\n        982\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"down\": {\n      \"uv\": [\n        108,\n        982,\n        59,\n        992\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    }\n  }\n}"
+    ],
+    "images": []
+  },
+  {
+    "index": 4,
+    "name": "edit_element",
+    "isError": false,
+    "text": [
+      "{\n  \"uuid\": \"055d80d0-2d54-266c-6862-23b625f26359\",\n  \"name\": \"core_0_0_glow\",\n  \"type\": \"cube\",\n  \"parent\": \"9a387ed4-22b3-2c87-ab5d-c6ba94b3f0f0\",\n  \"from\": [\n    -26,\n    -3.71,\n    -26\n  ],\n  \"to\": [\n    26,\n    3.71,\n    -16\n  ],\n  \"origin\": [\n    -26,\n    -3.71,\n    -26\n  ],\n  \"rotation\": [\n    0,\n    0,\n    0\n  ],\n  \"inflate\": 0,\n  \"box_uv\": true,\n  \"uv_offset\": [\n    121,\n    982\n  ],\n  \"autouv\": 0,\n  \"faces\": {\n    \"north\": {\n      \"uv\": [\n        131,\n        992,\n        183,\n        999\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"east\": {\n      \"uv\": [\n        121,\n        992,\n        131,\n        999\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"south\": {\n      \"uv\": [\n        193,\n        992,\n        245,\n        999\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"west\": {\n      \"uv\": [\n        183,\n        992,\n        193,\n        999\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"up\": {\n      \"uv\": [\n        183,\n        992,\n        131,\n        982\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"down\": {\n      \"uv\": [\n        235,\n        982,\n        183,\n        992\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    }\n  }\n}"
+    ],
+    "images": []
+  },
+  {
+    "index": 5,
+    "name": "edit_element",
+    "isError": false,
+    "text": [
+      "{\n  \"uuid\": \"a9b48540-4393-dd21-8d8e-39df69f1bd9f\",\n  \"name\": \"core_0_1_glow\",\n  \"type\": \"cube\",\n  \"parent\": \"9a387ed4-22b3-2c87-ab5d-c6ba94b3f0f0\",\n  \"from\": [\n    -24.95,\n    3.61,\n    -25.83\n  ],\n  \"to\": [\n    24.95,\n    11.04,\n    -15.83\n  ],\n  \"origin\": [\n    -24.95,\n    3.61,\n    -26\n  ],\n  \"rotation\": [\n    0,\n    0,\n    0\n  ],\n  \"inflate\": 0,\n  \"box_uv\": true,\n  \"uv_offset\": [\n    0,\n    1001\n  ],\n  \"autouv\": 0,\n  \"faces\": {\n    \"north\": {\n      \"uv\": [\n        10,\n        1011,\n        59,\n        1018\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"east\": {\n      \"uv\": [\n        0,\n        1011,\n        10,\n        1018\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"south\": {\n      \"uv\": [\n        69,\n        1011,\n        118,\n        1018\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"west\": {\n      \"uv\": [\n        59,\n        1011,\n        69,\n        1018\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"up\": {\n      \"uv\": [\n        59,\n        1011,\n        10,\n        1001\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"down\": {\n      \"uv\": [\n        108,\n        1001,\n        59,\n        1011\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    }\n  }\n}"
+    ],
+    "images": []
+  },
+  {
+    "index": 6,
+    "name": "edit_element",
+    "isError": false,
+    "text": [
+      "{\n  \"uuid\": \"bdb1d74c-801e-2d11-d6c1-0ec235c3897c\",\n  \"name\": \"core_0_2_glow\",\n  \"type\": \"cube\",\n  \"parent\": \"9a387ed4-22b3-2c87-ab5d-c6ba94b3f0f0\",\n  \"from\": [\n    -21.48,\n    10.93,\n    -25.66\n  ],\n  \"to\": [\n    21.48,\n    18.36,\n    -15.66\n  ],\n  \"origin\": [\n    -21.48,\n    10.93,\n    -26\n  ],\n  \"rotation\": [\n    0,\n    0,\n    0\n  ],\n  \"inflate\": 0,\n  \"box_uv\": true,\n  \"uv_offset\": [\n    121,\n    1001\n  ],\n  \"autouv\": 0,\n  \"faces\": {\n    \"north\": {\n      \"uv\": [\n        131,\n        1011,\n        173,\n        1018\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"east\": {\n      \"uv\": [\n        121,\n        1011,\n        131,\n        1018\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"south\": {\n      \"uv\": [\n        183,\n        1011,\n        225,\n        1018\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"west\": {\n      \"uv\": [\n        173,\n        1011,\n        183,\n        1018\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"up\": {\n      \"uv\": [\n        173,\n        1011,\n        131,\n        1001\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"down\": {\n      \"uv\": [\n        215,\n        1001,\n        173,\n        1011\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    }\n  }\n}"
+    ],
+    "images": []
+  },
+  {
+    "index": 7,
+    "name": "edit_element",
+    "isError": false,
+    "text": [
+      "{\n  \"uuid\": \"10128296-e0fd-f244-b72b-79f083d71a61\",\n  \"name\": \"core_0_3_glow\",\n  \"type\": \"cube\",\n  \"parent\": \"9a387ed4-22b3-2c87-ab5d-c6ba94b3f0f0\",\n  \"from\": [\n    -13.9,\n    18.26,\n    -25.49\n  ],\n  \"to\": [\n    13.9,\n    25.69,\n    -15.49\n  ],\n  \"origin\": [\n    -13.9,\n    18.26,\n    -26\n  ],\n  \"rotation\": [\n    0,\n    0,\n    0\n  ],\n  \"inflate\": 0,\n  \"box_uv\": true,\n  \"uv_offset\": [\n    0,\n    1020\n  ],\n  \"autouv\": 0,\n  \"faces\": {\n    \"north\": {\n      \"uv\": [\n        10,\n        1030,\n        37,\n        1037\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"east\": {\n      \"uv\": [\n        0,\n        1030,\n        10,\n        1037\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"south\": {\n      \"uv\": [\n        47,\n        1030,\n        74,\n        1037\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"west\": {\n      \"uv\": [\n        37,\n        1030,\n        47,\n        1037\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"up\": {\n      \"uv\": [\n        37,\n        1030,\n        10,\n        1020\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"down\": {\n      \"uv\": [\n        64,\n        1020,\n        37,\n        1030\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    }\n  }\n}"
+    ],
+    "images": []
+  },
+  {
+    "index": 8,
+    "name": "edit_element",
+    "isError": false,
+    "text": [
+      "{\n  \"uuid\": \"91bf0c8d-0f57-a26a-c82e-b955c04b73c2\",\n  \"name\": \"core_1_-3_glow\",\n  \"type\": \"cube\",\n  \"parent\": \"9a387ed4-22b3-2c87-ab5d-c6ba94b3f0f0\",\n  \"from\": [\n    -20.32,\n    -37.54,\n    -16.51\n  ],\n  \"to\": [\n    20.32,\n    -26.68,\n    -6.51\n  ],\n  \"origin\": [\n    -20.32,\n    -37.54,\n    -16\n  ],\n  \"rotation\": [\n    0,\n    0,\n    0\n  ],\n  \"inflate\": 0,\n  \"box_uv\": true,\n  \"uv_offset\": [\n    114,\n    720\n  ],\n  \"autouv\": 0,\n  \"faces\": {\n    \"north\": {\n      \"uv\": [\n        124,\n        730,\n        164,\n        740\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"east\": {\n      \"uv\": [\n        114,\n        730,\n        124,\n        740\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"south\": {\n      \"uv\": [\n        174,\n        730,\n        214,\n        740\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"west\": {\n      \"uv\": [\n        164,\n        730,\n        174,\n        740\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"up\": {\n      \"uv\": [\n        164,\n        730,\n        124,\n        720\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"down\": {\n      \"uv\": [\n        204,\n        720,\n        164,\n        730\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    }\n  }\n}"
+    ],
+    "images": []
+  },
+  {
+    "index": 9,
+    "name": "edit_element",
+    "isError": false,
+    "text": [
+      "{\n  \"uuid\": \"33d55611-8124-7ff8-a637-bdd4f6035688\",\n  \"name\": \"core_1_-2_glow\",\n  \"type\": \"cube\",\n  \"parent\": \"9a387ed4-22b3-2c87-ab5d-c6ba94b3f0f0\",\n  \"from\": [\n    -31.4,\n    -26.84,\n    -16.34\n  ],\n  \"to\": [\n    31.4,\n    -15.98,\n    -6.34\n  ],\n  \"origin\": [\n    -31.4,\n    -26.84,\n    -16\n  ],\n  \"rotation\": [\n    0,\n    0,\n    0\n  ],\n  \"inflate\": 0,\n  \"box_uv\": true,\n  \"uv_offset\": [\n    0,\n    743\n  ],\n  \"autouv\": 0,\n  \"faces\": {\n    \"north\": {\n      \"uv\": [\n        10,\n        753,\n        72,\n        763\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"east\": {\n      \"uv\": [\n        0,\n        753,\n        10,\n        763\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"south\": {\n      \"uv\": [\n        82,\n        753,\n        144,\n        763\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"west\": {\n      \"uv\": [\n        72,\n        753,\n        82,\n        763\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"up\": {\n      \"uv\": [\n        72,\n        753,\n        10,\n        743\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"down\": {\n      \"uv\": [\n        134,\n        743,\n        72,\n        753\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    }\n  }\n}"
+    ],
+    "images": []
+  },
+  {
+    "index": 10,
+    "name": "edit_element",
+    "isError": false,
+    "text": [
+      "{\n  \"uuid\": \"ac3765b7-c86a-f191-76ce-f80a13e07669\",\n  \"name\": \"core_1_-1_glow\",\n  \"type\": \"cube\",\n  \"parent\": \"9a387ed4-22b3-2c87-ab5d-c6ba94b3f0f0\",\n  \"from\": [\n    -36.46,\n    -16.13,\n    -16.17\n  ],\n  \"to\": [\n    36.46,\n    -5.28,\n    -6.17\n  ],\n  \"origin\": [\n    -36.46,\n    -16.13,\n    -16\n  ],\n  \"rotation\": [\n    0,\n    0,\n    0\n  ],\n  \"inflate\": 0,\n  \"box_uv\": true,\n  \"uv_offset\": [\n    0,\n    765\n  ],\n  \"autouv\": 0,\n  \"faces\": {\n    \"north\": {\n      \"uv\": [\n        10,\n        775,\n        82,\n        785\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"east\": {\n      \"uv\": [\n        0,\n        775,\n        10,\n        785\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"south\": {\n      \"uv\": [\n        92,\n        775,\n        164,\n        785\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"west\": {\n      \"uv\": [\n        82,\n        775,\n        92,\n        785\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"up\": {\n      \"uv\": [\n        82,\n        775,\n        10,\n        765\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"down\": {\n      \"uv\": [\n        154,\n        765,\n        82,\n        775\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    }\n  }\n}"
+    ],
+    "images": []
+  },
+  {
+    "index": 11,
+    "name": "edit_element",
+    "isError": false,
+    "text": [
+      "{\n  \"uuid\": \"fc28fdf0-c657-2839-e705-8c1ffe929aea\",\n  \"name\": \"core_1_0_glow\",\n  \"type\": \"cube\",\n  \"parent\": \"9a387ed4-22b3-2c87-ab5d-c6ba94b3f0f0\",\n  \"from\": [\n    -38,\n    -5.43,\n    -16\n  ],\n  \"to\": [\n    38,\n    5.43,\n    -6\n  ],\n  \"origin\": [\n    -38,\n    -5.43,\n    -16\n  ],\n  \"rotation\": [\n    0,\n    0,\n    0\n  ],\n  \"inflate\": 0,\n  \"box_uv\": true,\n  \"uv_offset\": [\n    0,\n    787\n  ],\n  \"autouv\": 0,\n  \"faces\": {\n    \"north\": {\n      \"uv\": [\n        10,\n        797,\n        86,\n        807\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"east\": {\n      \"uv\": [\n        0,\n        797,\n        10,\n        807\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"south\": {\n      \"uv\": [\n        96,\n        797,\n        172,\n        807\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"west\": {\n      \"uv\": [\n        86,\n        797,\n        96,\n        807\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"up\": {\n      \"uv\": [\n        86,\n        797,\n        10,\n        787\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"down\": {\n      \"uv\": [\n        162,\n        787,\n        86,\n        797\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    }\n  }\n}"
+    ],
+    "images": []
+  },
+  {
+    "index": 12,
+    "name": "edit_element",
+    "isError": false,
+    "text": [
+      "{\n  \"uuid\": \"c2ec2660-73c0-aa97-d045-3540e25a8bba\",\n  \"name\": \"core_1_1_glow\",\n  \"type\": \"cube\",\n  \"parent\": \"9a387ed4-22b3-2c87-ab5d-c6ba94b3f0f0\",\n  \"from\": [\n    -36.46,\n    5.28,\n    -15.83\n  ],\n  \"to\": [\n    36.46,\n    16.13,\n    -5.83\n  ],\n  \"origin\": [\n    -36.46,\n    5.28,\n    -16\n  ],\n  \"rotation\": [\n    0,\n    0,\n    0\n  ],\n  \"inflate\": 0,\n  \"box_uv\": true,\n  \"uv_offset\": [\n    0,\n    809\n  ],\n  \"autouv\": 0,\n  \"faces\": {\n    \"north\": {\n      \"uv\": [\n        10,\n        819,\n        82,\n        829\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"east\": {\n      \"uv\": [\n        0,\n        819,\n        10,\n        829\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"south\": {\n      \"uv\": [\n        92,\n        819,\n        164,\n        829\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"west\": {\n      \"uv\": [\n        82,\n        819,\n        92,\n        829\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"up\": {\n      \"uv\": [\n        82,\n        819,\n        10,\n        809\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"down\": {\n      \"uv\": [\n        154,\n        809,\n        82,\n        819\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    }\n  }\n}"
+    ],
+    "images": []
+  },
+  {
+    "index": 13,
+    "name": "edit_element",
+    "isError": false,
+    "text": [
+      "{\n  \"uuid\": \"d1af8369-bfd4-80dc-9f30-940d58cbdd93\",\n  \"name\": \"core_1_2_glow\",\n  \"type\": \"cube\",\n  \"parent\": \"9a387ed4-22b3-2c87-ab5d-c6ba94b3f0f0\",\n  \"from\": [\n    -31.4,\n    15.98,\n    -15.66\n  ],\n  \"to\": [\n    31.4,\n    26.84,\n    -5.66\n  ],\n  \"origin\": [\n    -31.4,\n    15.98,\n    -16\n  ],\n  \"rotation\": [\n    0,\n    0,\n    0\n  ],\n  \"inflate\": 0,\n  \"box_uv\": true,\n  \"uv_offset\": [\n    0,\n    831\n  ],\n  \"autouv\": 0,\n  \"faces\": {\n    \"north\": {\n      \"uv\": [\n        10,\n        841,\n        72,\n        851\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"east\": {\n      \"uv\": [\n        0,\n        841,\n        10,\n        851\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"south\": {\n      \"uv\": [\n        82,\n        841,\n        144,\n        851\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"west\": {\n      \"uv\": [\n        72,\n        841,\n        82,\n        851\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"up\": {\n      \"uv\": [\n        72,\n        841,\n        10,\n        831\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"down\": {\n      \"uv\": [\n        134,\n        831,\n        72,\n        841\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    }\n  }\n}"
+    ],
+    "images": []
+  },
+  {
+    "index": 14,
+    "name": "edit_element",
+    "isError": false,
+    "text": [
+      "{\n  \"uuid\": \"47c7d19a-6269-3afc-3d7d-0724e081e441\",\n  \"name\": \"core_1_3_glow\",\n  \"type\": \"cube\",\n  \"parent\": \"9a387ed4-22b3-2c87-ab5d-c6ba94b3f0f0\",\n  \"from\": [\n    -20.32,\n    26.68,\n    -15.49\n  ],\n  \"to\": [\n    20.32,\n    37.54,\n    -5.49\n  ],\n  \"origin\": [\n    -20.32,\n    26.68,\n    -16\n  ],\n  \"rotation\": [\n    0,\n    0,\n    0\n  ],\n  \"inflate\": 0,\n  \"box_uv\": true,\n  \"uv_offset\": [\n    147,\n    831\n  ],\n  \"autouv\": 0,\n  \"faces\": {\n    \"north\": {\n      \"uv\": [\n        157,\n        841,\n        197,\n        851\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"east\": {\n      \"uv\": [\n        147,\n        841,\n        157,\n        851\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"south\": {\n      \"uv\": [\n        207,\n        841,\n        247,\n        851\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"west\": {\n      \"uv\": [\n        197,\n        841,\n        207,\n        851\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"up\": {\n      \"uv\": [\n        197,\n        841,\n        157,\n        831\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"down\": {\n      \"uv\": [\n        237,\n        831,\n        197,\n        841\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    }\n  }\n}"
+    ],
+    "images": []
+  },
+  {
+    "index": 15,
+    "name": "edit_element",
+    "isError": false,
+    "text": [
+      "{\n  \"uuid\": \"fe6c649b-50bb-cadb-7b81-38b90db2136e\",\n  \"name\": \"core_2_-3_glow\",\n  \"type\": \"cube\",\n  \"parent\": \"9a387ed4-22b3-2c87-ab5d-c6ba94b3f0f0\",\n  \"from\": [\n    -24.59,\n    -45.44,\n    -5.51\n  ],\n  \"to\": [\n    24.59,\n    -32.3,\n    4.49\n  ],\n  \"origin\": [\n    -24.59,\n    -45.44,\n    -5\n  ],\n  \"rotation\": [\n    0,\n    0,\n    0\n  ],\n  \"inflate\": 0,\n  \"box_uv\": true,\n  \"uv_offset\": [\n    0,\n    474\n  ],\n  \"autouv\": 0,\n  \"faces\": {\n    \"north\": {\n      \"uv\": [\n        10,\n        484,\n        59,\n        497\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"east\": {\n      \"uv\": [\n        0,\n        484,\n        10,\n        497\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"south\": {\n      \"uv\": [\n        69,\n        484,\n        118,\n        497\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"west\": {\n      \"uv\": [\n        59,\n        484,\n        69,\n        497\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"up\": {\n      \"uv\": [\n        59,\n        484,\n        10,\n        474\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"down\": {\n      \"uv\": [\n        108,\n        474,\n        59,\n        484\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    }\n  }\n}"
+    ],
+    "images": []
+  },
+  {
+    "index": 16,
+    "name": "edit_element",
+    "isError": false,
+    "text": [
+      "{\n  \"uuid\": \"83cacce9-867b-c99e-6a8a-4ed2b1b32c28\",\n  \"name\": \"core_2_-2_glow\",\n  \"type\": \"cube\",\n  \"parent\": \"9a387ed4-22b3-2c87-ab5d-c6ba94b3f0f0\",\n  \"from\": [\n    -38.01,\n    -32.49,\n    -5.34\n  ],\n  \"to\": [\n    38.01,\n    -19.34,\n    4.66\n  ],\n  \"origin\": [\n    -38.01,\n    -32.49,\n    -5\n  ],\n  \"rotation\": [\n    0,\n    0,\n    0\n  ],\n  \"inflate\": 0,\n  \"box_uv\": true,\n  \"uv_offset\": [\n    0,\n    499\n  ],\n  \"autouv\": 0,\n  \"faces\": {\n    \"north\": {\n      \"uv\": [\n        10,\n        509,\n        86,\n        522\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"east\": {\n      \"uv\": [\n        0,\n        509,\n        10,\n        522\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"south\": {\n      \"uv\": [\n        96,\n        509,\n        172,\n        522\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"west\": {\n      \"uv\": [\n        86,\n        509,\n        96,\n        522\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"up\": {\n      \"uv\": [\n        86,\n        509,\n        10,\n        499\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"down\": {\n      \"uv\": [\n        162,\n        499,\n        86,\n        509\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    }\n  }\n}"
+    ],
+    "images": []
+  },
+  {
+    "index": 17,
+    "name": "edit_element",
+    "isError": false,
+    "text": [
+      "{\n  \"uuid\": \"200193a2-d468-3f2d-c58d-4fb03de5f42a\",\n  \"name\": \"core_2_-1_glow\",\n  \"type\": \"cube\",\n  \"parent\": \"9a387ed4-22b3-2c87-ab5d-c6ba94b3f0f0\",\n  \"from\": [\n    -44.14,\n    -19.53,\n    -5.17\n  ],\n  \"to\": [\n    44.14,\n    -6.39,\n    4.83\n  ],\n  \"origin\": [\n    -44.14,\n    -19.53,\n    -5\n  ],\n  \"rotation\": [\n    0,\n    0,\n    0\n  ],\n  \"inflate\": 0,\n  \"box_uv\": true,\n  \"uv_offset\": [\n    0,\n    524\n  ],\n  \"autouv\": 0,\n  \"faces\": {\n    \"north\": {\n      \"uv\": [\n        10,\n        534,\n        98,\n        547\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"east\": {\n      \"uv\": [\n        0,\n        534,\n        10,\n        547\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"south\": {\n      \"uv\": [\n        108,\n        534,\n        196,\n        547\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"west\": {\n      \"uv\": [\n        98,\n        534,\n        108,\n        547\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"up\": {\n      \"uv\": [\n        98,\n        534,\n        10,\n        524\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"down\": {\n      \"uv\": [\n        186,\n        524,\n        98,\n        534\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    }\n  }\n}"
+    ],
+    "images": []
+  },
+  {
+    "index": 18,
+    "name": "edit_element",
+    "isError": false,
+    "text": [
+      "{\n  \"uuid\": \"3d7eac21-7080-6fc6-d4a3-c887a484a28b\",\n  \"name\": \"core_2_0_glow\",\n  \"type\": \"cube\",\n  \"parent\": \"9a387ed4-22b3-2c87-ab5d-c6ba94b3f0f0\",\n  \"from\": [\n    -46,\n    -6.57,\n    -5\n  ],\n  \"to\": [\n    46,\n    6.57,\n    5\n  ],\n  \"origin\": [\n    -46,\n    -6.57,\n    -5\n  ],\n  \"rotation\": [\n    0,\n    0,\n    0\n  ],\n  \"inflate\": 0,\n  \"box_uv\": true,\n  \"uv_offset\": [\n    0,\n    549\n  ],\n  \"autouv\": 0,\n  \"faces\": {\n    \"north\": {\n      \"uv\": [\n        10,\n        559,\n        102,\n        572\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"east\": {\n      \"uv\": [\n        0,\n        559,\n        10,\n        572\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"south\": {\n      \"uv\": [\n        112,\n        559,\n        204,\n        572\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"west\": {\n      \"uv\": [\n        102,\n        559,\n        112,\n        572\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"up\": {\n      \"uv\": [\n        102,\n        559,\n        10,\n        549\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"down\": {\n      \"uv\": [\n        194,\n        549,\n        102,\n        559\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    }\n  }\n}"
+    ],
+    "images": []
+  },
+  {
+    "index": 19,
+    "name": "edit_element",
+    "isError": false,
+    "text": [
+      "{\n  \"uuid\": \"18238aed-6068-205c-2868-5edd2ec44932\",\n  \"name\": \"core_2_1_glow\",\n  \"type\": \"cube\",\n  \"parent\": \"9a387ed4-22b3-2c87-ab5d-c6ba94b3f0f0\",\n  \"from\": [\n    -44.14,\n    6.39,\n    -4.83\n  ],\n  \"to\": [\n    44.14,\n    19.53,\n    5.17\n  ],\n  \"origin\": [\n    -44.14,\n    6.39,\n    -5\n  ],\n  \"rotation\": [\n    0,\n    0,\n    0\n  ],\n  \"inflate\": 0,\n  \"box_uv\": true,\n  \"uv_offset\": [\n    0,\n    574\n  ],\n  \"autouv\": 0,\n  \"faces\": {\n    \"north\": {\n      \"uv\": [\n        10,\n        584,\n        98,\n        597\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"east\": {\n      \"uv\": [\n        0,\n        584,\n        10,\n        597\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"south\": {\n      \"uv\": [\n        108,\n        584,\n        196,\n        597\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"west\": {\n      \"uv\": [\n        98,\n        584,\n        108,\n        597\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"up\": {\n      \"uv\": [\n        98,\n        584,\n        10,\n        574\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"down\": {\n      \"uv\": [\n        186,\n        574,\n        98,\n        584\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    }\n  }\n}"
+    ],
+    "images": []
+  },
+  {
+    "index": 20,
+    "name": "edit_element",
+    "isError": false,
+    "text": [
+      "{\n  \"uuid\": \"66d4e63e-9a08-2a30-ef9f-f7b445e05649\",\n  \"name\": \"core_2_2_glow\",\n  \"type\": \"cube\",\n  \"parent\": \"9a387ed4-22b3-2c87-ab5d-c6ba94b3f0f0\",\n  \"from\": [\n    -38.01,\n    19.34,\n    -4.66\n  ],\n  \"to\": [\n    38.01,\n    32.49,\n    5.34\n  ],\n  \"origin\": [\n    -38.01,\n    19.34,\n    -5\n  ],\n  \"rotation\": [\n    0,\n    0,\n    0\n  ],\n  \"inflate\": 0,\n  \"box_uv\": true,\n  \"uv_offset\": [\n    0,\n    599\n  ],\n  \"autouv\": 0,\n  \"faces\": {\n    \"north\": {\n      \"uv\": [\n        10,\n        609,\n        86,\n        622\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"east\": {\n      \"uv\": [\n        0,\n        609,\n        10,\n        622\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"south\": {\n      \"uv\": [\n        96,\n        609,\n        172,\n        622\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"west\": {\n      \"uv\": [\n        86,\n        609,\n        96,\n        622\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"up\": {\n      \"uv\": [\n        86,\n        609,\n        10,\n        599\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"down\": {\n      \"uv\": [\n        162,\n        599,\n        86,\n        609\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    }\n  }\n}"
+    ],
+    "images": []
+  },
+  {
+    "index": 21,
+    "name": "edit_element",
+    "isError": false,
+    "text": [
+      "{\n  \"uuid\": \"0f5a44d8-8ccb-a820-6365-7f5e5897329b\",\n  \"name\": \"core_2_3_glow\",\n  \"type\": \"cube\",\n  \"parent\": \"9a387ed4-22b3-2c87-ab5d-c6ba94b3f0f0\",\n  \"from\": [\n    -24.59,\n    32.3,\n    -4.49\n  ],\n  \"to\": [\n    24.59,\n    45.44,\n    5.51\n  ],\n  \"origin\": [\n    -24.59,\n    32.3,\n    -5\n  ],\n  \"rotation\": [\n    0,\n    0,\n    0\n  ],\n  \"inflate\": 0,\n  \"box_uv\": true,\n  \"uv_offset\": [\n    0,\n    624\n  ],\n  \"autouv\": 0,\n  \"faces\": {\n    \"north\": {\n      \"uv\": [\n        10,\n        634,\n        59,\n        647\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"east\": {\n      \"uv\": [\n        0,\n        634,\n        10,\n        647\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"south\": {\n      \"uv\": [\n        69,\n        634,\n        118,\n        647\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"west\": {\n      \"uv\": [\n        59,\n        634,\n        69,\n        647\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"up\": {\n      \"uv\": [\n        59,\n        634,\n        10,\n        624\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"down\": {\n      \"uv\": [\n        108,\n        624,\n        59,\n        634\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    }\n  }\n}"
+    ],
+    "images": []
+  },
+  {
+    "index": 22,
+    "name": "edit_element",
+    "isError": false,
+    "text": [
+      "{\n  \"uuid\": \"5c1009a5-83c3-7616-1dd8-db3406b766a5\",\n  \"name\": \"core_3_-3_glow\",\n  \"type\": \"cube\",\n  \"parent\": \"9a387ed4-22b3-2c87-ab5d-c6ba94b3f0f0\",\n  \"from\": [\n    -20.32,\n    -37.54,\n    5.49\n  ],\n  \"to\": [\n    20.32,\n    -26.68,\n    15.49\n  ],\n  \"origin\": [\n    -20.32,\n    -37.54,\n    6\n  ],\n  \"rotation\": [\n    0,\n    0,\n    0\n  ],\n  \"inflate\": 0,\n  \"box_uv\": true,\n  \"uv_offset\": [\n    0,\n    853\n  ],\n  \"autouv\": 0,\n  \"faces\": {\n    \"north\": {\n      \"uv\": [\n        10,\n        863,\n        50,\n        873\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"east\": {\n      \"uv\": [\n        0,\n        863,\n        10,\n        873\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"south\": {\n      \"uv\": [\n        60,\n        863,\n        100,\n        873\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"west\": {\n      \"uv\": [\n        50,\n        863,\n        60,\n        873\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"up\": {\n      \"uv\": [\n        50,\n        863,\n        10,\n        853\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"down\": {\n      \"uv\": [\n        90,\n        853,\n        50,\n        863\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    }\n  }\n}"
+    ],
+    "images": []
+  },
+  {
+    "index": 23,
+    "name": "edit_element",
+    "isError": false,
+    "text": [
+      "{\n  \"uuid\": \"e80c9ceb-d35c-d22f-8257-6573a2b41272\",\n  \"name\": \"core_3_-2_glow\",\n  \"type\": \"cube\",\n  \"parent\": \"9a387ed4-22b3-2c87-ab5d-c6ba94b3f0f0\",\n  \"from\": [\n    -31.4,\n    -26.84,\n    5.66\n  ],\n  \"to\": [\n    31.4,\n    -15.98,\n    15.66\n  ],\n  \"origin\": [\n    -31.4,\n    -26.84,\n    6\n  ],\n  \"rotation\": [\n    0,\n    0,\n    0\n  ],\n  \"inflate\": 0,\n  \"box_uv\": true,\n  \"uv_offset\": [\n    103,\n    853\n  ],\n  \"autouv\": 0,\n  \"faces\": {\n    \"north\": {\n      \"uv\": [\n        113,\n        863,\n        175,\n        873\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"east\": {\n      \"uv\": [\n        103,\n        863,\n        113,\n        873\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"south\": {\n      \"uv\": [\n        185,\n        863,\n        247,\n        873\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"west\": {\n      \"uv\": [\n        175,\n        863,\n        185,\n        873\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"up\": {\n      \"uv\": [\n        175,\n        863,\n        113,\n        853\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"down\": {\n      \"uv\": [\n        237,\n        853,\n        175,\n        863\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    }\n  }\n}"
+    ],
+    "images": []
+  },
+  {
+    "index": 24,
+    "name": "edit_element",
+    "isError": false,
+    "text": [
+      "{\n  \"uuid\": \"4d4e664f-60c4-4c43-0b93-da44b9d1f81a\",\n  \"name\": \"core_3_-1_glow\",\n  \"type\": \"cube\",\n  \"parent\": \"9a387ed4-22b3-2c87-ab5d-c6ba94b3f0f0\",\n  \"from\": [\n    -36.46,\n    -16.13,\n    5.83\n  ],\n  \"to\": [\n    36.46,\n    -5.28,\n    15.83\n  ],\n  \"origin\": [\n    -36.46,\n    -16.13,\n    6\n  ],\n  \"rotation\": [\n    0,\n    0,\n    0\n  ],\n  \"inflate\": 0,\n  \"box_uv\": true,\n  \"uv_offset\": [\n    0,\n    875\n  ],\n  \"autouv\": 0,\n  \"faces\": {\n    \"north\": {\n      \"uv\": [\n        10,\n        885,\n        82,\n        895\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"east\": {\n      \"uv\": [\n        0,\n        885,\n        10,\n        895\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"south\": {\n      \"uv\": [\n        92,\n        885,\n        164,\n        895\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"west\": {\n      \"uv\": [\n        82,\n        885,\n        92,\n        895\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"up\": {\n      \"uv\": [\n        82,\n        885,\n        10,\n        875\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"down\": {\n      \"uv\": [\n        154,\n        875,\n        82,\n        885\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    }\n  }\n}"
+    ],
+    "images": []
+  },
+  {
+    "index": 25,
+    "name": "edit_element",
+    "isError": false,
+    "text": [
+      "{\n  \"uuid\": \"a7b2fdee-15f4-e23b-5957-14e290fe2149\",\n  \"name\": \"core_3_0_glow\",\n  \"type\": \"cube\",\n  \"parent\": \"9a387ed4-22b3-2c87-ab5d-c6ba94b3f0f0\",\n  \"from\": [\n    -38,\n    -5.43,\n    6\n  ],\n  \"to\": [\n    38,\n    5.43,\n    16\n  ],\n  \"origin\": [\n    -38,\n    -5.43,\n    6\n  ],\n  \"rotation\": [\n    0,\n    0,\n    0\n  ],\n  \"inflate\": 0,\n  \"box_uv\": true,\n  \"uv_offset\": [\n    0,\n    897\n  ],\n  \"autouv\": 0,\n  \"faces\": {\n    \"north\": {\n      \"uv\": [\n        10,\n        907,\n        86,\n        917\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"east\": {\n      \"uv\": [\n        0,\n        907,\n        10,\n        917\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"south\": {\n      \"uv\": [\n        96,\n        907,\n        172,\n        917\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"west\": {\n      \"uv\": [\n        86,\n        907,\n        96,\n        917\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"up\": {\n      \"uv\": [\n        86,\n        907,\n        10,\n        897\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"down\": {\n      \"uv\": [\n        162,\n        897,\n        86,\n        907\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    }\n  }\n}"
+    ],
+    "images": []
+  },
+  {
+    "index": 26,
+    "name": "edit_element",
+    "isError": false,
+    "text": [
+      "{\n  \"uuid\": \"938cb112-5614-7dab-7efc-aa3f078b9c49\",\n  \"name\": \"core_3_1_glow\",\n  \"type\": \"cube\",\n  \"parent\": \"9a387ed4-22b3-2c87-ab5d-c6ba94b3f0f0\",\n  \"from\": [\n    -36.46,\n    5.28,\n    6.17\n  ],\n  \"to\": [\n    36.46,\n    16.13,\n    16.17\n  ],\n  \"origin\": [\n    -36.46,\n    5.28,\n    6\n  ],\n  \"rotation\": [\n    0,\n    0,\n    0\n  ],\n  \"inflate\": 0,\n  \"box_uv\": true,\n  \"uv_offset\": [\n    0,\n    919\n  ],\n  \"autouv\": 0,\n  \"faces\": {\n    \"north\": {\n      \"uv\": [\n        10,\n        929,\n        82,\n        939\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"east\": {\n      \"uv\": [\n        0,\n        929,\n        10,\n        939\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"south\": {\n      \"uv\": [\n        92,\n        929,\n        164,\n        939\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"west\": {\n      \"uv\": [\n        82,\n        929,\n        92,\n        939\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"up\": {\n      \"uv\": [\n        82,\n        929,\n        10,\n        919\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"down\": {\n      \"uv\": [\n        154,\n        919,\n        82,\n        929\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    }\n  }\n}"
+    ],
+    "images": []
+  },
+  {
+    "index": 27,
+    "name": "edit_element",
+    "isError": false,
+    "text": [
+      "{\n  \"uuid\": \"8c61730f-aa18-4dab-1c0d-606b7f02d225\",\n  \"name\": \"core_3_2_glow\",\n  \"type\": \"cube\",\n  \"parent\": \"9a387ed4-22b3-2c87-ab5d-c6ba94b3f0f0\",\n  \"from\": [\n    -31.4,\n    15.98,\n    6.34\n  ],\n  \"to\": [\n    31.4,\n    26.84,\n    16.34\n  ],\n  \"origin\": [\n    -31.4,\n    15.98,\n    6\n  ],\n  \"rotation\": [\n    0,\n    0,\n    0\n  ],\n  \"inflate\": 0,\n  \"box_uv\": true,\n  \"uv_offset\": [\n    0,\n    941\n  ],\n  \"autouv\": 0,\n  \"faces\": {\n    \"north\": {\n      \"uv\": [\n        10,\n        951,\n        72,\n        961\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"east\": {\n      \"uv\": [\n        0,\n        951,\n        10,\n        961\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"south\": {\n      \"uv\": [\n        82,\n        951,\n        144,\n        961\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"west\": {\n      \"uv\": [\n        72,\n        951,\n        82,\n        961\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"up\": {\n      \"uv\": [\n        72,\n        951,\n        10,\n        941\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"down\": {\n      \"uv\": [\n        134,\n        941,\n        72,\n        951\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    }\n  }\n}"
+    ],
+    "images": []
+  },
+  {
+    "index": 28,
+    "name": "edit_element",
+    "isError": false,
+    "text": [
+      "{\n  \"uuid\": \"2ee79fda-81c2-7f7b-088b-fa759b18d450\",\n  \"name\": \"core_3_3_glow\",\n  \"type\": \"cube\",\n  \"parent\": \"9a387ed4-22b3-2c87-ab5d-c6ba94b3f0f0\",\n  \"from\": [\n    -20.32,\n    26.68,\n    6.51\n  ],\n  \"to\": [\n    20.32,\n    37.54,\n    16.51\n  ],\n  \"origin\": [\n    -20.32,\n    26.68,\n    6\n  ],\n  \"rotation\": [\n    0,\n    0,\n    0\n  ],\n  \"inflate\": 0,\n  \"box_uv\": true,\n  \"uv_offset\": [\n    147,\n    941\n  ],\n  \"autouv\": 0,\n  \"faces\": {\n    \"north\": {\n      \"uv\": [\n        157,\n        951,\n        197,\n        961\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"east\": {\n      \"uv\": [\n        147,\n        951,\n        157,\n        961\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"south\": {\n      \"uv\": [\n        207,\n        951,\n        247,\n        961\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"west\": {\n      \"uv\": [\n        197,\n        951,\n        207,\n        961\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"up\": {\n      \"uv\": [\n        197,\n        951,\n        157,\n        941\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"down\": {\n      \"uv\": [\n        237,\n        941,\n        197,\n        951\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    }\n  }\n}"
+    ],
+    "images": []
+  },
+  {
+    "index": 29,
+    "name": "edit_element",
+    "isError": false,
+    "text": [
+      "{\n  \"uuid\": \"97668753-37eb-cb17-4203-a2b847348532\",\n  \"name\": \"core_4_-3_glow\",\n  \"type\": \"cube\",\n  \"parent\": \"9a387ed4-22b3-2c87-ab5d-c6ba94b3f0f0\",\n  \"from\": [\n    -13.9,\n    -25.69,\n    15.49\n  ],\n  \"to\": [\n    13.9,\n    -18.26,\n    25.49\n  ],\n  \"origin\": [\n    -13.9,\n    -25.69,\n    16\n  ],\n  \"rotation\": [\n    0,\n    0,\n    0\n  ],\n  \"inflate\": 0,\n  \"box_uv\": true,\n  \"uv_offset\": [\n    77,\n    1020\n  ],\n  \"autouv\": 0,\n  \"faces\": {\n    \"north\": {\n      \"uv\": [\n        87,\n        1030,\n        114,\n        1037\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"east\": {\n      \"uv\": [\n        77,\n        1030,\n        87,\n        1037\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"south\": {\n      \"uv\": [\n        124,\n        1030,\n        151,\n        1037\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"west\": {\n      \"uv\": [\n        114,\n        1030,\n        124,\n        1037\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"up\": {\n      \"uv\": [\n        114,\n        1030,\n        87,\n        1020\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"down\": {\n      \"uv\": [\n        141,\n        1020,\n        114,\n        1030\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    }\n  }\n}"
+    ],
+    "images": []
+  },
+  {
+    "index": 30,
+    "name": "edit_element",
+    "isError": false,
+    "text": [
+      "{\n  \"uuid\": \"7692b3b6-172b-fef8-79bf-4d446de7a134\",\n  \"name\": \"core_4_-2_glow\",\n  \"type\": \"cube\",\n  \"parent\": \"9a387ed4-22b3-2c87-ab5d-c6ba94b3f0f0\",\n  \"from\": [\n    -21.48,\n    -18.36,\n    15.66\n  ],\n  \"to\": [\n    21.48,\n    -10.93,\n    25.66\n  ],\n  \"origin\": [\n    -21.48,\n    -18.36,\n    16\n  ],\n  \"rotation\": [\n    0,\n    0,\n    0\n  ],\n  \"inflate\": 0,\n  \"box_uv\": true,\n  \"uv_offset\": [\n    0,\n    1039\n  ],\n  \"autouv\": 0,\n  \"faces\": {\n    \"north\": {\n      \"uv\": [\n        10,\n        1049,\n        52,\n        1056\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"east\": {\n      \"uv\": [\n        0,\n        1049,\n        10,\n        1056\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"south\": {\n      \"uv\": [\n        62,\n        1049,\n        104,\n        1056\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"west\": {\n      \"uv\": [\n        52,\n        1049,\n        62,\n        1056\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"up\": {\n      \"uv\": [\n        52,\n        1049,\n        10,\n        1039\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"down\": {\n      \"uv\": [\n        94,\n        1039,\n        52,\n        1049\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    }\n  }\n}"
+    ],
+    "images": []
+  },
+  {
+    "index": 31,
+    "name": "edit_element",
+    "isError": false,
+    "text": [
+      "{\n  \"uuid\": \"dbcab354-f967-24e1-4573-095be4e792bc\",\n  \"name\": \"core_4_-1_glow\",\n  \"type\": \"cube\",\n  \"parent\": \"9a387ed4-22b3-2c87-ab5d-c6ba94b3f0f0\",\n  \"from\": [\n    -24.95,\n    -11.04,\n    15.83\n  ],\n  \"to\": [\n    24.95,\n    -3.61,\n    25.83\n  ],\n  \"origin\": [\n    -24.95,\n    -11.04,\n    16\n  ],\n  \"rotation\": [\n    0,\n    0,\n    0\n  ],\n  \"inflate\": 0,\n  \"box_uv\": true,\n  \"uv_offset\": [\n    107,\n    1039\n  ],\n  \"autouv\": 0,\n  \"faces\": {\n    \"north\": {\n      \"uv\": [\n        117,\n        1049,\n        166,\n        1056\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"east\": {\n      \"uv\": [\n        107,\n        1049,\n        117,\n        1056\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"south\": {\n      \"uv\": [\n        176,\n        1049,\n        225,\n        1056\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"west\": {\n      \"uv\": [\n        166,\n        1049,\n        176,\n        1056\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"up\": {\n      \"uv\": [\n        166,\n        1049,\n        117,\n        1039\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"down\": {\n      \"uv\": [\n        215,\n        1039,\n        166,\n        1049\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    }\n  }\n}"
+    ],
+    "images": []
+  },
+  {
+    "index": 32,
+    "name": "edit_element",
+    "isError": false,
+    "text": [
+      "{\n  \"uuid\": \"1fea354f-8b46-2140-f574-4ab7df5aa5d1\",\n  \"name\": \"core_4_0_glow\",\n  \"type\": \"cube\",\n  \"parent\": \"9a387ed4-22b3-2c87-ab5d-c6ba94b3f0f0\",\n  \"from\": [\n    -26,\n    -3.71,\n    16\n  ],\n  \"to\": [\n    26,\n    3.71,\n    26\n  ],\n  \"origin\": [\n    -26,\n    -3.71,\n    16\n  ],\n  \"rotation\": [\n    0,\n    0,\n    0\n  ],\n  \"inflate\": 0,\n  \"box_uv\": true,\n  \"uv_offset\": [\n    0,\n    1058\n  ],\n  \"autouv\": 0,\n  \"faces\": {\n    \"north\": {\n      \"uv\": [\n        10,\n        1068,\n        62,\n        1075\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"east\": {\n      \"uv\": [\n        0,\n        1068,\n        10,\n        1075\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"south\": {\n      \"uv\": [\n        72,\n        1068,\n        124,\n        1075\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"west\": {\n      \"uv\": [\n        62,\n        1068,\n        72,\n        1075\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"up\": {\n      \"uv\": [\n        62,\n        1068,\n        10,\n        1058\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"down\": {\n      \"uv\": [\n        114,\n        1058,\n        62,\n        1068\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    }\n  }\n}"
+    ],
+    "images": []
+  },
+  {
+    "index": 33,
+    "name": "edit_element",
+    "isError": false,
+    "text": [
+      "{\n  \"uuid\": \"37b63b89-a04b-d51f-e118-44704a4900b2\",\n  \"name\": \"core_4_1_glow\",\n  \"type\": \"cube\",\n  \"parent\": \"9a387ed4-22b3-2c87-ab5d-c6ba94b3f0f0\",\n  \"from\": [\n    -24.95,\n    3.61,\n    16.17\n  ],\n  \"to\": [\n    24.95,\n    11.04,\n    26.17\n  ],\n  \"origin\": [\n    -24.95,\n    3.61,\n    16\n  ],\n  \"rotation\": [\n    0,\n    0,\n    0\n  ],\n  \"inflate\": 0,\n  \"box_uv\": true,\n  \"uv_offset\": [\n    125,\n    1058\n  ],\n  \"autouv\": 0,\n  \"faces\": {\n    \"north\": {\n      \"uv\": [\n        135,\n        1068,\n        184,\n        1075\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"east\": {\n      \"uv\": [\n        125,\n        1068,\n        135,\n        1075\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"south\": {\n      \"uv\": [\n        194,\n        1068,\n        243,\n        1075\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"west\": {\n      \"uv\": [\n        184,\n        1068,\n        194,\n        1075\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"up\": {\n      \"uv\": [\n        184,\n        1068,\n        135,\n        1058\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"down\": {\n      \"uv\": [\n        233,\n        1058,\n        184,\n        1068\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    }\n  }\n}"
+    ],
+    "images": []
+  },
+  {
+    "index": 34,
+    "name": "edit_element",
+    "isError": false,
+    "text": [
+      "{\n  \"uuid\": \"805b6fab-a20f-6690-0082-b367640ce002\",\n  \"name\": \"core_4_2_glow\",\n  \"type\": \"cube\",\n  \"parent\": \"9a387ed4-22b3-2c87-ab5d-c6ba94b3f0f0\",\n  \"from\": [\n    -21.48,\n    10.93,\n    16.34\n  ],\n  \"to\": [\n    21.48,\n    18.36,\n    26.34\n  ],\n  \"origin\": [\n    -21.48,\n    10.93,\n    16\n  ],\n  \"rotation\": [\n    0,\n    0,\n    0\n  ],\n  \"inflate\": 0,\n  \"box_uv\": true,\n  \"uv_offset\": [\n    0,\n    1077\n  ],\n  \"autouv\": 0,\n  \"faces\": {\n    \"north\": {\n      \"uv\": [\n        10,\n        1087,\n        52,\n        1094\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"east\": {\n      \"uv\": [\n        0,\n        1087,\n        10,\n        1094\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"south\": {\n      \"uv\": [\n        62,\n        1087,\n        104,\n        1094\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"west\": {\n      \"uv\": [\n        52,\n        1087,\n        62,\n        1094\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"up\": {\n      \"uv\": [\n        52,\n        1087,\n        10,\n        1077\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"down\": {\n      \"uv\": [\n        94,\n        1077,\n        52,\n        1087\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    }\n  }\n}"
+    ],
+    "images": []
+  },
+  {
+    "index": 35,
+    "name": "edit_element",
+    "isError": false,
+    "text": [
+      "{\n  \"uuid\": \"e20bfeb2-9610-04fd-6017-0711b05d7fc8\",\n  \"name\": \"core_4_3_glow\",\n  \"type\": \"cube\",\n  \"parent\": \"9a387ed4-22b3-2c87-ab5d-c6ba94b3f0f0\",\n  \"from\": [\n    -13.9,\n    18.26,\n    16.51\n  ],\n  \"to\": [\n    13.9,\n    25.69,\n    26.51\n  ],\n  \"origin\": [\n    -13.9,\n    18.26,\n    16\n  ],\n  \"rotation\": [\n    0,\n    0,\n    0\n  ],\n  \"inflate\": 0,\n  \"box_uv\": true,\n  \"uv_offset\": [\n    107,\n    1077\n  ],\n  \"autouv\": 0,\n  \"faces\": {\n    \"north\": {\n      \"uv\": [\n        117,\n        1087,\n        144,\n        1094\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"east\": {\n      \"uv\": [\n        107,\n        1087,\n        117,\n        1094\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"south\": {\n      \"uv\": [\n        154,\n        1087,\n        181,\n        1094\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"west\": {\n      \"uv\": [\n        144,\n        1087,\n        154,\n        1094\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"up\": {\n      \"uv\": [\n        144,\n        1087,\n        117,\n        1077\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"down\": {\n      \"uv\": [\n        171,\n        1077,\n        144,\n        1087\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    }\n  }\n}"
+    ],
+    "images": []
+  },
+  {
+    "index": 36,
+    "name": "edit_element",
+    "isError": false,
+    "text": [
+      "{\n  \"uuid\": \"1404fccc-fbeb-9e72-e372-479eec7f49cc\",\n  \"name\": \"flame_00_middle\",\n  \"type\": \"cube\",\n  \"parent\": \"37a7507e-050f-7df3-bad8-77906e27bfcd\",\n  \"from\": [\n    89.74,\n    -20.96,\n    -11\n  ],\n  \"to\": [\n    111.74,\n    -10.96,\n    -3\n  ],\n  \"origin\": [\n    100.74,\n    -15.96,\n    -7\n  ],\n  \"rotation\": [\n    0,\n    0,\n    -16\n  ],\n  \"inflate\": 0,\n  \"box_uv\": true,\n  \"uv_offset\": [\n    184,\n    1077\n  ],\n  \"autouv\": 0,\n  \"faces\": {\n    \"north\": {\n      \"uv\": [\n        192,\n        1085,\n        214,\n        1095\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"east\": {\n      \"uv\": [\n        184,\n        1085,\n        192,\n        1095\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"south\": {\n      \"uv\": [\n        222,\n        1085,\n        244,\n        1095\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"west\": {\n      \"uv\": [\n        214,\n        1085,\n        222,\n        1095\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"up\": {\n      \"uv\": [\n        214,\n        1085,\n        192,\n        1077\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"down\": {\n      \"uv\": [\n        236,\n        1077,\n        214,\n        1085\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    }\n  }\n}"
+    ],
+    "images": []
+  },
+  {
+    "index": 37,
+    "name": "edit_element",
+    "isError": false,
+    "text": [
+      "{\n  \"uuid\": \"7bff40ef-a016-876d-46ce-199863162524\",\n  \"name\": \"flame_00_tip\",\n  \"type\": \"cube\",\n  \"parent\": \"37a7507e-050f-7df3-bad8-77906e27bfcd\",\n  \"from\": [\n    105.92,\n    -27.03,\n    -10.5\n  ],\n  \"to\": [\n    124.92,\n    -22.03,\n    -5.5\n  ],\n  \"origin\": [\n    115.42,\n    -24.53,\n    -8\n  ],\n  \"rotation\": [\n    0,\n    0,\n    -25\n  ],\n  \"inflate\": 0,\n  \"box_uv\": true,\n  \"uv_offset\": [\n    183,\n    1134\n  ],\n  \"autouv\": 0,\n  \"faces\": {\n    \"north\": {\n      \"uv\": [\n        188,\n        1139,\n        207,\n        1144\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"east\": {\n      \"uv\": [\n        183,\n        1139,\n        188,\n        1144\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"south\": {\n      \"uv\": [\n        212,\n        1139,\n        231,\n        1144\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"west\": {\n      \"uv\": [\n        207,\n        1139,\n        212,\n        1144\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"up\": {\n      \"uv\": [\n        207,\n        1139,\n        188,\n        1134\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"down\": {\n      \"uv\": [\n        226,\n        1134,\n        207,\n        1139\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    }\n  }\n}"
+    ],
+    "images": []
+  },
+  {
+    "index": 38,
+    "name": "edit_element",
+    "isError": false,
+    "text": [
+      "{\n  \"uuid\": \"bb437d75-e170-feec-4f7b-e3e200ac2d56\",\n  \"name\": \"flame_00_ember\",\n  \"type\": \"cube\",\n  \"parent\": \"37a7507e-050f-7df3-bad8-77906e27bfcd\",\n  \"from\": [\n    119.08,\n    -36.51,\n    -10.5\n  ],\n  \"to\": [\n    125.08,\n    -33.51,\n    -7.5\n  ],\n  \"origin\": [\n    122.08,\n    -35.01,\n    -9\n  ],\n  \"rotation\": [\n    0,\n    0,\n    -35\n  ],\n  \"inflate\": 0,\n  \"box_uv\": true,\n  \"uv_offset\": [\n    113,\n    1202\n  ],\n  \"autouv\": 0,\n  \"faces\": {\n    \"north\": {\n      \"uv\": [\n        116,\n        1205,\n        122,\n        1208\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"east\": {\n      \"uv\": [\n        113,\n        1205,\n        116,\n        1208\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"south\": {\n      \"uv\": [\n        125,\n        1205,\n        131,\n        1208\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"west\": {\n      \"uv\": [\n        122,\n        1205,\n        125,\n        1208\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"up\": {\n      \"uv\": [\n        122,\n        1205,\n        116,\n        1202\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"down\": {\n      \"uv\": [\n        128,\n        1202,\n        122,\n        1205\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    }\n  }\n}"
+    ],
+    "images": []
+  },
+  {
+    "index": 39,
+    "name": "edit_element",
+    "isError": false,
+    "text": [
+      "{\n  \"uuid\": \"5f898957-7112-a1c0-848f-2b78e9957585\",\n  \"name\": \"flame_01_middle\",\n  \"type\": \"cube\",\n  \"parent\": \"1f1b4061-fc4e-f165-8957-1aa9517e6487\",\n  \"from\": [\n    67.14,\n    60.56,\n    -4\n  ],\n  \"to\": [\n    89.14,\n    70.56,\n    4\n  ],\n  \"origin\": [\n    78.14,\n    65.56,\n    0\n  ],\n  \"rotation\": [\n    0,\n    0,\n    47\n  ],\n  \"inflate\": 0,\n  \"box_uv\": true,\n  \"uv_offset\": [\n    0,\n    1096\n  ],\n  \"autouv\": 0,\n  \"faces\": {\n    \"north\": {\n      \"uv\": [\n        8,\n        1104,\n        30,\n        1114\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"east\": {\n      \"uv\": [\n        0,\n        1104,\n        8,\n        1114\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"south\": {\n      \"uv\": [\n        38,\n        1104,\n        60,\n        1114\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"west\": {\n      \"uv\": [\n        30,\n        1104,\n        38,\n        1114\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"up\": {\n      \"uv\": [\n        30,\n        1104,\n        8,\n        1096\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"down\": {\n      \"uv\": [\n        52,\n        1096,\n        30,\n        1104\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    }\n  }\n}"
+    ],
+    "images": []
+  },
+  {
+    "index": 40,
+    "name": "edit_element",
+    "isError": false,
+    "text": [
+      "{\n  \"uuid\": \"f0a2a2af-0c3f-f0ab-7a72-03aed9c436ca\",\n  \"name\": \"flame_01_tip\",\n  \"type\": \"cube\",\n  \"parent\": \"1f1b4061-fc4e-f165-8957-1aa9517e6487\",\n  \"from\": [\n    75.38,\n    79.47,\n    -2.5\n  ],\n  \"to\": [\n    94.38,\n    84.47,\n    2.5\n  ],\n  \"origin\": [\n    84.88,\n    81.97,\n    0\n  ],\n  \"rotation\": [\n    0,\n    0,\n    57\n  ],\n  \"inflate\": 0,\n  \"box_uv\": true,\n  \"uv_offset\": [\n    0,\n    1153\n  ],\n  \"autouv\": 0,\n  \"faces\": {\n    \"north\": {\n      \"uv\": [\n        5,\n        1158,\n        24,\n        1163\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"east\": {\n      \"uv\": [\n        0,\n        1158,\n        5,\n        1163\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"south\": {\n      \"uv\": [\n        29,\n        1158,\n        48,\n        1163\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"west\": {\n      \"uv\": [\n        24,\n        1158,\n        29,\n        1163\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"up\": {\n      \"uv\": [\n        24,\n        1158,\n        5,\n        1153\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"down\": {\n      \"uv\": [\n        43,\n        1153,\n        24,\n        1158\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    }\n  }\n}"
+    ],
+    "images": []
+  },
+  {
+    "index": 41,
+    "name": "edit_element",
+    "isError": false,
+    "text": [
+      "{\n  \"uuid\": \"f6cf0121-3444-e4c9-6863-d5e023e105c3\",\n  \"name\": \"flame_01_ember\",\n  \"type\": \"cube\",\n  \"parent\": \"1f1b4061-fc4e-f165-8957-1aa9517e6487\",\n  \"from\": [\n    81.98,\n    92.88,\n    -1.5\n  ],\n  \"to\": [\n    87.98,\n    95.88,\n    1.5\n  ],\n  \"origin\": [\n    84.98,\n    94.38,\n    0\n  ],\n  \"rotation\": [\n    0,\n    0,\n    67\n  ],\n  \"inflate\": 0,\n  \"box_uv\": true,\n  \"uv_offset\": [\n    132,\n    1202\n  ],\n  \"autouv\": 0,\n  \"faces\": {\n    \"north\": {\n      \"uv\": [\n        135,\n        1205,\n        141,\n        1208\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"east\": {\n      \"uv\": [\n        132,\n        1205,\n        135,\n        1208\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"south\": {\n      \"uv\": [\n        144,\n        1205,\n        150,\n        1208\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"west\": {\n      \"uv\": [\n        141,\n        1205,\n        144,\n        1208\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"up\": {\n      \"uv\": [\n        141,\n        1205,\n        135,\n        1202\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"down\": {\n      \"uv\": [\n        147,\n        1202,\n        141,\n        1205\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    }\n  }\n}"
+    ],
+    "images": []
+  },
+  {
+    "index": 42,
+    "name": "edit_element",
+    "isError": false,
+    "text": [
+      "{\n  \"uuid\": \"09920acb-e4c7-29b9-8bfe-aa719414567c\",\n  \"name\": \"flame_02_middle\",\n  \"type\": \"cube\",\n  \"parent\": \"5b2b7c01-27e4-d6ee-5f36-ce6ef8fdb39a\",\n  \"from\": [\n    53.19,\n    74.27,\n    3\n  ],\n  \"to\": [\n    75.19,\n    84.27,\n    11\n  ],\n  \"origin\": [\n    64.19,\n    79.27,\n    7\n  ],\n  \"rotation\": [\n    0,\n    0,\n    44\n  ],\n  \"inflate\": 0,\n  \"box_uv\": true,\n  \"uv_offset\": [\n    61,\n    1096\n  ],\n  \"autouv\": 0,\n  \"faces\": {\n    \"north\": {\n      \"uv\": [\n        69,\n        1104,\n        91,\n        1114\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"east\": {\n      \"uv\": [\n        61,\n        1104,\n        69,\n        1114\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"south\": {\n      \"uv\": [\n        99,\n        1104,\n        121,\n        1114\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"west\": {\n      \"uv\": [\n        91,\n        1104,\n        99,\n        1114\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"up\": {\n      \"uv\": [\n        91,\n        1104,\n        69,\n        1096\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"down\": {\n      \"uv\": [\n        113,\n        1096,\n        91,\n        1104\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    }\n  }\n}"
+    ],
+    "images": []
+  },
+  {
+    "index": 43,
+    "name": "edit_element",
+    "isError": false,
+    "text": [
+      "{\n  \"uuid\": \"7ec0c9dc-87b1-cb39-f66a-b2daa45feae4\",\n  \"name\": \"flame_02_tip\",\n  \"type\": \"cube\",\n  \"parent\": \"5b2b7c01-27e4-d6ee-5f36-ce6ef8fdb39a\",\n  \"from\": [\n    69.46,\n    85.19,\n    5.5\n  ],\n  \"to\": [\n    88.46,\n    90.19,\n    10.5\n  ],\n  \"origin\": [\n    78.96,\n    87.69,\n    8\n  ],\n  \"rotation\": [\n    0,\n    0,\n    35\n  ],\n  \"inflate\": 0,\n  \"box_uv\": true,\n  \"uv_offset\": [\n    49,\n    1153\n  ],\n  \"autouv\": 0,\n  \"faces\": {\n    \"north\": {\n      \"uv\": [\n        54,\n        1158,\n        73,\n        1163\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"east\": {\n      \"uv\": [\n        49,\n        1158,\n        54,\n        1163\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"south\": {\n      \"uv\": [\n        78,\n        1158,\n        97,\n        1163\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"west\": {\n      \"uv\": [\n        73,\n        1158,\n        78,\n        1163\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"up\": {\n      \"uv\": [\n        73,\n        1158,\n        54,\n        1153\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"down\": {\n      \"uv\": [\n        92,\n        1153,\n        73,\n        1158\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    }\n  }\n}"
+    ],
+    "images": []
+  },
+  {
+    "index": 44,
+    "name": "edit_element",
+    "isError": false,
+    "text": [
+      "{\n  \"uuid\": \"8fadb864-6201-b810-c94b-01745b32e849\",\n  \"name\": \"flame_02_ember\",\n  \"type\": \"cube\",\n  \"parent\": \"5b2b7c01-27e4-d6ee-5f36-ce6ef8fdb39a\",\n  \"from\": [\n    88.36,\n    86.72,\n    7.5\n  ],\n  \"to\": [\n    94.36,\n    89.72,\n    10.5\n  ],\n  \"origin\": [\n    91.36,\n    88.22,\n    9\n  ],\n  \"rotation\": [\n    0,\n    0,\n    25\n  ],\n  \"inflate\": 0,\n  \"box_uv\": true,\n  \"uv_offset\": [\n    151,\n    1202\n  ],\n  \"autouv\": 0,\n  \"faces\": {\n    \"north\": {\n      \"uv\": [\n        154,\n        1205,\n        160,\n        1208\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"east\": {\n      \"uv\": [\n        151,\n        1205,\n        154,\n        1208\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"south\": {\n      \"uv\": [\n        163,\n        1205,\n        169,\n        1208\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"west\": {\n      \"uv\": [\n        160,\n        1205,\n        163,\n        1208\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"up\": {\n      \"uv\": [\n        160,\n        1205,\n        154,\n        1202\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"down\": {\n      \"uv\": [\n        166,\n        1202,\n        160,\n        1205\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    }\n  }\n}"
+    ],
+    "images": []
+  },
+  {
+    "index": 45,
+    "name": "edit_element",
+    "isError": false,
+    "text": [
+      "{\n  \"uuid\": \"e5157c7d-44ad-e169-458f-d1606cf69521\",\n  \"name\": \"flame_03_middle\",\n  \"type\": \"cube\",\n  \"parent\": \"f570c39c-3ba6-2f8c-763f-33e078d3a12c\",\n  \"from\": [\n    -28.71,\n    95.45,\n    -11\n  ],\n  \"to\": [\n    -6.71,\n    105.45,\n    -3\n  ],\n  \"origin\": [\n    -17.71,\n    100.45,\n    -7\n  ],\n  \"rotation\": [\n    0,\n    0,\n    107\n  ],\n  \"inflate\": 0,\n  \"box_uv\": true,\n  \"uv_offset\": [\n    122,\n    1096\n  ],\n  \"autouv\": 0,\n  \"faces\": {\n    \"north\": {\n      \"uv\": [\n        130,\n        1104,\n        152,\n        1114\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"east\": {\n      \"uv\": [\n        122,\n        1104,\n        130,\n        1114\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"south\": {\n      \"uv\": [\n        160,\n        1104,\n        182,\n        1114\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"west\": {\n      \"uv\": [\n        152,\n        1104,\n        160,\n        1114\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"up\": {\n      \"uv\": [\n        152,\n        1104,\n        130,\n        1096\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"down\": {\n      \"uv\": [\n        174,\n        1096,\n        152,\n        1104\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    }\n  }\n}"
+    ],
+    "images": []
+  },
+  {
+    "index": 46,
+    "name": "edit_element",
+    "isError": false,
+    "text": [
+      "{\n  \"uuid\": \"524cb28f-6d52-ad41-f3a6-5e59429c3c75\",\n  \"name\": \"flame_03_tip\",\n  \"type\": \"cube\",\n  \"parent\": \"f570c39c-3ba6-2f8c-763f-33e078d3a12c\",\n  \"from\": [\n    -38.05,\n    111.99,\n    -10.5\n  ],\n  \"to\": [\n    -19.05,\n    116.99,\n    -5.5\n  ],\n  \"origin\": [\n    -28.55,\n    114.49,\n    -8\n  ],\n  \"rotation\": [\n    0,\n    0,\n    117\n  ],\n  \"inflate\": 0,\n  \"box_uv\": true,\n  \"uv_offset\": [\n    98,\n    1153\n  ],\n  \"autouv\": 0,\n  \"faces\": {\n    \"north\": {\n      \"uv\": [\n        103,\n        1158,\n        122,\n        1163\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"east\": {\n      \"uv\": [\n        98,\n        1158,\n        103,\n        1163\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"south\": {\n      \"uv\": [\n        127,\n        1158,\n        146,\n        1163\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"west\": {\n      \"uv\": [\n        122,\n        1158,\n        127,\n        1163\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"up\": {\n      \"uv\": [\n        122,\n        1158,\n        103,\n        1153\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"down\": {\n      \"uv\": [\n        141,\n        1153,\n        122,\n        1158\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    }\n  }\n}"
+    ],
+    "images": []
+  },
+  {
+    "index": 47,
+    "name": "edit_element",
+    "isError": false,
+    "text": [
+      "{\n  \"uuid\": \"117d3579-ea8f-fdb6-e9de-45824d303cc3\",\n  \"name\": \"flame_03_ember\",\n  \"type\": \"cube\",\n  \"parent\": \"f570c39c-3ba6-2f8c-763f-33e078d3a12c\",\n  \"from\": [\n    -42.25,\n    119.28,\n    -10.5\n  ],\n  \"to\": [\n    -36.25,\n    122.28,\n    -7.5\n  ],\n  \"origin\": [\n    -39.25,\n    120.78,\n    -9\n  ],\n  \"rotation\": [\n    0,\n    0,\n    127\n  ],\n  \"inflate\": 0,\n  \"box_uv\": true,\n  \"uv_offset\": [\n    170,\n    1202\n  ],\n  \"autouv\": 0,\n  \"faces\": {\n    \"north\": {\n      \"uv\": [\n        173,\n        1205,\n        179,\n        1208\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"east\": {\n      \"uv\": [\n        170,\n        1205,\n        173,\n        1208\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"south\": {\n      \"uv\": [\n        182,\n        1205,\n        188,\n        1208\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"west\": {\n      \"uv\": [\n        179,\n        1205,\n        182,\n        1208\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"up\": {\n      \"uv\": [\n        179,\n        1205,\n        173,\n        1202\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"down\": {\n      \"uv\": [\n        185,\n        1202,\n        179,\n        1205\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    }\n  }\n}"
+    ],
+    "images": []
+  },
+  {
+    "index": 48,
+    "name": "edit_element",
+    "isError": false,
+    "text": [
+      "{\n  \"uuid\": \"c9d04a10-d369-b36e-c77d-3e7f9a776f0e\",\n  \"name\": \"flame_04_middle\",\n  \"type\": \"cube\",\n  \"parent\": \"7d26cafa-783d-7f6c-44c9-0b78040773a9\",\n  \"from\": [\n    -47.55,\n    90.23,\n    -4\n  ],\n  \"to\": [\n    -25.55,\n    100.23,\n    4\n  ],\n  \"origin\": [\n    -36.55,\n    95.23,\n    0\n  ],\n  \"rotation\": [\n    0,\n    0,\n    104\n  ],\n  \"inflate\": 0,\n  \"box_uv\": true,\n  \"uv_offset\": [\n    183,\n    1096\n  ],\n  \"autouv\": 0,\n  \"faces\": {\n    \"north\": {\n      \"uv\": [\n        191,\n        1104,\n        213,\n        1114\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"east\": {\n      \"uv\": [\n        183,\n        1104,\n        191,\n        1114\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"south\": {\n      \"uv\": [\n        221,\n        1104,\n        243,\n        1114\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"west\": {\n      \"uv\": [\n        213,\n        1104,\n        221,\n        1114\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"up\": {\n      \"uv\": [\n        213,\n        1104,\n        191,\n        1096\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"down\": {\n      \"uv\": [\n        235,\n        1096,\n        213,\n        1104\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    }\n  }\n}"
+    ],
+    "images": []
+  },
+  {
+    "index": 49,
+    "name": "edit_element",
+    "isError": false,
+    "text": [
+      "{\n  \"uuid\": \"196a18b1-3b02-1d7b-1d59-6438bdfd75d2\",\n  \"name\": \"flame_04_tip\",\n  \"type\": \"cube\",\n  \"parent\": \"7d26cafa-783d-7f6c-44c9-0b78040773a9\",\n  \"from\": [\n    -45.96,\n    109.72,\n    -2.5\n  ],\n  \"to\": [\n    -26.96,\n    114.72,\n    2.5\n  ],\n  \"origin\": [\n    -36.46,\n    112.22,\n    0\n  ],\n  \"rotation\": [\n    0,\n    0,\n    95\n  ],\n  \"inflate\": 0,\n  \"box_uv\": true,\n  \"uv_offset\": [\n    147,\n    1153\n  ],\n  \"autouv\": 0,\n  \"faces\": {\n    \"north\": {\n      \"uv\": [\n        152,\n        1158,\n        171,\n        1163\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"east\": {\n      \"uv\": [\n        147,\n        1158,\n        152,\n        1163\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"south\": {\n      \"uv\": [\n        176,\n        1158,\n        195,\n        1163\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"west\": {\n      \"uv\": [\n        171,\n        1158,\n        176,\n        1163\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"up\": {\n      \"uv\": [\n        171,\n        1158,\n        152,\n        1153\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"down\": {\n      \"uv\": [\n        190,\n        1153,\n        171,\n        1158\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    }\n  }\n}"
+    ],
+    "images": []
+  },
+  {
+    "index": 50,
+    "name": "edit_element",
+    "isError": false,
+    "text": [
+      "{\n  \"uuid\": \"a21e172c-d5dc-9c35-f2e7-a87fe72578a3\",\n  \"name\": \"flame_04_ember\",\n  \"type\": \"cube\",\n  \"parent\": \"7d26cafa-783d-7f6c-44c9-0b78040773a9\",\n  \"from\": [\n    -33.72,\n    121.73,\n    -1.5\n  ],\n  \"to\": [\n    -27.72,\n    124.73,\n    1.5\n  ],\n  \"origin\": [\n    -30.72,\n    123.23,\n    0\n  ],\n  \"rotation\": [\n    0,\n    0,\n    85\n  ],\n  \"inflate\": 0,\n  \"box_uv\": true,\n  \"uv_offset\": [\n    189,\n    1202\n  ],\n  \"autouv\": 0,\n  \"faces\": {\n    \"north\": {\n      \"uv\": [\n        192,\n        1205,\n        198,\n        1208\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"east\": {\n      \"uv\": [\n        189,\n        1205,\n        192,\n        1208\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"south\": {\n      \"uv\": [\n        201,\n        1205,\n        207,\n        1208\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"west\": {\n      \"uv\": [\n        198,\n        1205,\n        201,\n        1208\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"up\": {\n      \"uv\": [\n        198,\n        1205,\n        192,\n        1202\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"down\": {\n      \"uv\": [\n        204,\n        1202,\n        198,\n        1205\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    }\n  }\n}"
+    ],
+    "images": []
+  },
+  {
+    "index": 51,
+    "name": "edit_element",
+    "isError": false,
+    "text": [
+      "{\n  \"uuid\": \"792251ed-072a-80f5-3fc2-d6c7d3b1abb9\",\n  \"name\": \"flame_05_middle\",\n  \"type\": \"cube\",\n  \"parent\": \"e88caa89-0c95-bc17-0444-9eed6f9f2bdf\",\n  \"from\": [\n    -106.85,\n    29.89,\n    3\n  ],\n  \"to\": [\n    -84.85,\n    39.89,\n    11\n  ],\n  \"origin\": [\n    -95.85,\n    34.89,\n    7\n  ],\n  \"rotation\": [\n    0,\n    0,\n    167\n  ],\n  \"inflate\": 0,\n  \"box_uv\": true,\n  \"uv_offset\": [\n    0,\n    1115\n  ],\n  \"autouv\": 0,\n  \"faces\": {\n    \"north\": {\n      \"uv\": [\n        8,\n        1123,\n        30,\n        1133\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"east\": {\n      \"uv\": [\n        0,\n        1123,\n        8,\n        1133\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"south\": {\n      \"uv\": [\n        38,\n        1123,\n        60,\n        1133\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"west\": {\n      \"uv\": [\n        30,\n        1123,\n        38,\n        1133\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"up\": {\n      \"uv\": [\n        30,\n        1123,\n        8,\n        1115\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"down\": {\n      \"uv\": [\n        52,\n        1115,\n        30,\n        1123\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    }\n  }\n}"
+    ],
+    "images": []
+  },
+  {
+    "index": 52,
+    "name": "edit_element",
+    "isError": false,
+    "text": [
+      "{\n  \"uuid\": \"8dfb6161-dc8c-f4f3-f77e-cdfca0801c95\",\n  \"name\": \"flame_05_tip\",\n  \"type\": \"cube\",\n  \"parent\": \"e88caa89-0c95-bc17-0444-9eed6f9f2bdf\",\n  \"from\": [\n    -122.93,\n    30.03,\n    5.5\n  ],\n  \"to\": [\n    -103.93,\n    35.03,\n    10.5\n  ],\n  \"origin\": [\n    -113.43,\n    32.53,\n    8\n  ],\n  \"rotation\": [\n    0,\n    0,\n    177\n  ],\n  \"inflate\": 0,\n  \"box_uv\": true,\n  \"uv_offset\": [\n    196,\n    1153\n  ],\n  \"autouv\": 0,\n  \"faces\": {\n    \"north\": {\n      \"uv\": [\n        201,\n        1158,\n        220,\n        1163\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"east\": {\n      \"uv\": [\n        196,\n        1158,\n        201,\n        1163\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"south\": {\n      \"uv\": [\n        225,\n        1158,\n        244,\n        1163\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"west\": {\n      \"uv\": [\n        220,\n        1158,\n        225,\n        1163\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"up\": {\n      \"uv\": [\n        220,\n        1158,\n        201,\n        1153\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"down\": {\n      \"uv\": [\n        239,\n        1153,\n        220,\n        1158\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    }\n  }\n}"
+    ],
+    "images": []
+  },
+  {
+    "index": 53,
+    "name": "edit_element",
+    "isError": false,
+    "text": [
+      "{\n  \"uuid\": \"a443fb0f-60fa-4531-ffab-906410a1f0ae\",\n  \"name\": \"flame_05_ember\",\n  \"type\": \"cube\",\n  \"parent\": \"e88caa89-0c95-bc17-0444-9eed6f9f2bdf\",\n  \"from\": [\n    -127.22,\n    24.9,\n    7.5\n  ],\n  \"to\": [\n    -121.22,\n    27.9,\n    10.5\n  ],\n  \"origin\": [\n    -124.22,\n    26.4,\n    9\n  ],\n  \"rotation\": [\n    0,\n    0,\n    187\n  ],\n  \"inflate\": 0,\n  \"box_uv\": true,\n  \"uv_offset\": [\n    208,\n    1202\n  ],\n  \"autouv\": 0,\n  \"faces\": {\n    \"north\": {\n      \"uv\": [\n        211,\n        1205,\n        217,\n        1208\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"east\": {\n      \"uv\": [\n        208,\n        1205,\n        211,\n        1208\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"south\": {\n      \"uv\": [\n        220,\n        1205,\n        226,\n        1208\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"west\": {\n      \"uv\": [\n        217,\n        1205,\n        220,\n        1208\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"up\": {\n      \"uv\": [\n        217,\n        1205,\n        211,\n        1202\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"down\": {\n      \"uv\": [\n        223,\n        1202,\n        217,\n        1205\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    }\n  }\n}"
+    ],
+    "images": []
+  },
+  {
+    "index": 54,
+    "name": "edit_element",
+    "isError": false,
+    "text": [
+      "{\n  \"uuid\": \"8857bf70-339d-1b01-ee1f-70e8772caba6\",\n  \"name\": \"flame_06_middle\",\n  \"type\": \"cube\",\n  \"parent\": \"54cabd51-be65-dcac-c596-0dd45d6d151b\",\n  \"from\": [\n    -111.74,\n    10.96,\n    -11\n  ],\n  \"to\": [\n    -89.74,\n    20.96,\n    -3\n  ],\n  \"origin\": [\n    -100.74,\n    15.96,\n    -7\n  ],\n  \"rotation\": [\n    0,\n    0,\n    164\n  ],\n  \"inflate\": 0,\n  \"box_uv\": true,\n  \"uv_offset\": [\n    61,\n    1115\n  ],\n  \"autouv\": 0,\n  \"faces\": {\n    \"north\": {\n      \"uv\": [\n        69,\n        1123,\n        91,\n        1133\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"east\": {\n      \"uv\": [\n        61,\n        1123,\n        69,\n        1133\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"south\": {\n      \"uv\": [\n        99,\n        1123,\n        121,\n        1133\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"west\": {\n      \"uv\": [\n        91,\n        1123,\n        99,\n        1133\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"up\": {\n      \"uv\": [\n        91,\n        1123,\n        69,\n        1115\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"down\": {\n      \"uv\": [\n        113,\n        1115,\n        91,\n        1123\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    }\n  }\n}"
+    ],
+    "images": []
+  },
+  {
+    "index": 55,
+    "name": "edit_element",
+    "isError": false,
+    "text": [
+      "{\n  \"uuid\": \"2f9b26fe-6cc6-b514-f7c3-b50f42025197\",\n  \"name\": \"flame_06_tip\",\n  \"type\": \"cube\",\n  \"parent\": \"54cabd51-be65-dcac-c596-0dd45d6d151b\",\n  \"from\": [\n    -124.92,\n    22.03,\n    -10.5\n  ],\n  \"to\": [\n    -105.92,\n    27.03,\n    -5.5\n  ],\n  \"origin\": [\n    -115.42,\n    24.53,\n    -8\n  ],\n  \"rotation\": [\n    0,\n    0,\n    155\n  ],\n  \"inflate\": 0,\n  \"box_uv\": true,\n  \"uv_offset\": [\n    0,\n    1164\n  ],\n  \"autouv\": 0,\n  \"faces\": {\n    \"north\": {\n      \"uv\": [\n        5,\n        1169,\n        24,\n        1174\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"east\": {\n      \"uv\": [\n        0,\n        1169,\n        5,\n        1174\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"south\": {\n      \"uv\": [\n        29,\n        1169,\n        48,\n        1174\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"west\": {\n      \"uv\": [\n        24,\n        1169,\n        29,\n        1174\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"up\": {\n      \"uv\": [\n        24,\n        1169,\n        5,\n        1164\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"down\": {\n      \"uv\": [\n        43,\n        1164,\n        24,\n        1169\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    }\n  }\n}"
+    ],
+    "images": []
+  },
+  {
+    "index": 56,
+    "name": "edit_element",
+    "isError": false,
+    "text": [
+      "{\n  \"uuid\": \"f62aa256-a77d-2a6f-7c6d-d99f9cca0d28\",\n  \"name\": \"flame_06_ember\",\n  \"type\": \"cube\",\n  \"parent\": \"54cabd51-be65-dcac-c596-0dd45d6d151b\",\n  \"from\": [\n    -125.08,\n    33.51,\n    -10.5\n  ],\n  \"to\": [\n    -119.08,\n    36.51,\n    -7.5\n  ],\n  \"origin\": [\n    -122.08,\n    35.01,\n    -9\n  ],\n  \"rotation\": [\n    0,\n    0,\n    145\n  ],\n  \"inflate\": 0,\n  \"box_uv\": true,\n  \"uv_offset\": [\n    227,\n    1202\n  ],\n  \"autouv\": 0,\n  \"faces\": {\n    \"north\": {\n      \"uv\": [\n        230,\n        1205,\n        236,\n        1208\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"east\": {\n      \"uv\": [\n        227,\n        1205,\n        230,\n        1208\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"south\": {\n      \"uv\": [\n        239,\n        1205,\n        245,\n        1208\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"west\": {\n      \"uv\": [\n        236,\n        1205,\n        239,\n        1208\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"up\": {\n      \"uv\": [\n        236,\n        1205,\n        230,\n        1202\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"down\": {\n      \"uv\": [\n        242,\n        1202,\n        236,\n        1205\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    }\n  }\n}"
+    ],
+    "images": []
+  },
+  {
+    "index": 57,
+    "name": "edit_element",
+    "isError": false,
+    "text": [
+      "{\n  \"uuid\": \"39c3c456-72ed-54d7-ba3c-69e6455bfb41\",\n  \"name\": \"flame_07_middle\",\n  \"type\": \"cube\",\n  \"parent\": \"58bf3b39-92fc-9357-b377-eab936eba478\",\n  \"from\": [\n    -89.14,\n    -70.56,\n    -4\n  ],\n  \"to\": [\n    -67.14,\n    -60.56,\n    4\n  ],\n  \"origin\": [\n    -78.14,\n    -65.56,\n    0\n  ],\n  \"rotation\": [\n    0,\n    0,\n    227\n  ],\n  \"inflate\": 0,\n  \"box_uv\": true,\n  \"uv_offset\": [\n    122,\n    1115\n  ],\n  \"autouv\": 0,\n  \"faces\": {\n    \"north\": {\n      \"uv\": [\n        130,\n        1123,\n        152,\n        1133\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"east\": {\n      \"uv\": [\n        122,\n        1123,\n        130,\n        1133\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"south\": {\n      \"uv\": [\n        160,\n        1123,\n        182,\n        1133\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"west\": {\n      \"uv\": [\n        152,\n        1123,\n        160,\n        1133\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"up\": {\n      \"uv\": [\n        152,\n        1123,\n        130,\n        1115\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"down\": {\n      \"uv\": [\n        174,\n        1115,\n        152,\n        1123\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    }\n  }\n}"
+    ],
+    "images": []
+  },
+  {
+    "index": 58,
+    "name": "edit_element",
+    "isError": false,
+    "text": [
+      "{\n  \"uuid\": \"11c6f583-014c-345f-33ec-2bb63f3d4eb9\",\n  \"name\": \"flame_07_tip\",\n  \"type\": \"cube\",\n  \"parent\": \"58bf3b39-92fc-9357-b377-eab936eba478\",\n  \"from\": [\n    -94.38,\n    -84.47,\n    -2.5\n  ],\n  \"to\": [\n    -75.38,\n    -79.47,\n    2.5\n  ],\n  \"origin\": [\n    -84.88,\n    -81.97,\n    0\n  ],\n  \"rotation\": [\n    0,\n    0,\n    237\n  ],\n  \"inflate\": 0,\n  \"box_uv\": true,\n  \"uv_offset\": [\n    49,\n    1164\n  ],\n  \"autouv\": 0,\n  \"faces\": {\n    \"north\": {\n      \"uv\": [\n        54,\n        1169,\n        73,\n        1174\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"east\": {\n      \"uv\": [\n        49,\n        1169,\n        54,\n        1174\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"south\": {\n      \"uv\": [\n        78,\n        1169,\n        97,\n        1174\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"west\": {\n      \"uv\": [\n        73,\n        1169,\n        78,\n        1174\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"up\": {\n      \"uv\": [\n        73,\n        1169,\n        54,\n        1164\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"down\": {\n      \"uv\": [\n        92,\n        1164,\n        73,\n        1169\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    }\n  }\n}"
+    ],
+    "images": []
+  },
+  {
+    "index": 59,
+    "name": "edit_element",
+    "isError": false,
+    "text": [
+      "{\n  \"uuid\": \"d561a90f-bf76-0029-d913-48b1f264453f\",\n  \"name\": \"flame_07_ember\",\n  \"type\": \"cube\",\n  \"parent\": \"58bf3b39-92fc-9357-b377-eab936eba478\",\n  \"from\": [\n    -87.98,\n    -95.88,\n    -1.5\n  ],\n  \"to\": [\n    -81.98,\n    -92.88,\n    1.5\n  ],\n  \"origin\": [\n    -84.98,\n    -94.38,\n    0\n  ],\n  \"rotation\": [\n    0,\n    0,\n    247\n  ],\n  \"inflate\": 0,\n  \"box_uv\": true,\n  \"uv_offset\": [\n    0,\n    1210\n  ],\n  \"autouv\": 0,\n  \"faces\": {\n    \"north\": {\n      \"uv\": [\n        3,\n        1213,\n        9,\n        1216\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"east\": {\n      \"uv\": [\n        0,\n        1213,\n        3,\n        1216\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"south\": {\n      \"uv\": [\n        12,\n        1213,\n        18,\n        1216\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"west\": {\n      \"uv\": [\n        9,\n        1213,\n        12,\n        1216\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"up\": {\n      \"uv\": [\n        9,\n        1213,\n        3,\n        1210\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"down\": {\n      \"uv\": [\n        15,\n        1210,\n        9,\n        1213\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    }\n  }\n}"
+    ],
+    "images": []
+  },
+  {
+    "index": 60,
+    "name": "edit_element",
+    "isError": false,
+    "text": [
+      "{\n  \"uuid\": \"82298041-535e-0121-2474-2c790e2b2bc6\",\n  \"name\": \"flame_08_middle\",\n  \"type\": \"cube\",\n  \"parent\": \"9000dac2-5448-285c-e7b0-3a8ef6a82182\",\n  \"from\": [\n    -75.19,\n    -84.27,\n    3\n  ],\n  \"to\": [\n    -53.19,\n    -74.27,\n    11\n  ],\n  \"origin\": [\n    -64.19,\n    -79.27,\n    7\n  ],\n  \"rotation\": [\n    0,\n    0,\n    224\n  ],\n  \"inflate\": 0,\n  \"box_uv\": true,\n  \"uv_offset\": [\n    183,\n    1115\n  ],\n  \"autouv\": 0,\n  \"faces\": {\n    \"north\": {\n      \"uv\": [\n        191,\n        1123,\n        213,\n        1133\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"east\": {\n      \"uv\": [\n        183,\n        1123,\n        191,\n        1133\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"south\": {\n      \"uv\": [\n        221,\n        1123,\n        243,\n        1133\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"west\": {\n      \"uv\": [\n        213,\n        1123,\n        221,\n        1133\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"up\": {\n      \"uv\": [\n        213,\n        1123,\n        191,\n        1115\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"down\": {\n      \"uv\": [\n        235,\n        1115,\n        213,\n        1123\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    }\n  }\n}"
+    ],
+    "images": []
+  },
+  {
+    "index": 61,
+    "name": "edit_element",
+    "isError": false,
+    "text": [
+      "{\n  \"uuid\": \"cf03bbd1-9c3b-73ec-c7e0-1cf1f7609429\",\n  \"name\": \"flame_08_tip\",\n  \"type\": \"cube\",\n  \"parent\": \"9000dac2-5448-285c-e7b0-3a8ef6a82182\",\n  \"from\": [\n    -88.46,\n    -90.19,\n    5.5\n  ],\n  \"to\": [\n    -69.46,\n    -85.19,\n    10.5\n  ],\n  \"origin\": [\n    -78.96,\n    -87.69,\n    8\n  ],\n  \"rotation\": [\n    0,\n    0,\n    215\n  ],\n  \"inflate\": 0,\n  \"box_uv\": true,\n  \"uv_offset\": [\n    98,\n    1164\n  ],\n  \"autouv\": 0,\n  \"faces\": {\n    \"north\": {\n      \"uv\": [\n        103,\n        1169,\n        122,\n        1174\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"east\": {\n      \"uv\": [\n        98,\n        1169,\n        103,\n        1174\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"south\": {\n      \"uv\": [\n        127,\n        1169,\n        146,\n        1174\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"west\": {\n      \"uv\": [\n        122,\n        1169,\n        127,\n        1174\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"up\": {\n      \"uv\": [\n        122,\n        1169,\n        103,\n        1164\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"down\": {\n      \"uv\": [\n        141,\n        1164,\n        122,\n        1169\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    }\n  }\n}"
+    ],
+    "images": []
+  },
+  {
+    "index": 62,
+    "name": "edit_element",
+    "isError": false,
+    "text": [
+      "{\n  \"uuid\": \"023a806c-b4e4-fc73-6fc9-0c1dff4df4bf\",\n  \"name\": \"flame_08_ember\",\n  \"type\": \"cube\",\n  \"parent\": \"9000dac2-5448-285c-e7b0-3a8ef6a82182\",\n  \"from\": [\n    -94.36,\n    -89.72,\n    7.5\n  ],\n  \"to\": [\n    -88.36,\n    -86.72,\n    10.5\n  ],\n  \"origin\": [\n    -91.36,\n    -88.22,\n    9\n  ],\n  \"rotation\": [\n    0,\n    0,\n    205\n  ],\n  \"inflate\": 0,\n  \"box_uv\": true,\n  \"uv_offset\": [\n    19,\n    1210\n  ],\n  \"autouv\": 0,\n  \"faces\": {\n    \"north\": {\n      \"uv\": [\n        22,\n        1213,\n        28,\n        1216\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"east\": {\n      \"uv\": [\n        19,\n        1213,\n        22,\n        1216\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"south\": {\n      \"uv\": [\n        31,\n        1213,\n        37,\n        1216\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"west\": {\n      \"uv\": [\n        28,\n        1213,\n        31,\n        1216\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"up\": {\n      \"uv\": [\n        28,\n        1213,\n        22,\n        1210\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"down\": {\n      \"uv\": [\n        34,\n        1210,\n        28,\n        1213\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    }\n  }\n}"
+    ],
+    "images": []
+  },
+  {
+    "index": 63,
+    "name": "edit_element",
+    "isError": false,
+    "text": [
+      "{\n  \"uuid\": \"dc35c6ab-bef5-9ddd-88fa-4062b64f7dac\",\n  \"name\": \"flame_09_middle\",\n  \"type\": \"cube\",\n  \"parent\": \"8398932a-4dfa-4b91-e561-f9f3fa9ec2f9\",\n  \"from\": [\n    6.71,\n    -105.45,\n    -11\n  ],\n  \"to\": [\n    28.71,\n    -95.45,\n    -3\n  ],\n  \"origin\": [\n    17.71,\n    -100.45,\n    -7\n  ],\n  \"rotation\": [\n    0,\n    0,\n    287\n  ],\n  \"inflate\": 0,\n  \"box_uv\": true,\n  \"uv_offset\": [\n    0,\n    1134\n  ],\n  \"autouv\": 0,\n  \"faces\": {\n    \"north\": {\n      \"uv\": [\n        8,\n        1142,\n        30,\n        1152\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"east\": {\n      \"uv\": [\n        0,\n        1142,\n        8,\n        1152\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"south\": {\n      \"uv\": [\n        38,\n        1142,\n        60,\n        1152\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"west\": {\n      \"uv\": [\n        30,\n        1142,\n        38,\n        1152\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"up\": {\n      \"uv\": [\n        30,\n        1142,\n        8,\n        1134\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"down\": {\n      \"uv\": [\n        52,\n        1134,\n        30,\n        1142\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    }\n  }\n}"
+    ],
+    "images": []
+  },
+  {
+    "index": 64,
+    "name": "edit_element",
+    "isError": false,
+    "text": [
+      "{\n  \"uuid\": \"5044a1ba-7b55-44a6-78ba-75cd24be8007\",\n  \"name\": \"flame_09_tip\",\n  \"type\": \"cube\",\n  \"parent\": \"8398932a-4dfa-4b91-e561-f9f3fa9ec2f9\",\n  \"from\": [\n    19.05,\n    -116.99,\n    -10.5\n  ],\n  \"to\": [\n    38.05,\n    -111.99,\n    -5.5\n  ],\n  \"origin\": [\n    28.55,\n    -114.49,\n    -8\n  ],\n  \"rotation\": [\n    0,\n    0,\n    297\n  ],\n  \"inflate\": 0,\n  \"box_uv\": true,\n  \"uv_offset\": [\n    147,\n    1164\n  ],\n  \"autouv\": 0,\n  \"faces\": {\n    \"north\": {\n      \"uv\": [\n        152,\n        1169,\n        171,\n        1174\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"east\": {\n      \"uv\": [\n        147,\n        1169,\n        152,\n        1174\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"south\": {\n      \"uv\": [\n        176,\n        1169,\n        195,\n        1174\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"west\": {\n      \"uv\": [\n        171,\n        1169,\n        176,\n        1174\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"up\": {\n      \"uv\": [\n        171,\n        1169,\n        152,\n        1164\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"down\": {\n      \"uv\": [\n        190,\n        1164,\n        171,\n        1169\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    }\n  }\n}"
+    ],
+    "images": []
+  },
+  {
+    "index": 65,
+    "name": "edit_element",
+    "isError": false,
+    "text": [
+      "{\n  \"uuid\": \"e2f07e2a-f114-bb33-dd53-1c5024a10a69\",\n  \"name\": \"flame_09_ember\",\n  \"type\": \"cube\",\n  \"parent\": \"8398932a-4dfa-4b91-e561-f9f3fa9ec2f9\",\n  \"from\": [\n    36.25,\n    -122.28,\n    -10.5\n  ],\n  \"to\": [\n    42.25,\n    -119.28,\n    -7.5\n  ],\n  \"origin\": [\n    39.25,\n    -120.78,\n    -9\n  ],\n  \"rotation\": [\n    0,\n    0,\n    307\n  ],\n  \"inflate\": 0,\n  \"box_uv\": true,\n  \"uv_offset\": [\n    38,\n    1210\n  ],\n  \"autouv\": 0,\n  \"faces\": {\n    \"north\": {\n      \"uv\": [\n        41,\n        1213,\n        47,\n        1216\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"east\": {\n      \"uv\": [\n        38,\n        1213,\n        41,\n        1216\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"south\": {\n      \"uv\": [\n        50,\n        1213,\n        56,\n        1216\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"west\": {\n      \"uv\": [\n        47,\n        1213,\n        50,\n        1216\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"up\": {\n      \"uv\": [\n        47,\n        1213,\n        41,\n        1210\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"down\": {\n      \"uv\": [\n        53,\n        1210,\n        47,\n        1213\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    }\n  }\n}"
+    ],
+    "images": []
+  },
+  {
+    "index": 66,
+    "name": "edit_element",
+    "isError": false,
+    "text": [
+      "{\n  \"uuid\": \"73b1f367-7940-a4bb-1470-aeb56e5a2e57\",\n  \"name\": \"flame_10_middle\",\n  \"type\": \"cube\",\n  \"parent\": \"db057cc9-3914-2eb5-4941-04c3f7af5584\",\n  \"from\": [\n    25.55,\n    -100.23,\n    -4\n  ],\n  \"to\": [\n    47.55,\n    -90.23,\n    4\n  ],\n  \"origin\": [\n    36.55,\n    -95.23,\n    0\n  ],\n  \"rotation\": [\n    0,\n    0,\n    284\n  ],\n  \"inflate\": 0,\n  \"box_uv\": true,\n  \"uv_offset\": [\n    61,\n    1134\n  ],\n  \"autouv\": 0,\n  \"faces\": {\n    \"north\": {\n      \"uv\": [\n        69,\n        1142,\n        91,\n        1152\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"east\": {\n      \"uv\": [\n        61,\n        1142,\n        69,\n        1152\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"south\": {\n      \"uv\": [\n        99,\n        1142,\n        121,\n        1152\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"west\": {\n      \"uv\": [\n        91,\n        1142,\n        99,\n        1152\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"up\": {\n      \"uv\": [\n        91,\n        1142,\n        69,\n        1134\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"down\": {\n      \"uv\": [\n        113,\n        1134,\n        91,\n        1142\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    }\n  }\n}"
+    ],
+    "images": []
+  },
+  {
+    "index": 67,
+    "name": "edit_element",
+    "isError": false,
+    "text": [
+      "{\n  \"uuid\": \"4ad128d5-6ef4-45a5-ce81-6d70eb2010bf\",\n  \"name\": \"flame_10_tip\",\n  \"type\": \"cube\",\n  \"parent\": \"db057cc9-3914-2eb5-4941-04c3f7af5584\",\n  \"from\": [\n    26.96,\n    -114.72,\n    -2.5\n  ],\n  \"to\": [\n    45.96,\n    -109.72,\n    2.5\n  ],\n  \"origin\": [\n    36.46,\n    -112.22,\n    0\n  ],\n  \"rotation\": [\n    0,\n    0,\n    275\n  ],\n  \"inflate\": 0,\n  \"box_uv\": true,\n  \"uv_offset\": [\n    196,\n    1164\n  ],\n  \"autouv\": 0,\n  \"faces\": {\n    \"north\": {\n      \"uv\": [\n        201,\n        1169,\n        220,\n        1174\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"east\": {\n      \"uv\": [\n        196,\n        1169,\n        201,\n        1174\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"south\": {\n      \"uv\": [\n        225,\n        1169,\n        244,\n        1174\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"west\": {\n      \"uv\": [\n        220,\n        1169,\n        225,\n        1174\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"up\": {\n      \"uv\": [\n        220,\n        1169,\n        201,\n        1164\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"down\": {\n      \"uv\": [\n        239,\n        1164,\n        220,\n        1169\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    }\n  }\n}"
+    ],
+    "images": []
+  },
+  {
+    "index": 68,
+    "name": "edit_element",
+    "isError": false,
+    "text": [
+      "{\n  \"uuid\": \"81429a03-0811-068b-d861-3c61d35372ab\",\n  \"name\": \"flame_10_ember\",\n  \"type\": \"cube\",\n  \"parent\": \"db057cc9-3914-2eb5-4941-04c3f7af5584\",\n  \"from\": [\n    27.72,\n    -124.73,\n    -1.5\n  ],\n  \"to\": [\n    33.72,\n    -121.73,\n    1.5\n  ],\n  \"origin\": [\n    30.72,\n    -123.23,\n    0\n  ],\n  \"rotation\": [\n    0,\n    0,\n    265\n  ],\n  \"inflate\": 0,\n  \"box_uv\": true,\n  \"uv_offset\": [\n    57,\n    1210\n  ],\n  \"autouv\": 0,\n  \"faces\": {\n    \"north\": {\n      \"uv\": [\n        60,\n        1213,\n        66,\n        1216\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"east\": {\n      \"uv\": [\n        57,\n        1213,\n        60,\n        1216\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"south\": {\n      \"uv\": [\n        69,\n        1213,\n        75,\n        1216\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"west\": {\n      \"uv\": [\n        66,\n        1213,\n        69,\n        1216\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"up\": {\n      \"uv\": [\n        66,\n        1213,\n        60,\n        1210\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"down\": {\n      \"uv\": [\n        72,\n        1210,\n        66,\n        1213\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    }\n  }\n}"
+    ],
+    "images": []
+  },
+  {
+    "index": 69,
+    "name": "edit_element",
+    "isError": false,
+    "text": [
+      "{\n  \"uuid\": \"7c8773ae-2c4c-bc10-3090-870d17b32ec1\",\n  \"name\": \"flame_11_middle\",\n  \"type\": \"cube\",\n  \"parent\": \"9206d182-bd00-d59d-8655-af3a985e1673\",\n  \"from\": [\n    84.85,\n    -39.89,\n    3\n  ],\n  \"to\": [\n    106.85,\n    -29.89,\n    11\n  ],\n  \"origin\": [\n    95.85,\n    -34.89,\n    7\n  ],\n  \"rotation\": [\n    0,\n    0,\n    347\n  ],\n  \"inflate\": 0,\n  \"box_uv\": true,\n  \"uv_offset\": [\n    122,\n    1134\n  ],\n  \"autouv\": 0,\n  \"faces\": {\n    \"north\": {\n      \"uv\": [\n        130,\n        1142,\n        152,\n        1152\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"east\": {\n      \"uv\": [\n        122,\n        1142,\n        130,\n        1152\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"south\": {\n      \"uv\": [\n        160,\n        1142,\n        182,\n        1152\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"west\": {\n      \"uv\": [\n        152,\n        1142,\n        160,\n        1152\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"up\": {\n      \"uv\": [\n        152,\n        1142,\n        130,\n        1134\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"down\": {\n      \"uv\": [\n        174,\n        1134,\n        152,\n        1142\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    }\n  }\n}"
+    ],
+    "images": []
+  },
+  {
+    "index": 70,
+    "name": "edit_element",
+    "isError": false,
+    "text": [
+      "{\n  \"uuid\": \"210a566e-2e57-64bc-4b93-43116b14ada2\",\n  \"name\": \"flame_11_tip\",\n  \"type\": \"cube\",\n  \"parent\": \"9206d182-bd00-d59d-8655-af3a985e1673\",\n  \"from\": [\n    103.93,\n    -35.03,\n    5.5\n  ],\n  \"to\": [\n    122.93,\n    -30.03,\n    10.5\n  ],\n  \"origin\": [\n    113.43,\n    -32.53,\n    8\n  ],\n  \"rotation\": [\n    0,\n    0,\n    357\n  ],\n  \"inflate\": 0,\n  \"box_uv\": true,\n  \"uv_offset\": [\n    0,\n    1175\n  ],\n  \"autouv\": 0,\n  \"faces\": {\n    \"north\": {\n      \"uv\": [\n        5,\n        1180,\n        24,\n        1185\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"east\": {\n      \"uv\": [\n        0,\n        1180,\n        5,\n        1185\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"south\": {\n      \"uv\": [\n        29,\n        1180,\n        48,\n        1185\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"west\": {\n      \"uv\": [\n        24,\n        1180,\n        29,\n        1185\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"up\": {\n      \"uv\": [\n        24,\n        1180,\n        5,\n        1175\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"down\": {\n      \"uv\": [\n        43,\n        1175,\n        24,\n        1180\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    }\n  }\n}"
+    ],
+    "images": []
+  },
+  {
+    "index": 71,
+    "name": "edit_element",
+    "isError": false,
+    "text": [
+      "{\n  \"uuid\": \"125b2810-da73-e2e6-91d3-1a9bc8dda21b\",\n  \"name\": \"flame_11_ember\",\n  \"type\": \"cube\",\n  \"parent\": \"9206d182-bd00-d59d-8655-af3a985e1673\",\n  \"from\": [\n    121.22,\n    -27.9,\n    7.5\n  ],\n  \"to\": [\n    127.22,\n    -24.9,\n    10.5\n  ],\n  \"origin\": [\n    124.22,\n    -26.4,\n    9\n  ],\n  \"rotation\": [\n    0,\n    0,\n    367\n  ],\n  \"inflate\": 0,\n  \"box_uv\": true,\n  \"uv_offset\": [\n    76,\n    1210\n  ],\n  \"autouv\": 0,\n  \"faces\": {\n    \"north\": {\n      \"uv\": [\n        79,\n        1213,\n        85,\n        1216\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"east\": {\n      \"uv\": [\n        76,\n        1213,\n        79,\n        1216\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"south\": {\n      \"uv\": [\n        88,\n        1213,\n        94,\n        1216\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"west\": {\n      \"uv\": [\n        85,\n        1213,\n        88,\n        1216\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"up\": {\n      \"uv\": [\n        85,\n        1213,\n        79,\n        1210\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    },\n    \"down\": {\n      \"uv\": [\n        91,\n        1210,\n        85,\n        1213\n      ],\n      \"rotation\": 0,\n      \"texture\": \"sun_core.png\"\n    }\n  }\n}"
+    ],
+    "images": []
+  },
+  {
+    "index": 72,
+    "name": "check_model",
+    "isError": false,
+    "text": [
+      "{\n  \"cubes\": 139,\n  \"groups\": 16,\n  \"textures\": 6,\n  \"texture_size\": [\n    256,\n    2048\n  ],\n  \"animation_format\": true,\n  \"orientation\": \"The model FACES -z. Its own RIGHT is +x, its own LEFT is -x.\",\n  \"issue_count\": 0,\n  \"by_type\": {},\n  \"issues\": []\n}"
+    ],
+    "images": []
+  },
+  {
+    "index": 73,
+    "name": "screenshot_views",
+    "isError": false,
+    "text": [
+      "Captured 3 view(s). The model FACES -z. Its own RIGHT is +x, its own LEFT is -x.",
+      "View: front (the model's FRONT (its face)) — model's RIGHT is on the IMAGE LEFT (mirrored — you face it)",
+      "View: left (the model's LEFT side) — model's left/right are edge-on here",
+      "View: front_right (the model's FRONT (its face)) — model's RIGHT is on the IMAGE LEFT (mirrored — you face it)"
+    ],
+    "images": [
+      "tools\\models\\lab\\codex\\ryujin01\\qa\\sun-refine-v3\\73-screenshot_views-2.png",
+      "tools\\models\\lab\\codex\\ryujin01\\qa\\sun-refine-v3\\73-screenshot_views-4.png",
+      "tools\\models\\lab\\codex\\ryujin01\\qa\\sun-refine-v3\\73-screenshot_views-6.png"
+    ]
+  },
+  {
+    "index": 74,
+    "name": "preview_animation",
+    "isError": false,
+    "text": [
+      "animation.ryujin.sun_formation_lab (2.2s) — 4 pose(s)",
+      "t=0.03s View: front (the model's FRONT (its face)) — model's RIGHT is on the IMAGE LEFT (mirrored — you face it)",
+      "t=0.52s View: front (the model's FRONT (its face)) — model's RIGHT is on the IMAGE LEFT (mirrored — you face it)",
+      "t=1.2s View: front (the model's FRONT (its face)) — model's RIGHT is on the IMAGE LEFT (mirrored — you face it)",
+      "t=2.2s View: front (the model's FRONT (its face)) — model's RIGHT is on the IMAGE LEFT (mirrored — you face it)"
+    ],
+    "images": [
+      "tools\\models\\lab\\codex\\ryujin01\\qa\\sun-refine-v3\\74-preview_animation-2.png",
+      "tools\\models\\lab\\codex\\ryujin01\\qa\\sun-refine-v3\\74-preview_animation-4.png",
+      "tools\\models\\lab\\codex\\ryujin01\\qa\\sun-refine-v3\\74-preview_animation-6.png",
+      "tools\\models\\lab\\codex\\ryujin01\\qa\\sun-refine-v3\\74-preview_animation-8.png"
+    ]
+  },
+  {
+    "index": 75,
+    "name": "save_project",
+    "isError": false,
+    "text": [
+      "{\n  \"saved\": true,\n  \"path\": \"C:\\\\Users\\\\joaop\\\\Downloads\\\\Projeto_Programacao_BleachMod\\\\Bleach-Modpack\\\\tools\\\\models\\\\lab\\\\codex\\\\ryujin01\\\\ryujin_sun_formation_lab.bbmodel\"\n}"
+    ],
+    "images": []
+  },
+  {
+    "index": 76,
+    "name": "export_model",
+    "isError": false,
+    "text": [
+      "{\n  \"exported\": true,\n  \"path\": \"C:\\\\Users\\\\joaop\\\\Downloads\\\\Projeto_Programacao_BleachMod\\\\Bleach-Modpack\\\\tools\\\\models\\\\lab\\\\codex\\\\ryujin01\\\\ryujin_sun_formation_lab.geo.json\",\n  \"codec\": \"bedrock\",\n  \"bytes\": 18862\n}"
+    ],
+    "images": []
+  }
+]

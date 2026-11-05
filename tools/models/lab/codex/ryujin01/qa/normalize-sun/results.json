@@ -1,0 +1,29 @@
+[
+  {
+    "index": 0,
+    "name": "get_status",
+    "isError": false,
+    "text": [
+      "{\n  \"blockbench_version\": \"5.2.2\",\n  \"has_project\": true,\n  \"project\": {\n    \"name\": \"ryujin_sun_formation_lab\",\n    \"format\": \"geckolib_model\",\n    \"format_name\": \"GeckoLib Animated Model\",\n    \"texture_width\": 256,\n    \"texture_height\": 2048,\n    \"cubes\": 139,\n    \"groups\": 16,\n    \"textures\": 6,\n    \"animations\": 1,\n    \"mode\": \"edit\"\n  },\n  \"orientation\": {\n    \"facing\": \"-z\",\n    \"model_right_is\": \"+x\",\n    \"model_left_is\": \"-x\",\n    \"reminder\": \"The model faces -z. Its own RIGHT hand/arm/leg is at +x, its LEFT at -x. On a front-view render you see it mirrored, so its right hand appears on the LEFT of the image. Use get_orientation / which_side / check_sides instead of judging by eye.\"\n  },\n  \"pending_user_requests\": 0\n}"
+    ],
+    "images": []
+  },
+  {
+    "index": 1,
+    "name": "set_project_meta",
+    "isError": false,
+    "text": [
+      "{\n  \"name\": \"ryujin_sun_formation_lab\",\n  \"format\": \"geckolib_model\",\n  \"format_name\": \"GeckoLib Animated Model\",\n  \"texture_width\": 256,\n  \"texture_height\": 2048,\n  \"cubes\": 139,\n  \"groups\": 16,\n  \"textures\": 6,\n  \"animations\": 1,\n  \"mode\": \"edit\"\n}"
+    ],
+    "images": []
+  },
+  {
+    "index": 2,
+    "name": "save_project",
+    "isError": false,
+    "text": [
+      "{\n  \"saved\": true,\n  \"path\": \"C:/Users/joaop/Downloads/Projeto_Programacao_BleachMod/Bleach-Modpack/tools/models/lab/codex/ryujin01/ryujin_sun_formation_lab.bbmodel\"\n}"
+    ],
+    "images": []
+  }
+]

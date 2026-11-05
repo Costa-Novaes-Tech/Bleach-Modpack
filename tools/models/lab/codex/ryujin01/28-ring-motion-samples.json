@@ -1,0 +1,4 @@
+[
+  {"name":"get_status","expect_project":{"name":"ryujin_bankai_activation_scene_v6_lab","cubes":220,"textures":1}},
+  {"name":"preview_animation","arguments":{"animation":"animation.ryujin.bankai_activation_scene_lab","times":[4.8,5.1,5.4,5.7],"views":["front"],"width":900,"height":900}}
+]

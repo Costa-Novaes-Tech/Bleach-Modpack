@@ -20,7 +20,14 @@ public final class HyorinmaruBreathVisual {
         Vec3 merge=anchor.add(0,1.2,0);
         for(int head=0;head<3;head++){
             var local=HydraMotion.point(false,head,age-44,1,32);
-            Vec3 mouth=anchor.subtract(forward.scale(8)).add(side.scale(local.x)).add(0,local.y+.4,0).add(forward.scale(local.z));
+            Vec3 neckTip=anchor.subtract(forward.scale(8)).add(side.scale(local.x)).add(0,local.y+.4,0).add(forward.scale(local.z));
+            float rotX=HydraMotion.headRotX(false,head,age-44);
+            float yawDeg=head==1?-16.0F:head==2?16.0F:0.0F;
+            float yawRad=(float)Math.toRadians(yawDeg);
+            double cosPitch=Math.cos(rotX),sinPitch=Math.sin(rotX);
+            double cosYaw=Math.cos(yawRad),sinYaw=Math.sin(yawRad);
+            Vec3 headDir=forward.scale(cosYaw*cosPitch).add(side.scale(sinYaw*cosPitch)).add(0,sinPitch,0);
+            Vec3 mouth=neckTip.add(headDir.scale(2.6)).add(0,-0.25,0);
             ribbon(out,matrix,camera,mouth,merge,side,age+head*2,.9,weight);
         }
         for(int lane=-3;lane<=3;lane++){

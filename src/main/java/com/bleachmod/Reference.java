@@ -4,9 +4,10 @@ import net.minecraft.resources.ResourceLocation;
 
 public final class Reference {
     public static final String MOD_ID = "bleachmod";
-    public static final String NETWORK_PROTOCOL = "2.35"; // Hyorinmaru release duration and manifestation discriminator require matching clients.
+    public static final String NETWORK_PROTOCOL = "2.39"; // Quincy and story quest packets require matching client/server versions.
 
     public static final String RACE_SHINIGAMI = "shinigami";
+    public static final String RACE_QUINCY = "quincy";
     public static final String GROUP_ZANPAKUTO = "zanpakuto";
     public static final String FORM_SEALED = "sealed";
     public static final String FORM_SHIKAI = "shikai";

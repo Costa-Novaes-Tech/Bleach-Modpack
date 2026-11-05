@@ -1,0 +1,116 @@
+{
+  "base": "6f6d5f9",
+  "clip": "bettercombat:one_handed_uppercut_right",
+  "cases": {
+    "miss": {
+      "raw": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\cinematic-qa\\1793275159135-miss",
+      "frames": 130,
+      "cameraObserved": false,
+      "readyClipAvailable": true,
+      "rightArmPitchRange": null,
+      "ordinaryAttackArmPitchRange": 2.8058637
+    },
+    "survive": {
+      "raw": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\cinematic-qa\\1793275151141-survive",
+      "frames": 131,
+      "cameraObserved": false,
+      "readyClipAvailable": true,
+      "rightArmPitchRange": null,
+      "ordinaryAttackArmPitchRange": 2.8058637
+    },
+    "threshold_real": {
+      "raw": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\cinematic-qa\\1793275143148-threshold_real",
+      "frames": 130,
+      "cameraObserved": true,
+      "readyClipAvailable": true,
+      "rightArmPitchRange": 2.7932321
+    },
+    "lethal_flying": {
+      "raw": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\cinematic-qa\\1793275135151-lethal_flying",
+      "frames": 127,
+      "cameraObserved": true,
+      "readyClipAvailable": true,
+      "rightArmPitchRange": 2.7777246
+    },
+    "lethal_husk": {
+      "raw": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\cinematic-qa\\1793275127141-lethal_husk",
+      "frames": 117,
+      "cameraObserved": true,
+      "readyClipAvailable": true,
+      "rightArmPitchRange": 2.7932318
+    }
+  },
+  "selected": [
+    {
+      "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\cinematic-qa\\1793275127141-lethal_husk\\screenshots\\frame-0039-t0044-DRAW.png",
+      "sha256": "fdb9b10d3a86ee63338d0c06e2bcead8650604d0d4a014c4064e9326006c65b3",
+      "poseAge": 7.0,
+      "phase": "DRAW"
+    },
+    {
+      "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\cinematic-qa\\1793275127141-lethal_husk\\screenshots\\frame-0041-t0046-DRAW.png",
+      "sha256": "0adc10044c4db3f8b11a36e236b2e2d13fb9dc6891bd335f42fde8a6e2f88a33",
+      "poseAge": 9.0,
+      "phase": "DRAW"
+    },
+    {
+      "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\cinematic-qa\\1793275127141-lethal_husk\\screenshots\\frame-0048-t0055-HOLD.png",
+      "sha256": "6db5a0d2144d1d7a18a4acdf1f604e5e4846c8adbef80fc9abedf0ffc554169c",
+      "poseAge": 18.0,
+      "phase": "HOLD"
+    },
+    {
+      "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\cinematic-qa\\1793275127141-lethal_husk\\screenshots\\frame-0062-t0075-ASH.png",
+      "sha256": "c57fe8591c86c130641f2477e88a2185e270f8df0941124224fa018683117e40",
+      "poseAge": 38.0,
+      "phase": "ASH"
+    },
+    {
+      "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\cinematic-qa\\1793275143148-threshold_real\\screenshots\\frame-0039-t0039-DRAW.png",
+      "sha256": "a03b038b582018d59ec8f9b5df59c09f274e10633700cb409c95a262c7796361",
+      "poseAge": 7.0,
+      "phase": "DRAW"
+    },
+    {
+      "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\cinematic-qa\\1793275143148-threshold_real\\screenshots\\frame-0042-t0042-CUT.png",
+      "sha256": "14bd528a9065de30639a5cab6851c24421e233ca18c3ffe4d39ddc5592fbad70",
+      "poseAge": 10.0,
+      "phase": "CUT"
+    },
+    {
+      "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\cinematic-qa\\1793275143148-threshold_real\\screenshots\\frame-0052-t0052-HOLD.png",
+      "sha256": "2cf3b3d8d3c35206aaa0d1b97fe660e795543b6699bbb039b060ed13dfeb13d4",
+      "poseAge": 20.0,
+      "phase": "HOLD"
+    },
+    {
+      "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\cinematic-qa\\1793275143148-threshold_real\\screenshots\\frame-0069-t0070-ASH.png",
+      "sha256": "af3632d3451de3a582805be45b39a51676fe0c23f409c86bd2c0c0a3d09c898b",
+      "poseAge": 38.0,
+      "phase": "ASH"
+    }
+  ],
+  "clientExitCode": 0,
+  "clientLog": "build/higashi-ready-client-final-20261029.log",
+  "failedFirstCycle": {
+    "rawPrefix": "1793274836526-lethal_husk",
+    "log": "build/higashi-ready-client-20261029.log",
+    "reason": "Unlinked modifier delegate, all channels zero; fixed before final QA."
+  },
+  "limits": "Derived crops, selected frames. No whole-mesh collision, continuous video, left-hand, observer or dedicated acceptance.",
+  "sourceHashes": {
+    "src/main/java/com/bleachmod/client/model/HigashiBetterCombatMotion.java": "1eacbd1b1ce19943060761b03cc3b02fcfddddc204f6bc5cfb4561fe6a84dfb4",
+    "src/main/java/com/bleachmod/client/model/HigashiExecutionVisuals.java": "da2dc5cf71bc8df5449a724f2c367ae7df8c74621d1b3d19b57ce2a2d34d8bd8",
+    "src/main/java/com/bleachmod/client/model/ElementalActionVisuals.java": "ffd951d846f9f6b1f8f3b9355581c04f4045260ecba8574d348c7142c54a024c",
+    "src/main/java/com/bleachmod/client/model/RyujinActionVisuals.java": "3c484290b3a5ae3b7974b292d5105474d306313b7adac90ef53c4dd5d3af4ee1",
+    "build/higashi-ready-client-final-20261029.log": "bb6e2f13631cd56bc8aa4795fc7b9cabfd86a9e8311f9ce7334c5e209b9842e7",
+    "build/higashi-ready-final-build-20261029.log": "2d3a953c60d3c654c228a0005f44b3cf958efde56c49158a5285b77cd0c0d727",
+    "build/libs/bleachmod-0.2.0.jar": "12fb8d436965465b0ac5b5341a004fd585bb323303d9a8e9621e477365654eac"
+  },
+  "build": {
+    "exitCode": 0,
+    "command": "gradlew.bat check build --offline --console=plain",
+    "regressions": 158,
+    "log": "build/higashi-ready-final-build-20261029.log"
+  }
+}

@@ -1,0 +1,11 @@
+[
+  {
+    "index": 0,
+    "name": "load_project",
+    "isError": false,
+    "text": [
+      "{\n  \"name\": \"ryujin_sun_vortex_lab\",\n  \"format\": \"geckolib_model\",\n  \"format_name\": \"GeckoLib Animated Model\",\n  \"texture_width\": 256,\n  \"texture_height\": 4096,\n  \"cubes\": 171,\n  \"groups\": 19,\n  \"textures\": 1,\n  \"animations\": 1,\n  \"mode\": \"edit\"\n}"
+    ],
+    "images": []
+  }
+]

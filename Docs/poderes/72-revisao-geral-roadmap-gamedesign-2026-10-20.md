@@ -1,5 +1,72 @@
 # Ciclo 72 — revisão geral do projeto, game design e roadmap
 
+**Atualização 03/11/2026 (branch `codex/conferencia-orquestracao`):** [inventário por frente e ordem de execução](inventario-pendencias-orquestracao-2026-11-03.md). Verificado no Git: Garden `e1015da` e rig Quincy `7664737` já estão integrados na Feature (merges `e051e6a`/`18909a7`) e `origin/main` `9906486` foi mesclada aqui; `check build` e 285 GameTests passaram após o merge, sem cliente gráfico. Este bloco **supera** a linha abaixo "Garden ainda independente/sem entrega confirmada" e a descrição do AG B como pendente de correção: a entrega corretiva existe e foi integrada, mas o relatório é autodeclarado e ainda exige auditoria e playtest humano. Rig Quincy: assets e bancada GeckoLib prontos, **sem uso em produção**; integração é do Codex. Roadmap 126 e `00-CONTINUIDADE-CODEX.md` ficam para o Codex consolidar (a main supera MAIN-SUB-01 pelo roteiro de 28 missões M13/10.32–10.33). Estado conforme o Git em 03/11; não altera decisões humanas anteriores.
+
+**Roadmap Antigravity 03/11/2026 (proposto):** [plano Blockbench/GeckoLib/PlayerAnimator](plano-antigravity-blockbench-geckolib-playeranimator-2026-11-03.md). Frentes: F1 validação Quincy Ishida e F2 teste do Garden (humano/Codex); F3 Ryūjin no Blockbench fica com humano+Codex, sem AG; novas frentes AG-S (refazer visual do C/Hakuteiken da Senbon), AG-Q (design e animação das asas Quincy) e AG-P (movimento do jogador via PlayerAnimator), todas aguardando decisões humanas listadas no plano. Ponte Blockbench indisponível em 03/11 (porta 8787), então nada foi autorado.
+
+**Prioridade humana posterior29/10:** Senbon e Ryūjin aceitas no teste; flechas atuais boas provisoriamente. Próxima frente é expansão Ishida com passiva de tiro rápido/longo, habilidades e transformação TYBW, explicitamente autorizada; supera o adiamento TYBW abaixo. [Plano atual](plano-uryu-arqueiro-tradicional.md). Quest Rukia fica para depois. Garden ainda independente/sem entrega confirmada. Usuário autorizou implementação da Vollständig e definiu quatro satélites, cinco flechas por disparo e central perfurante de cinco alvos/dois blocos. Protótipo implementado e validado tecnicamente (158regressões/277GameTests e cliente real), conforme plano atual; aguarda teste/aceite humano.
+
+
+## Estado vigente — revisão de29/10/2026
+
+Este bloco e o checklist atualizado prevalecem sobre os registros históricos abaixo. Base técnica publicada2b3c582 na Feature-Poderes-bankais. A preparação dos prompts não comprova que as outras conversas iniciaram ou concluíram trabalho; nenhum retorno novo foi auditado nesta revisão.
+
+### Concluído / preservar
+
+- Fundamentos homologados: stamina, progressão por Resistência, bainhas, esquiva, defesa/postura/guard break e Asauchi.
+- Hyōrinmaru encerrada pelo usuário; não reabrir. Zaraki preservada.
+- Benihime: usuário declarou “ok e ótimo” no retorno29/10; entrada, combate e kit atual fora da fila de retrabalho. A substituição selada já teve entrega integrada; não mantê-la como proposta ainda indefinida.
+- Ryūjin: apresentação visual, Investida e Rajada aceitas; a nova frente é proteção/cancelamento da ativação, sem refazer o roteiro aprovado.
+- Comandos bleachdev, cheats, troca reversível de kits e HUD/maestria Quincy implementados. Não refazer essas bases ao melhorar o projétil. Aliases legados ainda transitórios.
+
+**Integração posterior29/10:** as frentes proteção Bankai e projéteis Quincy já foram mescladas na poderes a pedido humano (f392f79/cc5ec61) para playtest, sem conflito manual.270GameTests do conjunto passaram após corrigir cenário obstruído de teste Benihime; mecânica aceita preservada. As descrições de frentes abaixo indicam responsabilidade e pendências, não ausência dessas implementações. Garden continua sem gameplay. Ver coordenação29/10 para limites de QA.
+
+### Ativo agora
+
+1. Proteção de ativação Bankai/Ryūjin: integrada e aceita pelo usuário; preservar, sem nova reformulação.
+2. Ishida: base de projéteis aceita provisoriamente. Codex entregou protótipo Vollständig com quatro satélites/cinco flechas e kit avançado; prioridade agora é playtest, refinamento visual/equilíbrio e coberturas específicas, não recriar a base.
+3. AG Garden N: entrega7750815 existe na branch individual;283GameTests confirmados no log. Auditoria30/10 pede correções de revalidação de aliados, lease/altura, prazo do piso e testes específicos, além de QA visual real. Não integrado/homologado. Centro fixo/raio35/janela2–6s preservados.
+4. Codex Senbon: combo pronto Better Combat implementado/publicado2b3c582;158regressões e dois ciclos Forge de6cenários com/sem partículas. Usuário aceitou o combo no retorno posterior; preservar. Primeiro golpe horizontal agora substitui exigência diagonal antiga. Não restaurar clips personalizados em merge.
+
+Coordenação, arquivos exclusivos e três prompts em [frentes29/10](antigravity-frentes-2026-10-29.md). Cada AG lê o contrato, compara refs e integra origin/Feature-Poderes-bankais na branch individual antes de implementar. Sem merge automático de retorno. QA de cliente serializado.
+
+### Distribuição de desenvolvimento30/10
+
+Codex: estados/controles/ações e integração Quincy. AG A: rig/modelo/animações da manifestação Quincy, assets exclusivos. AG B: correções e QA do Garden7750815. [Coordenação atualizada](antigravity-frentes-2026-10-29.md) e dois prompts executivos. Compartilhados de Java/rede/HUD permanecem com Codex para evitar sobreposição. Storyboards Quincy são proposta; Ginrei e destruição C não entram em produção automaticamente por esta organização. Checkouts existentes e liberados, sincronização poderes→branch individual e clientes QA serializados.
+
+### Fechamento e trabalho transversal
+
+- Higashi: a pedido do usuário em29/10, coreografia trocada por uppercut pronto Better Combat no golpe comum/replay.158regressões e5cenários Forge conferidos; [estado](estado-combate-senbon-higashi.md). Mecânica/vítima/pausa1s preservadas; aguarda playtest e aceite visual humano para encerrar.
+- Auditar retornos, integrar um por vez e repetir testes de interação pertinentes; só então teste combinado. Primeira pessoa, dedicado/observador e diferenças de skin continuam coberturas específicas, não defeitos automaticamente confirmados nem motivo para reabrir toda feature aceita.
+- Eficiência/limpeza continua prioritária e transversal: consolidar dossiês, reter evidência mínima útil, medir build/QA e pausas de destruição extensa antes de otimizar. Duplicatas já removidas; evidência única antiga não é lixo confirmado. Não eliminar arquivos nesta revisão.
+- Capacitação Antigravity: contrato e prompts preparados, ainda sem resultado comparativo que comprove melhora de julgamento. Avaliar aderência/evidência nas entregas destas frentes.
+
+### Próxima etapa após estabilização
+
+Seguir [roadmap126](126-roadmap-personagens-npcs-lore-proximas-entregas-2026-10-26.md): auditar infraestrutura de quests/NPCs e preparar MAIN-SUB-01 “Um Hollow na área”, com Rukia e um encontro vinculado à tentativa. Conclusão automática, sem aliado canônico vencendo pelo jogador e sem prêmio inventado. Fechar ficha de acesso racial, área, inimigo e participação antes de produção. Depois expandir gradualmente; roteiro aprovado10missões Substituto/18Soul Society não equivale a campanha implementada. A revisão da main usada para essa direção foi9906486.
+
+Mentor/Proficiências aguardam equipe; aprofundamento M11/formação racial adiado no handoff. Vollständig TYBW autorizada e prototipada agora; Antithesis executável e aquisição narrativa continuam para ficha própria posterior. Aizen como kit adiado; Gin fora da fila de poderes. Photon/LDLib/Blockbench são recursos conforme necessidade demonstrada, não migração obrigatória de todos os efeitos nem motivo para instalar dependências novas agora.
+
+## Histórico de decisões e entregas
+
+**Entrega técnica28/10:** [bleachdev/kits/cheats](guia-bleachdev-kits-cheats.md) implementados, 158 regressões/250 GameTests/7cenários gráficos aprovados. Teste humano pendente; aliases ainda transitórios. Quincy (arco/autorização/técnicas) e empunhadura Senbon seguem nas frentes AG. Kit reversível agora permite retomar teste humano de Benihime/Higashi sem reinicializar personagem.
+
+**Prioridade operacional aprovada em 28/10:** antes de expansão, executar [coordenação de comandos/kits, Quincy e empunhadura Senbon](coordenacao-correcoes-kits-comandos-2026-10-28.md). Não reabrir Hyorinmaru. O bloqueio de alternância racial impede testes Benihime/Higashi e tem prioridade; suites verdes anteriores não homologam arco/contato visual.
+
+**27/10 — encaminhamento das provas141:** [142: SenbonS1](142-prompt-antigravity-senbon-s1-transformacao-real-2026-10-27.md) limita correção à transformação REAL mão/item e preparação alta, com comandos deQA. [143: Higashi](143-prompt-antigravity-higashi-transicao-pre-camera-2026-10-27.md) preserva supressão e corrige janela vermelha anterior à câmera; harness deve separar Hollowletal de threshold e registrar relógio real. AlteraçõesQA locais nos checkouts devem ser preservadas/adaptadas. Sem merge nas duas frentes.
+
+**27/10 — [141: provas isoladas em cliente real](141-provas-isoladas-reais-senbon-higashi-2026-10-27.md):** SenbonS1 reprovado: canais ativos no marco de preparação, lâmina ainda baixa/para trás; não é só parser. Higashi testada com Husk e Hollow alado a50%HP mortos por dano normal, sem duplicação nos quadros durante câmera; flash vermelho antes da câmera ainda observado noHusk. Controles sobreviver/erro não abriram câmera. Três runClient exit0,1055capturas contabilizadas nos manifests, GIFs amostrados e limites no141. Só QA/telemetria nos worktrees das frentes; sem merge/commit/push, poses/gameplay intactos.
+
+**27/10 — [137: storyboards de correção](137-storyboards-direcao-katanas-senbon-higashi-2026-10-27.md):** usuário confirmou execuções do092434 por dano normal letal, sem alvo<7%. Senbon ainda falha na katana/3golpes; Higashi duplica vítima. Criadas33poses-chave/162referências por tick, frente/perfil, navegador e dados; são esquemas de autoria, NÃO capturas Minecraft. Prompts138(Senbon) e139(Higashi), SEM MERGE, corrigir e demonstrar no cliente antes de integrar. Hyōrinmaru e transformações aprovadas preservadas.
+
+**27/10 — [132: regressões no vídeo do usuário](132-analise-video-regressoes-senbon-higashi-2026-10-27.md):** Hyōrinmaru aprovada, preservar. Senbon reaberto principalmente pela KATANA não cumprir diagonal/retorno/estocada (rastro é secundário); [prompt133](133-prompt-correcao-senbon-katana-combo-2026-10-27.md). Higashi reprovada por movimento/apresentação de morte; pausa passa explicitamente a20ticks/1s após corte; [prompt134](134-prompt-correcao-higashi-katana-morte-pausa1s-2026-10-27.md). Corrigir regressões antes de expandir visuais/quest piloto. Só análise/prompts nesta rodada, sem runtime.
+
+**26/10 — [126: futuro de personagens, NPCs e lore](126-roadmap-personagens-npcs-lore-proximas-entregas-2026-10-26.md):** acrescentada sequência proposta: reconciliar base existente → piloto narrativo completo → presença/diálogos NPC → adversários/provas → núcleo de mundo → capítulos/facções → continuidade multiplayer. Oito NPCs registrados não equivalem a campanha pronta. M08–M10 e M03 preservados; M11/M05 continuam dependências GDD. Implementação após a lista obrigatória, planejamento em paralelo; piloto e recompensas ainda não aprovados. Sem runtime nesta revisão.
+
+**26/10 — ampliação autorizada das duas frentes:** [124: Senbon em fases](124-prompt-antigravity-senbon-golpes2-3-2026-10-26.md) agora autoriza combo2/3, rastro nesta entrega, Hakuteiken C e coerência visual do kit, sem novo bloqueio de aprovação entre fases técnicas. [125: Hyōrinmaru e Higashi](125-prompt-antigravity-hyorinmaru-higashi-refinamento-2026-10-26.md) prepara segunda conversa para fontes/modelo/rig, articulação/emissão das bocas e corte ascendente/execução lateral. Ryūjin transformação aprovada preservada. São prompts de implementação futura; nenhum runtime alterado nesta revisão. A ordem da lista obrigatória continua como referência, com estes refinamentos paralelos explicitamente autorizados.
+
+**26/10 — [123: teste do usuário e roadmap vigente](123-analise-teste-senbon-ryujin-proximos-passos-2026-10-26.md):** Ryūjin atual aprovada; preservar transformação/VFX. Senbon diagonal autorizado como referência para avançar ao retorno horizontal e à estocada; [prompt124](124-prompt-antigravity-senbon-golpes2-3-2026-10-26.md), sem partículas primeiro. Rastro fica para etapa posterior ao aceite. Integrações122 já realizadas; não repetir merges. Benihime aprovada preservada; Higashi final, substituição da isca selada, contrato112/118, Hyōrinmaru e eficiência continuam pendentes. Somente documentação nesta rodada.
+
 > **Atualização93:** [ensaio real Blockbench/MCP e correção do rugido](93-blockbench-prova-controlada-rugido-hidras-2026-10-22.md). Ferramenta validada em cópia, sem substituir o modelo. Próxima prova de autoria: formato/export GeckoLib e integração do controlador. Mantida a ordem obrigatória e as pendências de aprovação artística/auditiva.
 
 > **Atualização92 — 22/10/2026:** [92: áudio Hyōrinmaru, transformação20s e gelo temporário](92-audio-hyorinmaru-transformacao-gelo-temporario-2026-10-22.md). Nova mixagem com fala separada, transformação20s, baforada36blocos e piso de gelo visual temporário; clima global independente. Rede2.35. Não muda a ordem obrigatória abaixo; aceites artísticos/auditivos e multiplayer continuam pendentes. Resultados no relatório92.
@@ -90,12 +157,38 @@ A sequência abaixo foi reafirmada pelo usuário como **lista obrigatória de tr
 1. **Concluir apresentação da entrada Benihime.** Revisar pega central, ambos os braços, apoio/transferência de peso, saída, levantamento, rosto/cabelo/roupa e acompanhamento. Ajustes de proporção/terreno do ciclo 71 já estão entregues. Áudio do nome segue pendente e adiado nesta rodada. Fechar com escuta e aprovação visual do usuário.
 2. **Fechar revisão da Higashi.** Avaliar a nova cena entregue, contato da lâmina, pausa, incineração, enquadramento lateral e retorno ao controle. Corrigir a partir de feedback concreto; preservar os dois gatilhos e as condições de morte confirmada.
 3. **Ryūjin — Investida e Rajada.** Refinar deslocamento, gestos e identidade dos efeitos com partículas de chamas, conforme estudos aprovados. Não reiniciar o kit inteiro nem adicionar proteção Nishi rejeitada.
-4. **Benihime — combate da Zanpakutō e demais técnicas.** Correção explicitamente solicitada: a animação de combate da espada está ruim. Revisar ataques básicos/combos, empunhadura, orientação da lâmina, transições e recuperação, em primeira e terceira pessoa, com contato visual coerente com o acerto e sem disputa entre controladores de animação. Não limitar esta etapa aos efeitos das habilidades. Melhorar também gestos e efeitos das técnicas preservando as mecânicas homologadas, inclusive alcance/captura da rede, detonação coletiva, cura e cargas de abertura de caminho. Mudanças na autoridade de hitboxes Better Combat exigem contrato próprio, não são consequência automática da correção visual.
+4. **Benihime — combate da Zanpakutō e demais técnicas.** Revisão transversal112 obrigatória: arma deve acompanhar punho e efeitos presos à lâmina devem acompanhar seu movimento; comparar com Asauchi/Ryūjin/Hyōrinmaru e estender ao novo combate Senbonzakura, em primeira/terceira pessoa. Tarefa ainda pendente de correção e validação. Correção explicitamente solicitada: a animação de combate da espada está ruim. Revisar ataques básicos/combos, empunhadura, orientação da lâmina, transições e recuperação, em primeira e terceira pessoa, com contato visual coerente com o acerto e sem disputa entre controladores de animação. Não limitar esta etapa aos efeitos das habilidades. Melhorar também gestos e efeitos das técnicas preservando as mecânicas homologadas, inclusive alcance/captura da rede, detonação coletiva, cura e cargas de abertura de caminho. Mudanças na autoridade de hitboxes Better Combat exigem contrato próprio, não são consequência automática da correção visual.
 5. **Uryū Ishida.** Próximo personagem novo da fila; fechar o contrato do kit/equipamento Quincy com a equipe antes de implementar. O bloco Quincy do design ainda não está fechado; a existência do NPC não entrega o kit.
 6. **Mentor e Proficiências**, após confirmação da equipe; harmonizar com M05/M06/M07, sem duplicar níveis ou converter o NPC de quests em loja de habilidades por conveniência.
 7. **Hyōrinmaru — revisão com Blockbench.** Incluir autoria de modelos, rig e animações dos dragões de gelo, além da transformação e animações do personagem. Planejar mandíbula/cabeça, corpo e movimento dos dragões com fontes editáveis; preservar os três dragões da Bankai e os alcances/regras aprovados salvo novo pedido. Blockbench serve à autoria; avaliar GeckoLib para animar os dragões no jogo e manter as animações do jogador na integração compatível com PlayerAnimator, sem substituir globalmente seu renderizador. Validar modelo, percurso, legibilidade, contato e desempenho no Minecraft real. O estado atual foi considerado bom: esta melhoria planejada permanece na etapa posterior, sem reabrir o kit imediatamente.
 
+### Etapa 8 adicionada — eficiência e limpeza do projeto (25/10/2026)
+
+Solicitação explícita do usuário após a integração das três branches: acrescentar **eficiência, velocidade de desenvolvimento e controle de espaço em disco** ao roadmap. Os sete itens anteriores permanecem; esta é uma frente técnica adicional, antes da expansão posterior para NPCs de combate e quests. Não autoriza apagar arquivos nesta rodada de integração.
+
+Manter o trabalho paralelo das IAs em worktrees separados, conforme decisão posterior do usuário. Branches em um único checkout não isolam edições simultâneas. Não remover `Bleach-Modpack-design` nem migrar conversas por inferência.
+
+- Inventariar tamanho lógico e, quando possível, espaço alocado de cada checkout, Git compartilhado, caches, mapas, saves QA, vídeos, screenshots, builds e fontes de autoria. Identificar duplicatas por hash e procedência; duplicação não prova inutilidade.
+- Separar fontes/ativos necessários, evidências de homologação, arquivos pessoais, dependências reconstruíveis e resíduos realmente dispensáveis. Preservar fontes Blockbench, áudios originais, mapas autorizados e saves pessoais; não retirar documentação vigente para reduzir volume.
+- Propor retenção/arquivamento dos testes e capturas antigos com índices, hashes e caminhos recuperáveis. Conferir se assets de produção ou documentação dependem deles antes de qualquer remoção.
+- Medir tempo de build incremental, preparação de cliente, testes e autoria. Priorizar gargalos medidos, evitando `clean` indiscriminado e recompilações simultâneas competindo pelo mesmo cache/hardware. Manter coordenação de Minecraft/Blockbench entre agentes.
+- Revisar arquivos rastreados/ignorados, logs e scripts com caminhos rígidos, sem alterar bibliotecas/modelos por conveniência ou quebrar reprodução em clone limpo.
+- Entregar proposta concreta de limpeza, estimativa de economia e procedimento de recuperação; executar apenas o escopo aprovado e conferir build/QA pertinentes depois. Não usar remoção forçada de worktree para contornar arquivos não salvos.
+
+Medição preliminar de25/10, antes da integração: checkout design com aproximadamente6,32GiB de tamanho lógico; run-benihime-qa3,72GiB, Docs1,84GiB. Não é medição de espaço físico recuperável nem autorização para apagar esses diretórios.
+
 ### Controle obrigatório de fechamento
+
+**26/10 — [112: revisão obrigatória arma/mão/efeitos](112-tarefa-revisao-combate-armas-maos-efeitos-2026-10-26.md):** usuário relata armas/poderes sem acompanhar braços nas animações novas. Comparação inicial confirma ausência de canais de item nos seis JSONs Benihime/Senbonzakura versus rightItem na referência nativa; causa completa ainda exige reprodução de renderer/camadas, principalmente em primeira pessoa. Tarefa transversal pendente, vinculada ao item4 e ao aceite do combate Senbonzakura. Preservar identidades Asauchi/Ryūjin/Hyōrinmaru, áreas fixas, mecânicas e demais itens do roadmap.
+
+
+**26/10 — [111: integração Senbonzakura e C vertical Ryūjin](111-integracao-senbonzakura-corte-vertical-ryujin-2026-10-26.md):** Antigravity08105c2 integrado no merge localdb0f764, sem conflito;110 preservado em6d3c9b3. Revisão remove sobreposição de melee legado/Better Combat, isola QA e limita bônus de alcance ao Senbon Bankai. C com duas mãos, elevação e contato vertical no solo; brasas reduzidas e apoio do conjurador preservado. Check147 regressões/233 GameTests e10cenários gráficos amostrados. Aceite artístico pendente; pausas da destruição extensa ficam no item8 de eficiência. Sem push/main.
+
+
+**26/10 — [110: Ryūjin40s/18s, Minami10 e C](110-ryujin-roteiro-longo-minami-corte-supremo-2026-10-26.md):** implementados roteiro em relógio de apresentação independente, trilha original com ducking, dez soldados de6HP com carvão/magma e persistência temporária no Pacífico, e preparação do C56ticks/impacto40. Mecânica release60/commit40, dano/custos/passivas preservados. Check/build147 regressões,231 GameTests e nove cenários reais amostrados. Aceite artístico/auditivo pendente; fontes locais sem commit/push. Demais itens obrigatórios e Senbonzakura paralela preservados.
+
+
+**26/10 — [109: transformação Ryūjin](109-ryujin-frontal-fogo-texturizado-calor-2026-10-26.md):** nova apresentação frontal e sol texturizado implementados pelo Codex na Feature, para playtest. Preservados Investida/Rajada aprovados, Higashi pendente e item8 de eficiência. Senbonzakura combate/Hakuteiken continua na frente paralela. Nenhum aceite artístico automático.
 
 **Revisão de21/10 — [ciclo88](88-revisao-kit-hyorinmaru-hidra-erupcao-storyboards-2026-10-21.md):** usuário reorganiza o repertório do item7: Ryūsenka em Bankai H; nova hidra ofensiva em N; Erupção Glacial em B; Sennen ampliada transferida para Shikai B. C Bankai permanece Hyōten. Dois vídeos analisados e três storyboards criados, sem implementar mudanças. Atualizar migração/maestrias junto dos slots quando houver código; os demais itens obrigatórios permanecem.
 
@@ -122,13 +215,18 @@ A sequência abaixo foi reafirmada pelo usuário como **lista obrigatória de tr
 
 **Evidência posterior do item 1 — [vídeo do usuário, ciclo 73](73-analise-video-usuario-entrada-benihime-2026-10-20.md):** quatro invocações analisadas por quadros. Revelação/elevação legíveis no espaço aberto; close excessivo da cabeça no retorno da câmera e oclusão por paredão/árvore observados. Acompanhamento considerado bom pelo usuário em teste fora da gravação. Interrupções não testadas; áudio sem nova avaliação auditiva. Item permanece aberto, sem código nesta análise.
 
-- [ ] 1. Entrada Benihime: caminhada reaberta/corrigida no ciclo81 e conferida no cliente; revalidação do usuário, escuta e multiplayer pendentes.
-- [ ] 2. Higashi: reaberta no ciclo 77 por cena indevida em alvo sobrevivente; correção entregue e verificada (quatro cenários, 132 regressões/155 GameTests base e Photon); revalidação do usuário pendente.
-- [ ] 3. Investida e Rajada Ryūjin: melhorias76 e giro do dash81 entregues; conferir aceite do usuário.
-- [ ] 4. Benihime81: esgrima Better Combat, kit selado, Hiasobi e suprema destrutiva implementados para teste; validação artística e balanceamento pendentes.
-- [ ] 5. Contrato e implementação do kit Uryū Ishida.
-- [ ] 6. Mentor e Proficiências, após confirmação da equipe.
-- [ ] 7. Hyōrinmaru: dragões, animações e transformação com apoio do Blockbench.
+- [x] 1. Entrada Benihime aceita pelo usuário; preservar.
+- [ ] 2. Higashi: mecânicas preservadas; novo aceite específico da coreografia ainda não registrado.
+- [x] 3. Investida e Rajada Ryūjin aceitas; proteção da ativação está na frente separada29/10.
+- [x] 4. Benihime atual aceita em29/10; não reabrir kit/esgrima por notas antigas.
+- [ ] 5. Uryū base aceita provisoriamente; Vollständig4185558 implementada e em playtest humano. Antithesis executável/aquisição narrativa posteriores.
+- [ ] 6. Mentor e Proficiências: aguardando equipe, sem implementação ativa.
+- [x] 7. Hyōrinmaru concluída e homologada; fora da fila ativa.
+- [ ] 8. Eficiência/consolidação/QA: frente transversal em andamento; sem nova exclusão automática.
+- [ ] 9. Senbon: combo aceito e preservado; Garden7750815 em correção/auditoria, não integrado. [Prompt executivo atualizado](prompt-antigravity-garden-prisao-2026-10-29.md), fases sincronização → estado/dano → VFX → QA → auditoria; sem retorno automático à poderes.
+- [x] 10. Proteção temporária Bankai/cancelamento Ryūjin integrados e aceitos pelo usuário; preservar.
+
+**Aceites posteriores de25/10:** entrada Benihime validada pelo usuário, incluindo o refinamento102; Investida/Rajada aprovadas. Higashi será validada depois. A substituição da boneca do kit selado Benihime foi solicitada, mas a alternativa ainda não foi fechada. Esses aceites atualizam os registros históricos acima; não significam homologação de todas as técnicas, áudio em observadores ou multiplayer. Integração e validações combinadas serão registradas no105.
 
 Itens abertos representam o trabalho restante desta rodada de melhorias, não ausência de toda a implementação anterior. Dar baixa apenas com evidência da entrega pertinente e aceite correspondente, registrando dependências ainda abertas.
 
@@ -182,3 +280,28 @@ Os READMEs e a continuidade desta frente passam a apontar para este ciclo. Os re
 Referência técnica mais recente: **127 regressões e 151 GameTests**, base e Photon, registrados no ciclo 71; capturas reais Benihime dia/noite/apoios +1/+2 e os dois gatilhos da Higashi. São resultados históricos, não testes reexecutados agora. Vídeos amostrados/silenciosos não homologam escuta ou fluidez contínua. Áudio tem feedback negativo atual sobre inteligibilidade do nome; dois clientes reais e benchmark controlado continuam pendentes.
 
 Nesta rodada: inventário documental, conferência de fontes e código pontual, revisão de links dos documentos novos e `git diff --check`. Sem mudança de gameplay, áudio, modelos ou bibliotecas. O próximo trabalho da frente continua **fechar a apresentação Benihime e revisar a Higashi entregue**, respeitando o adiamento atual da mixagem; em paralelo de planejamento, a equipe pode continuar **M06-08**. Nenhuma das pendências deste relatório dispara implementação automaticamente.
+# Adendo de26/10/2026 — auditoria113
+
+A transformação longa da Ryūjin foi rejeitada por duração após teste do usuário. [Ciclo113](113-auditoria-video-ryujin-combate-tres-frentes-2026-10-26.md) propõe12s e separa três frentes de trabalho: Codex cuida do vínculo comum arma/mão, Ryūjin/câmera/áudio e diagnóstico do impacto; Antigravity1 cuida do combate Senbon; Antigravity2 cuida do combate Benihime. Prompts114/115 preparados, execução ainda não iniciada. Amostra sonora original fora do runtime, pendente de escuta/aceite. Nenhuma etapa obrigatória removida; revisão transversal112 e eficiência/limpeza permanecem. Este adendo não reabre Zaraki nem transforma builds históricos em aprovação visual atual.
+# Adendo26/10 — entrega119
+
+[Ryūjin curta implementada e testada](119-entrega-ryujin-curta-audio-camera-2026-10-26.md):12s, falas2s/8s, música/fogo separados e retorno por trás à primeira pessoa;148 regressões,233 GameTests e12cenários reais amostrados. Aguardando avaliação artística/auditiva do usuário. [Contrato118](118-contrato-comum-arma-maos-efeitos-2026-10-26.md) não homologa automaticamente combos Benihime/Senbon. C: varredura por colunas sem mudar área/dano, mas439ms no terreno e lacuna amostrada1,03s confirmam pendência de eficiência no item8. Nenhum item obrigatório removido; main/Zaraki e entradas aprovadas preservadas.
+# Adendo26/10 — integração120
+
+[Entregas Antigravity integradas](120-integracao-antigravity-combates-benihime-senbon-2026-10-26.md) em9713af1, após preservar a Ryūjin curta emfdca0de. Benihime: duas estocadas+corte horizontal; Senbon: canais do item e combo refinado.148 regressões,233 GameTests e10cenários reais amostrados. A revisão112 continua aberta para aceite de movimento/empunhadura, emissor Senbon ligado à lâmina e demais perspectivas. Pausa do C segue no item8 de eficiência. Nenhuma etapa obrigatória removida; main/Zaraki preservadas. Commits/merges locais, sem push nesta rodada.
+
+# Adendo26/10 — revisão documental121
+
+[Revisão do horizonte na main](121-revisao-main-planejamento-futuro-2026-10-26.md): próximo módulo documentalM11 com retornoM05, sem antecipar a produção NPC/quests à nossa lista obrigatória. M08–M10 têm conteúdo em especificação; NPCs-fontes, adversários e rotas precisam compor percursos jogáveis. Usuário aprovou o movimento Benihime e a base Ryūjin12s; Antigravity continua Senbon e VFX Ryūjin em paralelo. Mantidas revisão112, kit selado pendente, Uryū/contrato Quincy, Mentor/Proficiências adiados, Hyorin/Blockbench e eficiência/limpeza. Aizen poder adiado, Gin fora e Zaraki preservada. Somente documentação nesta rodada.
+
+# Prioridade atualizada em27/10 — eficiência e retenção150
+
+O item8 passa a prioridade transversal, em paralelo à homologação e antes de expandir NPCs/quests, preservando a lista obrigatória. O [plano150](150-prioridade-eficiencia-limpeza-retencao-qa-2026-10-27.md) determina inventário, consolidação documental, retenção mínima por feature e remoção revisada de duplicatas/derivados após aceite. QA atual soma aproximadamente2,05GiB em8.616arquivos. Provas das regressões Senbon/Higashi permanecem até fechamento; não manter todos os brutos indefinidamente. Limpeza do checkout e redução do histórico Git são operações distintas. Nenhum arquivo removido nesta rodada.
+
+# Estado do combate em27/10
+
+[Documento por assunto](estado-combate-senbon-higashi.md): correções de coreografia Senbon/Higashi feitas e testadas pelo Codex; matriz do renderer fundamenta nova regressão.151regressões/237GameTests e11cenários gráficos finais. Itens2/4 aguardam aceite artístico do usuário; nenhuma baixa automática de feature. Demais itens obrigatórios, eficiência e NPCs/quests posteriores preservados.
+
+# Priorização aprovada em27/10 — duas novas frentes em planejamento
+
+Hyōrinmaru concluída, fora do trabalho pendente. Uryū começará pelo arqueiro tradicional; TYBW posteriormente, conforme escolha explícita. [Plano Uryū](plano-uryu-arqueiro-tradicional.md) e [substituição selada Benihime](plano-benihime-substituicao-selada.md) preparam duas conversas Antigravity. Slots e Hadō91 ainda são propostas; nenhuma branch/código/prompt executivo despachado nesta rodada. Higashi/Senbon continuam aguardando teste do usuário, eficiência permanece transversal, Mentor/Proficiências aguardam equipe e NPCs/quests seguem na etapa posterior.

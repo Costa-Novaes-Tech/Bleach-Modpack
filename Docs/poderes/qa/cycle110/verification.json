@@ -1,0 +1,41 @@
+{
+  "date": "2026-10-26",
+  "branch": "Feature-Poderes-bankais",
+  "base": "77211b3",
+  "jar": {
+    "path": "build/libs/bleachmod-0.2.0.jar",
+    "sha256": "9dee56d3fa931aebb9e6e45b0a41940d068135e0c2db43177578ec460deb6c03"
+  },
+  "checkBuild": {
+    "exit": 0,
+    "regressions": 147,
+    "seconds": 18
+  },
+  "gameTests": {
+    "exit": 0,
+    "requiredPassed": 231,
+    "seconds": 110
+  },
+  "client": {
+    "scenarios": 9,
+    "curatedSourceFrames": 432,
+    "runs": "See captures.json; 40s long from second run, seven compact/cancel cases from first, kit from last. Peaceful soldier proof retained separately.",
+    "capture": "Actual framebuffer screenshots at real timestamps, mostly 10-tick intervals. No continuous video or auditory certification."
+  },
+  "audio": {
+    "voiceAssetsUnchanged": true,
+    "score": "Original procedural 40s/18s scores. Long peak -9.0dBFS before runtime gain/ducking."
+  },
+  "iterations": [
+    "Rainy saved GameTest world extinguished fire; target damaged to71.63HP, fire0. Covered fixture and kept weather rules.",
+    "100-Reiatsu QA reserve ran out before40s. Free-cost QA mode only for long/kit captures.",
+    "Peaceful QA removed vanilla hostile soldiers. Owned ephemeral subclass now persists in Peaceful; verified ten IDs and visible bodies.",
+    "QA camera rotation/army occlusion corrected; isolated C capture after army cleanup."
+  ],
+  "limits": [
+    "Human audio/artistic approval pending.",
+    "No two-client, Photon or arbitrary obstacle navigation validation.",
+    "Gameplay release60/commit40 and form drain remain; insufficient energy or interruption can end the presentation.",
+    "No commit or push."
+  ]
+}

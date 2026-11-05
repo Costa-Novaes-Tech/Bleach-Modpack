@@ -1,0 +1,34 @@
+{
+  "date": "2026-10-25",
+  "branch": "Feature-Poderes-bankais",
+  "integrationHead": "e6bef95",
+  "sources": {
+    "origin/main": "26b73b3",
+    "codex/design-poderes-criaturas": "c130a5a",
+    "codex/ryujin-bankai-sol-selamento": "1a30f87"
+  },
+  "mergesInOrder": [
+    "56321c5",
+    "9bdcdc1",
+    "e6bef95"
+  ],
+  "textualConflicts": false,
+  "checkBuild": {
+    "exitCode": 0,
+    "regressionScenarios": 147,
+    "seconds": 32
+  },
+  "gameTests": {
+    "exitCode": 0,
+    "requiredPassed": 229,
+    "seconds": 61
+  },
+  "clientRerun": false,
+  "photonRerun": false,
+  "multiplayerRerun": false,
+  "jar": {
+    "path": "build/libs/bleachmod-0.2.0.jar",
+    "sha256": "ad808800c420b54c31e3ed77e5d121a4e1b59ffb3fe611aaea3573debf4110ed"
+  },
+  "cleanupExecuted": false
+}

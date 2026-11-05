@@ -7,7 +7,6 @@ import net.minecraftforge.fml.util.thread.EffectiveSide;
 import java.io.IOException;
 import java.nio.file.*;
 import java.util.*;
-import java.util.stream.Stream;
 
 public final class QuestRegistry {
     public record Snapshot(Map<String,Saga> sagas, Map<String,Quest> quests, Map<String,List<String>> order) {}
@@ -17,20 +16,35 @@ public final class QuestRegistry {
     private static Snapshot state() { return EffectiveSide.get().isServer() ? serverState : clientState; }
     public static Snapshot prepare(MinecraftServer server) throws IOException {
         Path root=server.getWorldPath(LevelResource.ROOT).resolve(Reference.MOD_ID).toAbsolutePath().normalize();
+        return prepare(root);
+    }
+    /** Only the authored campaign is active, including in saves with obsolete quest JSONs. */
+    public static Snapshot prepare(Path root) throws IOException {
         Files.createDirectories(root.resolve("sagas"));
         Files.createDirectories(root.resolve("quests"));
         Files.createDirectories(root.resolve("sidequests"));
         QuestDefaults.writeIfMissing(root);
         JsonArray sagas=new JsonArray(), quests=new JsonArray();
-        for(Path path:files(root.resolve("sagas"))) {
+        JsonObject catalog = StoryQuestDefaults.bundled();
+        for(var entry : catalog.getAsJsonArray("sagas")) {
+            String sagaId = entry.getAsJsonObject().get("id").getAsString();
+            Path path = root.resolve("sagas").resolve(sagaId + ".json");
             JsonObject json=read(path);
             Saga saga=Saga.fromJson(json);
+            if (!sagaId.equals(saga.getId())) throw new IOException("Unexpected campaign saga: " + path);
             Path folder=root.resolve("quests").resolve(saga.getQuestFolder()).normalize();
             if(!folder.startsWith(root.resolve("quests"))) throw new IOException("Invalid questFolder: "+path);
             sagas.add(json);
-            for(Path q:files(folder)) { JsonObject obj=read(q); obj.addProperty("sagaId",saga.getId()); quests.add(obj); }
+            for(var questEntry : catalog.getAsJsonArray("quests")) {
+                JsonObject expected = questEntry.getAsJsonObject();
+                if (!sagaId.equals(expected.get("sagaId").getAsString())) continue;
+                JsonObject obj = read(folder.resolve(String.format("%02d.json", expected.get("id").getAsInt())));
+                if (!obj.has("story") || !obj.getAsJsonObject("story").get("id").equals(expected.getAsJsonObject("story").get("id"))
+                        || obj.get("id").getAsInt() != expected.get("id").getAsInt())
+                    throw new IOException("Unexpected campaign quest: " + expected.get("id"));
+                obj.addProperty("sagaId",sagaId); quests.add(obj);
+            }
         }
-        for(Path path:files(root.resolve("sidequests"))) quests.add(read(path));
         return parse(sagas.toString(),quests.toString());
     }
     private static JsonObject read(Path path) throws IOException {
@@ -38,14 +52,6 @@ public final class QuestRegistry {
             if(Files.size(path)>262144) throw new IllegalArgumentException("File exceeds 256 KiB");
             return JsonParser.parseString(Files.readString(path)).getAsJsonObject();
         } catch(Exception e) { throw new IOException(path+": "+e.getMessage(),e); }
-    }
-    private static List<Path> files(Path folder) throws IOException {
-        if(!Files.isDirectory(folder)) return List.of();
-        try(Stream<Path> paths=Files.walk(folder)) {
-            List<Path> result=paths.filter(Files::isRegularFile).filter(p->p.toString().endsWith(".json")).sorted().toList();
-            if(result.size()>128) throw new IOException("Too many files: "+folder);
-            return result;
-        }
     }
     public static Snapshot parse(String sagasJson,String questsJson) {
         Map<String,Saga> sagas=new LinkedHashMap<>();
@@ -58,6 +64,7 @@ public final class QuestRegistry {
         for(JsonElement el:JsonParser.parseString(questsJson).getAsJsonArray()) {
             JsonObject obj=el.getAsJsonObject();
             Quest q=QuestParser.parseQuest(obj,obj.has("sagaId")?obj.get("sagaId").getAsString():null);
+            if (isRetiredRukiaQuest(q)) continue;
             requireId(q.getQuestKey());
             if(q.getType()==QuestType.SAGA&&!sagas.containsKey(q.getSagaId())) throw new IllegalArgumentException("Missing saga: "+q.getQuestKey());
             if(quests.putIfAbsent(q.getQuestKey(),q)!=null) throw new IllegalArgumentException("Duplicate quest "+q.getQuestKey());
@@ -73,6 +80,15 @@ public final class QuestRegistry {
                 if(current==null||!order.containsKey(previous)) throw new IllegalArgumentException("Missing previous saga: "+previous);
             }
         }
+        Set<String> storyIds = new HashSet<>();
+        for (Quest q : quests.values()) if (q.isStory()) {
+            if (!storyIds.add(q.getStory().id())) throw new IllegalArgumentException("Duplicate story id: " + q.getStory().id());
+            if (q.getStory().startMode() == StoryQuestInfo.StartMode.NPC && q.getQuestGiver().isBlank())
+                throw new IllegalArgumentException("NPC-started story needs a giver: " + q.getQuestKey());
+        }
+        for (Saga saga : sagas.values()) if (!saga.getCompletionQuest().isBlank()
+                && (!quests.containsKey(saga.getCompletionQuest()) || !saga.getId().equals(quests.get(saga.getCompletionQuest()).getSagaId())))
+            throw new IllegalArgumentException("Invalid saga completion milestone: " + saga.getId());
         for(Quest q:quests.values()) for(var c:q.getPrerequisites().getConditions()) {
             String key=switch(c.type()) { case QUEST->c.questKey(); case SAGA_QUEST->c.sagaId()+":"+c.questId(); default->null; };
             if((c.type()==QuestPrerequisites.ConditionType.QUEST||c.type()==QuestPrerequisites.ConditionType.SAGA_QUEST)
@@ -80,10 +96,42 @@ public final class QuestRegistry {
                 throw new IllegalArgumentException("Invalid prerequisite: "+q.getQuestKey());
         }
         order.replaceAll((k,v)->v.stream().sorted(Comparator.comparingInt(id->quests.get(id).getNumericId())).toList());
+        Map<String, Set<String>> dependencies = new HashMap<>();
+        for (Quest q : quests.values()) {
+            Set<String> required = new HashSet<>();
+            for (var c : q.getPrerequisites().getConditions()) {
+                if (c.type() == QuestPrerequisites.ConditionType.QUEST) required.add(c.questKey());
+                if (c.type() == QuestPrerequisites.ConditionType.SAGA_QUEST) required.add(c.sagaId() + ":" + c.questId());
+            }
+            if (q.getType() == QuestType.SAGA) {
+                var sequence = order.get(q.getSagaId()); int index = sequence.indexOf(q.getQuestKey());
+                if (index > 0) required.add(sequence.get(index - 1));
+                Saga saga = sagas.get(q.getSagaId());
+                if (!saga.getPreviousSaga().isBlank()) {
+                    Saga previous = sagas.get(saga.getPreviousSaga());
+                    if (!previous.getCompletionQuest().isBlank()) required.add(previous.getCompletionQuest());
+                    else required.addAll(order.getOrDefault(saga.getPreviousSaga(), List.of()));
+                }
+            }
+            dependencies.put(q.getQuestKey(), required);
+        }
+        Set<String> done = new HashSet<>();
+        for (String key : quests.keySet()) validateDependencies(key, dependencies, new HashSet<>(), done);
         return new Snapshot(Collections.unmodifiableMap(sagas),Collections.unmodifiableMap(quests),Collections.unmodifiableMap(order));
+    }
+    private static void validateDependencies(String key, Map<String, Set<String>> dependencies, Set<String> active, Set<String> done) {
+        if (done.contains(key)) return;
+        if (!active.add(key)) throw new IllegalArgumentException("Quest dependency cycle: " + key);
+        for (String parent : dependencies.getOrDefault(key, Set.of())) validateDependencies(parent, dependencies, active, done);
+        active.remove(key); done.add(key);
     }
     private static void requireId(String id) {
         if(id==null||!id.matches("[a-z0-9_:/.-]{1,128}")) throw new IllegalArgumentException("Invalid id: "+id);
+    }
+    /** Retire from both old saves and fresh catalogs without deleting authored JSON or player history. */
+    public static boolean isRetiredRukiaQuest(Quest quest) {
+        // Explicit legacy IDs leave room for newly authored Rukia quests later on.
+        return "rukia_basic_training".equals(quest.getQuestKey());
     }
     public static void installServer(Snapshot snapshot) { serverState=snapshot; }
     public static void loadAll(MinecraftServer server) {
@@ -104,7 +152,8 @@ public final class QuestRegistry {
     public static Collection<Quest> allQuests() { return state().quests().values(); }
     public static List<Quest> questsForNpc(String npcId) {
         if (npcId == null || npcId.isBlank()) return List.of();
-        return state().quests().values().stream().filter(q -> npcId.equals(q.getQuestGiver())).toList();
+        return state().quests().values().stream().filter(q -> npcId.equals(q.getQuestGiver())
+                || ("rukia".equals(npcId) && RukiaOpeningQuest.isOpening(q))).toList();
     }
     public static Collection<Saga> allSagas() { return state().sagas().values(); }
     public static List<String> sagaQuestKeys(String id) { return state().order().getOrDefault(id,List.of()); }

@@ -100,7 +100,9 @@ public class ClientForgeEvents {
             NetworkHandler.sendToServer(new ExecuteTechniqueSlotC2S(2));
         }
         while (ModKeybinds.TECHNIQUE_SLOT_3.consumeClick()) {
-            NetworkHandler.sendToServer(new ExecuteTechniqueSlotC2S(3));
+            int forward = (mc.options.keyUp.isDown() ? 1 : 0) - (mc.options.keyDown.isDown() ? 1 : 0);
+            int left = (mc.options.keyLeft.isDown() ? 1 : 0) - (mc.options.keyRight.isDown() ? 1 : 0);
+            NetworkHandler.sendToServer(new ExecuteTechniqueSlotC2S(3, forward, left));
         }
         while (ModKeybinds.TECHNIQUE_SLOT_4.consumeClick()) {
             NetworkHandler.sendToServer(new ExecuteTechniqueSlotC2S(4));
@@ -137,6 +139,9 @@ public class ClientForgeEvents {
             return;
         }
         PlayerCapability.get(mc.player).ifPresent(data -> {
+            if(com.bleachmod.common.quincy.QuincyTechniqueService.isQuincy(data)){
+                NetworkHandler.sendToServer(new ExecuteActionC2S(ExecuteActionC2S.ActionType.QUINCY_VOLLSTANDIG));return;
+            }
             String group = data.getCharacter().getSelectedFormGroup().isEmpty()
                     ? Reference.GROUP_ZANPAKUTO : data.getCharacter().getSelectedFormGroup();
             List<String> names = TransformationsHelper.getSelectableFormNames(data, group);

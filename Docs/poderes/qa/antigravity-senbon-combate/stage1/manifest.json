@@ -1,0 +1,134 @@
+[
+  {
+    "case": "01_combo_front",
+    "frame": "frame-t042.png",
+    "path": "stage1_01_combo_front_frame-t042.png",
+    "bytes": 162066
+  },
+  {
+    "case": "01_combo_front",
+    "frame": "frame-t044.png",
+    "path": "stage1_01_combo_front_frame-t044.png",
+    "bytes": 162956
+  },
+  {
+    "case": "01_combo_front",
+    "frame": "frame-t056.png",
+    "path": "stage1_01_combo_front_frame-t056.png",
+    "bytes": 168542
+  },
+  {
+    "case": "01_combo_front",
+    "frame": "frame-t064.png",
+    "path": "stage1_01_combo_front_frame-t064.png",
+    "bytes": 167398
+  },
+  {
+    "case": "01_combo_front",
+    "frame": "frame-t070.png",
+    "path": "stage1_01_combo_front_frame-t070.png",
+    "bytes": 168247
+  },
+  {
+    "case": "01_combo_front",
+    "frame": "frame-t076.png",
+    "path": "stage1_01_combo_front_frame-t076.png",
+    "bytes": 169557
+  },
+  {
+    "case": "02_combo_profile",
+    "frame": "frame-t038.png",
+    "path": "stage1_02_combo_profile_frame-t038.png",
+    "bytes": 247485
+  },
+  {
+    "case": "02_combo_profile",
+    "frame": "frame-t042.png",
+    "path": "stage1_02_combo_profile_frame-t042.png",
+    "bytes": 247189
+  },
+  {
+    "case": "02_combo_profile",
+    "frame": "frame-t044.png",
+    "path": "stage1_02_combo_profile_frame-t044.png",
+    "bytes": 247918
+  },
+  {
+    "case": "02_combo_profile",
+    "frame": "frame-t050.png",
+    "path": "stage1_02_combo_profile_frame-t050.png",
+    "bytes": 256485
+  },
+  {
+    "case": "02_combo_profile",
+    "frame": "frame-t056.png",
+    "path": "stage1_02_combo_profile_frame-t056.png",
+    "bytes": 255254
+  },
+  {
+    "case": "02_combo_profile",
+    "frame": "frame-t064.png",
+    "path": "stage1_02_combo_profile_frame-t064.png",
+    "bytes": 255506
+  },
+  {
+    "case": "02_combo_profile",
+    "frame": "frame-t070.png",
+    "path": "stage1_02_combo_profile_frame-t070.png",
+    "bytes": 254678
+  },
+  {
+    "case": "02_combo_profile",
+    "frame": "frame-t076.png",
+    "path": "stage1_02_combo_profile_frame-t076.png",
+    "bytes": 250959
+  },
+  {
+    "case": "03_combo_back",
+    "frame": "frame-t038.png",
+    "path": "stage1_03_combo_back_frame-t038.png",
+    "bytes": 185594
+  },
+  {
+    "case": "03_combo_back",
+    "frame": "frame-t042.png",
+    "path": "stage1_03_combo_back_frame-t042.png",
+    "bytes": 185824
+  },
+  {
+    "case": "03_combo_back",
+    "frame": "frame-t044.png",
+    "path": "stage1_03_combo_back_frame-t044.png",
+    "bytes": 184890
+  },
+  {
+    "case": "03_combo_back",
+    "frame": "frame-t050.png",
+    "path": "stage1_03_combo_back_frame-t050.png",
+    "bytes": 187889
+  },
+  {
+    "case": "03_combo_back",
+    "frame": "frame-t056.png",
+    "path": "stage1_03_combo_back_frame-t056.png",
+    "bytes": 192533
+  },
+  {
+    "case": "03_combo_back",
+    "frame": "frame-t064.png",
+    "path": "stage1_03_combo_back_frame-t064.png",
+    "bytes": 190304
+  },
+  {
+    "case": "03_combo_back",
+    "frame": "frame-t070.png",
+    "path": "stage1_03_combo_back_frame-t070.png",
+    "bytes": 190802
+  },
+  {
+    "case": "03_combo_back",
+    "frame": "frame-t076.png",
+    "path": "stage1_03_combo_back_frame-t076.png",
+    "bytes": 187942
+  }
+]

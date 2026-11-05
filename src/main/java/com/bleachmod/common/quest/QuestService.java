@@ -25,6 +25,10 @@ public final class QuestService {
     }
 
     public static void startQuest(ServerPlayer player, String questKey) {
+        startQuest(player, questKey, null);
+    }
+
+    public static void startQuest(ServerPlayer player, String questKey, com.bleachmod.entity.QuestNpcEntity giver) {
         PlayerData data = PlayerCapability.get(player).orElse(null);
         if (data == null) {
             return;
@@ -44,15 +48,31 @@ public final class QuestService {
             NetworkHandler.sendToPlayer(ActionFeedbackS2C.of(Component.translatable("message.bleachmod.quest.already_active")), player);
             return;
         }
-        if (status != QuestStatus.FAILED && !QuestAvailabilityChecker.isAvailable(data, questKey)) {
+        if ((status != QuestStatus.FAILED || quest.isStory()) && !QuestAvailabilityChecker.isAvailable(data, questKey)) {
             NetworkHandler.sendToPlayer(ActionFeedbackS2C.of(Component.translatable("message.bleachmod.quest.unavailable")), player);
             return;
+        }
+        if (quest.isStory() && !quest.getQuestGiver().isBlank() && (giver == null
+                || !giver.isAlive() || player.level() != giver.level()
+                || !QuestAvailabilityChecker.isOfferedBy(quest, giver) || player.distanceToSqr(giver) > 36)) {
+            player.displayClientMessage(Component.translatable("message.bleachmod.quest.npc_required"), false); return;
         }
         if (MinecraftForge.EVENT_BUS.post(new BleachEvents.QuestStartEvent(player, questKey, quest))) {
             return;
         }
         data.getPlayerQuestData().acceptQuest(questKey, quest);
-        spawnQuestMobs(player, questKey, quest);
+        if (giver != null && quest.getQuestGiver().equals(giver.getNpcId())) {
+            QuestNpcLocations.get(player.server).update(giver);
+            data.getPlayerQuestData().getProgress(questKey).setQuestGiverUuid(giver.getUUID());
+            if (quest.isStory() && quest.getStory().targetNpc().equals(giver.getNpcId())
+                    && quest.getStory().targetContext().equals(giver.getQuestContext()))
+                data.getPlayerQuestData().getProgress(questKey).setStoryTargetUuid(giver.getUUID());
+        }
+        com.bleachmod.server.events.QuestNavigationEvents.refresh(player);
+        if (quest.isStory()) {
+            if (quest.getStory().startMode() == StoryQuestInfo.StartMode.NPC || quest.getQuestGiver().isBlank())
+                StoryQuestService.begin(player, questKey);
+        } else spawnQuestMobs(player, questKey, quest);
         NetworkHandler.sendToPlayer(new StoryToastS2C(StoryToastS2C.ToastType.START, questKey, -1, 0, 0), player);
         SyncHelper.progression(player);
     }
@@ -116,13 +136,17 @@ public final class QuestService {
             if (quest.getObjectives().get(i) instanceof com.bleachmod.common.quest.objectives.ItemObjective item)
                 progress.setObjectiveProgress(i, Math.min(progress.getRequired(i, item.getRequired()), item.countInInventory(player)));
         }
-        if (!progress.allObjectivesComplete(quest)) {
+        if ((quest.isStory() && !progress.isEncounterStarted()) || !progress.allObjectivesComplete(quest)) {
             return;
         }
         if (MinecraftForge.EVENT_BUS.post(new BleachEvents.QuestCompletedEvent(player, questKey, quest))) {
             return;
         }
         data.getPlayerQuestData().completeQuest(questKey);
+        if (quest.isStory()) {
+            StoryQuestService.cleanup(player, questKey);
+            if (!quest.getStory().epilogue().isBlank()) player.displayClientMessage(Component.translatable(quest.getStory().epilogue()), false);
+        }
         NetworkHandler.sendToPlayer(new StoryToastS2C(StoryToastS2C.ToastType.COMPLETE, questKey, -1, 0, 0), player);
         SyncHelper.progression(player);
     }
@@ -135,6 +159,8 @@ public final class QuestService {
             return;
         }
         data.getPlayerQuestData().failQuest(questKey);
+        Quest failed = QuestRegistry.getQuest(questKey);
+        if (failed != null && failed.isStory()) StoryQuestService.cleanup(player, questKey);
         NetworkHandler.sendToPlayer(new StoryToastS2C(StoryToastS2C.ToastType.FAIL, questKey, -1, 0, 0), player);
         SyncHelper.progression(player);
     }
@@ -189,6 +215,7 @@ public final class QuestService {
     }
 
     public static boolean isObjectiveActive(Quest quest, QuestProgress progress, int index) {
+        if (quest.isStory() && !progress.isEncounterStarted()) return false;
         if (quest.isParallelObjectives()) {
             return true;
         }
