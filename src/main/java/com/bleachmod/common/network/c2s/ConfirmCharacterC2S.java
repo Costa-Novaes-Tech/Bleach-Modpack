@@ -2,11 +2,9 @@ package com.bleachmod.common.network.c2s;
 
 import com.bleachmod.Reference;
 import com.bleachmod.common.data.PlayerCapability;
-import com.bleachmod.init.ModItems;
 import com.bleachmod.common.network.SyncHelper;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.network.NetworkEvent;
 
 import java.util.function.Supplier;
@@ -37,12 +35,6 @@ public record ConfirmCharacterC2S(String race, net.minecraft.nbt.CompoundTag app
                 }
                 data.initializeShinigami();
                 com.bleachmod.common.appearance.AppearanceService.apply(player, data, msg.appearance);
-                ItemStack asauchi = new ItemStack(ModItems.ASAUCHI.get());
-                if (!player.getInventory().contains(asauchi)) {
-                    if (!player.getInventory().add(asauchi)) {
-                        player.drop(asauchi, false);
-                    }
-                }
                 SyncHelper.full(player);
             });
         });

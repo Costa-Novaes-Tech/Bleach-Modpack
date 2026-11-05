@@ -46,7 +46,7 @@
 
     {"id": "flame_left", "type": "image", "texture": "ui/corner_flame_left.png", "pos": [12, 410]},
     {"id": "flame_right", "type": "image", "texture": "ui/corner_flame_right.png", "pos": [856, 410]},
-    {"id": "start", "type": "button", "texture": "ui/button_wide.png", "states": ["normal", "hover", "pressed", "disabled"], "pos": [58, 442], "enabled_if": "can_start", "action": "start", "translate": "screen.bleachmod.journal.start"},
+    {"id": "start", "type": "button", "texture": "ui/button_wide.png", "states": ["normal", "hover", "pressed", "disabled"], "pos": [58, 442], "enabled_if": "can_start", "action": "start", "text": "{start_label}"},
     {"id": "claim", "type": "button", "texture": "ui/button_wide.png", "states": ["normal", "hover", "pressed", "disabled"], "pos": [260, 442], "enabled_if": "can_claim", "action": "claim", "translate": "screen.bleachmod.journal.claim"},
     {"id": "track", "type": "button", "texture": "ui/button_wide.png", "states": ["normal", "hover", "pressed", "disabled"], "pos": [464, 442], "enabled_if": "can_track", "action": "track", "text": "{track_label}"},
     {"id": "character", "type": "button", "texture": "ui/button_wide.png", "states": ["normal", "hover", "pressed", "disabled"], "pos": [669, 442], "action": "character", "translate": "screen.bleachmod.status"}

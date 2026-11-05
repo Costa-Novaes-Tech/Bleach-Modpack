@@ -1,5 +1,7 @@
 package com.bleachmod.gametest;
 
+import com.bleachmod.common.technique.SenbonPolicy;
+
 import com.bleachmod.common.data.*;
 import com.bleachmod.common.technique.*;
 import com.bleachmod.init.ModItems;
@@ -104,15 +106,15 @@ public final class SenbonGameTests {
             h.assertTrue(!SenbonzakuraTechniqueService.executeSlot(p,d,3),"Ikka bypassed cooldown twice");done(h,p,t);});
     }
     @GameTest(template="empty",batch="senbon_6",timeoutTicks=60)
-    public static void hakuteikenChargesThenHitsAndRestoresBlade(GameTestHelper h) {
+    public static void hakuteikenChargesThenHitsAndEntersWhiteBladeForm(GameTestHelper h) {
         var p=player(h,"bankai");var t=target(h,p,0,11);var beyond=target(h,p,0,17);ticks(h,p);Vec3 start=p.position();
         SenbonzakuraTechniqueService.executeSlot(p,data(p),4);
         h.runAfterDelay(5,()->{h.assertTrue(t.getHealth()==1000,"Hakuteiken skipped windup");
             h.assertTrue(data(p).getCharacter().getSenbonBlade()==2,"White blade appearance missing");});
-        h.runAfterDelay(32,()->{h.assertTrue(t.getHealth()<1000,"Hakuteiken missed forward target");
+        h.runAfterDelay(SenbonPolicy.HAKU_WINDUP + SenbonPolicy.HAKU_DASH_TICKS + 2,()->{h.assertTrue(t.getHealth()<1000,"Hakuteiken missed forward target");
             h.assertTrue(beyond.getHealth()==1000,"Hakuteiken exceeded sixteen-block reach");
             h.assertTrue(Math.abs(p.position().subtract(start).z-16)<.001,"Player did not follow the sixteen-block thrust");
-            h.assertTrue(data(p).getCharacter().getSenbonBlade()==0,"White blade did not expire");done(h,p,t,beyond);});
+            h.assertTrue(data(p).getCharacter().getSenbonBlade()==2 && SenbonzakuraTechniqueService.hakuteiken(p),"White blade form did not persist after impact");done(h,p,t,beyond);});
     }
     private static void loadField(GameTestHelper h,FakePlayer p) {
         for(int x=-3;x<=3;x++)for(int z=-3;z<=3;z++)h.getLevel().getChunkAt(p.blockPosition().offset(x*16,0,z*16));
@@ -232,7 +234,7 @@ public final class SenbonGameTests {
         h.onEachTick(()->{for(int i=0;i<3;i++){float hp=tracked.get(i).getHealth();if(hp<before[i])hits[i]++;before[i]=hp;}});
         SenbonzakuraTechniqueService.executeSlot(p,data(p),4);
         h.runAfterDelay(18,()->h.assertTrue(far.getHealth()==1000,"Dash damaged the end of the path before reaching it"));
-        h.runAfterDelay(34,()->{h.assertTrue(hits[0]==1 && hits[1]==1 && hits[2]==1,"Dash did not hit every path target exactly once");
+        h.runAfterDelay(SenbonPolicy.HAKU_WINDUP + SenbonPolicy.HAKU_DASH_TICKS + 2,()->{h.assertTrue(hits[0]==1 && hits[1]==1 && hits[2]==1,"Dash did not hit every path target exactly once");
             h.assertTrue(side.getHealth()==1000,"Dash hit outside its corridor");done(h,p,near,middle,far,side);});
     }
     @GameTest(template="empty",batch="senbon_dash_wall",timeoutTicks=60)
