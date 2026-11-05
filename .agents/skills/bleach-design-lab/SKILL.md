@@ -42,3 +42,13 @@ MCP `bleach-design-runtime`: start_design_task(mode=Check|GameTests|ClientQa) e 
    - Acoplar `ComputeFovModifierEvent` para efeitos de punch/recuo em impactos e letterbox bars para apresentação 21:9.
 4. **Sincronização PlayerAnimator + GeckoLib**:
    - A postura de combate (Stance) do jogador deve utilizar máscara parcial de ossos (Bone Masking) mantendo pernas livres para locomoção, enquanto o GeckoLib executa o ciclo respiratório/flutuante das asas alinhado ao torso.
+
+## Inspeção Frame a Frame de Vídeo e Aprendizagem com Erros (Atualização 04/11/2026)
+1. **Pipeline de Ingestão de Vídeo**:
+   - Vídeos de testes enviados pelo usuário (`.mp4`, `.webm`, `.mkv` de OBS, Xbox Game Bar ou upload) são inspecionados via `tools/scripts/video_inspector.py`.
+   - Extração automática de frames a 2-10 FPS com registro de timestamp no nome de cada frame (`frame_001_00.50s.png`).
+   - Geração de Storyboards (folhas de contato / contact sheets em grade) com carimbo de tempo para visualização de arcos de movimento completos em uma única imagem.
+2. **Matriz de Aprendizagem de Erros Visuais**:
+   - Cada defeito visual identificado (ex: "leque de varetas", "vão dorsal", "assimetria coronal", "kissaki desalinhado", "clipping de pernas") deve ser registrado com sua causa matemática/geométrica no script de modelagem procedural ou no renderizador Java.
+   - Antes de dar uma alteração como concluída, comparar os frames antes/depois sob critérios estritos de sobreposição de malha, alinhamento esquelético e silhueta em jogo.
+

@@ -38,27 +38,30 @@ def generate_angel_wing_texture() -> str:
     img = Image.new("RGBA", (width, height), (255, 255, 255, 0))
     px = img.load()
 
-    # Region A (x=0..63, y=0..63): Primary Flight Feathers (Luminous celestial white -> crystalline sakura tip)
+    # Region A (x=0..63, y=0..63): Primary Flight Feathers & Halo
+    # Luminous celestial white core (#ffffff) with delicate crystalline sakura tip at the bottom 25%
     for y in range(0, 64):
-        t = y / 63.0
+        t = y / 63.0  # 0.0 at root/top, 1.0 at feather tip
         for x in range(0, 64):
             u = x / 63.0
+            edge = 1.0 - math.sin(u * math.pi) * 0.06
+            # Pure white for upper 75%, soft ethereal sakura glow for bottom 25%
+            tip_pink = max(0.0, (t - 0.70) / 0.30)
             r = 255
-            # Gentle edge shading and feather barb highlights
-            edge = 1.0 - math.sin(u * math.pi) * 0.15
-            g = int((255 - 26 * (t ** 1.2)) * edge)
-            b = int((255 - 12 * (t ** 1.2)) * edge)
+            g = int((255 - 42 * (tip_pink ** 1.3)) * edge)
+            b = int((255 - 24 * (tip_pink ** 1.3)) * edge)
             px[x, y] = (r, g, b, 255)
 
-    # Region B (x=64..127, y=0..63): Covert Plumage & Scapular Harness (Rich sakura #ffa3c8 -> white core)
+    # Region B (x=64..127, y=0..63): Covert Plumage, Scapular Harness & Celestial Halo
+    # Brilliant radiant white reishi (#ffffff -> #fff8fb) with spiritual luminescence
     for y in range(0, 64):
         t = y / 63.0
         for x in range(64, 128):
             u = (x - 64) / 63.0
-            s = math.sin(u * math.pi) * (1.0 - t * 0.35)
+            s = math.sin(u * math.pi) * (1.0 - t * 0.20)
             r = 255
-            g = int(224 + 28 * (1.0 - s))
-            b = int(238 + 14 * (1.0 - s))
+            g = int(248 + 7 * (1.0 - s))
+            b = int(252 + 3 * (1.0 - s))
             px[x, y] = (r, g, b, 255)
 
     # Region C (x=0..63, y=64..127): 3D Glowing Sakura Petals (#ff75a4 -> #ffd8e6)
@@ -73,14 +76,10 @@ def generate_angel_wing_texture() -> str:
             b = int(185 + 55 * (1.0 - s))
             px[x, y] = (r, g, b, 254)
 
-    # Region D (x=64..127, y=64..127): Pure Luminous Reishi Nexus Core (#ffffff -> #fff0f6)
+    # Region D (x=64..127, y=64..127): Pure Luminous Reishi Core (#ffffff)
     for y in range(64, 128):
-        t = (y - 64) / 63.0
         for x in range(64, 128):
-            r = 255
-            g = int(248 + 7 * (1.0 - t))
-            b = int(252 + 3 * (1.0 - t))
-            px[x, y] = (r, g, b, 255)
+            px[x, y] = (255, 255, 255, 255)
 
     # Captain Mannequin preview colors (y=128..255)
     draw = ImageDraw.Draw(img)
@@ -100,7 +99,6 @@ def generate_angel_wing_texture() -> str:
     img.save(buf, format="PNG")
     b64 = base64.b64encode(buf.getvalue()).decode("ascii")
     return f"data:image/png;base64,{b64}"
-
 
 def make_cube(name: str, frm, to, origin, rotation, uv_box):
     u0, v0, u1, v1 = uv_box
@@ -148,64 +146,96 @@ def build_elements_and_outliner():
     UV_ZAN_WHITE = [68, 196, 92, 250]
 
     # =========================================================================
-    # 1. ELYTRA-STYLE SCAPULAR DORSAL CREST (wing_nexus)
-    # Physically unified with the player's dorsal spine (Z = 2.02..2.16):
-    # - Sleek luminous reishi spine plate flush against back of torso with ZERO air gap.
-    # - No chunky neck blocks or shoulder box pads: pure angelic spiritual emergence!
+    # 1. CELESTIAL REISHI HALO & ELYTRA-STYLE SCAPULAR HARNESS (wing_nexus)
+    # Physically unified with the player's dorsal spine (Z = 2.02..2.28):
+    # - Iconic 12-segment Celestial Reishi Halo (radius 6.8 units) hovering behind upper spine/neck!
+    # - Central sleek spine plate flush against back of torso with ZERO air gap.
+    # - Scapular mantle plates embracing the shoulder blades, completely closing the center void!
+    # - Dorsal mantle plumage blanket covering the entire back down to the waist.
     # =========================================================================
-    # Central sleek spine plate (flush against the back at Z = 2.02..2.16, Y = 16.0..22.5)
+
+    # A. 12-Segment Radiant Celestial Halo centered at [0, 23.5, 2.25]
+    halo_radius = 6.8
+    halo_thick_r = 1.15
+    halo_depth_z = 0.55
+    for k in range(12):
+        theta = k * (2.0 * math.pi / 12.0)
+        cx = halo_radius * math.sin(theta)
+        cy = 23.5 + halo_radius * math.cos(theta)
+        cz = 2.25
+        seg_len = 2.0 * halo_radius * math.sin(math.pi / 12.0) + 0.65
+        seg_deg = -math.degrees(theta)
+        frm = [cx - seg_len / 2.0, cy - halo_thick_r / 2.0, cz - halo_depth_z / 2.0]
+        to = [cx + seg_len / 2.0, cy + halo_thick_r / 2.0, cz + halo_depth_z / 2.0]
+        add_to_group("wing_nexus", make_cube(
+            f"halo_seg_{k+1}", frm, to, [cx, cy, cz], [0, 0, seg_deg], UV_CORE
+        ))
+
+    # B. Central Sleek Spine Plate (flush against the back at Z = 2.02..2.16, Y = 13.0..24.0)
     add_to_group("wing_nexus", make_cube(
-        "nexus_spinal_crest", [-1.0, 16.0, 2.02], [1.0, 22.5, 2.16],
+        "nexus_spinal_crest", [-1.2, 13.0, 2.02], [1.2, 23.8, 2.16],
         [0, 21.0, 2.05], [0, 0, 0], UV_CORE
     ))
-    # Sleek dorsal scapular plates (flushing onto shoulder blade roots under the wings)
+
+    # C. Scapular Harness Plates embracing the shoulder blades (X = ±1.0..±3.8, Y = 16.5..23.2)
     add_to_group("wing_nexus", make_cube(
-        "nexus_scapula_l", [-2.8, 18.5, 2.04], [-0.8, 22.0, 2.16],
-        [-1.8, 21.0, 2.05], [0, 0, -4], UV_COVERT
+        "nexus_scapula_l", [-3.8, 16.5, 2.04], [-1.0, 23.2, 2.16],
+        [-2.4, 21.0, 2.05], [0, 0, -3.5], UV_COVERT
     ))
     add_to_group("wing_nexus", make_cube(
-        "nexus_scapula_r", [0.8, 18.5, 2.04], [2.8, 22.0, 2.16],
-        [1.8, 21.0, 2.05], [0, 0, 4], UV_COVERT
+        "nexus_scapula_r", [1.0, 16.5, 2.04], [3.8, 23.2, 2.16],
+        [2.4, 21.0, 2.05], [0, 0, 3.5], UV_COVERT
+    ))
+
+    # D. Dorsal Mantle Plumage filling the back space below the halo down to waist (Y = 12.0..18.0)
+    # This completely eliminates any empty void behind the player!
+    add_to_group("wing_nexus", make_cube(
+        "nexus_mantle_center", [-2.8, 12.0, 2.06], [2.8, 17.5, 2.18],
+        [0, 15.0, 2.10], [0, 0, 0], UV_PRIMARY
     ))
 
     # =========================================================================
     # 2. VOLUMETRIC ANGELIC WINGS (Symmetric Left [-X] and Right [+X])
     # 3D Depth Curve in Z:
-    # - Starts at scapula: x = 1.8, y = 21.2, z = 2.05 (FLUSH on back of torso!)
-    # - Arches up and curves back: crest at x = 13.0, y = 33.2, z = 3.35 (3D volume)
-    # - Glides outward and wraps gently forward: tip at x = 22.0, y = 29.2, z = 2.35
+    # - Starts at scapula: x = 1.8, y = 21.5, z = 2.05 (FLUSH on back of torso!)
+    # - Arches up and curves back: crest at x = 14.5, y = 34.0, z = 3.35 (3D volume)
+    # - Glides outward and sweeps gracefully down: tip at x = 23.0, y = 30.2, z = 2.68
+    # Strict bone boundaries:
+    #   root: u in [0.00, 0.38] (X: 1.8..9.85,  pivot [±1.8, 21.5, 2.05])
+    #   mid:  u in [0.38, 0.68] (X: 9.85..16.2, pivot [±9.85, 32.7, 3.24])
+    #   tip:  u in [0.68, 1.00] (X: 16.2..23.0, pivot [±16.2, 35.4, 3.41])
     # =========================================================================
     def arch_curve(u: float):
-        x_abs = 1.8 + 20.2 * u
-        y = 21.2 + 12.0 * math.sin(u * math.pi * 0.62) + 0.6 * (u ** 1.8)
-        # Smooth concave cradle in Z:
-        z = 2.05 + 1.30 * math.sin(u * math.pi * 0.82)
+        x_abs = 1.8 + 21.2 * u
+        y = 21.5 + 15.5 * math.sin(u * math.pi * 0.72) - 3.2 * (u ** 1.8)
+        z = 2.05 + 1.40 * math.sin(u * math.pi * 0.85)
         return x_abs, y, z
 
-    def add_curved_feather(group_name, lbl, px, py, pz, wx, total_len, wz, rz_base, curve_extra, s):
-        """Creates an organic, curved feather with 2 articulated segments:
-        - Upper shaft/vane: length = 65% of total, rotated at rz_base
-        - Sweeping tip: length = 35% of total, curved outward by curve_extra, with tapered width!
-        Eliminates the straight bicycle spoke look AND the 90-deg Lego step!"""
-        len1 = total_len * 0.65
-        len2 = total_len * 0.35
+    def add_curved_feather(group_name, lbl, px, py, pz, wx, total_len, wz, rz_base, curve_extra, s, z_stagger=0.0):
+        """Creates an organic, curved feather with 2 articulated planar blade segments:
+        - Upper shaft/vane: length = 60% of total, rotated at rz_base
+        - Sweeping tip: length = 40% of total, curved outward by curve_extra, with tapered width!
+        - Z-staggering creates dense overlapping plumage with ZERO air gaps and no z-fighting!"""
+        len1 = total_len * 0.60
+        len2 = total_len * 0.40
         rz1 = rz_base * s
         rz2 = (rz_base + curve_extra) * s
+        actual_pz = pz + z_stagger
 
-        # Upper vane
-        frm1 = [px - wx / 2.0, py - len1, pz - wz / 2.0]
-        to1 = [px + wx / 2.0, py, pz + wz / 2.0]
-        add_to_group(group_name, make_cube(f"{lbl}_vane", frm1, to1, [px, py, pz], [0.0, 0.0, rz1], UV_PRIMARY))
+        # Upper vane: wide planar reishi blade
+        frm1 = [px - wx / 2.0, py - len1, actual_pz - wz / 2.0]
+        to1 = [px + wx / 2.0, py, actual_pz + wz / 2.0]
+        add_to_group(group_name, make_cube(f"{lbl}_vane", frm1, to1, [px, py, actual_pz], [0.0, 0.0, rz1], UV_PRIMARY))
 
         # Tip pivot is at the bottom of the upper vane:
         rad1 = math.radians(rz1)
         tip_px = px + len1 * math.sin(rad1)
         tip_py = py - len1 * math.cos(rad1)
-        tip_wx = wx * 0.65
-        tip_wz = wz * 0.70
-        frm2 = [tip_px - tip_wx / 2.0, tip_py - len2, pz - tip_wz / 2.0]
-        to2 = [tip_px + tip_wx / 2.0, tip_py, pz + tip_wz / 2.0]
-        add_to_group(group_name, make_cube(f"{lbl}_tip", frm2, to2, [tip_px, tip_py, pz], [0.0, 0.0, rz2], UV_PRIMARY))
+        tip_wx = wx * 0.72
+        tip_wz = wz * 0.80
+        frm2 = [tip_px - tip_wx / 2.0, tip_py - len2, actual_pz - tip_wz / 2.0]
+        to2 = [tip_px + tip_wx / 2.0, tip_py, actual_pz + tip_wz / 2.0]
+        add_to_group(group_name, make_cube(f"{lbl}_tip", frm2, to2, [tip_px, tip_py, actual_pz], [0.0, 0.0, rz2], UV_PRIMARY))
 
     for side_name, s in (("left", -1.0), ("right", 1.0)):
         b_root = f"wing_{side_name}_root"
@@ -213,18 +243,17 @@ def build_elements_and_outliner():
         b_tip = f"wing_{side_name}_tip"
         b_feathers = f"wing_{side_name}_feathers"
 
-        # --- A. SCAPULAR SHOULDER & RISING ARCH (wing_*_root, pivot [±1.8, 21.2, 2.05]) ---
+        # --- A. SCAPULAR SHOULDER & RISING ARCH (wing_*_root, u: 0.00..0.38, pivot [±1.8, 21.5, 2.05]) ---
         root_arch_steps = [
-            ("arch_seg_1", 0.00, 0.18, 1.65, 1.45),
-            ("arch_seg_2", 0.16, 0.34, 1.55, 1.35),
-            ("arch_seg_3", 0.32, 0.49, 1.45, 1.25),
+            ("arch_seg_1", 0.00, 0.18, 1.70, 1.45),
+            ("arch_seg_2", 0.16, 0.38, 1.60, 1.35),
         ]
         for lbl, u0, u1, thick_y, thick_z in root_arch_steps:
             x0, y0, z0 = arch_curve(u0)
             x1, y1, z1 = arch_curve(u1)
             cx, cy, cz = 0.5 * (x0 + x1) * s, 0.5 * (y0 + y1), 0.5 * (z0 + z1)
             dx, dy = (x1 - x0), (y1 - y0)
-            seg_len = math.hypot(dx, dy) + 0.95
+            seg_len = math.hypot(dx, dy) + 1.1
             tilt_deg = math.degrees(math.atan2(dy, dx))
             frm = [cx - seg_len / 2.0, cy - thick_y / 2.0, cz - thick_z / 2.0]
             to = [cx + seg_len / 2.0, cy + thick_y / 2.0, cz + thick_z / 2.0]
@@ -232,28 +261,29 @@ def build_elements_and_outliner():
                 f"{b_root}_{lbl}", frm, to, [cx, cy, cz], [0.0, 0.0, tilt_deg * s], UV_CORE
             ))
 
-        # 6 Upper Coverts along the rising arch (Layer 1: Z = 1.95..2.35, hugging the shoulders)
+        # 6 Upper Coverts along the rising arch (Zone: X = 2.6..9.4, Layer 1)
         for i in range(6):
-            u = 0.04 + i * 0.080
+            u = 0.04 + i * (0.32 / 5.0)
             x_abs, py, pz = arch_curve(u)
             px = x_abs * s
-            total_len = 6.2 + i * 0.65
-            wx = 2.15
-            wz = 0.85
-            rz_base = 12.0 + i * 4.2
-            add_curved_feather(b_root, f"{b_root}_covert_{i+1}", px, py, pz - 0.08, wx, total_len, wz, rz_base, 8.0, s)
+            total_len = 8.0 + i * 0.90
+            wx = 4.60
+            wz = 0.58
+            rz_base = 10.0 + i * 2.2
+            z_stagger = ((i % 2) * 2 - 1) * 0.12
+            add_curved_feather(b_root, f"{b_root}_covert_{i+1}", px, py - 0.08, pz - 0.08, wx, total_len, wz, rz_base, 5.0, s, z_stagger=z_stagger)
 
-        # --- B. CARPAL CREST & SECONDARIES (wing_*_mid, pivot [±11.5, 31.8, 3.25]) ---
+        # --- B. CARPAL CREST & SECONDARIES (wing_*_mid, u: 0.38..0.68, pivot [±9.85, 32.7, 3.24]) ---
         mid_arch_steps = [
-            ("carpal_seg_1", 0.47, 0.74, 1.40, 1.25),
-            ("carpal_seg_2", 0.72, 0.98, 1.30, 1.15),
+            ("carpal_seg_1", 0.38, 0.54, 1.55, 1.30),
+            ("carpal_seg_2", 0.52, 0.68, 1.45, 1.20),
         ]
         for lbl, u0, u1, thick_y, thick_z in mid_arch_steps:
             x0, y0, z0 = arch_curve(u0)
             x1, y1, z1 = arch_curve(u1)
             cx, cy, cz = 0.5 * (x0 + x1) * s, 0.5 * (y0 + y1), 0.5 * (z0 + z1)
             dx, dy = (x1 - x0), (y1 - y0)
-            seg_len = math.hypot(dx, dy) + 0.9
+            seg_len = math.hypot(dx, dy) + 1.1
             tilt_deg = math.degrees(math.atan2(dy, dx))
             frm = [cx - seg_len / 2.0, cy - thick_y / 2.0, cz - thick_z / 2.0]
             to = [cx + seg_len / 2.0, cy + thick_y / 2.0, cz + thick_z / 2.0]
@@ -261,60 +291,73 @@ def build_elements_and_outliner():
                 f"{b_mid}_{lbl}", frm, to, [cx, cy, cz], [0.0, 0.0, tilt_deg * s], UV_CORE
             ))
 
-        # 6 Median Coverts (Layer 2: sakura blush along u = 0.48..0.92)
+        # 4 Median Coverts shielding secondary roots (Zone: X = 9.85..15.0)
+        for i in range(4):
+            u = 0.40 + i * (0.24 / 3.0)
+            x_abs, py, pz = arch_curve(u)
+            px = x_abs * s
+            total_len = 10.5 - i * 0.30
+            wx = 4.80
+            wz = 0.56
+            rz_base = 20.0 + i * 2.8
+            z_stagger = ((i % 2) * 2 - 1) * 0.14
+            add_curved_feather(b_mid, f"{b_mid}_med_covert_{i+1}", px, py - 0.2, pz, wx, total_len, wz, rz_base, 6.0, s, z_stagger=z_stagger)
+
+        # 6 Long Secondary Flight Feathers forming dense solid wing body (Zone: X = 9.85..15.7)
         for i in range(6):
-            u = 0.48 + i * 0.088
+            u = 0.38 + i * (0.28 / 5.0)
             x_abs, py, pz = arch_curve(u)
             px = x_abs * s
-            total_len = 8.5 - i * 0.22
-            wx = 2.25
-            wz = 0.80
-            rz_base = 28.0 + i * 5.2
-            add_curved_feather(b_mid, f"{b_mid}_med_covert_{i+1}", px, py - 0.2, pz, wx, total_len, wz, rz_base, 10.0, s)
+            total_len = 15.5 + math.sin(i / 5.0 * math.pi) * 3.0
+            wx = 5.20
+            wz = 0.55
+            rz_base = 22.0 + i * 2.6
+            z_stagger = ((i % 2) * 2 - 1) * 0.15
+            add_curved_feather(b_mid, f"{b_mid}_secondary_{i+1}", px, py - 1.2, pz + 0.08, wx, total_len, wz, rz_base, 7.0, s, z_stagger=z_stagger)
 
-        # 7 Long Secondary Flight Feathers with graceful curved tips (Layer 2)
-        for i in range(7):
-            u = 0.42 + i * 0.090
-            x_abs, py, pz = arch_curve(u)
-            px = x_abs * s
-            total_len = 13.0 + math.sin(i / 6.0 * math.pi) * 3.4
-            wx = 2.40
-            wz = 0.75
-            rz_base = 22.0 + i * 5.6
-            add_curved_feather(b_mid, f"{b_mid}_secondary_{i+1}", px, py - 1.6, pz + 0.08, wx, total_len, wz, rz_base, 12.0, s)
-
-        # --- C. OUTER PRIMARY FLIGHT FEATHERS (wing_*_tip, pivot [±20.5, 29.2, 2.35]) ---
-        # Layer 3: Longest sweeping feathers curving gracefully outward and downward
-        primaries = [
-            # (lbl, px_abs, py, pz, wx, total_len, wz, rz_base, curve_extra)
-            ("prim_alula", 20.4, 30.0, 2.45, 1.75,  8.8, 0.68, 72.0,  8.0),
-            ("prim_1",     21.8, 29.2, 2.40, 2.15, 17.5, 0.65, 78.0, 10.0),
-            ("prim_2",     21.4, 28.2, 2.42, 2.20, 18.0, 0.65, 70.0, 11.0),
-            ("prim_3",     21.0, 26.8, 2.45, 2.20, 17.5, 0.65, 62.0, 12.0),
-            ("prim_4",     20.4, 25.4, 2.48, 2.20, 16.5, 0.65, 54.0, 12.0),
-            ("prim_5",     19.6, 24.0, 2.52, 2.15, 15.5, 0.65, 46.0, 11.0),
-            ("prim_6",     18.6, 22.6, 2.56, 2.10, 14.5, 0.65, 39.0, 10.0),
-            ("prim_7",     17.4, 21.2, 2.60, 2.05, 13.5, 0.65, 32.0,  9.0),
-            ("prim_8",     16.0, 19.8, 2.64, 2.00, 12.5, 0.65, 25.0,  8.0),
+        # --- C. OUTER PRIMARY FLIGHT FEATHERS (wing_*_tip, u: 0.68..1.00, pivot [±16.2, 35.4, 3.41]) ---
+        tip_arch_steps = [
+            ("tip_seg_1", 0.68, 0.84, 1.40, 1.15),
+            ("tip_seg_2", 0.82, 1.00, 1.30, 1.05),
         ]
-        for lbl, px_abs, py, pz, wx, total_len, wz, rz_base, curve_extra in primaries:
-            px = px_abs * s
-            add_curved_feather(b_tip, f"{b_tip}_{lbl}", px, py, pz + 0.12, wx, total_len, wz, rz_base, curve_extra, s)
+        for lbl, u0, u1, thick_y, thick_z in tip_arch_steps:
+            x0, y0, z0 = arch_curve(u0)
+            x1, y1, z1 = arch_curve(u1)
+            cx, cy, cz = 0.5 * (x0 + x1) * s, 0.5 * (y0 + y1), 0.5 * (z0 + z1)
+            dx, dy = (x1 - x0), (y1 - y0)
+            seg_len = math.hypot(dx, dy) + 1.1
+            tilt_deg = math.degrees(math.atan2(dy, dx))
+            frm = [cx - seg_len / 2.0, cy - thick_y / 2.0, cz - thick_z / 2.0]
+            to = [cx + seg_len / 2.0, cy + thick_y / 2.0, cz + thick_z / 2.0]
+            add_to_group(b_tip, make_cube(
+                f"{b_tip}_{lbl}", frm, to, [cx, cy, cz], [0.0, 0.0, tilt_deg * s], UV_CORE
+            ))
 
-        # --- D. INNER TRAILING ANGEL PLUMAGE (wing_*_feathers, pivot [±5.5, 20.8, 2.10]) ---
-        # Layer 1: Feathers radiating diagonally outward with organic curved tips (Z = 2.05..2.22)
-        # ZERO AIR GAP, NO VERTICAL FENCE SLATS!
-        for i in range(6):
-            u = 0.04 + i * 0.066
+        # 7 Sweeping Primary Feathers fanning gracefully from X = 16.2 to 23.0
+        # Angles capped at 46 degrees (sweeping down and back, never pointing up/horizontal!)
+        for i in range(7):
+            u = 0.68 + i * (0.32 / 6.0)
+            x_abs, py, pz = arch_curve(u)
+            px = x_abs * s
+            total_len = 16.5 + math.sin(i / 6.0 * math.pi) * 4.2
+            wx = 5.00
+            wz = 0.55
+            rz_base = 34.0 + i * 2.0
+            z_stagger = ((i % 2) * 2 - 1) * 0.16
+            add_curved_feather(b_tip, f"{b_tip}_prim_{i+1}", px, py, pz + 0.12, wx, total_len, wz, rz_base, 6.0, s, z_stagger=z_stagger)
+
+        # --- D. INNER TRAILING ANGEL PLUMAGE (wing_*_feathers, pivot [±4.5, 20.8, 2.10]) ---
+        # Sealing dorsal back space behind the player (Zone: X = 1.2..7.5)
+        for i in range(5):
+            u = 0.04 + i * (0.28 / 4.0)
             x_abs, py, _ = arch_curve(u)
             px = x_abs * s
-            total_len = 11.0 + i * 0.70
-            wx = 2.00
-            wz = 0.65
-            rz_base = 22.0 + i * 4.8
-            # Anchored right on the back plane at Z = 2.08, curving smoothly outward!
-            add_curved_feather(b_feathers, f"{b_feathers}_trail_{i+1}", px, py - 0.8, 2.08, wx, total_len, wz, rz_base, 12.0, s)
-
+            total_len = 12.5 + i * 0.70
+            wx = 4.20
+            wz = 0.55
+            rz_base = 12.0 + i * 2.2
+            z_stagger = ((i % 2) * 2 - 1) * 0.10
+            add_curved_feather(b_feathers, f"{b_feathers}_trail_{i+1}", px, py - 0.8, 2.10, wx, total_len, wz, rz_base, 6.0, s, z_stagger=z_stagger)
     # =========================================================================
     # 3. 3D SAKURA PETAL PARTICLES ON THE WINGS (petal_streams, pivot [0, 22.0, 2.4])
     # 24 Luminous petals swirling in 3D around the angel wings
@@ -402,17 +445,17 @@ def build_elements_and_outliner():
     outliner = [
         make_group("root", [0, 24, 0], [
             make_group("wing_nexus", [0, 21.0, 2.05], groups.get("wing_nexus", []) + [
-                make_group("wing_left_root", [-1.8, 21.2, 2.05], groups.get("wing_left_root", []) + [
-                    make_group("wing_left_mid", [-11.5, 31.8, 3.25], groups.get("wing_left_mid", []) + [
-                        make_group("wing_left_tip", [-20.5, 29.2, 2.35], groups.get("wing_left_tip", []))
+                make_group("wing_left_root", [-1.8, 21.5, 2.05], groups.get("wing_left_root", []) + [
+                    make_group("wing_left_mid", [-9.85, 32.7, 3.24], groups.get("wing_left_mid", []) + [
+                        make_group("wing_left_tip", [-16.2, 35.4, 3.41], groups.get("wing_left_tip", []))
                     ]),
-                    make_group("wing_left_feathers", [-5.5, 20.8, 2.10], groups.get("wing_left_feathers", []))
+                    make_group("wing_left_feathers", [-4.5, 20.8, 2.10], groups.get("wing_left_feathers", []))
                 ]),
-                make_group("wing_right_root", [1.8, 21.2, 2.05], groups.get("wing_right_root", []) + [
-                    make_group("wing_right_mid", [11.5, 31.8, 3.25], groups.get("wing_right_mid", []) + [
-                        make_group("wing_right_tip", [20.5, 29.2, 2.35], groups.get("wing_right_tip", []))
+                make_group("wing_right_root", [1.8, 21.5, 2.05], groups.get("wing_right_root", []) + [
+                    make_group("wing_right_mid", [9.85, 32.7, 3.24], groups.get("wing_right_mid", []) + [
+                        make_group("wing_right_tip", [16.2, 35.4, 3.41], groups.get("wing_right_tip", []))
                     ]),
-                    make_group("wing_right_feathers", [5.5, 20.8, 2.10], groups.get("wing_right_feathers", []))
+                    make_group("wing_right_feathers", [4.5, 20.8, 2.10], groups.get("wing_right_feathers", []))
                 ]),
                 make_group("petal_streams", [0, 22.0, 2.4], groups.get("petal_streams", []))
             ]),

@@ -208,6 +208,7 @@ public final class SenbonzakuraTechniqueService {
         if (ward(p) && p.tickCount%5==0) s.draw(GUARD,p.position(),f,SenbonPolicy.WARD_RADIUS,(now%40)/40.0,0);
         if (scene(p) && p.tickCount%4==0) s.draw(SWORDS,p.position(),f,SenbonPolicy.SCENE_RADIUS,.2,0);
         if (hakuteiken(p) && s.attack==null && p.tickCount%3==0) s.draw(WINGS,p.position(),f,4,(now%40)/40.0,2);
+        if (hakuteiken(p) && s.attack==null && p.tickCount%10==0) s.draw(FIELD,p.position(),f,SenbonPolicy.HAKU_IMPACT_RADIUS,1.0,3);
         if (!s.form.equals("sealed") && now-s.created<12 && p.tickCount%4==0) s.draw(RADIAL,p.position(),f,3,(now-s.created+1)/12.0,0);
         if (s.form.equals("bankai") && p.tickCount%8==0) s.draw(AURA,p.position(),f,1,(now%80)/80.0,0);
         int blade=(s.attack!=null && s.attack.kind==Kind.HAKU) || hakuteiken(p) ? 2 : scene(p) ? 1 : 0;

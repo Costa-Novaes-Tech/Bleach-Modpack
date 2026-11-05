@@ -158,7 +158,7 @@ public final class SenbonzakuraHakuteikenQaSequence {
         }
 
         long age = mc.level.getGameTime() - trial.start();
-        if (age >= 52 && serverEvaluated) {
+        if (age >= 56 && serverEvaluated) {
             int expectedBones = SenbonHakuteikenVisuals.EXPECTED_BONES.length;
             int bonesFound = SenbonHakuteikenVisuals.verifyBakedBones();
             boolean playerAnimLoaded = PlayerAnimationRegistry.getAnimation(SenbonHakuteikenVisuals.DASH_ANIM) != null;
@@ -412,6 +412,9 @@ public final class SenbonzakuraHakuteikenQaSequence {
                 }
             }
         }
+        if (age == 49) {
+            p.swing(InteractionHand.MAIN_HAND, true);
+        }
         if (age >= 46 && serverSlotExecuted && !serverEvaluated) {
             serverDistMoved = p.position().subtract(startOrigin).horizontalDistance();
             float hpAfter = targetInitialHp;
@@ -445,9 +448,12 @@ public final class SenbonzakuraHakuteikenQaSequence {
         if (age == lastCapturedAge) {
             return;
         }
-        if (age == 6 || age == 12 || age == 20 || age == 28 || age == 34 || age == 40 || age == 46) {
+        if (age == 49) {
+            mc.player.swing(InteractionHand.MAIN_HAND);
+        }
+        if (age == 6 || age == 12 || age == 20 || age == 28 || age == 34 || age == 40 || age == 46 || age == 50) {
             lastCapturedAge = age;
-            String phase = age < 10 ? "leap" : (age < 30 ? "hover" : (age < 40 ? "rasante" : (age == 40 ? "impact" : "transform")));
+            String phase = age < 10 ? "leap" : (age < 30 ? "hover" : (age < 40 ? "rasante" : (age == 40 ? "impact" : (age == 46 ? "transform" : "attack"))));
             String fileName = String.format(Locale.ROOT, "%s-t%02d-%s.png", PASS_NAMES[t.passIndex()], age, phase);
             saveScreenshot(mc, fileName);
         }

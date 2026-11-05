@@ -248,6 +248,9 @@ public final class SenbonHakuteikenVisuals {
                 double vz = rz * (0.025 * side) + bz * (state.pattern == 1 ? 0.08 : 0.02) + (level.random.nextDouble() - 0.5) * 0.02;
 
                 level.addParticle(ModParticles.SENBON_PETAL.get(), px, py, pz, vx, vy, vz);
+                if (state.pattern == 2 && (i % 2 == 0)) {
+                    level.addParticle(ModParticles.SENBON_PETAL.get(), px, py, pz, vx * 0.5, -0.045, vz * 0.5);
+                }
             }
         }
     }
@@ -295,7 +298,11 @@ public final class SenbonHakuteikenVisuals {
         // eliminating any air gap and guaranteeing strict mathematical symmetry at X=0.00!
         event.getRenderer().getModel().body.translateAndRotate(pose);
 
-        // 3. Map from Minecraft body space to Blockbench space (neck at Y=24):
+        // 3. Cancel the LivingEntityRenderer (-1, -1, 1) inverted scale so GeckoLib
+        // renders the Bedrock model right-side up (+Y points up into the sky):
+        pose.scale(-1.0F, -1.0F, 1.0F);
+
+        // 4. Map from Minecraft body space to Blockbench space (neck at Y=24):
         pose.translate(0.0, -1.5, 0.0);
 
         // Windup emergence scaling if pattern == 0
@@ -388,7 +395,7 @@ public final class SenbonHakuteikenVisuals {
         @Override
         public boolean isActive() {
             ActiveState s = STATES.get(player.getId());
-            return s != null && !ZanpakutoReleaseAnimation.active(player);
+            return s != null && s.pattern != 2 && !ZanpakutoReleaseAnimation.active(player);
         }
 
         @Override
@@ -414,45 +421,49 @@ public final class SenbonHakuteikenVisuals {
             boolean mainItem = part.equals(sign > 0 ? "rightItem" : "leftItem");
 
             if (state.pattern == 2) {
-                // Authentic Chūdan-no-kamae Kenjutsu stance during Winged Mode
+                // Dynamic Winged Combat Mode:
+                // - Unlocks full vertical head pitch with crosshair
+                // - Yields to attack swings / Better Combat combos
+                // - Fluid arm locomotion during sprinting/walking
+                // - Soaring flight posture when airborne, grounded Chūdan-no-kamae when standing
                 boolean isMoving = player.getDeltaMovement().horizontalDistanceSqr() > 0.005;
+                boolean isGrounded = player.onGround();
+                boolean isAttacking = player.swinging || player.attackAnim > 0.0F;
+                float armWeight = isAttacking ? 0.0F : (isMoving ? 0.38F : 0.88F);
+
                 if (type == TransformType.ROTATION) {
                     if (part.equals("body") || part.equals("torso")) {
-                        // Alert forward combat incline (8.5 deg)
-                        return mix(value, 0.15F, 0.0F, 0.0F, 0.95F);
+                        return mix(value, isMoving ? 0.08F : 0.14F, 0.0F, 0.0F, 0.85F);
                     }
                     if (part.equals("head")) {
-                        // Sharp forward eye lock on opponent
-                        return mix(value, -0.10F, 0.0F, 0.0F, 0.90F);
+                        float lookPitch = (float) Math.toRadians(player.getXRot());
+                        return mix(value, lookPitch - 0.04F, 0.0F, 0.0F, 0.75F);
                     }
                     if (mainArm) {
-                        // Right arm holds tsuka forward at mid-chest height, elbow slightly flexed (-76 deg)
-                        return mix(value, -1.32F, -0.18F * sign, 0.10F * sign, 0.95F);
+                        return mix(value, -1.32F, -0.18F * sign, 0.10F * sign, armWeight);
                     }
                     if (supportArm) {
-                        // Left arm reaches across to grip tsuka base (kashira) forming triangular guard
-                        return mix(value, -1.22F, 0.38F * sign, -0.16F * sign, 0.95F);
+                        return mix(value, -1.22F, 0.38F * sign, -0.16F * sign, armWeight);
                     }
                     if (mainItem || part.equals("rightItem") || part.equals("leftItem")) {
-                        // Katana kissaki (tip) points STRICTLY FORWARD along -Z at opponent throat
-                        return mix(value, -0.32F, 0.0F, -0.22F * sign, 0.95F);
+                        return mix(value, -0.05F, 0.0F, -0.04F * sign, armWeight);
                     }
                     if (!isMoving) {
-                        // Dynamic martial kamae: forward leg flexed, back leg braced
-                        if (mainLeg) {
-                            return mix(value, -0.42F, 0.12F * sign, 0.08F * sign, 0.90F);
-                        }
-                        if (backLeg) {
-                            return mix(value, 0.38F, -0.12F * sign, -0.08F * sign, 0.90F);
+                        if (isGrounded) {
+                            if (mainLeg) return mix(value, -0.38F, 0.10F * sign, 0.06F * sign, 0.85F);
+                            if (backLeg) return mix(value, 0.32F, -0.10F * sign, -0.06F * sign, 0.85F);
+                        } else {
+                            // Airborne trailing flight posture
+                            if (mainLeg) return mix(value, 0.22F, 0.04F * sign, 0.02F * sign, 0.80F);
+                            if (backLeg) return mix(value, 0.28F, -0.04F * sign, -0.02F * sign, 0.80F);
                         }
                     }
                 }
                 if (type == TransformType.POSITION && (part.equals("rightItem") || part.equals("leftItem"))) {
-                    // Position katana tsuka centrally in front of chest
-                    return mix(value, -0.10F * sign, -0.05F, 0.15F, 0.95F);
+                    return mix(value, -0.10F * sign, -0.05F, 0.15F, armWeight);
                 }
                 if (type == TransformType.BEND && (mainArm || supportArm)) {
-                    return mix(value, 0.0F, 0.0F, 0.0F, 0.95F);
+                    return mix(value, 0.0F, 0.0F, 0.0F, armWeight);
                 }
                 return value;
             }

@@ -42,6 +42,7 @@ O laboratório da Benihime deve conseguir, quando tecnicamente viável:
 - reiniciar cena, escolher marco/tempo, avançar tempo de forma determinística ou congelar a cena sem afetar produção;
 - registrar eventos esperados/recebidos, estados de Bankai, ticks, falhas de recursos e posição de bones/âncoras; distinguir dados de servidor e cliente;
 - acionar captura **no cliente Minecraft real** e guardar PNGs em pasta de evidências; quando o acesso a APIs de screenshot não for confiável, usar capturas F2/OBS e informar o passo humano;
+- dissecar vídeos de teste frame a frame via python tools/scripts/video_inspector.py extract <video.mp4> --fps 4.0 --storyboard <sb.png> para validação minuciosa de poses, transições e timings;
 - permitir teste base e Photon em ambientes separados, sem introduzir dependência obrigatória de Photon.
 
 **Não invente comandos do mod ou APIs Minecraft:** primeiro descubra `AssetBenchCommands`, os serviços Benihime, os renderizadores e a API Forge/GeckoLib efetivamente utilizados; só então escreva implementações compatíveis. Não adicionar componentes permanentes desnecessários ao gameplay.
