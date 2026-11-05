@@ -1,6 +1,10 @@
 # Storyline macro
 
+> **Esclarecimento vigente — 28/10/2026, STR-08:** formação Shinigami pertence à missão/campanha racial; a campanha principal segue os acontecimentos principais da obra e fillers são side quests opcionais. Preserva D05 e STR-02, explicitando a categoria da formação. A missão repetível de Asauchi de M11-06A integra o caminho racial após a formação, sem virar marco obrigatório da história principal.
+
 > **Revisão transversal — 22/10/2026:** STR-01–STR-07 preservados. M04 refinou as origens e M06/M07 os poderes; as perspectivas raciais ilustrativas abaixo não criam requisitos adicionais. Os códigos M00–M10 desta cronologia identificam eras, não os módulos M01–M16 do mapa. Catch-up, disponibilidade do elenco e avanço de era continuam pendentes em seus responsáveis. [Revisão transversal de M01–M07](00-revisao-modulos-01-a-07-2026-10-22.md).
+
+> **Apresentação das missões — 28/10/2026, M13-01A/02A:** por direção explícita do usuário, contexto pode ser escrito e o jogador parte para executar missões. NPC se apresenta e oferece início; eventos autônomos podem iniciar pelo painel/HUD, com criação do inimigo no confronto. Não exigir reencenação de encontros entre personagens. Ordem canônica, personagem original e vitória jogável de STR-03 permanecem. [Contrato de M13](13-campanhas-e-sidequests.md#81-m13-01am13-02a--missão-executada-pelo-jogador-e-início-deliberado--decididos).
 
 ## Estado do módulo
 
@@ -8,9 +12,9 @@
 |---|---|
 | Estado | `DECIDIDO` |
 | Responsável pela decisão | Equipe do Bleach Mod |
-| Última revisão | 11/09/2026 |
+| Última revisão | 28/10/2026; preservada a base e as decisões anteriores |
 | Decisões herdadas | D01–D06 de `01-visao-e-pilares.md` e PRG-01–PRG-08 de `02-trilhas-de-progressao.md` |
-| Decisões deste módulo | STR-01–STR-07 `DECIDIDAS`; ramificações complexas registradas em backlog |
+| Decisões deste módulo | STR-01–STR-08 `DECIDIDAS`; STR-08 esclarece categorias em 28/10/2026; ramificações complexas registradas em backlog |
 | Próximo estado possível | `ESPECIFICADO`, após os módulos dependentes detalharem campanhas, sistemas e conteúdo |
 
 Este documento define a estrutura narrativa do **mod completo**: eras, grandes crises, relação entre campanhas raciais, acontecimentos canônicos protegidos e espaço para consequências pessoais. Ele não define quests individuais, diálogos completos, quantidade de inimigos ou recompensas.
@@ -26,6 +30,7 @@ Este documento define a estrutura narrativa do **mod completo**: eras, grandes c
 | STR-05 | `DECIDIDO` | A campanha não dependerá de ramificações complexas; variações persistentes avançadas ficam em backlog. |
 | STR-06 | `DECIDIDO` | Era do mundo compartilhada e jornadas principal e racial registradas por personagem. |
 | STR-07 | `DECIDIDO` | Existirá pós-guerra persistente; seu conteúdo detalhado fica deliberadamente adiado. |
+| STR-08 | `DECIDIDO` em 28/10/2026 | Formação Shinigami racial, campanha principal pelos acontecimentos principais da obra e fillers como side quests opcionais. |
 
 ## Objetivo
 
@@ -372,7 +377,7 @@ Eventos como a origem dos Visored, conflitos antigos entre Quincy e Shinigami e 
 
 ### Anime original e filmes
 
-Arcos exclusivos do anime e filmes podem virar campanhas opcionais identificadas como universo expandido ou adaptação. Eles não serão pré-requisitos entre M00 e M10.
+Arcos exclusivos do anime e filmes podem virar campanhas opcionais identificadas como universo expandido ou adaptação. Eles não serão pré-requisitos entre M00 e M10. Em 28/10/2026, STR-08 explicitou os fillers como side quests/conjuntos laterais opcionais, separados da espinha principal; não é obrigação de adaptar todo episódio filler.
 
 ### Novels
 
@@ -484,6 +489,8 @@ No horizonte completo, o jogador poderá:
 
 A campanha principal e a campanha racial serão apresentadas em lugares diferentes, mas não representarão histórias isoladas:
 
+**Esclarecimento STR-08, 28/10/2026:** formação da Academia é missão/campanha racial Shinigami. A missão pós-formação de Asauchi de M11-06A segue esse caminho, com repetição de obtenção, sem se tornar um marco da história principal. A campanha principal acompanha os acontecimentos principais da obra; fillers pertencem às side quests opcionais. Dependência entre caminhos não muda a categoria de uma missão. Missões originais de ligação já admitidas abaixo continuam adaptações identificadas e não justificam tornar filler obrigatório.
+
 | Camada | O que mostra | Exemplo |
 |---|---|---|
 | Campanha principal | cronologia, crise comum, acontecimentos canônicos, missões originais de ligação e missões secundárias do capítulo | a crise da Soul Society, seus confrontos centrais e problemas adicionais causados pela invasão |
@@ -531,6 +538,8 @@ Na interface futura, a separação pode ser apresentada como:
 | C. Permitir alterar qualquer resultado | Agência máxima. | Multiplica linhas temporais e quebra arcos posteriores. |
 
 **Decisão aprovada:** alternativa A revisada. O jogador ou sua party enfrenta e derrota diretamente os bosses canônicos, inclusive Aizen, sem personagens canônicos spawnados como aliados. Os acontecimentos e resultados indispensáveis ao encadeamento da obra continuam protegidos, mas a autoria da vitória em combate é adaptada para o jogador.
+
+**Aplicação de STR-03 — M13-19B, 28/10/2026:** autoria/vitória nos bosses selecionados não obriga transformar toda aparição de um antagonista em boss. No roteiro aprovado da Soul Society, Byakuya é o último confronto e a revelação/superioridade/obtenção do Hōgyoku/partida de Aizen ficam no contexto, sem vitória contra ele nessa etapa. Confrontos vencíveis de Aizen nos momentos posteriores apropriados mantêm autoria do jogador/party. A proposta de vencê-lo aqui foi reconsiderada e não adotada. [Recorte e evidência em M13](13-campanhas-e-sidequests.md#1031-desfecho--a-verdade-por-trás-da-execução).
 
 #### Exemplos de acontecimentos protegidos
 
@@ -682,6 +691,16 @@ Essas regras pertencem ao módulo `15-multiplayer-e-balanceamento.md`. Em single
 
 **Decisão aprovada:** alternativa A. New Game+ pode coexistir, mas não substituir o pós-guerra. O conteúdo de M10, as expansões e o funcionamento de New Game+ ficam deliberadamente adiados; nesta etapa decide-se somente que o mundo continuará jogável depois da espinha principal.
 
+### STR-08 — Formação racial, campanha principal e fillers — DECIDIDO
+
+**Esclarecimento literal em 28/10/2026:** “Outra coisa, sobre a formação shinigami, isso é uma missão de raça, não sei se está explicito isso, mas a missão/campanha principal é para seguir os acontecimentos principais da obra e os fillers virem side quests”. [Contexto e respostas do bloco M11](historico/2026-10-28-propostas-m11-05bcd-06a-instrumentos-e-asauchi.md).
+
+- **Caminho racial Shinigami:** introdução, formação/treino/provas da Academia e continuidade própria. M11-06A coloca a missão de obtenção de Asauchi após concluir a formação, com repetição para novos exemplares. Não reclassificar essa missão como capítulo canônico principal só por conter Ōetsu.
+- **Campanha principal:** sequência dos acontecimentos principais da obra, conforme mangá-base/D05 e complementos oficiais identificados. Mantém participação direta do jogador e marcos protegidos de STR-03; não transfere a biografia de Ichigo ao personagem.
+- **Side quests:** fillers opcionais identificados, podendo ser conjuntos de missões; não exigidos para avançar a espinha principal. Outras histórias locais, trabalhos e atividades laterais já admitidos permanecem possíveis. Não promete adaptar todo filler nem confunde filler com toda adição oficial do anime.
+
+STR-02 já separava campanha principal/racial, e D05 já mantinha fillers opcionais; esta decisão explicita o caso da formação e a classificação de conteúdo. Não elimina missões originais de ligação nem pré-requisitos raciais legítimos já admitidos. M12/M13 deverão declarar categoria, procedência, requisitos, recompensas e repetibilidade por missão; M14 apresentará os caminhos com clareza. Especificação de conteúdo, implementação, testes e aceite continuam distintos.
+
 ## Resumo das decisões e propostas
 
 | Decisão | Direção | Estado |
@@ -693,6 +712,7 @@ Essas regras pertencem ao módulo `15-multiplayer-e-balanceamento.md`. Em single
 | STR-05 | Campanha estável e reações sociais limitadas; ramificações complexas em backlog. | `DECIDIDO` |
 | STR-06 | Era compartilhada e jornadas principal e racial por personagem. | `DECIDIDO` |
 | STR-07 | Pós-guerra persistente e conteúdo complementar opcional, com detalhamento adiado. | `DECIDIDO` |
+| STR-08 | Formação Shinigami no caminho racial; campanha principal pelos acontecimentos principais; fillers como side quests opcionais. | `DECIDIDO` em 28/10/2026 |
 
 ## Questões registradas para módulos posteriores
 
@@ -771,7 +791,7 @@ Esses pontos não autorizam alteração de código neste módulo.
 
 ## Próximos passos
 
-1. Preservar STR-01–STR-07 como decisões arquiteturais fechadas.
+1. Preservar STR-01–STR-08 como decisões arquiteturais fechadas; STR-08 esclarece categorias em 28/10/2026.
 2. Criar `04-racas-e-origens.md` usando as funções narrativas exigidas por cada era.
 3. Levar ramificações persistentes para o backlog, sem torná-las dependência dos próximos módulos.
 4. Não transformar os macrocapítulos em quests antes de definir raças, habilidades, transformações, NPCs, mobs, dimensões e o sistema de quests.

@@ -42,7 +42,8 @@ public final class BetterCombatCompat {
             CURRENT.set(new Swing(p));
             if(CURRENT.get().allowed && combo>=0 && combo<=2 && p.getMainHandItem().is(ModItems.SENBONZAKURA.get())){
                 Vec3 f=SenbonGeometry.forward(p.getYRot()),o=p.position().add(0,1.2,0);
-                var packet=new SenbonPetalsS2C(SenbonPetalsS2C.MELEE_TRAIL,o,f,1.5F,0.0F,combo,(int)(p.level().getGameTime()*31+p.getId()),p.getId());
+                float trailRadius=SenbonzakuraTechniqueService.hakuteiken(p) ? 2.8F : 1.5F;
+                var packet=new SenbonPetalsS2C(SenbonPetalsS2C.MELEE_TRAIL,o,f,trailRadius,0.0F,combo,(int)(p.level().getGameTime()*31+p.getId()),p.getId());
                 for(ServerPlayer receiver:p.serverLevel().players())if(receiver.position().distanceToSqr(o)<=64*64)NetworkHandler.sendToPlayer(packet,receiver);
             }
         }
@@ -67,7 +68,10 @@ public final class BetterCombatCompat {
         double r=3.05;
         var reach=p.getAttribute(ForgeMod.ENTITY_REACH.get());
         if(p.getMainHandItem().is(ModItems.SENBONZAKURA.get()) && PlayerCapability.get(p).map(d->d.getCharacter().getZanpakutoIdentity().equals(CharacterData.SENBONZAKURA) && d.getCharacter().getActiveForm().equals("bankai")).orElse(false)
-                && reach!=null && reach.getModifier(SenbonzakuraTechniqueService.REACH_ID)!=null)r+=SenbonPolicy.REACH_BONUS;
+                && reach!=null) {
+            if(reach.getModifier(SenbonzakuraTechniqueService.REACH_ID)!=null)r+=SenbonPolicy.REACH_BONUS;
+            if(reach.getModifier(SenbonzakuraTechniqueService.HAKU_REACH_ID)!=null)r+=SenbonPolicy.HAKU_REACH_BONUS;
+        }
         return r;
     }
     public static boolean withinPilotReach(ServerPlayer p,Entity target){

@@ -58,14 +58,16 @@ import static net.minecraft.commands.Commands.literal;
 public final class SenbonzakuraCombatQaSequence {
     private static final String[] CASES = Boolean.getBoolean("bleachmod.senbonComboQa") ? new String[]{
             "01_shikai_right_profile", "02_shikai_right_front", "03_shikai_right_back",
-            "04_sealed_right_profile", "05_bankai_right_profile", "06_shikai_left_profile"
+            "04_sealed_right_profile", "05_bankai_right_profile", "06_shikai_left_profile",
+            "07_hakuteiken_combo_front"
     } : new String[]{
             "01_shikai_right_front",
             "02_shikai_right_profile",
             "03_shikai_right_back",
             "04_sealed_right_profile",
             "05_bankai_right_profile",
-            "06_shikai_left_profile"
+            "06_shikai_left_profile",
+            "07_hakuteiken_combo_front"
     };
 
     private record Trial(UUID owner, UUID target, long start, int index, Vec3 origin) { }
@@ -210,11 +212,16 @@ public final class SenbonzakuraCombatQaSequence {
         String form = "shikai";
         if (caseName.contains("sealed")) {
             form = "sealed";
-        } else if (caseName.contains("bankai")) {
+        } else if (caseName.contains("bankai") || caseName.contains("hakuteiken")) {
             form = "bankai";
         }
         d.getCharacter().setActiveForm("zanpakuto", form);
         d.getCharacter().setSelectedForm("zanpakuto", form);
+        if (caseName.contains("hakuteiken")) {
+            d.getCharacter().setSenbonBlade(2);
+        } else {
+            d.getCharacter().setSenbonBlade(0);
+        }
         d.getStatus().clearCooldowns();
         d.getGuard().interrupt();
         d.getResources().setCurrentReiatsu(d.getResources().getMaxReiatsu());

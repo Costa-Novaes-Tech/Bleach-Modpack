@@ -66,6 +66,10 @@ O jogador pode alterar o terreno, ter corpo Hollow grande, chegar com outra orig
 
 Uma versão visual do personagem não recebe automaticamente compras, relações ou serviços independentes. Da mesma forma, participar de uma luta contra ele não libera atendimento amistoso. Proteção de NPC essencial vale para a presença de atendimento declarada em M08-01A, sem invulnerabilidade herdada pela representação de combate.
 
+**Integração econômica — 23/10/2026, M11-01A decidido:** comida, materiais e reposições de comércio comum usam itens/moeda material; ensino de skills/formas mantém aquisição SP conforme requisitos. Um mesmo prestador pode oferecer resultados diferentes, com cobrança identificada. Moedas, estoque, tarifas e produtos ainda exigem ficha. M11-01B aprovou primeira shinai pela Academia e primeiro foco pelo mentor na introdução, sem cobrança material inicial, com crafting de reposição após quebra e coexistência das vias de obtenção. M11-01C decidiu que disparos não desgastam a Cruz, após distinguir o objeto físico do arco de Reishi; condições de perda/destruição ainda precisam de ficha. Não amplia o currículo nem concede reposição gratuita ilimitada.
+
+**Retorno dirigido — 28/10/2026, STR-08/M11-06A/B:** a formação da Academia integra a campanha racial Shinigami. Concluí-la habilita missão repetível ligada a Ōetsu, uma Asauchi por conclusão válida. Aprovação de 06B: encomenda/atendimento intermediado pela Academia no início, encontro pessoal com Ōetsu quando a história permitir. A instituição atende/entrega, sem tornar-se criadora canônica da arma. 06C aprovado depois: materiais apropriados e tarefa prática por execução, sem refazer formação. Prestador, produtos/fontes/quantidades/prova, entrega com inventário cheio e cobertura por era ainda exigem ficha; não transformar o instrutor de fundamentos em fonte universal. [Contrato M11/10.4](11-itens-e-economia.md#104-asauchi--obtenção-racial-por-missão-com-ōetsu). Campanha principal pelos acontecimentos principais da obra; fillers opcionais em side quests.
+
 ## 6. Escopo
 
 **Agora:** inventário do elenco; papéis funcionais; primeiros contatos; fontes ainda necessárias; encaminhamento de serviços; organizações candidatas; campos de ficha e ordem de aprofundamento.
@@ -296,7 +300,7 @@ A escolha resolve **quem representa o serviço**. Não resolve sozinha suas pend
 | Entrada herdada | Introdução racial no Mundo Humano encaminha à Soul Society/Academia; passagem narrativa concreta ainda é de M13 |
 | O que o jogador faz | Aprende fundamentos, pratica uma aplicação compreensível, recebe correção e demonstra preparo para a primeira atribuição |
 | Ensino | Introdução a Zanjutsu, Hakuda, Hohō e Kidō conforme M06. Repertório exato ainda deve ser selecionado; apresentar uma disciplina não concede todas as suas técnicas |
-| Equipamento | Shinai de treino antes da Asauchi, conforme M04; entrega, posse e reposição em M11. Shinai não se transforma em Asauchi |
+| Equipamento | Shinai de treino antes da Asauchi, conforme M04. M11-06A/B: formação concluída habilita missão ligada a Ōetsu, intermediada inicialmente pela Academia, com uma Asauchi por conclusão válida e repetição aprovada. Entrega/posse/reposição nas fichas M11; shinai não se transforma em Asauchi |
 | Reconhecimento | Marcos pessoais de formação; não Mastery máxima, nota numérica universal ou graduação comprada com SP |
 | Saída | Encaminhamento para atuação inicial e processo institucional pertinente; divisão inicial segue M08-06A aprovado, com critérios concretos ainda a especificar |
 | Retorno | Consulta/prática apropriadas e continuidade de formação essencial conforme M08-01B; não repetir toda a formação a cada nova técnica |
@@ -848,7 +852,7 @@ Esta matriz reúne destinos já definidos e necessidades pendentes. **Não cria 
 
 **Repertório desta amostra:** fundamentos corporais/armados e Shunpo como aquisição escolhida para detalhar o primeiro ensino. Uma primeira técnica nominal de Kidō, técnicas distintas de Zanjutsu/Hakuda, seus professores e atividades continuam em fichas M06/M08; não inferir compra do pacote inteiro. Sem fonte suficiente para escolher agora um feitiço concreto como currículo inicial, não atribuir automaticamente Shakkahō, Byakurai ou outro pela numeração. Kidō continua parte da formação, com conteúdo de execução ainda pendente.
 
-**Equipamento:** M04 mantém shinai antes de Asauchi. M11 precisa definir obtenção/posse/reposição antes da prática armada e da entrega correspondente; o instrutor não cria uma espada canônica ou troca shinai por Asauchi automaticamente. O próprio ensino de Shunpo não depende de possuir Shikai.
+**Equipamento:** M04 mantém shinai antes de Asauchi. M11-01B aprovou a primeira shinai fornecida na introdução pela Academia e crafting após quebra; receita, desgaste, compatibilidade e posse ainda precisam de ficha antes da prática/entrega correspondente; o instrutor não cria uma espada canônica ou troca shinai por Asauchi automaticamente. O próprio ensino de Shunpo não depende de possuir Shikai.
 
 ### 9.33. Hollow — corpo e sobrevivência antes da emissão
 
@@ -876,7 +880,7 @@ Esta matriz reúne destinos já definidos e necessidades pendentes. **Não cria 
 | Próxima técnica do pequeno repertório | **Hirenkyaku**, com orientação/prática próprias, compra SP e Mastery individual. O mesmo mentor pode ensinar ambas porque este perfil seleciona expressamente essa competência; o primeiro arco não concede a mobilidade |
 | Encaminhamento | Uryū para tradição/aplicação no contexto aprovado. Gintō, Blut, Sanrei/Letzt Stil, Schrift e Vollständig não são desbloqueados pela aula inicial ou incluídos automaticamente neste currículo |
 
-**Foco e acesso:** M11 precisa definir como obter/repor um foco válido, com caminho possível antes da primeira prática armada. Uma atividade necessária para conseguir o foco não pode exigir exclusivamente o arco que depende dele. Não está escolhido empréstimo, doação, receita, slot, preço ou fornecedor pela seleção deste mentor. Essa dependência precisa ser resolvida antes da entrega jogável, sem apagar o requisito de foco.
+**Foco e acesso:** M11-01B aprovou o primeiro foco fornecido pelo mentor na introdução, sem cobrança material inicial, e fabricação para repor após quebra. Compra/crafting podem coexistir com essa entrega. O caminho precisa estar disponível antes da primeira prática armada. Uma atividade necessária para conseguir o foco não pode exigir exclusivamente o arco que depende dele. A seleção original do mentor não escolhia o modo de obtenção; a entrega inicial foi decidida depois em M11-01B. Receita, slot, vínculo, condições de quebra e ofertas comerciais continuam por ficha; M11-01C aprovou Cruz sem desgaste por disparo após esclarecer que o arco é manifestação de Reishi. Condições de perda/destruição continuam por ficha. Fechar essas dependências antes da entrega jogável, sem apagar o requisito de foco.
 
 **Etapas:** o mentor apresenta a formação e, depois dos fundamentos, pode disponibilizar Hirenkyaku; isso não exige concluir um catálogo de tiros ou maximizar a Proficiência para começar mobilidade. Critérios e valores ficam nas fichas, sem inventar dois ranks de Reishi. Independência significa que essas duas aquisições não exigem filiação permanente.
 
