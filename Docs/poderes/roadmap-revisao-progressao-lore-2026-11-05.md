@@ -1,5 +1,7 @@
 # Roadmap revisto — progressão, mentores e lore
 
+**Atualização após merge `6df769a`, 05/11:** [revisão somente de leitura e plano P0 de saves](ryujin-senbon-merge-revisao-roadmap-saves-2026-11-05.md) prevalece nos estados novos. O GDD `origin/main` `9906486` entrou pelo merge da branch de design; a missão de Rukia foi relatada como pronta em outra branch e aguarda auditoria/integração pelo usuário, sem duplicação por esta frente. P0 continua o próximo trabalho próprio de progressão. Hakuteiken v3 requer revisão dos riscos de piso compartilhado, interrupção/voo e prova de combo com asas.
+
 **05/11/2026.** Revisão da branch `Feature-Poderes-bankais` após o commit `617892b`. Este documento separa estado verificado, contratos de design e proposta de sequência; não aprova novas regras, preços, recompensas ou implementação. Nenhum merge de `main`, push ou mudança de gameplay nesta revisão.
 
 ## Estado conferido
