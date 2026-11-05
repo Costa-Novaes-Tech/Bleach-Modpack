@@ -2,6 +2,7 @@
 
 > **Acidwire adicionado — 03/11/2026:** modelo fornecido pelo usuário importado com textura e clipes idle/walk/attack; entidade própria registrada como `bleachmod:story_orihime_brother`. Isso substitui o bloqueio anterior por ausência do boss. MAIN-SUB-02 passa a criar o Acidwire após a conversa com a segunda Rukia, mantendo checkpoints, retorno, 100 XP provisórios e liberação de Chad. Não usa o Hollow Boss da abertura. Atributos e ataque físico são parâmetros provisórios de gameplay; validação e limites no [QA do Acidwire](../qa/boss/2026-11-03-acidwire/README.md).
 
+> **Alvo da abertura morto sem vitória válida — 30/10/2026:** em MAIN-SUB-01, se o Fishbone morrer sem validar a vitória do jogador proprietário, reiniciar somente a etapa do confronto. Preservar a introdução e permitir nova tentativa com Rukia/Journal. Não conceder conclusão por lava, morte por outro jogador ou ausência do alvo. Interagir com a mesma Rukia também permite recuperar uma tentativa antiga sem boss vivo carregado. A vitória legítima mantém a etapa de retorno.
 
 > **Retomada de MAIN-SUB-01 após morte — 30/10/2026:** preservar as etapas já concluídas dessa missão. Morte no boss reinicia somente o confronto; morte no retorno mantém a vitória. Não exigir novo aceite ou repetir a introdução. Esta política é exclusiva da primeira quest da Rukia; as demais missões conservam suas próprias regras de falha.
 

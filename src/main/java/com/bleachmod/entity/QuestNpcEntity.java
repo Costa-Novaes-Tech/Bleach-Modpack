@@ -103,6 +103,7 @@ public final class QuestNpcEntity extends Mob {
             return InteractionResult.PASS;
         }
         if (!level().isClientSide && player instanceof ServerPlayer serverPlayer) {
+            com.bleachmod.common.quest.RukiaOpeningQuest.recoverMissingEncounter(serverPlayer, this);
             if (com.bleachmod.common.quest.StoryQuestService.interact(serverPlayer, this)) return InteractionResult.CONSUME;
             NetworkHandler.sendToPlayer(new OpenNpcQuestScreenS2C(getNpcId(), getId()), serverPlayer);
         }
