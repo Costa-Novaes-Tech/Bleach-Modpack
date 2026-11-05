@@ -437,7 +437,7 @@ public final class RyujinBankaiGameTests {
         Vec3 anchor = new Vec3(10, 64, 10);
         Vec3 forward = new Vec3(0, 0, 1);
         RyujinBankaiCamera.Frame frameWide = RyujinBankaiCamera.sample(anchor, forward, 30);
-        h.assertTrue(frameWide.fov() == 76.0F, "Solar panorama FOV must include the complete sun inside letterbox bars");
+        h.assertTrue(frameWide.fov() == 80.0F, "Solar panorama FOV must include the complete sun inside letterbox bars");
         h.assertTrue(frameWide.eye().distanceTo(anchor) > 14.0, "Solar panorama must pull back and rise above the caster");
         RyujinBankaiCamera.Frame frameSpeech = RyujinBankaiCamera.sample(anchor, forward, 12);
         h.assertTrue(frameSpeech.fov() == 48.0F && frameSpeech.eye().distanceTo(anchor) < 5.5,
@@ -454,7 +454,7 @@ public final class RyujinBankaiGameTests {
         // Left-handed mirroring
         RyujinBankaiCamera.Frame frameDetailLeft = RyujinBankaiCamera.sample(anchor, forward, 68, -1.0F);
         h.assertTrue(frameDetailLeft.fov() == 48.0F, "Left-handed detail FOV must be 48");
-        h.assertTrue(frameDetailLeft.eye().distanceTo(anchor) > 3.5 && frameDetailLeft.eye().distanceTo(anchor) < 4.2, "Left-handed detail must retain the same frontal framing");
+        h.assertTrue(frameDetailLeft.eye().distanceTo(anchor) > 4.3 && frameDetailLeft.eye().distanceTo(anchor) < 4.7, "Left-handed detail must retain the same frontal framing");
 
         // Return transition at tick 140
         Vec3 nativeEye=anchor.add(0,1.62,-4);
@@ -491,8 +491,10 @@ public final class RyujinBankaiGameTests {
             Vec3 toSun=com.bleachmod.common.visual.RyujinBankaiPresentation.sunCenter(origin,f).subtract(panorama.eye());
             double centerAngle=Math.acos(net.minecraft.util.Mth.clamp(
                     panorama.focus().subtract(panorama.eye()).normalize().dot(toSun.normalize()),-1.0,1.0));
-            h.assertTrue(centerAngle+Math.asin(10.0/toSun.length())<Math.toRadians(panorama.fov()/2.0),
-                    "Full sun and flame rim must fit the panoramic vertical field");
+            // The cinema bars cover ten percent of the screen at each edge.
+            double visibleHalfAngle=Math.atan(Math.tan(Math.toRadians(panorama.fov()/2.0))*.8);
+            h.assertTrue(centerAngle+Math.asin(12.0/toSun.length())<visibleHalfAngle,
+                    "Full sun and flame rim must fit between the panoramic letterbox bars");
             var prev=RyujinBankaiCamera.sample(origin,f,0);
             for(double age=.25;age<=140;age+=.25) {
                 var frame=RyujinBankaiCamera.sample(origin,f,age);

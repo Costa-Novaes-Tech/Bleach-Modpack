@@ -25,14 +25,14 @@ public final class RyujinBankaiCamera {
         // shoulders while leaving the full rear sun and flame corona in frame.
         Frame opening=frame(anchor,forward,7.8,2.5,1.45,0,58);
         Frame speech=frame(anchor,forward,4.3,2.65,1.65,0,48);
-        Frame wide=frame(anchor,forward,12.5,8.2,5.0,-2.2,76);
+        Frame wide=frame(anchor,forward,14.2,9.0,6.8,-2.2,80);
         Frame seal=frame(anchor,forward,7.2,3.4,2.2,0,60);
         // Close again only as the sun finishes sealing into the outward blade.
         Frame detail=frame(anchor,forward,3.8,2.35,1.25,0,48);
         Frame name=frame(anchor,forward,5.2,1.5,1.15,0,54);
         if(age<10)return blend(opening,speech,age,0,10);
-        if(age<16)return speech;
-        if(age<26)return blend(speech,wide,age,16,26);
+        if(age<15)return speech;
+        if(age<27)return blend(speech,wide,age,15,27);
         if(age<=34)return wide;
         if(age<52)return blend(wide,seal,age,34,52);
         if(age<64)return blend(seal,detail,age,52,64);

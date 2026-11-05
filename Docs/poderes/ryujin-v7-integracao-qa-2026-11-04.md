@@ -1,5 +1,7 @@
 # Ryūjin Bankai v7 — implementação e prova inicial no Forge
 
+**Evolução posterior:** a [câmera v8 de 05/11/2026](ryujin-camera-v8-qa-2026-11-05.md) adicionou close da invocação, panorama que enquadra o sol inteiro e close da espada selada. As capturas abaixo registram a v7 original.
+
 **04/11/2026.** Branch verificada: `Feature-Poderes-bankais`, base `5b86984`. Trabalho local sem commit/merge. Os `.bbmodel` originais da sessão de modelagem já apareciam modificados no `git status` no início; o Codex não os editou. O checkout `main` e os worktrees Quincy/design permaneceram separados. Este relatório acompanha o [plano](ryujin-integracao-v7-explosao-luz-plano-2026-11-04.md), atualizado pela orientação do usuário: pequeno impacto sonoro e campo de fogo **durante** “Bankai”, explosão principal **depois** da palavra.
 
 ## O que foi integrado
