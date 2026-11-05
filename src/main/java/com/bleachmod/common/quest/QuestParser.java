@@ -129,6 +129,7 @@ public final class QuestParser {
             throw new IllegalArgumentException("Invalid item reward");
         String type = json.get("type").getAsString().toUpperCase();
         return switch (type) {
+            case "XP" -> new com.bleachmod.common.quest.rewards.ExperienceReward(json.get("amount").getAsInt());
             case "TPS" -> new TpsReward(json.get("amount").getAsFloat());
             case "SKILL" -> new SkillReward(json.get("skill").getAsString(), json.get("level").getAsInt());
             case "TRANSFORMATION" -> new TransformationReward(

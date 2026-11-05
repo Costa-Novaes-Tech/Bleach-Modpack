@@ -46,17 +46,20 @@ public final class StoryQuestGameTests {
 
     @GameTest(template = "empty")
     public static void missingBossIsAcceptedWithoutSpawnCompletionOrNextQuestUnlock(GameTestHelper helper) {
-        var player = player(helper); var npc = rukia(helper, "karakura_orihime"); player.setPos(npc.position());
+        var player = player(helper); var npc = rukia(helper, "karakura_cemiterio"); player.setPos(npc.position());
         var data = PlayerCapability.get(player).orElseThrow(() -> new IllegalStateException("Missing capability"));
         data.getPlayerQuestData().completeQuest("shinigami_substitute:1");
-        QuestService.startQuest(player, "shinigami_substitute:2", npc);
-        var progress = data.getPlayerQuestData().getProgress("shinigami_substitute:2");
+        data.getPlayerQuestData().completeQuest("shinigami_substitute:2");
+        data.getPlayerQuestData().completeQuest("shinigami_substitute:3");
+        data.getPlayerQuestData().completeQuest("shinigami_substitute:4");
+        QuestService.startQuest(player, "shinigami_substitute:5", npc);
+        var progress = data.getPlayerQuestData().getProgress("shinigami_substitute:5");
         helper.assertTrue(progress != null && progress.getStatus() == QuestStatus.ACCEPTED, "Pending mission not accepted");
         helper.assertTrue(!progress.isEncounterStarted(), "Unregistered boss started");
-        helper.assertTrue(StoryQuestService.pendingReason(QuestRegistry.getQuest("shinigami_substitute:2")) != null, "No pending explanation");
-        QuestService.incrementObjective(player, data, "shinigami_substitute:2", QuestRegistry.getQuest("shinigami_substitute:2"), 0, 1);
-        helper.assertTrue(!data.getPlayerQuestData().isCompleted("shinigami_substitute:2"), "Absent boss granted victory");
-        helper.assertTrue(!QuestAvailabilityChecker.isVisible(data, QuestRegistry.getQuest("shinigami_substitute:3")), "Skipped pending encounter");
+        helper.assertTrue(StoryQuestService.pendingReason(QuestRegistry.getQuest("shinigami_substitute:5")) != null, "No pending explanation");
+        QuestService.incrementObjective(player, data, "shinigami_substitute:5", QuestRegistry.getQuest("shinigami_substitute:5"), 0, 1);
+        helper.assertTrue(!data.getPlayerQuestData().isCompleted("shinigami_substitute:5"), "Absent boss granted victory");
+        helper.assertTrue(!QuestAvailabilityChecker.isVisible(data, QuestRegistry.getQuest("shinigami_substitute:6")), "Skipped pending encounter");
         npc.discard(); helper.succeed();
     }
 
@@ -182,9 +185,9 @@ public final class StoryQuestGameTests {
         RukiaOpeningQuest.dialogue(respawned, npc); RukiaOpeningQuest.dialogue(respawned, npc);
         helper.assertTrue(restored.getPlayerQuestData().isCompleted(key) && respawned.getInventory().countItem(com.bleachmod.init.ModItems.ASAUCHI.get()) == 1,
                 "Return after death lost or duplicated final sword");
-        restored.getPlayerQuestData().acceptQuest("shinigami_substitute:2", QuestRegistry.getQuest("shinigami_substitute:2"));
+        restored.getPlayerQuestData().acceptQuest("shinigami_substitute:3", QuestRegistry.getQuest("shinigami_substitute:3"));
         com.bleachmod.server.events.QuestEvents.onEntityKill(new net.minecraftforge.event.entity.living.LivingDeathEvent(respawned, helper.getLevel().damageSources().generic()));
-        helper.assertTrue(restored.getPlayerQuestData().getStatus("shinigami_substitute:2") == QuestStatus.FAILED, "Opening checkpoint policy leaked into another quest");
+        helper.assertTrue(restored.getPlayerQuestData().getStatus("shinigami_substitute:3") == QuestStatus.FAILED, "Opening checkpoint policy leaked into another quest");
         npc.discard(); helper.succeed();
     }
 

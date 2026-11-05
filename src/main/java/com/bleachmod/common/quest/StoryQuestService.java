@@ -39,7 +39,7 @@ public final class StoryQuestService {
     }
 
     public static void begin(ServerPlayer player, String key) {
-        if (RukiaOpeningQuest.isOpening(QuestRegistry.getQuest(key))) return;
+        if (RukiaOpeningQuest.isStaged(QuestRegistry.getQuest(key))) return;
         beginEncounter(player, key);
     }
 
@@ -66,7 +66,7 @@ public final class StoryQuestService {
         }
         progress.setStoryTargetUuid(target.entityId());
         progress.setEncounterStarted(true);
-        if (RukiaOpeningQuest.isOpening(quest)) QuestService.incrementObjective(player, data, key, quest, 0, 1);
+        if (RukiaOpeningQuest.isStaged(quest)) QuestService.incrementObjective(player, data, key, quest, 0, 1);
         com.bleachmod.server.events.QuestNavigationEvents.refresh(player);
         SyncHelper.progression(player);
     }
@@ -113,6 +113,7 @@ public final class StoryQuestService {
         }
         for (Mob mob : prepared) {
             if (!level.addFreshEntity(mob)) { prepared.forEach(Mob::discard); return false; }
+            if (RukiaOpeningQuest.isStaged(quest)) PlayerCapability.get(player).orElseThrow(() -> new IllegalStateException("Missing quest owner")).getPlayerQuestData().getProgress(quest.getQuestKey()).trackEncounter(mob);
         }
         return true;
     }
@@ -125,7 +126,7 @@ public final class StoryQuestService {
             Quest quest = QuestRegistry.getQuest(key);
             if (quest == null || !quest.isStory()) continue;
             QuestProgress progress = data.getPlayerQuestData().getProgress(key);
-            if (RukiaOpeningQuest.isOpening(quest)) continue; // Dialogue advances only on explicit UI confirmation.
+            if (RukiaOpeningQuest.isStaged(quest)) continue; // Dialogue advances only on explicit UI confirmation.
             if (!progress.isEncounterStarted() || !npc.getUUID().equals(progress.getStoryTargetUuid())
                     || !npc.getQuestContext().equals(quest.getStory().targetContext())
                     || !quest.getStory().dimension().equals(npc.level().dimension().location())) continue;
@@ -141,10 +142,14 @@ public final class StoryQuestService {
     }
 
     public static void cleanup(ServerPlayer player, String key) {
+        // Discard mutates the level lookup. Snapshot it before removing any actors.
+        var actors = new ArrayList<net.minecraft.world.entity.Entity>();
         for (var level : player.server.getAllLevels()) for (var entity : level.getAllEntities()) {
+            if (entity == null) continue;
             var tag = entity.getPersistentData();
             if (key.equals(tag.getString(Reference.TAG_QUEST_KEY)) && tag.hasUUID(Reference.TAG_QUEST_OWNER)
-                    && player.getUUID().equals(tag.getUUID(Reference.TAG_QUEST_OWNER))) entity.discard();
+                    && player.getUUID().equals(tag.getUUID(Reference.TAG_QUEST_OWNER))) actors.add(entity);
         }
+        actors.forEach(net.minecraft.world.entity.Entity::discard);
     }
 }

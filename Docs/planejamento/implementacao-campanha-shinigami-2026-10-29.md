@@ -2,6 +2,24 @@
 
 Data: 29/10/2026. Base: M13/10.32, commit `99064862`. Esta entrega implementa o catálogo de 28 missões e a seleção por personagem/contexto/progresso. As fichas narrativas continuam em [M13](../game-design/13-campanhas-e-sidequests.md); este arquivo descreve a integração executável.
 
+## Acidwire — boss próprio integrado em 03/11/2026
+
+O ID reservado `bleachmod:story_orihime_brother` agora registra `AcidwireEntity` e remove o impedimento de conteúdo da segunda quest. A definição e o progresso v2 permanecem compatíveis; o jogador que já concluiu a introdução pode usar **Tentar novamente**, sem migração ou repetição da conversa. Modelo/textura/animações vêm da cópia integral de `Acidwire.bbmodel` fornecida pelo usuário, em `tools/models/source/acidwire.bbmodel`. O exportador reproduzível é `python tools/models/acidwire.py --check`.
+
+A entidade tem renderer GeckoLib próprio, barra de boss e colisão de torso de 1,7 × 2,7 blocos. A cauda faz parte do modelo visual, não de uma hitbox adicional. Parâmetros provisórios: 160 HP, 6 HP de dano base, velocidade 0,25, golpe de 20 ticks com contato no tick 11 e cooldown de 36 ticks; alcance de 2,5 blocos. O golpe usa o clipe fornecido e valida alcance, direção, linha de visão e alvo no servidor. Pode ser evitado saindo do alcance ou cobrindo-se. Não destrói blocos nem ataca a Orihime/NPCs. Em encontros pessoais, sua IA busca somente o proprietário; vitória também continua vinculada à tentativa pessoal. Dano externo pode matar o boss, mas sem crédito válido libera nova tentativa em vez de pular a luta.
+
+O boss não concede XP na morte: os 100 XP de teste continuam na conversa final, uma única vez. Não foram adicionados itens/skills/formas como recompensas. Os valores não são uma ficha canônica completa do personagem e precisam de calibração com jogador de início de campanha. [Evidências e testes](../qa/boss/2026-11-03-acidwire/README.md).
+
+## Segunda missão por etapas — 03/11/2026
+
+MAIN-SUB-02 usa versão 2: aceitar no Journal → encontrar a segunda Rukia (`karakura_orihime`), junto da Orihime → confirmar diálogo → combate → retornar à mesma Rukia → concluir e receber 100 XP vanilla provisórios → liberar MAIN-SUB-03 (Chad). Não existe recompensa específica definida anteriormente. Antes da integração do Acidwire descrita acima, o boss `bleachmod:story_orihime_brother` ficou bloqueado por escolha explícita do usuário: a conversa permanecia concluída, mas combate/recompensa/Chad não eram pulados nem se usava inimigo substituto.
+
+A segunda dupla é persistente, compartilhada e distinta da Rukia inicial. Locais autorados têm preferência; sem eles, procura chão carregado próximo, sem alterar terreno, e cria Rukia/Orihime juntas. Não cria casa/cenário. Progresso e UUID da Rukia são pessoais.
+
+As duas primeiras missões preservam etapas na morte. Durante combate perdido, alvos anteriores são limpos e a tentativa recebe UUID novo. Vitória preserva retorno. Alvo morto sem crédito válido ou descartado permite nova tentativa; ator/posição são persistidos e reconciliados apenas em espaço carregado, sem carregar chunks. Objetivos/recompensa/Chad são conferidos no servidor.
+
+A definição original reconhecida de `02.json` é migrada com backup `02.json.pre-stages.bak`; customizações permanecem intactas. Progresso da definição anterior reconhecida é religado com tentativa nova; sucesso anterior permanece, sem conceder XP automaticamente a conclusões históricas. Clientes e servidor requerem protocolo `2.37` por causa da recompensa XP e do novo fluxo.
+
 ## Regras implementadas
 
 ### Direção atual — primeira quest da Rukia por etapas (30/10/2026)
@@ -59,7 +77,7 @@ O comando valida personagem, contexto e dimensão, e oferece sugestões. A dimen
 | Ordem | ID narrativo | Chave persistente | Oferta | Contexto da oferta | Destino | Situação do objetivo |
 |---:|---|---|---|---|---|---|
 | 1 | MAIN-SUB-01 | shinigami_substitute:1 | rukia | karakura_inicio | rukia / karakura_inicio | Confronto Hollow implementado; requer área preparada |
-| 2 | MAIN-SUB-02 | shinigami_substitute:2 | rukia | karakura_orihime | rukia / karakura_orihime | Boss ainda não registrado |
+| 2 | MAIN-SUB-02 | shinigami_substitute:2 | Painel / diálogo Rukia | karakura_orihime | rukia / karakura_orihime | Acidwire registrado; etapas de introdução, combate e retorno |
 | 3 | MAIN-SUB-03 | shinigami_substitute:3 | sado_yasutora | karakura_periquito | sado_yasutora / karakura_periquito | Boss ainda não registrado |
 | 4 | MAIN-SUB-04 | shinigami_substitute:4 | urahara | karakura_loja | kon / karakura_escola | Confronto Hollow implementado; requer área preparada |
 | 5 | MAIN-SUB-05 | shinigami_substitute:5 | rukia | karakura_cemiterio | rukia / karakura_cemiterio | Boss ainda não registrado |
@@ -87,7 +105,7 @@ O comando valida personagem, contexto e dimensão, e oferece sugestões. A dimen
 | 27 | MAIN-SS-12 | shinigami_soul_society:17 | Painel | ss_execucao_rukia | rukia / ss_execucao_rukia | Interação implementada; requer ponto no mapa |
 | 28 | MAIN-SS-13 | shinigami_soul_society:18 | Painel | ss_execucao_byakuya | byakuya / ss_execucao_byakuya | Boss ainda não registrado |
 
-`bleachmod:story_*` são contratos de identidade para as futuras representações de combate, deliberadamente não registrados como mobs de substituição. Ausência do boss gera aviso e impede iniciar/concluir o confronto; não spawna porco, mob genérico ou NPC de serviço. O catálogo permanece válido no reload. A futura integração pode registrar o ID reservado ou migrar explicitamente a definição. Um Kenpachi moderno ou uma versão posterior do personagem não substitui sua representação deste arco. Byakuya permanece uma única missão; fases Shikai/Bankai/Senkei pertencem ao futuro boss, sem três recompensas.
+`bleachmod:story_*` são contratos de identidade das representações de combate. `story_orihime_brother` agora registra o Acidwire próprio; os demais continuam pendentes, sem mobs de substituição. Ausência do boss gera aviso e impede iniciar/concluir o confronto; não spawna porco, mob genérico ou NPC de serviço. O catálogo permanece válido no reload. A futura integração pode registrar o ID reservado ou migrar explicitamente a definição. Um Kenpachi moderno ou uma versão posterior do personagem não substitui sua representação deste arco. Byakuya permanece uma única missão; fases Shikai/Bankai/Senkei pertencem ao futuro boss, sem três recompensas.
 
 Ururu/Urahara preservam dois objetivos tipados (`PURSUIT`, `HIT`), e a documentação mantém 60 segundos / 30% como referência aprovada. O exercício, seus atores e o checkpoint de Ururu ainda não são executados nesta entrega. Expedição/retorno, esfera/lançamento, galerias e circuito também permanecem bloqueados até terem percursos e validadores reais; não foram reduzidos a falar com NPC ou esperar parado. Essas pendências já constam das fichas M13 e são adicionais aos bosses ausentes. A presença do JSON não significa campanha inteira jogável.
 

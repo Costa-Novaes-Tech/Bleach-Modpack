@@ -50,10 +50,10 @@ public record QuestActionC2S(Action action, String questId, int npcEntityId) {
                 QuestService.startQuest(player, msg.questId, giver);
             }
             if (msg.action == Action.BEGIN) {
-                if (com.bleachmod.common.quest.RukiaOpeningQuest.isOpening(QuestRegistry.getQuest(msg.questId))) {
+                if (com.bleachmod.common.quest.RukiaOpeningQuest.isStaged(QuestRegistry.getQuest(msg.questId))) {
                     if (player.level().getEntity(msg.npcEntityId) instanceof QuestNpcEntity npc)
-                        com.bleachmod.common.quest.RukiaOpeningQuest.dialogue(player, npc);
-                    else if (msg.npcEntityId == -1) com.bleachmod.common.quest.RukiaOpeningQuest.retry(player);
+                        com.bleachmod.common.quest.RukiaOpeningQuest.dialogue(player, npc, msg.questId);
+                    else if (msg.npcEntityId == -1) com.bleachmod.common.quest.RukiaOpeningQuest.retry(player, msg.questId);
                 } else com.bleachmod.common.quest.StoryQuestService.begin(player, msg.questId);
             }
         });

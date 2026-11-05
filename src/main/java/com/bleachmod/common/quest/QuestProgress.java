@@ -9,9 +9,10 @@ public class QuestProgress {
     private String definition = "";
     /** Legacy saves bind to the definitions loaded on their first upgraded login. */
     public boolean bindDefinition(Quest quest) {
-        if (!matchesDefinition(quest) && RukiaOpeningQuest.isOpening(quest)) {
+        if (!matchesDefinition(quest) && RukiaOpeningQuest.isStaged(quest)) {
             try {
-                if (RukiaOpeningQuest.legacyDefinition(com.google.gson.JsonParser.parseString(definition).getAsJsonObject())) {
+                if ((RukiaOpeningQuest.isOpening(quest) && RukiaOpeningQuest.legacyDefinition(com.google.gson.JsonParser.parseString(definition).getAsJsonObject()))
+                        || (RukiaOpeningQuest.isOrihime(quest) && RukiaOpeningQuest.legacyOrihimeDefinition(com.google.gson.JsonParser.parseString(definition).getAsJsonObject()))) {
                     definition = quest.progressDefinition();
                     objectives.clear(); objectiveRequirements.clear();
                     for (int i = 0; i < quest.getObjectives().size(); i++) {
@@ -39,6 +40,13 @@ public class QuestProgress {
     private boolean starterAsauchiGranted;
     public boolean isStarterAsauchiGranted() { return starterAsauchiGranted; }
     public void markStarterAsauchiGranted() { starterAsauchiGranted = true; }
+    private java.util.UUID encounterActor;
+    private net.minecraft.core.BlockPos encounterPos;
+    public java.util.UUID getEncounterActor() { return encounterActor; }
+    public net.minecraft.core.BlockPos getEncounterPos() { return encounterPos; }
+    public void trackEncounter(net.minecraft.world.entity.Entity actor) {
+        encounterActor = actor.getUUID(); encounterPos = actor.blockPosition();
+    }
     private java.util.UUID attemptId;
     public java.util.UUID getAttemptId() { return attemptId; }
     public java.util.UUID getStoryTargetUuid() { return storyTargetUuid; }
@@ -111,6 +119,7 @@ public class QuestProgress {
             throw new IllegalStateException("Cannot restart inactive objective");
         objectives.put(index, 0);
         encounterStarted = false;
+        encounterActor = null; encounterPos = null;
         attemptId = java.util.UUID.randomUUID();
         failureCount++;
     }
@@ -123,6 +132,7 @@ public class QuestProgress {
         questGiverUuid = null;
         storyTargetUuid = null;
         encounterStarted = false;
+        encounterActor = null; encounterPos = null;
         attemptId = java.util.UUID.randomUUID();
         for (int i = 0; i < quest.getObjectives().size(); i++) {
             objectiveRequirements.put(i, quest.getObjectives().get(i).getRequired());
@@ -143,6 +153,7 @@ public class QuestProgress {
     public CompoundTag save() {
         CompoundTag tag = new CompoundTag();
         tag.putString("questId", questId);
+        if (encounterActor != null && encounterPos != null) { tag.putUUID("encounterActor", encounterActor); tag.putLong("encounterPos", encounterPos.asLong()); }
         if (questGiverUuid != null) tag.putUUID("questGiverUuid", questGiverUuid);
         if (storyTargetUuid != null) tag.putUUID("storyTargetUuid", storyTargetUuid);
         tag.putBoolean("encounterStarted", encounterStarted);
@@ -161,6 +172,7 @@ public class QuestProgress {
 
     public static QuestProgress load(CompoundTag tag) {
         QuestProgress progress = new QuestProgress(tag.getString("questId"));
+        if (tag.hasUUID("encounterActor")) { progress.encounterActor = tag.getUUID("encounterActor"); progress.encounterPos = net.minecraft.core.BlockPos.of(tag.getLong("encounterPos")); }
         if (tag.hasUUID("questGiverUuid")) progress.questGiverUuid = tag.getUUID("questGiverUuid");
         if (tag.hasUUID("storyTargetUuid")) progress.storyTargetUuid = tag.getUUID("storyTargetUuid");
         progress.encounterStarted = tag.getBoolean("encounterStarted");

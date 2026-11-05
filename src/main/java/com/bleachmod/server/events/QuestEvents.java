@@ -34,9 +34,10 @@ public class QuestEvents {
             return;
         }
         PlayerCapability.get(player).ifPresent(data -> processItemObjectives(player, data));
+        RukiaOpeningQuest.recoverMissingEncounter(player);
     }
 
-    @SubscribeEvent
+    @SubscribeEvent(priority = net.minecraftforge.eventbus.api.EventPriority.LOWEST)
     public static void onEntityKill(LivingDeathEvent event) {
         if(event.getEntity().getPersistentData().getBoolean("bleachmod_ash_soldier"))return;
         if (event.getEntity() instanceof ServerPlayer deadPlayer) {
@@ -44,6 +45,19 @@ public class QuestEvents {
         }
         if (event.getSource().getEntity() instanceof ServerPlayer killer) {
             creditQuestKill(killer, event.getEntity());
+        }
+        var tag = event.getEntity().getPersistentData();
+        if (tag.hasUUID(Reference.TAG_QUEST_OWNER) && tag.hasUUID("blc_quest_attempt")
+                && event.getEntity().level() instanceof net.minecraft.server.level.ServerLevel level) {
+            var owner = level.getServer().getPlayerList().getPlayer(tag.getUUID(Reference.TAG_QUEST_OWNER));
+            if (owner != null) PlayerCapability.get(owner).ifPresent(data -> {
+                String key = tag.getString(Reference.TAG_QUEST_KEY);
+                Quest q = QuestRegistry.getQuest(key);
+                var p = data.getPlayerQuestData().getProgress(key);
+                if (RukiaOpeningQuest.isStaged(q) && p != null && p.getStatus() == QuestStatus.ACCEPTED
+                        && RukiaOpeningQuest.stage(p) == 1 && p.isEncounterStarted()
+                        && tag.getUUID("blc_quest_attempt").equals(p.getAttemptId())) RukiaOpeningQuest.onPlayerDeath(owner, key);
+            });
         }
     }
 
@@ -110,7 +124,7 @@ public class QuestEvents {
             for (String questKey : pqd.getAcceptedQuestIds()) {
                 Quest quest = QuestRegistry.getQuest(questKey);
                 if (quest != null && quest.hasKillObjective()) {
-                    if (RukiaOpeningQuest.isOpening(quest)) RukiaOpeningQuest.onPlayerDeath(deadPlayer);
+                    if (RukiaOpeningQuest.isStaged(quest)) RukiaOpeningQuest.onPlayerDeath(deadPlayer, questKey);
                     else QuestService.failQuest(deadPlayer, data, questKey);
                 }
             }

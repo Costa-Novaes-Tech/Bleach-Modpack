@@ -97,7 +97,7 @@ public final class NpcQuestScreen extends Screen {
             if (quest != null) {
                 boolean begin = quest.isStory() && data() != null && data().getPlayerQuestData().isAccepted(quest.getQuestKey());
                 NetworkHandler.sendToServer(new QuestActionC2S(begin ? QuestActionC2S.Action.BEGIN : QuestActionC2S.Action.START, quest.getQuestKey(), entityId));
-                if (begin && RukiaOpeningQuest.isOpening(quest)) onClose();
+                if (begin && RukiaOpeningQuest.isStaged(quest)) onClose();
             }
         }).bounds(left, buttonY, (panelWidth - 4) / 2, 20).build());
         addRenderableWidget(Button.builder(Component.translatable("gui.done"), button -> onClose())
@@ -155,12 +155,12 @@ public final class NpcQuestScreen extends Screen {
                 : playerData.getPlayerQuestData().getProgress(quest.getQuestKey());
         boolean compatible = progress == null || progress.matchesDefinition(quest);
         boolean begin = quest != null && quest.isStory() && progress != null && progress.getStatus() == QuestStatus.ACCEPTED && !progress.isEncounterStarted();
-        if (RukiaOpeningQuest.isOpening(quest)) {
-            boolean talking = minecraft.level.getEntity(entityId) instanceof QuestNpcEntity npc && RukiaOpeningQuest.canTalk(progress, npc);
+        if (RukiaOpeningQuest.isStaged(quest)) {
+            boolean talking = minecraft.level.getEntity(entityId) instanceof QuestNpcEntity npc && RukiaOpeningQuest.canTalk(progress, npc, quest.getQuestKey());
             accept.setMessage(Component.translatable(RukiaOpeningQuest.stage(progress) == 2
-                    ? "bleachmod.story.sub_01.receive" : RukiaOpeningQuest.isRetryPending(progress)
+                    ? RukiaOpeningQuest.textPrefix(quest) + "receive" : RukiaOpeningQuest.isRetryPending(progress)
                     ? "bleachmod.story.sub_01.retry" : "bleachmod.story.sub_01.fight"));
-            accept.active = compatible && talking;
+            accept.active = compatible && (talking || (RukiaOpeningQuest.isOrihime(quest) && QuestAvailabilityChecker.isAvailable(playerData, quest.getQuestKey())));
             return;
         }
         accept.setMessage(Component.translatable(begin ? "screen.bleachmod.journal.start" : "screen.bleachmod.npc_quests.accept"));
@@ -181,9 +181,9 @@ public final class NpcQuestScreen extends Screen {
                 : playerData.getPlayerQuestData().getProgress(quest.getQuestKey());
         result.add(Component.translatable(quest.getTitle()));
         result.add(Component.translatable(quest.getDescription()));
-        if (RukiaOpeningQuest.isOpening(quest) && progress != null && progress.getStatus() == QuestStatus.ACCEPTED) {
+        if (RukiaOpeningQuest.isStaged(quest) && progress != null && progress.getStatus() == QuestStatus.ACCEPTED) {
             result.add(Component.empty());
-            result.add(Component.translatable("bleachmod.story.sub_01.dialogue_" + RukiaOpeningQuest.stage(progress)));
+            result.add(Component.translatable(RukiaOpeningQuest.textPrefix(quest) + "dialogue_" + RukiaOpeningQuest.stage(progress)));
         }
         Component pendingContent = com.bleachmod.common.quest.StoryQuestService.pendingReason(quest);
         if (pendingContent != null) result.add(pendingContent);

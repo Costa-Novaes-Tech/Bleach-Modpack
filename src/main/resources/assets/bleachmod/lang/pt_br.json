@@ -493,7 +493,7 @@
   "bleachmod.story.sub_01.receive": "Receber Asauchi e concluir",
   "bleachmod.story.sub_02.name": "Laços além da morte",
   "bleachmod.story.sub_02.objective": "Interrompa o ataque do irmão Hollow de Orihime.",
-  "bleachmod.story.sub_02.desc": "Interrompa o ataque do irmão Hollow de Orihime. Converse com o NPC da ocorrência e inicie na área indicada.",
+  "bleachmod.story.sub_02.desc": "Encontre a Rukia que está junto da Orihime em Karakura.",
   "bleachmod.story.sub_03.name": "A alma no periquito",
   "bleachmod.story.sub_03.objective": "Derrote Shrieker e encerre a perseguição.",
   "bleachmod.story.sub_03.desc": "Derrote Shrieker e encerre a perseguição. Converse com o NPC da ocorrência e inicie na área indicada.",
@@ -625,5 +625,13 @@
   "entity.bleachmod.story_tosen": "Tosen",
   "entity.bleachmod.story_komamura": "Komamura",
   "entity.bleachmod.story_soifon": "Soifon",
-  "entity.bleachmod.story_byakuya": "Byakuya"
+  "entity.bleachmod.story_byakuya": "Byakuya",
+  "bleachmod.story.sub_02.meet": "Converse com a Rukia junto da Orihime.",
+  "bleachmod.story.sub_02.return": "Volte à Rukia junto da Orihime.",
+  "bleachmod.story.sub_02.dialogue_0": "Rukia: Um Hollow está ameaçando Orihime. Ele era seu irmão. Precisamos interromper o ataque. Enfrente-o e volte para falar comigo.",
+  "bleachmod.story.sub_02.dialogue_1": "Rukia: Derrote o Hollow que ameaça Orihime e volte para falar comigo.",
+  "bleachmod.story.sub_02.dialogue_2": "Rukia: Você venceu. Orihime pôde se despedir do irmão. Receba esta recompensa pelo seu esforço. Chad precisa de ajuda com outro caso.",
+  "bleachmod.story.sub_02.receive": "Receber recompensa e concluir",
+  "bleachmod.reward.xp": "%s XP (teste)",
+  "entity.bleachmod.story_orihime_brother": "Acidwire — Irmão de Orihime"
 }

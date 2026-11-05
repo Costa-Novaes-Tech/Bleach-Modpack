@@ -89,6 +89,11 @@ minecraft {
         }
 
         client {
+            if (providers.gradleProperty('acidwireQa').map { it.toBoolean() }.getOrElse(false)) {
+                workingDirectory project.file('run/acidwire-qa')
+                property 'bleachmod.acidwireQa', 'true'
+                args '--width', '1280', '--height', '720'
+            }
             if (providers.gradleProperty('storyQuestQa').map { it.toBoolean() }.getOrElse(false)) {
                 workingDirectory project.file('run/story-quest-qa')
                 property 'bleachmod.storyQuestQa', 'true'

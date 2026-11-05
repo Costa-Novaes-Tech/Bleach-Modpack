@@ -28,6 +28,7 @@ public class ModEntityRenderers {
     public static void registerRenderers(
             EntityRenderersEvent.RegisterRenderers event
     ) {
+        event.registerEntityRenderer(ModEntities.ACIDWIRE.get(), com.bleachmod.client.model.AcidwireRenderer::new);
         event.registerEntityRenderer(ModEntities.ICE_DRAGON.get(), com.bleachmod.client.model.IceDragonRenderer::new);
         event.registerEntityRenderer(
                 ModEntities.HOLLOW.get(),

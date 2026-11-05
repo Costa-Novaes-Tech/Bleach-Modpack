@@ -493,7 +493,7 @@
   "bleachmod.story.sub_01.receive": "Receive Asauchi and complete",
   "bleachmod.story.sub_02.name": "Bonds beyond death",
   "bleachmod.story.sub_02.objective": "Stop Orihime’s Hollow brother.",
-  "bleachmod.story.sub_02.desc": "Stop Orihime’s Hollow brother. Speak with the encounter NPC and begin in the indicated area.",
+  "bleachmod.story.sub_02.desc": "Find the Rukia beside Orihime in Karakura.",
   "bleachmod.story.sub_03.name": "The soul in the parakeet",
   "bleachmod.story.sub_03.objective": "Defeat Shrieker and end the pursuit.",
   "bleachmod.story.sub_03.desc": "Defeat Shrieker and end the pursuit. Speak with the encounter NPC and begin in the indicated area.",
@@ -625,5 +625,13 @@
   "entity.bleachmod.story_tosen": "Tosen",
   "entity.bleachmod.story_komamura": "Komamura",
   "entity.bleachmod.story_soifon": "Soifon",
-  "entity.bleachmod.story_byakuya": "Byakuya"
+  "entity.bleachmod.story_byakuya": "Byakuya",
+  "bleachmod.story.sub_02.meet": "Speak to the Rukia beside Orihime.",
+  "bleachmod.story.sub_02.return": "Return to the Rukia beside Orihime.",
+  "bleachmod.story.sub_02.dialogue_0": "Rukia: A Hollow is threatening Orihime. He was her brother. Stop the attack, then return to me.",
+  "bleachmod.story.sub_02.dialogue_1": "Rukia: Defeat the Hollow threatening Orihime, then return to me.",
+  "bleachmod.story.sub_02.dialogue_2": "Rukia: You won. Orihime could say goodbye to her brother. Take this reward for your effort. Chad needs help with another case.",
+  "bleachmod.story.sub_02.receive": "Receive reward and conclude",
+  "bleachmod.reward.xp": "%s XP (test)",
+  "entity.bleachmod.story_orihime_brother": "Acidwire — Orihime’s Brother"
 }

@@ -131,10 +131,10 @@ public final class JournalScreen extends LayoutScreen {
 
         QuestProgress p = valid ? d.getPlayerQuestData().getProgress(selected) : null;
         boolean compatible = p == null || p.matchesDefinition(q);
-        boolean retryOpening = valid && RukiaOpeningQuest.isOpening(q) && RukiaOpeningQuest.isRetryPending(p);
+        boolean retryOpening = valid && RukiaOpeningQuest.isStaged(q) && RukiaOpeningQuest.isRetryPending(p);
         boolean begin = valid && q.isStory() && p != null && p.getStatus() == QuestStatus.ACCEPTED && !p.isEncounterStarted()
-                && (!RukiaOpeningQuest.isOpening(q) || retryOpening);
-        ctx.text("start_label", Component.translatable(RukiaOpeningQuest.isOpening(q)
+                && (!RukiaOpeningQuest.isStaged(q) || retryOpening);
+        ctx.text("start_label", Component.translatable(RukiaOpeningQuest.isStaged(q)
                 ? retryOpening ? "bleachmod.story.sub_01.retry" : "screen.bleachmod.npc_quests.accept" : "screen.bleachmod.journal.start"));
         ctx.flag("can_start", valid && compatible && ((q.getQuestGiver().isBlank() && QuestAvailabilityChecker.isAvailable(d, selected))
                 || (begin && StoryQuestService.pendingReason(q) == null)));

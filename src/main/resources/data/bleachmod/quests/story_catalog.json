@@ -79,7 +79,7 @@
       "story": {
         "id": "MAIN-SUB-02",
         "offer_context": "karakura_orihime",
-        "start_mode": "NPC",
+        "start_mode": "PANEL",
         "target_npc": "rukia",
         "target_context": "karakura_orihime",
         "dimension": "minecraft:overworld",
@@ -102,15 +102,32 @@
       },
       "objectives": [
         {
+          "type": "STORY",
+          "action": "INTERACT",
+          "description": "bleachmod.story.sub_02.meet",
+          "count": 1
+        },
+        {
           "type": "KILL",
           "entity": "bleachmod:story_orihime_brother",
           "count": 1,
           "spawn": "QUEST",
           "count_mode": "QUEST_SPAWNED_ONLY"
+        },
+        {
+          "type": "STORY",
+          "action": "INTERACT",
+          "description": "bleachmod.story.sub_02.return",
+          "count": 1
         }
       ],
-      "rewards": [],
-      "quest_giver": "rukia"
+      "rewards": [
+        {
+          "type": "XP",
+          "amount": 100
+        }
+      ],
+      "version": 2
     },
     {
       "id": 3,

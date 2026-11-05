@@ -52,6 +52,11 @@ public class ModEntities {
                             .build("hollow_boss")
             );
 
+    public static final RegistryObject<EntityType<com.bleachmod.entity.AcidwireEntity>> ACIDWIRE =
+            ENTITY_TYPES.register("story_orihime_brother", () -> EntityType.Builder
+                    .of(com.bleachmod.entity.AcidwireEntity::new, MobCategory.MONSTER)
+                    .sized(1.7F, 2.7F).clientTrackingRange(12).updateInterval(1).build("story_orihime_brother"));
+
     public static final RegistryObject<EntityType<QuestNpcEntity>> NPC_SADO_YASUTORA = registerNpc("sado_yasutora");
     public static final RegistryObject<EntityType<QuestNpcEntity>> NPC_ICHIGO = registerNpc("ichigo");
     public static final RegistryObject<EntityType<QuestNpcEntity>> NPC_ORIHIME = registerNpc("orihime");

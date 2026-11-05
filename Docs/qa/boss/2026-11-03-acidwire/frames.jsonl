@@ -1,0 +1,15 @@
+{"file":"screenshots/01-acidwire-front-idle.png","tick":60,"attackTick":-1,"attacking":false,"source":"Minecraft Screenshot.grab framebuffer"}
+{"file":"screenshots/02-acidwire-side-idle.png","tick":95,"attackTick":-1,"attacking":false,"source":"Minecraft Screenshot.grab framebuffer"}
+{"file":"screenshots/03-acidwire-rear-idle.png","tick":125,"attackTick":-1,"attacking":false,"source":"Minecraft Screenshot.grab framebuffer"}
+{"file":"screenshots/04-acidwire-walk.png","tick":140,"attackTick":-1,"attacking":false,"source":"Minecraft Screenshot.grab framebuffer"}
+{"file":"screenshots/05-acidwire-claw-windup.png","tick":179,"attackTick":3,"attacking":true,"source":"Minecraft Screenshot.grab framebuffer"}
+{"file":"screenshots/06-acidwire-claw-impact.png","tick":187,"attackTick":11,"attacking":true,"source":"Minecraft Screenshot.grab framebuffer"}
+{"file":"screenshots/07-acidwire-claw-recovery.png","tick":193,"attackTick":17,"attacking":true,"source":"Minecraft Screenshot.grab framebuffer"}
+{"file":"screenshots/08-quest-introduction.png","tick":280,"attackTick":-1,"attacking":false,"source":"Minecraft Screenshot.grab framebuffer"}
+{"file":"screenshots/09-real-acidwire-quest-boss.png","tick":335,"attackTick":-1,"attacking":false,"source":"Minecraft Screenshot.grab framebuffer"}
+{"file":"screenshots/10-player-respawn-combat-checkpoint.png","tick":425,"attackTick":-1,"attacking":false,"source":"Minecraft Screenshot.grab framebuffer"}
+{"file":"screenshots/11-environmental-death-retry.png","tick":490,"attackTick":-1,"attacking":false,"source":"Minecraft Screenshot.grab framebuffer"}
+{"file":"screenshots/12-victory-return-stage.png","tick":565,"attackTick":-1,"attacking":false,"source":"Minecraft Screenshot.grab framebuffer"}
+{"file":"screenshots/13-final-dialogue.png","tick":610,"attackTick":-1,"attacking":false,"source":"Minecraft Screenshot.grab framebuffer"}
+{"file":"screenshots/14-quest-complete-reward.png","tick":675,"attackTick":-1,"attacking":false,"source":"Minecraft Screenshot.grab framebuffer"}
+{"file":"screenshots/15-completed-dialogue-reward-claimed.png","tick":715,"attackTick":-1,"attacking":false,"source":"Minecraft Screenshot.grab framebuffer"}

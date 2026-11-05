@@ -1561,7 +1561,28 @@ public final class MvpRegressionTest {
                 var matcher = java.util.regex.Pattern.compile("\\| \\d+ \\| (MAIN-[A-Z0-9-]+) \\|").matcher(doc);
                 List<String> expected = new ArrayList<>(); while (matcher.find()) expected.add(matcher.group(1));
                 eq(expected, snapshot.quests().values().stream().map(q -> q.getStory().id()).toList());
-                yes(snapshot.quests().values().stream().allMatch(q -> q.getRewards().isEmpty() && !q.isRepeatable()));
+                yes(snapshot.quests().values().stream().allMatch(q -> !q.isRepeatable()
+                        && (RukiaOpeningQuest.isOrihime(q) || q.getRewards().isEmpty())));
+                var reward = snapshot.quests().get(RukiaOpeningQuest.ORIHIME_KEY).getRewards();
+                eq(1, reward.size()); eq("XP", reward.get(0).toJson().get("type").getAsString());
+                eq(100, reward.get(0).toJson().get("amount").getAsInt());
+            } catch (java.io.IOException failure) { throw new AssertionError(failure); }
+        });
+        test("custom Orihime contracts retain generic policy instead of fixed stage indexes", () -> {
+            try {
+                var json = StoryQuestDefaults.bundled().getAsJsonArray("quests").get(1).getAsJsonObject().deepCopy();
+                var canonical = QuestParser.parseQuest(json, "shinigami_substitute");
+                yes(RukiaOpeningQuest.isStaged(canonical));
+                var single = new com.google.gson.JsonArray(); single.add(json.getAsJsonArray("objectives").get(1));
+                single.get(0).getAsJsonObject().addProperty("count", 2); json.add("objectives", single);
+                var customized = QuestParser.parseQuest(json, "shinigami_substitute");
+                yes(!RukiaOpeningQuest.isStaged(customized));
+                var progress = new QuestProgress(customized.getQuestKey()); progress.initializeRequirements(customized);
+                progress.setStatus(QuestStatus.ACCEPTED);
+                yes(!QuestService.isObjectiveActive(customized, progress, 0));
+                progress.setEncounterStarted(true); yes(QuestService.isObjectiveActive(customized, progress, 0));
+                var multi = canonical.toJson(); multi.getAsJsonArray("objectives").get(1).getAsJsonObject().addProperty("count", 2);
+                yes(!RukiaOpeningQuest.isStaged(QuestParser.parseQuest(multi, "shinigami_substitute")));
             } catch (java.io.IOException failure) { throw new AssertionError(failure); }
         });
         test("world catalog excludes obsolete quests and journal follows chronological order", () -> {

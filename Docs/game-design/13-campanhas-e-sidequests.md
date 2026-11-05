@@ -1,5 +1,8 @@
 # M13 — Campanhas e sidequests
 
+> **Acidwire adicionado — 03/11/2026:** modelo fornecido pelo usuário importado com textura e clipes idle/walk/attack; entidade própria registrada como `bleachmod:story_orihime_brother`. Isso substitui o bloqueio anterior por ausência do boss. MAIN-SUB-02 passa a criar o Acidwire após a conversa com a segunda Rukia, mantendo checkpoints, retorno, 100 XP provisórios e liberação de Chad. Não usa o Hollow Boss da abertura. Atributos e ataque físico são parâmetros provisórios de gameplay; validação e limites no [QA do Acidwire](../qa/boss/2026-11-03-acidwire/README.md).
+
+
 > **Retomada de MAIN-SUB-01 após morte — 30/10/2026:** preservar as etapas já concluídas dessa missão. Morte no boss reinicia somente o confronto; morte no retorno mantém a vitória. Não exigir novo aceite ou repetir a introdução. Esta política é exclusiva da primeira quest da Rukia; as demais missões conservam suas próprias regras de falha.
 
 > **Revisão de implementação solicitada em 30/10/2026 — MAIN-SUB-01:** aceitar a abertura pelo Mission Journal → localizar a primeira Rukia pela bússola → diálogo sobre Hollows/Shinigamis → confronto com Hollow Boss → retornar à mesma Rukia → diálogo de Shinigami temporário e entrega da Asauchi → conclusão e disponibilidade de MAIN-SUB-02. As etapas futuras ficam ocultas até concluir a anterior. Esta direção revisa somente a abertura; as fichas e decisões de 28/10 abaixo ficam como histórico no que divergirem. [Fluxo atual e migração](../planejamento/implementacao-campanha-shinigami-2026-10-29.md).
@@ -344,6 +347,8 @@ Não tratar essas entradas como quests raciais ou filler. Os demais arcos e o re
 **O que a rodada resolveu:** seleção da abertura e forma de concluir a primeira missão. Detalhamento de mapa, ficha de combate, acesso racial, participação e recompensas continua necessário antes de implementação. Aprovação da estrutura não declara esses detalhes especificados nem funcionamento observado em jogo.
 
 ### 10.4. MAIN-SUB-02 — Laços além da morte
+
+> **Revisão aprovada em 03/11/2026:** conclusão da primeira missão libera esta no Journal. Aceite aponta para outra Rukia, no contexto `karakura_orihime`, junto da Orihime. Conversar com esta instância libera a etapa de combate. Vitória deve ser preservada até o retorno à mesma Rukia; somente o diálogo final conclui, entrega a recompensa uma vez e libera Chad (MAIN-SUB-03). Morte preserva aceite/introdução; combate perdido permite nova tentativa e retorno pós-vitória não repete o boss. Morte ambiental ou desaparecimento do alvo não concede vitória: libera retomada sem apagar etapas concluídas. Não há prêmio específico anterior; autorizado XP provisório de teste (100 pontos vanilla). Usuário escolheu expressamente manter combate bloqueado até criar o boss próprio, sem Hollow substituto. Esta revisão substitui a conclusão local sem retorno descrita no histórico abaixo.
 
 **Estrutura aprovada — M13-04A/B, 28/10/2026.** Respostas: “Concordo” e “Prefiro vencer o Hollow”; Rukia encaminha e vencer o adversário é o objetivo, sem defesa de Orihime. Segunda atividade após MAIN-SUB-01. CAMP-S01/03 sustentam a ameaça do irmão Hollow contra Orihime e o desfecho do conflito. A oferta e o papel do jogador são adaptações declaradas.
 

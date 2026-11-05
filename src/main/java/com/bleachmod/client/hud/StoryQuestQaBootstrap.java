@@ -91,6 +91,10 @@ public final class StoryQuestQaBootstrap {
                 : ticks == 170 ? mc.screen instanceof NpcQuestScreen
                 : ticks == 220 ? data != null && RukiaOpeningQuest.stage(data.getPlayerQuestData().getProgress(RukiaOpeningQuest.KEY)) == 1
                 : ticks == 265 ? mc.player.isAlive() && data != null && RukiaOpeningQuest.isRetryPending(data.getPlayerQuestData().getProgress(RukiaOpeningQuest.KEY))
+                : ticks == 620 ? data != null && data.getPlayerQuestData().isAccepted(RukiaOpeningQuest.ORIHIME_KEY)
+                : ticks == 685 || ticks == 780 ? mc.screen instanceof NpcQuestScreen
+                : ticks == 735 ? data != null && RukiaOpeningQuest.isRetryPending(data.getPlayerQuestData().getProgress(RukiaOpeningQuest.ORIHIME_KEY))
+                : ticks == 885 ? mc.player.isAlive() && data != null && RukiaOpeningQuest.isRetryPending(data.getPlayerQuestData().getProgress(RukiaOpeningQuest.ORIHIME_KEY))
                 : true;
         if (!ready) { if (++waiting > 200) throw new IllegalStateException("Story QA sync timeout " + ticks); ticks--; return; }
         waiting = 0;
@@ -186,6 +190,55 @@ public final class StoryQuestQaBootstrap {
         if (ticks == 555) mc.setScreen(new com.bleachmod.client.gui.JournalScreen());
         if (ticks == 575) capture = "07-completed-next-unlocked";
         if (ticks == 595) {
+            mc.setScreen(null);
+            NetworkHandler.sendToServer(new com.bleachmod.common.network.c2s.QuestActionC2S(
+                    com.bleachmod.common.network.c2s.QuestActionC2S.Action.START, RukiaOpeningQuest.ORIHIME_KEY, -1));
+        }
+        if (ticks == 620) server(p -> PlayerCapability.get(p).ifPresent(d -> {
+            com.bleachmod.server.events.OrihimeQuestEvents.provision(p);
+            var second = (QuestNpcEntity) p.serverLevel().getEntity(next);
+            require(second != null && !second.getUUID().equals(opening), "Second Rukia missing or reused first instance");
+            var progress = d.getPlayerQuestData().getProgress(RukiaOpeningQuest.ORIHIME_KEY);
+            require(progress.getObjectiveProgress(0) == 0 && !progress.isEncounterStarted(), "Orihime acceptance started battle or skipped introduction");
+            require(next.equals(progress.getStoryTargetUuid()), "Orihime compass targets wrong Rukia");
+            require(!p.serverLevel().getEntitiesOfClass(QuestNpcEntity.class, second.getBoundingBox().inflate(8),
+                    npc -> "orihime".equals(npc.getNpcId()) && "karakura_orihime".equals(npc.getQuestContext())).isEmpty(),
+                    "Second Rukia has no Orihime companion");
+            p.connection.teleport(second.getX(), second.getY(), second.getZ() - 5, 0, 0);
+        }));
+        if (ticks == 645) capture = "08-orihime-pair-and-navigation";
+        if (ticks == 660) server(p -> {
+            var second = (QuestNpcEntity) p.serverLevel().getEntity(next);
+            p.connection.teleport(second.getX(), second.getY(), second.getZ() - 2, 0, 0);
+            second.mobInteract(p, net.minecraft.world.InteractionHand.MAIN_HAND);
+        });
+        if (ticks == 690) capture = "09-orihime-introduction-dialogue";
+        if (ticks == 705) {
+            mc.setScreen(null);
+            NetworkHandler.sendToServer(new com.bleachmod.common.network.c2s.QuestActionC2S(
+                    com.bleachmod.common.network.c2s.QuestActionC2S.Action.BEGIN, RukiaOpeningQuest.ORIHIME_KEY, nextId));
+        }
+        if (ticks == 735) server(p -> PlayerCapability.get(p).ifPresent(d -> {
+            var progress = d.getPlayerQuestData().getProgress(RukiaOpeningQuest.ORIHIME_KEY);
+            require(progress.getObjectiveProgress(0) == 1 && progress.isEncounterStarted(), "Orihime introduction did not start Acidwire");
+            require(StoryQuestService.pendingReason(QuestRegistry.getQuest(RukiaOpeningQuest.ORIHIME_KEY)) == null, "Registered Acidwire still pending");
+            require(!QuestAvailabilityChecker.isVisible(d, QuestRegistry.getQuest("shinigami_substitute:3")), "Pending Orihime boss unlocked Chad");
+            require(p.serverLevel().getEntity(progress.getEncounterActor()) instanceof com.bleachmod.entity.AcidwireEntity,
+                    "Orihime quest did not spawn the actual Acidwire");
+        }));
+        if (ticks == 745) capture = "10-orihime-acidwire-hud";
+        if (ticks == 760) server(p -> ((QuestNpcEntity) p.serverLevel().getEntity(next)).mobInteract(p, net.minecraft.world.InteractionHand.MAIN_HAND));
+        if (ticks == 790) capture = "11-orihime-acidwire-dialogue";
+        if (ticks == 820) { mc.setScreen(null); server(p -> p.kill()); }
+        if (ticks == 850) mc.player.respawn();
+        if (ticks == 885) server(p -> PlayerCapability.get(p).ifPresent(d -> {
+            var progress = d.getPlayerQuestData().getProgress(RukiaOpeningQuest.ORIHIME_KEY);
+            require(progress.getObjectiveProgress(0) == 1 && next.equals(progress.getStoryTargetUuid()), "Orihime death lost introduction or second Rukia binding");
+            var second = (QuestNpcEntity) p.serverLevel().getEntity(next);
+            p.connection.teleport(second.getX(), second.getY(), second.getZ() - 5, 0, 0);
+        }));
+        if (ticks == 910) capture = "12-orihime-respawn-retains-introduction";
+        if (ticks == 935) {
             com.mojang.logging.LogUtils.getLogger().info("Story quest QA complete: {}", evidence); mc.stop();
         }
     }
