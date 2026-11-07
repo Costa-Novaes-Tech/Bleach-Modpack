@@ -2,17 +2,37 @@
 
 Use uma instância Forge 1.20.1 separada ou uma cópia do perfil e do mundo. A prova de referência usou Java 17, Forge 47.4.10, GeckoLib 4.8.4, Better Combat 1.9.0, Player Animator 1.0.2-rc1 e Cloth Config 11.1.136. [Relatório técnico](ryujin-v16-acabamento-e-perfis-forge-2026-11-07.md).
 
-## Instalar no perfil de teste
+## Testar pelo projeto com Gradle
 
-1. Em `mods`, substitua o JAR anterior do Bleach Mod por `build/libs/bleachmod-0.2.0-v16-composite.jar`. Guarde o anterior fora de `mods`. O SHA-256 do JAR validado é `46b91f5c54d7760f8e5893189f5fd2bcd754521e5bc27089a0b0178008ed56c9`. Para reconstruir a branch, use `.\gradlew.bat check build --offline --console=plain` com o cache já preparado.
-2. Copie `build/visual-lab/playtest-ryujin-v16/RyujinSunV16Full.zip`, `run/resourcepacks/RyujinAudio15Local.zip` e `run/resourcepacks/RyujinAudio15HeavyMusicLocal.zip` para `resourcepacks`. Ative os três e coloque **HeavyMusic acima de Audio15Local**. O ZIP visual reúne os mesmos recursos efetivos do perfil de QA. As vozes e a música ficam nos packs locais. Se precisar gerar novamente o visual a partir da branch, rode `python -B tools/models/lab/codex/ryujin01/build_solar_finish.py` com Pillow e adicione `tools/models/lab/codex/ryujin01/ryujin_bankai_continuous_sun_v13_lab_glowmask.png` à pasta gerada como `assets/bleachmod/textures/entity/ryujin_bankai_sun_glowmask.png` e copie `build/visual-lab/ryujin-v16-packs/RyujinSunV16Full` para `resourcepacks`.
-3. Comece com **Shimmer 0.3.0 Forge** em `mods`, em uma instância sem Oculus. Acrescente estes argumentos Java da instância.
+O log `run/logs/latest.log` da sessão de 07/11 mostrou `forgeclientuserdev` e `Reloading ResourceManager: vanilla, mod_resources`. O `runClient` usa `sourceSets.main` e a pasta `run`. A chama do olho depende de `ryujinV14Pilot`. O sol contínuo exige também `ryujinContinuousSolar` e o marcador de atlas carregado pelo pack. Uma execução comum mantém essas opções desligadas.
+
+Na raiz do projeto, abra o PowerShell e inicie o cliente de teste assim. As opções valem para essa execução.
+
+```powershell
+$ryujinPreviousJavaOptions = $env:JAVA_TOOL_OPTIONS
+try {
+    $env:JAVA_TOOL_OPTIONS = "$ryujinPreviousJavaOptions -Dbleachmod.ryujinV14Pilot=true -Dbleachmod.ryujinContinuousSolar=true"
+    .\gradlew.bat --no-daemon runClient
+} finally {
+    $env:JAVA_TOOL_OPTIONS = $ryujinPreviousJavaOptions
+}
+```
+
+Em **Opções → Pacotes de Recursos**, mova **RyujinSunV16Full** para o lado ativo com a seta da miniatura e clique em **Concluído**. O ZIP foi preparado em `run/resourcepacks`. Para testar o áudio, ative `RyujinAudio15Local` e `RyujinAudio15HeavyMusicLocal` e deixe **HeavyMusic acima de Audio15Local**. Use um mundo de teste ou cópia de um save. A chama do olho e o sol contínuo podem ser avaliados nesse perfil com as dependências existentes.
+
+Se precisar reconstruir o pack, rode `python -B tools/models/lab/codex/ryujin01/build_solar_finish.py` com Pillow. Na pasta gerada `build/visual-lab/ryujin-v16-packs/RyujinSunV16Full`, copie `tools/models/lab/codex/ryujin01/ryujin_bankai_continuous_sun_v13_lab_glowmask.png` para `assets/bleachmod/textures/entity/ryujin_bankai_sun_glowmask.png`. Copie a pasta inteira para `run/resourcepacks` e ative no menu.
+
+## Testar pelo launcher Forge
+
+1. Em uma cópia da instância Forge 1.20.1, abra a pasta da instância pelo launcher. Feche o jogo e mova o JAR antigo do Bleach Mod para fora de `mods`. Copie `build/libs/bleachmod-0.2.0.jar` para `mods`. Esse é o nome padrão do build da branch. Para reconstruí-lo, rode `.\gradlew.bat check build --offline --console=plain` com o cache já preparado. O JAR histórico `bleachmod-0.2.0-v16-composite.jar` pertence à bancada anterior, com hash no relatório técnico.
+2. Copie os três ZIPs de `run/resourcepacks` para `resourcepacks` da instância. Ative-os pelo menu na ordem indicada acima. Para testar olho e sol, adicione aos argumentos Java `-Dbleachmod.ryujinV14Pilot=true -Dbleachmod.ryujinContinuousSolar=true`.
+3. Para repetir o perfil com iluminação do terreno, instale **Shimmer 0.3.0 Forge** em uma instância separada. Use estes argumentos Java para combinar o Shimmer com bloom e refração próprios.
 
 ```text
 -Dbleachmod.ryujinV14Pilot=true -Dbleachmod.ryujinContinuousSolar=true -Dbleachmod.ryujinSolarBloom=true -Dbleachmod.ryujinHeatRefraction=true
 ```
 
-Para o segundo ensaio, use outro perfil com **Embeddium 0.3.31 e Oculus 1.8.0**, o Complementary Reimagined **r5.2.2** na pasta `shaderpacks` e o arquivo `ComplementaryReimagined_r5.2.2.zip.txt` de `build/visual-lab/playtest-ryujin-v16` ao lado do ZIP. Selecione o shader no menu. Use estes argumentos.
+Para o segundo ensaio, use outro perfil com **Embeddium 0.3.31 e Oculus 1.8.0**. Coloque o Complementary Reimagined **r5.2.2** na pasta `shaderpacks`, selecione o preset **LOW** e use os ajustes de calibração do ensaio, `BLOOM_STRENGTH=0.036` e `T_EXPOSURE=0.95`. Use estes argumentos Java.
 
 ```text
 -Dbleachmod.ryujinV14Pilot=true -Dbleachmod.ryujinContinuousSolar=true -Dbleachmod.ryujinShaderComposite=true
