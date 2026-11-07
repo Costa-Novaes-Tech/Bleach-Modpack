@@ -25,4 +25,18 @@ public final class RyujinBankaiPresentation {
                 * (1 - RyujinBankaiTimeline.progress(age, 26, 53));
         return preparation + burst;
     }
+    /** Presentation-only ignition; early waist/blade fire is separate from the large burst. */
+    public static double ignition(double age) {
+        return RyujinBankaiTimeline.progress(age,6,12)
+                * (1-RyujinBankaiTimeline.progress(age,32,52));
+    }
+    public static double actorShadow(double age) {
+        return .72*RyujinBankaiTimeline.progress(age,8,12)
+                * (1-RyujinBankaiTimeline.progress(age,32,54));
+    }
+    /** Foreground tongues stay below the player's waist and vary across time and space. */
+    public static double frontFlameHeight(double age,int index) {
+        return ignition(age)*(.60+.23*Math.sin(age*.43+index*1.71)
+                +.16*Math.sin(age*.71-index*.93));
+    }
 }

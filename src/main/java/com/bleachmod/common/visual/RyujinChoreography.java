@@ -118,26 +118,23 @@ public final class RyujinChoreography {
 
     /**
      * Authored 140-tick transformation stance for Ryūjin Bankai / Zanka no Tachi.
-     * Planted stance; one-handed vertical katana in front for the spoken Bankai,
-     * then lowering to the wielding side as the sun forms behind the player.
+     * Planted stance; one-handed low outward katana throughout the spoken Bankai.
+     * Revised from the vertical invocation after the user's flame-wall reference.
      * Fades weight smoothly to 0 between ticks 120 and 140.
      */
     public static Pose bankaiEntrance(float age, float sign) {
         float breathe = (float) Math.sin(age * 0.15) * 0.015F;
         return curve(age, sign, neutral(0),
-                bankaiVertical(8), bankaiVertical(12), bankaiVertical(20),
-                key(30, v(-.48, .80, -.18), v(-.9, .15, .18), v(.03, -.12, 0), v(.10, 0, .04), Vec3.ZERO, v(.06, -.06, -.12), v(-.18, .20, -.40)),
-                key(44, v(-.35, 1.05, -.08), v(-.65, .10, .12), v(.02, -.06, 0), v(.08, 0, .04), Vec3.ZERO, v(.10, -.08, -.10), v(-.12, .3, -.55)),
-                key(52, v(-.25, 1.2, -.03), v(-.2, -.1, .05), v(0, 0, 0), v(.05, 0, .04), Vec3.ZERO, v(.12, -.10, -.08), v(-.1, .35, -.65)),
-                key(60, v(-.25, 1.22, -.03), v(-.18, -.1, .05), v(0, 0, 0), v(.05, 0, .04), Vec3.ZERO, v(.12, -.10, -.08), v(-.08, .35, -.65)),
-                key(120, v(-.25, 1.22, -.03), v(-.18, -.1, .05), v(breathe, 0, 0), v(.05, 0, .04), Vec3.ZERO, v(.12, -.10, -.08), v(-.08, .35, -.65)),
+                bankaiSide(8,0), bankaiSide(12,0), bankaiSide(20,0),
+                bankaiSide(23,.025), bankaiSide(30,0), bankaiSide(44,0),
+                bankaiSide(52,0), bankaiSide(60,0), bankaiSide(120,breathe),
                 neutral(140));
     }
-    private static Key bankaiVertical(float tick) {
-        // Held-item direction is solved through the same arm/item chain used for blade VFX.
-        return key(tick, v(-1.75, -.25, .10), v(-.38, .12, -.08),
-                v(0, 0, 0), v(.04, 0, .02), Vec3.ZERO,
-                v(-.04, -.08, -.18), v(-.12, 0, 0));
+    private static Key bankaiSide(float tick,double breathe) {
+        // Low grip and ~15-degree descending outward blade; mirror the whole pose.
+        return key(tick, v(.10, Math.PI/2, 0), v(-.12, -.08, .04),
+                v(breathe, 0, 0), v(.05, 0, .04), Vec3.ZERO,
+                Vec3.ZERO, Vec3.ZERO);
     }
 
     private static Vec3 modelRotation(Vec3 vector,Vec3 angles){

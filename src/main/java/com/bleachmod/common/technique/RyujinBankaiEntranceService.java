@@ -22,7 +22,7 @@ import java.util.UUID;
 
 /**
  * Authoritative presentation service for Ryūjin Jakka / Zanka no Tachi Bankai cinematic.
- * Tracks the 240-tick visual presentation separately from the 60/40 gameplay release contract.
+ * Tracks the 300-tick visual presentation separately from the 60/40 gameplay release contract.
  */
 @Mod.EventBusSubscriber(modid = Reference.MOD_ID)
 public final class RyujinBankaiEntranceService {

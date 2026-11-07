@@ -14,7 +14,17 @@ public final class RyujinBankaiCamera {
     }
     private static Frame blend(Frame a, Frame b, double age, double start, double end) {
         double t=RyujinBankaiTimeline.progress(age,start,end);
+        return mix(a,b,t);
+    }
+    private static Frame mix(Frame a,Frame b,double t) {
         return new Frame(a.eye.lerp(b.eye,t),a.focus.lerp(b.focus,t),(float)Mth.lerp(t,a.fov,b.fov));
+    }
+    /** Shorter reveal keeps the speech hold without increasing the peak dolly speed.
+     * Integrated trapezoid velocity: continuous at ends and bounded to 1.25 times average. */
+    private static Frame reveal(Frame from,Frame to,double age) {
+        double u=Mth.clamp((age-20)/10,0,1);
+        double t=u<.2?u*u/.32:u>.8?1-(1-u)*(1-u)/.32:1.25*u-.125;
+        return mix(from,to,t);
     }
     public static Frame sample(Vec3 anchor, Vec3 forward, double age) {
         return sample(anchor,forward,age,1);
@@ -31,14 +41,58 @@ public final class RyujinBankaiCamera {
         Frame detail=frame(anchor,forward,3.8,2.35,1.25,0,48);
         Frame name=frame(anchor,forward,5.2,1.5,1.15,0,54);
         if(age<10)return blend(opening,speech,age,0,10);
-        if(age<15)return speech;
-        if(age<27)return blend(speech,wide,age,15,27);
+        if(age<20)return speech;
+        if(age<30)return reveal(speech,wide,age);
         if(age<=34)return wide;
         if(age<52)return blend(wide,seal,age,34,52);
         if(age<64)return blend(seal,detail,age,52,64);
         if(age<=72)return detail;
         if(age<88)return blend(detail,name,age,72,88);
         return name;
+    }
+    /** Frontal weapon-side closeup; the same blade anchor drives the seal streams. */
+    public static Frame sample(Vec3 anchor,Vec3 forward,double age,float sign,RyujinBankaiPresentation.Blade blade){
+        if(blade==null)return sample(anchor,forward,age,sign);
+        Frame face=frame(anchor,forward,2.15,1.9,1.62,0,38);
+        Frame reveal=frame(anchor,forward,7.0,2.1,3.5,-3,66);
+        if(age<10)return blend(sample(anchor,forward,0,sign),face,age,0,10);
+        if(age<14)return face;
+        if(age<20)return blend(face,sample(anchor,forward,20-1e-5,sign),age,14,20);
+        if(age<30)return reveal(sample(anchor,forward,20,sign),reveal,age);
+        if(age<=32)return reveal;
+        Vec3 right=new Vec3(-forward.z,0,forward.x);
+        Vec3 focus=blade.hand().lerp(blade.tip(),.53).add(0,.31,0);
+        Frame detail=new Frame(anchor.add(right.scale(sign*.95)).add(forward.scale(3.2)).add(0,1.55,0),focus,46);
+        // The client hands off from this same shot when the return phase begins.
+        if(age<50)return blend(reveal,detail,age,32,50);
+        return detail;
+    }
+    /** Fit the caster's feet and visible sun above terrain inside the letterboxed viewport.
+     * Only used after a terrain hit; keep the frontal axis and the collision-safe eye. */
+    public static Frame confined(Frame planned,Vec3 safeEye,Vec3 anchor,Vec3 forward,double age,double aspect){
+        double radius=RyujinBankaiTimeline.sunRadius(age);
+        if(age<20||age>=52||radius<.1)return new Frame(safeEye,planned.focus,planned.fov);
+        Vec3 sun=RyujinBankaiPresentation.sunCenter(anchor,forward);
+        double actorDistance=Math.max(.1,safeEye.subtract(anchor).horizontalDistance());
+        double sunDistance=Math.max(.1,safeEye.subtract(sun).horizontalDistance());
+        double bottom=Math.atan2(anchor.y+.04-safeEye.y,actorDistance);
+        double top=Math.atan2(sun.y+radius*1.35-safeEye.y,sunDistance);
+        double middle=(bottom+top)*.5;
+        double half=Math.max(Math.abs(top-bottom)*.5+Math.toRadians(3),
+                Math.atan(radius*1.12/sunDistance/Math.max(.5,aspect)));
+        // Letterbox masks ten percent of the screen at either edge.
+        float fitFov=(float)Mth.clamp(Math.toDegrees(2*Math.atan(Math.tan(half)/.8)),planned.fov,110);
+        Vec3 fitFocus=safeEye.subtract(forward.scale(10)).add(0,Math.tan(middle)*10,0);
+        double severity=RyujinBankaiTimeline.smooth(Mth.clamp((planned.eye.distanceTo(anchor)-safeEye.distanceTo(anchor))/5,0,1));
+        float fov=(float)Mth.lerp(severity,planned.fov,fitFov);
+        Vec3 focus=planned.focus.lerp(fitFocus,severity);
+        if(severity>0){
+            double reach=focus.subtract(safeEye).horizontalDistance();
+            double maxPitch=bottom+Math.atan(Math.tan(Math.toRadians(fov*.5))*.72);
+            double ceiling=safeEye.y+Math.tan(maxPitch)*reach;
+            focus=new Vec3(focus.x,Math.min(focus.y,ceiling),focus.z);
+        }
+        return new Frame(safeEye,focus,fov);
     }
     /** Rear return uses an orbit; frontal return is already on the correct side. */
     public static Vec3 returnEye(Vec3 start, Vec3 center, Vec3 target, Vec3 look, double t, boolean frontal) {

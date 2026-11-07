@@ -16,31 +16,175 @@ import java.util.*;
 public final class MvpRegressionTest {
     private static int count;
     public static void main(String[] args) {
-        test("Ryujin short scene aligns dialogue, absorption and safe first-person handoff",()->{
-            eq(240,com.bleachmod.common.visual.RyujinBankaiTimeline.DURATION);
-            eq(240,com.bleachmod.common.visual.RyujinBankaiTimeline.COMPACT_DURATION);
-            eq(40D,com.bleachmod.common.visual.RyujinBankaiTimeline.realAge(12,240));
-            eq(160D,com.bleachmod.common.visual.RyujinBankaiTimeline.realAge(60,240));
-            eq(70D,com.bleachmod.common.visual.RyujinBankaiTimeline.realAge(20,240));
-            eq(112D,com.bleachmod.common.visual.RyujinBankaiTimeline.realAge(30,240));
-            eq(116D,com.bleachmod.common.visual.RyujinBankaiTimeline.realAge(32,240));
-            eq(142D,com.bleachmod.common.visual.RyujinBankaiTimeline.realAge(52,240));
+        test("Ryujin heat audio fades monotonically into the seal and scales with scene duration",()->{
+            for(int duration:new int[]{150,300,600}){
+                float lastFire=1,lastRoar=1;
+                for(double t=176;t<=220;t+=.25){
+                    var gains=com.bleachmod.common.visual.RyujinAudioEnvelope.sample(t*duration/300,duration);
+                    yes(gains.fire()>=0&&gains.roar()>=0&&gains.preheat()==0);
+                    yes(gains.fire()<=lastFire&&gains.roar()<=lastRoar);
+                    if(t>=202)yes(gains.fire()==0&&gains.roar()==0);
+                    lastFire=gains.fire();lastRoar=gains.roar();
+                }
+            }
+            eq(0F,com.bleachmod.common.visual.RyujinAudioEnvelope.sample(70,300).preheat());
+            eq(0F,com.bleachmod.common.visual.RyujinAudioEnvelope.sample(Double.NaN,300).fire());
+        });
+        test("Ryujin backing stays ducked through the longer Bankai take and late voice starts",()->{
+            var start=43D;
+            eq(1F,com.bleachmod.common.visual.RyujinAudioEnvelope.speechRelease(40,start,37));
+            eq(0F,com.bleachmod.common.visual.RyujinAudioEnvelope.speechRelease(70,start,37));
+            eq(0F,com.bleachmod.common.visual.RyujinAudioEnvelope.speechRelease(80,start,37));
+            float ramp=com.bleachmod.common.visual.RyujinAudioEnvelope.speechRelease(82,start,37);
+            yes(ramp>0&&ramp<1);
+            eq(1F,com.bleachmod.common.visual.RyujinAudioEnvelope.speechRelease(85,start,37));
+        });
+        test("Ryujin eye flame stays anatomically right until the seal cutoff",()->{
+            for(int tick=0;tick<=300;tick++){
+                var flames=com.bleachmod.common.visual.RyujinEyeFlame.sample(tick);
+                var trail=com.bleachmod.common.visual.RyujinEyeFlame.trail(tick);
+                var core=com.bleachmod.common.visual.RyujinEyeFlame.core(tick);
+                yes(flames.size()+trail.size()+(core.alpha()>0?2:0)<=14);
+                for(int i=0;i<trail.size();i++){
+                    var strip=trail.get(i);yes(strip.start().x<0&&strip.end().x<strip.start().x);
+                    yes(strip.endWidth()<strip.startWidth());
+                    if(i>0){
+                        yes(strip.start().distanceToSqr(trail.get(i-1).end())<1e-16);
+                        eq(trail.get(i-1).endWidth(),strip.startWidth());
+                        eq(trail.get(i-1).endAlpha(),strip.startAlpha());
+                    }
+                }
+                if(tick<=20||tick>=202)yes(flames.isEmpty()&&core.alpha()==0);
+                if(tick>=32&&tick<=200)yes(!flames.isEmpty()&&core.alpha()>0);
+                for(var f:flames){
+                    yes(f.at().x<-.25&&f.at().y<core.at().y+.05);
+                    yes(f.width()>0&&f.height()>0&&f.alpha()>=0&&f.alpha()<=255);
+                }
+            }
+            var core=com.bleachmod.common.visual.RyujinEyeFlame.core(32);
+            yes(core.alpha()==255&&core.at().x-core.width()/2<=-3D/16&&core.at().x+core.width()/2>=-1D/16);
+            yes(core.at().y-core.height()/2<=-4D/16&&core.at().y+core.height()/2>=-3D/16);
+            var trail=com.bleachmod.common.visual.RyujinEyeFlame.trail(32);
+            var root=trail.get(0);
+            var tip=trail.get(trail.size()-1);
+            yes(root.startWidth()>.07&&root.start().x<core.at().x&&root.start().x>core.at().x-core.width()/2);
+            yes(tip.end().x<-.55&&tip.end().y<root.start().y&&tip.end().z>root.start().z&&tip.endAlpha()==0);
+            yes(com.bleachmod.common.visual.RyujinEyeFlame.sample(Double.NaN).isEmpty());
+        });
+        test("Ryujin lateral fire and smoke share the curtain budget through the seal",()->{
+            var origin=net.minecraft.world.phys.Vec3.ZERO;
+            var forward=new net.minecraft.world.phys.Vec3(0,0,1);
+            var layer=com.bleachmod.common.visual.RyujinFireLayout.Layer.LATERAL;
+            var smoke=com.bleachmod.common.visual.RyujinFireLayout.Layer.SMOKE;
+            for(int tick:new int[]{39,70,84,112,176,194,202,220}){
+                double phase=com.bleachmod.common.visual.RyujinBankaiTimeline.storyAge(tick,300);
+                var blade=com.bleachmod.common.visual.RyujinBankaiPresentation.blade(origin,forward,phase,1);
+                var full=com.bleachmod.common.visual.RyujinFireLayout.sample(origin,forward,phase,tick,blade,true,true);
+                var noSmoke=com.bleachmod.common.visual.RyujinFireLayout.sample(origin,forward,phase,tick,blade,true,false);
+                yes(full.size()<=noSmoke.size()&&full.size()+32+14<=com.bleachmod.common.visual.RyujinFireLayout.CARD_LIMIT);
+                yes(noSmoke.stream().noneMatch(c->c.layer()==smoke));
+                var near=full.stream().filter(c->c.layer()==layer).toList();
+                var plumes=full.stream().filter(c->c.layer()==smoke).toList();
+                if(tick==112){eq(10,near.size());eq(6,plumes.size());}
+                if(tick<=70||tick>=202)yes(near.isEmpty()&&plumes.isEmpty());
+                for(var c:near)yes(Math.abs(c.at().x)>2.6&&c.at().z>-4&&c.height()<1.5);
+                for(var c:plumes)yes(Math.abs(c.at().x)>10&&c.at().z<=-16&&c.at().y>9);
+            }
+        });
+        test("Ryujin far fire stays behind the solar scene and clears at the seal",()->{
+            var origin=new net.minecraft.world.phys.Vec3(17,-60,3);
+            var forward=new net.minecraft.world.phys.Vec3(-1,0,0);
+            for(int tick:new int[]{70,84,112,160,176,194,202,220}){
+                double phase=com.bleachmod.common.visual.RyujinBankaiTimeline.storyAge(tick,300);
+                var blade=com.bleachmod.common.visual.RyujinBankaiPresentation.blade(origin,forward,phase,1);
+                var cards=com.bleachmod.common.visual.RyujinFireLayout.sample(origin,forward,phase,tick,blade,true);
+                var back=cards.stream().filter(c->c.layer()==com.bleachmod.common.visual.RyujinFireLayout.Layer.BACKDROP).toList();
+                if(tick>=112&&tick<=176)eq(54,back.size());
+                if(tick<=70||tick>=202)yes(back.isEmpty());
+                for(var c:back){
+                    yes(c.at().subtract(origin).dot(forward)<-11);
+                    yes(Math.abs(c.at().y-c.height()/2-origin.y-.02)<.000001);
+                }
+                yes(cards.size()+32+14<=com.bleachmod.common.visual.RyujinFireLayout.CARD_LIMIT);
+            }
+        });
+        test("Ryujin seal streams are continuous and arrive on the blade before the heat cutoff",()->{
+            var anchor=net.minecraft.world.phys.Vec3.ZERO;var forward=new net.minecraft.world.phys.Vec3(0,0,1);
+            for(float sign:new float[]{-1,1})for(int tick=176;tick<=204;tick++){
+                double phase=com.bleachmod.common.visual.RyujinBankaiTimeline.storyAge(tick,300);
+                var blade=com.bleachmod.common.visual.RyujinBankaiPresentation.blade(anchor,forward,phase,sign);
+                var strips=com.bleachmod.common.visual.RyujinSealFlow.sample(anchor,forward,phase,tick,blade);
+                if(tick>=202||tick==176){yes(strips.isEmpty());continue;}
+                if(strips.isEmpty())continue;
+                eq(32,strips.size());
+                for(int stream=0;stream<4;stream++)for(int segment=0;segment<8;segment++){
+                    var s=strips.get(stream*8+segment);
+                    yes(Double.isFinite(s.start().lengthSqr())&&Double.isFinite(s.end().lengthSqr()));
+                    yes(s.startWidth()>0&&s.endWidth()>0&&s.alpha()>0&&s.alpha()<=255);
+                    if(segment>0){
+                        yes(s.start().distanceToSqr(strips.get(stream*8+segment-1).end())<1e-16);
+                        yes(s.startTangent().distanceToSqr(strips.get(stream*8+segment-1).endTangent())<1e-16);
+                    }
+                    if(segment==7)yes(s.end().distanceToSqr(blade.hand().lerp(blade.tip(),.25+.18*stream))<1e-16);
+                }
+            }
+            yes(com.bleachmod.common.visual.RyujinSealFlow.sample(anchor,forward,40,190,null).isEmpty());
+            yes(com.bleachmod.common.visual.RyujinSealFlow.sample(anchor,forward,Double.NaN,190,null).isEmpty());
+        });
+        test("Ryujin blade closeup is frontal mirrored and holds its target through sealing",()->{
+            var anchor=net.minecraft.world.phys.Vec3.ZERO;var forward=new net.minecraft.world.phys.Vec3(0,0,1);
+            for(float sign:new float[]{-1,1}){
+                com.bleachmod.common.visual.RyujinBankaiCamera.Frame previous=null;
+                for(double tick=0;tick<=300;tick+=.25){
+                    double phase=com.bleachmod.common.visual.RyujinBankaiTimeline.storyAge(tick,300);
+                    var blade=com.bleachmod.common.visual.RyujinBankaiPresentation.blade(anchor,forward,phase,sign);
+                    var frame=com.bleachmod.common.visual.RyujinBankaiCamera.sample(anchor,forward,phase,sign,blade);
+                    yes(frame.eye().dot(forward)>0&&Double.isFinite(frame.focus().lengthSqr()));
+                    if(previous!=null)yes(frame.eye().distanceTo(previous.eye())<.35);
+                    previous=frame;
+                    if(phase>=30&&phase<=32){
+                        yes(frame.eye().y<3&&frame.eye().horizontalDistance()<8);
+                    }
+                    if(phase>=50&&phase<=112){
+                        yes(frame.focus().distanceTo(blade.hand().lerp(blade.tip(),.5))<.45);
+                        yes(frame.eye().x*sign<0);
+                    }
+                }
+            }
+        });
+        test("Ryujin sustained sun aligns dialogue, absorption and safe first-person handoff",()->{
+            int duration=com.bleachmod.common.visual.RyujinBankaiTimeline.DURATION;
+            eq(300,duration);
+            eq(duration,com.bleachmod.common.visual.RyujinBankaiTimeline.COMPACT_DURATION);
+            eq(40D,com.bleachmod.common.visual.RyujinBankaiTimeline.realAge(12,duration));
+            eq(220D,com.bleachmod.common.visual.RyujinBankaiTimeline.realAge(60,duration));
+            eq(70D,com.bleachmod.common.visual.RyujinBankaiTimeline.realAge(20,duration));
+            eq(112D,com.bleachmod.common.visual.RyujinBankaiTimeline.realAge(30,duration));
+            eq(176D,com.bleachmod.common.visual.RyujinBankaiTimeline.realAge(32,duration));
+            eq(202D,com.bleachmod.common.visual.RyujinBankaiTimeline.realAge(52,duration));
             eq(0D,com.bleachmod.common.visual.RyujinBankaiTimeline.sunRadius(19));
             for(int tick=0;tick<70;tick++)
                 eq(0D,com.bleachmod.common.visual.RyujinBankaiTimeline.sunRadius(
-                        com.bleachmod.common.visual.RyujinBankaiTimeline.storyAge(tick,240)));
+                        com.bleachmod.common.visual.RyujinBankaiTimeline.storyAge(tick,duration)));
+            for(int tick=112;tick<176;tick++){
+                double beat=com.bleachmod.common.visual.RyujinBankaiTimeline.storyAge(tick,duration);
+                yes(com.bleachmod.common.visual.RyujinBankaiTimeline.sunRadius(beat)>8.8);
+                eq(0D,com.bleachmod.common.visual.RyujinBankaiTimeline.absorption(beat));
+                var wide=com.bleachmod.common.visual.RyujinBankaiCamera.sample(net.minecraft.world.phys.Vec3.ZERO,new net.minecraft.world.phys.Vec3(0,0,1),beat);
+                eq(80F,wide.fov());
+            }
             double lastRadius=Double.POSITIVE_INFINITY;
-            for(int tick=116;tick<=142;tick++){
+            for(int tick=176;tick<=202;tick++){
                 double radius=com.bleachmod.common.visual.RyujinBankaiTimeline.sunRadius(
-                        com.bleachmod.common.visual.RyujinBankaiTimeline.storyAge(tick,240));
+                        com.bleachmod.common.visual.RyujinBankaiTimeline.storyAge(tick,duration));
                 yes(radius<=lastRadius+1e-9);
                 lastRadius=radius;
             }
             double previous=-1;
-            for(int t=0;t<=240;t++){
-                double beat=com.bleachmod.common.visual.RyujinBankaiTimeline.storyAge(t,240);
+            for(int t=0;t<=duration;t++){
+                double beat=com.bleachmod.common.visual.RyujinBankaiTimeline.storyAge(t,duration);
                 yes(beat>=previous);previous=beat;
-                yes(Math.abs(com.bleachmod.common.visual.RyujinBankaiTimeline.realAge(beat,240)-t)<.0001);
+                yes(Math.abs(com.bleachmod.common.visual.RyujinBankaiTimeline.realAge(beat,duration)-t)<.0001);
             }
             var center=net.minecraft.world.phys.Vec3.ZERO;
             var look=new net.minecraft.world.phys.Vec3(0,0,1);
@@ -52,6 +196,100 @@ public final class MvpRegressionTest {
                 if(t<.65)yes(eye.horizontalDistance()>5);
                 else yes(eye.dot(look)<0); // Final approach from behind, not through the face.
             }
+        });
+        test("Ryujin solar centre holds behind the caster and converges to the actual blade",()->{
+            var anchor=net.minecraft.world.phys.Vec3.ZERO;
+            var forward=new net.minecraft.world.phys.Vec3(0,0,1);
+            for(float sign:new float[]{-1,1}){
+                var blade=com.bleachmod.common.visual.RyujinBankaiPresentation.blade(anchor,forward,52,sign);
+                eq(com.bleachmod.common.visual.RyujinBankaiPresentation.sunCenter(anchor,forward),com.bleachmod.common.visual.RyujinSolarPose.center(anchor,forward,31,blade));
+                yes(blade.hand().lerp(blade.tip(),.55).distanceToSqr(com.bleachmod.common.visual.RyujinSolarPose.center(anchor,forward,52,blade))<1e-16);
+                double last=Double.POSITIVE_INFINITY;
+                for(int phase=32;phase<=52;phase++){
+                    var at=com.bleachmod.common.visual.RyujinSolarPose.center(anchor,forward,phase,blade);
+                    double distance=at.distanceToSqr(blade.hand().lerp(blade.tip(),.55));
+                    yes(distance<=last+1e-9);last=distance;
+                }
+            }
+        });
+        test("Ryujin confined frontal frame fits feet and sun inside its letterbox",()->{
+            var anchor=net.minecraft.world.phys.Vec3.ZERO;
+            var forward=new net.minecraft.world.phys.Vec3(0,0,1);
+            var eye=new net.minecraft.world.phys.Vec3(0,4.5,5.75);
+            var planned=com.bleachmod.common.visual.RyujinBankaiCamera.sample(anchor,forward,31);
+            for(double aspect:List.of(4D/3,16D/9)){
+                var fit=com.bleachmod.common.visual.RyujinBankaiCamera.confined(planned,eye,anchor,forward,31,aspect);
+                eq(eye,fit.eye());yes(fit.fov()>=80&&fit.fov()<=110);
+                double angle=Math.atan2(fit.focus().y-eye.y,fit.focus().subtract(eye).horizontalDistance());
+                double visibleHalf=Math.atan(Math.tan(Math.toRadians(fit.fov()/2))*.8);
+                for(var point:List.of(anchor.add(0,.04,0),com.bleachmod.common.visual.RyujinBankaiPresentation.sunCenter(anchor,forward).add(0,9*1.35,0))){
+                    double elevation=Math.atan2(point.y-eye.y,point.subtract(eye).horizontalDistance());
+                    yes(Math.abs(elevation-angle)<visibleHalf);
+                }
+            }
+            var free=com.bleachmod.common.visual.RyujinBankaiCamera.confined(planned,planned.eye(),anchor,forward,31,16D/9);
+            eq(planned,free);
+            var blade=com.bleachmod.common.visual.RyujinBankaiPresentation.blade(anchor,forward,31,1);
+            var frontal=com.bleachmod.common.visual.RyujinBankaiCamera.sample(anchor,forward,31,1,blade);
+            var closeEye=new net.minecraft.world.phys.Vec3(0,2.03,5.74);
+            var fit=com.bleachmod.common.visual.RyujinBankaiCamera.confined(frontal,closeEye,anchor,forward,31,16D/9);
+            double feet=Math.atan2(-closeEye.y,closeEye.horizontalDistance());
+            double pitch=Math.atan2(fit.focus().y-closeEye.y,fit.focus().subtract(closeEye).horizontalDistance());
+            yes(pitch-feet<Math.atan(Math.tan(Math.toRadians(fit.fov()/2))*.8));
+        });
+        test("Ryujin fire holds a grounded rear curtain and blade coat within a hard budget",()->{
+            var anchor=net.minecraft.world.phys.Vec3.ZERO;
+            var forward=new net.minecraft.world.phys.Vec3(0,0,1);
+            for(int t=0;t<=300;t++){
+                double phase=com.bleachmod.common.visual.RyujinBankaiTimeline.storyAge(t,300);
+                var blade=com.bleachmod.common.visual.RyujinBankaiPresentation.blade(anchor,forward,phase,1);
+                var cards=com.bleachmod.common.visual.RyujinFireLayout.sample(anchor,forward,phase,t,blade);
+                yes(cards.size()<=com.bleachmod.common.visual.RyujinFireLayout.CARD_LIMIT);
+                for(var card:cards){
+                    yes(Double.isFinite(card.at().lengthSqr()));yes(card.height()>0&&card.width()>0);
+                    yes(card.alpha()>0&&card.alpha()<=255);
+                    if(card.layer()==com.bleachmod.common.visual.RyujinFireLayout.Layer.BASE){
+                        yes(card.at().y-card.height()/2>=.039);
+                        if(card.at().z>0)yes(card.at().y+card.height()/2<1.1);
+                    }
+                }
+                if(t>=112&&t<176){
+                    eq(108L,cards.stream().filter(c->c.layer()==com.bleachmod.common.visual.RyujinFireLayout.Layer.CURTAIN).count());
+                    eq(36L,cards.stream().filter(c->c.layer()==com.bleachmod.common.visual.RyujinFireLayout.Layer.BLADE).count());
+                    for(var c:cards)if(c.layer()==com.bleachmod.common.visual.RyujinFireLayout.Layer.CURTAIN)yes(c.at().z<=-3);
+                }
+                if(t>=202)yes(cards.isEmpty());
+            }
+            var blade=com.bleachmod.common.visual.RyujinBankaiPresentation.blade(anchor,forward,31,1);
+            var a=com.bleachmod.common.visual.RyujinFireLayout.sample(anchor,forward,31,144,blade);
+            var b=com.bleachmod.common.visual.RyujinFireLayout.sample(anchor,forward,31,145,blade);
+            yes(!a.equals(b)); // Turbulence keeps moving even if phase progress is held.
+            for(var quality:com.bleachmod.common.visual.RyujinFireLayout.Detail.values()){
+                var reduced=com.bleachmod.common.visual.RyujinFireLayout.sample(anchor,forward,31,144,blade,quality);
+                yes(reduced.size()<=a.size());
+                for(var layer:List.of(com.bleachmod.common.visual.RyujinFireLayout.Layer.BLADE,
+                        com.bleachmod.common.visual.RyujinFireLayout.Layer.BASE,
+                        com.bleachmod.common.visual.RyujinFireLayout.Layer.CURTAIN,
+                        com.bleachmod.common.visual.RyujinFireLayout.Layer.CORONA))
+                    yes(reduced.stream().anyMatch(c->c.layer()==layer));
+                yes(com.bleachmod.common.visual.RyujinFireLayout.sample(anchor,forward,52,202,blade,quality).isEmpty());
+                yes(!com.bleachmod.common.visual.RyujinFireLayout.sample(anchor,forward,31,144,null,quality).isEmpty());
+            }
+        });
+        test("Ryujin sun clip holds its position and keeps the rings turning before delayed absorption",()->{
+            try {
+                var clip=JsonParser.parseString(java.nio.file.Files.readString(java.nio.file.Path.of(
+                        "src/main/resources/assets/bleachmod/animations/ryujin_bankai_sun_v10.animation.json")))
+                        .getAsJsonObject().getAsJsonObject("animations").getAsJsonObject("animation.ryujin.bankai_sun");
+                eq(15D,clip.get("animation_length").getAsDouble());
+                var bones=clip.getAsJsonObject("bones");
+                var positions=bones.getAsJsonObject("sun_root").getAsJsonObject("position");
+                eq(positions.get("5.6"),positions.get("8.6"));
+                var rotation=bones.getAsJsonObject("inner_swirl").getAsJsonObject("rotation");
+                double from=rotation.getAsJsonObject("5.6").getAsJsonArray("vector").get(2).getAsDouble();
+                double to=rotation.getAsJsonObject("8.6").getAsJsonArray("vector").get(2).getAsDouble();
+                yes(Math.abs(to-from)>180);
+            } catch(java.io.IOException failure){throw new AssertionError(failure);}
         });
         test("Benihime camera follows the grasp and opens before floor supports without moving the rig clock",()->{
             var previous=com.bleachmod.common.visual.BenihimeEntranceCamera.sample(108);

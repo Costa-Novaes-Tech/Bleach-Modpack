@@ -13,7 +13,9 @@
     "client.AbstractClientPlayerMixin",
     "client.HigashiDeathParticleMixin",
     "client.HigashiEntityRenderMixin",
-    "client.HeldWeaponQaMixin"
+    "client.HeldWeaponQaMixin",
+    "client.MusicManagerMixin",
+    "client.MusicManagerAccess"
   ],
   "injectors": {
     "defaultRequire": 1

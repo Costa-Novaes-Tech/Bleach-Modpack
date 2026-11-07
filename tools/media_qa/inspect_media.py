@@ -13,6 +13,7 @@ import math
 import re
 import shutil
 import subprocess
+import struct
 from pathlib import Path
 
 
@@ -93,12 +94,25 @@ def audio_levels(executable: str, source: Path) -> dict:
 
     result = subprocess.run(
         [executable, "-nostdin", "-hide_banner", "-loglevel", "error", "-i", str(source),
-         "-ac", "1", "-ar", "48000", "-f", "f32le", "pipe:1"],
+         "-ar", "48000", "-c:a", "pcm_f32le", "-f", "wav", "pipe:1"],
         capture_output=True, check=False,
     )
     if result.returncode:
         raise RuntimeError(f"Could not decode audio: {result.stderr.decode(errors='replace')[:300]}")
-    samples = np.frombuffer(result.stdout, dtype="<f4")
+    # Preserve source channels: FFmpeg's default stereo->mono downmix can add
+    # 3 dB to correlated content, which is not the source's channel peak.
+    data=result.stdout
+    if data[:4]!=b"RIFF" or data[8:12]!=b"WAVE":
+        raise RuntimeError("Expected little-endian float WAV from FFmpeg")
+    cursor=12;channels=None;payload=None
+    while cursor+8<=len(data):
+        kind=data[cursor:cursor+4];size=struct.unpack_from("<I",data,cursor+4)[0];start=cursor+8
+        if kind==b"fmt ":channels=struct.unpack_from("<H",data,start+2)[0]
+        if kind==b"data":payload=memoryview(data)[start:min(len(data),start+size)];break
+        cursor=start+size+(size%2)
+    if not channels or payload is None:
+        raise RuntimeError("Missing WAV channel layout or sample payload")
+    samples = np.frombuffer(payload, dtype="<f4")
     if not len(samples):
         raise RuntimeError("Decoded audio is empty")
     peak = float(np.max(np.abs(samples)))
@@ -106,11 +120,13 @@ def audio_levels(executable: str, source: Path) -> dict:
     return {
         "path": str(source),
         "sha256": digest(source),
-        "duration_seconds": round(len(samples) / 48000, 3),
+        "duration_seconds": round(len(samples) / channels / 48000, 3),
         "sample_rate_hz": 48000,
+        "channels": channels,
+        "channel_peak_dbfs": [round(20*math.log10(max(float(np.max(np.abs(channel))),1e-12)),1) for channel in samples.reshape(-1,channels).T],
         "peak_dbfs": round(20 * math.log10(max(peak, 1e-12)), 1),
         "rms_dbfs": round(20 * math.log10(max(rms, 1e-12)), 1),
-        "note": "Isolated-file level only; not perceived quality or the in-game mix",
+        "note": "Peak across original decoded channels; no mono downmix, no true-peak oversampling. Levels do not prove perceived quality.",
     }
 
 
@@ -143,6 +159,7 @@ def main() -> None:
         report["audio"].append(audio_levels(executable, source.resolve(strict=True)))
     if args.out:
         target = args.out.resolve() / "inspection.json"
+        target.parent.mkdir(parents=True, exist_ok=True)
         target.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(json.dumps(report, ensure_ascii=False, indent=2))
 

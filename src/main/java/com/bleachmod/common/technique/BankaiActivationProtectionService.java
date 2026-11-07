@@ -27,7 +27,7 @@ public final class BankaiActivationProtectionService {
      * Authoritative check: is the player currently in an active Bankai activation or presentation?
      * Covers:
      * - Nozarashi berserk presentation (NozarashiReleaseEffects.inCinematic, 140 ticks)
-     * - Ryūjin Jakka presentation (RyujinBankaiEntranceService.active, up to 240 ticks)
+     * - Ryūjin Jakka presentation (RyujinBankaiEntranceService.active, up to 300 ticks)
      * - Senbonzakura presentation (SenbonzakuraCinematicService.active, up to 290 ticks)
      * - Daiguren Hyōrinmaru presentation (HyorinmaruCinematicService.active, up to 400 ticks)
      * - Kannonbiraki Benihime presentation (BenihimeEntranceService.active, up to 560 ticks)

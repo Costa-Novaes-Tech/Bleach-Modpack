@@ -28,7 +28,7 @@ import java.util.UUID;
 
 /**
  * Server-authoritative contract and numerical validation for Ryūjin Jakka / Zanka no Tachi Bankai transformation.
- * Verifies the 60/40 gameplay contract, 240-tick presentation lifecycle, Reiatsu expenditure,
+ * Verifies the 60/40 gameplay contract, 300-tick presentation lifecycle, Reiatsu expenditure,
  * movement decoupling, pre- and post-commit cancellation semantics, and camera/timeline curves.
  */
 @GameTestHolder("bleachmod")
@@ -75,6 +75,53 @@ public final class RyujinBankaiGameTests {
         RyujinBankaiEntranceService.cancel(p);
     }
 
+    @GameTest(template="empty",batch="ryujin_scene_world_fire")
+    public static void scenicReleaseAndAuraSuspendWorldFireThenResumeWithoutErasingExistingFlames(GameTestHelper h) {
+        var p=player(h);
+        var level=h.getLevel();
+        var service=com.bleachmod.common.technique.SpiritFlameService.get(level);
+        var fireRule=level.getGameRules().getRule(net.minecraft.world.level.GameRules.RULE_DOFIRETICK);
+        boolean previousRule=fireRule.get();
+        try {
+            fireRule.set(true,level.getServer());
+            for(int x=-6;x<=6;x++)for(int z=-6;z<=6;z++) {
+                var pos=p.blockPosition().offset(x,0,z);
+                level.setBlock(pos.below(),net.minecraft.world.level.block.Blocks.STONE.defaultBlockState(),3);
+                level.removeBlock(pos,false);
+            }
+            var existing=p.blockPosition().offset(6,0,6);
+            var other=p.blockPosition().offset(-6,0,6);
+            h.assertTrue(service.place(level,existing,p.getUUID()),"Existing owner flame fixture failed");
+            h.assertTrue(service.place(level,other,UUID.randomUUID()),"Other owner's flame fixture failed");
+            data(p).getCharacter().setActiveForm("zanpakuto","bankai");
+            p.tickCount=80;
+            RyujinBankaiEntranceService.begin(p);
+            com.bleachmod.common.technique.RyujinReleaseEffects.release(new com.bleachmod.common.events.BleachEvents.FormChangeEvent(
+                    p,"zanpakuto","shikai","zanpakuto","bankai"));
+            for(int i=0;i<32;i++)com.bleachmod.common.technique.RyujinReleaseEffects.aura(
+                    new TickEvent.PlayerTickEvent(TickEvent.Phase.END,p));
+            h.assertTrue(ownedSpiritFlames(level,p.getUUID())==1,"Scene created physical fire from release or aura");
+            h.assertTrue(level.getBlockState(existing).is(com.bleachmod.init.ModBlocks.SPIRIT_FLAME.get())
+                    && level.getBlockState(other).is(com.bleachmod.init.ModBlocks.SPIRIT_FLAME.get()),"Scene erased existing fire");
+            RyujinBankaiEntranceService.cancel(p);
+            for(int i=0;i<32;i++)com.bleachmod.common.technique.RyujinReleaseEffects.aura(
+                    new TickEvent.PlayerTickEvent(TickEvent.Phase.END,p));
+            h.assertTrue(ownedSpiritFlames(level,p.getUUID())>1,"Passive world fire did not resume after scene cancellation");
+            h.assertTrue(data(p).getCharacter().getActiveForm().equals("bankai"),"Cancelling presentation changed Bankai form");
+        } finally {
+            clean(p);
+            fireRule.set(previousRule,level.getServer());
+        }
+        h.succeed();
+    }
+    private static int ownedSpiritFlames(net.minecraft.server.level.ServerLevel level,UUID owner) {
+        int count=0;
+        var saved=com.bleachmod.common.technique.SpiritFlameService.get(level).save(new net.minecraft.nbt.CompoundTag());
+        for(var raw:saved.getList("flames",10))for(var entry:((net.minecraft.nbt.CompoundTag)raw).getList("owners",10))
+            if(((net.minecraft.nbt.CompoundTag)entry).getUUID("id").equals(owner))count++;
+        return count;
+    }
+
     @GameTest(template = "empty", batch = "ryujin_bankai_commit", timeoutTicks = 90)
     public static void presentationOutlivesReleaseWithoutChangingCommitOrChargingTwice(GameTestHelper h) {
         var p = player(h);
@@ -83,7 +130,7 @@ public final class RyujinBankaiGameTests {
 
         h.assertTrue(ReleaseAnimationService.snapshot(p).getInt("duration") == 60
                 && RyujinBankaiEntranceService.snapshot(p).getInt("duration") == RyujinBankaiTimeline.DURATION,
-                "Gameplay release (60 ticks) and presentation (240 ticks) clocks conflated");
+                "Gameplay release (60 ticks) and presentation clocks conflated");
 
         h.onEachTick(() -> {
             tickScene(p);
@@ -101,7 +148,7 @@ public final class RyujinBankaiGameTests {
                     && d.getResources().getCurrentReiatsu() == 88, "Tick-40 commit failed or incorrect Reiatsu cost");
         });
 
-        // Tick 65: Gameplay lock ended (busy == false), but 240-tick presentation is still active!
+        // Tick 65: Gameplay lock ended (busy == false), but presentation is still active.
         h.runAfterDelay(65, () -> {
             try {
                 h.assertTrue(!ReleaseAnimationService.busy(p), "Presentation prolonged gameplay busy state beyond tick 60");
@@ -265,7 +312,7 @@ public final class RyujinBankaiGameTests {
         h.succeed();
     }
 
-    @GameTest(template = "empty", batch = "ryujin_bankai_protection_expiry", timeoutTicks = 260)
+    @GameTest(template = "empty", batch = "ryujin_bankai_protection_expiry", timeoutTicks = RyujinBankaiTimeline.DURATION+20)
     public static void damageImmediatelyAfterPresentationEndsIsAppliedNormally(GameTestHelper h) {
         var p = player(h);
         var d = data(p);
@@ -276,11 +323,10 @@ public final class RyujinBankaiGameTests {
             tickScene(p);
         });
 
-        // Presentation duration is 240 ticks. Advance to tick 242.
-        h.runAfterDelay(242, () -> {
+        h.runAfterDelay(RyujinBankaiTimeline.DURATION+2, () -> {
             try {
                 h.assertTrue(!com.bleachmod.common.technique.BankaiActivationProtectionService.isProtected(p), "Protection persisted past presentation end");
-                h.assertTrue(RyujinBankaiEntranceService.snapshot(p).isEmpty(), "Presentation did not expire at tick 240");
+                h.assertTrue(RyujinBankaiEntranceService.snapshot(p).isEmpty(), "Presentation did not expire at its scheduled end");
                 h.assertTrue(d.getCharacter().getActiveForm().equals("bankai"), "Active form lost after presentation");
 
                 p.setHealth(20.0F);
@@ -441,7 +487,7 @@ public final class RyujinBankaiGameTests {
         h.assertTrue(frameWide.eye().distanceTo(anchor) > 14.0, "Solar panorama must pull back and rise above the caster");
         RyujinBankaiCamera.Frame frameSpeech = RyujinBankaiCamera.sample(anchor, forward, 12);
         h.assertTrue(frameSpeech.fov() == 48.0F && frameSpeech.eye().distanceTo(anchor) < 5.5,
-                "Bankai speech shot must zoom in on the vertical sword");
+                "Bankai speech shot must frame the low outward sword and actor");
 
         RyujinBankaiCamera.Frame frameDetail = RyujinBankaiCamera.sample(anchor, forward, 68);
         h.assertTrue(frameDetail.fov() == 48.0F, "Detail shot FOV must be 48");
@@ -468,8 +514,23 @@ public final class RyujinBankaiGameTests {
         var poseHold = RyujinChoreography.bankaiEntrance(80, 1.0F);
         h.assertTrue(poseHold.weight() > 0.9F, "Pose weight at tick 80 must be fully active");
 
-        var vertical = RyujinChoreography.bladeDirection(RyujinChoreography.bankaiEntrance(12, 1.0F));
-        h.assertTrue(vertical.y > .85, "Bankai sword tip must point upward in front of the player");
+        for(float sign:new float[]{-1,1}) {
+            var outward=RyujinChoreography.bladeDirection(RyujinChoreography.bankaiEntrance(12,sign));
+            h.assertTrue(outward.x*sign>.9 && outward.y<-.15 && outward.y>-.4,
+                    "Invocation blade must point outwards and slightly down in either hand");
+        }
+        h.assertTrue(RyujinBankaiCamera.sample(anchor,forward,19).eye().equals(frameSpeech.eye()),
+                "Hold close camera through the spoken Bankai before explosion");
+        double low=2,high=0;
+        for(int t=0;t<=140;t++)for(int i=0;i<32;i++) {
+            double height=com.bleachmod.common.visual.RyujinBankaiPresentation.frontFlameHeight(t,i);
+            h.assertTrue(height>=0 && height<=1.0,"Foreground flames must stay below waist height");
+            if(t==16){low=Math.min(low,height);high=Math.max(high,height);}
+        }
+        h.assertTrue(high-low>.3,"Waist fire must vary rather than form a fixed wall");
+        h.assertTrue(com.bleachmod.common.visual.RyujinBankaiPresentation.actorShadow(0)==0
+                && com.bleachmod.common.visual.RyujinBankaiPresentation.actorShadow(60)==0,
+                "Actor shading must clear after sealing");
 
         var poseEnd = RyujinChoreography.bankaiEntrance(140, 1.0F);
         h.assertTrue(poseEnd.weight() == 0.0F, "Pose weight at tick 140 must return to 0");
@@ -535,7 +596,10 @@ public final class RyujinBankaiGameTests {
             h.assertTrue(RyujinBankaiTimeline.storyAge(duration,duration)==140,"Presentation failed to settle");
             h.assertTrue(duration-RyujinBankaiTimeline.realAge(60,duration)>=50,"Name voice would be cut at the end");
         }
-        h.assertTrue(RyujinBankaiTimeline.DURATION==240 && RyujinBankaiTimeline.COMPACT_DURATION==240,"Legacy preference must not restore the rejected long scene");
+        h.assertTrue(RyujinBankaiTimeline.DURATION==300 && RyujinBankaiTimeline.COMPACT_DURATION==300,"Both preferences must share the revised fifteen-second score");
+        double full=RyujinBankaiTimeline.realAge(RyujinBankaiTimeline.SUN_FULL,RyujinBankaiTimeline.DURATION);
+        double absorb=RyujinBankaiTimeline.realAge(RyujinBankaiTimeline.ABSORPTION_START,RyujinBankaiTimeline.DURATION);
+        h.assertTrue(absorb-full>=60,"Full sun must remain exposed for at least three seconds");
         h.succeed();
     }
 

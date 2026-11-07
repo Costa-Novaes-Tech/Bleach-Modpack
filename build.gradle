@@ -124,6 +124,17 @@ minecraft {
             }
             if (providers.gradleProperty('benihimeQa').map { it.toBoolean() }.getOrElse(false)) {
                 workingDirectory project.file(providers.gradleProperty('ryujinV7Qa').map { it.toBoolean() }.getOrElse(false) ? 'run-benihime-qa/ryujin-v7' : (providers.gradleProperty('photonPilot').map { it.toBoolean() }.getOrElse(false) ? 'run-benihime-qa/photon' : 'run-benihime-qa/base'))
+                def visualProfile=providers.gradleProperty('ryujinVisualQaProfile').getOrElse('')
+                if (!visualProfile.isEmpty()) {
+                    if (!(visualProfile ==~ /[a-z0-9-]{1,40}/)) throw new GradleException('Invalid visual QA profile')
+                    workingDirectory project.file('run-benihime-qa/visual-' + visualProfile)
+                }
+                for (key in ['ryujinLightOff','ryujinLightProbe','qaNoScreenshots','ryujinQaReload','ryujinSolarPosePilot','ryujinV14Pilot','ryujinQaNoBackdropSmoke','ryujinQaMusicProbe'])
+                    property 'bleachmod.'+key,providers.gradleProperty(key).getOrElse('false')
+                property 'bleachmod.ryujinFireDetail',providers.gradleProperty('ryujinFireDetail').getOrElse('HIGH')
+                property 'bleachmod.ryujinQaRepeats',providers.gradleProperty('ryujinQaRepeats').getOrElse('1')
+                property 'bleachmod.ryujinQaVideo',providers.gradleProperty('ryujinQaVideo').getOrElse('false')
+                property 'bleachmod.qaFfmpeg',providers.gradleProperty('qaFfmpeg').getOrElse('')
                 property 'bleachmod.benihimeQa', 'true'
                 property 'bleachmod.cinematicQa', providers.gradleProperty('cinematicQa').getOrElse('false')
                 property 'bleachmod.higashiPoseQa', providers.gradleProperty('higashiPoseQa').getOrElse('false')
@@ -231,8 +242,19 @@ mixin {
 configurations { combatRuntimeArtifacts { transitive = false } }
 configurations { photonPilotArtifacts { transitive = false } }
 def photonPilotEnabled = providers.gradleProperty('photonPilot').map { it.toBoolean() }.getOrElse(false)
+def shimmerPilotEnabled = providers.gradleProperty('shimmerPilot').map { it.toBoolean() }.getOrElse(false)
 
 dependencies {
+    if (providers.gradleProperty('renderPilot').map { it.toBoolean() }.getOrElse(false)) {
+        runtimeOnly fg.deobf("maven.modrinth:embeddium:UTbfe5d1")
+    }
+    if (providers.gradleProperty('shaderPilot').map { it.toBoolean() }.getOrElse(false)) {
+        runtimeOnly fg.deobf("maven.modrinth:oculus:iQ1SwGc3")
+    }
+    // Explicit optional client laboratory; the production base stays independent.
+    if (shimmerPilotEnabled) {
+        runtimeOnly fg.deobf("maven.modrinth:shimmer:BeAfFYQQ")
+    }
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
     // Optional VFX laboratory. Base pack stays at five jars; -PphotonPilot=true enables runtime.
     compileOnly fg.deobf("maven.modrinth:photon-editor:a7chTVuf")

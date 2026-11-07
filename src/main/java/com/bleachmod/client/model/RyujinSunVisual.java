@@ -2,6 +2,11 @@ package com.bleachmod.client.model;
 
 import com.bleachmod.common.visual.RyujinBankaiTimeline;
 import com.bleachmod.common.visual.RyujinBankaiPresentation;
+import com.bleachmod.common.visual.RyujinFireLayout;
+import net.minecraft.client.particle.Particle;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.List;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.Minecraft;
@@ -11,6 +16,9 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.ClipContext;
+import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.phys.Vec3;
 import org.joml.Matrix4f;
@@ -21,306 +29,198 @@ import java.util.Random;
 
 /**
  * Animated vanilla flame sprites in a bounded 3D fire volume.
- * Provides the monumental scenic sun, solar ground base around the feet,
- * helical heat vortex around the wielder, and progressive absorption onto the katana.
+ * Provides blade coating, grounded fire, a sustained rear curtain and solar corona,
+ * then directed absorption onto the katana. Own particles never outlive their scene.
  *
  * Strict particle and card budget: emission is driven by client game ticks, never by render FPS.
  */
 public final class RyujinSunVisual {
-    public static final int MAX_FIRE_CARDS = 288, MAX_PARTICLES_PER_SCENE_TICK = 12;
+    public static final int MAX_FIRE_CARDS = RyujinFireLayout.CARD_LIMIT, MAX_PARTICLES_PER_SCENE_TICK = 12;
 
-    private record Flame(Vec3 at, double width, double height, int alpha, boolean alternate) { }
-
+    private record Tracked(Particle particle,boolean flame,long born) { }
+    private static final Map<Integer,List<Tracked>> PARTICLES=new HashMap<>();
+    private static final Map<BlockPos,Double> GROUND_HEIGHTS=new HashMap<>();
+    private static long groundTick=Long.MIN_VALUE;
+    private static int renderedCards;
     private RyujinSunVisual() { }
-
-    private static double hash(int i) {
-        return (Math.sin(i * 127.1 + 311.7) * 43758.5453) % 1 * 0.5 + 0.5;
+    public static void remove(int owner){var list=PARTICLES.remove(owner);if(list!=null)list.forEach(p->p.particle.remove());}
+    public static void clear(){
+        for(int id:List.copyOf(PARTICLES.keySet()))remove(id);
+        GROUND_HEIGHTS.clear();
+        groundTick=Long.MIN_VALUE;
     }
+    public static void retain(java.util.Set<Integer> owners){for(int id:List.copyOf(PARTICLES.keySet()))if(!owners.contains(id))remove(id);}
+    public static int particleCount(){return PARTICLES.values().stream().mapToInt(List::size).sum();}
+    public static int flameCount(){return (int)PARTICLES.values().stream().flatMap(List::stream).filter(p->p.flame&&p.particle.isAlive()).count();}
+    public static int cardCount(){return renderedCards+RyujinEyeFlameLayer.cardCount();}
+    public static void beginFrame(){renderedCards=0;}
 
     public static void render(PoseStack pose, Vec3 camera, Vec3 anchor, Vec3 forward, double age,
-                              RyujinBankaiPresentation.Blade blade) {
-        var mc = Minecraft.getInstance();
-        if (mc.level == null || mc.player == null || camera.distanceToSqr(anchor) > 128 * 128) return;
-
-        Vec3 side = new Vec3(forward.z, 0, -forward.x);
-        Vec3 center = RyujinBankaiPresentation.sunCenter(anchor, forward);
-        double radius = RyujinBankaiTimeline.sunRadius(age);
-        double absorption = blade == null ? 0 : RyujinBankaiTimeline.absorption(age);
-
-        var flames = new ArrayList<Flame>(MAX_FIRE_CARDS);
-
-        // The GeckoLib model supplies the sun disk and corona; sprites add moving fire only.
-        if (radius > 0.08) {
-            for (int i = 0; i < 36; i++) {
-                double a = i * Math.PI * 2 / 36;
-                double r = radius * (0.82 + 0.06 * Math.sin(age * 0.21 + i));
-                Vec3 at = center.add(side.scale(Math.cos(a) * r)).add(0, Math.sin(a) * r * 0.85, 0)
-                        .add(forward.scale(Math.sin(i * 1.9) * radius * 0.18));
-                flames.add(new Flame(at, radius * 0.13, radius * (0.26 + 0.10 * hash(i)), 205, i % 2 == 0));
+                              double realTick,RyujinBankaiPresentation.Blade blade) {
+        var mc=Minecraft.getInstance();
+        if(mc.level==null||mc.player==null||camera.distanceToSqr(anchor)>128*128)return;
+        var flames=RyujinFireLayout.sample(anchor,forward,age,realTick,blade,com.bleachmod.client.ClientVisualConfig.RYUJIN_FIRE_DETAIL.get());
+        renderedCards+=flames.size();
+        flames.sort(Comparator.comparingDouble((RyujinFireLayout.Card f)->f.at().distanceToSqr(camera)).reversed());
+        var type=com.bleachmod.common.visual.RyujinSealFlow.enabled()?RyujinFlowRenderer.fireType():RenderType.entityTranslucentEmissive(InventoryMenu.BLOCK_ATLAS);
+        var buffers=mc.renderBuffers().bufferSource();
+        var rv=new org.joml.Vector3f(1,0,0).rotate(mc.gameRenderer.getMainCamera().rotation());
+        Vec3 right=new Vec3(rv.x,0,rv.z).normalize(), up=new Vec3(0,1,0);
+        var smokeType=RyujinFlowRenderer.smokeType();
+        VertexConsumer smoke=null;
+        for(var fire:flames){
+            if(fire.layer()!=RyujinFireLayout.Layer.SMOKE)continue;
+            if(smoke==null)smoke=buffers.getBuffer(smokeType);
+            backdrop(smoke,pose.last().pose(),camera,fire,right,up,realTick*.55,true);
+        }
+        if(smoke!=null)buffers.endBatch(smokeType);
+        var farType=RyujinFlowRenderer.farFireType();
+        VertexConsumer far=null;
+        for(var fire:flames){
+            if(fire.layer()!=RyujinFireLayout.Layer.BACKDROP)continue;
+            if(far==null)far=buffers.getBuffer(farType);
+            backdrop(far,pose.last().pose(),camera,fire,right,up,realTick,false);
+        }
+        if(far!=null)buffers.endBatch(farType);
+        var out=buffers.getBuffer(type);
+        for(var fire:flames){
+            if(fire.layer()==RyujinFireLayout.Layer.BACKDROP||fire.layer()==RyujinFireLayout.Layer.SMOKE)continue;
+            Vec3 at=fire.at();
+            if(fire.layer()==RyujinFireLayout.Layer.LATERAL){
+                double floor=groundHeight(mc,at.subtract(0,fire.height()*.5+.04,0));
+                if(!Double.isFinite(floor))continue;
+                at=new Vec3(at.x,floor+.04+fire.height()*.5,at.z);
             }
-        }
-
-        // 2. Solar Ground Base (Chamas sob os pés e ao redor da base)
-        // Active from beat 0 to 52 (0s to 7s), fully extinguishes on absorption finish
-        double baseIntensity = 0.0;
-        if (age < 12) {
-            baseIntensity = .12 * RyujinBankaiTimeline.progress(age, 0, 12);
-        } else if (age < 20) {
-            baseIntensity = .38;
-        } else if (age < 30) {
-            baseIntensity = 1.0 + Math.sin(age * 0.35) * 0.06;
-        } else if (age < 52) {
-            baseIntensity = 1.0 - RyujinBankaiTimeline.progress(age, 32, 52);
-        }
-
-        double voiceField = RyujinBankaiTimeline.progress(age, 11.5, 12.2)
-                * (1 - RyujinBankaiTimeline.progress(age, 19, 23));
-        if (voiceField > .01) {
-            for (int i = 0; i < 48; i++) {
-                double x = (hash(i * 5 + 1) * 2 - 1) * 5.2;
-                double y = .25 + hash(i * 7 + 4) * 3.7 +
-                        RyujinBankaiTimeline.progress(age, 12, 20) * 2.2;
-                Vec3 at = anchor.subtract(forward.scale(3.0 + hash(i + 8) * 3.0))
-                        .add(side.scale(x)).add(0, y, 0);
-                flames.add(new Flame(at, (0.55 + hash(i + 3) * 0.6) * voiceField,
-                        (1.1 + hash(i + 11) * 1.6) * voiceField,
-                        (int)(170 * voiceField), i % 2 == 0));
-            }
-        }
-
-        // First fire mass rises behind the actor before it curls into the modeled sun.
-        double blast = RyujinBankaiTimeline.progress(age, 20, 23)
-                * (1 - RyujinBankaiTimeline.progress(age, 26, 31));
-        if (blast > .02) {
-            for (int i = 0; i < 84; i++) {
-                double a = (i + .5) / 84.0;
-                double x = (a * 2 - 1) * 7.5;
-                double rise = RyujinBankaiTimeline.progress(age, 20, 26);
-                double y = .6 + hash(i * 5) * 4.0 + rise * (3.0 + hash(i + 33) * 7.0);
-                Vec3 at = anchor.subtract(forward.scale(4.5 + hash(i + 13) * 3.0))
-                        .add(side.scale(x)).add(0, y, 0);
-                double width = (1.1 + hash(i + 4) * 1.4) * blast;
-                double height = (2.0 + hash(i + 7) * 4.0) * blast;
-                flames.add(new Flame(at, width, height, (int)(215 * blast), i % 2 == 0));
-            }
-        }
-
-        if (baseIntensity > 0.02) {
-            double baseRadius = baseIntensity * 3.0;
-            for (int i = 0; i < 32; i++) {
-                double theta = i * Math.PI * 2 / 32;
-                double cos = Math.cos(theta); // projection along forward
-                double sin = Math.sin(theta); // projection along side
-                double r = baseRadius * (0.45 + 0.55 * hash(i * 3 + 1));
-                // Maintain foot support legibility: lower flame height in front, higher on sides and rear
-                boolean isFront = cos > 0.15;
-                double flameH = baseIntensity * (isFront ? 0.20 : 0.82) * (0.8 + 0.4 * hash(i + 5));
-                double flameW = baseIntensity * (isFront ? 0.24 : 0.42) * (0.75 + 0.35 * hash(i + 2));
-                double yDrift = 0.05 + Math.sin(age * 0.25 + i * 1.3) * 0.03;
-                Vec3 at = anchor.add(side.scale(sin * r))
-                        .add(forward.scale(cos * r))
-                        .add(0, yDrift, 0);
-                int alpha = (int) (215 * Math.min(1.0, baseIntensity) * (isFront ? 0.42 : 1.0));
-                flames.add(new Flame(at, flameW, flameH, alpha, i % 2 == 0));
-            }
-        }
-
-        // 3. Helical Heat Vortex (Turbilhão de calor em faixas helicoidais largas ao redor do corpo)
-        // Begins during ignition, reaches full swirl in sustained sun, contracts into blade during sealing
-        double vortexIntensity = 0.0;
-        if (age < 20) {
-            vortexIntensity = 0;
-        } else if (age < 30) {
-            vortexIntensity = RyujinBankaiTimeline.progress(age, 23, 30);
-        } else if (age < 52) {
-            vortexIntensity = 1.0 - RyujinBankaiTimeline.progress(age, 32, 52);
-        }
-
-        if (vortexIntensity > 0.02) {
-            double absorbP = (age >= 32 && age <= 52) ? RyujinBankaiTimeline.progress(age, 32, 52) : 0.0;
-            Vec3 bladeTarget = blade == null ? anchor.add(0, 1.5, 0) : blade.hand().lerp(blade.tip(), 0.5);
-
-            for (int strand = 0; strand < 2; strand++) {
-                double strandOffset = strand * Math.PI;
-                for (int step = 0; step < 14; step++) {
-                    double frac = (step + ((age * 0.16 + strand * 0.5) % 1.0)) / 14.0;
-                    double y = 0.35 + frac * 3.6;
-                    double phi = strandOffset + frac * 2.6 * Math.PI + age * 0.22;
-                    // Wide radius (2.3m to 2.7m) with clear central cavity; contracts towards blade on sealing
-                    double r = (2.3 + 0.4 * Math.sin(frac * Math.PI)) * (1.0 - absorbP * 0.75);
-                    Vec3 centerAxis = anchor.lerp(bladeTarget, absorbP * (1.0 - frac * 0.4));
-                    Vec3 at = centerAxis.add(side.scale(Math.cos(phi) * r))
-                            .add(forward.scale(Math.sin(phi) * r))
-                            .add(0, y, 0);
-                    double cardW = 0.30 * vortexIntensity;
-                    double cardH = 0.52 * vortexIntensity;
-                    int alpha = (int) (180 * vortexIntensity * Math.sin(frac * Math.PI));
-                    flames.add(new Flame(at, cardW, cardH, alpha, (strand + step) % 2 == 0));
-                }
-            }
-        }
-
-        // 4. Flame Streams Converging onto Katana (during absorption 4.5s–7s)
-        if (absorption > 0.01) {
-            for (int stream = 0; stream < 4; stream++) {
-                double a = stream * Math.PI * 2 / 4;
-                Vec3 from = center.add(side.scale(Math.cos(a) * Math.max(0.2, radius * 0.85)))
-                        .add(0, Math.sin(a) * Math.max(0.2, radius * 0.85), 0);
-                Vec3 end = blade.hand().lerp(blade.tip(), 0.25 + 0.18 * stream);
-                for (int bead = 0; bead < 14; bead++) {
-                    double t = (bead + ((age * 0.23 + stream * 0.17) % 1.0)) / 14.0;
-                    Vec3 at = from.lerp(end, t).add(side.scale(Math.sin(t * Math.PI) * Math.cos(a) * 1.6))
-                            .add(0, Math.sin(t * Math.PI) * 1.6, 0);
-                    double size = (0.22 + 0.75 * (1.0 - t)) * absorption;
-                    flames.add(new Flame(at, size, size * 2.6, (int) (230 * absorption), bead % 2 == 0));
-                }
-            }
-        }
-
-        // Back-to-front sorting avoids opaque-looking intersecting sprite planes
-        flames.sort(Comparator.comparingDouble((Flame f) -> f.at.distanceToSqr(camera)).reversed());
-
-        var type = RenderType.entityTranslucentEmissive(InventoryMenu.BLOCK_ATLAS);
-        var buffers = mc.renderBuffers().bufferSource();
-        var out = buffers.getBuffer(type);
-        var rotation = mc.gameRenderer.getMainCamera().rotation();
-        var rv = new org.joml.Vector3f(1, 0, 0).rotate(rotation);
-        var uv = new org.joml.Vector3f(0, 1, 0).rotate(rotation);
-        Vec3 right = new Vec3(rv.x, rv.y, rv.z), up = new Vec3(uv.x, uv.y, uv.z);
-
-        for (var fire : flames) {
-            sprite(out, pose.last().pose(), camera, fire, right, up,
-                    fire.alternate ? ModelBakery.FIRE_1.sprite() : ModelBakery.FIRE_0.sprite());
+            sprite(out,pose.last().pose(),camera,fire,at,right,up,
+                    fire.alternate()?ModelBakery.FIRE_1.sprite():ModelBakery.FIRE_0.sprite(),realTick);
         }
         buffers.endBatch(type);
+        if(com.bleachmod.common.visual.RyujinSealFlow.enabled())
+            renderedCards+=RyujinFlowRenderer.render(pose,camera,anchor,forward,age,realTick,blade);
     }
 
-    private static void sprite(VertexConsumer out, Matrix4f matrix, Vec3 cam, Flame f, Vec3 right, Vec3 up, TextureAtlasSprite tex) {
-        Vec3 c = f.at.subtract(cam), r = right.scale(f.width * 0.5), u = up.scale(f.height * 0.5);
-        vertex(out, matrix, c.subtract(r).subtract(u), tex.getU0(), tex.getV1(), f.alpha);
-        vertex(out, matrix, c.add(r).subtract(u), tex.getU1(), tex.getV1(), f.alpha);
-        vertex(out, matrix, c.add(r).add(u), tex.getU1(), tex.getV0(), f.alpha);
-        vertex(out, matrix, c.subtract(r).add(u), tex.getU0(), tex.getV0(), f.alpha);
+    private static double groundHeight(Minecraft mc,Vec3 position){
+        long tick=mc.level.getGameTime();
+        if(tick!=groundTick){GROUND_HEIGHTS.clear();groundTick=tick;}
+        return GROUND_HEIGHTS.computeIfAbsent(BlockPos.containing(position),block->{
+            Vec3 base=Vec3.atBottomCenterOf(block);
+            var hit=mc.level.clip(new ClipContext(base.add(0,1.9,0),base.subtract(0,2.1,0),
+                    ClipContext.Block.COLLIDER,ClipContext.Fluid.NONE,mc.player));
+            return hit.getType()==HitResult.Type.BLOCK?hit.getLocation().y:Double.NaN;
+        });
     }
 
-    private static void vertex(VertexConsumer out, Matrix4f matrix, Vec3 p, float u, float v, int alpha) {
-        out.vertex(matrix, (float) p.x, (float) p.y, (float) p.z).color(255, 255, 255, alpha).uv(u, v)
+    private static void backdrop(VertexConsumer out, Matrix4f matrix, Vec3 camera,
+                                 RyujinFireLayout.Card fire, Vec3 right, Vec3 up, double tick, boolean smoke) {
+        Vec3 c=fire.at().subtract(camera), r=right.scale(fire.width()*.5), u=up.scale(fire.height()*.5);
+        int variant=Math.floorMod(fire.seed()*7+fire.seed()/4,4);
+        int frame=Math.floorMod((int)Math.floor(tick/3)+fire.seed(),8);
+        float u0=variant/4F, u1=(variant+1)/4F, v0=frame/8F, v1=(frame+1)/8F;
+        int green=smoke?255:210, blue=smoke?255:112;
+        vertex(out,matrix,c.subtract(r).subtract(u),u0,v1,fire.alpha(),green,blue);
+        vertex(out,matrix,c.add(r).subtract(u),u1,v1,fire.alpha(),green,blue);
+        vertex(out,matrix,c.add(r).add(u),u1,v0,fire.alpha(),green,blue);
+        vertex(out,matrix,c.subtract(r).add(u),u0,v0,fire.alpha(),green,blue);
+    }
+
+    private static void sprite(VertexConsumer out, Matrix4f matrix, Vec3 cam, RyujinFireLayout.Card f, Vec3 at, Vec3 right, Vec3 up, TextureAtlasSprite tex,double tick) {
+        Vec3 c = at.subtract(cam), r = right.scale(f.width() * 0.5), u = up.scale(f.height() * 0.5);
+        float u0=tex.getU0(),u1=tex.getU1(),v0=tex.getV0(),v1=tex.getV1();
+        if(com.bleachmod.common.visual.RyujinSealFlow.enabled()){
+            int frame=Math.floorMod((int)Math.floor(tick*.5)+f.seed()*3,8);
+            u0=f.alternate()?0:.5F;u1=u0+.5F;v0=frame/8F;v1=(frame+1)/8F;
+        }
+        vertex(out, matrix, c.subtract(r).subtract(u), u0, v1, f.alpha(), false);
+        vertex(out, matrix, c.add(r).subtract(u), u1, v1, f.alpha(), false);
+        vertex(out, matrix, c.add(r).add(u), u1, v0, f.alpha(), true);
+        vertex(out, matrix, c.subtract(r).add(u), u0, v0, f.alpha(), true);
+    }
+
+    private static void vertex(VertexConsumer out, Matrix4f matrix, Vec3 p, float u, float v, int alpha, boolean tip) {
+        vertex(out,matrix,p,u,v,alpha,tip?210:156,tip?112:48);
+    }
+    private static void vertex(VertexConsumer out,Matrix4f matrix,Vec3 p,float u,float v,int alpha,int green,int blue){
+        out.vertex(matrix, (float) p.x, (float) p.y, (float) p.z).color(255,green,blue,alpha).uv(u, v)
                 .overlayCoords(OverlayTexture.NO_OVERLAY).uv2(LightTexture.FULL_BRIGHT).normal(0, 1, 0).endVertex();
     }
 
-    /**
-     * Emits client-side smoke, ash, and flame particles according to the authored beat clock.
-     * Enforces the per-tick particle budget and Minecraft's particle setting.
-     *
-     * 0-2s   (beats 0..12):   Ground solar base flames & ascending embers around feet.
-     * 2-4.5s (beats 12..30):  Helical heat swirl of smoke and embers around the body.
-     * 4.5-7s (beats 30..52):  Swirl and embers converge into the katana blade.
-     * 7-8s   (beats 52..60):  Fire volume drops; fine smoke and ash wisps on carbonized blade.
-     * 8-10.5s(beats 60..112): Slow ash drift; smoke dissipates; face, blade and subtitle clear.
-     * 10.5-12s(beats 112..140):Emissions shut down; remaining particles fade before combat handoff.
-     */
-    public static int emit(Vec3 anchor, Vec3 forward, double age, RyujinBankaiPresentation.Blade blade, int allowance) {
-        var mc = Minecraft.getInstance();
-        if (mc.level == null || mc.isPaused() || mc.player == null || mc.player.distanceToSqr(anchor) > 96 * 96) return 0;
-
-        int limit = Math.min(MAX_PARTICLES_PER_SCENE_TICK, allowance);
-        if (age < 12) limit = Math.min(3, limit);
-        else if (age < 20) limit = Math.min(7, limit);
-        if (mc.options.particles().get() == net.minecraft.client.ParticleStatus.MINIMAL) limit = Math.min(3, limit);
-        else if (mc.options.particles().get() == net.minecraft.client.ParticleStatus.DECREASED) limit = Math.min(6, limit);
-        if (limit <= 0) return 0;
-
-        // 10.5-12s: Emitters shut down cleanly so the air is clear at return
-        if (age >= 112) return 0;
-
-        Random rng = new Random(Double.doubleToLongBits(anchor.x + anchor.z * 31) + (long) age * 73);
-        double radius = RyujinBankaiTimeline.sunRadius(age);
-        Vec3 side = new Vec3(forward.z, 0, -forward.x);
-        Vec3 center = RyujinBankaiPresentation.sunCenter(anchor, forward);
-        int n = 0;
-
-        for (int i = 0; i < limit; i++) {
-            Vec3 p, velocity;
-            net.minecraft.core.particles.SimpleParticleType particle;
-
-            if (age < 20) {
-                // Sparse preheat; the sun and large fire burst must wait until after Bankai.
-                if (i % 2 == 0) {
-                    double a = rng.nextDouble() * Math.PI * 2;
-                    double cos = Math.cos(a);
-                    double r = 0.8 + rng.nextDouble() * 0.5;
-                    // Avoid spawning right in front of player's face
-                    boolean isFront = cos > 0.3;
-                    p = anchor.add(side.scale(Math.sin(a) * r))
-                            .add(forward.scale(cos * r))
-                            .add(0, 0.05 + (isFront ? 0.08 : 0.25) * rng.nextDouble(), 0);
-                    particle = (i % 4 == 0) ? ParticleTypes.LAVA : ParticleTypes.FLAME;
-                    velocity = new Vec3(0, 0.04 + rng.nextDouble() * 0.05, 0);
-                } else {
-                    p = anchor.subtract(forward.scale(2.5 + rng.nextDouble()))
-                            .add(side.scale((rng.nextDouble() - 0.5) * 2))
-                            .add(0, rng.nextDouble() * 1.5, 0);
-                    particle = (i % 3 == 0) ? ParticleTypes.SMOKE : ParticleTypes.FLAME;
-                    velocity = new Vec3(0, 0.06 + rng.nextDouble() * 0.04, 0);
-                }
-            } else if (age < 32) {
-                // The blast climbs behind the body, then curls into the sun.
-                if (i < limit / 2) {
-                    double a = rng.nextDouble() * Math.PI * 2;
-                    double h = 0.3 + rng.nextDouble() * (age < 24 ? 8.0 : 3.4);
-                    double r = 2.1 + rng.nextDouble() * (age < 24 ? 4.0 : 0.7);
-                    p = anchor.add(side.scale(Math.cos(a) * r))
-                            .add(forward.scale(age < 24 ? -4.5 : Math.sin(a) * r))
-                            .add(0, h, 0);
-                    // Tangential swirl + upward heat velocity
-                    velocity = side.scale(-Math.sin(a) * 0.06)
-                            .add(forward.scale(Math.cos(a) * 0.06))
-                            .add(0, 0.065 + rng.nextDouble() * 0.035, 0);
-                    particle = (i % 3 == 0) ? ParticleTypes.SMOKE : (i % 3 == 1 ? ParticleTypes.ASH : ParticleTypes.FLAME);
-                } else {
-                    // Fire tongues trace the rim of the forming modeled sun.
-                    double theta = rng.nextDouble() * Math.PI * 2;
-                    double r = radius * (.7 + rng.nextDouble() * .3);
-                    p = center.add(side.scale(Math.cos(theta) * r))
-                            .add(0, Math.sin(theta) * r, 0);
-                    particle = ParticleTypes.FLAME;
-                    velocity = new Vec3(0, 0.07 + rng.nextDouble() * 0.05, 0);
-                }
-            } else if (age < 52) {
-                if (blade == null) break;
-                // 4.5-7s (Selamento): O turbilhão e brasas se contraem e convergem para a espada
-                Vec3 target = blade.hand().lerp(blade.tip(), 0.2 + rng.nextDouble() * 0.7);
-                double contract = 1.0 - RyujinBankaiTimeline.progress(age, 32, 52);
-                double a = rng.nextDouble() * Math.PI * 2;
-                double r = (1.6 + rng.nextDouble() * 1.0) * contract;
-                double h = 0.2 + rng.nextDouble() * 2.2;
-                p = anchor.add(side.scale(Math.cos(a) * r))
-                        .add(forward.scale(Math.sin(a) * r))
-                        .add(0, h, 0);
-                Vec3 dir = target.subtract(p);
-                double dist = Math.max(0.1, dir.length());
-                velocity = dir.scale(Math.min(0.24, 0.10 + 0.08 / dist)).add(0, 0.025, 0);
-                particle = (i % 2 == 0) ? ParticleTypes.FLAME : ParticleTypes.SMOKE;
-            } else if (age < 60) {
-                // 7-8s (Lâmina carbonizada): Volume reduzido, fios de fumaça e cinzas sobre a lâmina
-                if (i >= 3) break;
-                p = blade.hand().lerp(blade.tip(), rng.nextDouble());
-                particle = (i == 0) ? ParticleTypes.SMOKE : ParticleTypes.ASH;
-                velocity = new Vec3(0, 0.016 + rng.nextDouble() * 0.014, 0);
-            } else {
-                // 8-10.5s (Nome da Bankai): Apenas cinzas flutuando muito lentamente no ar, rosto e legenda desobstruídos
-                if (i >= 2) break;
-                p = anchor.add(side.scale((rng.nextDouble() - 0.5) * 4.0))
-                        .add(forward.scale((rng.nextDouble() - 0.5) * 4.0))
-                        .add(0, 0.5 + rng.nextDouble() * 2.2, 0);
-                particle = ParticleTypes.ASH;
-                velocity = new Vec3((rng.nextDouble() - 0.5) * 0.008, -0.004 + rng.nextDouble() * 0.008, (rng.nextDouble() - 0.5) * 0.008);
-            }
-
-            mc.level.addParticle(particle, p.x, p.y, p.z, velocity.x, velocity.y, velocity.z);
-            n++;
+    /** Owned, tick-driven particles; phases never control the random clock. */
+    public static int emit(int owner,Vec3 anchor,Vec3 forward,double age,long realTick,
+                           RyujinBankaiPresentation.Blade blade,int allowance){
+        var mc=Minecraft.getInstance();
+        if(mc.level==null||mc.isPaused()||mc.player==null||mc.player.distanceToSqr(anchor)>96*96)return 0;
+        var owned=PARTICLES.computeIfAbsent(owner,ignored->new ArrayList<>());
+        owned.removeIf(p->!p.particle.isAlive());
+        if(age>=52)owned.removeIf(p->{if(p.flame){p.particle.remove();return true;}return false;});
+        else if(com.bleachmod.common.visual.RyujinSealFlow.enabled()&&age>=32)
+            owned.removeIf(p->{if(p.flame&&realTick-p.born>=5){p.particle.remove();return true;}return false;});
+        int limit=Math.min(MAX_PARTICLES_PER_SCENE_TICK,allowance);
+        if(age<12)limit=Math.min(3,limit);else if(age<20)limit=Math.min(7,limit);
+        if(mc.options.particles().get()==net.minecraft.client.ParticleStatus.MINIMAL)limit=Math.min(3,limit);
+        else if(mc.options.particles().get()==net.minecraft.client.ParticleStatus.DECREASED)limit=Math.min(6,limit);
+        if(age>=112||limit<=0)return 0;
+        boolean sealedPlume=com.bleachmod.common.visual.RyujinSealFlow.enabled()&&age>=52;
+        if(sealedPlume){
+            if(blade==null||age>=108||realTick%2!=0)return 0;
+            int plumeDensity=age<62?3:age<96?2:1;
+            limit=Math.min(plumeDensity,limit);
         }
-
-        return n;
+        Random rng=new Random(Double.doubleToLongBits(anchor.x+anchor.z*31)^realTick*0x9E3779B97F4A7C15L^owner);
+        Vec3 side=new Vec3(forward.z,0,-forward.x),centre=RyujinBankaiPresentation.sunCenter(anchor,forward);
+        double radius=RyujinBankaiTimeline.sunRadius(age);
+        int emitted=0;
+        for(int i=0;i<limit;i++){
+            Vec3 p,velocity;
+            net.minecraft.core.particles.SimpleParticleType type;
+            if(age<52){
+                if(com.bleachmod.common.visual.RyujinSealFlow.enabled()&&age>=32){
+                    if(blade==null||i>=3)continue;
+                    p=blade.hand().lerp(blade.tip(),.25+.6*rng.nextDouble());
+                    velocity=new Vec3(0,.004,0);
+                }else if(blade!=null&&i%3==0){
+                    p=blade.hand().lerp(blade.tip(),.15+.8*rng.nextDouble());
+                    velocity=new Vec3(0,.025+.025*rng.nextDouble(),0);
+                }else if(age>=32){
+                    if(blade==null)continue;
+                    double contract=RyujinBankaiTimeline.progress(age,32,52);
+                    p=centre.add(side.scale((rng.nextDouble()-.5)*6)).add(0,(rng.nextDouble()-.5)*4,0);
+                    p=p.lerp(blade.hand().lerp(blade.tip(),rng.nextDouble()),contract);
+                    velocity=blade.hand().lerp(blade.tip(),.6).subtract(p).normalize().scale(.16);
+                }else{
+                    p=anchor.subtract(forward.scale(2.8+rng.nextDouble()*3.5))
+                            .add(side.scale((rng.nextDouble()-.5)*(age<20?5:12)))
+                            .add(0,.1+rng.nextDouble()*(age<20?1.6:4),0);
+                    if(age>=24&&i%4==1){
+                        double a=rng.nextDouble()*Math.PI*2;
+                        p=centre.add(side.scale(Math.cos(a)*radius*.85)).add(0,Math.sin(a)*radius*.8,0);
+                    }
+                    velocity=new Vec3((rng.nextDouble()-.5)*.025,.025+rng.nextDouble()*.035,0);
+                }
+                type=i%5==4?ParticleTypes.SMOKE:ParticleTypes.FLAME;
+            }else if(sealedPlume){
+                p=blade.hand().lerp(blade.tip(),.23+.70*rng.nextDouble()).add(0,.04,0);
+                velocity=side.scale((rng.nextDouble()-.38)*.022)
+                        .add(forward.scale((rng.nextDouble()-.5)*.016)).add(0,.026+.021*rng.nextDouble(),0);
+                type=(i==0&&(age<96||realTick%4==0))?ParticleTypes.SMOKE:ParticleTypes.ASH;
+            }else if(age<60&&blade!=null){
+                if(i>=3)break;
+                p=blade.hand().lerp(blade.tip(),rng.nextDouble());
+                velocity=new Vec3(0,.018,0);type=i==0?ParticleTypes.SMOKE:ParticleTypes.ASH;
+            }else{
+                if(i>=2)break;
+                p=anchor.add(side.scale((rng.nextDouble()-.5)*3)).add(0,.3+rng.nextDouble()*1.5,0);
+                velocity=new Vec3(0,-.004,0);type=ParticleTypes.ASH;
+            }
+            Particle particle=mc.particleEngine.createParticle(type,p.x,p.y,p.z,velocity.x,velocity.y,velocity.z);
+            if(particle!=null){
+                if(sealedPlume){
+                    particle.setParticleSpeed(velocity.x,velocity.y,velocity.z);
+                    particle.setLifetime(type==ParticleTypes.SMOKE?24:21);
+                }
+                if(owned.size()>=192)owned.remove(0).particle.remove();
+                owned.add(new Tracked(particle,type==ParticleTypes.FLAME,realTick));emitted++;
+            }
+        }
+        return emitted;
     }
 }

@@ -3,7 +3,9 @@ package com.bleachmod.server.commands;
 import com.bleachmod.Reference;
 import com.bleachmod.common.data.PlayerCapability;
 import com.bleachmod.common.network.SyncHelper;
+import com.bleachmod.common.visual.RyujinQaSandbox;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.level.storage.LevelResource;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -13,7 +15,9 @@ import net.minecraftforge.fml.common.Mod;
 public final class BenihimeQaWorld {
     private BenihimeQaWorld(){ }
     @SubscribeEvent public static void joined(PlayerEvent.PlayerLoggedInEvent e){
-        if(net.minecraftforge.fml.loading.FMLEnvironment.production||!Boolean.getBoolean("bleachmod.benihimeQa")||!(e.getEntity() instanceof ServerPlayer p))return;
+        if(!Boolean.getBoolean("bleachmod.benihimeQa")||!(e.getEntity() instanceof ServerPlayer p))return;
+        if(net.minecraftforge.fml.loading.FMLEnvironment.production&&(p.getServer().isDedicatedServer()
+                ||!RyujinQaSandbox.packaged(p.getServer().getWorldPath(LevelResource.ROOT))))return;
         if(!p.getServer().getWorldData().getLevelName().startsWith("Benihime-QA-68-"))return;
         PlayerCapability.get(p).ifPresent(d->{
             d.initializeShinigami();d.getCharacter().bindZanpakuto("benihime");d.getSkills().get("zanpakuto").setLevel(2);

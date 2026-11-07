@@ -4,18 +4,18 @@ import net.minecraft.util.Mth;
 
 /**
  * Authored presentation timeline for Ryūjin Jakka / Zanka no Tachi Bankai transformation.
- * Real presentation: 240 ticks (12 seconds), including the camera handoff.
+ * Real presentation: 300 ticks (15 seconds), including a 64-tick full-sun hold and camera handoff.
  * Curves below use a separate 0..140 authored beat clock.
  *
  * Preserves the existing 60/40 gameplay contract (release 60, commit 40).
  * Presentation is a separate visual/camera layer.
  */
 public final class RyujinBankaiTimeline {
-    public static final int DURATION = 240;
-    // Keep the persisted client preference compatible; both paths now use the same short score.
+    public static final int DURATION = 300;
+    // Keep the persisted client preference compatible; both paths share the revised score.
     public static final int COMPACT_DURATION = DURATION;
     public static final int AUTHORED_END = 140;
-    private static final double[] REAL_BEATS={0,40,70,84,112,116,142,160,210,240};
+    private static final double[] REAL_BEATS={0,40,70,84,112,176,202,220,270,300};
     private static final double[] STORY_BEATS={0,12,20,24,30,32,52,60,112,140};
 
     /** Real scene ticks -> authored beats. Linear intervals preserve continuous motion;
