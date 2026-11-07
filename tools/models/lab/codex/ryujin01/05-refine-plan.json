@@ -1,0 +1,1009 @@
+[
+  {
+    "name": "set_project_meta",
+    "arguments": {
+      "geometry_name": "ryujin_sun_formation_lab"
+    }
+  },
+  {
+    "name": "edit_element",
+    "arguments": {
+      "element": "core_0_-3_glow",
+      "from": [
+        -13.9,
+        -25.69,
+        -26.51
+      ],
+      "to": [
+        13.9,
+        -18.26,
+        -16.51
+      ]
+    }
+  },
+  {
+    "name": "edit_element",
+    "arguments": {
+      "element": "core_0_-2_glow",
+      "from": [
+        -21.48,
+        -18.36,
+        -26.34
+      ],
+      "to": [
+        21.48,
+        -10.93,
+        -16.34
+      ]
+    }
+  },
+  {
+    "name": "edit_element",
+    "arguments": {
+      "element": "core_0_-1_glow",
+      "from": [
+        -24.95,
+        -11.04,
+        -26.17
+      ],
+      "to": [
+        24.95,
+        -3.61,
+        -16.17
+      ]
+    }
+  },
+  {
+    "name": "edit_element",
+    "arguments": {
+      "element": "core_0_0_glow",
+      "from": [
+        -26,
+        -3.71,
+        -26
+      ],
+      "to": [
+        26,
+        3.71,
+        -16
+      ]
+    }
+  },
+  {
+    "name": "edit_element",
+    "arguments": {
+      "element": "core_0_1_glow",
+      "from": [
+        -24.95,
+        3.61,
+        -25.83
+      ],
+      "to": [
+        24.95,
+        11.04,
+        -15.83
+      ]
+    }
+  },
+  {
+    "name": "edit_element",
+    "arguments": {
+      "element": "core_0_2_glow",
+      "from": [
+        -21.48,
+        10.93,
+        -25.66
+      ],
+      "to": [
+        21.48,
+        18.36,
+        -15.66
+      ]
+    }
+  },
+  {
+    "name": "edit_element",
+    "arguments": {
+      "element": "core_0_3_glow",
+      "from": [
+        -13.9,
+        18.26,
+        -25.49
+      ],
+      "to": [
+        13.9,
+        25.69,
+        -15.49
+      ]
+    }
+  },
+  {
+    "name": "edit_element",
+    "arguments": {
+      "element": "core_1_-3_glow",
+      "from": [
+        -20.32,
+        -37.54,
+        -16.51
+      ],
+      "to": [
+        20.32,
+        -26.68,
+        -6.51
+      ]
+    }
+  },
+  {
+    "name": "edit_element",
+    "arguments": {
+      "element": "core_1_-2_glow",
+      "from": [
+        -31.4,
+        -26.84,
+        -16.34
+      ],
+      "to": [
+        31.4,
+        -15.98,
+        -6.34
+      ]
+    }
+  },
+  {
+    "name": "edit_element",
+    "arguments": {
+      "element": "core_1_-1_glow",
+      "from": [
+        -36.46,
+        -16.13,
+        -16.17
+      ],
+      "to": [
+        36.46,
+        -5.28,
+        -6.17
+      ]
+    }
+  },
+  {
+    "name": "edit_element",
+    "arguments": {
+      "element": "core_1_0_glow",
+      "from": [
+        -38,
+        -5.43,
+        -16
+      ],
+      "to": [
+        38,
+        5.43,
+        -6
+      ]
+    }
+  },
+  {
+    "name": "edit_element",
+    "arguments": {
+      "element": "core_1_1_glow",
+      "from": [
+        -36.46,
+        5.28,
+        -15.83
+      ],
+      "to": [
+        36.46,
+        16.13,
+        -5.83
+      ]
+    }
+  },
+  {
+    "name": "edit_element",
+    "arguments": {
+      "element": "core_1_2_glow",
+      "from": [
+        -31.4,
+        15.98,
+        -15.66
+      ],
+      "to": [
+        31.4,
+        26.84,
+        -5.66
+      ]
+    }
+  },
+  {
+    "name": "edit_element",
+    "arguments": {
+      "element": "core_1_3_glow",
+      "from": [
+        -20.32,
+        26.68,
+        -15.49
+      ],
+      "to": [
+        20.32,
+        37.54,
+        -5.49
+      ]
+    }
+  },
+  {
+    "name": "edit_element",
+    "arguments": {
+      "element": "core_2_-3_glow",
+      "from": [
+        -24.59,
+        -45.44,
+        -5.51
+      ],
+      "to": [
+        24.59,
+        -32.3,
+        4.49
+      ]
+    }
+  },
+  {
+    "name": "edit_element",
+    "arguments": {
+      "element": "core_2_-2_glow",
+      "from": [
+        -38.01,
+        -32.49,
+        -5.34
+      ],
+      "to": [
+        38.01,
+        -19.34,
+        4.66
+      ]
+    }
+  },
+  {
+    "name": "edit_element",
+    "arguments": {
+      "element": "core_2_-1_glow",
+      "from": [
+        -44.14,
+        -19.53,
+        -5.17
+      ],
+      "to": [
+        44.14,
+        -6.39,
+        4.83
+      ]
+    }
+  },
+  {
+    "name": "edit_element",
+    "arguments": {
+      "element": "core_2_0_glow",
+      "from": [
+        -46,
+        -6.57,
+        -5
+      ],
+      "to": [
+        46,
+        6.57,
+        5
+      ]
+    }
+  },
+  {
+    "name": "edit_element",
+    "arguments": {
+      "element": "core_2_1_glow",
+      "from": [
+        -44.14,
+        6.39,
+        -4.83
+      ],
+      "to": [
+        44.14,
+        19.53,
+        5.17
+      ]
+    }
+  },
+  {
+    "name": "edit_element",
+    "arguments": {
+      "element": "core_2_2_glow",
+      "from": [
+        -38.01,
+        19.34,
+        -4.66
+      ],
+      "to": [
+        38.01,
+        32.49,
+        5.34
+      ]
+    }
+  },
+  {
+    "name": "edit_element",
+    "arguments": {
+      "element": "core_2_3_glow",
+      "from": [
+        -24.59,
+        32.3,
+        -4.49
+      ],
+      "to": [
+        24.59,
+        45.44,
+        5.51
+      ]
+    }
+  },
+  {
+    "name": "edit_element",
+    "arguments": {
+      "element": "core_3_-3_glow",
+      "from": [
+        -20.32,
+        -37.54,
+        5.49
+      ],
+      "to": [
+        20.32,
+        -26.68,
+        15.49
+      ]
+    }
+  },
+  {
+    "name": "edit_element",
+    "arguments": {
+      "element": "core_3_-2_glow",
+      "from": [
+        -31.4,
+        -26.84,
+        5.66
+      ],
+      "to": [
+        31.4,
+        -15.98,
+        15.66
+      ]
+    }
+  },
+  {
+    "name": "edit_element",
+    "arguments": {
+      "element": "core_3_-1_glow",
+      "from": [
+        -36.46,
+        -16.13,
+        5.83
+      ],
+      "to": [
+        36.46,
+        -5.28,
+        15.83
+      ]
+    }
+  },
+  {
+    "name": "edit_element",
+    "arguments": {
+      "element": "core_3_0_glow",
+      "from": [
+        -38,
+        -5.43,
+        6
+      ],
+      "to": [
+        38,
+        5.43,
+        16
+      ]
+    }
+  },
+  {
+    "name": "edit_element",
+    "arguments": {
+      "element": "core_3_1_glow",
+      "from": [
+        -36.46,
+        5.28,
+        6.17
+      ],
+      "to": [
+        36.46,
+        16.13,
+        16.17
+      ]
+    }
+  },
+  {
+    "name": "edit_element",
+    "arguments": {
+      "element": "core_3_2_glow",
+      "from": [
+        -31.4,
+        15.98,
+        6.34
+      ],
+      "to": [
+        31.4,
+        26.84,
+        16.34
+      ]
+    }
+  },
+  {
+    "name": "edit_element",
+    "arguments": {
+      "element": "core_3_3_glow",
+      "from": [
+        -20.32,
+        26.68,
+        6.51
+      ],
+      "to": [
+        20.32,
+        37.54,
+        16.51
+      ]
+    }
+  },
+  {
+    "name": "edit_element",
+    "arguments": {
+      "element": "core_4_-3_glow",
+      "from": [
+        -13.9,
+        -25.69,
+        15.49
+      ],
+      "to": [
+        13.9,
+        -18.26,
+        25.49
+      ]
+    }
+  },
+  {
+    "name": "edit_element",
+    "arguments": {
+      "element": "core_4_-2_glow",
+      "from": [
+        -21.48,
+        -18.36,
+        15.66
+      ],
+      "to": [
+        21.48,
+        -10.93,
+        25.66
+      ]
+    }
+  },
+  {
+    "name": "edit_element",
+    "arguments": {
+      "element": "core_4_-1_glow",
+      "from": [
+        -24.95,
+        -11.04,
+        15.83
+      ],
+      "to": [
+        24.95,
+        -3.61,
+        25.83
+      ]
+    }
+  },
+  {
+    "name": "edit_element",
+    "arguments": {
+      "element": "core_4_0_glow",
+      "from": [
+        -26,
+        -3.71,
+        16
+      ],
+      "to": [
+        26,
+        3.71,
+        26
+      ]
+    }
+  },
+  {
+    "name": "edit_element",
+    "arguments": {
+      "element": "core_4_1_glow",
+      "from": [
+        -24.95,
+        3.61,
+        16.17
+      ],
+      "to": [
+        24.95,
+        11.04,
+        26.17
+      ]
+    }
+  },
+  {
+    "name": "edit_element",
+    "arguments": {
+      "element": "core_4_2_glow",
+      "from": [
+        -21.48,
+        10.93,
+        16.34
+      ],
+      "to": [
+        21.48,
+        18.36,
+        26.34
+      ]
+    }
+  },
+  {
+    "name": "edit_element",
+    "arguments": {
+      "element": "core_4_3_glow",
+      "from": [
+        -13.9,
+        18.26,
+        16.51
+      ],
+      "to": [
+        13.9,
+        25.69,
+        26.51
+      ]
+    }
+  },
+  {
+    "name": "edit_element",
+    "arguments": {
+      "element": "flame_00_middle",
+      "rotation": [
+        0,
+        0,
+        -16
+      ]
+    }
+  },
+  {
+    "name": "edit_element",
+    "arguments": {
+      "element": "flame_00_tip",
+      "rotation": [
+        0,
+        0,
+        -25
+      ]
+    }
+  },
+  {
+    "name": "edit_element",
+    "arguments": {
+      "element": "flame_00_ember",
+      "rotation": [
+        0,
+        0,
+        -35
+      ]
+    }
+  },
+  {
+    "name": "edit_element",
+    "arguments": {
+      "element": "flame_01_middle",
+      "rotation": [
+        0,
+        0,
+        47
+      ]
+    }
+  },
+  {
+    "name": "edit_element",
+    "arguments": {
+      "element": "flame_01_tip",
+      "rotation": [
+        0,
+        0,
+        57
+      ]
+    }
+  },
+  {
+    "name": "edit_element",
+    "arguments": {
+      "element": "flame_01_ember",
+      "rotation": [
+        0,
+        0,
+        67
+      ]
+    }
+  },
+  {
+    "name": "edit_element",
+    "arguments": {
+      "element": "flame_02_middle",
+      "rotation": [
+        0,
+        0,
+        44
+      ]
+    }
+  },
+  {
+    "name": "edit_element",
+    "arguments": {
+      "element": "flame_02_tip",
+      "rotation": [
+        0,
+        0,
+        35
+      ]
+    }
+  },
+  {
+    "name": "edit_element",
+    "arguments": {
+      "element": "flame_02_ember",
+      "rotation": [
+        0,
+        0,
+        25
+      ]
+    }
+  },
+  {
+    "name": "edit_element",
+    "arguments": {
+      "element": "flame_03_middle",
+      "rotation": [
+        0,
+        0,
+        107
+      ]
+    }
+  },
+  {
+    "name": "edit_element",
+    "arguments": {
+      "element": "flame_03_tip",
+      "rotation": [
+        0,
+        0,
+        117
+      ]
+    }
+  },
+  {
+    "name": "edit_element",
+    "arguments": {
+      "element": "flame_03_ember",
+      "rotation": [
+        0,
+        0,
+        127
+      ]
+    }
+  },
+  {
+    "name": "edit_element",
+    "arguments": {
+      "element": "flame_04_middle",
+      "rotation": [
+        0,
+        0,
+        104
+      ]
+    }
+  },
+  {
+    "name": "edit_element",
+    "arguments": {
+      "element": "flame_04_tip",
+      "rotation": [
+        0,
+        0,
+        95
+      ]
+    }
+  },
+  {
+    "name": "edit_element",
+    "arguments": {
+      "element": "flame_04_ember",
+      "rotation": [
+        0,
+        0,
+        85
+      ]
+    }
+  },
+  {
+    "name": "edit_element",
+    "arguments": {
+      "element": "flame_05_middle",
+      "rotation": [
+        0,
+        0,
+        167
+      ]
+    }
+  },
+  {
+    "name": "edit_element",
+    "arguments": {
+      "element": "flame_05_tip",
+      "rotation": [
+        0,
+        0,
+        177
+      ]
+    }
+  },
+  {
+    "name": "edit_element",
+    "arguments": {
+      "element": "flame_05_ember",
+      "rotation": [
+        0,
+        0,
+        187
+      ]
+    }
+  },
+  {
+    "name": "edit_element",
+    "arguments": {
+      "element": "flame_06_middle",
+      "rotation": [
+        0,
+        0,
+        164
+      ]
+    }
+  },
+  {
+    "name": "edit_element",
+    "arguments": {
+      "element": "flame_06_tip",
+      "rotation": [
+        0,
+        0,
+        155
+      ]
+    }
+  },
+  {
+    "name": "edit_element",
+    "arguments": {
+      "element": "flame_06_ember",
+      "rotation": [
+        0,
+        0,
+        145
+      ]
+    }
+  },
+  {
+    "name": "edit_element",
+    "arguments": {
+      "element": "flame_07_middle",
+      "rotation": [
+        0,
+        0,
+        227
+      ]
+    }
+  },
+  {
+    "name": "edit_element",
+    "arguments": {
+      "element": "flame_07_tip",
+      "rotation": [
+        0,
+        0,
+        237
+      ]
+    }
+  },
+  {
+    "name": "edit_element",
+    "arguments": {
+      "element": "flame_07_ember",
+      "rotation": [
+        0,
+        0,
+        247
+      ]
+    }
+  },
+  {
+    "name": "edit_element",
+    "arguments": {
+      "element": "flame_08_middle",
+      "rotation": [
+        0,
+        0,
+        224
+      ]
+    }
+  },
+  {
+    "name": "edit_element",
+    "arguments": {
+      "element": "flame_08_tip",
+      "rotation": [
+        0,
+        0,
+        215
+      ]
+    }
+  },
+  {
+    "name": "edit_element",
+    "arguments": {
+      "element": "flame_08_ember",
+      "rotation": [
+        0,
+        0,
+        205
+      ]
+    }
+  },
+  {
+    "name": "edit_element",
+    "arguments": {
+      "element": "flame_09_middle",
+      "rotation": [
+        0,
+        0,
+        287
+      ]
+    }
+  },
+  {
+    "name": "edit_element",
+    "arguments": {
+      "element": "flame_09_tip",
+      "rotation": [
+        0,
+        0,
+        297
+      ]
+    }
+  },
+  {
+    "name": "edit_element",
+    "arguments": {
+      "element": "flame_09_ember",
+      "rotation": [
+        0,
+        0,
+        307
+      ]
+    }
+  },
+  {
+    "name": "edit_element",
+    "arguments": {
+      "element": "flame_10_middle",
+      "rotation": [
+        0,
+        0,
+        284
+      ]
+    }
+  },
+  {
+    "name": "edit_element",
+    "arguments": {
+      "element": "flame_10_tip",
+      "rotation": [
+        0,
+        0,
+        275
+      ]
+    }
+  },
+  {
+    "name": "edit_element",
+    "arguments": {
+      "element": "flame_10_ember",
+      "rotation": [
+        0,
+        0,
+        265
+      ]
+    }
+  },
+  {
+    "name": "edit_element",
+    "arguments": {
+      "element": "flame_11_middle",
+      "rotation": [
+        0,
+        0,
+        347
+      ]
+    }
+  },
+  {
+    "name": "edit_element",
+    "arguments": {
+      "element": "flame_11_tip",
+      "rotation": [
+        0,
+        0,
+        357
+      ]
+    }
+  },
+  {
+    "name": "edit_element",
+    "arguments": {
+      "element": "flame_11_ember",
+      "rotation": [
+        0,
+        0,
+        367
+      ]
+    }
+  },
+  {
+    "name": "check_model"
+  },
+  {
+    "name": "screenshot_views",
+    "arguments": {
+      "views": [
+        "front",
+        "left",
+        "front_right"
+      ],
+      "width": 640,
+      "height": 640
+    }
+  },
+  {
+    "name": "preview_animation",
+    "arguments": {
+      "animation": "animation.ryujin.sun_formation_lab",
+      "times": [
+        0.03,
+        0.52,
+        1.2,
+        2.2
+      ],
+      "views": [
+        "front"
+      ],
+      "width": 640,
+      "height": 640
+    }
+  },
+  {
+    "name": "save_project",
+    "arguments": {
+      "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\tools\\models\\lab\\codex\\ryujin01\\ryujin_sun_formation_lab.bbmodel"
+    }
+  },
+  {
+    "name": "export_model",
+    "arguments": {
+      "codec": "bedrock",
+      "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\tools\\models\\lab\\codex\\ryujin01\\ryujin_sun_formation_lab.geo.json"
+    }
+  }
+]

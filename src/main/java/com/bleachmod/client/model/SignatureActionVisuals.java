@@ -73,7 +73,7 @@ public final class SignatureActionVisuals {
             String id=identity(p);if(!supported(id)||mc.player.distanceToSqr(p)>64*64)continue;
             if(LAST_SWING.size()>=24&&!LAST_SWING.containsKey(p.getId()))continue;var previous=LAST_SWING.put(p.getId(),p.swinging?p.swingTime:-1);
             // Vanilla swing replication supplies remote observers too; no BC hitbox/attributes are changed.
-            if(!id.equals("benihime")&&p.swinging&&p.swingTime<=1&&(previous==null||previous<0||p.swingTime<previous)&&available(p)&&!VIEWS.containsKey(p.getId())&&MELEE.size()<24&&COMBOS.size()<24){int combo=COMBOS.merge(p.getId(),1,Integer::sum);String kind=id.equals("senbonzakura")?(combo%2==0?"petal_cut":"petal_stream"):"melee_"+Math.floorMod(combo-1,3);String form=PlayerCapability.get(p).map(d->d.getCharacter().getActiveForm()).orElse("sealed");MELEE.put(p.getId(),new View(id,form,kind,6,lastTick));}
+            if(!com.bleachmod.common.compat.BetterCombatCompat.pilot(p.getMainHandItem())&&p.swinging&&p.swingTime<=1&&(previous==null||previous<0||p.swingTime<previous)&&available(p)&&!VIEWS.containsKey(p.getId())&&MELEE.size()<24&&COMBOS.size()<24){int combo=COMBOS.merge(p.getId(),1,Integer::sum);String kind=id.equals("senbonzakura")?(combo%2==0?"petal_cut":"petal_stream"):"melee_"+Math.floorMod(combo-1,3);String form=PlayerCapability.get(p).map(d->d.getCharacter().getActiveForm()).orElse("sealed");MELEE.put(p.getId(),new View(id,form,kind,6,lastTick));}
             var v=view(p);if(v==null||ZanpakutoReleaseAnimation.active(p)||budget<=0)continue;
             if(v.kind.startsWith("melee_")){
                 // A small blade-bound red trace; no technique ring or hitbox on a basic attack.

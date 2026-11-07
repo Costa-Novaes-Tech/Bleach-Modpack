@@ -1,0 +1,138 @@
+{
+  "stage": 2,
+  "scenario": "Senbonzakura Complete Combo (Strikes 1, 2, 3)",
+  "frames": [
+    {
+      "file": "01_combo_front_frame-t050.png",
+      "scenario": "01_combo_front",
+      "tick_frame": "frame-t050.png",
+      "bytes": 162619
+    },
+    {
+      "file": "01_combo_front_frame-t056.png",
+      "scenario": "01_combo_front",
+      "tick_frame": "frame-t056.png",
+      "bytes": 163158
+    },
+    {
+      "file": "01_combo_front_frame-t076.png",
+      "scenario": "01_combo_front",
+      "tick_frame": "frame-t076.png",
+      "bytes": 165962
+    },
+    {
+      "file": "02_combo_profile_frame-t038.png",
+      "scenario": "02_combo_profile",
+      "tick_frame": "frame-t038.png",
+      "bytes": 246206
+    },
+    {
+      "file": "02_combo_profile_frame-t042.png",
+      "scenario": "02_combo_profile",
+      "tick_frame": "frame-t042.png",
+      "bytes": 247213
+    },
+    {
+      "file": "02_combo_profile_frame-t050.png",
+      "scenario": "02_combo_profile",
+      "tick_frame": "frame-t050.png",
+      "bytes": 250359
+    },
+    {
+      "file": "02_combo_profile_frame-t056.png",
+      "scenario": "02_combo_profile",
+      "tick_frame": "frame-t056.png",
+      "bytes": 251204
+    },
+    {
+      "file": "02_combo_profile_frame-t064.png",
+      "scenario": "02_combo_profile",
+      "tick_frame": "frame-t064.png",
+      "bytes": 251868
+    },
+    {
+      "file": "02_combo_profile_frame-t070.png",
+      "scenario": "02_combo_profile",
+      "tick_frame": "frame-t070.png",
+      "bytes": 253228
+    },
+    {
+      "file": "02_combo_profile_frame-t076.png",
+      "scenario": "02_combo_profile",
+      "tick_frame": "frame-t076.png",
+      "bytes": 252834
+    },
+    {
+      "file": "03_combo_back_frame-t038.png",
+      "scenario": "03_combo_back",
+      "tick_frame": "frame-t038.png",
+      "bytes": 187427
+    },
+    {
+      "file": "03_combo_back_frame-t042.png",
+      "scenario": "03_combo_back",
+      "tick_frame": "frame-t042.png",
+      "bytes": 186136
+    },
+    {
+      "file": "03_combo_back_frame-t044.png",
+      "scenario": "03_combo_back",
+      "tick_frame": "frame-t044.png",
+      "bytes": 188202
+    },
+    {
+      "file": "03_combo_back_frame-t050.png",
+      "scenario": "03_combo_back",
+      "tick_frame": "frame-t050.png",
+      "bytes": 186149
+    },
+    {
+      "file": "03_combo_back_frame-t056.png",
+      "scenario": "03_combo_back",
+      "tick_frame": "frame-t056.png",
+      "bytes": 186506
+    },
+    {
+      "file": "03_combo_back_frame-t064.png",
+      "scenario": "03_combo_back",
+      "tick_frame": "frame-t064.png",
+      "bytes": 190445
+    },
+    {
+      "file": "03_combo_back_frame-t070.png",
+      "scenario": "03_combo_back",
+      "tick_frame": "frame-t070.png",
+      "bytes": 187608
+    },
+    {
+      "file": "03_combo_back_frame-t076.png",
+      "scenario": "03_combo_back",
+      "tick_frame": "frame-t076.png",
+      "bytes": 193999
+    },
+    {
+      "file": "01_combo_front_frame-t042.png",
+      "scenario": "01_combo_front",
+      "tick_frame": "frame-t042.png",
+      "bytes": 162066
+    },
+    {
+      "file": "01_combo_front_frame-t044.png",
+      "scenario": "01_combo_front",
+      "tick_frame": "frame-t044.png",
+      "bytes": 162956
+    },
+    {
+      "file": "01_combo_front_frame-t064.png",
+      "scenario": "01_combo_front",
+      "tick_frame": "frame-t064.png",
+      "bytes": 167398
+    },
+    {
+      "file": "01_combo_front_frame-t070.png",
+      "scenario": "01_combo_front",
+      "tick_frame": "frame-t070.png",
+      "bytes": 168247
+    }
+  ]
+}

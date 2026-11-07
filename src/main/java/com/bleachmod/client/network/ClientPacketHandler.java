@@ -35,6 +35,10 @@ public final class ClientPacketHandler {
     }
 
     public static void handleAppearanceSync(AppearanceSyncS2C msg) {
+        if (msg.nbt()!=null && msg.nbt().getBoolean("devCombatReset")) {
+            com.bleachmod.client.model.HigashiExecutionVisuals.cancelOwnerPresentation(msg.playerId());
+            return;
+        }
         apply(msg.playerId(), msg.nbt());
     }
 
@@ -75,6 +79,9 @@ public final class ClientPacketHandler {
         Entity entity = mc.level.getEntity(playerId);
         if(nbt.contains("benihimeEntrance")) com.bleachmod.client.cinematic.BenihimeEntranceClient.accept(playerId,nbt.getCompound("benihimeEntrance"));
         if(nbt.contains("hyorinmaruCinematic")) com.bleachmod.client.cinematic.HyorinmaruCinematicClient.accept(playerId,nbt.getCompound("hyorinmaruCinematic"));
+        if(nbt.contains("senbonzakuraCinematic")) com.bleachmod.client.cinematic.SenbonzakuraCinematicClient.accept(playerId,nbt.getCompound("senbonzakuraCinematic"));
+        if(nbt.contains("quincyForm")) com.bleachmod.client.cinematic.QuincyVollstandigVisuals.accept(playerId,nbt.getCompound("quincyForm"));
+        if(nbt.contains("ryujinBankaiEntrance")) com.bleachmod.client.cinematic.RyujinBankaiEntranceClient.accept(playerId,nbt.getCompound("ryujinBankaiEntrance"));
         if(nbt.contains("signatureView")) com.bleachmod.client.model.SignatureActionVisuals.accept(playerId,nbt.getCompound("signatureView"));
         if (nbt.contains("releaseView")) com.bleachmod.client.model.ZanpakutoReleaseAnimation.accept(playerId, nbt.getCompound("releaseView"));
         if (nbt.contains("elementalView")) com.bleachmod.client.model.ElementalActionVisuals.accept(playerId, nbt.getCompound("elementalView"));

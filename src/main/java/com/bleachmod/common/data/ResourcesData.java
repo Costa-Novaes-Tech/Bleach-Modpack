@@ -23,6 +23,13 @@ public class ResourcesData {
         if (stamina == 0) staminaExhausted = true;
         return true;
     }
+    public boolean spendStamina(float amount) {
+        if (stamina < amount) return false;
+        stamina -= amount;
+        markStaminaEffort();
+        if (stamina == 0) staminaExhausted = true;
+        return true;
+    }
     public boolean isStaminaExhausted() { return staminaExhausted; }
     public void fillStamina() { stamina = maxStamina; staminaRestTicks = 0; staminaExhausted = false; }
     /** Basic attacks remain possible at zero; charge available stamina and postpone recovery. */

@@ -1,0 +1,344 @@
+[
+  {
+    "case": "01_day_back",
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\ryujin-bankai-qa\\cycle109-1793011873703\\01_day_back",
+    "capturedFrames": 77,
+    "sampledFpsMin": 76,
+    "sampledFpsMax": 111,
+    "selected": [
+      {
+        "file": "frame-t012.png",
+        "tick": 12,
+        "sha256": "bfaf8cede2909793f4258923dbb4f4e54cc9386a01ad693ae60e5b1d79cb405b"
+      },
+      {
+        "file": "frame-t020.png",
+        "tick": 20,
+        "sha256": "abb2cb356c53e3c5e7010730b0c857050985378aea2cd7f4642bc963386a7230"
+      },
+      {
+        "file": "frame-t030.png",
+        "tick": 30,
+        "sha256": "5951a170cb68a80d00c61bd33ebdc54b1277024bd6707befba49f471cfc073eb"
+      },
+      {
+        "file": "frame-t042.png",
+        "tick": 42,
+        "sha256": "880d6145183c12a44c01a169214b0c259ddaf35e4396cadf806ccb0ac658651a"
+      },
+      {
+        "file": "frame-t052.png",
+        "tick": 52,
+        "sha256": "fe706bbf8d60c191bd563db77950b3f39a4183cfed4caeeee765e6687a7f4e24"
+      },
+      {
+        "file": "frame-t068.png",
+        "tick": 68,
+        "sha256": "52b88a5a30a0873555b1d402c199030ee844fb58b704c673186d915af133eb7e"
+      },
+      {
+        "file": "frame-t100.png",
+        "tick": 100,
+        "sha256": "4084f3ba47f61083c64f2cb376b90bbde79186072a7605d7ca308f1aa18c76e1"
+      },
+      {
+        "file": "frame-t112.png",
+        "tick": 112,
+        "sha256": "9c9cb2c39c0b7ca2355422cfbf64447f860408e0bfc86e16318b8a86e7e04a44"
+      },
+      {
+        "file": "frame-t136.png",
+        "tick": 136,
+        "sha256": "a88c7bf4dc79626cdc9ba30d9d8505bb152940b6a53ab84dcb766cbf11f01712"
+      },
+      {
+        "file": "frame-t138.png",
+        "tick": 138,
+        "sha256": "c54124fd564bc5122d6628dcba83674743da9104a11988bc32549a4b12d0cee8"
+      },
+      {
+        "file": "frame-t140.png",
+        "tick": 140,
+        "sha256": "a724e39d8ad00dadecdcb206312aa0fccf34452ce8183dcc95f024c665a51248"
+      },
+      {
+        "file": "frame-t150.png",
+        "tick": 150,
+        "sha256": "6aeb605e9025b69c7395988f6805ed17f861a2cf23a31810958549be7fd76bc8"
+      }
+    ]
+  },
+  {
+    "case": "02_night_front",
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\ryujin-bankai-qa\\cycle109-1793011873703\\02_night_front",
+    "capturedFrames": 77,
+    "sampledFpsMin": 105,
+    "sampledFpsMax": 114,
+    "selected": [
+      {
+        "file": "frame-t012.png",
+        "tick": 12,
+        "sha256": "d6b4be0772d24d6d631da547cb6144e2f2a5a970c14691fcbf32a52040b02fda"
+      },
+      {
+        "file": "frame-t020.png",
+        "tick": 20,
+        "sha256": "cd1c753c45d14b34db9bd96eb142ad608f302743a216e4bae150b28126a87063"
+      },
+      {
+        "file": "frame-t030.png",
+        "tick": 30,
+        "sha256": "dbf8dd9bd8220f3c876fce406432722cb15b89f82555c74095926a73855ea617"
+      },
+      {
+        "file": "frame-t042.png",
+        "tick": 42,
+        "sha256": "0b02c1b137697422f9dfaef5fc7c25334be3e691ebda1a8cb58c9bc0ecd8c0df"
+      },
+      {
+        "file": "frame-t052.png",
+        "tick": 52,
+        "sha256": "0368536d8895026f0af833925afcebffede03e83d3e449bf739c5e741802a404"
+      },
+      {
+        "file": "frame-t068.png",
+        "tick": 68,
+        "sha256": "0c72512579683770f561c2514a25c84d52fe5066a3c25a039161ca979672afb5"
+      },
+      {
+        "file": "frame-t100.png",
+        "tick": 100,
+        "sha256": "118994f432074eece9b9486cebb928ec16289e358deda58967accd16934d0f0e"
+      },
+      {
+        "file": "frame-t112.png",
+        "tick": 112,
+        "sha256": "abe8e79f03a872d048b27fd6c2df3cbd3e66d9540fad7a878dc736821752220d"
+      },
+      {
+        "file": "frame-t136.png",
+        "tick": 136,
+        "sha256": "93496415f7491938d282edeb63586c180dad1963aa21aa52d269e58b7d5d4e86"
+      },
+      {
+        "file": "frame-t138.png",
+        "tick": 138,
+        "sha256": "c63894af7bcd6941b1c34bf6c61f519adcd9ff631345de9b476c7d17ee0db031"
+      },
+      {
+        "file": "frame-t140.png",
+        "tick": 140,
+        "sha256": "9c4798018f7fe84ca7134bb726f9547cb96091664960ffd4fa63a7e3e4277b62"
+      },
+      {
+        "file": "frame-t150.png",
+        "tick": 150,
+        "sha256": "008d524c749ab0f3b0aaf6af0a9c845cce98e50a08584112d8891a8dc46c591f"
+      }
+    ]
+  },
+  {
+    "case": "03_first_return",
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\ryujin-bankai-qa\\cycle109-1793011873703\\03_first_return",
+    "capturedFrames": 77,
+    "sampledFpsMin": 100,
+    "sampledFpsMax": 115,
+    "selected": [
+      {
+        "file": "frame-t020.png",
+        "tick": 20,
+        "sha256": "09622f070557fbf03fc4622e6a095ae38c08a31c2400e9b7819980003e50c4e6"
+      },
+      {
+        "file": "frame-t068.png",
+        "tick": 68,
+        "sha256": "7dc4424e8d1e3e7b2fa694d25bb3b4b413456c60c8f05c4b44754e2935ab7629"
+      },
+      {
+        "file": "frame-t138.png",
+        "tick": 138,
+        "sha256": "e39d2dadc0e4bf199a54e1f18d5198b5580142f4a1d8e2c79aef7bbc433e2f84"
+      },
+      {
+        "file": "frame-t140.png",
+        "tick": 140,
+        "sha256": "3c201f3fc4f6fa38dd82278a6a8dfe608ee2a60d8653f4f3cfea8ad0ccff9b2c"
+      },
+      {
+        "file": "frame-t150.png",
+        "tick": 150,
+        "sha256": "0c13db73fdf9a43880c454d5f8153861c2c88495491820e77fdd8e153c4657cb"
+      }
+    ]
+  },
+  {
+    "case": "04_left_front",
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\ryujin-bankai-qa\\cycle109-1793011873703\\04_left_front",
+    "capturedFrames": 77,
+    "sampledFpsMin": 108,
+    "sampledFpsMax": 112,
+    "selected": [
+      {
+        "file": "frame-t020.png",
+        "tick": 20,
+        "sha256": "ecdaa925980515244dffa1c0cc8d267d1e3aeb81011fb0bc832720d3d566f954"
+      },
+      {
+        "file": "frame-t068.png",
+        "tick": 68,
+        "sha256": "a79f3988ddcf2137f8e1def2195116063d681c64ba55409eeb0387d1357a9104"
+      },
+      {
+        "file": "frame-t138.png",
+        "tick": 138,
+        "sha256": "038b1ad263a77d8eb948bbaf7bf8534182c0be14cb6ca00b26c8c0e05d12468d"
+      },
+      {
+        "file": "frame-t140.png",
+        "tick": 140,
+        "sha256": "b3fa92f75444796fe43a66e48c8050040ca2b23c077571e99f82f89fea8ce461"
+      },
+      {
+        "file": "frame-t150.png",
+        "tick": 150,
+        "sha256": "6f601fc7dbbea1c9875c75de6408cbe0c40f18d3b653cf18d7f91ce2d8302ba3"
+      }
+    ]
+  },
+  {
+    "case": "05_near_wall",
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\ryujin-bankai-qa\\cycle109-1793011873703\\05_near_wall",
+    "capturedFrames": 77,
+    "sampledFpsMin": 106,
+    "sampledFpsMax": 114,
+    "selected": [
+      {
+        "file": "frame-t020.png",
+        "tick": 20,
+        "sha256": "5d975c7350626eb6eb6e9d195f0c32babb1e6315c024aa71091c6b44e1e7cfda"
+      },
+      {
+        "file": "frame-t068.png",
+        "tick": 68,
+        "sha256": "51ab1af2327d455168f58a3b3e2da28c67822985e8f5d66f67ee2e694d43c04f"
+      },
+      {
+        "file": "frame-t138.png",
+        "tick": 138,
+        "sha256": "0543725827d5791450d4c68f8d75822e0761b363bdb8b7e157c9f910b377e73b"
+      },
+      {
+        "file": "frame-t140.png",
+        "tick": 140,
+        "sha256": "b4ead11b6f5422d8d2e6855eadd7deca54c89af32e123558d785e578cd6523d0"
+      },
+      {
+        "file": "frame-t150.png",
+        "tick": 150,
+        "sha256": "58e8dc4beded41d58c2e2e87d519484d260072a8c8ad4fbdf59c3c8997c5e4c3"
+      }
+    ]
+  },
+  {
+    "case": "06_move_after_commit",
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\ryujin-bankai-qa\\cycle109-1793011873703\\06_move_after_commit",
+    "capturedFrames": 77,
+    "sampledFpsMin": 107,
+    "sampledFpsMax": 112,
+    "selected": [
+      {
+        "file": "frame-t020.png",
+        "tick": 20,
+        "sha256": "922793900f26a4eecd01e3ca270ae6ece3e0a723d145cc8327034fe1baa661f8"
+      },
+      {
+        "file": "frame-t068.png",
+        "tick": 68,
+        "sha256": "3c2ba3e0774a0a50f0a5111f7e09714a398e5d77caa9e3cafa6719cb45f989e8"
+      },
+      {
+        "file": "frame-t138.png",
+        "tick": 138,
+        "sha256": "ce53ce91a25aa84de99445461d0ef79ca056e5a60f6bfd98e3edf6ac709c3e40"
+      },
+      {
+        "file": "frame-t140.png",
+        "tick": 140,
+        "sha256": "fed38e7458150d5ddb0de55f5b1531280a91004b1f03d813e58329f682dcf70d"
+      },
+      {
+        "file": "frame-t150.png",
+        "tick": 150,
+        "sha256": "0e2e961f59cb8fed4bf7b0b3b2703dd1d1c10a05be83ab1e6912ee91e0fc1778"
+      }
+    ]
+  },
+  {
+    "case": "07_cancel_before_commit",
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\ryujin-bankai-qa\\cycle109-1793011873703\\07_cancel_before_commit",
+    "capturedFrames": 77,
+    "sampledFpsMin": 107,
+    "sampledFpsMax": 114,
+    "selected": [
+      {
+        "file": "frame-t020.png",
+        "tick": 20,
+        "sha256": "855505d31ea3b4ba9992df650cbae69932d396bd9a8685aba6b74cf4b3727471"
+      },
+      {
+        "file": "frame-t068.png",
+        "tick": 68,
+        "sha256": "ff82df91116fe4bdf56fd7b6e674ce9c22f7c170c44679d1df5259a791369988"
+      },
+      {
+        "file": "frame-t138.png",
+        "tick": 138,
+        "sha256": "cbf769e68ea8d29caa72b07677359662ed8b858a9fa977058e26f816c459953c"
+      },
+      {
+        "file": "frame-t140.png",
+        "tick": 140,
+        "sha256": "7bf40fa3912bbda74f7d34eb50c6a3fbc44bfbe57e061a7031d13503c26d49a4"
+      },
+      {
+        "file": "frame-t150.png",
+        "tick": 150,
+        "sha256": "38dee7c373c15f02a38939672287aca97ed47300990b0b5d9a3b7f281ae9d97f"
+      }
+    ]
+  },
+  {
+    "case": "08_cancel_after_commit",
+    "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\base\\ryujin-bankai-qa\\cycle109-1793011873703\\08_cancel_after_commit",
+    "capturedFrames": 77,
+    "sampledFpsMin": 110,
+    "sampledFpsMax": 115,
+    "selected": [
+      {
+        "file": "frame-t020.png",
+        "tick": 20,
+        "sha256": "6ed4accb7314c35ef00a5d6ff27aa2dcc93ebc7251cfc3adb0439cc2555fec78"
+      },
+      {
+        "file": "frame-t068.png",
+        "tick": 68,
+        "sha256": "a00658ff590efa36b2c75c436dabffb3cf5e281991d07bda7dd3e1b74eb5146f"
+      },
+      {
+        "file": "frame-t138.png",
+        "tick": 138,
+        "sha256": "44a11275a40a0445aaffa2c9d5f5c1771f7133db3d3dd16cd8afb92dd799934d"
+      },
+      {
+        "file": "frame-t140.png",
+        "tick": 140,
+        "sha256": "6535aec8d322cb9cacd1d15447c693a240e4aebd74f75feb4225d2ce07c3e2b3"
+      },
+      {
+        "file": "frame-t150.png",
+        "tick": 150,
+        "sha256": "3b93cddaa68dc98560f6a243b9837c32268073ca9deda32580636ed4fa7788e7"
+      }
+    ]
+  }
+]

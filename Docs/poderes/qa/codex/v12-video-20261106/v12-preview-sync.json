@@ -1,0 +1,7 @@
+{
+  "video": "run-benihime-qa\\visual-video15\\ryujin-bankai-qa\\cycle118-1793965779779\\02_night_front\\scene-video.mp4",
+  "audio": "build\\visual-lab\\v12-video-game-mix.wav",
+  "audio_trim_seconds": 16.687578439712524,
+  "method": "OpenAL wave file creation time versus framebuffer capture wall clock; approximate, not sample-accurate AV calibration",
+  "output": "build\\visual-lab\\v12-ryujin-preview-av.mp4"
+}

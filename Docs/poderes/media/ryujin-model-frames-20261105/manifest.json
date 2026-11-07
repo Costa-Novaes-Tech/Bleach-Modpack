@@ -1,0 +1,315 @@
+{
+  "date": "2026-11-05",
+  "type": "AI-generated model references and individual storyboard frames, not runtime evidence",
+  "records": [
+    {
+      "id": "R0-front-clean",
+      "source": "C:\\Users\\joaop\\.codex\\generated_images\\01a1933f-2137-7d12-9f4e-a2760fd05f38\\exec-c979d454-200b-4c74-b959-7508a1eda836.png",
+      "file": "R0-front-clean.png",
+      "selected": true
+    },
+    {
+      "id": "R0-front-block",
+      "source": "C:\\Users\\joaop\\.codex\\generated_images\\01a1933f-2137-7d12-9f4e-a2760fd05f38\\exec-1e1b6b65-c589-4e85-96e9-6ad2f2363719.png",
+      "file": "R0-front-block.png",
+      "selected": true
+    },
+    {
+      "id": "R0-left-clean",
+      "source": "C:\\Users\\joaop\\.codex\\generated_images\\01a1933f-2137-7d12-9f4e-a2760fd05f38\\exec-788b1d22-dbb7-42ce-a7e6-91704a00b50f.png",
+      "file": "R0-left-clean.png",
+      "selected": true
+    },
+    {
+      "id": "R0-right-clean",
+      "source": "C:\\Users\\joaop\\.codex\\generated_images\\01a1933f-2137-7d12-9f4e-a2760fd05f38\\exec-4303364b-a70f-431f-b1e4-ddabfa64d755.png",
+      "file": "R0-right-clean.png",
+      "selected": true
+    },
+    {
+      "id": "R0-left-block",
+      "source": "C:\\Users\\joaop\\.codex\\generated_images\\01a1933f-2137-7d12-9f4e-a2760fd05f38\\exec-87cf04a9-7ff7-412c-adad-d2d3b197e4ba.png",
+      "file": "R0-left-block.png",
+      "selected": false
+    },
+    {
+      "id": "R0-right-block",
+      "source": "C:\\Users\\joaop\\.codex\\generated_images\\01a1933f-2137-7d12-9f4e-a2760fd05f38\\exec-e41b2b99-ebae-4384-ab41-cad81b20eabd.png",
+      "file": "R0-right-block.png",
+      "selected": false
+    },
+    {
+      "id": "R0-back-clean",
+      "source": "C:\\Users\\joaop\\.codex\\generated_images\\01a1933f-2137-7d12-9f4e-a2760fd05f38\\exec-0e54960e-a7e0-4293-8c19-eaf81771c91b.png",
+      "file": "R0-back-clean.png",
+      "selected": true
+    },
+    {
+      "id": "R0-back-block",
+      "source": "C:\\Users\\joaop\\.codex\\generated_images\\01a1933f-2137-7d12-9f4e-a2760fd05f38\\exec-f2a70e05-1ed4-40d0-9ef1-ecd18b8f4d94.png",
+      "file": "R0-back-block.png",
+      "selected": true
+    },
+    {
+      "id": "R0-threequarter-clean",
+      "source": "C:\\Users\\joaop\\.codex\\generated_images\\01a1933f-2137-7d12-9f4e-a2760fd05f38\\exec-5c7f4941-4167-4a9c-8887-414a451e37ee.png",
+      "file": "R0-threequarter-clean.png",
+      "selected": true
+    },
+    {
+      "id": "R0-threequarter-block",
+      "source": "C:\\Users\\joaop\\.codex\\generated_images\\01a1933f-2137-7d12-9f4e-a2760fd05f38\\exec-862174d1-5e32-46cb-a9ae-441944430150.png",
+      "file": "R0-threequarter-block.png",
+      "selected": true
+    },
+    {
+      "id": "F1-front-close-preheat",
+      "source": "C:\\Users\\joaop\\.codex\\generated_images\\01a1933f-2137-7d12-9f4e-a2760fd05f38\\exec-2d2e2ef9-224f-4f46-97d0-ff80b5bcd9a8.png",
+      "file": "F1-front-close-preheat.png",
+      "selected": true
+    },
+    {
+      "id": "F2-front-close-waist-fire",
+      "source": "C:\\Users\\joaop\\.codex\\generated_images\\01a1933f-2137-7d12-9f4e-a2760fd05f38\\exec-50eb1664-829c-4ff6-acfe-57b7f697ce1a.png",
+      "file": "F2-front-close-waist-fire.png",
+      "selected": true
+    },
+    {
+      "id": "F3-front-opening-explosion",
+      "source": "C:\\Users\\joaop\\.codex\\generated_images\\01a1933f-2137-7d12-9f4e-a2760fd05f38\\exec-d2ef873b-8432-4758-b7a9-143d20ae3b5d.png",
+      "file": "F3-front-opening-explosion.png",
+      "selected": true
+    },
+    {
+      "id": "F4-front-wide-sun",
+      "source": "C:\\Users\\joaop\\.codex\\generated_images\\01a1933f-2137-7d12-9f4e-a2760fd05f38\\exec-597f0620-68c7-49e5-8b80-600debe21be6.png",
+      "file": "F4-front-wide-sun.png",
+      "selected": false
+    },
+    {
+      "id": "F4-front-wide-sun-v2",
+      "source": "C:\\Users\\joaop\\.codex\\generated_images\\01a1933f-2137-7d12-9f4e-a2760fd05f38\\exec-af71b7d0-ea66-4ddd-8c54-2b1df6d4fc0d.png",
+      "file": "F4-front-wide-sun-v2.png",
+      "selected": true
+    },
+    {
+      "id": "F5-front-wide-absorption",
+      "source": "C:\\Users\\joaop\\.codex\\generated_images\\01a1933f-2137-7d12-9f4e-a2760fd05f38\\exec-7c818d94-8706-4769-a3f7-8236ca508b43.png",
+      "file": "F5-front-wide-absorption.png",
+      "selected": true
+    },
+    {
+      "id": "F6-front-medium-sealed",
+      "source": "C:\\Users\\joaop\\.codex\\generated_images\\01a1933f-2137-7d12-9f4e-a2760fd05f38\\exec-106c3188-cf06-409d-a3c5-d66799b91a0e.png",
+      "file": "F6-front-medium-sealed.png",
+      "selected": false
+    },
+    {
+      "id": "F6-front-medium-sealed-v2",
+      "source": "C:\\Users\\joaop\\.codex\\generated_images\\01a1933f-2137-7d12-9f4e-a2760fd05f38\\exec-e413e9df-a7fc-44d1-bf6c-94decc5f8f30.png",
+      "file": "F6-front-medium-sealed-v2.png",
+      "selected": true
+    },
+    {
+      "id": "F2-right-profile-fire",
+      "source": "C:\\Users\\joaop\\.codex\\generated_images\\01a1933f-2137-7d12-9f4e-a2760fd05f38\\exec-4a2c8de7-52d8-4e9f-8e2a-b4592fe21ee8.png",
+      "file": "F2-right-profile-fire.png",
+      "selected": true
+    },
+    {
+      "id": "F2-back-fire",
+      "source": "C:\\Users\\joaop\\.codex\\generated_images\\01a1933f-2137-7d12-9f4e-a2760fd05f38\\exec-06d8fa3d-9857-4844-b05f-5fe521296394.png",
+      "file": "F2-back-fire.png",
+      "selected": true
+    }
+  ],
+  "prompts": [
+    {
+      "id": "R0-front-clean",
+      "prompt": "Make ONE SINGLE full-body FRONT ORTHOGRAPHIC production modeling reference image for a Minecraft player performing the Ryujin Jakka Bankai invocation stance. NOT a collage, NOT a sheet with multiple views, ONLY ONE CHARACTER AND ONE VIEW in this file. Input reference is an anime illustration; borrow ONLY the grounded posture and katana position, do not reproduce text, watermark, flames, beard, aged face, muscles or scene. Character: neutral Minecraft player mannequin with simple dark short hair, plain block head, black kimono-style uniform, white sleeveless haori with two plain straight tails, dark belt, simple sandals; preserve Minecraft proportions head 8x8x8, torso 8x12x4, arms 4x12x4 and legs 4x12x4 as conceptual rig proportions, no invented measured dimensions printed. Variant CLEAN SMOOTH: flat smooth surfaces and simplified continuous silhouette, same cuboid structural proportions, no ornate details, no random armor. Pose: feet planted shoulder width, chest and face forward, calm upright stance; RIGHT anatomical hand down beside RIGHT hip (viewer LEFT), holding a simple katana one handed, blade extends OUTWARD to character right, viewer left, approximately 15 degrees below horizontal, entirely outside torso and clear of feet. Hand firmly around grip, guard directly beyond hand, blade never crosses own body, left arm hangs relaxed. Entire sword including tip fits within frame. Do not raise katana in front of face, do not point toward camera. Neutral light gray background with subtle ground line; uniform flat lighting NO FIRE, NO GLOW, NO SHADOW DRAMA, no scenery. Small corner label only \"R0 / FRONT / CLEAN\". Precise anatomical readable construction, no action or combat. This is an individual model reference frame, not a runtime screenshot."
+    },
+    {
+      "id": "R0-front-block",
+      "prompt": "Produce ONE SEPARATE SINGLE-VIEW MODEL REFERENCE IMAGE, not a contact sheet or multiple angles. Use input as exact identity, costume, proportions, planted stance and right-hand sideways low katana reference. View: FRONT orthographic. Variant: BLOCKBENCH CUBOIDS. Everything must be built from straight rectangular cuboids with square ends, including hair, haori panels, grip and blade. Approximate katana curvature using a few short rotated rectangular bars, no tapered mesh. Keep exact same pose as input. Flat neutral gray background and ground baseline, no scenery, no fire or particles, no dramatic shadows. Entire full-body figure fits with margin. Keep black kimono, plain white haori with two tails, dark short hair, simple player face and proportions unchanged. The katana is held in right hand at hip and extends anatomically right approximately 15 degrees below horizontal in WORLD coordinates, not always image-left; camera rotation must preserve pose. Small label \"R0-front-block\". Labels and grid cannot replace actual geometry. No invented extra details or anatomy."
+    },
+    {
+      "id": "R0-left-clean",
+      "prompt": "Produce ONE SEPARATE SINGLE-VIEW MODEL REFERENCE IMAGE, not a contact sheet or multiple angles. Use input as exact identity, costume, proportions, planted stance and right-hand sideways low katana reference. View: LEFT PROFILE orthographic, camera at character anatomical LEFT side. Variant: CLEAN SMOOTH. Nose faces image LEFT. The right sword hand is on the FAR side of torso; sword extends horizontally OUT OF THE IMAGE PLANE to the character right, therefore is FORESHORTENED, not a long sideways blade in this profile. Do not re-pose arm to show sword. Near left arm hangs relaxed. Include a tiny top-view axis marker, not a second model. Flat neutral gray background and ground baseline, no scenery, no fire or particles, no dramatic shadows. Entire full-body figure fits with margin. Keep black kimono, plain white haori with two tails, dark short hair, simple player face and proportions unchanged. The katana is held in right hand at hip and extends anatomically right approximately 15 degrees below horizontal in WORLD coordinates, not always image-left; camera rotation must preserve pose. Small label \"R0-left-clean\". Labels and grid cannot replace actual geometry. No invented extra details or anatomy."
+    },
+    {
+      "id": "R0-right-clean",
+      "prompt": "Produce ONE SEPARATE SINGLE-VIEW MODEL REFERENCE IMAGE, not a contact sheet or multiple angles. Use input as exact identity, costume, proportions, planted stance and right-hand sideways low katana reference. View: RIGHT PROFILE orthographic, camera at character anatomical RIGHT side. Variant: CLEAN SMOOTH. Nose faces image RIGHT. Right sword hand is on NEAR side of torso, and katana extends TOWARD camera (out of image plane) with a small downward tilt, so blade must be FORESHORTENED, not a long side-on blade. Do not rotate/re-pose model to show sword. Flat neutral gray background and ground baseline, no scenery, no fire or particles, no dramatic shadows. Entire full-body figure fits with margin. Keep black kimono, plain white haori with two tails, dark short hair, simple player face and proportions unchanged. The katana is held in right hand at hip and extends anatomically right approximately 15 degrees below horizontal in WORLD coordinates, not always image-left; camera rotation must preserve pose. Small label \"R0-right-clean\". Labels and grid cannot replace actual geometry. No invented extra details or anatomy."
+    },
+    {
+      "id": "R0-left-block",
+      "prompt": "Create exactly ONE SINGLE VIEW full body reference image, ONE figure only, no montage or turnaround grid. Match input model identity, hair, black kimono, plain white haori and two tails, belt, sandals, Minecraft structure proportions, neutral planted stance. View LEFT PROFILE, nose points IMAGE LEFT. Variant BLOCKBENCH cuboids. Right hand and outward katana remain on FAR side, mostly occluded, do not move them to show sword. RIGHT anatomical hand grips simple katana down beside right hip, blade extends outward to actor right 15 degrees below horizontal; left hand relaxed at side. Keep pose fixed in world while rotating camera. No new folds, decorations or armor. For BLOCKBENCH cuboids all surfaces are square ended rectangular blocks, haori rectangular panels, hair stacked cubes, blade short straight block segments, no triangular mesh. For CLEAN smooth use simplified flat smooth volumes with same proportions. Neutral gray background, ground baseline, even studio illumination, no flames, particles, halos or dramatic lights. Entire character and sword tip inside image with margin. Small corner text \"R0-left-block\". This is a technical individual modeling reference."
+    },
+    {
+      "id": "R0-right-block",
+      "prompt": "Create exactly ONE SINGLE VIEW full body reference image, ONE figure only, no montage or turnaround grid. Match input model identity, hair, black kimono, plain white haori and two tails, belt, sandals, Minecraft structure proportions, neutral planted stance. View RIGHT PROFILE, nose points IMAGE RIGHT. Variant BLOCKBENCH cuboids. Right hand on NEAR side; sword points toward camera, foreshortened as in input, don't draw a long side-on blade. RIGHT anatomical hand grips simple katana down beside right hip, blade extends outward to actor right 15 degrees below horizontal; left hand relaxed at side. Keep pose fixed in world while rotating camera. No new folds, decorations or armor. For BLOCKBENCH cuboids all surfaces are square ended rectangular blocks, haori rectangular panels, hair stacked cubes, blade short straight block segments, no triangular mesh. For CLEAN smooth use simplified flat smooth volumes with same proportions. Neutral gray background, ground baseline, even studio illumination, no flames, particles, halos or dramatic lights. Entire character and sword tip inside image with margin. Small corner text \"R0-right-block\". This is a technical individual modeling reference."
+    },
+    {
+      "id": "R0-back-clean",
+      "prompt": "Create exactly ONE SINGLE VIEW full body reference image, ONE figure only, no montage or turnaround grid. Match input model identity, hair, black kimono, plain white haori and two tails, belt, sandals, Minecraft structure proportions, neutral planted stance. View BACK orthographic, see only back of head and haori. Variant CLEAN SMOOTH. Right sword hand at IMAGE RIGHT in rear view, sword extends IMAGE RIGHT slightly downward. No face visible, no symbols on coat. RIGHT anatomical hand grips simple katana down beside right hip, blade extends outward to actor right 15 degrees below horizontal; left hand relaxed at side. Keep pose fixed in world while rotating camera. No new folds, decorations or armor. For BLOCKBENCH cuboids all surfaces are square ended rectangular blocks, haori rectangular panels, hair stacked cubes, blade short straight block segments, no triangular mesh. For CLEAN smooth use simplified flat smooth volumes with same proportions. Neutral gray background, ground baseline, even studio illumination, no flames, particles, halos or dramatic lights. Entire character and sword tip inside image with margin. Small corner text \"R0-back-clean\". This is a technical individual modeling reference."
+    },
+    {
+      "id": "R0-back-block",
+      "prompt": "Create exactly ONE SINGLE VIEW full body reference image, ONE figure only, no montage or turnaround grid. Match input model identity, hair, black kimono, plain white haori and two tails, belt, sandals, Minecraft structure proportions, neutral planted stance. View BACK orthographic, see only back of head and haori. Variant BLOCKBENCH cuboids. Right sword hand at IMAGE RIGHT in rear view, sword extends IMAGE RIGHT slightly downward. No face visible, no symbols on coat. RIGHT anatomical hand grips simple katana down beside right hip, blade extends outward to actor right 15 degrees below horizontal; left hand relaxed at side. Keep pose fixed in world while rotating camera. No new folds, decorations or armor. For BLOCKBENCH cuboids all surfaces are square ended rectangular blocks, haori rectangular panels, hair stacked cubes, blade short straight block segments, no triangular mesh. For CLEAN smooth use simplified flat smooth volumes with same proportions. Neutral gray background, ground baseline, even studio illumination, no flames, particles, halos or dramatic lights. Entire character and sword tip inside image with margin. Small corner text \"R0-back-block\". This is a technical individual modeling reference."
+    },
+    {
+      "id": "R0-threequarter-clean",
+      "prompt": "Create exactly ONE SINGLE VIEW full body reference image, ONE figure only, no montage or turnaround grid. Match input model identity, hair, black kimono, plain white haori and two tails, belt, sandals, Minecraft structure proportions, neutral planted stance. View FRONT RIGHT THREE-QUARTER, camera 35 degrees around actor right side. Variant CLEAN SMOOTH. Show grip on actor right hip and sword outside torso, sword projection foreshortens consistently with view. RIGHT anatomical hand grips simple katana down beside right hip, blade extends outward to actor right 15 degrees below horizontal; left hand relaxed at side. Keep pose fixed in world while rotating camera. No new folds, decorations or armor. For BLOCKBENCH cuboids all surfaces are square ended rectangular blocks, haori rectangular panels, hair stacked cubes, blade short straight block segments, no triangular mesh. For CLEAN smooth use simplified flat smooth volumes with same proportions. Neutral gray background, ground baseline, even studio illumination, no flames, particles, halos or dramatic lights. Entire character and sword tip inside image with margin. Small corner text \"R0-threequarter-clean\". This is a technical individual modeling reference."
+    },
+    {
+      "id": "R0-threequarter-block",
+      "prompt": "Create exactly ONE SINGLE VIEW full body reference image, ONE figure only, no montage or turnaround grid. Match input model identity, hair, black kimono, plain white haori and two tails, belt, sandals, Minecraft structure proportions, neutral planted stance. View FRONT RIGHT THREE-QUARTER, camera 35 degrees around actor right side. Variant BLOCKBENCH cuboids. Show grip on actor right hip and sword outside torso, sword projection foreshortens consistently with view. RIGHT anatomical hand grips simple katana down beside right hip, blade extends outward to actor right 15 degrees below horizontal; left hand relaxed at side. Keep pose fixed in world while rotating camera. No new folds, decorations or armor. For BLOCKBENCH cuboids all surfaces are square ended rectangular blocks, haori rectangular panels, hair stacked cubes, blade short straight block segments, no triangular mesh. For CLEAN smooth use simplified flat smooth volumes with same proportions. Neutral gray background, ground baseline, even studio illumination, no flames, particles, halos or dramatic lights. Entire character and sword tip inside image with margin. Small corner text \"R0-threequarter-block\". This is a technical individual modeling reference."
+    },
+    {
+      "id": "F1-front-close-preheat",
+      "prompt": "Create ONE SINGLE CINEMATIC STORYBOARD FRAME in a separate image, not a collage, no panels or multiple angles. Consistent Minecraft/block-model player identity, costume, hair and body from input 1; input2 is ONLY a reference for pose, orange flame language and dark backlit figure; remove all manga text, watermark, beard/old-face likeness and avoid unnecessary ornaments. A generic player's skin is not Yamamoto. FRONTAL MEDIUM CLOSE composition, top of head to upper thighs, both hand and full outward sword visible. Pose is ready with low katana, NO vertical raised pose. A few restrained flames begin near blade and lower corners, no sun, no explosive wall yet. Player initially normally lit. Nominal scene frame t=28/240. Same RIGHT anatomical hand at right hip holding katana pointing outward to actor right (viewer left), 15 degrees down, no vertical sword in front of face, other hand relaxed, feet planted. Flame pattern irregular and layered, keep silhouette readable, don't make identical repeated fire pillars or opaque red overlay covering whole screen. Clearly authored Minecraft/Blockbench style, limited simple cuboid character, NOT anime illustration, no crowds, no scenery, no HUD or speech bubbles. Thin corner label \"F1-front-close-preheat\". Every visible body and blade must be inside the intended frame. This is concept direction, not an in-game screenshot."
+    },
+    {
+      "id": "F2-front-close-waist-fire",
+      "prompt": "Create ONE SINGLE CINEMATIC STORYBOARD FRAME in a separate image, not a collage, no panels or multiple angles. Consistent Minecraft/block-model player identity, costume, hair and body from input 1; input2 is ONLY a reference for pose, orange flame language and dark backlit figure; remove all manga text, watermark, beard/old-face likeness and avoid unnecessary ornaments. A generic player's skin is not Yamamoto. SAME FRONTAL medium close top of head to upper thighs and full outward blade, camera holds through spoken Bankai, no text or speech bubble. Blade is surrounded by bright irregular orange flames and foreground flames rise to the WAIST MAXIMUM in varying tongues at left/right, not a flat uniform horizontal wall. Giant diverse flames behind the character start to fill background. Face/torso are dark shaded with warm orange rim light, eyes normal, no demonic glowing eyes. Hands/katana still readable. NO SUN YET. Nominal scene frame t=48/240. Same RIGHT anatomical hand at right hip holding katana pointing outward to actor right (viewer left), 15 degrees down, no vertical sword in front of face, other hand relaxed, feet planted. Flame pattern irregular and layered, keep silhouette readable, don't make identical repeated fire pillars or opaque red overlay covering whole screen. Clearly authored Minecraft/Blockbench style, limited simple cuboid character, NOT anime illustration, no crowds, no scenery, no HUD or speech bubbles. Thin corner label \"F2-front-close-waist-fire\". Every visible body and blade must be inside the intended frame. This is concept direction, not an in-game screenshot."
+    },
+    {
+      "id": "F3-front-opening-explosion",
+      "prompt": "Create ONE SINGLE CINEMATIC STORYBOARD FRAME in a separate image, not a collage, no panels or multiple angles. Consistent Minecraft/block-model player identity, costume, hair and body from input 1; input2 is ONLY a reference for pose, orange flame language and dark backlit figure; remove all manga text, watermark, beard/old-face likeness and avoid unnecessary ornaments. A generic player's skin is not Yamamoto. FRONTAL CAMERA beginning to pull back slightly HIGH looking down, character full body visible. Monumental fiery explosion expands upward and sideways BEHIND actor; asymmetric diverse orange/yellow/red flame tongues, lower front flames fluctuate at knee-to-waist level and keep head/chest visible. Sword remains low outward, one handed. Dark shaded actor against bright back flames. Sun NOT yet fully visible, only fiery mass gathering high behind. Nominal frame t=84/240. Same RIGHT anatomical hand at right hip holding katana pointing outward to actor right (viewer left), 15 degrees down, no vertical sword in front of face, other hand relaxed, feet planted. Flame pattern irregular and layered, keep silhouette readable, don't make identical repeated fire pillars or opaque red overlay covering whole screen. Clearly authored Minecraft/Blockbench style, limited simple cuboid character, NOT anime illustration, no crowds, no scenery, no HUD or speech bubbles. Thin corner label \"F3-front-opening-explosion\". Every visible body and blade must be inside the intended frame. This is concept direction, not an in-game screenshot."
+    },
+    {
+      "id": "F4-front-wide-sun",
+      "prompt": "Create ONE SINGLE CINEMATIC STORYBOARD FRAME in a separate image, not a collage, no panels or multiple angles. Consistent Minecraft/block-model player identity, costume, hair and body from input 1; input2 is ONLY a reference for pose, orange flame language and dark backlit figure; remove all manga text, watermark, beard/old-face likeness and avoid unnecessary ornaments. A generic player's skin is not Yamamoto. FRONTAL WIDE HIGH camera looking gently DOWN, entire full body player and ENTIRE immense SUN behind player fit with margin. Sun center high and BEHIND actor, not between actor and camera. Sun with warm compact golden core, three contrasting orange/red broken concentric swirling bands and irregular broad flame corona (NOT mechanical metal gear, NOT thin lightning rays). Preserve sufficient depth and ominous scale, approximate 18-block diameter as scene concept, don't print dimensions. Broad fire field at base and behind player with variable tongues, front flames no higher than waist, face silhouette readable. Sword low outward. Nominal frame t=112/240. Same RIGHT anatomical hand at right hip holding katana pointing outward to actor right (viewer left), 15 degrees down, no vertical sword in front of face, other hand relaxed, feet planted. Flame pattern irregular and layered, keep silhouette readable, don't make identical repeated fire pillars or opaque red overlay covering whole screen. Clearly authored Minecraft/Blockbench style, limited simple cuboid character, NOT anime illustration, no crowds, no scenery, no HUD or speech bubbles. Thin corner label \"F4-front-wide-sun\". Every visible body and blade must be inside the intended frame. This is concept direction, not an in-game screenshot."
+    },
+    {
+      "id": "F5-front-wide-absorption",
+      "prompt": "Create ONE SINGLE CINEMATIC STORYBOARD FRAME in a separate image, not a collage, no panels or multiple angles. Consistent Minecraft/block-model player identity, costume, hair and body from input 1; input2 is ONLY a reference for pose, orange flame language and dark backlit figure; remove all manga text, watermark, beard/old-face likeness and avoid unnecessary ornaments. A generic player's skin is not Yamamoto. Same frontal wide high orientation as sun reveal. Sun behind player contracts gradually while concentric rings visibly twist in opposing directions, curved thick flame streams converge from rear sun AROUND actor toward low outward katana; no straight ray spokes, no explosion hitting a person. Rotational streaks and flames mask the scale reduction; keep face and sword hand visible. Ground/rear flames are draining toward blade. Sun partially diminished but not a tiny isolated shrinking circle. Nominal frame t=130/240. Same RIGHT anatomical hand at right hip holding katana pointing outward to actor right (viewer left), 15 degrees down, no vertical sword in front of face, other hand relaxed, feet planted. Flame pattern irregular and layered, keep silhouette readable, don't make identical repeated fire pillars or opaque red overlay covering whole screen. Clearly authored Minecraft/Blockbench style, limited simple cuboid character, NOT anime illustration, no crowds, no scenery, no HUD or speech bubbles. Thin corner label \"F5-front-wide-absorption\". Every visible body and blade must be inside the intended frame. This is concept direction, not an in-game screenshot."
+    },
+    {
+      "id": "F6-front-medium-sealed",
+      "prompt": "Create ONE SINGLE CINEMATIC STORYBOARD FRAME in a separate image, not a collage, no panels or multiple angles. Consistent Minecraft/block-model player identity, costume, hair and body from input 1; input2 is ONLY a reference for pose, orange flame language and dark backlit figure; remove all manga text, watermark, beard/old-face likeness and avoid unnecessary ornaments. A generic player's skin is not Yamamoto. FRONTAL MEDIUM camera closer again, top of head through feet with full sword included. The sun and immense flames have completely been sealed into the low outward katana; blade dark charcoal with thin ember edge, a few drifting cinders and light smoke only. Actor regains ordinary readable lighting, same planted stance, neutral stern calm expression, no beam, no flames hiding body. Background neutral dark warm gray, no scenery. Nominal frame t=160/240. Same RIGHT anatomical hand at right hip holding katana pointing outward to actor right (viewer left), 15 degrees down, no vertical sword in front of face, other hand relaxed, feet planted. Flame pattern irregular and layered, keep silhouette readable, don't make identical repeated fire pillars or opaque red overlay covering whole screen. Clearly authored Minecraft/Blockbench style, limited simple cuboid character, NOT anime illustration, no crowds, no scenery, no HUD or speech bubbles. Thin corner label \"F6-front-medium-sealed\". Every visible body and blade must be inside the intended frame. This is concept direction, not an in-game screenshot."
+    },
+    {
+      "id": "F4-front-wide-sun-v2",
+      "prompt": "Edit this single storyboard frame. WIDEN the frontal camera substantially, slightly high looking down. Show the ENTIRE solar corona with a generous clear margin above and on BOTH sides; currently top is cut off. Reduce the whole actor/sun composition to fit; retain full character, full outward katana, low variable fire field, dark face with warm rim, three rotating irregular orange/red bands and compact golden core. Sun remains behind player. Plain dark gray outside flames; no terrain cracks or lava pools (scene is visual only, not burning or changing blocks). NO collage, no extra angles. Small label F4 / FRONT WIDE / t112."
+    },
+    {
+      "id": "F6-front-medium-sealed-v2",
+      "prompt": "Edit this single storyboard frame. All flames have finished sealing. Remove EVERY orange flame tongue surrounding the katana; blade is dark charcoal with only a very fine restrained ember line at its edge, a few tiny cinders and faint smoke. Preserve exact same player identity, low outward sword pose, front camera and full body, plain background. Restore neutral readable face lighting, reduce excessive bright rim. No sun. Small label F6 / FRONT / SEALED / t160."
+    },
+    {
+      "id": "F2-right-profile-fire",
+      "prompt": "Create ONE SEPARATE RIGHT PROFILE technical scene view of the exact same t48 setup shown in input, not a collage. Full body character faces IMAGE RIGHT; camera sees anatomical right side, low right hand at hip, sword projects toward viewer and therefore is FORESHORTENED, never re-pose blade sideways just to show it. Bright massive flame volume is BEHIND character, IMAGE LEFT of torso in this side view, with a clear air gap between dorsal body and main fire wall. In front of feet and at sides are variable tongues only knee-to-waist high, NEVER chest or face height. Actor shaded front with warm back rim. Same black uniform white plain haori, block target anatomy. NO sun yet. Neutral floor no lava, NO scenery. Keep fire-wall position and actor both visible, don't fill entire frame with orange. Corner label F2 / RIGHT PROFILE / DEPTH STUDY / t48. Single full figure."
+    },
+    {
+      "id": "F2-back-fire",
+      "prompt": "Create ONE SEPARATE REAR technical observer frame of the exact same t48 scene as input, not collage. Camera sees BACK of head and white haori, no face. Right sword hand appears IMAGE RIGHT, blade extends IMAGE RIGHT slightly downward. The main flame wall is behind actor so from rear it occupies camera-side volume, can partly occlude lower body; leave enough clear side spacing to identify back, right hand and sword. Don't rotate actor to face camera. Front/side base tongues rise only to waist. Broad rear flames are varied irregular shapes, not uniform repeating columns. NO sun yet. Neutral ground no lava or cracked terrain, no scenery. Full body and full sword tip inside frame. Corner label F2 / BACK OBSERVER / t48. Study of occlusion, not gameplay camera."
+    }
+  ],
+  "native_evidence": [
+    {
+      "file": "native-F1-t28.png",
+      "sha256": "c6dc0d848903b25bae10e51b1f5f108c8c5c3d82dff827e0b6be2ac9a2281dde",
+      "source": "Blockbench MCP capture of staging scene; pose captures precede preparation interpolation refinement"
+    },
+    {
+      "file": "native-F2-t48.png",
+      "sha256": "93a47c24ffb8d73faafe0230a57c20077aade60286a8b093a20c82b874621091",
+      "source": "Blockbench MCP capture of staging scene; pose captures precede preparation interpolation refinement"
+    },
+    {
+      "file": "native-F3-t84.png",
+      "sha256": "45c7664fb7c739f979a96aa5a7aded6b0b3af59b1fdd9540ff460b77fee8972d",
+      "source": "Blockbench MCP capture of staging scene; pose captures precede preparation interpolation refinement"
+    },
+    {
+      "file": "native-F4-t112.png",
+      "sha256": "9cffbde1c9cd675b4263a65b5fb78d66d4c497e72ea64c1e4e3c6af21fa955e1",
+      "source": "Blockbench MCP capture of staging scene; pose captures precede preparation interpolation refinement"
+    },
+    {
+      "file": "native-F5-t130.png",
+      "sha256": "141ea0d74160022639ac4bf223eb667c1dc8ac4d0b8598ddbde080fe3173a3ac",
+      "source": "Blockbench MCP capture of staging scene; pose captures precede preparation interpolation refinement"
+    },
+    {
+      "file": "native-F6-t160.png",
+      "sha256": "08f0d374df650c301591c52e76c307d6175f9f34595703190f298ba68ce7fd1e",
+      "source": "Blockbench MCP capture of staging scene; pose captures precede preparation interpolation refinement"
+    },
+    {
+      "file": "native-pose-back.png",
+      "sha256": "c6280132f4d1c9ca9403d6958fac52796f723a60c1b236024206d62ac58d5f87",
+      "source": "Blockbench MCP capture of staging scene; pose captures precede preparation interpolation refinement"
+    },
+    {
+      "file": "native-pose-front.png",
+      "sha256": "d98355be4d8842fc7b33862bf8437675d750e2cc2ea2c70671fc92867070e599",
+      "source": "Blockbench MCP capture of staging scene; pose captures precede preparation interpolation refinement"
+    },
+    {
+      "file": "native-pose-left.png",
+      "sha256": "1f73183211a07a8f81d75772093a92ee05cc23ae28f807b6499099bfd95e7bca",
+      "source": "Blockbench MCP capture of staging scene; pose captures precede preparation interpolation refinement"
+    },
+    {
+      "file": "native-pose-right.png",
+      "sha256": "1b4affe8126deb81487b5601a5e620dc1a48dc81e2bdbad3bf26a0e5de20c86b",
+      "source": "Blockbench MCP capture of staging scene; pose captures precede preparation interpolation refinement"
+    },
+    {
+      "file": "native-pose-threequarter.png",
+      "sha256": "6a659b0f0c6d2a3ef73b5609c2e606f72d088681c94bccee5fc2306481530efa",
+      "source": "Blockbench MCP capture of staging scene; pose captures precede preparation interpolation refinement"
+    }
+  ],
+  "runtime_evidence": {
+    "source": "run-benihime-qa\\base\\ryujin-bankai-qa\\cycle118-1793924751588\\01_day_back",
+    "log": "build/visual-lab/v9-client.log",
+    "files": [
+      {
+        "file": "forge-aaa-menu.jpg",
+        "sha256": "5ace158694352fdbd268bc4fa12f0d56c724f4268d95af0596bb891e8ffbc94b"
+      },
+      {
+        "file": "forge-cosmetics-menu.jpg",
+        "sha256": "f150ea15e893231cd4a2a3029da011f98de983c5ab2812e25c68d2ad70c84a67"
+      },
+      {
+        "file": "forge-day-back-frames.jsonl",
+        "sha256": "b9e39d3bd936f67aecd16bc1bfca7de4e712b5ad85991e6e8e983fbe402728bc"
+      },
+      {
+        "file": "forge-photon-menu.jpg",
+        "sha256": "e0a2a24ea58728a0441f2b6d9ea0f6570dd99e74824084a00a7b92dba19c9d12"
+      },
+      {
+        "file": "forge-t030.png",
+        "sha256": "2b8db76f3719af21d8710c0b42db54a037332473f479d74658c41110e4a2604e"
+      },
+      {
+        "file": "forge-t050.png",
+        "sha256": "23ffe96e500f50eb8b722fcff0893075ad0338611910f1d122f0b55ab7b2163d"
+      },
+      {
+        "file": "forge-t084.png",
+        "sha256": "2d78848f291ed294cf1ca0a5931783ba6ea1fd7c253dfee7fcf2cbc7afd22273"
+      },
+      {
+        "file": "forge-t112.png",
+        "sha256": "b2bdc3dbe381c51edb0203eb32a317599c4a69068d457ae01d346302bf472c2a"
+      },
+      {
+        "file": "forge-t130.png",
+        "sha256": "d5e9271fb94c85ce44ab9b7029b787678c275e5df9e346bfe87fe0aa0f36d9e3"
+      },
+      {
+        "file": "forge-t160.png",
+        "sha256": "2f81836d58c4c65c046a8478c4b1815e12a3dca23b5826f5c450fd03300c8aac"
+      },
+      {
+        "file": "forge-t240.png",
+        "sha256": "cec5a13956f69bdb23b0b28845255996d6011ad47feec7976349c04c00e3570e"
+      }
+    ]
+  }
+}

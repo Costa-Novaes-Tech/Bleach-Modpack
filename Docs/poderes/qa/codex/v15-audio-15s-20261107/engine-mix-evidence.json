@@ -1,0 +1,125 @@
+{
+  "a": {
+    "profile": "v15-audio-a",
+    "case": "run-benihime-qa/visual-v15-audio-a/ryujin-bankai-qa/cycle118-1794055441784/02_night_front_r02",
+    "engine_seconds": 57.58,
+    "engine_sha256": "6ffc5593fac038f417cd6aa4f0a3d68b36a37dce050fabbc9509816731c91b10",
+    "estimated_audio_slice_start_seconds": 38.721,
+    "alignment": "Approximate. Voice template correlation in OpenAL recording and video clock or frame timestamps.",
+    "voice_matches": {
+      "bankai": {
+        "start_seconds": 40.701,
+        "correlation": 0.277
+      },
+      "zanka": {
+        "start_seconds": 49.741,
+        "correlation": 0.985
+      }
+    },
+    "scene_sample_peak_dbfs": [
+      -7.62,
+      -7.55
+    ],
+    "scene_rms_dbfs": [
+      -29.66,
+      -29.92
+    ],
+    "clip_samples": 0,
+    "post_seal_clean_visual": true,
+    "post_end_clean_visual": true,
+    "video_capture": {
+      "source": "Minecraft framebuffer; no desktop capture, no microphone",
+      "fps": 20,
+      "width": 1280,
+      "height": 720,
+      "wall_start_ms": 1794055466141,
+      "accepted_frames": 321,
+      "queue_drops": 0,
+      "repeated_frames": 6,
+      "note": "Repeated frames preserve wall time when rendering/capture stalls. Not a performance benchmark.",
+      "error": "",
+      "encoder_exit": 0
+    },
+    "log_extract": [
+      "PASS: 185 regression scenarios",
+      "[09:43:47] [Render thread/INFO] [mojang/Library]: OpenAL initialized on device Wave File Writer",
+      "[09:44:02] [Render thread/INFO] [co.bl.cl.ci.RyujinBankaiAudio/]: Ryujin audio cue bleachmod:music.ryujin_entrance",
+      "[09:44:02] [Render thread/INFO] [co.bl.cl.ci.RyujinBankaiAudio/]: Ryujin score resource pack file/RyujinAudio15Local.zip",
+      "[09:44:02] [Render thread/INFO] [co.bl.cl.ci.RyujinBankaiAudio/]: Ryujin audio cue bleachmod:effect.ryujin_v7_preheat",
+      "[09:44:04] [Render thread/INFO] [co.bl.cl.ci.RyujinBankaiAudio/]: Ryujin audio cue bleachmod:voice.ryujin_bankai",
+      "[09:44:04] [Render thread/INFO] [co.bl.cl.ci.RyujinBankaiAudio/]: Ryujin audio cue minecraft:item.firecharge.use",
+      "[09:44:06] [Render thread/INFO] [co.bl.cl.ci.RyujinBankaiAudio/]: Ryujin audio cue bleachmod:effect.ryujin_v7_flame_explosion",
+      "[09:44:06] [Render thread/INFO] [co.bl.cl.ci.RyujinBankaiAudio/]: Ryujin audio cue bleachmod:effect.ryujin_v7_solar_roar_loop",
+      "[09:44:06] [Render thread/INFO] [co.bl.cl.ci.RyujinBankaiAudio/]: Ryujin audio cue bleachmod:effect.ryujin_v15_flame_spread",
+      "[09:44:06] [Render thread/INFO] [co.bl.cl.ci.RyujinBankaiAudio/]: Ryujin audio cue bleachmod:effect.ryujin_v15_ember_crackle",
+      "[09:44:11] [Render thread/INFO] [co.bl.cl.ci.RyujinBankaiAudio/]: Ryujin audio cue bleachmod:effect.ryujin_v7_flame_absorption",
+      "[09:44:12] [Render thread/INFO] [co.bl.cl.ci.RyujinBankaiAudio/]: Ryujin audio cue bleachmod:effect.ryujin_v7_blade_seal",
+      "[09:44:12] [Render thread/INFO] [co.bl.cl.ci.RyujinBankaiAudio/]: Ryujin audio cue bleachmod:effect.ryujin_v15_seal_ash",
+      "[09:44:13] [Render thread/INFO] [co.bl.cl.ci.RyujinBankaiAudio/]: Ryujin audio cue bleachmod:voice.ryujin_name",
+      "[09:44:19] [Render thread/INFO] [co.bl.cl.ci.RyujinBankaiQaSequence/]: Ryujin Bankai QA completed night_front perspective=THIRD_PERSON_FRONT",
+      "[09:44:26] [Render thread/INFO] [co.bl.cl.ci.RyujinBankaiAudio/]: Ryujin audio cue bleachmod:music.ryujin_entrance",
+      "[09:44:26] [Render thread/INFO] [co.bl.cl.ci.RyujinBankaiAudio/]: Ryujin score resource pack file/RyujinAudio15Local.zip",
+      "[09:44:26] [Render thread/INFO] [co.bl.cl.ci.RyujinBankaiAudio/]: Ryujin audio cue bleachmod:effect.ryujin_v7_preheat",
+      "[09:44:28] [Render thread/INFO] [co.bl.cl.ci.RyujinBankaiAudio/]: Ryujin audio cue bleachmod:voice.ryujin_bankai",
+      "[09:44:28] [Render thread/INFO] [co.bl.cl.ci.RyujinBankaiAudio/]: Ryujin audio cue minecraft:item.firecharge.use",
+      "[09:44:29] [Render thread/INFO] [co.bl.cl.ci.RyujinBankaiAudio/]: Ryujin audio cue bleachmod:effect.ryujin_v7_flame_explosion",
+      "[09:44:29] [Render thread/INFO] [co.bl.cl.ci.RyujinBankaiAudio/]: Ryujin audio cue bleachmod:effect.ryujin_v7_solar_roar_loop",
+      "[09:44:29] [Render thread/INFO] [co.bl.cl.ci.RyujinBankaiAudio/]: Ryujin audio cue bleachmod:effect.ryujin_v15_flame_spread",
+      "[09:44:29] [Render thread/INFO] [co.bl.cl.ci.RyujinBankaiAudio/]: Ryujin audio cue bleachmod:effect.ryujin_v15_ember_crackle",
+      "[09:44:34] [Render thread/INFO] [co.bl.cl.ci.RyujinBankaiAudio/]: Ryujin audio cue bleachmod:effect.ryujin_v7_flame_absorption",
+      "[09:44:36] [Render thread/INFO] [co.bl.cl.ci.RyujinBankaiAudio/]: Ryujin audio cue bleachmod:effect.ryujin_v7_blade_seal",
+      "[09:44:36] [Render thread/INFO] [co.bl.cl.ci.RyujinBankaiAudio/]: Ryujin audio cue bleachmod:effect.ryujin_v15_seal_ash",
+      "[09:44:37] [Render thread/INFO] [co.bl.cl.ci.RyujinBankaiAudio/]: Ryujin audio cue bleachmod:voice.ryujin_name",
+      "[09:44:42] [Render thread/INFO] [co.bl.cl.ci.RyujinBankaiQaSequence/]: Ryujin Bankai QA completed night_front perspective=THIRD_PERSON_FRONT",
+      "BUILD SUCCESSFUL in 2m 5s"
+    ]
+  },
+  "b": {
+    "profile": "v15-audio-b",
+    "case": "run-benihime-qa/visual-v15-audio-b/ryujin-bankai-qa/cycle118-1794055535029/02_night_front",
+    "engine_seconds": 33.62,
+    "engine_sha256": "3bea70673b015b944b9f0aee998a8a4a48012b1c471fd7bcaad8d0b707a391ca",
+    "estimated_audio_slice_start_seconds": 14.911,
+    "alignment": "Approximate. Voice template correlation in OpenAL recording and video clock or frame timestamps.",
+    "voice_matches": {
+      "bankai": {
+        "start_seconds": 16.901,
+        "correlation": 0.274
+      },
+      "zanka": {
+        "start_seconds": 25.921,
+        "correlation": 0.991
+      }
+    },
+    "scene_sample_peak_dbfs": [
+      -7.76,
+      -7.74
+    ],
+    "scene_rms_dbfs": [
+      -28.89,
+      -28.89
+    ],
+    "clip_samples": 0,
+    "post_seal_clean_visual": true,
+    "post_end_clean_visual": true,
+    "video_capture": null,
+    "log_extract": [
+      "[09:45:21] [Render thread/INFO] [mojang/Library]: OpenAL initialized on device Wave File Writer",
+      "[09:45:36] [Render thread/INFO] [co.bl.cl.ci.RyujinBankaiAudio/]: Ryujin audio cue bleachmod:music.ryujin_entrance",
+      "[09:45:36] [Render thread/INFO] [co.bl.cl.ci.RyujinBankaiAudio/]: Ryujin score resource pack file/RyujinAudio15HeavyMusicLocal.zip",
+      "[09:45:36] [Render thread/INFO] [co.bl.cl.ci.RyujinBankaiAudio/]: Ryujin audio cue bleachmod:effect.ryujin_v7_preheat",
+      "[09:45:38] [Render thread/INFO] [co.bl.cl.ci.RyujinBankaiAudio/]: Ryujin audio cue bleachmod:voice.ryujin_bankai",
+      "[09:45:38] [Render thread/INFO] [co.bl.cl.ci.RyujinBankaiAudio/]: Ryujin audio cue minecraft:item.firecharge.use",
+      "[09:45:39] [Render thread/INFO] [co.bl.cl.ci.RyujinBankaiAudio/]: Ryujin audio cue bleachmod:effect.ryujin_v7_flame_explosion",
+      "[09:45:39] [Render thread/INFO] [co.bl.cl.ci.RyujinBankaiAudio/]: Ryujin audio cue bleachmod:effect.ryujin_v7_solar_roar_loop",
+      "[09:45:39] [Render thread/INFO] [co.bl.cl.ci.RyujinBankaiAudio/]: Ryujin audio cue bleachmod:effect.ryujin_v15_flame_spread",
+      "[09:45:39] [Render thread/INFO] [co.bl.cl.ci.RyujinBankaiAudio/]: Ryujin audio cue bleachmod:effect.ryujin_v15_ember_crackle",
+      "[09:45:44] [Render thread/INFO] [co.bl.cl.ci.RyujinBankaiAudio/]: Ryujin audio cue bleachmod:effect.ryujin_v7_flame_absorption",
+      "[09:45:46] [Render thread/INFO] [co.bl.cl.ci.RyujinBankaiAudio/]: Ryujin audio cue bleachmod:effect.ryujin_v7_blade_seal",
+      "[09:45:46] [Render thread/INFO] [co.bl.cl.ci.RyujinBankaiAudio/]: Ryujin audio cue bleachmod:effect.ryujin_v15_seal_ash",
+      "[09:45:47] [Render thread/INFO] [co.bl.cl.ci.RyujinBankaiAudio/]: Ryujin audio cue bleachmod:voice.ryujin_name",
+      "[09:45:52] [Render thread/INFO] [co.bl.cl.ci.RyujinBankaiQaSequence/]: Ryujin Bankai QA completed night_front perspective=THIRD_PERSON_FRONT",
+      "BUILD SUCCESSFUL in 1m 9s"
+    ]
+  }
+}

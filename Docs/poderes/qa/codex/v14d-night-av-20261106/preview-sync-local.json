@@ -1,0 +1,8 @@
+{
+  "offset_seconds": 44.63102650642395,
+  "synchronization": "Approximate file-creation/video-wall timestamps; no sample-accurate calibration",
+  "video_sha256": "2dfc3dd4f2e2fd02f2c10871c55d21e0972e7be25105b16c4e90ff856bef8c54",
+  "audio_sha256": "eaee6ae80b4aa76fa6a4f7fa1ff37370a6a81c79bd21ad88f9e473e385784174",
+  "preview_sha256": "6d4f7ecea0483111a50fb6538ca8193dc78e7f994bbbed8bfdceb3da29d42d7a",
+  "local_only": "Voice/SFX distribution rights unresolved; do not commit preview"
+}

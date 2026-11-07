@@ -1,0 +1,45 @@
+{
+  "source": "run-benihime-qa\\base\\ryujin-bankai-qa\\cycle118-1793961667537\\01_day_back",
+  "branch": "Feature-Poderes-bankais",
+  "head": "9eb6a05 with local changes",
+  "scope": "World-fire suppression only. No denser VFX or new dynamic lighting in this run.",
+  "server_log": "build/visual-lab/v11-world-fire-gate.log",
+  "client_log": "build\\visual-lab\\v11-world-fire-client.log",
+  "results": {
+    "regressions": 177,
+    "required_gametests": 296,
+    "client_case": "day_back",
+    "client_exit_code": 0
+  },
+  "jar_sha256": "2885fa070c43e2089a5a846fb85c879b59f41e1c4dc65e22e07b982f739bab20",
+  "files": [
+    {
+      "file": "frame-t070.png",
+      "sha256": "bee132c9f964fa09a9a12eb44937a9e0785ce6cf1027c55ff52d018bcf1932db"
+    },
+    {
+      "file": "frame-t112.png",
+      "sha256": "3028534aeac76479fa7955c65ab8e892d09ef8ccd94e902e89b30c2777166836"
+    },
+    {
+      "file": "frame-t175.png",
+      "sha256": "c253a2cabc08a948590e8a1e677ef8c997860d89cf582c6c1afbf1a9f4f3f219"
+    },
+    {
+      "file": "frame-t202.png",
+      "sha256": "43848cad23f330399f6e913a0b976c2b35783a52b5e90037198dba7d03445c56"
+    },
+    {
+      "file": "frame-t300.png",
+      "sha256": "d8b771afb0a4f217c2b76ba7ea89910026381c64bbb5612ed47743eb63c3659a"
+    },
+    {
+      "file": "frame-t320.png",
+      "sha256": "f56324de1e8dd5872bb4eda84aef468270e6618159571c2b5849445fd7d3809a"
+    },
+    {
+      "file": "frames.jsonl",
+      "sha256": "a8589d976b85f09b6e5381be811a82205f13b58dbc537115ecf78545ad87a785"
+    }
+  ]
+}

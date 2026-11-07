@@ -1,0 +1,67 @@
+{
+  "staging_only": true,
+  "check": "0 coplanar; 8 intentional unpaired right-eye warnings",
+  "detail_views": "d-eye-rest-detail-* show unposed/rest geometry, not tick39. preview_animation restores prior pose before screenshot_views",
+  "files": [
+    {
+      "path": "tools\\models\\lab\\codex\\ryujin01\\ryujin_seal_v14_scene_lab.bbmodel",
+      "bytes": 2985023,
+      "sha256": "9d02d06e72b27acff6d8a215142be2b98dd87d6f4561a1d403396cbf90861d1b"
+    },
+    {
+      "path": "tools\\models\\lab\\codex\\ryujin01\\ryujin_seal_v14_scene_lab.geo.json",
+      "bytes": 171027,
+      "sha256": "105a2bc1f4871cd3d9ed37dcd1945833763ac75bf314d394209f83179d09e8ce"
+    },
+    {
+      "path": "tools\\models\\lab\\codex\\ryujin01\\build_seal_v14.py",
+      "bytes": 9656,
+      "sha256": "a6d4ea21e0643a7e3e2dcc17c97c4b02d1ab19db419e783cc157c67917c00458"
+    },
+    {
+      "path": "Docs\\poderes\\media\\ryujin-seal-v14-20261106\\d-check-model.json",
+      "bytes": 2740,
+      "sha256": "ef3f88e169ccf655bb091ab6975c411d6e8957ec63cdc3bddd1b9ef5e6bd0aac"
+    },
+    {
+      "path": "Docs\\poderes\\media\\ryujin-seal-v14-20261106\\d-eye-front-039.png",
+      "bytes": 53279,
+      "sha256": "3c0c086fa886f2f9ccabf8f8eff41b9b9a78c3e93aa8b7107d29716741d29778"
+    },
+    {
+      "path": "Docs\\poderes\\media\\ryujin-seal-v14-20261106\\d-eye-rest-detail-front.png",
+      "bytes": 259557,
+      "sha256": "fa84be4554a61f39a9bdf1b1d62eb3f7edb9db26785c695bbb408119efca4fc5"
+    },
+    {
+      "path": "Docs\\poderes\\media\\ryujin-seal-v14-20261106\\d-eye-rest-detail-right.png",
+      "bytes": 81788,
+      "sha256": "874705d6ee3d16aad38736b8cb8241835062a03d8d8709840ad095c2e96f4e9f"
+    },
+    {
+      "path": "Docs\\poderes\\media\\ryujin-seal-v14-20261106\\d-eye-right-039.png",
+      "bytes": 42752,
+      "sha256": "416bdc8840ebc512f8e2e2b55e15b727633fa3be034294813ae818da2683656b"
+    },
+    {
+      "path": "Docs\\poderes\\media\\ryujin-seal-v14-20261106\\d-flow-front-188.png",
+      "bytes": 112480,
+      "sha256": "a9cf3c2bef2cf3ba53cdce88b1fb5ad0e7cd8b55eb5401ff10aac86ace67aad5"
+    },
+    {
+      "path": "Docs\\poderes\\media\\ryujin-seal-v14-20261106\\d-flow-right-188.png",
+      "bytes": 78913,
+      "sha256": "f1c492ceaa32f67d388a8ad5d985e3b1a1dc62460fe78924d1b5b61c0f483907"
+    },
+    {
+      "path": "Docs\\poderes\\media\\ryujin-seal-v14-20261106\\d-seal-front-208.png",
+      "bytes": 47549,
+      "sha256": "a3ab23246a459d5e52dfea28ffb612a0cf6776b1a1dcbb978217d94e43d48a25"
+    },
+    {
+      "path": "Docs\\poderes\\media\\ryujin-seal-v14-20261106\\d-seal-right-208.png",
+      "bytes": 39688,
+      "sha256": "7de726a1ad59c7dde35e8ac9c5bac67060a1d2430314d5e5dc8d728c28c8d35a"
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "ryujin_entrance_score": {
+    "seconds": 12,
+    "rate": 32000,
+    "channels": 2,
+    "peak_linear": 0.4567634784687825,
+    "sha256": "e866f88fbe4d8a30e4b7cd874d7e0d363c58f92e98a2bd46a6fdcb388dc8523b"
+  },
+  "ryujin_compact_score": {
+    "seconds": 12,
+    "rate": 32000,
+    "channels": 2,
+    "peak_linear": 0.4567634784687825,
+    "sha256": "caeb77cda63f1b327c65d3a9d07daabaed1287ff89ea79ca0f589a5dda94f6d7"
+  },
+  "ryujin_solar_fire": {
+    "seconds": 12,
+    "rate": 32000,
+    "channels": 2,
+    "peak_linear": 0.6594442805503673,
+    "sha256": "832453bd43be48385d11ef5ec23c64fc282391cbdacfaa6ab787bdd2c982c2cc"
+  }
+}

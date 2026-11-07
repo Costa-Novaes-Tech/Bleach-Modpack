@@ -1,0 +1,40 @@
+{
+  "source": "run-benihime-qa\\visual-sun-v13g\\ryujin-bankai-qa\\cycle118-1793992200616\\09_army_and_supreme",
+  "files": [
+    {
+      "path": "frames.jsonl",
+      "bytes": 7877,
+      "sha256": "b849a978a547eac7be04c4e5316544f12ce8db033bfa924687ef63cee454eeef"
+    },
+    {
+      "path": "performance.json",
+      "bytes": 779,
+      "sha256": "5ca6af9c58102dab9050eb2db0c061868ba7a6494ca5d4ae4a29369e0fb44992"
+    },
+    {
+      "path": "frame-times.csv",
+      "bytes": 16485,
+      "sha256": "d77fd6422de5566477bd04c7204b8de0761dc39a38a154cbb3d2d6b6aa726d3f"
+    },
+    {
+      "path": "screenshots/frame-t040.png",
+      "bytes": 606159,
+      "sha256": "d4b00796b290dda57b4f05ce882a21090bb10787115827de7728f8dd473b8319"
+    },
+    {
+      "path": "screenshots/frame-t070.png",
+      "bytes": 614519,
+      "sha256": "1a5bf66cf8eb11ef373a157acca2f45681324a5b59d02d01d56ebc591a4189f9"
+    },
+    {
+      "path": "screenshots/frame-t112.png",
+      "bytes": 524159,
+      "sha256": "cd6dcb5adf4e10221b4b2d0e9859a9dd3c625523285b7bb7b521079cc3adcd5c"
+    },
+    {
+      "path": "screenshots/frame-t160.png",
+      "bytes": 245832,
+      "sha256": "8b777e32bb28e7a93631132e87dd4361059da70f0f61ae0355df9bb974803270"
+    }
+  ]
+}

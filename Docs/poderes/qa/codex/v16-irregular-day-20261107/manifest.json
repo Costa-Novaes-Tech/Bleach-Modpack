@@ -1,0 +1,45 @@
+{
+  "source": "build\\visual-lab\\run-benihime-qa\\v16-current-shimmer-suite\\ryujin-bankai-qa\\cycle118-1794078768611\\13_irregular_day",
+  "files": [
+    {
+      "path": "frames.jsonl",
+      "bytes": 11165,
+      "sha256": "f7468a4f7fe2614861b46f8c1095f435bc67e03e20cdb71dc70ac30438723b09"
+    },
+    {
+      "path": "performance.json",
+      "bytes": 2432,
+      "sha256": "063c817debde2c17472e728b2aabfc0dd915b3610dcd881521b9fdba9c3beb68"
+    },
+    {
+      "path": "frame-times.csv",
+      "bytes": 56970,
+      "sha256": "9e066f339c0c0b6fb483b5752e68784bbbbde1585891eeab7fcdcd5e57f2db6a"
+    },
+    {
+      "path": "screenshots/frame-t070.png",
+      "bytes": 757020,
+      "sha256": "c2468542fe7246f0d8aabb261c39b31cb26296bfcb534e69d95e6d032b512095"
+    },
+    {
+      "path": "screenshots/frame-t112.png",
+      "bytes": 796748,
+      "sha256": "a12f6a56faf0aa7127233f62cc3812ed1e30cae1a552d2444a1adcc85e26582a"
+    },
+    {
+      "path": "screenshots/frame-t176.png",
+      "bytes": 807326,
+      "sha256": "2ae60a9ec96ef1229eab93b6ef0acadce8b53661ae6afaa39f3d3e79a63e265c"
+    },
+    {
+      "path": "screenshots/frame-t202.png",
+      "bytes": 258080,
+      "sha256": "a25636b3307c631432148676621249bfd3256c854548a69734ca2dfed09e889d"
+    },
+    {
+      "path": "screenshots/frame-t220.png",
+      "bytes": 263076,
+      "sha256": "d77a36f2aa127a52225175256dfe4ca7ba8465e463926ccd1299e0a72fe4b56a"
+    }
+  ]
+}

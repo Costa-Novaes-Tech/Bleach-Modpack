@@ -1,0 +1,66 @@
+{
+  "senbon": {
+    "branch": "codex/design-poderes-criaturas",
+    "commit": "6e4d767",
+    "clientExit": 0,
+    "runSeconds": 128,
+    "case": "one attack input, no target, front/profile/back",
+    "frameRows": 188,
+    "verdict": "FAIL high preparation: active transforms but blade down/back",
+    "environment": "base Forge, no Photon; melee VFX disabled, residual passive/technique particles may remain"
+  },
+  "higashiInitial": {
+    "branch": "codex/ryujin-bankai-sol-selamento",
+    "commit": "8f4115b",
+    "clientExit": 0,
+    "runSeconds": 290,
+    "frameRows": 373,
+    "cases": [
+      "Husk10/20HP",
+      "flyingHollow10/20HP",
+      "survive1000HP",
+      "miss1000HP"
+    ],
+    "camera": [
+      true,
+      true,
+      false,
+      false
+    ],
+    "repeatReason": "cold-load gaps in first Husk capture"
+  },
+  "scope": "Only QA/instrumentation changed in foreign worktrees; no merge or gameplay correction",
+  "higashiRepeat": {
+    "clientExit": 0,
+    "runSeconds": 192,
+    "stabilizationTicks": 120,
+    "cases": {
+      "lethal": {
+        "rows": 116,
+        "cameraStartElapsed": 39,
+        "cameraSeen": true,
+        "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-benihime\\run-benihime-qa\\base\\cinematic-qa\\1793119404550-lethal"
+      },
+      "threshold": {
+        "rows": 120,
+        "cameraStartElapsed": 32,
+        "cameraSeen": true,
+        "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-benihime\\run-benihime-qa\\base\\cinematic-qa\\1793119412542-threshold"
+      },
+      "survive": {
+        "rows": 129,
+        "cameraStartElapsed": null,
+        "cameraSeen": false,
+        "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-benihime\\run-benihime-qa\\base\\cinematic-qa\\1793119420539-survive"
+      },
+      "miss": {
+        "rows": 129,
+        "cameraStartElapsed": null,
+        "cameraSeen": false,
+        "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-benihime\\run-benihime-qa\\base\\cinematic-qa\\1793119428550-miss"
+      }
+    },
+    "frameRows": 494,
+    "result": "one visible victim during observed execution; red hurt flash before camera remains; katana not homologated"
+  }
+}

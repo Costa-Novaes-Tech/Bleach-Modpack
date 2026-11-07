@@ -180,7 +180,7 @@ public final class HyorinmaruQaSequence {
             if (mc.player != null) {
                 mc.player.displayClientMessage(net.minecraft.network.chat.Component.literal("§a[Hyorinmaru QA] Sequência finalizada com sucesso! Screenshots salvas em hyorinmaru-qa/"), false);
             }
-            if (Boolean.getBoolean("bleachmod.qaAutoExit") && !Boolean.getBoolean("bleachmod.benihimeCombatQa")) {
+            if (Boolean.getBoolean("bleachmod.qaAutoExit") && !Boolean.getBoolean("bleachmod.benihimeCombatQa") && !Boolean.getBoolean("bleachmod.senbonzakuraQa")) {
                 LogUtils.getLogger().info("Hyorinmaru QA auto-exit requested; closing client cleanly...");
                 mc.stop();
             }

@@ -1,0 +1,50 @@
+{
+  "source": "build\\visual-lab\\run-benihime-qa\\v16-polish-eye-profile\\ryujin-bankai-qa\\cycle118-1794080171213\\14_eye_right_profile",
+  "files": [
+    {
+      "path": "frames.jsonl",
+      "bytes": 10923,
+      "sha256": "8c30ed2b3b8a67ddda5811ed04ecb1dc46363d7c0380a35ec7bbc119b4efca69"
+    },
+    {
+      "path": "performance.json",
+      "bytes": 2435,
+      "sha256": "1435e09b7f8891b4a812eff732059171b8faf37937274d7b093bc22c016b74da"
+    },
+    {
+      "path": "frame-times.csv",
+      "bytes": 36016,
+      "sha256": "951dea5d6c0083731f778cd7a3b218e8e879b0076c56158938d2815fe4809813"
+    },
+    {
+      "path": "screenshots/frame-t032.png",
+      "bytes": 478397,
+      "sha256": "f653a5b9a6f712ec07e3f5c2fcadf984b161656956d3d407ea27e30ea8ddfbd4"
+    },
+    {
+      "path": "screenshots/frame-t039.png",
+      "bytes": 287278,
+      "sha256": "84c8b596fb73561db62ecce856bda898930ec1782e636d1b35cdbf8d322eda77"
+    },
+    {
+      "path": "screenshots/frame-t112.png",
+      "bytes": 844559,
+      "sha256": "9075d87bbc1f6dd48289df533dcf60ca4aeaa1a0ff56c33a823701d652e3639f"
+    },
+    {
+      "path": "screenshots/frame-t194.png",
+      "bytes": 491815,
+      "sha256": "a6ce7762a28701db78722962d94bced5fc90e99e89a19e648fcf50fceaf26f2f"
+    },
+    {
+      "path": "screenshots/frame-t202.png",
+      "bytes": 190130,
+      "sha256": "5e9cfb880751fc2ec91ad1dbbaceb32fb6516cba95d378fa368d711db6d7230b"
+    },
+    {
+      "path": "screenshots/frame-t220.png",
+      "bytes": 195740,
+      "sha256": "f4e0f87614d168fb1b5397ca02fc13c14e6a3c55a464f85e26ef4168761423b5"
+    }
+  ]
+}

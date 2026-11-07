@@ -1,0 +1,39 @@
+{
+  "ffmpeg": "C:\\Users\\joaop\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\imageio_ffmpeg\\binaries\\ffmpeg-win-x86_64-v9.0.2.exe",
+  "video": {
+    "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\build\\visual-lab\\v13g-ryujin-preview-silent.mp4",
+    "sha256": "8eaaaf4e47eb170e163a137e905df46299d3a4b1e4c0034de38213bb63e3140b",
+    "duration_seconds": 16.3,
+    "streams": [
+      "Stream #0:0[0x1](und): Video: h264 (Constrained Baseline) (avc1 / 0x31637661), yuv420p(progressive), 1280x720, 5475 kb/s, 20 fps, 20 tbr, 10240 tbn (default)"
+    ],
+    "has_video": true,
+    "has_audio": false,
+    "seconds": [
+      0.0,
+      1.0,
+      2.0,
+      2.5,
+      3.5,
+      4.2,
+      5.6,
+      7.0,
+      8.8,
+      9.2,
+      9.4,
+      9.6,
+      9.8,
+      10.0,
+      10.2,
+      10.5,
+      11.0,
+      11.5,
+      12.0,
+      13.5,
+      15.0
+    ],
+    "frames": 21,
+    "contact_sheet": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\build\\visual-lab\\reference-review-v14\\ryujin\\contact-sheet.png"
+  },
+  "audio": []
+}

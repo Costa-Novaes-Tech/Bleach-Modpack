@@ -1,0 +1,60 @@
+{
+  "source": "build\\visual-lab\\run-benihime-qa\\v16-polish-native-combined\\ryujin-bankai-qa\\cycle118-1794080352085\\02_night_front",
+  "files": [
+    {
+      "path": "frames.jsonl",
+      "bytes": 10866,
+      "sha256": "2cdf5e042aac40dcc20108f52eb59f3a35743a3f3ee7c9c280e6958c63203a69"
+    },
+    {
+      "path": "performance.json",
+      "bytes": 2426,
+      "sha256": "cf6035a9688233f4dc2a922f00bac47aa92be5d21473b6454de421c4c023ae7e"
+    },
+    {
+      "path": "frame-times.csv",
+      "bytes": 34025,
+      "sha256": "0142054490b9a762f6a914e1ba45d6baaebb0b58f36d7f69dff39a31a7c2836a"
+    },
+    {
+      "path": "screenshots/frame-t039.png",
+      "bytes": 503236,
+      "sha256": "b2d23f06427e5ff79c3de0c8f633087f8a751088a1d51b954eaf5440e804e88a"
+    },
+    {
+      "path": "screenshots/frame-t070.png",
+      "bytes": 734214,
+      "sha256": "19369b9d09e14e36c4ce79c1af76f0bf41a1d0226456a1a8e7bdeecf151bfccc"
+    },
+    {
+      "path": "screenshots/frame-t112.png",
+      "bytes": 917771,
+      "sha256": "7dd8458dfb5629ff3066397571694a881bcb411d905e7d96550adc8d3420c97d"
+    },
+    {
+      "path": "screenshots/frame-t176.png",
+      "bytes": 933625,
+      "sha256": "6c3998112e8c6b852fe0e3e211e2ffba71d01f68a7720dd6b74f5aa849987736"
+    },
+    {
+      "path": "screenshots/frame-t194.png",
+      "bytes": 556841,
+      "sha256": "56bf8cce9349747cfcaa783dccd1025d18c7e2e85b8eaa73b2d900fdd385e713"
+    },
+    {
+      "path": "screenshots/frame-t202.png",
+      "bytes": 250369,
+      "sha256": "2bedc2a3c02118d52117a22890afc288f166c548dbbddaad9b5df2f9c4c31912"
+    },
+    {
+      "path": "screenshots/frame-t220.png",
+      "bytes": 171576,
+      "sha256": "70d544e60b8077c25925d02ab78f66cd3525ea8308f9411d51a175ce824ee4e8"
+    },
+    {
+      "path": "screenshots/frame-t300.png",
+      "bytes": 294107,
+      "sha256": "574ff59de4cc5c84362b58d008492c4c98cf6f5aa14670396352baa1f3c9d2d0"
+    }
+  ]
+}

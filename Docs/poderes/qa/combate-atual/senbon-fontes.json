@@ -1,0 +1,218 @@
+[
+  {
+    "case": "01_shikai_right_profile",
+    "clip": "diagonal",
+    "clipTick": 7,
+    "age": 34,
+    "raw": "run-benihime-qa\\base\\senbonzakura-combat-qa\\cycle151-calibrated\\01_shikai_right_profile\\screenshots\\frame-t034.png",
+    "sha256": "8ca4749ffdc51774e5427208b665db5342d78ed54b7bc58fcc055be3d2358c0a"
+  },
+  {
+    "case": "01_shikai_right_profile",
+    "clip": "diagonal",
+    "clipTick": 14,
+    "age": 82,
+    "raw": "run-benihime-qa\\base\\senbonzakura-combat-qa\\cycle151-calibrated\\01_shikai_right_profile\\screenshots\\frame-t082.png",
+    "sha256": "1075df0909f07eb98e31b283ac76268ce10ec97876d71c387a6fdd341d36b7a3"
+  },
+  {
+    "case": "01_shikai_right_profile",
+    "clip": "diagonal",
+    "clipTick": 20,
+    "age": 44,
+    "raw": "run-benihime-qa\\base\\senbonzakura-combat-qa\\cycle151-calibrated\\01_shikai_right_profile\\screenshots\\frame-t044.png",
+    "sha256": "f781455fbf6b3b2b37d7cd5cc8764efca25ab99b6aeea87042109776854ed37b"
+  },
+  {
+    "case": "01_shikai_right_profile",
+    "clip": "return",
+    "clipTick": 7,
+    "age": 50,
+    "raw": "run-benihime-qa\\base\\senbonzakura-combat-qa\\cycle151-calibrated\\01_shikai_right_profile\\screenshots\\frame-t050.png",
+    "sha256": "f5a70c45ad3939d94c77f54a621d60245712a76a990d5d763ad4e61b85f42bcd"
+  },
+  {
+    "case": "01_shikai_right_profile",
+    "clip": "return",
+    "clipTick": 14,
+    "age": 96,
+    "raw": "run-benihime-qa\\base\\senbonzakura-combat-qa\\cycle151-calibrated\\01_shikai_right_profile\\screenshots\\frame-t096.png",
+    "sha256": "a1642d2c60f68c86920291229aff92f5f734d1ea1eb9fad81630a9e1650e872c"
+  },
+  {
+    "case": "01_shikai_right_profile",
+    "clip": "return",
+    "clipTick": 18,
+    "age": 58,
+    "raw": "run-benihime-qa\\base\\senbonzakura-combat-qa\\cycle151-calibrated\\01_shikai_right_profile\\screenshots\\frame-t058.png",
+    "sha256": "91c08378f17f4298c853e1b07308bb549cd11c979a98166ba33fe4d0bc570e44"
+  },
+  {
+    "case": "01_shikai_right_profile",
+    "clip": "thrust",
+    "clipTick": 7,
+    "age": 62,
+    "raw": "run-benihime-qa\\base\\senbonzakura-combat-qa\\cycle151-calibrated\\01_shikai_right_profile\\screenshots\\frame-t062.png",
+    "sha256": "be300ea8d5eef898703fa00cd4fde21f431b11af57498e7f9e5faea1fd982156"
+  },
+  {
+    "case": "01_shikai_right_profile",
+    "clip": "thrust",
+    "clipTick": 14,
+    "age": 108,
+    "raw": "run-benihime-qa\\base\\senbonzakura-combat-qa\\cycle151-calibrated\\01_shikai_right_profile\\screenshots\\frame-t108.png",
+    "sha256": "b4018c4d4e50d38bb1cf744774b42fdb003b629a2168c1bbc87e829888eddbda"
+  },
+  {
+    "case": "01_shikai_right_profile",
+    "clip": "thrust",
+    "clipTick": 20,
+    "age": 72,
+    "raw": "run-benihime-qa\\base\\senbonzakura-combat-qa\\cycle151-calibrated\\01_shikai_right_profile\\screenshots\\frame-t072.png",
+    "sha256": "886859397dbf5909fbb53645eb51b4c6b5b6ae3ec9cf43b5e195d85902a74db1"
+  },
+  {
+    "case": "02_shikai_right_front",
+    "clip": "diagonal",
+    "clipTick": 8,
+    "age": 76,
+    "raw": "run-benihime-qa\\base\\senbonzakura-combat-qa\\cycle151-calibrated\\02_shikai_right_front\\screenshots\\frame-t076.png",
+    "sha256": "a317d7da1b1b5469a0b4e4a95b0363c46e07dbac036b695b75503444dfd8596b"
+  },
+  {
+    "case": "02_shikai_right_front",
+    "clip": "diagonal",
+    "clipTick": 14,
+    "age": 40,
+    "raw": "run-benihime-qa\\base\\senbonzakura-combat-qa\\cycle151-calibrated\\02_shikai_right_front\\screenshots\\frame-t040.png",
+    "sha256": "7d978ecd4c3871b47a1c865dd1e1c0bb7ee1f30d62882d75e252599cc837f0aa"
+  },
+  {
+    "case": "02_shikai_right_front",
+    "clip": "diagonal",
+    "clipTick": 20,
+    "age": 44,
+    "raw": "run-benihime-qa\\base\\senbonzakura-combat-qa\\cycle151-calibrated\\02_shikai_right_front\\screenshots\\frame-t044.png",
+    "sha256": "e5e7d941a5a6de4f93e81b63cf964479050d51da8b2701fafbf9eb0d484a8bc5"
+  },
+  {
+    "case": "02_shikai_right_front",
+    "clip": "return",
+    "clipTick": 7,
+    "age": 48,
+    "raw": "run-benihime-qa\\base\\senbonzakura-combat-qa\\cycle151-calibrated\\02_shikai_right_front\\screenshots\\frame-t048.png",
+    "sha256": "4fbdd477d9d3b93cc338ff3c3b22d7d230541d4b1d2070db933b798bd07fdce7"
+  },
+  {
+    "case": "02_shikai_right_front",
+    "clip": "return",
+    "clipTick": 14,
+    "age": 54,
+    "raw": "run-benihime-qa\\base\\senbonzakura-combat-qa\\cycle151-calibrated\\02_shikai_right_front\\screenshots\\frame-t054.png",
+    "sha256": "107f669df8e955b8c4293da85de2f06a37ae94153a7fe6383368bbcf386aa9d3"
+  },
+  {
+    "case": "02_shikai_right_front",
+    "clip": "return",
+    "clipTick": 19,
+    "age": 98,
+    "raw": "run-benihime-qa\\base\\senbonzakura-combat-qa\\cycle151-calibrated\\02_shikai_right_front\\screenshots\\frame-t098.png",
+    "sha256": "53e8a97802bccddea4b42f0af460bdebd47bd908ad70f27b250124c521ca0f81"
+  },
+  {
+    "case": "02_shikai_right_front",
+    "clip": "thrust",
+    "clipTick": 8,
+    "age": 102,
+    "raw": "run-benihime-qa\\base\\senbonzakura-combat-qa\\cycle151-calibrated\\02_shikai_right_front\\screenshots\\frame-t102.png",
+    "sha256": "e8efcec738d63f34b81cadb2ade0369f87294e1761e9d3d801a86036d65cef8b"
+  },
+  {
+    "case": "02_shikai_right_front",
+    "clip": "thrust",
+    "clipTick": 14,
+    "age": 66,
+    "raw": "run-benihime-qa\\base\\senbonzakura-combat-qa\\cycle151-calibrated\\02_shikai_right_front\\screenshots\\frame-t066.png",
+    "sha256": "7fdf683ce84f93a1772a9d840c5683380253ddd992e9ac6004a00be6d57ca420"
+  },
+  {
+    "case": "02_shikai_right_front",
+    "clip": "thrust",
+    "clipTick": 19,
+    "age": 70,
+    "raw": "run-benihime-qa\\base\\senbonzakura-combat-qa\\cycle151-calibrated\\02_shikai_right_front\\screenshots\\frame-t070.png",
+    "sha256": "f36c201c006a732d1706c93255fe8bed9d6299bdc151ccf8c63389d17e6e0665"
+  },
+  {
+    "case": "06_shikai_left_profile",
+    "clip": "diagonal",
+    "clipTick": 8,
+    "age": 76,
+    "raw": "run-benihime-qa\\base\\senbonzakura-combat-qa\\cycle151-calibrated\\06_shikai_left_profile\\screenshots\\frame-t076.png",
+    "sha256": "41d5800a19ab51eb4cef43092b47784932fb018a33b4f00a99b0f751a146d117"
+  },
+  {
+    "case": "06_shikai_left_profile",
+    "clip": "diagonal",
+    "clipTick": 14,
+    "age": 40,
+    "raw": "run-benihime-qa\\base\\senbonzakura-combat-qa\\cycle151-calibrated\\06_shikai_left_profile\\screenshots\\frame-t040.png",
+    "sha256": "8a1d9e16d407c751dcd1faa784a3992fed776ee6ce1a894f91ad32a0d1e1be86"
+  },
+  {
+    "case": "06_shikai_left_profile",
+    "clip": "diagonal",
+    "clipTick": 20,
+    "age": 44,
+    "raw": "run-benihime-qa\\base\\senbonzakura-combat-qa\\cycle151-calibrated\\06_shikai_left_profile\\screenshots\\frame-t044.png",
+    "sha256": "f5e1550b57cda55b942b15fffc7c5eedd26497126cf9f6718a53cf4044ce784e"
+  },
+  {
+    "case": "06_shikai_left_profile",
+    "clip": "return",
+    "clipTick": 7,
+    "age": 48,
+    "raw": "run-benihime-qa\\base\\senbonzakura-combat-qa\\cycle151-calibrated\\06_shikai_left_profile\\screenshots\\frame-t048.png",
+    "sha256": "02bdb6d3179414966414d1d416ec1df9099a4e233332596c2e2c6bcc8f1e6b3b"
+  },
+  {
+    "case": "06_shikai_left_profile",
+    "clip": "return",
+    "clipTick": 14,
+    "age": 94,
+    "raw": "run-benihime-qa\\base\\senbonzakura-combat-qa\\cycle151-calibrated\\06_shikai_left_profile\\screenshots\\frame-t094.png",
+    "sha256": "4718c6ee43a9ca54101fb033bfe3c88f9c0319f913630b4d22db8c775408c4fe"
+  },
+  {
+    "case": "06_shikai_left_profile",
+    "clip": "return",
+    "clipTick": 19,
+    "age": 98,
+    "raw": "run-benihime-qa\\base\\senbonzakura-combat-qa\\cycle151-calibrated\\06_shikai_left_profile\\screenshots\\frame-t098.png",
+    "sha256": "9d68dd999b2d41d19140885711122d0719e984ac2ffdb235645d049b56e7d734"
+  },
+  {
+    "case": "06_shikai_left_profile",
+    "clip": "thrust",
+    "clipTick": 7,
+    "age": 60,
+    "raw": "run-benihime-qa\\base\\senbonzakura-combat-qa\\cycle151-calibrated\\06_shikai_left_profile\\screenshots\\frame-t060.png",
+    "sha256": "de56b72362969706752b799e9d69d15944992219d1f8f7918bb170888f244102"
+  },
+  {
+    "case": "06_shikai_left_profile",
+    "clip": "thrust",
+    "clipTick": 14,
+    "age": 66,
+    "raw": "run-benihime-qa\\base\\senbonzakura-combat-qa\\cycle151-calibrated\\06_shikai_left_profile\\screenshots\\frame-t066.png",
+    "sha256": "82447a1cad8a42b5c51429affde2f3ee615daa1b73ccb52c17e95e0d6ea80272"
+  },
+  {
+    "case": "06_shikai_left_profile",
+    "clip": "thrust",
+    "clipTick": 20,
+    "age": 112,
+    "raw": "run-benihime-qa\\base\\senbonzakura-combat-qa\\cycle151-calibrated\\06_shikai_left_profile\\screenshots\\frame-t112.png",
+    "sha256": "b1858a2cda57b03f2590efd6db08e9aae58bf72bd264113b99404eca75c4d6c2"
+  }
+]

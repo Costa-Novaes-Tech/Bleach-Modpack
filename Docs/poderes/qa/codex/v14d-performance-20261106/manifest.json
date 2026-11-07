@@ -1,0 +1,37 @@
+{
+  "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\visual-v14d-performance\\ryujin-bankai-qa",
+  "files": [
+    {
+      "path": "02_night_front_r01\\frame-times.csv",
+      "sha256": "587253814f8d690d15702bdbe0465d21d2b6c52bdcab1fa527469628370f542a"
+    },
+    {
+      "path": "02_night_front_r01\\performance.json",
+      "sha256": "aaec96b458a92f178a2a2ee652e5a8d014a8e871f1e103d504c9165579603020"
+    },
+    {
+      "path": "02_night_front_r02\\frame-times.csv",
+      "sha256": "a76aeb8285ae3ee90faa13b0ffb63057cf169f61c14ee19191a15bcd793fad85"
+    },
+    {
+      "path": "02_night_front_r02\\performance.json",
+      "sha256": "2c3aab0a999b9b635fbea16524d48ef7bf861854f2c8fbf8fe484abf815476b3"
+    },
+    {
+      "path": "02_night_front_r03\\frame-times.csv",
+      "sha256": "6391909a2de8c834c214c7e24fa938887941972f1ca4311b34828d50603540e5"
+    },
+    {
+      "path": "02_night_front_r03\\performance.json",
+      "sha256": "b8bb7c2f77399918365a8af12260d5a16617f322d6af60349741c39077920fe3"
+    },
+    {
+      "path": "client.log",
+      "sha256": "ef19227933ebd5c5bd89ac43b04a35d729d19b950c5822b183acf8db51dc8093"
+    },
+    {
+      "path": "summary.json",
+      "sha256": "a3deac3bb5035da7a50d3085fff03f1113e602d35f1f9fa24d27633e40bc7d53"
+    }
+  ]
+}

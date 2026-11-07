@@ -1,0 +1,106 @@
+{
+  "arsenal-left-front-f10.png": {
+    "bytes": 299013,
+    "sha256": "04b457785d2ef06c73ee8f7c8bc3358d5fc9ea82bdc4dbb1ac889ceaffdeba86"
+  },
+  "arsenal-left-front-f20.png": {
+    "bytes": 299186,
+    "sha256": "e5a735df84c20e370fe8620e87f9487bd14c59a01803516853097ba0b8777888"
+  },
+  "arsenal-left-front.png": {
+    "bytes": 298900,
+    "sha256": "782167a67195a666070b6f377ef6816f15a13b5570dcb5a6f5c99ca5ed57d6fb"
+  },
+  "arsenal-right-front-f10.png": {
+    "bytes": 298703,
+    "sha256": "7d5d5ed1ff7bf1448e78ce5dc855cdb7e90a351cd4d32fd1a367f13d9b83f316"
+  },
+  "arsenal-right-front-f20.png": {
+    "bytes": 298800,
+    "sha256": "1c3afa89f72b31ab505b5505c03c8903b638df2abf60d2ea7af51d140eb0a4a7"
+  },
+  "arsenal-right-front.png": {
+    "bytes": 299038,
+    "sha256": "cdbe4e70a6ec12820633c422900d7f111c74849f1b4f534b565c6402d4a50f62"
+  },
+  "arsenal_left.gif": {
+    "bytes": 160310,
+    "sha256": "f89039d0aed17c56eee0e892e7ab96f453712f39f8a4fb55c0eb543f22bbdb8a"
+  },
+  "arsenal_right.gif": {
+    "bytes": 159886,
+    "sha256": "5af8d892955c908459aeabfe52d6db482aecaa16da527224eadd200327ca59af"
+  },
+  "emergence-back-f10.png": {
+    "bytes": 187801,
+    "sha256": "fae37060b96a3b4ae98ba5ee4531fa2b0b2f4dc35880ded6f0498cd56a264f77"
+  },
+  "emergence-back-f20.png": {
+    "bytes": 188504,
+    "sha256": "1eb45b81d303b080ab505bd8c7038d5dbe671716fb469c1cfee285c340f039bc"
+  },
+  "emergence-back.png": {
+    "bytes": 185309,
+    "sha256": "8cd183d502926efbc97f2052d45fbbd439a5be7fad6177aa2af1b95ea20e651f"
+  },
+  "emergence.gif": {
+    "bytes": 252822,
+    "sha256": "b985605fdd83f354a8ca3616e9abd738aa090272b9b8123eb78e139919a130c4"
+  },
+  "idle-back-f10.png": {
+    "bytes": 188006,
+    "sha256": "2d4930e09393109b966c8f38d95aa8d21bce5669322131ed11dffb90d577ef9d"
+  },
+  "idle-back-f20.png": {
+    "bytes": 189143,
+    "sha256": "94555cf24a1c5cf652e3e654448c2729578235d050e9d1356278120e6650e856"
+  },
+  "idle-back.png": {
+    "bytes": 191357,
+    "sha256": "a4667c3e5668f156496ac7d3e06459f5002de67d260bb347282bd686d0b46cb2"
+  },
+  "idle-profile-f10.png": {
+    "bytes": 172686,
+    "sha256": "90394c94888bcddbae6f7788aee313a4f97d298638afe33a01349156c5801702"
+  },
+  "idle-profile-f20.png": {
+    "bytes": 171790,
+    "sha256": "3118c3b47e145d92ab68875b01a733d80b4e95c6f6f76e66aef44aba4d92c9a2"
+  },
+  "idle-profile.png": {
+    "bytes": 170999,
+    "sha256": "beb37705d4ef46fbae4adb5897e2548a16ae385234be420cd40e92efeb9252d2"
+  },
+  "idle_back.gif": {
+    "bytes": 148586,
+    "sha256": "82e4cd014f38c2ab5d9f226e7f607b2f11169be6449e4c14f6b573361f1b8162"
+  },
+  "idle_profile.gif": {
+    "bytes": 127573,
+    "sha256": "03f2f780a7abac3f5bd62fc65de85c63ee78be9bdd66b3846fa1f3020d3f8c26"
+  },
+  "quincy_v11_qa_contact_sheet.png": {
+    "bytes": 879544,
+    "sha256": "2b65cf43c44fc962f9fc38c749cfc0d719120a8e19a3e9fb7d73624776b944d4"
+  },
+  "results.txt": {
+    "bytes": 619,
+    "sha256": "752e1eb0e7eeb8abba1ee5e4f286ac04ff0354c84a77e5c625d0eca13766f204"
+  },
+  "settle-recoil-f10.png": {
+    "bytes": 287480,
+    "sha256": "d7cb1b5de2eb2a8364af6ec27f9706902b7a70ce9a39956a65bdc4b2f9b7b62e"
+  },
+  "settle-recoil-f20.png": {
+    "bytes": 287768,
+    "sha256": "3bf85ea3d8dd8341ceb6b365fceed42266266db6538619b1627618b86e99d3c9"
+  },
+  "settle-recoil.png": {
+    "bytes": 287698,
+    "sha256": "085987d883f6e11552c5aba8b9fdc45a08c25973ad21574eec7bdf51ad3e9aed"
+  },
+  "settle_recoil.gif": {
+    "bytes": 181598,
+    "sha256": "ee80ac9d88424eec2ad83156dc6f0dda63097306caa4bc24c164262e21583da6"
+  }
+}

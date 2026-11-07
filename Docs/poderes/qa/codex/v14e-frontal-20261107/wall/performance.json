@@ -1,0 +1,99 @@
+{
+  "scope": "single-scene sustained sun ticks 112..175; inter-frame cadence, not GPU timer",
+  "gpu": "Intel(R) Iris(R) Xe Graphics",
+  "width": 1280,
+  "height": 720,
+  "vsync": false,
+  "fps_limit": 120,
+  "fire_detail": "HIGH",
+  "samples": 139,
+  "p50_ms": 19.9276,
+  "p95_ms": 43.9788,
+  "p99_ms": 55.8727,
+  "phases": {
+    "preparation": {
+      "from_client_tick": 0,
+      "until_client_tick_exclusive": 40,
+      "samples": 16,
+      "p50_ms": 51.0709,
+      "p95_ms": 784.5496,
+      "p99_ms": 784.5496
+    },
+    "speech_ignition": {
+      "from_client_tick": 40,
+      "until_client_tick_exclusive": 70,
+      "samples": 34,
+      "p50_ms": 42.8458,
+      "p95_ms": 85.0984,
+      "p99_ms": 95.1757
+    },
+    "explosion_formation": {
+      "from_client_tick": 70,
+      "until_client_tick_exclusive": 112,
+      "samples": 71,
+      "p50_ms": 25.7911,
+      "p95_ms": 59.4448,
+      "p99_ms": 71.4319
+    },
+    "sustained_sun": {
+      "from_client_tick": 112,
+      "until_client_tick_exclusive": 176,
+      "samples": 140,
+      "p50_ms": 19.863,
+      "p95_ms": 43.9788,
+      "p99_ms": 55.8727
+    },
+    "absorption": {
+      "from_client_tick": 176,
+      "until_client_tick_exclusive": 202,
+      "samples": 40,
+      "p50_ms": 29.0555,
+      "p95_ms": 59.6053,
+      "p99_ms": 64.4508
+    },
+    "sealed_blade": {
+      "from_client_tick": 202,
+      "until_client_tick_exclusive": 220,
+      "samples": 72,
+      "p50_ms": 12.0193,
+      "p95_ms": 23.0743,
+      "p99_ms": 50.8677
+    },
+    "name_hold": {
+      "from_client_tick": 220,
+      "until_client_tick_exclusive": 270,
+      "samples": 211,
+      "p50_ms": 10.3849,
+      "p95_ms": 23.0566,
+      "p99_ms": 32.2137
+    },
+    "return": {
+      "from_client_tick": 270,
+      "until_client_tick_exclusive": 300,
+      "samples": 129,
+      "p50_ms": 9.9784,
+      "p95_ms": 21.5735,
+      "p99_ms": 27.4157
+    }
+  },
+  "screen_samples": {
+    "none": 790
+  },
+  "screenshot_capture": true,
+  "video_capture": false,
+  "solar_pose_pilot": true,
+  "solar_shader": "solar-unlit",
+  "visual_v14": true,
+  "light_backend": "shimmer",
+  "solar_light_enabled": true,
+  "max_cards": 264,
+  "max_owned_particles": 192,
+  "max_lights": 1,
+  "post_seal_samples": 482,
+  "post_seal_clean": true,
+  "post_end_samples": 68,
+  "post_end_clean": true,
+  "playback_post_seal_samples": 484,
+  "playback_post_seal_clean": true,
+  "max_trial_playback_delta_ticks": 0.0
+}

@@ -1,0 +1,85 @@
+{
+  "source": "run-benihime-qa\\visual-music15\\ryujin-bankai-qa\\cycle118-1793965460909\\02_night_front",
+  "files": [
+    {
+      "path": "frames.jsonl",
+      "bytes": 8896,
+      "sha256": "b226127cd05f7e959cfedd3681d7de582a9395fd61003a6a3bf0f1baaabf122c"
+    },
+    {
+      "path": "performance.json",
+      "bytes": 582,
+      "sha256": "9c48e9b7dae36ff76fa3a9f1ab30abb6513fd5767034689bbbc07f48597f5b86"
+    },
+    {
+      "path": "frame-times.csv",
+      "bytes": 27340,
+      "sha256": "a9a68430d0e962ba382d07b7667b59a905707d0f8c00ae40ef5078b73e1bda1b"
+    },
+    {
+      "path": "screenshots/frame-t000.png",
+      "bytes": 198605,
+      "sha256": "99215e44a1d5f7319f03aea49d0405d2dc3651bcd9a99138ef95b417b877df07"
+    },
+    {
+      "path": "screenshots/frame-t040.png",
+      "bytes": 486342,
+      "sha256": "aa5629ff02862f361b273a6e161f3ffcb556afc507a1a42f3edff264f014150a"
+    },
+    {
+      "path": "screenshots/frame-t050.png",
+      "bytes": 524846,
+      "sha256": "2ee3c907cb5016c4543d2c2068ec2c06a5224d451c0b013a6c3b36b19a3addbe"
+    },
+    {
+      "path": "screenshots/frame-t070.png",
+      "bytes": 488022,
+      "sha256": "f9d5eade20f51329b6da94c604dd6aee07a1afbfc785d46bd0185aeeffd80a7d"
+    },
+    {
+      "path": "screenshots/frame-t084.png",
+      "bytes": 453978,
+      "sha256": "9d6e59aff17676921ff019ef8cbe48d88e730f8db0cc4a10f4048975cf94c157"
+    },
+    {
+      "path": "screenshots/frame-t112.png",
+      "bytes": 522338,
+      "sha256": "6bdbe9e8460e9111428288fc993ce85e56e8d42f95c501e0526c319468ded1dc"
+    },
+    {
+      "path": "screenshots/frame-t144.png",
+      "bytes": 518368,
+      "sha256": "6857ea3dfe69973bb629517e17f0f2202ab5ecb4b14564376a3e58aff84a82af"
+    },
+    {
+      "path": "screenshots/frame-t175.png",
+      "bytes": 523696,
+      "sha256": "fa37d55c4fb20b15f7935242fa9f0a3c253f66c50e1e33774ed77b145afe5da3"
+    },
+    {
+      "path": "screenshots/frame-t190.png",
+      "bytes": 434156,
+      "sha256": "1da44b26b6b7249c1321306b17c2d7d4e309fdddc9d76123153ca2a956b37677"
+    },
+    {
+      "path": "screenshots/frame-t202.png",
+      "bytes": 171868,
+      "sha256": "8218753ea0ad773f2cad6132fae6544804bcf59f460933fed161b292860f2eb4"
+    },
+    {
+      "path": "screenshots/frame-t220.png",
+      "bytes": 179678,
+      "sha256": "126334ec59490176d69a7629297e357320ccf49e7e4e265dab77dd4bfe7c7b0a"
+    },
+    {
+      "path": "screenshots/frame-t300.png",
+      "bytes": 316155,
+      "sha256": "40601c82b80cdd8491f6a9cac86173af45cb55e8ec16d52901337d3c7366c16b"
+    },
+    {
+      "path": "client.log",
+      "bytes": 198157,
+      "sha256": "a88f8fec6c62d16bf4448837a37ca1dd9096644841605951dc5e06f5d2b9698f"
+    }
+  ]
+}

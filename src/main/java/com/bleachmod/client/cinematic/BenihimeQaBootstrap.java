@@ -1,6 +1,7 @@
 package com.bleachmod.client.cinematic;
 
 import com.bleachmod.Reference;
+import com.bleachmod.common.visual.RyujinQaSandbox;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.TitleScreen;
 import net.minecraft.world.level.*;
@@ -23,8 +24,9 @@ public final class BenihimeQaBootstrap {
     private BenihimeQaBootstrap(){ }
     public static boolean automatedFinished(){return nightRun&&followCompleted;}
     @SubscribeEvent public static void tick(TickEvent.ClientTickEvent e){
-        if(e.phase!=TickEvent.Phase.END||net.minecraftforge.fml.loading.FMLEnvironment.production||!Boolean.getBoolean("bleachmod.benihimeQa"))return;
+        if(e.phase!=TickEvent.Phase.END||!Boolean.getBoolean("bleachmod.benihimeQa"))return;
         var mc=Minecraft.getInstance();
+        if(net.minecraftforge.fml.loading.FMLEnvironment.production&&!RyujinQaSandbox.packaged(mc.gameDirectory.toPath()))return;
         if(!mc.gameDirectory.getAbsolutePath().replace('\\','/').contains("/run-benihime-qa/"))return;
         if(!created&&mc.screen instanceof TitleScreen){
             created=true;String name="Benihime-QA-68-"+System.currentTimeMillis();

@@ -1,0 +1,23 @@
+{
+  "scope": "single-scene sustained sun ticks 112..175; inter-frame cadence, not GPU timer",
+  "gpu": "Intel(R) Iris(R) Xe Graphics",
+  "width": 1280,
+  "height": 720,
+  "vsync": false,
+  "fps_limit": 120,
+  "fire_detail": "MEDIUM",
+  "samples": 105,
+  "p50_ms": 30.4443,
+  "p95_ms": 46.8217,
+  "p99_ms": 49.7011,
+  "screenshot_capture": false,
+  "light_backend": "shimmer",
+  "solar_light_enabled": true,
+  "max_cards": 132,
+  "max_owned_particles": 192,
+  "max_lights": 1,
+  "post_seal_samples": 414,
+  "post_seal_clean": true,
+  "post_end_samples": 44,
+  "post_end_clean": true
+}

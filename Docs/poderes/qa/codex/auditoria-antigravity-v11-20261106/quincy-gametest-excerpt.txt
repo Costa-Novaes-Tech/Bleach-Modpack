@@ -1,0 +1,2 @@
+[06nov.2026 12:18:24.587] [Server thread/INFO] [net.minecraft.gametest.framework.GameTestServer/]: ========= 298 GAME TESTS COMPLETE ======================
+[06nov.2026 12:18:24.587] [Server thread/INFO] [net.minecraft.gametest.framework.GameTestServer/]: All 298 required tests passed :)

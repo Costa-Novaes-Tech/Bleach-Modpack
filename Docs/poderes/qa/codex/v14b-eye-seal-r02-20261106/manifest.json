@@ -1,0 +1,110 @@
+{
+  "source": "run-benihime-qa\\visual-seal-v14b\\ryujin-bankai-qa\\cycle118-1794015451192\\02_night_front_r02",
+  "files": [
+    {
+      "path": "frames.jsonl",
+      "bytes": 10685,
+      "sha256": "d79a6b6f4539c70cf4e371e9096232f9fa6b1a807b1cab27116bde1467444edb"
+    },
+    {
+      "path": "performance.json",
+      "bytes": 803,
+      "sha256": "d0f354b91788c5dc7634daa8611da146df9aff73e2b47f96ec712eb9b1e0685f"
+    },
+    {
+      "path": "frame-times.csv",
+      "bytes": 54032,
+      "sha256": "c2d2460d4ad9a2a8312d4f9c5bca034a73943127c3c60fe9e055790101fcb4a8"
+    },
+    {
+      "path": "screenshots/frame-t024.png",
+      "bytes": 486338,
+      "sha256": "4b4bec9b929b826e26e3c426ef214846e5681d8620eb3a6b2c388736ff5e42dd"
+    },
+    {
+      "path": "screenshots/frame-t032.png",
+      "bytes": 480377,
+      "sha256": "0e6172c66373544de92f02bc8599faf60c01aeef888f390847c1ca9df50e53b5"
+    },
+    {
+      "path": "screenshots/frame-t039.png",
+      "bytes": 439935,
+      "sha256": "a446086282814e37e5caf5fd400a9966e7bf9ff2cdaff5df996bcdefa89e943a"
+    },
+    {
+      "path": "screenshots/frame-t040.png",
+      "bytes": 463780,
+      "sha256": "dbac675fee539f0e3673193eb09d6c56f20f6b2f478c2ae31dbb233faa88f76c"
+    },
+    {
+      "path": "screenshots/frame-t070.png",
+      "bytes": 594083,
+      "sha256": "aa9e74e6e9920618229514b6d7e06d8ca78f64ccb9c734e1ae1b6e486dc4571f"
+    },
+    {
+      "path": "screenshots/frame-t112.png",
+      "bytes": 557814,
+      "sha256": "3b61e55aeb50755fc5c1f807854b37cbd4e6efe98e0719c3474fd1c34b8799d5"
+    },
+    {
+      "path": "screenshots/frame-t160.png",
+      "bytes": 564287,
+      "sha256": "aeaf48c0870fd7f6d7831528b02ee6ea30d2e2f4107a48e1c92cb31c2b01916e"
+    },
+    {
+      "path": "screenshots/frame-t184.png",
+      "bytes": 587992,
+      "sha256": "87529ba6c8423cd8c36a7e745c8d5c7a8679c46015844aa5c73210910f5488ec"
+    },
+    {
+      "path": "screenshots/frame-t188.png",
+      "bytes": 630512,
+      "sha256": "6e15e3c10c8ee18ca575532af48dd55436b8c28fa32a092c04f541e0ed679fba"
+    },
+    {
+      "path": "screenshots/frame-t190.png",
+      "bytes": 603563,
+      "sha256": "011545cde8591fb5d01dd46487ad257b093782205f64cb32a1c0ac56856bcd6b"
+    },
+    {
+      "path": "screenshots/frame-t194.png",
+      "bytes": 526424,
+      "sha256": "dfac9356ae8ecebff5522e214030efa6a139c5fb6b1d22796e6d0dc289607407"
+    },
+    {
+      "path": "screenshots/frame-t198.png",
+      "bytes": 379516,
+      "sha256": "48ecfe9f458059346c97b59379379f4da0cf942a8b035122877e89d527ddbecc"
+    },
+    {
+      "path": "screenshots/frame-t200.png",
+      "bytes": 292500,
+      "sha256": "eb454f15062052056ec69641fdbe25977153d81cb462a8d8082e7c29370fc7a9"
+    },
+    {
+      "path": "screenshots/frame-t202.png",
+      "bytes": 201530,
+      "sha256": "4b3ed1b368fa62ee8dfd34fd7721d9b097f921e602a02eed8003e397c306d997"
+    },
+    {
+      "path": "screenshots/frame-t208.png",
+      "bytes": 195027,
+      "sha256": "63d0501eea70cca67ab95e7d3abc23672c69b731092a40380ff80d221768b070"
+    },
+    {
+      "path": "screenshots/frame-t220.png",
+      "bytes": 194706,
+      "sha256": "ab07449634e010e3823643fc9b19bf29b295ca43853c9c32589d978227455a5d"
+    },
+    {
+      "path": "screenshots/frame-t300.png",
+      "bytes": 313768,
+      "sha256": "9c2c243dac592ab6f7cb8d02ecad664c50068eca8e5eec250bfa60cbdf573ce1"
+    },
+    {
+      "path": "client.log",
+      "bytes": 184838,
+      "sha256": "af25b1c0f0498392d1ded520397f2bef5901a655cad901b262f702ded82c45e8"
+    }
+  ]
+}

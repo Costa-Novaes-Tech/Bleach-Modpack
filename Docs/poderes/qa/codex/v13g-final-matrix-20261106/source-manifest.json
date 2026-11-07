@@ -1,0 +1,75 @@
+{
+  "native_check_model_issues": 0,
+  "cubes": 280,
+  "bones": 33,
+  "clip_seconds": 15,
+  "generator_idempotent": true,
+  "runtime_adopted": false,
+  "files": [
+    {
+      "path": "src\\main\\java\\com\\bleachmod\\client\\model\\RyujinBankaiSunModel.java",
+      "bytes": 9171,
+      "sha256": "d6daa5276b9f1d99c80a94502d0fe8cce0c5512566030195fdf8481d28fe064c"
+    },
+    {
+      "path": "src\\main\\java\\com\\bleachmod\\client\\model\\RyujinSolarShader.java",
+      "bytes": 1522,
+      "sha256": "4f6d937c96c6683c50d2422f4aeede6d23ac9fb5cfcd41236c0519377a6c0787"
+    },
+    {
+      "path": "src\\main\\java\\com\\bleachmod\\common\\visual\\RyujinSolarPose.java",
+      "bytes": 1108,
+      "sha256": "8e5c88ee18ad5f646cdd9bd7cf06e84c9aecc78d9bc68b58fa9035231aaa67bd"
+    },
+    {
+      "path": "src\\main\\resources\\assets\\bleachmod\\shaders\\core\\ryujin_solar.fsh",
+      "bytes": 425,
+      "sha256": "1e6de0960c5353b276f995fdcace78af5a3fa18bb364542ea5fa94ceba1ef6c7"
+    },
+    {
+      "path": "src\\main\\resources\\assets\\bleachmod\\shaders\\core\\ryujin_solar.json",
+      "bytes": 897,
+      "sha256": "9c1a45be26cc9f36df80a4b1c6fc5d0de2b6a164eb504e17f1843f46bdf6ca3b"
+    },
+    {
+      "path": "src\\main\\resources\\assets\\bleachmod\\shaders\\core\\ryujin_solar.vsh",
+      "bytes": 453,
+      "sha256": "77ebb1d8f34329ad2b4771fc6faf935a1a7623b1e848ee3e07e4f4daf300c113"
+    },
+    {
+      "path": "tools\\models\\lab\\codex\\ryujin01\\build_sun_v13.py",
+      "bytes": 13722,
+      "sha256": "ff559e2c3c11f752bab6dfc18be0b5af6d47a6e66e671a7e14215e7593c4dbda"
+    },
+    {
+      "path": "tools\\models\\lab\\codex\\ryujin01\\ryujin_bankai_continuous_sun_v13_lab.bbmodel",
+      "bytes": 1193085,
+      "sha256": "8fb2dcdf77456ba0e15c692b37474f623a408bb2bb621e6ed4d863da0d690378"
+    },
+    {
+      "path": "tools\\models\\lab\\codex\\ryujin01\\ryujin_bankai_continuous_sun_v13_lab.geo.json",
+      "bytes": 139208,
+      "sha256": "85c10f161605813c5fdf6deb67facaba4c6a9f941ab33c1763e1be1c4ead1203"
+    },
+    {
+      "path": "tools\\models\\lab\\codex\\ryujin01\\ryujin_bankai_continuous_sun_v13_lab.json",
+      "bytes": 497,
+      "sha256": "eb05c1986bdeb7ba00a9d5d6abe75fd2e9edad8e95a607baddb0270ddea98628"
+    },
+    {
+      "path": "tools\\models\\lab\\codex\\ryujin01\\ryujin_bankai_continuous_sun_v13_lab.png",
+      "bytes": 313866,
+      "sha256": "86829008f7f885a27da41d60a6ad75b117ca408d362584fc96a4479d0a057f7d"
+    },
+    {
+      "path": "tools\\models\\lab\\codex\\ryujin01\\ryujin_bankai_continuous_sun_v13_lab_glowmask.png",
+      "bytes": 269900,
+      "sha256": "62ff72653cee233fe51503e8426996916789a630aa548d0664417ed76e2d449d"
+    },
+    {
+      "path": "tools\\models\\lab\\codex\\ryujin01\\ryujin_bankai_continuous_sun_v13_lab_scene.bbmodel",
+      "bytes": 1495405,
+      "sha256": "bc90bc39eacff1099dc173a5168f33f79e9e120ae5b6fc27efbf641f85e3718a"
+    }
+  ]
+}

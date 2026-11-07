@@ -40,12 +40,12 @@ public final class ElementalActionVisuals {
                     || !Double.isFinite(origin.x+origin.y+origin.z) || !Double.isFinite(forward.x+forward.z) || Math.abs(origin.x)>3e7 || Math.abs(origin.z)>3e7 || Math.abs(origin.y)>4096 || forward.lengthSqr()<.9 || forward.lengthSqr()>1.1)continue;
             var crystals=new ArrayList<Vec3>();var points=t.getList("crystals",Tag.TAG_COMPOUND);
             for(int j=0;j<Math.min(40,points.size());j++){var q=points.getCompound(j);var at=new Vec3(q.getDouble("x"),q.getDouble("y"),q.getDouble("z"));if(Double.isFinite(at.lengthSqr()) && at.distanceToSqr(origin)<40*40)crystals.add(at);}
-            result.add(new View(kind,origin,forward.normalize(),radius,duration,gesture,level.getGameTime()-age,t.getBoolean("ice"),Arrays.stream(t.getIntArray("soldiers")).limit(6).filter(id->id>0).distinct().boxed().toList(),Arrays.stream(t.getIntArray("targets")).limit(16).filter(id->id>0).distinct().boxed().toList(),crystals));
+            result.add(new View(kind,origin,forward.normalize(),radius,duration,gesture,level.getGameTime()-age,t.getBoolean("ice"),Arrays.stream(t.getIntArray("soldiers")).limit(10).filter(id->id>0).distinct().boxed().toList(),Arrays.stream(t.getIntArray("targets")).limit(16).filter(id->id>0).distinct().boxed().toList(),crystals));
         }
         if(result.isEmpty())VIEWS.remove(owner);else{if(VIEWS.size()>=24 && !VIEWS.containsKey(owner))VIEWS.remove(VIEWS.keySet().iterator().next());VIEWS.put(owner,result);}
     }
     static float age(View v,float partial){return world==null?999:world.getGameTime()-v.start+partial;}
-    public static View gesture(AbstractClientPlayer p){if(world!=p.level() || !p.isAlive())return null;for(var v:VIEWS.getOrDefault(p.getId(),List.of()))if(age(v,0)<v.gesture)return v;return null;}
+    public static View gesture(AbstractClientPlayer p){if(world!=p.level() || !p.isAlive() || HigashiExecutionVisuals.isPerformingExecution(p.getId()))return null;for(var v:VIEWS.getOrDefault(p.getId(),List.of()))if(age(v,0)<v.gesture)return v;return null;}
     public static boolean busy(AbstractClientPlayer p){return gesture(p)!=null;}
     private static Vec3f mix(Vec3f a,float x,float y,float z,float w){return new Vec3f(Mth.lerp(w,a.getX(),x),Mth.lerp(w,a.getY(),y),Mth.lerp(w,a.getZ(),z));}
     private static final class Animation implements IAnimation {
@@ -54,6 +54,8 @@ public final class ElementalActionVisuals {
         @Override public void setupAnim(float partial){ }
         @Override public FirstPersonMode getFirstPersonMode(float partial){return FirstPersonMode.VANILLA;}
         @Override public Vec3f get3DTransform(String part,TransformType type,float partial,Vec3f value){var v=gesture(p);if(v==null)return value;
+            if(!v.ice && v.kind.equals("higashi") && HigashiBetterCombatMotion.available())return HigashiBetterCombatMotion.transform(p,age(v,partial),false,v.gesture,part,type,value);
+            if(!v.ice && v.kind.equals("steam_cut"))return RyujinActionVisuals.steamTransform(p,com.bleachmod.common.visual.RyujinChoreography.attack(v.kind,age(v,partial),p.getMainArm()==HumanoidArm.RIGHT?1:-1),part,type,value);
             if(!v.ice)return RyujinActionVisuals.transform(p,com.bleachmod.common.visual.RyujinChoreography.attack(v.kind,age(v,partial),p.getMainArm()==HumanoidArm.RIGHT?1:-1),part,type,value);
             float age = age(v, partial);
             float t=Mth.clamp(age/v.gesture,0,1),w=Math.min(1,t*6)*Math.min(1,(1-t)*6),sign=p.getMainArm()==HumanoidArm.RIGHT?1:-1;

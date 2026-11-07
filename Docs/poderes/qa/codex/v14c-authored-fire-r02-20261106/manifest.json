@@ -1,0 +1,91 @@
+{
+  "source": "run-benihime-qa\\visual-fire-v14c\\ryujin-bankai-qa\\cycle118-1794015844947\\02_night_front_r02",
+  "head": "9eb6a057",
+  "pilot": "v14c; screenshot capture enabled, silent profile, no video",
+  "files": [
+    {
+      "path": "client.log",
+      "sha256": "790b6ad66c0e9e51bff05286626ed8ef393d0dd4c54a1357f481e53cffd2b18b"
+    },
+    {
+      "path": "frame-times.csv",
+      "sha256": "24aa5efcfcd8314c79d12215225219cca0a798294524efd4dd966146cd442ec1"
+    },
+    {
+      "path": "frames.jsonl",
+      "sha256": "2996f7a5f3cf9960e38b0d48db5c55f4242b7162a48c894d8f94a2e665f01ea0"
+    },
+    {
+      "path": "performance.json",
+      "sha256": "bb192f2dc5d816edca62bfa20136b2358f00be0580a9287709cb4928840271ca"
+    },
+    {
+      "path": "screenshots\\frame-t024.png",
+      "sha256": "c9befe009c93dc887b1b064c1de5251e23433a5c59bfa22cd692e2f7e4603f35"
+    },
+    {
+      "path": "screenshots\\frame-t032.png",
+      "sha256": "231cb3af5f2a47cb5a6d71289418fe4911bf741020551b139b7d8d131e9ad5fc"
+    },
+    {
+      "path": "screenshots\\frame-t039.png",
+      "sha256": "ba4790825cdf176252b4f169450fc69525f785558d2bf98bee6adf57ba2c210d"
+    },
+    {
+      "path": "screenshots\\frame-t040.png",
+      "sha256": "c1420c8f83e459843903958504ef0d5ceda1a8becad48d0e7267c2f1d8aca8ab"
+    },
+    {
+      "path": "screenshots\\frame-t070.png",
+      "sha256": "3cebbe38ec2833be9368454ac6b10c7262709119bc5297b051851fa271f9c7d9"
+    },
+    {
+      "path": "screenshots\\frame-t084.png",
+      "sha256": "641831c2a6db799b36e90466d6bba66d2be1756cdf651826b522ca956061abd4"
+    },
+    {
+      "path": "screenshots\\frame-t112.png",
+      "sha256": "2ea0d75ba284d382ddc1b7a9466ffccb1f34b2565b96fcb2fefd31b259f942ba"
+    },
+    {
+      "path": "screenshots\\frame-t160.png",
+      "sha256": "dc1c94b5707ab07312dafe47aa1ef5c9559ab242ea20cd4d66d7272be3498d9d"
+    },
+    {
+      "path": "screenshots\\frame-t176.png",
+      "sha256": "87b2bd94a433756def136055ed5738dbfc8fce0c57878c577f48636529c02b29"
+    },
+    {
+      "path": "screenshots\\frame-t184.png",
+      "sha256": "594a30092641932e6234b45788620f9f66cc5db562d6fbc78f98a5d2f9c7cbc3"
+    },
+    {
+      "path": "screenshots\\frame-t194.png",
+      "sha256": "4d81782643d0cc3348fdff6bde97babe421f11b7ed05f899e74773967ca9aead"
+    },
+    {
+      "path": "screenshots\\frame-t198.png",
+      "sha256": "050566f1845778ba31fb8a5bf88db1e3bbd235eee7efa5b6f838f154cc3b68a3"
+    },
+    {
+      "path": "screenshots\\frame-t202.png",
+      "sha256": "3ee8deb9975309beaa575e8bd95232c46cb272ce5c4d2a8e74bd893f78c63c3d"
+    },
+    {
+      "path": "screenshots\\frame-t208.png",
+      "sha256": "fb036f3aced6603ef3919498033bc2aa868060c2d1141019243de005cda3b230"
+    },
+    {
+      "path": "screenshots\\frame-t220.png",
+      "sha256": "b373ddf4318f484a797a412db1919232a4d9d79aa50a397b81c24adfb32f0ec1"
+    },
+    {
+      "path": "screenshots\\frame-t270.png",
+      "sha256": "200482907d7bc60425afe66ebe32794d7ba0d5cb0774584d78e3b4529dcaeb3d"
+    },
+    {
+      "path": "screenshots\\frame-t300.png",
+      "sha256": "720f542fa47125e4b037e5f2b95c2896592ceea984c666d951da71695cdbdd02"
+    }
+  ]
+}

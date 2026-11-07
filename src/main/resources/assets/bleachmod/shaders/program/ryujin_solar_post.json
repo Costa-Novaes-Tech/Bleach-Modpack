@@ -1,0 +1,13 @@
+{
+  "blend": {"func": "add", "srcrgb": "one", "dstrgb": "zero"},
+  "vertex": "blit",
+  "fragment": "bleachmod:ryujin_solar_post",
+  "attributes": ["Position"],
+  "samplers": [{"name": "DiffuseSampler"}, {"name": "SceneDepth"}],
+  "uniforms": [
+    {"name": "ProjMat", "type": "matrix4x4", "count": 16, "values": [1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1]},
+    {"name": "OutSize", "type": "float", "count": 2, "values": [1,1]},
+    {"name": "SolarMask", "type": "float", "count": 4, "values": [0.5,0.5,0.3,0.3]},
+    {"name": "SolarTiming", "type": "float", "count": 4, "values": [0,0,0,1]}
+  ]
+}

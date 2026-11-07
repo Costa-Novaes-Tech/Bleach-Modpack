@@ -1,0 +1,35 @@
+{
+  "source": "build\\visual-lab\\run-benihime-qa\\v16-verified-smoke-off-day\\ryujin-bankai-qa\\cycle118-1794079833262\\13_irregular_day",
+  "files": [
+    {
+      "path": "frames.jsonl",
+      "bytes": 10930,
+      "sha256": "246baf505cfc93d88c5769f16e0973aced86fda9bd8017fa2324187be712f29e"
+    },
+    {
+      "path": "performance.json",
+      "bytes": 2434,
+      "sha256": "ab0279eed4472d19ea4edb97d13e4de2b99e5a43d1176629b9979ba5b6b64b96"
+    },
+    {
+      "path": "frame-times.csv",
+      "bytes": 34965,
+      "sha256": "ac217932045cd5e21a465164eb10751961d31313641553edb092dfea66983c24"
+    },
+    {
+      "path": "screenshots/frame-t112.png",
+      "bytes": 763544,
+      "sha256": "fbc67067670abdb67fb1f45ed72da1607ef5ab7cbf1235d4186656c98e2c7ed4"
+    },
+    {
+      "path": "screenshots/frame-t176.png",
+      "bytes": 780275,
+      "sha256": "0e9d73e48a8ad3228e2ff3d8a096ea0bff1f75a4de6a003d87a24960daadbe6f"
+    },
+    {
+      "path": "screenshots/frame-t220.png",
+      "bytes": 244215,
+      "sha256": "e7d01dbe3c83f0f47941ef58bf9b3213796f23fa9d6835b2d54093aebb54eeac"
+    }
+  ]
+}

@@ -32,6 +32,7 @@ public final class SyncHelper {
         PlayerCapability.get(player).ifPresent(data -> {
             CompoundTag tag = new CompoundTag();
             tag.put("resources", data.getResources().save());
+            tag.put("quincy", data.getQuincy().save());
             tag.put("senbonHud", com.bleachmod.common.technique.SenbonzakuraTechniqueService.hud(player));
             tag.put("benihimeHud",com.bleachmod.common.technique.BenihimeTechniqueService.hud(player));
             tag.put("guardView", data.getGuard().snapshot());
@@ -59,6 +60,9 @@ public final class SyncHelper {
             tag.put("releaseView", com.bleachmod.common.technique.ReleaseAnimationService.snapshot(player));
             tag.put("benihimeEntrance", com.bleachmod.common.technique.BenihimeEntranceService.snapshot(player));
             tag.put("hyorinmaruCinematic", com.bleachmod.common.technique.HyorinmaruCinematicService.snapshot(player));
+            tag.put("senbonzakuraCinematic", com.bleachmod.common.technique.SenbonzakuraCinematicService.snapshot(player));
+            tag.put("quincyForm",com.bleachmod.common.quincy.QuincyVollstandigService.snapshot(player));
+            tag.put("ryujinBankaiEntrance", com.bleachmod.common.technique.RyujinBankaiEntranceService.snapshot(player));
             tag.put("signatureView", com.bleachmod.common.technique.SignatureAnimationService.snapshot(player));
             tag.put("elementalView", com.bleachmod.common.technique.ElementalTechniqueService.snapshot(player));
             tag.put("appearance", data.getAppearance().save());
@@ -79,6 +83,9 @@ public final class SyncHelper {
             tag.put("releaseView", com.bleachmod.common.technique.ReleaseAnimationService.snapshot(subject));
             tag.put("benihimeEntrance", com.bleachmod.common.technique.BenihimeEntranceService.snapshot(subject));
             tag.put("hyorinmaruCinematic", com.bleachmod.common.technique.HyorinmaruCinematicService.snapshot(subject));
+            tag.put("senbonzakuraCinematic", com.bleachmod.common.technique.SenbonzakuraCinematicService.snapshot(subject));
+            tag.put("quincyForm",com.bleachmod.common.quincy.QuincyVollstandigService.snapshot(subject));
+            tag.put("ryujinBankaiEntrance", com.bleachmod.common.technique.RyujinBankaiEntranceService.snapshot(subject));
             tag.put("signatureView", com.bleachmod.common.technique.SignatureAnimationService.snapshot(subject));
             tag.put("elementalView", com.bleachmod.common.technique.ElementalTechniqueService.snapshot(subject));
             tag.put("appearance", data.getAppearance().save());

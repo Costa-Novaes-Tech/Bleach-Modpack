@@ -1,0 +1,12 @@
+// Redirect only the server QA task. ForgeGradle's client run configuration can
+// override JavaExec.workingDir; inspect the actual gameDirectory before claiming
+// client isolation (see Docs/poderes/ryujin-v9-pranchas-chamas-laboratorio-2026-11-05.md).
+gradle.projectsEvaluated {
+    def project = gradle.rootProject
+    project.tasks.configureEach {
+        if (name != 'runGameTestServer') return
+        def isolated = project.file('build/visual-lab/gametest-v9')
+        workingDir isolated
+        doFirst { isolated.mkdirs() }
+    }
+}

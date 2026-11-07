@@ -1,0 +1,26 @@
+{
+  "ryujin_voice_bankai.ogg": {
+    "unchanged": true,
+    "sha256": "9fa34cbfcbd98c8920aca417a389e06add88531c82f0f8b895da30dec1c625bb"
+  },
+  "ryujin_voice_name.ogg": {
+    "unchanged": true,
+    "sha256": "4c4b8fbbc8dd20c63517e39a23166c3365d7a971f8477c6501eada18736443d9"
+  },
+  "ash_soldier.png": {
+    "size": [
+      64,
+      32
+    ],
+    "mode": "RGBA",
+    "sha256": "dac8381eb261d3e75c1995b5e95f9140ee5c3f251ff37fe93d888311792e53e2"
+  },
+  "ash_soldier_embers.png": {
+    "size": [
+      64,
+      32
+    ],
+    "mode": "RGBA",
+    "sha256": "69bf692d85e1a9f6d8531d76f0d0bdb55376d2e55e8686ec73d1aa87e071ac04"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "source": "run-benihime-qa\\visual-final-matrix\\ryujin-bankai-qa\\cycle118-1793966174974\\05_near_wall",
+  "files": [
+    {
+      "path": "frames.jsonl",
+      "bytes": 8955,
+      "sha256": "b5b0fd289792b67863d29069fc4d07754c13466f065a42a7f8f8ee7712eefaaa"
+    },
+    {
+      "path": "performance.json",
+      "bytes": 606,
+      "sha256": "39f73c3923284907691da13b0b982586204c2498fa7f85878c0641c277c728ec"
+    },
+    {
+      "path": "frame-times.csv",
+      "bytes": 42825,
+      "sha256": "b02061f13e0f2bf9d009945ff7348c61b30824bf94da8eb083a401469a705c91"
+    },
+    {
+      "path": "screenshots/frame-t144.png",
+      "bytes": 680654,
+      "sha256": "faf9cbe5865e26ae8dcee5ac3f8200d09518b7a1a49989f099f8d93b3ff5374d"
+    }
+  ]
+}

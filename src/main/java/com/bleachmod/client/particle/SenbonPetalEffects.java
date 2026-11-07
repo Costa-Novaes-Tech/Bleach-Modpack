@@ -20,6 +20,10 @@ public final class SenbonPetalEffects {
     public static void draw(SenbonPetalsS2C m) {
         var mc=Minecraft.getInstance(); var level=mc.level;
         if (level==null || mc.player==null || !m.valid() || mc.player.distanceToSqr(m.origin())>96*96) return;
+        if (m.meleeTrail()) {
+            com.bleachmod.client.model.SenbonCombatVisuals.startMelee(m.ownerId(), m.pattern());
+            return;
+        }
         SenbonGardenFloor.accept(m);
         if(m.shape()==SWORDS || m.shape()==WINGS || m.shape()==LANCE)SenbonConstructRenderer.accept(m);
         if (previous!=level || tick!=level.getGameTime()) { previous=level; tick=level.getGameTime(); emitted=0; }
@@ -62,7 +66,7 @@ public final class SenbonPetalEffects {
             }
             if (!level.hasChunkAt(BlockPos.containing(p))) continue;
             v=v.add(wind);
-            if (m.shape()==LANCE && m.pattern()==0) level.addParticle(ParticleTypes.END_ROD,p.x,p.y,p.z,v.x,v.y,v.z);
+            if (m.shape()==LANCE && m.pattern()==0 && i%3==0) level.addParticle(ParticleTypes.END_ROD,p.x,p.y,p.z,v.x,v.y,v.z);
             else level.addParticle(ModParticles.SENBON_PETAL.get(),p.x,p.y,p.z,v.x,v.y,v.z);
             emitted++;
         }

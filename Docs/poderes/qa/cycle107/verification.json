@@ -1,0 +1,13 @@
+{
+  "source": "6ddf420",
+  "merge": "da73e58",
+  "branch": "Feature-Poderes-bankais",
+  "checkBuildExit": 0,
+  "regressions": 147,
+  "gameTestExit": 0,
+  "requiredPassed": 229,
+  "jarSha256": "b21b215d07a884cbcfd7d41a0d6aa8d7d1a085aa514f1e1d951eecd2b4b4c642",
+  "clientRerun": false,
+  "auditoryReview": false,
+  "designUncommittedChangesIncluded": false
+}

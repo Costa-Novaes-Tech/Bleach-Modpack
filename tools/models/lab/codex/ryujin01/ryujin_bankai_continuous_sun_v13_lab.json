@@ -1,0 +1,20 @@
+{
+  "source": "ryujin_bankai_sustained_sun_v10_lab.bbmodel",
+  "name": "ryujin_bankai_continuous_sun_v13_lab",
+  "cubes": 280,
+  "bones": 33,
+  "clip_seconds": 15,
+  "texture_size": [
+    256,
+    4096
+  ],
+  "texture_sha256": "86829008f7f885a27da41d60a6ad75b117ca408d362584fc96a4479d0a057f7d",
+  "world_position_bake_bottom": 1900,
+  "runtime_adopted": false,
+  "pending": [
+    "native UV/model checks",
+    "exact export",
+    "Forge comparison",
+    "human acceptance"
+  ]
+}

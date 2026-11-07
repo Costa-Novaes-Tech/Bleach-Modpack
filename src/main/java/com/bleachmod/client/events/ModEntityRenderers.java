@@ -28,6 +28,9 @@ public class ModEntityRenderers {
     public static void registerRenderers(
             EntityRenderersEvent.RegisterRenderers event
     ) {
+        event.registerEntityRenderer(ModEntities.QUINCY_ARROW.get(), com.bleachmod.client.quincy.QuincyArrowRenderer::new);
+        event.registerEntityRenderer(ModEntities.SEELE_SCHNEIDER_PROJECTILE.get(), com.bleachmod.client.quincy.SeeleSchneiderRenderer::new);
+        event.registerEntityRenderer(ModEntities.SPRENGER_NODE.get(), com.bleachmod.client.quincy.SprengerNodeRenderer::new);
         event.registerEntityRenderer(ModEntities.ICE_DRAGON.get(), com.bleachmod.client.model.IceDragonRenderer::new);
         event.registerEntityRenderer(
                 ModEntities.HOLLOW.get(),
@@ -53,6 +56,8 @@ public class ModEntityRenderers {
     }
 
     @SubscribeEvent public static void playerLayers(EntityRenderersEvent.AddLayers event) {
+        net.minecraft.client.renderer.entity.LivingEntityRenderer<net.minecraft.world.entity.monster.AbstractSkeleton, net.minecraft.client.model.SkeletonModel<net.minecraft.world.entity.monster.AbstractSkeleton>> ashRenderer = event.getRenderer(net.minecraft.world.entity.EntityType.WITHER_SKELETON);
+        if(ashRenderer!=null)ashRenderer.addLayer(new com.bleachmod.client.model.AshSoldierLayer(ashRenderer));
         for (String skin : event.getSkins()) {
             var renderer = event.getSkin(skin);
             if (renderer instanceof net.minecraft.client.renderer.entity.player.PlayerRenderer playerRenderer) {
@@ -71,6 +76,8 @@ public class ModEntityRenderers {
 
         @Override
         public ResourceLocation getTextureLocation(QuestNpcEntity entity) {
+            if (java.util.Set.of("jidanbo", "ganju", "kukaku", "hanataro", "ururu", "kon").contains(entity.getNpcId()))
+                return new ResourceLocation("minecraft", "textures/entity/player/wide/steve.png");
             return Reference.id("textures/entity/" + entity.getNpcId() + ".png");
         }
     }

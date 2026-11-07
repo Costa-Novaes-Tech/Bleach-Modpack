@@ -23,6 +23,11 @@ public class Quest {
         json.addProperty("repeatable", repeatable);
         json.addProperty("parallel", parallelObjectives);
         if (!questGiver.isBlank()) json.addProperty("quest_giver", questGiver);
+        if (story != null) {
+            JsonObject contract = story.toJson();
+            contract.remove("pending_content"); contract.remove("epilogue");
+            json.add("story", contract);
+        }
         JsonArray objectivesJson = new JsonArray(), rewardsJson = new JsonArray();
         objectives.forEach(o -> objectivesJson.add(o.toJson()));
         rewards.forEach(r -> rewardsJson.add(r.toJson()));
@@ -42,6 +47,11 @@ public class Quest {
     private final List<QuestReward> rewards = new ArrayList<>();
     private QuestPrerequisites prerequisites = new QuestPrerequisites();
     private String sagaId;
+    private StoryQuestInfo story;
+    public StoryQuestInfo getStory() { return story; }
+    public void setStory(StoryQuestInfo value) { story = value; }
+    public boolean isStory() { return story != null; }
+    public int getHudPriority() { return isStory() ? -1 : type.getHudPriority(); }
 
     public int getNumericId() {
         return numericId;
@@ -155,6 +165,7 @@ public class Quest {
         json.addProperty("type", type.name());
         json.addProperty("description", description);
         json.addProperty("category", category);
+        if (story != null) json.add("story", story.toJson());
         if (!questGiver.isBlank()) {
             json.addProperty("quest_giver", questGiver);
         }

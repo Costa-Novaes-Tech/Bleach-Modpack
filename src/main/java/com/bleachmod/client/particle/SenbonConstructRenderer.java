@@ -30,6 +30,7 @@ public final class SenbonConstructRenderer {
     private SenbonConstructRenderer() { }
     public static void accept(SenbonPetalsS2C m) {
         var level=Minecraft.getInstance().level;if(level==null)return;
+        if(m.shape()==SenbonPetalsS2C.WINGS){com.bleachmod.client.model.SenbonHakuteikenVisuals.accept(m);return;}
         var key=new Key(m.ownerId(),m.shape());
         if(!FRAMES.containsKey(key) && FRAMES.size()>=32)FRAMES.remove(FRAMES.keySet().iterator().next());
         var previous=FRAMES.get(key);long born=previous==null || previous.packet.pattern()!=m.pattern()?level.getGameTime():previous.born;

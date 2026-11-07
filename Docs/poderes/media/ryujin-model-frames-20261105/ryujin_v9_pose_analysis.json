@@ -1,0 +1,151 @@
+[
+  {
+    "animation": "animation.ryujin.flame_wall_v9_lab",
+    "length": 12,
+    "loop": "once",
+    "orientation": "The model FACES -z. Its own RIGHT is +x, its own LEFT is -x.",
+    "samples": 26,
+    "bones_with_keyframes": 9,
+    "total_keyframes": 54,
+    "per_bone": [
+      {
+        "bone": "chest",
+        "keyframes": 6,
+        "channels": [
+          "rotation"
+        ]
+      },
+      {
+        "bone": "head",
+        "keyframes": 6,
+        "channels": [
+          "rotation"
+        ]
+      },
+      {
+        "bone": "arm_upper_right",
+        "keyframes": 6,
+        "channels": [
+          "rotation"
+        ]
+      },
+      {
+        "bone": "arm_lower_right",
+        "keyframes": 6,
+        "channels": [
+          "rotation"
+        ]
+      },
+      {
+        "bone": "hand_right",
+        "keyframes": 6,
+        "channels": [
+          "rotation"
+        ]
+      },
+      {
+        "bone": "katana",
+        "keyframes": 6,
+        "channels": [
+          "rotation"
+        ]
+      },
+      {
+        "bone": "arm_upper_left",
+        "keyframes": 6,
+        "channels": [
+          "rotation"
+        ]
+      },
+      {
+        "bone": "arm_lower_left",
+        "keyframes": 6,
+        "channels": [
+          "rotation"
+        ]
+      },
+      {
+        "bone": "hand_left",
+        "keyframes": 6,
+        "channels": [
+          "rotation"
+        ]
+      }
+    ],
+    "motion": {
+      "head": {
+        "travel": 0.29,
+        "max_forward": 0,
+        "at_forward_time": 0.96,
+        "max_backward": 0.29,
+        "at_backward_time": 0,
+        "rise": 0,
+        "drop": -0.01,
+        "loop_gap": 0
+      },
+      "hips": {
+        "travel": 0,
+        "max_forward": 0,
+        "at_forward_time": 0,
+        "max_backward": 0,
+        "at_backward_time": 0,
+        "rise": 0,
+        "drop": 0,
+        "loop_gap": 0
+      },
+      "hand_right": {
+        "travel": 2.27,
+        "max_forward": 2.23,
+        "at_forward_time": 0,
+        "max_backward": 0,
+        "at_backward_time": 0.96,
+        "rise": 0.38,
+        "drop": 0,
+        "loop_gap": 0
+      },
+      "hand_left": {
+        "travel": 1.28,
+        "max_forward": 0,
+        "at_forward_time": 0.96,
+        "max_backward": 1.28,
+        "at_backward_time": 0,
+        "rise": 0.06,
+        "drop": 0,
+        "loop_gap": 0
+      },
+      "foot_right": {
+        "travel": 0,
+        "max_forward": 0,
+        "at_forward_time": 0,
+        "max_backward": 0,
+        "at_backward_time": 0,
+        "rise": 0,
+        "drop": 0,
+        "loop_gap": 0
+      },
+      "foot_left": {
+        "travel": 0,
+        "max_forward": 0,
+        "at_forward_time": 0,
+        "max_backward": 0,
+        "at_backward_time": 0,
+        "rise": 0,
+        "drop": 0,
+        "loop_gap": 0
+      }
+    },
+    "motion_legend": "Distances are in model units along the model's own axes. \"forward\" = -z (the way it faces).",
+    "direction_check": null,
+    "issue_count": 1,
+    "by_type": {
+      "all_linear": 1
+    },
+    "issues": [
+      {
+        "issue": "all_linear",
+        "hint": "Every keyframe is linear, which is what makes motion look mechanical. Use catmullrom for swings and settles; keep linear only for snappy impacts."
+      }
+    ],
+    "verdict": "Fix the issues above, then re-run analyze_animation — do not show this to the user yet."
+  }
+]

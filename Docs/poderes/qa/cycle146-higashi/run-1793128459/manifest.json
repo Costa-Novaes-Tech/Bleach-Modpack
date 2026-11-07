@@ -1,0 +1,56 @@
+{
+  "runId": "run-1793128459",
+  "branch": "codex/ryujin-bankai-sol-selamento",
+  "checkout": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-benihime",
+  "baseCommit": "0f3a1e1",
+  "timestamp": "2026-10-27T16:15:00-03:00",
+  "environment": {
+    "os": "Windows 11 amd64",
+    "java": "17.0.20.1 (Eclipse Adoptium)",
+    "renderer": "Intel(R) Iris(R) Xe Graphics",
+    "gradle": "8.8 (Forge 47.4.10, MC 1.20.1)"
+  },
+  "commands": [
+    {
+      "command": ".\\gradlew.bat compileJava --offline --console=plain",
+      "exitCode": 0
+    },
+    {
+      "command": ".\\gradlew.bat runGameTestServer --offline --console=plain",
+      "exitCode": 0,
+      "testsPassed": 237,
+      "testsFailed": 0
+    },
+    {
+      "command": ".\\gradlew.bat check build --offline --console=plain",
+      "exitCode": 0,
+      "regressionScenariosPassed": 149
+    },
+    {
+      "command": ".\\gradlew.bat runClient -PbenihimeQa=true -PcinematicQa=true -PhigashiPoseQa=true -PcinematicQaFast=true -PqaAutoExit=true --offline --console=plain",
+      "exitCode": 0,
+      "scenariosEvaluated": 5,
+      "scenariosPassed": 5
+    }
+  ],
+  "fileHashes": {
+    "src/main/java/com/bleachmod/client/cinematic/CinematicQaCommands.java": "be781064c64456626bbabd4e7593967a2674875db1c1120b3a2a972d8d8eb9ec",
+    "src/main/java/com/bleachmod/client/cinematic/CinematicQaSequence.java": "1de32014af46b11a1e1861d9c4c5ff9c5375c95e9c3c58cf59b5e0a335250943",
+    "src/main/java/com/bleachmod/client/model/ElementalActionVisuals.java": "1061a9843a82f606e75fb1ca6ddde0cb7e47a6f5dfa1e5dcad682a06285acf0e",
+    "src/main/java/com/bleachmod/client/model/HigashiExecutionVisuals.java": "af0a94e909397021a8f0da5e5c9b88c9c4201d66473f75444bbdf4d73290fd4d",
+    "src/main/java/com/bleachmod/common/network/s2c/HigashiExecutionS2C.java": "773fc2690194c916407e51a206a35650b2d9a2cd33063fe267c44a5df901b53a",
+    "src/main/java/com/bleachmod/common/technique/ElementalTechniqueService.java": "ab9ca5cbfe5918e8ce89b596fdccde0e21cee955f6a4b3959ee8d5b3a9d28fd6",
+    "src/main/java/com/bleachmod/common/technique/HigashiExecutionService.java": "bd352064e3ea3ef6284157aff75d70a73b9b856d3a34b05544e4b45b3a13697c",
+    "src/main/java/com/bleachmod/mixin/client/HigashiDeathParticleMixin.java": "3e3ccdd2463f5a2fa25dcdde243d944b33c44de60c065d715a9a6031358d43b2",
+    "src/main/java/com/bleachmod/gametest/HigashiExecutionGameTests.java": "d0e320bcad4beecb38c62bcf15d5bff46978327ea328169ce49d80a27aa46ba8"
+  },
+  "scenarios": {
+    "lethal_husk": "1793128459865-lethal_husk",
+    "lethal_flying": "1793128467874-lethal_flying",
+    "threshold_real": "1793128475883-threshold_real",
+    "survive": "1793128483856-survive",
+    "miss": "1793128491873-miss"
+  },
+  "screenshotsCount": 71,
+  "timelineEntriesCount": 71
+}

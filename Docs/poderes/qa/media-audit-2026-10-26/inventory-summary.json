@@ -1,0 +1,353 @@
+[
+  {
+    "name": "20261020_141842.mp4",
+    "category": "Sem vínculo localizado",
+    "MiB": 55.126,
+    "duration_s": 29.9,
+    "exact_refs": 0,
+    "hash_refs": 0,
+    "copies": 0
+  },
+  {
+    "name": "20261020_142226.mp4",
+    "category": "Sem vínculo localizado",
+    "MiB": 9.682,
+    "duration_s": 28.81,
+    "exact_refs": 0,
+    "hash_refs": 0,
+    "copies": 0
+  },
+  {
+    "name": "bankai_comparison_original_30s.mp3",
+    "category": "Versão MP3 correspondente",
+    "MiB": 0.688,
+    "duration_s": 30.04,
+    "exact_refs": 2,
+    "hash_refs": 2,
+    "copies": 0
+  },
+  {
+    "name": "bankai_comparison_original_30s_final.wav",
+    "category": "Fonte histórica",
+    "MiB": 5.047,
+    "duration_s": 30.0,
+    "exact_refs": 4,
+    "hash_refs": 4,
+    "copies": 0
+  },
+  {
+    "name": "bankai_final_ordered_30s.mp3",
+    "category": "Versão MP3 correspondente",
+    "MiB": 0.688,
+    "duration_s": 30.02,
+    "exact_refs": 2,
+    "hash_refs": 2,
+    "copies": 0
+  },
+  {
+    "name": "bankai_final_ordered_30s.wav",
+    "category": "Fonte WAV atual",
+    "MiB": 21.973,
+    "duration_s": 30.0,
+    "exact_refs": 14,
+    "hash_refs": 8,
+    "copies": 0
+  },
+  {
+    "name": "Bankai_voice_clean.mp3",
+    "category": "Versão MP3 correspondente",
+    "MiB": 0.022,
+    "duration_s": 0.94,
+    "exact_refs": 2,
+    "hash_refs": 2,
+    "copies": 0
+  },
+  {
+    "name": "Bankai_voice_clean.wav",
+    "category": "Fonte WAV atual",
+    "MiB": 0.33,
+    "duration_s": 0.9,
+    "exact_refs": 10,
+    "hash_refs": 6,
+    "copies": 0
+  },
+  {
+    "name": "Bing Vídeos.mp4",
+    "category": "Vídeo de referência / QA",
+    "MiB": 14.389,
+    "duration_s": 90.01,
+    "exact_refs": 2,
+    "hash_refs": 0,
+    "copies": 0
+  },
+  {
+    "name": "Daiguren_Bankai_voice_clean.mp3",
+    "category": "Versão MP3 correspondente",
+    "MiB": 0.025,
+    "duration_s": 1.08,
+    "exact_refs": 0,
+    "hash_refs": 0,
+    "copies": 0
+  },
+  {
+    "name": "Daiguren_Bankai_voice_clean.wav",
+    "category": "Fonte WAV atual",
+    "MiB": 0.385,
+    "duration_s": 1.05,
+    "exact_refs": 8,
+    "hash_refs": 6,
+    "copies": 2
+  },
+  {
+    "name": "daiguren_hyorinmaru_ice_theme_adapted_20s.mp3",
+    "category": "Versão MP3 correspondente",
+    "MiB": 0.459,
+    "duration_s": 20.04,
+    "exact_refs": 0,
+    "hash_refs": 0,
+    "copies": 0
+  },
+  {
+    "name": "daiguren_hyorinmaru_ice_theme_adapted_20s.wav",
+    "category": "Fonte WAV atual",
+    "MiB": 14.649,
+    "duration_s": 20.0,
+    "exact_refs": 4,
+    "hash_refs": 2,
+    "copies": 0
+  },
+  {
+    "name": "Daiguren_Hyorinmaru_voice_clean.mp3",
+    "category": "Versão MP3 correspondente",
+    "MiB": 0.059,
+    "duration_s": 2.54,
+    "exact_refs": 0,
+    "hash_refs": 0,
+    "copies": 0
+  },
+  {
+    "name": "Daiguren_Hyorinmaru_voice_clean.wav",
+    "category": "Fonte WAV atual",
+    "MiB": 0.916,
+    "duration_s": 2.5,
+    "exact_refs": 4,
+    "hash_refs": 2,
+    "copies": 0
+  },
+  {
+    "name": "Gravando 2026-09-20 193722.mp4",
+    "category": "Vídeo de referência / QA",
+    "MiB": 36.78,
+    "duration_s": 37.43,
+    "exact_refs": 0,
+    "hash_refs": 0,
+    "copies": 0
+  },
+  {
+    "name": "Gravando 2026-10-20 201016.mp4",
+    "category": "Vídeo de referência / QA",
+    "MiB": 462.27,
+    "duration_s": 461.13,
+    "exact_refs": 4,
+    "hash_refs": 2,
+    "copies": 0
+  },
+  {
+    "name": "Gravando 2026-10-23 161602.mp4",
+    "category": "Vídeo de referência / QA",
+    "MiB": 35.301,
+    "duration_s": 32.5,
+    "exact_refs": 0,
+    "hash_refs": 0,
+    "copies": 0
+  },
+  {
+    "name": "Gravando 2026-10-23 182203.mp4",
+    "category": "Sem vínculo localizado",
+    "MiB": 73.322,
+    "duration_s": 70.53,
+    "exact_refs": 0,
+    "hash_refs": 0,
+    "copies": 0
+  },
+  {
+    "name": "Gravando 2026-10-25 150636.mp4",
+    "category": "Vídeo de referência / QA",
+    "MiB": 19.165,
+    "duration_s": 17.47,
+    "exact_refs": 1,
+    "hash_refs": 0,
+    "copies": 0
+  },
+  {
+    "name": "Gravando 2026-10-25 164851.mp4",
+    "category": "Vídeo de referência / QA",
+    "MiB": 82.486,
+    "duration_s": 82.0,
+    "exact_refs": 4,
+    "hash_refs": 0,
+    "copies": 0
+  },
+  {
+    "name": "Gravando 2026-10-26 131228.mp4",
+    "category": "Vídeo de referência / QA",
+    "MiB": 264.434,
+    "duration_s": 263.3,
+    "exact_refs": 3,
+    "hash_refs": 1,
+    "copies": 0
+  },
+  {
+    "name": "Kannonbiraki_Benihime_Aratame_voice_clean.mp3",
+    "category": "Versão MP3 correspondente",
+    "MiB": 0.096,
+    "duration_s": 4.15,
+    "exact_refs": 2,
+    "hash_refs": 2,
+    "copies": 0
+  },
+  {
+    "name": "Kannonbiraki_Benihime_Aratame_voice_clean.wav",
+    "category": "Fonte WAV atual",
+    "MiB": 1.51,
+    "duration_s": 4.12,
+    "exact_refs": 14,
+    "hash_refs": 8,
+    "copies": 0
+  },
+  {
+    "name": "Senbonzakura_Bankai_complete_voice.mp3",
+    "category": "Versão MP3 correspondente",
+    "MiB": 0.077,
+    "duration_s": 3.34,
+    "exact_refs": 0,
+    "hash_refs": 0,
+    "copies": 0
+  },
+  {
+    "name": "Senbonzakura_Bankai_complete_voice.wav",
+    "category": "Fonte WAV atual",
+    "MiB": 1.209,
+    "duration_s": 3.3,
+    "exact_refs": 7,
+    "hash_refs": 1,
+    "copies": 0
+  },
+  {
+    "name": "Senbonzakura_Kageyoshi_best_voice.mp3",
+    "category": "Versão MP3 correspondente",
+    "MiB": 0.078,
+    "duration_s": 3.38,
+    "exact_refs": 0,
+    "hash_refs": 0,
+    "copies": 0
+  },
+  {
+    "name": "Senbonzakura_Kageyoshi_best_voice.wav",
+    "category": "Fonte WAV atual",
+    "MiB": 1.227,
+    "duration_s": 3.35,
+    "exact_refs": 7,
+    "hash_refs": 1,
+    "copies": 0
+  },
+  {
+    "name": "Senbonzakura_music_only_extended30s.mp3",
+    "category": "Versão MP3 correspondente",
+    "MiB": 0.688,
+    "duration_s": 30.02,
+    "exact_refs": 0,
+    "hash_refs": 0,
+    "copies": 0
+  },
+  {
+    "name": "Senbonzakura_music_only_extended30s.wav",
+    "category": "Fonte WAV atual",
+    "MiB": 21.973,
+    "duration_s": 30.0,
+    "exact_refs": 5,
+    "hash_refs": 1,
+    "copies": 0
+  },
+  {
+    "name": "WhatsApp Audio 2026-10-09 at 17.33.11.ogg",
+    "category": "Sem vínculo localizado",
+    "MiB": 0.501,
+    "duration_s": 228.81,
+    "exact_refs": 0,
+    "hash_refs": 0,
+    "copies": 0
+  },
+  {
+    "name": "WhatsApp Video 2026-10-16 at 09.12.56.mp4",
+    "category": "Vídeo de referência / QA",
+    "MiB": 65.046,
+    "duration_s": 48.97,
+    "exact_refs": 2,
+    "hash_refs": 0,
+    "copies": 0
+  },
+  {
+    "name": "WhatsApp Video 2026-10-16 at 09.24.13.mp4",
+    "category": "Sem vínculo localizado",
+    "MiB": 10.313,
+    "duration_s": 71.24,
+    "exact_refs": 0,
+    "hash_refs": 0,
+    "copies": 0
+  },
+  {
+    "name": "Zanka_no_Tachi_Bankai_fixed.mp3",
+    "category": "Versão MP3 correspondente",
+    "MiB": 0.032,
+    "duration_s": 1.39,
+    "exact_refs": 0,
+    "hash_refs": 0,
+    "copies": 0
+  },
+  {
+    "name": "Zanka_no_Tachi_Bankai_fixed.wav",
+    "category": "Fonte WAV atual",
+    "MiB": 0.494,
+    "duration_s": 1.35,
+    "exact_refs": 2,
+    "hash_refs": 0,
+    "copies": 0
+  },
+  {
+    "name": "Zanka_no_Tachi_name_fixed.mp3",
+    "category": "Versão MP3 correspondente",
+    "MiB": 0.071,
+    "duration_s": 3.1,
+    "exact_refs": 0,
+    "hash_refs": 0,
+    "copies": 0
+  },
+  {
+    "name": "Zanka_no_Tachi_name_fixed.wav",
+    "category": "Fonte histórica",
+    "MiB": 1.117,
+    "duration_s": 3.05,
+    "exact_refs": 2,
+    "hash_refs": 0,
+    "copies": 0
+  },
+  {
+    "name": "Zanka_no_Tachi_only_main_voice.mp3",
+    "category": "Versão MP3 correspondente",
+    "MiB": 0.053,
+    "duration_s": 2.28,
+    "exact_refs": 0,
+    "hash_refs": 0,
+    "copies": 0
+  },
+  {
+    "name": "Zanka_no_Tachi_only_main_voice.wav",
+    "category": "Fonte WAV atual",
+    "MiB": 0.82,
+    "duration_s": 2.24,
+    "exact_refs": 3,
+    "hash_refs": 0,
+    "copies": 0
+  }
+]

@@ -1,0 +1,12 @@
+{
+  "name": "ryujin_bankai_flame_wall_v9_lab",
+  "source": "ryujin_bankai_activation_scene_v7_lab.bbmodel",
+  "cubes": 244,
+  "bones": 66,
+  "duration_seconds": 12,
+  "front": "-Z",
+  "rear_flames": "+Z",
+  "actor_right": "+X in this source mannequin",
+  "purpose": "editable staging model, not runtime export or player skin",
+  "pending": "runtime adoption and artistic QA; replace staging fire with runtime particles/materials"
+}

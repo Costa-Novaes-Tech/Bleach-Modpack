@@ -1,0 +1,93 @@
+diff --git a/src/main/java/com/bleachmod/client/cinematic/CinematicQaCommands.java b/src/main/java/com/bleachmod/client/cinematic/CinematicQaCommands.java
+index 23e8e5f..fa31f73 100644
+--- a/src/main/java/com/bleachmod/client/cinematic/CinematicQaCommands.java
++++ b/src/main/java/com/bleachmod/client/cinematic/CinematicQaCommands.java
+@@ -101,12 +101,13 @@ public final class CinematicQaCommands {
+         p.setItemSlot(EquipmentSlot.MAINHAND,new ItemStack(ModItems.RYUJIN_JAKKA.get()));
+         p.setItemSlot(EquipmentSlot.OFFHAND,ItemStack.EMPTY);
+         p.teleportTo(p.serverLevel(),p.getX(),p.getY(),p.getZ(),0,0);
+-        var target=EntityType.HUSK.create(p.serverLevel());if(target==null)return;
++        net.minecraft.world.entity.Mob target=scenario.equals("threshold") ? com.bleachmod.registry.ModEntities.HOLLOW.get().create(p.serverLevel()) : EntityType.HUSK.create(p.serverLevel());if(target==null)return;
++        if(target instanceof com.bleachmod.entity.HollowEntity hollow)hollow.setVariant(com.bleachmod.entity.HollowVariant.FLYING);
+         Vec3 at=p.position().add(scenario.equals("miss")?6:0,0,3);
+         target.setPos(at);target.setYRot(180);target.setNoAi(true);target.setNoGravity(true);target.setPersistenceRequired();
+         target.getAttribute(Attributes.ARMOR).setBaseValue(0);
+-        target.getAttribute(Attributes.MAX_HEALTH).setBaseValue((scenario.equals("survive")||scenario.equals("miss"))?1000:scenario.equals("threshold")?100:20);
+-        target.setHealth((scenario.equals("survive")||scenario.equals("miss"))?1000:scenario.equals("threshold")?7:10);
++        target.getAttribute(Attributes.MAX_HEALTH).setBaseValue((scenario.equals("survive")||scenario.equals("miss"))?1000:20);
++        target.setHealth((scenario.equals("survive")||scenario.equals("miss"))?1000:10);
+         target.getPersistentData().putUUID(TARGET,p.getUUID());
+         if(!p.level().noCollision(target,target.getBoundingBox())||!p.serverLevel().addFreshEntity(target))return;
+         SyncHelper.full(p);SyncHelper.appearance(p);
+diff --git a/src/main/java/com/bleachmod/client/cinematic/CinematicQaSequence.java b/src/main/java/com/bleachmod/client/cinematic/CinematicQaSequence.java
+index c38b1ac..5900029 100644
+--- a/src/main/java/com/bleachmod/client/cinematic/CinematicQaSequence.java
++++ b/src/main/java/com/bleachmod/client/cinematic/CinematicQaSequence.java
+@@ -36,6 +36,7 @@ public final class CinematicQaSequence {
+         var mc=Minecraft.getInstance();if(mc.screen!=null||mc.isPaused())return;
+         if(scenario!=null)seenExecution|=com.bleachmod.client.model.HigashiExecutionVisuals.localExecutionActive();
+         if(stage==0&&BenihimeQaBootstrap.automatedFinished()){
++            if(++wait<120)return; // Proof141: stabilize chunks before the first lethal capture.
+             if(Boolean.getBoolean("bleachmod.cinematicQaFast")){start("lethal");stage=4;wait=0;}
+             else {stage=1;wait=0;command("cinematicqa terrain");}
+         }else if(stage==1&&++wait>=20){
+@@ -52,6 +53,7 @@ public final class CinematicQaSequence {
+             start("miss");stage=7;wait=0;
+         }else if(stage==7&&++wait>=160){
+             finish();scenario=null;stage=8;
++            if(Boolean.getBoolean("bleachmod.qaAutoExit"))mc.stop();
+             com.mojang.logging.LogUtils.getLogger().info("Cinematic QA 77 automatic sequence complete; client remains available for manual testing");
+             mc.player.displayClientMessage(net.minecraft.network.chat.Component.literal("Testes: /cinematicqa benihime | /cinematicqa higashi lethal | threshold | survive | miss"),false);
+         }
+@@ -73,14 +75,14 @@ public final class CinematicQaSequence {
+         int stride=Boolean.getBoolean("bleachmod.higashiPoseQa")?1:2;
+         if(elapsed>130||elapsed/stride<=lastFrame)return;lastFrame=elapsed/stride;
+         int age=elapsed-20;
+-        String phase=age<0?"SETUP":age<10?"DRAW":age<16?"CUT":age<56?"HOLD":age<72?"IGNITE":age<88?"ASH":"RETURN";
++        String phase=age<0?"SETUP":age<10?"DRAW":age<16?"CUT":age<36?"HOLD":age<48?"IGNITE":age<68?"ASH":"RETURN";
+         String file=String.format(Locale.ROOT,"frame-%04d-t%04d-%s.png",serial++,elapsed,phase);
+         try{
+             Files.createDirectories(evidence.toPath());
+             Screenshot.grab(evidence,file,mc.getMainRenderTarget(),message->{});
+             String row=String.format(Locale.ROOT,"{\"file\":\"screenshots/%s\",\"gameTick\":%d,\"wallMs\":%d,\"phase\":\"%s\",\"view\":\"%s\",\"scenario\":\"%s\",\"fpsObserved\":%d,\"width\":%d,\"height\":%d,\"origin\":[%.4f,%.4f,%.4f],\"source\":\"Minecraft Screenshot.grab framebuffer\"}%n",
+                     file,elapsed,System.currentTimeMillis(),phase,mc.options.getCameraType()==net.minecraft.client.CameraType.THIRD_PERSON_BACK?"side":"front",scenario,mc.getFps(),mc.getWindow().getWidth(),mc.getWindow().getHeight(),mc.player.getX(),mc.player.getY(),mc.player.getZ());
+-            var metadata=com.google.gson.JsonParser.parseString(row).getAsJsonObject();metadata.addProperty("executionCamera",com.bleachmod.client.model.HigashiExecutionVisuals.localExecutionActive());
++            var metadata=com.google.gson.JsonParser.parseString(row).getAsJsonObject();metadata.addProperty("caseNote",scenario.equals("threshold")?"flying hollow normal lethal, not threshold":"normal lethal/control");metadata.addProperty("executionCamera",com.bleachmod.client.model.HigashiExecutionVisuals.localExecutionActive());
+             row=metadata.toString()+System.lineSeparator();
+             Files.writeString(evidence.toPath().resolve("frames.jsonl"),row,StandardOpenOption.CREATE,StandardOpenOption.APPEND);
+             if(serial==1){
+diff --git a/src/main/java/com/bleachmod/client/model/HigashiExecutionVisuals.java b/src/main/java/com/bleachmod/client/model/HigashiExecutionVisuals.java
+index f90ec42..7ee1712 100644
+--- a/src/main/java/com/bleachmod/client/model/HigashiExecutionVisuals.java
++++ b/src/main/java/com/bleachmod/client/model/HigashiExecutionVisuals.java
+@@ -30,6 +30,7 @@ import java.util.*;
+ public final class HigashiExecutionVisuals {
+     private record Burn(HigashiExecutionS2C packet,long start,net.minecraft.world.entity.LivingEntity silhouette){ }
+     private static boolean renderingSilhouette;
++    private static long proofSuppressedTick=Long.MIN_VALUE,proofSilhouetteTick=Long.MIN_VALUE;
+     private record Pose(HigashiExecutionS2C packet,long start){ }
+     private static final Map<Integer,Burn> BURNS=new LinkedHashMap<>();
+     private static final Map<Integer,Pose> POSES=new LinkedHashMap<>();
+@@ -123,7 +124,11 @@ public final class HigashiExecutionVisuals {
+         var burn=BURNS.get(entity);return burn!=null&&world==Minecraft.getInstance().level&&now()-burn.start<HigashiCinematicPath.END;
+     }
+     public static boolean shouldSuppressEntity(int entity){
+-        return !renderingSilhouette && isExecuting(entity);
++        boolean suppressed=!renderingSilhouette && isExecuting(entity);
++        if(suppressed && Boolean.getBoolean("bleachmod.higashiPoseQa") && proofSuppressedTick!=now()){
++            proofSuppressedTick=now();com.mojang.logging.LogUtils.getLogger().info("PROOF141 original render blocked entity={} tick={}",entity,now());
++        }
++        return suppressed;
+     }
+     public static boolean holdingCorpse(int entity){
+         return isExecuting(entity);
+@@ -210,6 +215,9 @@ public final class HigashiExecutionVisuals {
+         for(var b:BURNS.values()){
+             var actor=b.silhouette;if(actor==null)continue;
+             long elapsed=now-b.start;
++            if(Boolean.getBoolean("bleachmod.higashiPoseQa") && proofSilhouetteTick!=now && elapsed%4==0){
++                proofSilhouetteTick=now;com.mojang.logging.LogUtils.getLogger().info("PROOF141 silhouette target={} type={} elapsed={} variant={} originalPresent={}",b.packet.target(),actor.getType(),elapsed,actor instanceof com.bleachmod.entity.HollowEntity h?h.getVariant():"vanilla",mc.level.getEntity(b.packet.target())!=null);
++            }
+             if(elapsed<0||elapsed>=HigashiCinematicPath.IGNITE+12)continue;
+             if(mc.player==null||mc.player.distanceToSqr(b.packet.victim())>80*80)continue;
+             float alpha=(elapsed<=HigashiCinematicPath.IGNITE)?1.0F:Math.max(0.0F,1.0F-(float)(elapsed-HigashiCinematicPath.IGNITE)/12.0F);

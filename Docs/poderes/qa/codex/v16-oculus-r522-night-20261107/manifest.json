@@ -1,0 +1,50 @@
+{
+  "source": "build\\visual-lab\\run-benihime-qa\\v16-polish-oculus-night\\ryujin-bankai-qa\\cycle118-1794080085135\\02_night_front",
+  "files": [
+    {
+      "path": "frames.jsonl",
+      "bytes": 10660,
+      "sha256": "842381466d2f6872a90382c7be894d7bbb1fed559fd68f89d48c8dfe61e7f99e"
+    },
+    {
+      "path": "performance.json",
+      "bytes": 2451,
+      "sha256": "6914f4247bba659a2952c2fecd08e9351c2aa372f1590121b12623e6ff2277a7"
+    },
+    {
+      "path": "frame-times.csv",
+      "bytes": 29381,
+      "sha256": "d9510609bc3c07eadf761dc7eee5227500fcaa60769c683c62efac9cb4d2a3e7"
+    },
+    {
+      "path": "screenshots/frame-t039.png",
+      "bytes": 1087073,
+      "sha256": "70ddbde6dc6ea66493796f6737f24bb8532d1936aa584d05b26389bdc994c032"
+    },
+    {
+      "path": "screenshots/frame-t112.png",
+      "bytes": 946846,
+      "sha256": "2aff8d9a4249490c42df5128b4f1f0990d8a4d13fb13718f048a217503272916"
+    },
+    {
+      "path": "screenshots/frame-t176.png",
+      "bytes": 988276,
+      "sha256": "17cce275edb4daf8ecec1b729aad61179c3b5bff072466f7679e8e166fcbbb87"
+    },
+    {
+      "path": "screenshots/frame-t194.png",
+      "bytes": 1006893,
+      "sha256": "4bc086b086adc15ad7f5429a62f1aff068c688c09e492be37f672b74a986a41a"
+    },
+    {
+      "path": "screenshots/frame-t202.png",
+      "bytes": 830931,
+      "sha256": "bfcf1e39439776ca4f877c49162375ed54c6e9e7de682a69e3e0cfc1809f4ddf"
+    },
+    {
+      "path": "screenshots/frame-t220.png",
+      "bytes": 724303,
+      "sha256": "ec167023a3a50f42d0c3c8cfc8b70e76249ccea093384091efbd618e9017dae3"
+    }
+  ]
+}

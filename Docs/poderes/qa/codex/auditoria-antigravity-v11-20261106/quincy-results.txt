@@ -1,0 +1,6 @@
+emergence-back PASS stage=0 clip=emergence bones=11 cubes=52 satellites=4 runtime=geckolib failure=null
+idle-back PASS stage=1 clip=idle bones=11 cubes=52 satellites=4 runtime=geckolib failure=null
+idle-profile PASS stage=2 clip=idle bones=11 cubes=52 satellites=4 runtime=geckolib failure=null
+arsenal-left-front PASS stage=3 clip=arsenal_left bones=11 cubes=52 satellites=4 runtime=geckolib failure=null
+arsenal-right-front PASS stage=4 clip=arsenal_right bones=11 cubes=52 satellites=4 runtime=geckolib failure=null
+settle-recoil PASS stage=5 clip=settle bones=11 cubes=52 satellites=4 runtime=geckolib failure=null

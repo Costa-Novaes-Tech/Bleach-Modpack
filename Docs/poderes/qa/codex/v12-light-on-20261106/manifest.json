@@ -1,0 +1,70 @@
+{
+  "source": "run-benihime-qa\\visual-light-probe\\ryujin-bankai-qa\\cycle118-1793964161621\\02_night_front",
+  "files": [
+    {
+      "path": "frames.jsonl",
+      "bytes": 8299,
+      "sha256": "88ffa7448fd4cc9e15ff1a9b3c68e7d6df31fc0129dafab4dd79118cd4b6b9d4"
+    },
+    {
+      "path": "performance.json",
+      "bytes": 304,
+      "sha256": "6eac996553dd36d58874b357e047d87997e84bd09eda414d9d7f0fbf210c1df1"
+    },
+    {
+      "path": "frame-times.csv",
+      "bytes": 20209,
+      "sha256": "1b93492e7be7667a8dd74ec660b58a7b889e6965357cd1c88cd426cafa5283e1"
+    },
+    {
+      "path": "screenshots/frame-t000.png",
+      "bytes": 306591,
+      "sha256": "1acae2baac9a36257cbdbdc901559a9c1095082bc4413f683a8f8fe50f5d72b4"
+    },
+    {
+      "path": "screenshots/frame-t040.png",
+      "bytes": 497186,
+      "sha256": "1c78a6b7e263d676ee8b52ceccf4249b6fc2b18bd26e95978592646ee942b519"
+    },
+    {
+      "path": "screenshots/frame-t050.png",
+      "bytes": 580277,
+      "sha256": "382557e7a92b8c4d376e7eba7c576b508a791f65782e8b42cd5d0b3456e56154"
+    },
+    {
+      "path": "screenshots/frame-t070.png",
+      "bytes": 466105,
+      "sha256": "9d74f01689c2ce462c0e8fd8fef8a8d7661376ff4ea88b2f3936448aa497c4b4"
+    },
+    {
+      "path": "screenshots/frame-t084.png",
+      "bytes": 468814,
+      "sha256": "c2d443fd7c030bb615d8cf0f1a75625f102ed845af1342ade815372b5df83f09"
+    },
+    {
+      "path": "screenshots/frame-t112.png",
+      "bytes": 540803,
+      "sha256": "4fde92d2bb76200cac1503bd884fdc2056a8b296d2c4923a5a11139f32517e98"
+    },
+    {
+      "path": "screenshots/frame-t144.png",
+      "bytes": 541066,
+      "sha256": "f4db4aabb5fc4d2c75a456f4ede18bbaaea1605cbee5184486ec82fe87e4832e"
+    },
+    {
+      "path": "screenshots/frame-t175.png",
+      "bytes": 542447,
+      "sha256": "c4fa295da6e44fc000cfd3deb2d35d6106b117ca1da0be28a5cc8a739ecd50c5"
+    },
+    {
+      "path": "screenshots/frame-t300.png",
+      "bytes": 321939,
+      "sha256": "1c0df7d1adaaaeb35e8fde3fd8acdb1d61ce7c3104d022b554e5f5c534ee9d0a"
+    },
+    {
+      "path": "client.log",
+      "bytes": 217918,
+      "sha256": "2860045deafdecd3794c131c0e80d50b4c4a5c5d4ae921254ed0427868b005ba"
+    }
+  ]
+}

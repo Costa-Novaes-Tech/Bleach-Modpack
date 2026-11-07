@@ -1,0 +1,7 @@
+benihime-all PASS camera=FIRST_PERSON failure=null
+quincy PASS camera=FIRST_PERSON failure=null
+senbon-all PASS camera=FIRST_PERSON failure=null
+cheats-off PASS camera=FIRST_PERSON failure=null
+benihime-entrance PASS camera=THIRD_PERSON_BACK failure=null
+reset-camera PASS camera=FIRST_PERSON failure=null
+help PASS camera=FIRST_PERSON failure=null

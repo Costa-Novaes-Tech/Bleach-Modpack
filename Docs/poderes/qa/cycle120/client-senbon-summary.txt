@@ -1,0 +1,12 @@
+[18:13:43] [Server thread/INFO] [co.bl.cl.ci.SenbonzakuraCombatQaSequence/]: Senbonzakura Combat QA prepared 01_combo_front target=3 index=0
+[18:13:50] [Server thread/INFO] [co.bl.cl.ci.SenbonzakuraCombatQaSequence/]: Senbonzakura Combat QA prepared 02_combo_profile target=5 index=1
+[18:13:57] [Server thread/INFO] [co.bl.cl.ci.SenbonzakuraCombatQaSequence/]: Senbonzakura Combat QA prepared 03_combo_back target=7 index=2
+[18:14:04] [Server thread/INFO] [co.bl.cl.ci.SenbonzakuraCombatQaSequence/]: Senbonzakura Combat QA prepared 04_hakuteiken_front target=9 index=3
+[18:14:06] [Server thread/INFO] [co.bl.cl.ci.SenbonzakuraCombatQaSequence/]: Senbonzakura Combat QA cast Hakuteiken: busy=true blade=0
+[18:14:11] [Server thread/INFO] [co.bl.cl.ci.SenbonzakuraCombatQaSequence/]: Senbonzakura Combat QA prepared 05_hakuteiken_profile target=11 index=4
+[18:14:13] [Server thread/INFO] [co.bl.cl.ci.SenbonzakuraCombatQaSequence/]: Senbonzakura Combat QA cast Hakuteiken: busy=true blade=0
+[18:14:18] [Server thread/INFO] [co.bl.cl.ci.SenbonzakuraCombatQaSequence/]: Senbonzakura Combat QA prepared 06_hakuteiken_back target=13 index=5
+[18:14:20] [Server thread/INFO] [co.bl.cl.ci.SenbonzakuraCombatQaSequence/]: Senbonzakura Combat QA cast Hakuteiken: busy=true blade=0
+[18:14:25] [Render thread/INFO] [co.bl.cl.ci.SenbonzakuraCombatQaSequence/]: Senbonzakura Combat QA sequence COMPLETE: All 6 scenarios executed & captured!
+[18:14:25] [Render thread/INFO] [minecraft/ChatComponent]: [System] [CHAT] [Senbonzakura Combat QA] Validation complete!
+BUILD SUCCESSFUL in 1m 54s

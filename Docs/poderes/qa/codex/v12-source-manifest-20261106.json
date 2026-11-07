@@ -1,0 +1,121 @@
+{
+  "branch": "Feature-Poderes-bankais",
+  "head": "9eb6a057b757e6b3e477ebaff447d8379922ffa1",
+  "files": [
+    {
+      "path": "build.gradle",
+      "bytes": 23295,
+      "sha256": "39972b6d0fd2ca602965b332a475861ff1931c5b3e57ca50a70ddd4429bf60c6"
+    },
+    {
+      "path": "build/libs/bleachmod-0.2.0.jar",
+      "bytes": 19245892,
+      "sha256": "60e15e709b8b038455426f20d6498f6eb2e85fc2efafaaac766470c90e6914f6"
+    },
+    {
+      "path": "src/main/java/com/bleachmod/client/ClientVisualConfig.java",
+      "bytes": 2649,
+      "sha256": "1219d530bbdc0e5994c3873bbafa08fcedee214dc70f81dcfd2c56d6e32050b4"
+    },
+    {
+      "path": "src/main/java/com/bleachmod/client/cinematic/RyujinBankaiAudio.java",
+      "bytes": 7449,
+      "sha256": "370b847176dddfeba0415109d5817c10439364895b674d9907c61c553ac4e844"
+    },
+    {
+      "path": "src/main/java/com/bleachmod/client/cinematic/RyujinBankaiEntranceClient.java",
+      "bytes": 21739,
+      "sha256": "2c3349b28bf7cda2850e26823b1d8450434568c3d564d00000e021921bc8a449"
+    },
+    {
+      "path": "src/main/java/com/bleachmod/client/cinematic/RyujinBankaiQaSequence.java",
+      "bytes": 13409,
+      "sha256": "22da47d4f08d595facd54ca905d68fb3401beac645d7d65ff163b14b7275d0e9"
+    },
+    {
+      "path": "src/main/java/com/bleachmod/client/cinematic/RyujinFrameProfiler.java",
+      "bytes": 4297,
+      "sha256": "cb0fac14db6174030c0c763ce51a1f21a44ac822d630f9a0e40df2df052a9e4f"
+    },
+    {
+      "path": "src/main/java/com/bleachmod/client/cinematic/RyujinQaSequence.java",
+      "bytes": 8971,
+      "sha256": "ced686015edd01950c203ff64dda37f996ad7f2f2d1462bd532c47726c038c58"
+    },
+    {
+      "path": "src/main/java/com/bleachmod/client/cinematic/RyujinQaVideoRecorder.java",
+      "bytes": 5799,
+      "sha256": "f6db36ff69bd737f86f20a59cdbb549554944fd206cd052cab53ed9b2775dfe5"
+    },
+    {
+      "path": "src/main/java/com/bleachmod/client/cinematic/RyujinSolarLight.java",
+      "bytes": 4716,
+      "sha256": "e28ddaed42651a12a03c6f26ea21883b66a9783ef2110c9480151dbf85757f9e"
+    },
+    {
+      "path": "src/main/java/com/bleachmod/client/model/RyujinBankaiSunModel.java",
+      "bytes": 6471,
+      "sha256": "fcedfabe335b952e88d2dbef62dd6115f3b78eac2e96b3fa904e71b747781314"
+    },
+    {
+      "path": "src/main/java/com/bleachmod/client/model/RyujinSunVisual.java",
+      "bytes": 8359,
+      "sha256": "5e80d487765a58a2eb1006a17cab93fdcbe70bbb93ced4d71cd5667a4af4aeec"
+    },
+    {
+      "path": "src/main/java/com/bleachmod/common/technique/BankaiActivationProtectionService.java",
+      "bytes": 4741,
+      "sha256": "78cc8e4be484503c82f9d6f89dd56bce2e6fd0a1b0db43ecd74620687f8c321f"
+    },
+    {
+      "path": "src/main/java/com/bleachmod/common/technique/RyujinBankaiEntranceService.java",
+      "bytes": 4436,
+      "sha256": "224fd110ed64e24eb062d2fed2908225cf24faa7b6e5a76816042f3f874b2871"
+    },
+    {
+      "path": "src/main/java/com/bleachmod/common/technique/RyujinReleaseEffects.java",
+      "bytes": 3958,
+      "sha256": "17e548e805d0e7b36504e615904ce29e252b382453410bcb101275c42dbc1426"
+    },
+    {
+      "path": "src/main/java/com/bleachmod/common/visual/RyujinBankaiCamera.java",
+      "bytes": 4702,
+      "sha256": "bad2368a5aae5ece094c535138c953bc57e98c9cb6911ec8dbc243fb65885e37"
+    },
+    {
+      "path": "src/main/java/com/bleachmod/common/visual/RyujinBankaiPresentation.java",
+      "bytes": 2147,
+      "sha256": "2869e35e033c163580030510b9ccd477b238271f9806728b58edc5e4bb0cb3f0"
+    },
+    {
+      "path": "src/main/java/com/bleachmod/common/visual/RyujinBankaiTimeline.java",
+      "bytes": 6041,
+      "sha256": "fc31deacef73c3367b6b2ea408c241154c870102dc3c1a8bbd58bbdf0d4db1e4"
+    },
+    {
+      "path": "src/main/java/com/bleachmod/common/visual/RyujinChoreography.java",
+      "bytes": 11815,
+      "sha256": "23e276780e374645a042b12adb67057d735be5de744817b7e163b3df24846935"
+    },
+    {
+      "path": "src/main/java/com/bleachmod/common/visual/RyujinFireLayout.java",
+      "bytes": 5767,
+      "sha256": "89ab9d57fcfbc965a29529ba90c219a5df2a25e9d44e3c8575faf12c9d9ec757"
+    },
+    {
+      "path": "src/main/java/com/bleachmod/gametest/RyujinBankaiGameTests.java",
+      "bytes": 35938,
+      "sha256": "1fa854a808f790f569eb8ac915f90ff796ced569f9fb7db6634d95a581a94727"
+    },
+    {
+      "path": "src/main/resources/assets/bleachmod/animations/ryujin_bankai_sun_v10.animation.json",
+      "bytes": 147060,
+      "sha256": "0e5811df817e707b4867d52f753514d4832b3fd19935e8662a6e358075c02cc4"
+    },
+    {
+      "path": "src/test/java/com/bleachmod/MvpRegressionTest.java",
+      "bytes": 166306,
+      "sha256": "3cf3d6640f617302093d6b8d7a9495405068c880b7d33e97337cd4925350c03c"
+    }
+  ]
+}

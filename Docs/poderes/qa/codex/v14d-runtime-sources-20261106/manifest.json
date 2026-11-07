@@ -1,0 +1,126 @@
+{
+  "head": "9eb6a057",
+  "working_tree_not_committed": true,
+  "files": [
+    {
+      "path": "build.gradle",
+      "sha256": "4c73f1f3426575fefbdcc491e2b4102206d199edb504fff86fffe8491378f2a1"
+    },
+    {
+      "path": "src/test/java/com/bleachmod/MvpRegressionTest.java",
+      "sha256": "cdcc155bb47bf5b6c053c99b4526f083ae8e9a0ae01e27613323d5539e511cd8"
+    },
+    {
+      "path": "src\\main\\java\\com\\bleachmod\\client\\cinematic\\RyujinBankaiAudio.java",
+      "sha256": "69556655db7c7c9ab0b76b8322e8a1d289526752218c1b241c940f5da564b80b"
+    },
+    {
+      "path": "src\\main\\java\\com\\bleachmod\\client\\cinematic\\RyujinBankaiEntranceClient.java",
+      "sha256": "c3185977d7ab5dc238f96b73bf8db7dea22984fae74a4f3919d08d9ab9256e5c"
+    },
+    {
+      "path": "src\\main\\java\\com\\bleachmod\\client\\cinematic\\RyujinBankaiQaSequence.java",
+      "sha256": "a62c9b39ab6fd0958fce2112f66464443da098265999dd5e90759c07e23e36e0"
+    },
+    {
+      "path": "src\\main\\java\\com\\bleachmod\\client\\cinematic\\RyujinFrameProfiler.java",
+      "sha256": "628ec16dc70104e286f6baa4bafa70fbaad79811998d33dbc52d0d104ce10aee"
+    },
+    {
+      "path": "src\\main\\java\\com\\bleachmod\\client\\cinematic\\RyujinQaSequence.java",
+      "sha256": "ced686015edd01950c203ff64dda37f996ad7f2f2d1462bd532c47726c038c58"
+    },
+    {
+      "path": "src\\main\\java\\com\\bleachmod\\client\\cinematic\\RyujinQaVideoRecorder.java",
+      "sha256": "f6db36ff69bd737f86f20a59cdbb549554944fd206cd052cab53ed9b2775dfe5"
+    },
+    {
+      "path": "src\\main\\java\\com\\bleachmod\\client\\cinematic\\RyujinSolarLight.java",
+      "sha256": "bf10104bd4e2c077bb1353e5b60befec30f446f4c97e4f5eb6501c9d27ba4e53"
+    },
+    {
+      "path": "src\\main\\java\\com\\bleachmod\\client\\model\\RyujinActionVisuals.java",
+      "sha256": "3c484290b3a5ae3b7974b292d5105474d306313b7adac90ef53c4dd5d3af4ee1"
+    },
+    {
+      "path": "src\\main\\java\\com\\bleachmod\\client\\model\\RyujinBankaiSunModel.java",
+      "sha256": "d6daa5276b9f1d99c80a94502d0fe8cce0c5512566030195fdf8481d28fe064c"
+    },
+    {
+      "path": "src\\main\\java\\com\\bleachmod\\client\\model\\RyujinEyeFlameLayer.java",
+      "sha256": "3a15242408568c8b078203445aa131e4360a7c2f642312aa04c9337ba4cf8f46"
+    },
+    {
+      "path": "src\\main\\java\\com\\bleachmod\\client\\model\\RyujinFlowRenderer.java",
+      "sha256": "c9a7c9ceac4f90bb61d502fc94bd2ec92a06e51f350393df6eff486cff6b2fa7"
+    },
+    {
+      "path": "src\\main\\java\\com\\bleachmod\\client\\model\\RyujinSolarShader.java",
+      "sha256": "4f6d937c96c6683c50d2422f4aeede6d23ac9fb5cfcd41236c0519377a6c0787"
+    },
+    {
+      "path": "src\\main\\java\\com\\bleachmod\\client\\model\\RyujinSunVisual.java",
+      "sha256": "61d431573e537f19db658a14f43b96b5efe17183d1c66788f148726fab5b1724"
+    },
+    {
+      "path": "src\\main\\java\\com\\bleachmod\\common\\visual\\RyujinAudioEnvelope.java",
+      "sha256": "bdebdf6a552bd251a9d1b8bd4217a5db8d4d150c6b01c2ffe0c6ac55d58d03b8"
+    },
+    {
+      "path": "src\\main\\java\\com\\bleachmod\\common\\visual\\RyujinBankaiCamera.java",
+      "sha256": "2c3be53b9215dd91ae6d71f3e5eac5606542ad6098aead79766fae4395333100"
+    },
+    {
+      "path": "src\\main\\java\\com\\bleachmod\\common\\visual\\RyujinBankaiPresentation.java",
+      "sha256": "2869e35e033c163580030510b9ccd477b238271f9806728b58edc5e4bb0cb3f0"
+    },
+    {
+      "path": "src\\main\\java\\com\\bleachmod\\common\\visual\\RyujinBankaiTimeline.java",
+      "sha256": "fc31deacef73c3367b6b2ea408c241154c870102dc3c1a8bbd58bbdf0d4db1e4"
+    },
+    {
+      "path": "src\\main\\java\\com\\bleachmod\\common\\visual\\RyujinChoreography.java",
+      "sha256": "23e276780e374645a042b12adb67057d735be5de744817b7e163b3df24846935"
+    },
+    {
+      "path": "src\\main\\java\\com\\bleachmod\\common\\visual\\RyujinEyeFlame.java",
+      "sha256": "cda36ecd1986f846c48480a32c84e422a2be6fd3e41b575d337b4bbcd80204af"
+    },
+    {
+      "path": "src\\main\\java\\com\\bleachmod\\common\\visual\\RyujinFireLayout.java",
+      "sha256": "a20246dbb4ea05e9a3991fa774cfe2fa2629a4820a8076102c4f151fe3e3ab6d"
+    },
+    {
+      "path": "src\\main\\java\\com\\bleachmod\\common\\visual\\RyujinFlamePresentation.java",
+      "sha256": "7ed37aa5f71cc5c913d47ab6f1ed77a7efe10c675b196def05ee5053b8dc7d33"
+    },
+    {
+      "path": "src\\main\\java\\com\\bleachmod\\common\\visual\\RyujinSealFlow.java",
+      "sha256": "a1dec8f0c3b1ea44835d2731ab14cbacb1bfe316936a3860bb94ff851f5d59fe"
+    },
+    {
+      "path": "src\\main\\java\\com\\bleachmod\\common\\visual\\RyujinSolarPose.java",
+      "sha256": "02238f3cdff8acecadcc8cbdfb6513089c0749dcee4339bb85394443cdf123ac"
+    },
+    {
+      "path": "src\\main\\resources\\assets\\bleachmod\\textures\\effect\\ryujin_eye_flame.png",
+      "sha256": "09f6395c33527caea4fb57f7777b33368ba9f0cea4a6edd12d413c20d6a2d09a"
+    },
+    {
+      "path": "src\\main\\resources\\assets\\bleachmod\\textures\\effect\\ryujin_fire_sheet.png",
+      "sha256": "d7c931b664b9f5f4aa28ff125eeefa10f7795db413b02f890ee60d00e0b99fbe"
+    },
+    {
+      "path": "src\\main\\resources\\assets\\bleachmod\\textures\\effect\\ryujin_seal_flow.png",
+      "sha256": "82b30b838bda2502df29a1084386faf210be0cbc5276dd537632a34e500ad795"
+    },
+    {
+      "path": "tools/media_qa/inspect_media.py",
+      "sha256": "7c3a4482b1259dd2f979b5a16a36a2c5548cccdde093aba45ef81618cb0bee98"
+    },
+    {
+      "path": "tools/models/lab/codex/ryujin01/build_seal_v14.py",
+      "sha256": "a6d4ea21e0643a7e3e2dcc17c97c4b02d1ab19db419e783cc157c67917c00458"
+    }
+  ]
+}

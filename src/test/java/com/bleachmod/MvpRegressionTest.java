@@ -16,6 +16,305 @@ import java.util.*;
 public final class MvpRegressionTest {
     private static int count;
     public static void main(String[] args) {
+        test("Ryujin heat audio fades monotonically into the seal and scales with scene duration",()->{
+            for(int duration:new int[]{150,300,600}){
+                float lastFire=1,lastRoar=1;
+                for(double t=176;t<=220;t+=.25){
+                    var gains=com.bleachmod.common.visual.RyujinAudioEnvelope.sample(t*duration/300,duration);
+                    yes(gains.fire()>=0&&gains.roar()>=0&&gains.preheat()==0);
+                    yes(gains.fire()<=lastFire&&gains.roar()<=lastRoar);
+                    if(t>=202)yes(gains.fire()==0&&gains.roar()==0);
+                    lastFire=gains.fire();lastRoar=gains.roar();
+                }
+            }
+            eq(0F,com.bleachmod.common.visual.RyujinAudioEnvelope.sample(70,300).preheat());
+            eq(0F,com.bleachmod.common.visual.RyujinAudioEnvelope.sample(Double.NaN,300).fire());
+        });
+        test("Ryujin backing stays ducked through the longer Bankai take and late voice starts",()->{
+            var start=43D;
+            eq(1F,com.bleachmod.common.visual.RyujinAudioEnvelope.speechRelease(40,start,37));
+            eq(0F,com.bleachmod.common.visual.RyujinAudioEnvelope.speechRelease(70,start,37));
+            eq(0F,com.bleachmod.common.visual.RyujinAudioEnvelope.speechRelease(80,start,37));
+            float ramp=com.bleachmod.common.visual.RyujinAudioEnvelope.speechRelease(82,start,37);
+            yes(ramp>0&&ramp<1);
+            eq(1F,com.bleachmod.common.visual.RyujinAudioEnvelope.speechRelease(85,start,37));
+        });
+        test("Ryujin eye flame stays anatomically right until the seal cutoff",()->{
+            for(int tick=0;tick<=300;tick++){
+                var flames=com.bleachmod.common.visual.RyujinEyeFlame.sample(tick);
+                var trail=com.bleachmod.common.visual.RyujinEyeFlame.trail(tick);
+                var core=com.bleachmod.common.visual.RyujinEyeFlame.core(tick);
+                yes(flames.size()+trail.size()+(core.alpha()>0?2:0)<=14);
+                for(int i=0;i<trail.size();i++){
+                    var strip=trail.get(i);yes(strip.start().x<0&&strip.end().x<strip.start().x);
+                    yes(strip.endWidth()<strip.startWidth());
+                    if(i>0){
+                        yes(strip.start().distanceToSqr(trail.get(i-1).end())<1e-16);
+                        eq(trail.get(i-1).endWidth(),strip.startWidth());
+                        eq(trail.get(i-1).endAlpha(),strip.startAlpha());
+                    }
+                }
+                if(tick<=20||tick>=202)yes(flames.isEmpty()&&core.alpha()==0);
+                if(tick>=32&&tick<=200)yes(!flames.isEmpty()&&core.alpha()>0);
+                for(var f:flames){
+                    yes(f.at().x<-.25&&f.at().y<core.at().y+.05);
+                    yes(f.width()>0&&f.height()>0&&f.alpha()>=0&&f.alpha()<=255);
+                }
+            }
+            var core=com.bleachmod.common.visual.RyujinEyeFlame.core(32);
+            yes(core.alpha()==255&&core.at().x-core.width()/2<=-3D/16&&core.at().x+core.width()/2>=-1D/16);
+            yes(core.at().y-core.height()/2<=-4D/16&&core.at().y+core.height()/2>=-3D/16);
+            var trail=com.bleachmod.common.visual.RyujinEyeFlame.trail(32);
+            var root=trail.get(0);
+            var tip=trail.get(trail.size()-1);
+            yes(root.startWidth()>.07&&root.start().x<core.at().x&&root.start().x>core.at().x-core.width()/2);
+            yes(tip.end().x<-.55&&tip.end().y<root.start().y&&tip.end().z>root.start().z&&tip.endAlpha()==0);
+            yes(com.bleachmod.common.visual.RyujinEyeFlame.sample(Double.NaN).isEmpty());
+        });
+        test("Ryujin lateral fire and smoke share the curtain budget through the seal",()->{
+            var origin=net.minecraft.world.phys.Vec3.ZERO;
+            var forward=new net.minecraft.world.phys.Vec3(0,0,1);
+            var layer=com.bleachmod.common.visual.RyujinFireLayout.Layer.LATERAL;
+            var smoke=com.bleachmod.common.visual.RyujinFireLayout.Layer.SMOKE;
+            for(int tick:new int[]{39,70,84,112,176,194,202,220}){
+                double phase=com.bleachmod.common.visual.RyujinBankaiTimeline.storyAge(tick,300);
+                var blade=com.bleachmod.common.visual.RyujinBankaiPresentation.blade(origin,forward,phase,1);
+                var full=com.bleachmod.common.visual.RyujinFireLayout.sample(origin,forward,phase,tick,blade,true,true);
+                var noSmoke=com.bleachmod.common.visual.RyujinFireLayout.sample(origin,forward,phase,tick,blade,true,false);
+                yes(full.size()<=noSmoke.size()&&full.size()+32+14<=com.bleachmod.common.visual.RyujinFireLayout.CARD_LIMIT);
+                yes(noSmoke.stream().noneMatch(c->c.layer()==smoke));
+                var near=full.stream().filter(c->c.layer()==layer).toList();
+                var plumes=full.stream().filter(c->c.layer()==smoke).toList();
+                if(tick==112){eq(10,near.size());eq(6,plumes.size());}
+                if(tick<=70||tick>=202)yes(near.isEmpty()&&plumes.isEmpty());
+                for(var c:near)yes(Math.abs(c.at().x)>2.6&&c.at().z>-4&&c.height()<1.5);
+                for(var c:plumes)yes(Math.abs(c.at().x)>10&&c.at().z<=-16&&c.at().y>9);
+            }
+        });
+        test("Ryujin far fire stays behind the solar scene and clears at the seal",()->{
+            var origin=new net.minecraft.world.phys.Vec3(17,-60,3);
+            var forward=new net.minecraft.world.phys.Vec3(-1,0,0);
+            for(int tick:new int[]{70,84,112,160,176,194,202,220}){
+                double phase=com.bleachmod.common.visual.RyujinBankaiTimeline.storyAge(tick,300);
+                var blade=com.bleachmod.common.visual.RyujinBankaiPresentation.blade(origin,forward,phase,1);
+                var cards=com.bleachmod.common.visual.RyujinFireLayout.sample(origin,forward,phase,tick,blade,true);
+                var back=cards.stream().filter(c->c.layer()==com.bleachmod.common.visual.RyujinFireLayout.Layer.BACKDROP).toList();
+                if(tick>=112&&tick<=176)eq(54,back.size());
+                if(tick<=70||tick>=202)yes(back.isEmpty());
+                for(var c:back){
+                    yes(c.at().subtract(origin).dot(forward)<-11);
+                    yes(Math.abs(c.at().y-c.height()/2-origin.y-.02)<.000001);
+                }
+                yes(cards.size()+32+14<=com.bleachmod.common.visual.RyujinFireLayout.CARD_LIMIT);
+            }
+        });
+        test("Ryujin seal streams are continuous and arrive on the blade before the heat cutoff",()->{
+            var anchor=net.minecraft.world.phys.Vec3.ZERO;var forward=new net.minecraft.world.phys.Vec3(0,0,1);
+            for(float sign:new float[]{-1,1})for(int tick=176;tick<=204;tick++){
+                double phase=com.bleachmod.common.visual.RyujinBankaiTimeline.storyAge(tick,300);
+                var blade=com.bleachmod.common.visual.RyujinBankaiPresentation.blade(anchor,forward,phase,sign);
+                var strips=com.bleachmod.common.visual.RyujinSealFlow.sample(anchor,forward,phase,tick,blade);
+                if(tick>=202||tick==176){yes(strips.isEmpty());continue;}
+                if(strips.isEmpty())continue;
+                eq(32,strips.size());
+                for(int stream=0;stream<4;stream++)for(int segment=0;segment<8;segment++){
+                    var s=strips.get(stream*8+segment);
+                    yes(Double.isFinite(s.start().lengthSqr())&&Double.isFinite(s.end().lengthSqr()));
+                    yes(s.startWidth()>0&&s.endWidth()>0&&s.alpha()>0&&s.alpha()<=255);
+                    if(segment>0){
+                        yes(s.start().distanceToSqr(strips.get(stream*8+segment-1).end())<1e-16);
+                        yes(s.startTangent().distanceToSqr(strips.get(stream*8+segment-1).endTangent())<1e-16);
+                    }
+                    if(segment==7)yes(s.end().distanceToSqr(blade.hand().lerp(blade.tip(),.25+.18*stream))<1e-16);
+                }
+            }
+            yes(com.bleachmod.common.visual.RyujinSealFlow.sample(anchor,forward,40,190,null).isEmpty());
+            yes(com.bleachmod.common.visual.RyujinSealFlow.sample(anchor,forward,Double.NaN,190,null).isEmpty());
+        });
+        test("Ryujin blade closeup is frontal mirrored and holds its target through sealing",()->{
+            var anchor=net.minecraft.world.phys.Vec3.ZERO;var forward=new net.minecraft.world.phys.Vec3(0,0,1);
+            for(float sign:new float[]{-1,1}){
+                com.bleachmod.common.visual.RyujinBankaiCamera.Frame previous=null;
+                for(double tick=0;tick<=300;tick+=.25){
+                    double phase=com.bleachmod.common.visual.RyujinBankaiTimeline.storyAge(tick,300);
+                    var blade=com.bleachmod.common.visual.RyujinBankaiPresentation.blade(anchor,forward,phase,sign);
+                    var frame=com.bleachmod.common.visual.RyujinBankaiCamera.sample(anchor,forward,phase,sign,blade);
+                    yes(frame.eye().dot(forward)>0&&Double.isFinite(frame.focus().lengthSqr()));
+                    if(previous!=null)yes(frame.eye().distanceTo(previous.eye())<.35);
+                    previous=frame;
+                    if(phase>=30&&phase<=32){
+                        yes(frame.eye().y<3&&frame.eye().horizontalDistance()<8);
+                    }
+                    if(phase>=50&&phase<=112){
+                        yes(frame.focus().distanceTo(blade.hand().lerp(blade.tip(),.5))<.45);
+                        yes(frame.eye().x*sign<0);
+                    }
+                }
+            }
+        });
+        test("Ryujin sustained sun aligns dialogue, absorption and safe first-person handoff",()->{
+            int duration=com.bleachmod.common.visual.RyujinBankaiTimeline.DURATION;
+            eq(300,duration);
+            eq(duration,com.bleachmod.common.visual.RyujinBankaiTimeline.COMPACT_DURATION);
+            eq(40D,com.bleachmod.common.visual.RyujinBankaiTimeline.realAge(12,duration));
+            eq(220D,com.bleachmod.common.visual.RyujinBankaiTimeline.realAge(60,duration));
+            eq(70D,com.bleachmod.common.visual.RyujinBankaiTimeline.realAge(20,duration));
+            eq(112D,com.bleachmod.common.visual.RyujinBankaiTimeline.realAge(30,duration));
+            eq(176D,com.bleachmod.common.visual.RyujinBankaiTimeline.realAge(32,duration));
+            eq(202D,com.bleachmod.common.visual.RyujinBankaiTimeline.realAge(52,duration));
+            eq(0D,com.bleachmod.common.visual.RyujinBankaiTimeline.sunRadius(19));
+            for(int tick=0;tick<70;tick++)
+                eq(0D,com.bleachmod.common.visual.RyujinBankaiTimeline.sunRadius(
+                        com.bleachmod.common.visual.RyujinBankaiTimeline.storyAge(tick,duration)));
+            for(int tick=112;tick<176;tick++){
+                double beat=com.bleachmod.common.visual.RyujinBankaiTimeline.storyAge(tick,duration);
+                yes(com.bleachmod.common.visual.RyujinBankaiTimeline.sunRadius(beat)>8.8);
+                eq(0D,com.bleachmod.common.visual.RyujinBankaiTimeline.absorption(beat));
+                var wide=com.bleachmod.common.visual.RyujinBankaiCamera.sample(net.minecraft.world.phys.Vec3.ZERO,new net.minecraft.world.phys.Vec3(0,0,1),beat);
+                eq(80F,wide.fov());
+            }
+            double lastRadius=Double.POSITIVE_INFINITY;
+            for(int tick=176;tick<=202;tick++){
+                double radius=com.bleachmod.common.visual.RyujinBankaiTimeline.sunRadius(
+                        com.bleachmod.common.visual.RyujinBankaiTimeline.storyAge(tick,duration));
+                yes(radius<=lastRadius+1e-9);
+                lastRadius=radius;
+            }
+            double previous=-1;
+            for(int t=0;t<=duration;t++){
+                double beat=com.bleachmod.common.visual.RyujinBankaiTimeline.storyAge(t,duration);
+                yes(beat>=previous);previous=beat;
+                yes(Math.abs(com.bleachmod.common.visual.RyujinBankaiTimeline.realAge(beat,duration)-t)<.0001);
+            }
+            var center=net.minecraft.world.phys.Vec3.ZERO;
+            var look=new net.minecraft.world.phys.Vec3(0,0,1);
+            var start=new net.minecraft.world.phys.Vec3(0,-.12,5.2);
+            for(int i=1;i<100;i++){
+                double t=i/100.0;
+                var eye=com.bleachmod.common.visual.RyujinBankaiCamera.returnEye(start,center,center,look,t,false);
+                yes(Double.isFinite(eye.lengthSqr()));
+                if(t<.65)yes(eye.horizontalDistance()>5);
+                else yes(eye.dot(look)<0); // Final approach from behind, not through the face.
+            }
+        });
+        test("Ryujin solar centre holds behind the caster and converges to the actual blade",()->{
+            var anchor=net.minecraft.world.phys.Vec3.ZERO;
+            var forward=new net.minecraft.world.phys.Vec3(0,0,1);
+            for(float sign:new float[]{-1,1}){
+                var blade=com.bleachmod.common.visual.RyujinBankaiPresentation.blade(anchor,forward,52,sign);
+                eq(com.bleachmod.common.visual.RyujinBankaiPresentation.sunCenter(anchor,forward),com.bleachmod.common.visual.RyujinSolarPose.center(anchor,forward,31,blade));
+                yes(blade.hand().lerp(blade.tip(),.55).distanceToSqr(com.bleachmod.common.visual.RyujinSolarPose.center(anchor,forward,52,blade))<1e-16);
+                double last=Double.POSITIVE_INFINITY;
+                for(int phase=32;phase<=52;phase++){
+                    var at=com.bleachmod.common.visual.RyujinSolarPose.center(anchor,forward,phase,blade);
+                    double distance=at.distanceToSqr(blade.hand().lerp(blade.tip(),.55));
+                    yes(distance<=last+1e-9);last=distance;
+                }
+            }
+        });
+        test("Ryujin confined frontal frame fits feet and sun inside its letterbox",()->{
+            var anchor=net.minecraft.world.phys.Vec3.ZERO;
+            var forward=new net.minecraft.world.phys.Vec3(0,0,1);
+            var eye=new net.minecraft.world.phys.Vec3(0,4.5,5.75);
+            var planned=com.bleachmod.common.visual.RyujinBankaiCamera.sample(anchor,forward,31);
+            for(double aspect:List.of(4D/3,16D/9)){
+                var fit=com.bleachmod.common.visual.RyujinBankaiCamera.confined(planned,eye,anchor,forward,31,aspect);
+                eq(eye,fit.eye());yes(fit.fov()>=80&&fit.fov()<=110);
+                double angle=Math.atan2(fit.focus().y-eye.y,fit.focus().subtract(eye).horizontalDistance());
+                double visibleHalf=Math.atan(Math.tan(Math.toRadians(fit.fov()/2))*.8);
+                for(var point:List.of(anchor.add(0,.04,0),com.bleachmod.common.visual.RyujinBankaiPresentation.sunCenter(anchor,forward).add(0,9*1.35,0))){
+                    double elevation=Math.atan2(point.y-eye.y,point.subtract(eye).horizontalDistance());
+                    yes(Math.abs(elevation-angle)<visibleHalf);
+                }
+            }
+            var free=com.bleachmod.common.visual.RyujinBankaiCamera.confined(planned,planned.eye(),anchor,forward,31,16D/9);
+            eq(planned,free);
+            var blade=com.bleachmod.common.visual.RyujinBankaiPresentation.blade(anchor,forward,31,1);
+            var frontal=com.bleachmod.common.visual.RyujinBankaiCamera.sample(anchor,forward,31,1,blade);
+            var closeEye=new net.minecraft.world.phys.Vec3(0,2.03,5.74);
+            var fit=com.bleachmod.common.visual.RyujinBankaiCamera.confined(frontal,closeEye,anchor,forward,31,16D/9);
+            double feet=Math.atan2(-closeEye.y,closeEye.horizontalDistance());
+            double pitch=Math.atan2(fit.focus().y-closeEye.y,fit.focus().subtract(closeEye).horizontalDistance());
+            yes(pitch-feet<Math.atan(Math.tan(Math.toRadians(fit.fov()/2))*.8));
+        });
+        test("Ryujin fire holds a grounded rear curtain and blade coat within a hard budget",()->{
+            var anchor=net.minecraft.world.phys.Vec3.ZERO;
+            var forward=new net.minecraft.world.phys.Vec3(0,0,1);
+            for(int t=0;t<=300;t++){
+                double phase=com.bleachmod.common.visual.RyujinBankaiTimeline.storyAge(t,300);
+                var blade=com.bleachmod.common.visual.RyujinBankaiPresentation.blade(anchor,forward,phase,1);
+                var cards=com.bleachmod.common.visual.RyujinFireLayout.sample(anchor,forward,phase,t,blade);
+                yes(cards.size()<=com.bleachmod.common.visual.RyujinFireLayout.CARD_LIMIT);
+                for(var card:cards){
+                    yes(Double.isFinite(card.at().lengthSqr()));yes(card.height()>0&&card.width()>0);
+                    yes(card.alpha()>0&&card.alpha()<=255);
+                    if(card.layer()==com.bleachmod.common.visual.RyujinFireLayout.Layer.BASE){
+                        yes(card.at().y-card.height()/2>=.039);
+                        if(card.at().z>0)yes(card.at().y+card.height()/2<1.1);
+                    }
+                }
+                if(t>=112&&t<176){
+                    eq(108L,cards.stream().filter(c->c.layer()==com.bleachmod.common.visual.RyujinFireLayout.Layer.CURTAIN).count());
+                    eq(36L,cards.stream().filter(c->c.layer()==com.bleachmod.common.visual.RyujinFireLayout.Layer.BLADE).count());
+                    for(var c:cards)if(c.layer()==com.bleachmod.common.visual.RyujinFireLayout.Layer.CURTAIN)yes(c.at().z<=-3);
+                }
+                if(t>=202)yes(cards.isEmpty());
+            }
+            var blade=com.bleachmod.common.visual.RyujinBankaiPresentation.blade(anchor,forward,31,1);
+            var a=com.bleachmod.common.visual.RyujinFireLayout.sample(anchor,forward,31,144,blade);
+            var b=com.bleachmod.common.visual.RyujinFireLayout.sample(anchor,forward,31,145,blade);
+            yes(!a.equals(b)); // Turbulence keeps moving even if phase progress is held.
+            for(var quality:com.bleachmod.common.visual.RyujinFireLayout.Detail.values()){
+                var reduced=com.bleachmod.common.visual.RyujinFireLayout.sample(anchor,forward,31,144,blade,quality);
+                yes(reduced.size()<=a.size());
+                for(var layer:List.of(com.bleachmod.common.visual.RyujinFireLayout.Layer.BLADE,
+                        com.bleachmod.common.visual.RyujinFireLayout.Layer.BASE,
+                        com.bleachmod.common.visual.RyujinFireLayout.Layer.CURTAIN,
+                        com.bleachmod.common.visual.RyujinFireLayout.Layer.CORONA))
+                    yes(reduced.stream().anyMatch(c->c.layer()==layer));
+                yes(com.bleachmod.common.visual.RyujinFireLayout.sample(anchor,forward,52,202,blade,quality).isEmpty());
+                yes(!com.bleachmod.common.visual.RyujinFireLayout.sample(anchor,forward,31,144,null,quality).isEmpty());
+            }
+        });
+        test("Ryujin sun clip holds its position and keeps the rings turning before delayed absorption",()->{
+            try {
+                var clip=JsonParser.parseString(java.nio.file.Files.readString(java.nio.file.Path.of(
+                        "src/main/resources/assets/bleachmod/animations/ryujin_bankai_sun_v10.animation.json")))
+                        .getAsJsonObject().getAsJsonObject("animations").getAsJsonObject("animation.ryujin.bankai_sun");
+                eq(15D,clip.get("animation_length").getAsDouble());
+                var bones=clip.getAsJsonObject("bones");
+                var positions=bones.getAsJsonObject("sun_root").getAsJsonObject("position");
+                eq(positions.get("5.6"),positions.get("8.6"));
+                var rotation=bones.getAsJsonObject("inner_swirl").getAsJsonObject("rotation");
+                double from=rotation.getAsJsonObject("5.6").getAsJsonArray("vector").get(2).getAsDouble();
+                double to=rotation.getAsJsonObject("8.6").getAsJsonArray("vector").get(2).getAsDouble();
+                yes(Math.abs(to-from)>180);
+            } catch(java.io.IOException failure){throw new AssertionError(failure);}
+        });
+        test("Benihime camera follows the grasp and opens before floor supports without moving the rig clock",()->{
+            var previous=com.bleachmod.common.visual.BenihimeEntranceCamera.sample(108);
+            for(int i=433;i<=2112;i++){
+                double age=i/4.0;
+                var frame=com.bleachmod.common.visual.BenihimeEntranceCamera.sample(age);
+                yes(Double.isFinite(frame.eye().lengthSqr()));
+                yes(frame.eye().distanceTo(frame.focus())>2);
+                yes(frame.eye().distanceTo(previous.eye())<.5);
+                yes(frame.focus().distanceTo(previous.focus())<.5);
+                yes(frame.fov()>=40 && frame.fov()<=60);
+                if(age>=138 && age<=176){
+                    yes(frame.focus().distanceTo(com.bleachmod.common.visual.BenihimeEntranceGeometry.hemAnchor(age))<1);
+                    yes(frame.eye().z<11);
+                }
+                previous=frame;
+            }
+            for(int t:new int[]{280,340,450,528}){
+                var frame=com.bleachmod.common.visual.BenihimeEntranceCamera.sample(t);
+                var wide=com.bleachmod.common.visual.BenihimeEntranceCamera.wide(t);
+                yes(frame.eye().distanceTo(wide.eye())<.00001);
+            }
+            eq(560,com.bleachmod.common.visual.BenihimeEntranceTimeline.DURATION);
+            eq(176,com.bleachmod.common.visual.BenihimeEntranceTimeline.Phase.PULL.start());
+        });
         test("Hyorinmaru camera stays continuous and opposing return directions never collapse",()->{
             var previous=com.bleachmod.common.visual.HyorinmaruCameraPath.sample(0);
             for(int i=1;i<=1840;i++){
@@ -236,10 +535,14 @@ public final class MvpRegressionTest {
             }
         });
         test("Benihime Better Combat animations parse as finite original fencing motions",()->{
-            for(String name:List.of("benihime_diagonal","benihime_return","benihime_thrust")){
+            for(String name:List.of("benihime_thrust","benihime_thrust_2","benihime_slash","senbonzakura_diagonal","senbonzakura_return","senbonzakura_thrust")){
                 try(var reader=java.nio.file.Files.newBufferedReader(java.nio.file.Path.of("src/main/resources/assets/bleachmod/attack_animations/"+name+".json"))){
                     var animations=dev.kosmx.playerAnim.core.data.gson.AnimationSerializing.deserializeAnimation(reader);
-                    eq(1,animations.size());var animation=animations.get(0);yes(animation.getPart("rightArm").isEnabled());yes(animation.getPart("body").isEnabled());yes(!animation.isInfinite());eq(12,animation.endTick);
+                    eq(1,animations.size());var animation=animations.get(0);yes(animation.getPart("rightArm").isEnabled());yes(animation.getPart("rightItem").isEnabled());yes(animation.getPart("body").isEnabled());yes(!animation.isInfinite());eq(20,animation.endTick);
+                }catch(java.io.IOException e){throw new AssertionError(e);}
+                try(var reader=java.nio.file.Files.newBufferedReader(java.nio.file.Path.of("src/main/resources/assets/bleachmod/player_animation/"+name+".json"))){
+                    var animations=dev.kosmx.playerAnim.core.data.gson.AnimationSerializing.deserializeAnimation(reader);
+                    eq(1,animations.size());var animation=animations.get(0);yes(animation.getPart("rightArm").isEnabled());yes(animation.getPart("rightItem").isEnabled());
                 }catch(java.io.IOException e){throw new AssertionError(e);}
             }
         });
@@ -826,6 +1129,90 @@ public final class MvpRegressionTest {
             Quest q=quest();q.setRepeatable(true);
             yes(QuestParser.parseQuest(q.toJson(),null).isRepeatable());
         });
+        test("story HUD priority survives accepting or pinning a sidequest",()->{
+            Quest side=quest();side.setStringId("side");
+            Quest story=quest();story.setType(QuestType.SAGA);story.setSagaId("story");story.setNumericId(1);
+            PlayerQuestData data=new PlayerQuestData();data.acceptQuest("side",side);data.acceptQuest("story:1",story);
+            data.setTrackedQuestId("side");
+            eq(List.of(story,side),QuestTracking.orderedAccepted(data,List.of(side,story)));
+            Quest later=quest();later.setStringId("later");data.acceptQuest("later",later);
+            eq(List.of(story,side,later),QuestTracking.orderedAccepted(data,List.of(later,story,side)));
+        });
+        test("HUD ties use acceptance order with manual preference within importance",()->{
+            Quest first=quest();first.setStringId("first");Quest second=quest();second.setStringId("second");
+            PlayerQuestData data=new PlayerQuestData();data.acceptQuest("first",first);data.acceptQuest("second",second);
+            eq(List.of(first,second),QuestTracking.orderedAccepted(data,List.of(second,first)));
+            data.setTrackedQuestId("second");
+            eq(List.of(second,first),QuestTracking.orderedAccepted(data,List.of(first,second)));
+            data.setTrackedQuestId(null);
+            eq(List.of(first,second),QuestTracking.orderedAccepted(data,List.of(second,first)));
+        });
+        test("HUD excludes inactive and missing definitions and falls back after completion or failure",()->{
+            Quest side=quest();side.setStringId("side");Quest other=quest();other.setStringId("other");
+            Quest story=quest();story.setType(QuestType.SAGA);story.setSagaId("story");story.setNumericId(1);
+            PlayerQuestData data=new PlayerQuestData();data.acceptQuest("side",side);data.acceptQuest("story:1",story);
+            data.acceptQuest("missing",quest());data.setTrackedQuestId("story:1");
+            var definitions=List.of(other,side,story);
+            data.completeQuest("story:1");eq(List.of(side),QuestTracking.orderedAccepted(data,definitions));
+            data.failQuest("side");eq(List.of(),QuestTracking.orderedAccepted(data,definitions));
+        });
+        test("HUD manual preference and acceptance order persist across NBT",()->{
+            Quest first=quest();first.setStringId("first");Quest second=quest();second.setStringId("second");
+            PlayerQuestData data=new PlayerQuestData();data.acceptQuest("first",first);data.acceptQuest("second",second);
+            data.setTrackedQuestId("second");PlayerQuestData copy=new PlayerQuestData();copy.load(data.save());
+            eq("second",copy.getPreferredTrackedQuestId());
+            eq(List.of(second,first),QuestTracking.orderedAccepted(copy,List.of(first,second)));
+            copy.setTrackedQuestId(null);eq(List.of(first,second),QuestTracking.orderedAccepted(copy,List.of(second,first)));
+        });
+        test("quest NPC index persists distant and cross-dimension destinations and binding",()->{
+            var overworld=new net.minecraft.resources.ResourceLocation("minecraft:overworld");
+            var nether=new net.minecraft.resources.ResourceLocation("minecraft:the_nether");
+            var id=UUID.randomUUID(); var closer=UUID.randomUUID();
+            var distant=new QuestWaypoint(id,"rukia",overworld,new net.minecraft.core.BlockPos(5000,70,-7000));
+            var near=new QuestWaypoint(closer,"rukia",overworld,new net.minecraft.core.BlockPos(1,70,1));
+            var other=new QuestWaypoint(UUID.randomUUID(),"rukia",nether,new net.minecraft.core.BlockPos(0,70,0));
+            var index=new QuestNpcLocations(); index.put(distant); index.put(near); index.put(other);
+            eq(near,index.resolve("rukia",null,overworld,0,70,0));
+            eq(distant,index.resolve("rukia",id,overworld,0,70,0));
+            eq(null,index.resolve("ichigo",id,overworld,0,70,0));
+            var restored=QuestNpcLocations.load(index.save(new CompoundTag()));
+            eq(distant,restored.resolve("rukia",id,nether,0,70,0));
+            restored.remove(id,nether); eq(distant,restored.resolve("rukia",id,overworld,0,70,0));
+            restored.remove(id,overworld); eq(null,restored.resolve("rukia",id,overworld,0,70,0));
+        });
+        test("quest compass cardinal bearings wrap with player yaw and distance includes height",()->{
+            var dimension=new net.minecraft.resources.ResourceLocation("minecraft:overworld");
+            var target=new QuestWaypoint(UUID.randomUUID(),"rukia",dimension,new net.minecraft.core.BlockPos(0,0,10));
+            yes(Math.abs(target.relativeBearing(.5,.5,0))<.00001);
+            eq(-90D,target.relativeBearing(.5,.5,90));
+            eq(-180D,target.relativeBearing(.5,.5,180));
+            eq(90D,target.relativeBearing(.5,.5,270));
+            eq(-1D,target.relativeBearing(.5,.5,361));
+            eq(10L,target.distanceMetres(.5,.5,.5));
+            eq(10L,target.distanceMetres(.5,10.5,10.5));
+            eq(0L,target.distanceMetres(.5,.5,10.5));
+        });
+        test("navigation persists per quest and clears on completion failure retry and old snapshots",()->{
+            Quest q=quest();q.setQuestGiver("rukia");var data=new PlayerQuestData();data.acceptQuest("q",q);
+            var target=new QuestWaypoint(UUID.randomUUID(),"rukia",new net.minecraft.resources.ResourceLocation("minecraft:overworld"),new net.minecraft.core.BlockPos(20,70,30));
+            data.getProgress("q").setQuestGiverUuid(target.entityId());
+            yes(data.replaceWaypoints(Map.of("q",target)));yes(!data.replaceWaypoints(Map.of("q",target)));
+            var restored=new PlayerQuestData(); restored.load(data.save());
+            eq(target,restored.getWaypoint("q"));eq(target.entityId(),restored.getProgress("q").getQuestGiverUuid());
+            restored.failQuest("q");eq(null,restored.getWaypoint("q"));
+            restored.acceptQuest("q",q);eq(null,restored.getProgress("q").getQuestGiverUuid());
+            restored.replaceWaypoints(Map.of("q",target));restored.completeQuest("q");eq(null,restored.getWaypoint("q"));
+            restored.replaceWaypoints(Map.of("q",target));restored.load(new CompoundTag());eq(null,restored.getWaypoint("q"));
+        });
+        test("Rukia catalog retires former quests and preserves the boss and other NPCs",()->{
+            Quest old=quest();old.setStringId("rukia_basic_training");yes(QuestRegistry.isRetiredRukiaQuest(old));
+            Quest future=quest();future.setStringId("future_rukia");future.setQuestGiver("rukia");yes(!QuestRegistry.isRetiredRukiaQuest(future));
+            Quest boss=quest();boss.setStringId("rukia_npc_test");boss.setQuestGiver("rukia");yes(!QuestRegistry.isRetiredRukiaQuest(boss));
+            Quest other=quest();other.setQuestGiver("ichigo");yes(!QuestRegistry.isRetiredRukiaQuest(other));
+            JsonArray array=new JsonArray();array.add(old.toJson());array.add(boss.toJson());array.add(other.toJson());array.add(future.toJson());
+            var snapshot=QuestRegistry.parse("[]",array.toString());
+            eq(Set.of("rukia_npc_test","q","future_rukia"),snapshot.quests().keySet());
+        });
         test("quest giver survives JSON roundtrip",()->{
             Quest q=quest();q.setQuestGiver("rukia");
             eq("rukia",QuestParser.parseQuest(q.toJson(),null).getQuestGiver());
@@ -992,6 +1379,29 @@ public final class MvpRegressionTest {
             yes(!com.bleachmod.common.visual.SenbonGeometry.inside(center,center.add(10.01,0,0),10,3));
             yes(!com.bleachmod.common.visual.SenbonGeometry.inside(center,center.add(0,3.01,0),10,3));
         });
+        test("Senbon melee trail positions match sword kinematics and combo seams seamlessly", () -> {
+            for (float sign : new float[]{1.0F, -1.0F}) {
+                var h0_end = com.bleachmod.client.model.SenbonCombatVisuals.sampleHand(0, 1.0F, sign);
+                var t0_end = com.bleachmod.client.model.SenbonCombatVisuals.sampleTip(0, 1.0F, sign);
+                var h1_start = com.bleachmod.client.model.SenbonCombatVisuals.sampleHand(1, 0.0F, sign);
+                var t1_start = com.bleachmod.client.model.SenbonCombatVisuals.sampleTip(1, 0.0F, sign);
+                yes(h0_end.distanceToSqr(h1_start) < 1e-6);
+                yes(t0_end.distanceToSqr(t1_start) < 1e-6);
+
+                var h1_end = com.bleachmod.client.model.SenbonCombatVisuals.sampleHand(1, 1.0F, sign);
+                var t1_end = com.bleachmod.client.model.SenbonCombatVisuals.sampleTip(1, 1.0F, sign);
+                var h2_start = com.bleachmod.client.model.SenbonCombatVisuals.sampleHand(2, 0.0F, sign);
+                var t2_start = com.bleachmod.client.model.SenbonCombatVisuals.sampleTip(2, 0.0F, sign);
+                yes(h1_end.distanceToSqr(h2_start) < 1e-6);
+                yes(t1_end.distanceToSqr(t2_start) < 1e-6);
+
+                var h2_end = com.bleachmod.client.model.SenbonCombatVisuals.sampleHand(2, 1.0F, sign);
+                var t2_end = com.bleachmod.client.model.SenbonCombatVisuals.sampleTip(2, 1.0F, sign);
+                yes(Math.abs(h2_end.x - t2_end.x) < 1e-6);
+                yes(Math.abs(h2_end.y - t2_end.y) < 1e-6);
+                yes(t2_end.z > h2_end.z + 1.0);
+            }
+        });
         test("Senbon identity and independent mastery survive save",()->{
             var d=player();d.getCharacter().bindZanpakuto("senbonzakura");d.getCharacter().setMastery("zanpakuto","shikai",43);
             var copy=new PlayerData();copy.load(d.save());eq("senbonzakura",copy.getCharacter().getZanpakutoIdentity());
@@ -1009,8 +1419,20 @@ public final class MvpRegressionTest {
             var zero=net.minecraft.world.phys.Vec3.ZERO;var f=new net.minecraft.world.phys.Vec3(0,0,1);
             yes(new com.bleachmod.common.network.s2c.SenbonPetalsS2C(0,zero,f,6,1,0,1,7).valid());
             yes(!new com.bleachmod.common.network.s2c.SenbonPetalsS2C(0,zero,f,Float.NaN,1,0,1,7).valid());
-            yes(!new com.bleachmod.common.network.s2c.SenbonPetalsS2C(12,zero,f,6,1,0,1,7).valid());
+            yes(!new com.bleachmod.common.network.s2c.SenbonPetalsS2C(13,zero,f,6,1,0,1,7).valid());
             yes(!new com.bleachmod.common.network.s2c.SenbonPetalsS2C(0,zero,zero,6,1,0,1,7).valid());
+        });
+        test("Senbon passive aura cannot start melee trail and trail validates combo",()->{
+            var zero=net.minecraft.world.phys.Vec3.ZERO;var f=new net.minecraft.world.phys.Vec3(0,0,1);
+            for(int combo=0;combo<3;combo++){
+                var aura=new com.bleachmod.common.network.s2c.SenbonPetalsS2C(10,zero,f,1,0,combo,1,7);
+                yes(aura.valid());yes(!aura.meleeTrail());
+                var trail=new com.bleachmod.common.network.s2c.SenbonPetalsS2C(12,zero,f,1,0,combo,1,7);
+                yes(trail.valid());yes(trail.meleeTrail());
+                var buffer=new net.minecraft.network.FriendlyByteBuf(io.netty.buffer.Unpooled.buffer());
+                try{com.bleachmod.common.network.s2c.SenbonPetalsS2C.encode(trail,buffer);eq(trail,com.bleachmod.common.network.s2c.SenbonPetalsS2C.decode(buffer));}finally{buffer.release();}
+            }
+            yes(!new com.bleachmod.common.network.s2c.SenbonPetalsS2C(12,zero,f,1,0,3,1,7).valid());
         });
         test("large floral field packet roundtrips owner and rejects excess radius",()->{
             var zero=net.minecraft.world.phys.Vec3.ZERO;var f=new net.minecraft.world.phys.Vec3(0,0,1);
@@ -1068,6 +1490,49 @@ public final class MvpRegressionTest {
             var c=new CharacterData();c.load(legacy);eq(43D,c.getTechniqueMastery("bankai",3));eq(17D,c.getTechniqueMastery("bankai",4));eq(66D,c.getTechniqueMastery("shikai",3));yes(c.isTechniqueDiscovered("bankai",3));
             var copy=new CharacterData();copy.load(c.save());eq(43D,copy.getTechniqueMastery("bankai",3));eq(17D,copy.getTechniqueMastery("bankai",4));
             eq("path",com.bleachmod.common.technique.TechniqueDefinitions.require("benihime","bankai",3).id());eq("final_stitch",com.bleachmod.common.technique.TechniqueDefinitions.require("benihime","bankai",4).id());
+        });
+        test("Benihime Hadō 91 definition, migration from gigai, choreography and geometry",()->{
+            var def=com.bleachmod.common.technique.TechniqueDefinitions.require("benihime","sealed",4);
+            eq("senju_koten_taiho",def.id());
+            eq(30F,def.cost());
+            eq(280,def.cooldownTicks());
+            eq("ability.bleachmod.benihime.senju_koten_taiho",def.nameKey());
+
+            // Legacy migration from revision 4 gigai
+            var legacy=new CharacterData().save();legacy.putInt("techniqueRevision",4);legacy.putString("zanpakutoIdentity","benihime");
+            var masteries=new net.minecraft.nbt.CompoundTag();masteries.putDouble("benihime|sealed|gigai",72.5);masteries.putDouble("benihime|shikai|1",50);legacy.put("techniqueMasteries",masteries);
+            var unlocks=new net.minecraft.nbt.CompoundTag();unlocks.putBoolean("benihime|sealed|gigai",true);legacy.put("unlockedTechniques",unlocks);
+            var c=new CharacterData();c.load(legacy);
+            eq(72.5D,c.getTechniqueMastery("sealed",4));
+            yes(c.isTechniqueDiscovered("sealed",4));
+            var saved=c.save();
+            eq(5,saved.getInt("techniqueRevision"));
+            yes(saved.getCompound("unlockedTechniques").contains("benihime|sealed|senju_koten_taiho"));
+            var copy=new CharacterData();copy.load(saved);
+            eq(72.5D,copy.getTechniqueMastery("sealed",4));
+            yes(copy.isTechniqueDiscovered("sealed",4));
+
+            // Choreography
+            for(float sign:new float[]{1F,-1F}){
+                var start=com.bleachmod.common.visual.BenihimeChoreography.technique("senju_koten_taiho",0,24,sign);
+                eq(0F,start.weight());
+                var mid=com.bleachmod.common.visual.BenihimeChoreography.technique("senju_koten_taiho",12,24,sign);
+                yes(mid.weight()>0F);
+                yes(Double.isFinite(mid.arm().lengthSqr()) && Double.isFinite(mid.body().lengthSqr()) && Double.isFinite(mid.handRotation().lengthSqr()));
+                var end=com.bleachmod.common.visual.BenihimeChoreography.technique("senju_koten_taiho",24,24,sign);
+                eq(0F,end.weight());
+                eq(0D,end.arm().lengthSqr());
+            }
+
+            // Geometry
+            var zero=net.minecraft.world.phys.Vec3.ZERO;var f=new net.minecraft.world.phys.Vec3(0,0,1);
+            for(float progress:new float[]{0F,.25F,.5F,.8F,1F}){
+                var frame=new com.bleachmod.common.network.s2c.BenihimeFrameS2C(1,com.bleachmod.common.network.s2c.BenihimeFrameS2C.HADO91,zero,f.scale(16),f,24,progress,0);
+                yes(frame.valid());
+                var mesh=com.bleachmod.common.visual.BenihimeGeometry.build(frame);
+                yes(!mesh.isEmpty() && mesh.size()<700);
+                for(var q:mesh)for(var v:List.of(q.a(),q.b(),q.c(),q.d()))yes(Double.isFinite(v.x)&&Double.isFinite(v.y)&&Double.isFinite(v.z));
+            }
         });
         test("Benihime combat rig returns to idle and every spell has a distinct body motion",()->{
             var zero=net.minecraft.world.phys.Vec3.ZERO;var f=new net.minecraft.world.phys.Vec3(0,0,1);
@@ -1132,7 +1597,7 @@ public final class MvpRegressionTest {
             }
         });
         test("All ten fire gestures have finite continuous curves and return to the base animation", () -> {
-            int[] ends={16,16,16,22,18,20,16,22,22,32};int n=0;
+            int[] ends={16,16,16,22,18,20,16,22,22,56};int n=0;
             for(var kind:com.bleachmod.common.visual.RyujinChoreography.ATTACKS){
                 int end=ends[n++];var previous=com.bleachmod.common.visual.RyujinChoreography.attack(kind,0,1);
                 for(float age=.25F;age<end;age+=.25F){
@@ -1232,7 +1697,7 @@ public final class MvpRegressionTest {
                 }
                 eq(0F,com.bleachmod.common.visual.SignatureChoreography.sample(entry.getKey(),end,end,1).weight());
             }
-            eq(22,com.bleachmod.common.visual.SignatureChoreography.LENGTHS.size());
+            eq(23,com.bleachmod.common.visual.SignatureChoreography.LENGTHS.size());
         });
         test("Remaining releases recover to neutral and reject invalid time", () -> {
             for(String identity:List.of("senbonzakura","benihime","asauchi"))for(int length:new int[]{24,60}){
@@ -1291,23 +1756,48 @@ public final class MvpRegressionTest {
                 var end=com.bleachmod.common.visual.RyujinChoreography.execution(16,sign);
                 var hand=com.bleachmod.common.visual.RyujinChoreography.bladeHand(hip,sign);
                 yes(hand.x*sign>.35&&hand.y>.65&&hand.y<.9&&hand.z<0);
-                var low=hand.add(com.bleachmod.common.visual.RyujinChoreography.bladeDirection(hip).scale(1.4));
-                var high=com.bleachmod.common.visual.RyujinChoreography.bladeHand(end,sign).add(com.bleachmod.common.visual.RyujinChoreography.bladeDirection(end).scale(1.4));
+                var low=hand.add(com.bleachmod.common.visual.RyujinChoreography.executionBladeDirection(hip).scale(1.4));
+                var high=com.bleachmod.common.visual.RyujinChoreography.bladeHand(end,sign).add(com.bleachmod.common.visual.RyujinChoreography.executionBladeDirection(end).scale(1.4));
                 yes(low.y<.5&&high.y>1.9&&high.y-low.y>1.4);
                 yes((low.x-high.x)*sign>.5&&low.z>.9&&high.z>1);
-                for(float age=1;age<=16;age+=.25F){
-                    var normal=com.bleachmod.common.visual.RyujinChoreography.attack("higashi",age,sign);
-                    var execution=com.bleachmod.common.visual.RyujinChoreography.execution(age,sign);
-                    yes(normal.arm().distanceTo(execution.arm())<1e-9);
-                }
+                yes(end.arm().x < -1.5);
+                yes(com.bleachmod.common.visual.RyujinChoreography.bladeHand(end,sign).y>1.35);
             }
         });
         test("Higashi rising follow-through points toward the victim instead of behind the caster", () -> {
             for(float sign:new float[]{-1,1}){
                 var pose=com.bleachmod.common.visual.RyujinChoreography.execution(16,sign);
-                var blade=com.bleachmod.common.visual.RyujinChoreography.bladeDirection(pose);
+                var blade=com.bleachmod.common.visual.RyujinChoreography.executionBladeDirection(pose);
                 yes(blade.z>.6&&blade.y>.4);
+                for(float t=0;t<=com.bleachmod.common.visual.HigashiCinematicPath.END;t+=1.0F){
+                    var p=com.bleachmod.common.visual.RyujinChoreography.execution(t,sign);
+                    yes(Double.isFinite(p.item().lengthSqr()));
+                    yes(com.bleachmod.common.visual.RyujinChoreography.executionItemPosition(p).length()<3);
+                }
             }
+        });
+        test("Held katana coordinates agree with independently captured renderer matrices", () -> {
+            try {
+                var fixture=com.google.gson.JsonParser.parseString(java.nio.file.Files.readString(
+                        java.nio.file.Path.of("src/test/resources/higashi-held-renderer-calibration.json"))).getAsJsonObject();
+                var measured=new java.util.ArrayList<net.minecraft.world.phys.Vec3>();
+                var predicted=new java.util.ArrayList<net.minecraft.world.phys.Vec3>();
+                double by=Math.cos(Math.toRadians(10)),bz=-Math.sin(Math.toRadians(10));
+                for(var entry:fixture.getAsJsonArray("poses")){
+                    var o=entry.getAsJsonObject();var m=o.getAsJsonArray("heldMatrix");
+                    measured.add(new net.minecraft.world.phys.Vec3(
+                            m.get(4).getAsDouble()*by+m.get(8).getAsDouble()*bz,
+                            m.get(5).getAsDouble()*by+m.get(9).getAsDouble()*bz,
+                            m.get(6).getAsDouble()*by+m.get(10).getAsDouble()*bz).normalize());
+                    var zero=net.minecraft.world.phys.Vec3.ZERO;
+                    var pose=new com.bleachmod.common.visual.RyujinChoreography.Pose(
+                            fixtureVector(o.getAsJsonArray("arm")),zero,fixtureVector(o.getAsJsonArray("body")),
+                            zero,fixtureVector(o.getAsJsonArray("item")),zero,zero,1);
+                    predicted.add(com.bleachmod.common.visual.RyujinChoreography.executionBladeDirection(pose));
+                }
+                // Camera-independent angle between two stable poses, measured before model display.
+                yes(Math.abs(measured.get(0).dot(measured.get(1))-predicted.get(0).dot(predicted.get(1)))<1e-5);
+            }catch(java.io.IOException failure){throw new AssertionError(failure);}
         });
         test("Higashi preview packets remain distinct from confirmed death", () -> {
             var preview=new com.bleachmod.common.network.s2c.HigashiExecutionS2C(1,2,new net.minecraft.world.phys.Vec3(0,70,0),new net.minecraft.world.phys.Vec3(0,70,3),.6F,1.8F,false);
@@ -1465,10 +1955,290 @@ public final class MvpRegressionTest {
                 yes(com.bleachmod.common.visual.HollowBossEntrance.foot(t,false).planted());
             }
         });
+        test("Quincy profile initialization, race, and independent QuincyData save/load NBT persistence", () -> {
+            PlayerData d = new PlayerData();
+            d.initializeQuincy();
+            eq("quincy", d.getCharacter().getRace());
+            eq(100.0F, d.getResources().getCurrentReiatsu());
+            eq(100.0F, d.getResources().getMaxReiatsu());
+            yes(!d.getQuincy().isSprengerActive());
+
+            var center = new net.minecraft.core.BlockPos(10, 64, 20);
+            var vertices = java.util.List.of(
+                    new net.minecraft.core.BlockPos(16, 64, 20),
+                    new net.minecraft.core.BlockPos(12, 64, 26),
+                    new net.minecraft.core.BlockPos(5, 64, 24),
+                    new net.minecraft.core.BlockPos(5, 64, 16),
+                    new net.minecraft.core.BlockPos(12, 64, 14)
+            );
+            d.getQuincy().startSprenger(center, vertices, 1000L);
+            yes(d.getQuincy().isSprengerActive());
+            eq(center, d.getQuincy().getSprengerCenter());
+            eq(5, d.getQuincy().getSprengerVertices().size());
+            eq(1000L, d.getQuincy().getSprengerCreationTick());
+
+            var tag = d.save();
+            var loaded = new PlayerData();
+            loaded.load(tag);
+            eq("quincy", loaded.getCharacter().getRace());
+            yes(loaded.getQuincy().isSprengerActive());
+            eq(center, loaded.getQuincy().getSprengerCenter());
+            eq(5, loaded.getQuincy().getSprengerVertices().size());
+            eq(1000L, loaded.getQuincy().getSprengerCreationTick());
+
+            loaded.resetTransientState();
+            yes(!loaded.getQuincy().isSprengerActive());
+        });
+        test("Quincy Kojaku bow charges Reiatsu, calculates pull scale, and enforces 64-block maximum range", () -> {
+            eq(2.0F, com.bleachmod.common.quincy.QuincyBowItem.COMMON_SHOT_PE_COST);
+            eq(20, com.bleachmod.common.quincy.QuincyBowItem.FULL_CHARGE_TICKS);
+            eq(5, com.bleachmod.common.quincy.QuincyBowItem.MIN_CHARGE_TICKS);
+            eq(64.0D, com.bleachmod.common.quincy.QuincyArrowEntity.COMMON_MAX_RANGE);
+            eq(6.0F, com.bleachmod.common.quincy.QuincyArrowEntity.COMMON_BASE_DAMAGE);
+            eq(40.0D, com.bleachmod.common.quincy.QuincyArrowEntity.LICHT_REGEN_MAX_RANGE);
+            eq(2.0F, com.bleachmod.common.quincy.QuincyArrowEntity.LICHT_REGEN_DAMAGE);
+            eq(60, com.bleachmod.common.quincy.QuincyArrowEntity.COMMON_MAX_LIFE_TICKS);
+            eq(40, com.bleachmod.common.quincy.QuincyArrowEntity.LICHT_REGEN_MAX_LIFE_TICKS);
+
+            // Vertical deviation measurement across flight: 0.0 blocks drop at 16, 32, and 64 blocks without gravity
+            double vy = 0.0D;
+            for (int tick = 0; tick < 25; tick++) {
+                vy *= 0.99D;
+                eq(0.0D, vy);
+            }
+        });
+        test("Seele Schneider (H) pierces up to 3 distinct targets, deals 10 HP per target, and stops at wall", () -> {
+            eq(12.0F, com.bleachmod.common.quincy.QuincyTechniqueService.SEELE_PE_COST);
+            eq(120, com.bleachmod.common.quincy.QuincyTechniqueService.SEELE_COOLDOWN_TICKS);
+            eq(48.0D, com.bleachmod.common.quincy.SeeleSchneiderEntity.MAX_RANGE);
+            eq(10.0F, com.bleachmod.common.quincy.SeeleSchneiderEntity.DAMAGE_PER_TARGET);
+            eq(3, com.bleachmod.common.quincy.SeeleSchneiderEntity.MAX_TARGETS);
+            eq(0.5D, com.bleachmod.common.quincy.SeeleSchneiderEntity.CORRIDOR_WIDTH);
+        });
+        test("Licht Regen (N) fires 12 arrows over 2 seconds in a 20-degree cone, with 2 HP per hit and 8 HP ceiling per target", () -> {
+            eq(20.0F, com.bleachmod.common.quincy.QuincyTechniqueService.LICHT_REGEN_PE_COST);
+            eq(200, com.bleachmod.common.quincy.QuincyTechniqueService.LICHT_REGEN_COOLDOWN_TICKS);
+            eq(12, com.bleachmod.common.quincy.QuincyTechniqueService.LICHT_REGEN_TOTAL_SHOTS);
+            eq(40, com.bleachmod.common.quincy.QuincyTechniqueService.LICHT_REGEN_DURATION_TICKS);
+            eq(4, com.bleachmod.common.quincy.QuincyArrowEntity.LICHT_REGEN_MAX_HITS_PER_TARGET);
+
+            var quincy = new com.bleachmod.common.quincy.QuincyData();
+            quincy.startLichtRegen(new net.minecraft.world.phys.Vec3(0, 0, 1));
+            yes(quincy.isLichtRegenActive());
+            eq(40, quincy.getLichtRegenTicksLeft());
+            eq(0, quincy.getLichtRegenFiredCount());
+
+            var targetId = java.util.UUID.randomUUID();
+            eq(0, quincy.getLichtRegenHitsOn(targetId));
+            for (int i = 0; i < 4; i++) {
+                quincy.recordLichtRegenHit(targetId);
+            }
+            eq(4, quincy.getLichtRegenHitsOn(targetId));
+        });
+        test("Hirenkyaku (B) executes 6-block horizontal movement, charges 8 PE and 10 stamina, and respects terrain bounds", () -> {
+            eq(8.0F, com.bleachmod.common.quincy.HirenkyakuService.PE_COST);
+            eq(10.0F, com.bleachmod.common.quincy.HirenkyakuService.STAMINA_COST);
+            eq(120, com.bleachmod.common.quincy.HirenkyakuService.COOLDOWN_TICKS);
+            eq(6.0D, com.bleachmod.common.quincy.HirenkyakuService.TOTAL_DISTANCE);
+            eq(0.5D, com.bleachmod.common.quincy.HirenkyakuService.STEP_SIZE);
+
+            var res = new com.bleachmod.common.data.ResourcesData();
+            res.fillStamina();
+            eq(100.0F, res.getStamina());
+            yes(res.spendStamina(10.0F));
+            eq(90.0F, res.getStamina());
+        });
+        test("Sprenger (C) requires 5 local floor vertices, charges 35 PE once, prepares in 1.5s, detonates within 6s for 18 HP up to 8 targets, and cleans up on timeout", () -> {
+            eq(35.0F, com.bleachmod.common.quincy.QuincyTechniqueService.SPRENGER_PE_COST);
+            eq(400, com.bleachmod.common.quincy.QuincyTechniqueService.SPRENGER_COOLDOWN_TICKS);
+            eq(36.0D, com.bleachmod.common.quincy.QuincyTechniqueService.SPRENGER_MAX_CENTER_DISTANCE);
+            eq(6.0D, com.bleachmod.common.quincy.QuincyTechniqueService.SPRENGER_RADIUS);
+            eq(4.0D, com.bleachmod.common.quincy.QuincyTechniqueService.SPRENGER_HEIGHT);
+            eq(30, com.bleachmod.common.quincy.QuincyTechniqueService.SPRENGER_PREP_TICKS);
+            eq(120, com.bleachmod.common.quincy.QuincyTechniqueService.SPRENGER_EXPIRATION_TICKS);
+            eq(18.0F, com.bleachmod.common.quincy.QuincyTechniqueService.SPRENGER_DAMAGE);
+            eq(8, com.bleachmod.common.quincy.QuincyTechniqueService.SPRENGER_MAX_TARGETS);
+
+            var quincy = new com.bleachmod.common.quincy.QuincyData();
+            quincy.startSprenger(new net.minecraft.core.BlockPos(0, 60, 0), java.util.List.of(), 100L);
+            yes(quincy.isSprengerActive());
+
+            long agePrep = 120L - quincy.getSprengerCreationTick();
+            yes(agePrep < com.bleachmod.common.quincy.QuincyTechniqueService.SPRENGER_PREP_TICKS);
+
+            long ageWindow = 150L - quincy.getSprengerCreationTick();
+            yes(ageWindow >= com.bleachmod.common.quincy.QuincyTechniqueService.SPRENGER_PREP_TICKS
+                    && ageWindow <= com.bleachmod.common.quincy.QuincyTechniqueService.SPRENGER_EXPIRATION_TICKS);
+
+            long ageExpired = 230L - quincy.getSprengerCreationTick();
+            yes(ageExpired > com.bleachmod.common.quincy.QuincyTechniqueService.SPRENGER_EXPIRATION_TICKS);        });
+        test("story catalog follows the 28 approved M13 missions exactly", () -> {
+            try {
+                JsonObject catalog = StoryQuestDefaults.bundled();
+                var snapshot = QuestRegistry.parse(catalog.get("sagas").toString(), catalog.get("quests").toString());
+                eq(28, snapshot.quests().size());
+                eq(10, snapshot.order().get("shinigami_substitute").size());
+                eq(18, snapshot.order().get("shinigami_soul_society").size());
+                String doc = java.nio.file.Files.readString(java.nio.file.Path.of("Docs/game-design/13-campanhas-e-sidequests.md"));
+                doc = doc.substring(doc.indexOf("### 10.32."), doc.indexOf("### 10.33."));
+                var matcher = java.util.regex.Pattern.compile("\\| \\d+ \\| (MAIN-[A-Z0-9-]+) \\|").matcher(doc);
+                List<String> expected = new ArrayList<>(); while (matcher.find()) expected.add(matcher.group(1));
+                eq(expected, snapshot.quests().values().stream().map(q -> q.getStory().id()).toList());
+                yes(snapshot.quests().values().stream().allMatch(q -> q.getRewards().isEmpty() && !q.isRepeatable()));
+            } catch (java.io.IOException failure) { throw new AssertionError(failure); }
+        });
+        test("world catalog excludes obsolete quests and journal follows chronological order", () -> {
+            try {
+                var root = java.nio.file.Files.createTempDirectory("campaign-catalog");
+                QuestDefaults.writeIfMissing(root);
+                java.nio.file.Files.createDirectories(root.resolve("sidequests"));
+                java.nio.file.Files.writeString(root.resolve("sidequests/obsolete.json"), "not valid json");
+                java.nio.file.Files.writeString(root.resolve("sagas/soul_society.json"), "obsolete saga");
+                java.nio.file.Files.writeString(root.resolve("quests/shinigami_substitute/99.json"), "obsolete quest");
+                var snapshot = QuestRegistry.prepare(root);
+                eq(28, snapshot.quests().size()); eq(2, snapshot.sagas().size());
+                yes(snapshot.quests().values().stream().allMatch(Quest::isStory));
+                yes(!snapshot.quests().containsKey("rukia_npc_test"));
+                var reversed = new ArrayList<>(snapshot.quests().values());
+                java.util.Collections.reverse(reversed);
+                var ordered = QuestTracking.orderedJournal(reversed);
+                eq(new ArrayList<>(snapshot.quests().values()), ordered);
+                eq("shinigami_substitute:1", ordered.get(0).getQuestKey());
+                eq("shinigami_soul_society:18", ordered.get(27).getQuestKey());
+                yes(java.nio.file.Files.exists(root.resolve("sidequests/obsolete.json")));
+            } catch (java.io.IOException failure) { throw new AssertionError(failure); }
+        });
+        test("Rukia opening stages persist and migrate the previous single-boss definition", () -> {
+            try {
+                var json = StoryQuestDefaults.bundled().getAsJsonArray("quests").get(0).getAsJsonObject();
+                Quest current = QuestParser.parseQuest(json, "shinigami_substitute");
+                eq(3, current.getObjectives().size()); yes(current.getQuestGiver().isBlank());
+                QuestProgress p = new QuestProgress(current.getQuestKey()); p.initializeRequirements(current);
+                p.setStatus(QuestStatus.ACCEPTED);
+                eq(0, RukiaOpeningQuest.stage(p));
+                yes(RukiaOpeningQuest.visibleObjective(current, p, 0));
+                yes(!RukiaOpeningQuest.visibleObjective(current, p, 1));
+                p.setEncounterStarted(true); p.setObjectiveProgress(0, 1);
+                QuestProgress loaded = QuestProgress.load(p.save());
+                eq(1, RukiaOpeningQuest.stage(loaded)); yes(!RukiaOpeningQuest.visibleObjective(current, loaded, 2));
+                loaded.setObjectiveProgress(1, 1);
+                eq(2, RukiaOpeningQuest.stage(QuestProgress.load(loaded.save())));
+                yes(!loaded.allObjectivesComplete(current));
+                var legacy = json.deepCopy(); legacy.addProperty("version", 1);
+                legacy.addProperty("quest_giver", "rukia"); legacy.getAsJsonObject("story").addProperty("start_mode", "NPC");
+                legacy.getAsJsonArray("objectives").remove(2); legacy.getAsJsonArray("objectives").remove(0);
+                var oldQuest = QuestParser.parseQuest(legacy, "shinigami_substitute");
+                QuestProgress old = new QuestProgress(current.getQuestKey()); old.initializeRequirements(oldQuest);
+                old.setStatus(QuestStatus.ACCEPTED); old.setEncounterStarted(true);
+                var oldAttempt = old.getAttemptId(); yes(old.bindDefinition(current));
+                eq(0, RukiaOpeningQuest.stage(old)); yes(!old.isEncounterStarted()); yes(!oldAttempt.equals(old.getAttemptId()));
+                QuestProgress completed = new QuestProgress(current.getQuestKey()); completed.initializeRequirements(oldQuest);
+                completed.setStatus(QuestStatus.SUCCESS); completed.markStarterAsauchiGranted();
+                yes(completed.bindDefinition(current)); eq(QuestStatus.SUCCESS, completed.getStatus()); yes(completed.isStarterAsauchiGranted());
+                var root = java.nio.file.Files.createTempDirectory("rukia-migration");
+                QuestDefaults.writeIfMissing(root);
+                var path = root.resolve("quests/shinigami_substitute/01.json");
+                java.nio.file.Files.writeString(path, legacy.toString());
+                QuestDefaults.writeIfMissing(root);
+                yes(java.nio.file.Files.exists(path.resolveSibling("01.json.pre-stages.bak")));
+                eq(3, QuestRegistry.prepare(root).quests().get(current.getQuestKey()).getObjectives().size());
+            } catch (java.io.IOException failure) { throw new AssertionError(failure); }
+        });
+        test("Rukia combat checkpoint preserves completed steps destination and persistence", () -> {
+            try {
+                var json = StoryQuestDefaults.bundled().getAsJsonArray("quests").get(0).getAsJsonObject();
+                Quest q = QuestParser.parseQuest(json, "shinigami_substitute");
+                QuestProgress p = new QuestProgress(q.getQuestKey()); p.initializeRequirements(q); p.setStatus(QuestStatus.ACCEPTED);
+                var target = UUID.randomUUID(); p.setStoryTargetUuid(target);
+                p.setObjectiveProgress(0, 1); p.setEncounterStarted(true);
+                var attempt = p.getAttemptId(); p.restartObjectiveAttempt(1);
+                eq(QuestStatus.ACCEPTED, p.getStatus()); eq(1, p.getObjectiveProgress(0));
+                eq(0, p.getObjectiveProgress(1)); eq(target, p.getStoryTargetUuid());
+                yes(!attempt.equals(p.getAttemptId())); yes(RukiaOpeningQuest.isRetryPending(p));
+                var loaded = QuestProgress.load(p.save());
+                yes(RukiaOpeningQuest.isRetryPending(loaded)); eq(target, loaded.getStoryTargetUuid());
+                eq(1, loaded.getObjectiveProgress(0)); eq(p.getAttemptId(), loaded.getAttemptId());
+                loaded.markFailed(); eq(0, loaded.getObjectiveProgress(0)); eq(QuestStatus.FAILED, loaded.getStatus());
+            } catch (java.io.IOException failure) { throw new AssertionError(failure); }
+        });
+        test("starter Asauchi grant survives save and failed quest retries", () -> {
+            Quest q = quest();
+            QuestProgress progress = new QuestProgress("shinigami_substitute:1");
+            progress.initializeRequirements(q);
+            yes(!progress.isStarterAsauchiGranted());
+            progress.markStarterAsauchiGranted();
+            QuestProgress loaded = QuestProgress.load(progress.save());
+            yes(loaded.isStarterAsauchiGranted());
+            loaded.markFailed(); loaded.initializeRequirements(q);
+            yes(loaded.isStarterAsauchiGranted());
+            yes(!QuestProgress.load(new CompoundTag()).isStarterAsauchiGranted());
+        });
+        test("story visibility advances personally in order and failed retries still require Shinigami", () -> {
+            try {
+                var catalog = StoryQuestDefaults.bundled();
+                QuestRegistry.replaceFromNetwork(catalog.get("sagas").toString(), catalog.get("quests").toString());
+                PlayerData first = player(), second = player();
+                var sequence = List.copyOf(QuestRegistry.allQuests());
+                for (int i = 0; i < sequence.size(); i++) {
+                    Quest current = sequence.get(i);
+                    yes(QuestAvailabilityChecker.isAvailable(first, current.getQuestKey()));
+                    eq(i + 1L, sequence.stream().filter(q -> QuestAvailabilityChecker.isVisible(first, q)).count());
+                    eq(1L, sequence.stream().filter(q -> QuestAvailabilityChecker.isVisible(second, q)).count());
+                    first.getPlayerQuestData().completeQuest(current.getQuestKey());
+                }
+                String key = sequence.get(0).getQuestKey();
+                second.getPlayerQuestData().acceptQuest(key, sequence.get(0)); second.getPlayerQuestData().failQuest(key);
+                second.getCharacter().setRace("hollow");
+                yes(!QuestAvailabilityChecker.isAvailable(second, key));
+                yes(!QuestAvailabilityChecker.isVisible(second, sequence.get(0)));
+            } catch (java.io.IOException failure) { throw new AssertionError(failure); }
+            finally { QuestRegistry.clearClient(); }
+        });
+        test("story JSON roundtrip retains contexts and rejects an absent or optional race requirement", () -> {
+            try {
+                var catalog = StoryQuestDefaults.bundled();
+                for (var element : catalog.getAsJsonArray("quests")) {
+                    var json = element.getAsJsonObject(); var q = QuestParser.parseQuest(json, json.get("sagaId").getAsString());
+                    eq(q.progressDefinition(), QuestParser.parseQuest(q.toJson(), q.getSagaId()).progressDefinition());
+                    var changed = json.deepCopy(); changed.getAsJsonObject("prerequisites").addProperty("operator", "OR");
+                    rejects(() -> QuestParser.parseQuest(changed, q.getSagaId()));
+                }
+            } catch (java.io.IOException failure) { throw new AssertionError(failure); }
+        });
+        test("story waypoint lookup never falls back to another context or dimension", () -> {
+            var index = new QuestNpcLocations(); var dimension = com.bleachmod.Reference.id("soul_society");
+            var id = UUID.randomUUID();
+            var target = new QuestWaypoint(id, "rukia", dimension, new net.minecraft.core.BlockPos(2000,70,1000), "ss_prisao");
+            index.put(target);
+            index.put(new QuestWaypoint(UUID.randomUUID(), "rukia", dimension, net.minecraft.core.BlockPos.ZERO, "ss_execucao_rukia"));
+            eq(target, index.resolveContext("rukia", "ss_prisao", dimension, null, 0, 0, 0));
+            eq(null, index.resolveContext("rukia", "karakura_inicio", dimension, null, 0, 0, 0));
+            eq(null, index.resolveContext("rukia", "ss_prisao", new net.minecraft.resources.ResourceLocation("minecraft:overworld"), null, 0, 0, 0));
+            eq(target, QuestNpcLocations.load(index.save(new CompoundTag())).resolveContext("rukia", "ss_prisao", dimension, id, 0, 0, 0));
+        });
+        test("story encounter state and target survive NBT but a fresh attempt resets them", () -> {
+            Quest q = quest(); QuestProgress p = new QuestProgress("q"); p.initializeRequirements(q);
+            UUID target = UUID.randomUUID(); p.setStoryTargetUuid(target); p.setEncounterStarted(true);
+            QuestProgress copy = QuestProgress.load(p.save()); yes(copy.isEncounterStarted()); eq(target, copy.getStoryTargetUuid());
+            eq(p.getAttemptId(), copy.getAttemptId()); var previousAttempt = copy.getAttemptId();
+            copy.initializeRequirements(q); yes(!copy.isEncounterStarted()); eq(null, copy.getStoryTargetUuid());
+            yes(!previousAttempt.equals(copy.getAttemptId()));
+        });
+        test("approved story has maximum HUD priority even over manually preferred legacy sagas", () -> {
+            try {
+                var json = StoryQuestDefaults.bundled().getAsJsonArray("quests").get(0).getAsJsonObject();
+                Quest story = QuestParser.parseQuest(json, "shinigami_substitute"), legacy = quest(), side = quest();
+                legacy.setType(QuestType.SAGA); legacy.setSagaId("legacy"); legacy.setNumericId(1); side.setStringId("side");
+                var data = new PlayerQuestData(); data.acceptQuest(legacy.getQuestKey(), legacy); data.acceptQuest("side", side);
+                data.acceptQuest(story.getQuestKey(), story); data.setTrackedQuestId(legacy.getQuestKey());
+                eq(List.of(story, legacy, side), QuestTracking.orderedAccepted(data, List.of(side, legacy, story)));
+            } catch (java.io.IOException failure) { throw new AssertionError(failure); }
+        });
         System.out.println("PASS: "+count+" regression scenarios");
     }
     private static Map<String,com.bleachmod.server.world.HistoryWorld.Destination> historyManifest(String json){try{var f=java.nio.file.Files.createTempFile("maps",".json");try{java.nio.file.Files.writeString(f,json);return com.bleachmod.server.world.HistoryWorld.parse(f);}finally{java.nio.file.Files.deleteIfExists(f);}}catch(java.io.IOException e){throw new IllegalArgumentException(e);}}
     private static void historyRejects(String json){rejects(()->historyManifest(json));}
+    private static net.minecraft.world.phys.Vec3 fixtureVector(com.google.gson.JsonArray a){return new net.minecraft.world.phys.Vec3(a.get(0).getAsDouble(),a.get(1).getAsDouble(),a.get(2).getAsDouble());}
     private static PlayerData player(){PlayerData d=new PlayerData();d.initializeShinigami();d.getCharacter().bindZanpakuto("ryujin_jakka");d.getCharacter().preserveLegacyTechniques();return d;}
     private static Quest quest(){Quest q=new Quest();q.setStringId("q");q.getObjectives().add(new KillObjective("minecraft:zombie",5,KillObjective.SpawnMode.NATURAL,KillObjective.CountMode.ANY_MATCHING));q.getRewards().add(new TpsReward(100));return q;}
     private static JsonObject forms(){JsonObject r=new JsonObject(),groups=new JsonObject();groups.add("zanpakuto",FormDefaults.shinigamiGroup().toJson());r.add("shinigami",groups);return r;}

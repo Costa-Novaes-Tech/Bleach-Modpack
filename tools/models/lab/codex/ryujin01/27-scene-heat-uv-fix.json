@@ -1,0 +1,162 @@
+[
+  {
+    "name": "get_status",
+    "expect_project": {
+      "name": "ryujin_bankai_activation_scene_v6_lab",
+      "cubes": 220,
+      "textures": 1
+    }
+  },
+  {
+    "name": "paint_texture",
+    "arguments": {
+      "texture": "ryujin_bankai_activation_scene_v5_lab.png",
+      "ops": [
+        {
+          "type": "clear",
+          "x": 218,
+          "y": 423,
+          "width": 7,
+          "height": 7
+        },
+        {
+          "type": "clear",
+          "x": 219,
+          "y": 424,
+          "width": 7,
+          "height": 7
+        },
+        {
+          "type": "ellipse",
+          "x": 219.5,
+          "y": 424.5,
+          "width": 6,
+          "height": 6,
+          "color": "rgba(255,122,37,0.48)",
+          "fill": true
+        },
+        {
+          "type": "ellipse",
+          "x": 220.4,
+          "y": 425.54,
+          "width": 4.2,
+          "height": 3.9200000000000004,
+          "color": "rgba(255,217,99,0.28)",
+          "fill": true
+        },
+        {
+          "type": "clear",
+          "x": 184,
+          "y": 459,
+          "width": 7,
+          "height": 5
+        },
+        {
+          "type": "clear",
+          "x": 185,
+          "y": 460,
+          "width": 7,
+          "height": 5
+        },
+        {
+          "type": "ellipse",
+          "x": 185.5,
+          "y": 460.5,
+          "width": 6,
+          "height": 4,
+          "color": "rgba(255,122,37,0.48)",
+          "fill": true
+        },
+        {
+          "type": "ellipse",
+          "x": 186.4,
+          "y": 461.1,
+          "width": 4.2,
+          "height": 2.8000000000000003,
+          "color": "rgba(255,217,99,0.28)",
+          "fill": true
+        },
+        {
+          "type": "clear",
+          "x": 201,
+          "y": 459,
+          "width": 3,
+          "height": 5
+        },
+        {
+          "type": "clear",
+          "x": 202,
+          "y": 460,
+          "width": 3,
+          "height": 5
+        },
+        {
+          "type": "ellipse",
+          "x": 202.5,
+          "y": 460.5,
+          "width": 2,
+          "height": 4,
+          "color": "rgba(255,122,37,0.48)",
+          "fill": true
+        },
+        {
+          "type": "clear",
+          "x": 212,
+          "y": 459,
+          "width": 3,
+          "height": 5
+        },
+        {
+          "type": "clear",
+          "x": 213,
+          "y": 460,
+          "width": 3,
+          "height": 5
+        },
+        {
+          "type": "ellipse",
+          "x": 213.5,
+          "y": 460.5,
+          "width": 2,
+          "height": 4,
+          "color": "rgba(255,122,37,0.48)",
+          "fill": true
+        }
+      ],
+      "edit_name": "Align warm reflection to corrected Box UV"
+    }
+  },
+  {
+    "name": "check_model"
+  },
+  {
+    "name": "preview_animation",
+    "arguments": {
+      "animation": "animation.ryujin.bankai_activation_scene_lab",
+      "times": [
+        3.55,
+        5.8,
+        6.6,
+        7.2
+      ],
+      "views": [
+        "front"
+      ],
+      "width": 900,
+      "height": 900
+    }
+  },
+  {
+    "name": "save_project",
+    "arguments": {
+      "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\tools\\models\\lab\\codex\\ryujin01\\ryujin_bankai_activation_scene_v6_lab.bbmodel"
+    }
+  },
+  {
+    "name": "export_model",
+    "arguments": {
+      "codec": "bedrock",
+      "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\tools\\models\\lab\\codex\\ryujin01\\ryujin_bankai_activation_scene_v6_lab.geo.json"
+    }
+  }
+]

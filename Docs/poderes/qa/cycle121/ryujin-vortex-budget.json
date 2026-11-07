@@ -1,0 +1,229 @@
+{
+  "duration_ticks": 240,
+  "max_cards_allowed": 288,
+  "max_cards_observed": 248,
+  "peak_tick": 93,
+  "samples": [
+    {
+      "tick": 0,
+      "story_age": 0.0,
+      "sun_radius": 0.3,
+      "base_intensity": 0.0,
+      "vortex_intensity": 0.0,
+      "absorption": 0.0,
+      "cards": {
+        "sun_disk": 112,
+        "corona": 20,
+        "ground_base": 0,
+        "vortex": 0,
+        "absorption": 0,
+        "total": 132
+      },
+      "max_particles_emitted": 12
+    },
+    {
+      "tick": 20,
+      "story_age": 6.0,
+      "sun_radius": 2.75,
+      "base_intensity": 0.5,
+      "vortex_intensity": 0.4,
+      "absorption": 0.0,
+      "cards": {
+        "sun_disk": 112,
+        "corona": 20,
+        "ground_base": 32,
+        "vortex": 28,
+        "absorption": 0,
+        "total": 192
+      },
+      "max_particles_emitted": 12
+    },
+    {
+      "tick": 40,
+      "story_age": 12.0,
+      "sun_radius": 5.08,
+      "base_intensity": 0.948,
+      "vortex_intensity": 1.0,
+      "absorption": 0.0,
+      "cards": {
+        "sun_disk": 112,
+        "corona": 20,
+        "ground_base": 32,
+        "vortex": 28,
+        "absorption": 0,
+        "total": 192
+      },
+      "max_particles_emitted": 12
+    },
+    {
+      "tick": 65,
+      "story_age": 21.0,
+      "sun_radius": 5.303,
+      "base_intensity": 1.053,
+      "vortex_intensity": 1.0,
+      "absorption": 0.0,
+      "cards": {
+        "sun_disk": 112,
+        "corona": 20,
+        "ground_base": 32,
+        "vortex": 28,
+        "absorption": 0,
+        "total": 192
+      },
+      "max_particles_emitted": 12
+    },
+    {
+      "tick": 90,
+      "story_age": 30.0,
+      "sun_radius": 5.2,
+      "base_intensity": 1.0,
+      "vortex_intensity": 1.0,
+      "absorption": 0.0,
+      "cards": {
+        "sun_disk": 112,
+        "corona": 20,
+        "ground_base": 32,
+        "vortex": 28,
+        "absorption": 0,
+        "total": 192
+      },
+      "max_particles_emitted": 12
+    },
+    {
+      "tick": 115,
+      "story_age": 41.0,
+      "sun_radius": 2.6,
+      "base_intensity": 0.5,
+      "vortex_intensity": 0.5,
+      "absorption": 0.494,
+      "cards": {
+        "sun_disk": 112,
+        "corona": 20,
+        "ground_base": 32,
+        "vortex": 28,
+        "absorption": 56,
+        "total": 248
+      },
+      "max_particles_emitted": 12
+    },
+    {
+      "tick": 140,
+      "story_age": 52.0,
+      "sun_radius": 0.0,
+      "base_intensity": 0.0,
+      "vortex_intensity": 0.0,
+      "absorption": 0.0,
+      "cards": {
+        "sun_disk": 0,
+        "corona": 0,
+        "ground_base": 0,
+        "vortex": 0,
+        "absorption": 0,
+        "total": 0
+      },
+      "max_particles_emitted": 3
+    },
+    {
+      "tick": 150,
+      "story_age": 56.0,
+      "sun_radius": 0.0,
+      "base_intensity": 0.0,
+      "vortex_intensity": 0.0,
+      "absorption": 0.0,
+      "cards": {
+        "sun_disk": 0,
+        "corona": 0,
+        "ground_base": 0,
+        "vortex": 0,
+        "absorption": 0,
+        "total": 0
+      },
+      "max_particles_emitted": 3
+    },
+    {
+      "tick": 160,
+      "story_age": 60.0,
+      "sun_radius": 0.0,
+      "base_intensity": 0.0,
+      "vortex_intensity": 0.0,
+      "absorption": 0.0,
+      "cards": {
+        "sun_disk": 0,
+        "corona": 0,
+        "ground_base": 0,
+        "vortex": 0,
+        "absorption": 0,
+        "total": 0
+      },
+      "max_particles_emitted": 2
+    },
+    {
+      "tick": 185,
+      "story_age": 86.0,
+      "sun_radius": 0.0,
+      "base_intensity": 0.0,
+      "vortex_intensity": 0.0,
+      "absorption": 0.0,
+      "cards": {
+        "sun_disk": 0,
+        "corona": 0,
+        "ground_base": 0,
+        "vortex": 0,
+        "absorption": 0,
+        "total": 0
+      },
+      "max_particles_emitted": 2
+    },
+    {
+      "tick": 210,
+      "story_age": 112.0,
+      "sun_radius": 0.0,
+      "base_intensity": 0.0,
+      "vortex_intensity": 0.0,
+      "absorption": 0.0,
+      "cards": {
+        "sun_disk": 0,
+        "corona": 0,
+        "ground_base": 0,
+        "vortex": 0,
+        "absorption": 0,
+        "total": 0
+      },
+      "max_particles_emitted": 0
+    },
+    {
+      "tick": 225,
+      "story_age": 126.0,
+      "sun_radius": 0.0,
+      "base_intensity": 0.0,
+      "vortex_intensity": 0.0,
+      "absorption": 0.0,
+      "cards": {
+        "sun_disk": 0,
+        "corona": 0,
+        "ground_base": 0,
+        "vortex": 0,
+        "absorption": 0,
+        "total": 0
+      },
+      "max_particles_emitted": 0
+    },
+    {
+      "tick": 240,
+      "story_age": 140.0,
+      "sun_radius": 0.0,
+      "base_intensity": 0.0,
+      "vortex_intensity": 0.0,
+      "absorption": 0.0,
+      "cards": {
+        "sun_disk": 0,
+        "corona": 0,
+        "ground_base": 0,
+        "vortex": 0,
+        "absorption": 0,
+        "total": 0
+      },
+      "max_particles_emitted": 0
+    }
+  ]
+}

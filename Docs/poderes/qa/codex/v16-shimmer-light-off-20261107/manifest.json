@@ -1,0 +1,35 @@
+{
+  "source": "build\\visual-lab\\run-benihime-qa\\v16-shimmer-night-light-off\\ryujin-bankai-qa\\cycle118-1794058881686\\02_night_front",
+  "files": [
+    {
+      "path": "frames.jsonl",
+      "bytes": 10906,
+      "sha256": "77b729ac1ae3ee73dc50ca8c4a8629989c8eb7cb2fbb3928cc0c3167403da975"
+    },
+    {
+      "path": "performance.json",
+      "bytes": 2441,
+      "sha256": "d8a4eeb0c63085ea5fc3988c5accef983263502c4725280e478d21e592561247"
+    },
+    {
+      "path": "frame-times.csv",
+      "bytes": 57112,
+      "sha256": "fa652ab66b3dfd433845e48418a20f74861b2647856e074c47128c2ec9bbe8f3"
+    },
+    {
+      "path": "screenshots/frame-t112.png",
+      "bytes": 795967,
+      "sha256": "c3c413f839457ca119fbabd1fa1ee95faa9102275841ea60bf085dee23d61245"
+    },
+    {
+      "path": "screenshots/frame-t144.png",
+      "bytes": 795733,
+      "sha256": "cdb5b60bd563c21d7dc8d70ab8a8bfe94be2ae6b683cc31948a5bd4101cbdcf4"
+    },
+    {
+      "path": "screenshots/frame-t220.png",
+      "bytes": 175995,
+      "sha256": "01a5d7a1a887b380f1ca79cb72b42371c6afe9a5fc69e2d9ae50ccaf5bb564df"
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "source": "run-benihime-qa\\visual-final-matrix\\ryujin-bankai-qa\\cycle118-1793966174974\\03_first_return",
+  "files": [
+    {
+      "path": "frames.jsonl",
+      "bytes": 9037,
+      "sha256": "6bd8ba619964c71c96d45e343a9571a52e3b6c84a580e5a249f2844b4f914f41"
+    },
+    {
+      "path": "performance.json",
+      "bytes": 606,
+      "sha256": "2fd66e569ba636275e90736a3dc5be33756c26168f306e3ffca29c89790d2745"
+    },
+    {
+      "path": "frame-times.csv",
+      "bytes": 43888,
+      "sha256": "e4e421300bc6bdeb2fd4bf668210018b34b54aa89085f5b4b50ec20b86664fe2"
+    },
+    {
+      "path": "screenshots/frame-t300.png",
+      "bytes": 403447,
+      "sha256": "e630a8886c1f789737a9e72a46dc6cb5989802facd04c7361134db66dcc7fbc0"
+    }
+  ]
+}

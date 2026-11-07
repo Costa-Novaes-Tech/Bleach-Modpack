@@ -26,6 +26,7 @@ public abstract class QuestObjective {
 
     public enum ObjectiveType {
         KILL,
-        ITEM
+        ITEM,
+        STORY
     }
 }
