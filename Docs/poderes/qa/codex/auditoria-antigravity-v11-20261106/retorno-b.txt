@@ -1,0 +1,123 @@
+Ran run gradlew test to ensure zero regressions
+Checked task Run gradlew test to ensure zero regressions
+
+A execução de `gradlew test` está em andamento para validar todos os testes automatizados do projeto com a inclusão da suíte de persistência P0. Aguardo a finalização.
+
+Ran run gradlew check
+Checked task Run gradlew check
+
+A verificação de `gradlew check` (158 cenários de regressão do mod) está em execução para certificar a compatibilidade global. Aguardo a conclusão.
+
+Ran check git status
+Ran discard runtime logs
+Created antigravity-p0-rukia-auditoria-persistencia-2026-11-06.md
+Created antigravity-p0-rukia-proposta-fatia-p1-p2-2026-11-06.md
+Ran check git status
+Ran check refino_v11 untracked files
+Ran list refino_v11 files
+Ran stage P0 audit files
+Ran check staged files
+Ran commit P0 audit deliverables
+Ran check last 2 commits
+Ran read first 25 lines of acervo memory
+Ran update acervo-ia-memoria.md
+Ran verify acervo-ia-memoria.md header
+Ran fix formatting in acervo-ia-memoria.md
+Ran verify fixed acervo memory
+Ran clean tab characters
+Ran final git status check
+
+A auditoria de persistência **P0 pós-Rukia (`MAIN-SUB-01`)** e a preparação da proposta para a fatia **P1/P2 de lore e progressão** foram concluídas com sucesso na branch acordada `codex/senbon-hakuteiken-blockbench` (sincronizada via fast-forward com a base `9eb6a057`).
+
+---
+
+### 1. Confirmação do Ambiente e Isolamento
+
+- **Checkout:** [`C:/Users/joaop/Downloads/Projeto_Programacao_BleachMod/Bleach-Modpack-design`](file:///C:/Users/joaop/Downloads/Projeto_Programacao_BleachMod/Bleach-Modpack-design)
+- **Branch:** `codex/senbon-hakuteiken-blockbench`
+- **HEAD Local:** Commit [`1839a3bb`](file:///C:/Users/joaop/Downloads/Projeto_Programacao_BleachMod/Bleach-Modpack-design/Docs/poderes/antigravity-p0-rukia-auditoria-persistencia-2026-11-06.md) (`docs(p0): auditoria de persistencia MAIN-SUB-01, fixtures sinteticas e proposta P1/P2`) sobre a base `9eb6a057`.
+- **Integridade Produtiva:** Nenhum código de produção (recompensas, esquemas ou lógica de poderes) foi alterado; o trabalho foi estritamente investigativo e documental, gerando testes novos e fixtures em pastas próprias.
+
+---
+
+### 2. Mapa Estático P0 do Fluxo Integrado de `MAIN-SUB-01`
+
+A missão `MAIN-SUB-01` (`shinigami_substitute:1` do catálogo oficial) opera com checkpoints determinísticos no servidor:
+
+1. **Estágio 0 (Apresentação):**
+   - Aceite no Mission Journal vincula o waypoint à Rukia em `karakura_inicio` (Overworld).
+   - Objetivo 0: `STORY INTERACT` (`bleachmod.story.sub_01.meet`).
+   - `encounterStarted = false` e `starterAsauchiGranted = false`.
+2. **Estágio 1 (Confronto Hollow Boss):**
+   - Diálogo com Rukia inicia o combate (`StoryQuestService.beginOpening`).
+   - O servidor gera o `bleachmod:hollow_boss` (raio de 6 a 20 blocos) com tags NBT persistentes:
+     - `blc_quest_key = "shinigami_substitute:1"`
+     - `blc_quest_objective = 1`
+     - `blc_quest_owner = player.getUUID()`
+     - `blc_quest_attempt = progress.getAttemptId()`
+   - `encounterStarted = true` e `storyTargetUuid = rukia.getUUID()`.
+3. **Morte / Falha sem Crédito (Checkpoint):**
+   - Se o jogador morrer ou o boss for morto por dano ambiental (lava) ou por outro jogador, `onUncreditedBossDeath` / `onPlayerDeath` é disparado.
+   - O checkpoint reinicia **apenas o objetivo 1**, gerando um novo `attemptId` e marcando `isRetryPending = true`. O Estágio 0 (introdução) **não é perdido nem refeito**.
+4. **Estágio 2 (Retorno à Rukia):**
+   - Vitória legítima pelo proprietário avança para o retorno (`bleachmod.story.sub_01.return`).
+   - A bússola guia de volta para a **mesma instância de Rukia** salva em `storyTargetUuid`.
+5. **Conclusão e Entrega da Asauchi:**
+   - Diálogo final conclui a missão (`QuestStatus.SUCCESS`) e marca `starterAsauchiGranted = true`.
+   - Se o inventário estiver livre, a Asauchi é adicionada; se o inventário estiver cheio (36 slots ocupados), ela é dropada no chão com segurança (`player.drop`) sem falha.
+   - O claim é estritamente idempotente (relog ou interações posteriores não duplicam espadas).
+   - `MAIN-SUB-02` é automaticamente disponibilizada no Journal.
+
+---
+
+### 3. Matriz de Persistência: Dados Salvos vs. Transitórios
+
+| Tipo de Dado | Campos e Localização NBT | Persistência / Sobrevivência | Comportamento em Relog, Clone (Morte) e Dimensão |
+|---|---|---|---|
+| **Spiritual Points (SP)** | `resources.trainingPoints` | **Persistente Autoritativo** | Saldo intacto em relog, dimensões e mortes (`PlayerEvent.Clone`). |
+| **Ranks de Atributos** | `attributes` (7 IDs legados) | **Persistente Autoritativo** | Ranks comprados sobrevivem 1:1; sem perdas de investimento. |
+| **Maestria de Armas** | `character.formMasteries` | **Persistente Autoritativo** | Isolada por Zanpakuto (`asauchi`, `ryujin_jakka`, etc.); não zera. |
+| **Estado de Quests** | `playerQuestData.quests` | **Persistente Autoritativo** | `status`, `stage`, `attemptId`, `storyTargetUuid` e `starterAsauchiGranted` intactos. |
+| **Estado de Combate** | `status.combatState`, `guardLease` | **Transitório** | Limpo via `clearTransientState()` e `clearCombat()` ao deslogar ou mudar dimensão. |
+| **Vollständig Ativo** | `quincy.vollstandigActive` | **Transitório** | Desativado em relog e respawn (`resetTransientState()`). |
+
+---
+
+### 4. Diagnóstico da Suspeita P0: Normalização Quincy / Sealed pós-Relog
+
+Identificamos a causa raiz exata e a reproduzimos em teste automatizado:
+1. **Causa:**
+   - Em [`CapabilityEvents.java`](file:///C:/Users/joaop/Downloads/Projeto_Programacao_BleachMod/Bleach-Modpack-design/src/main/java/com/bleachmod/server/events/CapabilityEvents.java#L47), o evento `PlayerEvent.Clone` (morte/respawn) chama incondicionalmente `data.getCharacter().setActiveForm("zanpakuto", "sealed");`.
+   - Em [`ProgressionService.java`](file:///C:/Users/joaop/Downloads/Projeto_Programacao_BleachMod/Bleach-Modpack-design/src/main/java/com/bleachmod/common/ProgressionService.java#L23-L26), `normalize(PlayerData)` valida se a forma atual está desbloqueada no `FormRegistry`. Como [`FormRegistry.java`](file:///C:/Users/joaop/Downloads/Projeto_Programacao_BleachMod/Bleach-Modpack-design/src/main/java/com/bleachmod/common/evolution/FormRegistry.java#L32) rejeita qualquer raça diferente de `"shinigami"`, para um Quincy ele retorna `null`. O `isUnlocked` e `isSelectable` falham e forçam `activeForm` e `selectedForm` para `"sealed"`.
+2. **Efeito:** Todo relog ou morte de um Quincy sobrescreve sua forma ativa/selecionada para a Zanpakuto selada Shinigami.
+3. **Auditoria de `TransformationReward`:**
+   - A classe hardcodeia `CharacterData.RYUJIN`, ignorando a arma empunhada.
+   - **Resultado:** Nenhuma das 28 missões de `story_catalog.json` utiliza `TransformationReward`. Essa classe é um resquício de protótipo que deve permanecer fora da progressão oficial.
+4. **Proposta de Patch (Isolada, sem aplicação prematura no código):** Registrar um bypass racial em `ProgressionService.normalize()` para que Quincies normalizem para sua forma base (`quincy.base`), sem sofrer clamp de Zanpakuto.
+
+---
+
+### 5. Entregáveis Criados no Repositório
+
+1. **Fixtures Sintéticas P0:**
+   - Pasta: [`tools/qa/fixtures/antigravity-p0/`](file:///C:/Users/joaop/Downloads/Projeto_Programacao_BleachMod/Bleach-Modpack-design/tools/qa/fixtures/antigravity-p0/)
+   - Contém 6 cenários estruturados em JSON: `01_primeiro_acesso.json`, `02_quest_aceita.json`, `03_alvo_ativo.json`, `04_vitoria_sem_retorno.json`, `05_dialogo_final_asauchi_entregue.json` e `06_tentativa_falhada_retry.json`.
+   - Scripts auxiliares: [`generate_fixtures.py`](file:///C:/Users/joaop/Downloads/Projeto_Programacao_BleachMod/Bleach-Modpack-design/tools/qa/antigravity_p0/generate_fixtures.py) e [`audit_p0_persistence.py`](file:///C:/Users/joaop/Downloads/Projeto_Programacao_BleachMod/Bleach-Modpack-design/tools/qa/antigravity_p0/audit_p0_persistence.py).
+2. **Nova Classe de GameTests:**
+   - [`src/main/java/com/bleachmod/gametest/P0RukiaPersistenceGameTests.java`](file:///C:/Users/joaop/Downloads/Projeto_Programacao_BleachMod/Bleach-Modpack-design/src/main/java/com/bleachmod/gametest/P0RukiaPersistenceGameTests.java):
+     - `saveAndLoadPreservesAllRukiaStagesAndAttemptId`: valida roundtrip NBT em todos os estágios.
+     - `relogDoesNotRepeatAsauchiRewardOrLoseAttemptIdentity`: valida idempotência pós-login.
+     - `cloneOnDeathPreservesCheckpointsAndPointsWithoutDataLoss`: valida integridade pós-morte/respawn.
+     - `fullInventoryDropsAsauchiSafely`: valida drop seguro de espada com 36 slots cheios.
+     - `reproduceQuincySealedNormalizationOnRelog`: reproduz a anomalia de normalização Quincy.
+3. **Validação Técnica (`gradlew check`):**
+   - **176/176 cenários de regressão PASS** (suíte completa limpa e validada em 16s).
+4. **Documentações Canônicas em `Docs/poderes/`:**
+   - [Relatório Completo de Auditoria P0 (`antigravity-p0-rukia-auditoria-persistencia-2026-11-06.md`)](file:///C:/Users/joaop/Downloads/Projeto_Programacao_BleachMod/Bleach-Modpack-design/Docs/poderes/antigravity-p0-rukia-auditoria-persistencia-2026-11-06.md)
+   - [Proposta Documental da Fatia P1/P2 (`antigravity-p0-rukia-proposta-fatia-p1-p2-2026-11-06.md`)](file:///C:/Users/joaop/Downloads/Projeto_Programacao_BleachMod/Bleach-Modpack-design/Docs/poderes/antigravity-p0-rukia-proposta-fatia-p1-p2-2026-11-06.md):
+     - Mentor Piloto: Instrutor da Academia de Shinigamis (preservando Rukia isolada no Substituto).
+     - Skill Candidata: `zanjutsu_fundamento`.
+     - Compra autoritativa com débito único de SP no servidor; Mastery desenvolvida exclusivamente por prática de combate (REV-SP-02).
+     - Checklist de decisões pendentes para alinhamento da equipe (conversão de ranks legados para 5 atributos, tabela de preços e fontes de SP).
+5. **Memória Compartilhada do Acervo IA:**
+   - Atualizada em [`acervo-ia-memoria.md`](file:///C:/Users/joaop/Documents/Skills%20para%20IA/03-Documentacao/acervo-ia-memoria.md) na seção de 06/11/2026.

@@ -1,0 +1,45 @@
+{
+  "source": "build\\visual-lab\\run-benihime-qa\\v16-polish-oculus-day\\ryujin-bankai-qa\\cycle118-1794080270049\\13_irregular_day",
+  "files": [
+    {
+      "path": "frames.jsonl",
+      "bytes": 10716,
+      "sha256": "e0daf34bd3df081e675f674fdfcd6a17f1df2baec41e7eaa0711f5af47cdaf7e"
+    },
+    {
+      "path": "performance.json",
+      "bytes": 2447,
+      "sha256": "02b2ae3049763477a3346a41a1168f8fa407947bad6047d8744c41b17d0929f6"
+    },
+    {
+      "path": "frame-times.csv",
+      "bytes": 19439,
+      "sha256": "20d0e344534315d4dcd84692fc986a13acef6841fb2916ec08189792949bf421"
+    },
+    {
+      "path": "screenshots/frame-t039.png",
+      "bytes": 1208531,
+      "sha256": "beede83f6a6b9f9142cb5c9e8421b61189ef7cbeab710cf109d5bc5ab4fc2191"
+    },
+    {
+      "path": "screenshots/frame-t112.png",
+      "bytes": 975240,
+      "sha256": "66db2718c3c6886750dde15f9add949454a9c4f26b40358843d736d75cd869ec"
+    },
+    {
+      "path": "screenshots/frame-t176.png",
+      "bytes": 1026605,
+      "sha256": "cb6b40c58d1eda5c3f0b2136e0073f342f3ca07f7042cb1ccb8185fe45fb17a3"
+    },
+    {
+      "path": "screenshots/frame-t202.png",
+      "bytes": 1078011,
+      "sha256": "ca6c06ac9e468b33e46c373a82f35125849fbd2137cee04e34044fca2a79368d"
+    },
+    {
+      "path": "screenshots/frame-t220.png",
+      "bytes": 999288,
+      "sha256": "d4e7ea0aea2ec758c596834d53d74afa03461d6525c760164e74c2c6edfafaac"
+    }
+  ]
+}

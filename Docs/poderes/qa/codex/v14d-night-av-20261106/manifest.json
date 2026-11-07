@@ -1,0 +1,178 @@
+{
+  "source": "run-benihime-qa\\visual-v14d-audio\\ryujin-bankai-qa\\cycle118-1794017536828",
+  "local_only_media": "build/visual-lab/v14d-night-r02-preview-av.mp4 and v14d-night-game-mix.wav; unresolved redistribution rights",
+  "files": [
+    {
+      "path": "02_night_front_r01\\frame-times.csv",
+      "sha256": "bbb32859e51709543be653adaa163f3a778f16968198613e9567cb14d1f34045"
+    },
+    {
+      "path": "02_night_front_r01\\frames.jsonl",
+      "sha256": "c82f3f741a7d804edb3dc69c5a4201ce868aafd631d16e7817dac0d8f5582c9c"
+    },
+    {
+      "path": "02_night_front_r01\\performance.json",
+      "sha256": "5a28fae0a1c04e2a820fc66394f499b932ea3ce7840faec3ac46ced339b65c4d"
+    },
+    {
+      "path": "02_night_front_r01\\screenshots\\frame-t024.png",
+      "sha256": "11d381eae590c8876ec389048b98469a272b481f9dbfc959d168e2382f4394e5"
+    },
+    {
+      "path": "02_night_front_r01\\screenshots\\frame-t032.png",
+      "sha256": "7472ebdda254d000fbcbf458e9f0efaa98c189e89474db8f6b23344b93cae2a8"
+    },
+    {
+      "path": "02_night_front_r01\\screenshots\\frame-t039.png",
+      "sha256": "d053879aa086eb60616bcdeffeac4049d84e127e50c4ff1e8a4cbefd9af8d9e8"
+    },
+    {
+      "path": "02_night_front_r01\\screenshots\\frame-t040.png",
+      "sha256": "f0f267dc96af7bb5cdfa495ff79fcfd1f37e541678cc70335fdf1949b72bc865"
+    },
+    {
+      "path": "02_night_front_r01\\screenshots\\frame-t070.png",
+      "sha256": "02a062063f8572393188715242d94cea5b2b0971ec6dff11c1a82d8ee25be11a"
+    },
+    {
+      "path": "02_night_front_r01\\screenshots\\frame-t112.png",
+      "sha256": "f8b5380f0b0bcb3f522c7b1512e51dcc891a54599905f09b078f0b2d17f2c701"
+    },
+    {
+      "path": "02_night_front_r01\\screenshots\\frame-t160.png",
+      "sha256": "9d8dc7316668053b31c5fb8aedf31574824859ab4ff2d7714509eb34c79181b0"
+    },
+    {
+      "path": "02_night_front_r01\\screenshots\\frame-t184.png",
+      "sha256": "cba8c24182b4a03f3d490e8bbe7e1801cce52a86820d46e38ab4fd398c356dfe"
+    },
+    {
+      "path": "02_night_front_r01\\screenshots\\frame-t194.png",
+      "sha256": "9156f0a0bb7465c41bdb427013860040b0849c84d820cb69ba5fe42cffa75c9d"
+    },
+    {
+      "path": "02_night_front_r01\\screenshots\\frame-t198.png",
+      "sha256": "d05ef19b68625d44782cbf10b7262435e999b3837b6f3c5c75945f2479a39449"
+    },
+    {
+      "path": "02_night_front_r01\\screenshots\\frame-t202.png",
+      "sha256": "7d823121874da3bffd146d30410fbf99d76cbf0fb783d616c25d8c9de32dd005"
+    },
+    {
+      "path": "02_night_front_r01\\screenshots\\frame-t208.png",
+      "sha256": "fdca344a8165e781ddbf6ef3bfc321bf6e6149331ae86696cb50f8affd2d3945"
+    },
+    {
+      "path": "02_night_front_r01\\screenshots\\frame-t220.png",
+      "sha256": "bc180b36be0eab58e17724c282b3be13e3f24b648c1b7a5137b0d488c62ca00d"
+    },
+    {
+      "path": "02_night_front_r01\\screenshots\\frame-t300.png",
+      "sha256": "bb7a3cbe88d4440ff3552ab28fc51141c0ce34ae991db1511c872977cb8a7fb8"
+    },
+    {
+      "path": "02_night_front_r01\\screenshots\\frame-t302.png",
+      "sha256": "d11bf4c7b45090be11398aca680ab00fbd6c4fa74723be087d3a38af9ec1ca8a"
+    },
+    {
+      "path": "02_night_front_r01\\video-capture.json",
+      "sha256": "fe2da60327f4e63b23570900ba8ec5b716b55231407a8f57423b985e6e26a147"
+    },
+    {
+      "path": "02_night_front_r01\\video-encoder.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "02_night_front_r02\\frame-times.csv",
+      "sha256": "390eb090c86acecda38ce4487afc6f44b15522aba4d0c28353ce687b7241e12c"
+    },
+    {
+      "path": "02_night_front_r02\\frames.jsonl",
+      "sha256": "93b387e2670a305b158dbbee20c2c62916f6bd589444749b4638a1b711fbc800"
+    },
+    {
+      "path": "02_night_front_r02\\performance.json",
+      "sha256": "5c4219e2dc12155b27b57c9be3a4c5b7465b2a2ca0cb131fe840090cff2701cd"
+    },
+    {
+      "path": "02_night_front_r02\\screenshots\\frame-t024.png",
+      "sha256": "8970e4f2c644f52bd853091fe762f524cc86ad448fe95eb56ea45d802c39d95e"
+    },
+    {
+      "path": "02_night_front_r02\\screenshots\\frame-t032.png",
+      "sha256": "259e2bfa31addb332934e6c2ecc81c5672d56a96c0db33ef4d855185d3a4fdef"
+    },
+    {
+      "path": "02_night_front_r02\\screenshots\\frame-t039.png",
+      "sha256": "4f557560c210a4245f3fad7a619a0909b41da894ccffd2d6e884fb5526f1e06c"
+    },
+    {
+      "path": "02_night_front_r02\\screenshots\\frame-t040.png",
+      "sha256": "d0bac1018616112e19b888e519a111aa1ca5ddebc7f5f1234c0a42aa175ec115"
+    },
+    {
+      "path": "02_night_front_r02\\screenshots\\frame-t070.png",
+      "sha256": "7be253056d89f076b3bf704cf24aaab30880c8d54f2d421a5ddcb394dfad9503"
+    },
+    {
+      "path": "02_night_front_r02\\screenshots\\frame-t112.png",
+      "sha256": "5cbc42617e11df63736d5c1734bf9444a6c534447abf8a128786e8edfa830f04"
+    },
+    {
+      "path": "02_night_front_r02\\screenshots\\frame-t160.png",
+      "sha256": "e2caf0ded05f9cf013fbb21f9e9e936485999d6e11b4b7dbcf4584f8f9b1bded"
+    },
+    {
+      "path": "02_night_front_r02\\screenshots\\frame-t184.png",
+      "sha256": "077fd601ec66d8c1c4eb8131750a307ef0409e07c0f3cd78c5a0ec2f94233d4a"
+    },
+    {
+      "path": "02_night_front_r02\\screenshots\\frame-t194.png",
+      "sha256": "1557a589e4a83103aacef0476a0e096c2f915eab6f733762e28477a382c08dc1"
+    },
+    {
+      "path": "02_night_front_r02\\screenshots\\frame-t198.png",
+      "sha256": "4b8d8f9b283f12358714532ff6789e7b96e96f497d54d9874797c94794317b0a"
+    },
+    {
+      "path": "02_night_front_r02\\screenshots\\frame-t202.png",
+      "sha256": "22ac3c832dd6b165e81c0a50d6f0e479eb697e8635e89f26bcaa20a59341d92f"
+    },
+    {
+      "path": "02_night_front_r02\\screenshots\\frame-t208.png",
+      "sha256": "7a588a6121a7bb9da7cbc33403ab71d8715704d719cfddfa4678d2e8af1b7787"
+    },
+    {
+      "path": "02_night_front_r02\\screenshots\\frame-t220.png",
+      "sha256": "9aeaf89392915b59cc21bad58ae3128a8b4db0ed1c4f77b15c9796b8cef0aae6"
+    },
+    {
+      "path": "02_night_front_r02\\screenshots\\frame-t300.png",
+      "sha256": "136a77b89ebba5793294a1d1d646b9e2bdd594c10a511bb516c8dca890a77b14"
+    },
+    {
+      "path": "02_night_front_r02\\screenshots\\frame-t302.png",
+      "sha256": "7e2178ad59a72ccab7807a146ee9631c667b3ee3d0cfcd4c37ce3eb671b1ad59"
+    },
+    {
+      "path": "02_night_front_r02\\video-capture.json",
+      "sha256": "eea4ffe35cff996e61f987d153f7116e8e08da75649350e4c64782d7f0f33cc8"
+    },
+    {
+      "path": "02_night_front_r02\\video-encoder.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "client.log",
+      "sha256": "a190664c1594e6c0a8994617dcb00d9bbdf677173dcae672ef7f50306cc5f2dc"
+    },
+    {
+      "path": "inspection.json",
+      "sha256": "d7eb8e8e9e659ec859f31077e5ae1724ddc645447e26baa418570f4b3c3561d4"
+    },
+    {
+      "path": "preview-sync-local.json",
+      "sha256": "3a833b8962378eb8bad129046de4009b3d5fca0c6ed825c17eb61ac01ba29e91"
+    }
+  ]
+}

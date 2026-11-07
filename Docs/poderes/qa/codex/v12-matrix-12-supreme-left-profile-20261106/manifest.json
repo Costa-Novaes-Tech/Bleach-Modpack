@@ -1,0 +1,30 @@
+{
+  "source": "run-benihime-qa\\visual-final-matrix\\ryujin-bankai-qa\\cycle118-1793966174974\\12_supreme_left_profile",
+  "files": [
+    {
+      "path": "frames.jsonl",
+      "bytes": 10279,
+      "sha256": "912228b7c7ff74019bcc7b7326910d87f2cf21ec5e5744f1d9bf57d035a63cbd"
+    },
+    {
+      "path": "performance.json",
+      "bytes": 604,
+      "sha256": "0a835a4d5b8da6ca0e293595d82b603d42ce296ce4a79d3c9d87abb0b4a8b534"
+    },
+    {
+      "path": "frame-times.csv",
+      "bytes": 27848,
+      "sha256": "46ef1fde78a8176846eef59d7aa9014b213d7f960325a6893e46abee14f4967f"
+    },
+    {
+      "path": "screenshots/frame-t160.png",
+      "bytes": 203903,
+      "sha256": "a20b65d342e3332ffc4ff0cb167d7121670a2620182fb27c85c314b364d72e9c"
+    },
+    {
+      "path": "screenshots/frame-t190.png",
+      "bytes": 278960,
+      "sha256": "923028d14e23aa18947ffeafb165ac85a28aeb0649bf0a02e2b7607a842fd991"
+    }
+  ]
+}

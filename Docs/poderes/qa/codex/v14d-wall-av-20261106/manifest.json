@@ -1,0 +1,90 @@
+{
+  "local_only_media": [
+    "build/visual-lab/v14d-game-mix.wav",
+    "build/visual-lab/v14d-ryujin-preview-av.mp4"
+  ],
+  "video_sha256": "2bb8f0d64ccd77586299572b660e4c299e28de9404b36e01b2d4049ee57d9bfc",
+  "audio_sha256": "c9c9ea6f27172e9bb2054086c3b2b4dd589b62a80dc0f763f277cfac39e7d36a",
+  "files": [
+    {
+      "path": "audio-levels-original-channels.json",
+      "sha256": "af61c00bb7809cf9a36a04c8a422d4bd508d5c5e145292a21ed908a9e7d39476"
+    },
+    {
+      "path": "client.log",
+      "sha256": "ebe51e55f516c122c06fcfd51a3e3b3c7124d5840a389b311ca611f94358eaf3"
+    },
+    {
+      "path": "frame-times.csv",
+      "sha256": "8451c249579660180ed96947895545c65ed5f4614580c4cf6b63d0bf4650e167"
+    },
+    {
+      "path": "frames.jsonl",
+      "sha256": "17500ed7764328ee1b92f4eb611b47d08add2df7086ce82b2cd50ae300da2cd5"
+    },
+    {
+      "path": "performance.json",
+      "sha256": "adf1f74f85330040aa908ac5d38547a83b73e132c02e07701e6bf4491e3815e9"
+    },
+    {
+      "path": "preview-sync-local.json",
+      "sha256": "567970517a14a19d5f51f7f1d07bb3864280a529604f74f759b6b8b691699095"
+    },
+    {
+      "path": "screenshots\\frame-t070.png",
+      "sha256": "1c67ca534a7a18edc4f239a91fdc08fccd945a86ca8c0f406e417511d04028e0"
+    },
+    {
+      "path": "screenshots\\frame-t084.png",
+      "sha256": "b09c1c6f991bab8603846ddaecc5765ebd4156016f03dea498c9b602717a0973"
+    },
+    {
+      "path": "screenshots\\frame-t112.png",
+      "sha256": "f298333441dfa6d2cc8ff33cb20d4fdaec928df004d4aedcb5fb7e26df81fe09"
+    },
+    {
+      "path": "screenshots\\frame-t160.png",
+      "sha256": "3afc24b65ab8191d946dce25f33ee969d30b0e6ce63c07b7f3f33e56900e5d01"
+    },
+    {
+      "path": "screenshots\\frame-t184.png",
+      "sha256": "2a7089cfead325d59c0b4ac04b86cc63655a7a1f06fe2ca51fb511e4184852a8"
+    },
+    {
+      "path": "screenshots\\frame-t194.png",
+      "sha256": "c1967554ae2e9c3e1ec03e59d22eaef207f73cf1f2652b10301ec42de04bdf7c"
+    },
+    {
+      "path": "screenshots\\frame-t198.png",
+      "sha256": "6142ba3e4a6b7796a408b62c0ae18509eea08554af9b134a549d75d019655244"
+    },
+    {
+      "path": "screenshots\\frame-t202.png",
+      "sha256": "bc89aa7480d2a2d47b0d77799b0dcdddb9d8f88dbbba5ef68b5512210cf80b29"
+    },
+    {
+      "path": "screenshots\\frame-t208.png",
+      "sha256": "079b4ca12f869cf57fb0c2299fc08114fb3a7aea119ef7e03ec050a21788d476"
+    },
+    {
+      "path": "screenshots\\frame-t220.png",
+      "sha256": "dc29c0829126e1a6ac7b3375e04cda54211c53451723214ee97c23a7460ac5c8"
+    },
+    {
+      "path": "screenshots\\frame-t300.png",
+      "sha256": "c22521f450db8881be475cea2f1940197c67e3c6c8d4cf2989d38204df81a9bd"
+    },
+    {
+      "path": "screenshots\\frame-t302.png",
+      "sha256": "ac9c80721afb0897b7d277cd038ee5fb477d4ba4b6290992bd40fdffb819f267"
+    },
+    {
+      "path": "video-capture.json",
+      "sha256": "d72c2da0bef662fe3b28181a1b9b12fb1f35ff00235e13fe24ebe459fda70541"
+    },
+    {
+      "path": "video-encoder.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ]
+}

@@ -25,6 +25,8 @@ Use recursos existentes antes de adicionar dependências. MCP configurado, ferra
 
 ## Animação e revisão visual
 
+Para tarefas de transformação/modelagem/VFX, consultar sob demanda o [guia consolidado do projeto](../../guia-transformacoes-modelagem-vfx-qa-2026-11-06.md), com responsabilidades, testes executados e limites. Usar como método e índice de evidências, sem transplantar pose/duração/cotas de Ryūjin para Quincy ou outra habilidade. A comparação com trailer deve respeitar edição, relógio, resolução e alcance do que foi efetivamente observado.
+
 Defina marcos do movimento antes de editar: guarda, preparação, contato, passagem, recuperação e devolução do controle. Para cada marco, descreva posição/orientação da arma, contato com a mão, postura corporal, alvo e câmera. Valores ainda não definidos são hipóteses, não decisões do usuário.
 
 Compare frente/perfil/costas e mão dominante no mesmo tempo efetivo do clip, com o mesmo estado de entrada. Não use apenas o tick global do cenário. Capture arma e braço sem VFX primeiro; depois verifique o conjunto com VFX. Reveja também os intervalos e transições: imagens isoladas não demonstram fluidez contínua.
@@ -44,5 +46,16 @@ Informe separadamente: implementado; compilado; comportamento testado; aparênci
 Ao concluir: problema/causa sustentada, alteração, evidência, limites e instruções objetivas ao testador. Antes de commit, confira diff e exclua logs gerados e arquivos alheios. Commit/push/merge dependem da autorização da tarefa, não desta skill. Documentação nova fica em Docs/poderes; atualize o documento atual do assunto em vez de criar outro relatório repetido.
 
 ## Memória curta de correções
+
+### Verificação aprendida nas frentes A/B — 06/11/2026
+
+- Na revisão posterior v12, captura terminou antes do último tick: arquivos t40/t16 ausentes, GIFs com5/4 frames em vez de6/5 e painel vazio. Antes de encerrar QA, confira no disco todos os endpoints exigidos, a pose realmente renderizada, a contagem/duração do arquivo final e a ausência de painéis sem evidência. Empacotamento deve acusar arquivo obrigatório ausente. Não misture versões sem runID/proveniência; hash não prova que todos os arquivos são do mesmo ciclo. Aviso de schema inválido também não pode terminar numa aprovação incondicional de fixtures. [Fonte e limites da auditoria v12](../../auditoria-antigravity-retornos-v12-2026-11-06.md).
+
+- Antes de anunciar PASS, explique **o que a asserção mede e um defeito que ela deixaria passar**. Contar bones não prova contato/oclusão; igualdade com uma contagem nova de cubos não prova melhoria. No projeto, `check` depende de `regressionTest`; executar somente `test` não comprova essa suíte customizada. Compilar uma classe GameTest não é executá-la.
+- Em persistência, guarde saldo/ranks/claims depois das operações iniciais e compare os valores exatos. Se a alegação envolve inventário ou item dropado, examine esses dados/entidades; a flag da quest é uma prova diferente. Um novo FakePlayer com capability carregada não recupera automaticamente o inventário nem exerce login/clone/reinício real. Nomeie o teste pelo lifecycle efetivamente executado.
+- Em vídeo, declare frames, intervalos e duração reais. Três capturas montadas em GIF continuam sendo poses amostradas. Texto PASS numa imagem ou números fixos no logger não podem funcionar como medida de qualidade. Um script de empacotamento deve preservar a classificação técnica limitada da fonte, sem acrescentar aprovação artística.
+- Em autoria, `.bbmodel` produzido por Python não comprova auditoria do editor. Confira o projeto e formato na ponte exposta, rode a checagem nativa pertinente, corrija os avisos e valide o export exato no consumidor real. Bancada e apresentação produtiva precisam de caminhos de chamada identificados separadamente.
+- Geradores ficam restritos ao checkout/arquivos da frente. Não espelhe automaticamente modelos para um worktree vizinho, não apague `session.lock` para contornar processo desconhecido e não faça `checkout --` para descartar mudanças sem conferir baseline e propriedade. `--check` deve comparar todos os arquivos que sua mensagem afirma verificar.
+- Preserve falhas e formule o teste que as distingue, em vez de redefinir a conclusão para “completo”. Fonte e exemplos concretos: [auditoria A/B e Ryūjin](../../revisao-ryujin-v13-e-entregas-antigravity-2026-11-06.md). Releia essa referência só ao trabalhar em problema equivalente; não transfira soluções estéticas entre poderes.
 
 Registre no documento do assunto apenas decisões duráveis: sintoma → causa comprovada → correção → teste de regressão → limite. Não copie todo o chat. Em uma tarefa nova semelhante, derive a solução novamente do contrato e das evidências; não transplante ângulos, escalas ou soluções antigas sem verificar o novo modelo.

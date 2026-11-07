@@ -1,0 +1,15 @@
+{
+  "source": "run-benihime-qa\\visual-sun-v13g\\ryujin-bankai-qa\\cycle118-1793992567595\\02_night_front_r03",
+  "files": [
+    {
+      "path": "performance.json",
+      "bytes": 783,
+      "sha256": "f0f107236078e09a594c2f6d92287dbeb3aa7dd96458e6831d6b0f99c3d13557"
+    },
+    {
+      "path": "frame-times.csv",
+      "bytes": 54082,
+      "sha256": "53d968003989e7f0531e88aabed1e292bcb14eb38e72cb085c5dbb388647e191"
+    }
+  ]
+}

@@ -1,0 +1,85 @@
+{
+  "date": "2026-11-06",
+  "mode": "read-only source/log/image audit; no runtime tests rerun",
+  "git": {
+    "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-quincy-refino-v11": {
+      "head": "9eb6a057b757e6b3e477ebaff447d8379922ffa1",
+      "status": " M .agents/skills/bleach-mod-dev/SKILL.md\n M .agents/skills/bleach-model-pipeline/SKILL.md\n M Docs/poderes/00-CONTINUIDADE-CODEX.md\n M Docs/poderes/roadmap-revisao-progressao-lore-2026-11-05.md\n M GEMINI.md\n M src/main/java/com/bleachmod/client/cinematic/QuincyManifestationQa.java\n M src/main/java/com/bleachmod/gametest/QuincyVollstandigGameTests.java\n M src/main/resources/assets/bleachmod/animations/quincy_manifestation.animation.json\n M src/main/resources/assets/bleachmod/geo/quincy_manifestation.geo.json\n M src/main/resources/assets/bleachmod/textures/entity/quincy_manifestation.png\n?? Docs/poderes/antigravity-quincy-v11-referencias-modelos.md\n?? Docs/poderes/divisao-frentes-v11-2026-11-06.md\n?? Docs/poderes/handoff-antigravity-quincy-v11-manifest-2026-11-06.json\n?? Docs/poderes/media/antigravity-quincy-v11/\n?? Docs/poderes/media/quincy-model-sheets-20261105/\n?? Docs/poderes/plano-poses-storyboards-modelagem-2026-11-05.md\n?? Docs/poderes/prompt-antigravity-v11-p0-rukia-fixtures-2026-11-06.md\n?? Docs/poderes/prompt-antigravity-v11-quincy-vollstandig-refino-2026-11-06.md\n?? Docs/poderes/qa/antigravity/quincy-v11/\n?? Docs/poderes/quincy-pranchas-modelagem-2026-11-05.md\n?? Docs/poderes/ryujin-v11-bateria-testes-roadmap-divisao-2026-11-06.md\n?? src/main/java/com/bleachmod/client/model/QuincyManifestationAnimatable.java\n?? src/main/java/com/bleachmod/client/model/QuincyManifestationModel.java\n?? src/main/java/com/bleachmod/client/model/QuincyManifestationRenderer.java\n?? src/main/java/com/bleachmod/gametest/QuincyVollstandigV11GameTests.java\n?? src/main/resources/assets/bleachmod/textures/entity/quincy_manifestation_glow.png\n?? tools/models/lab/antigravity/quincy_vollstandig/refino_v11/\n"
+    },
+    "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design": {
+      "head": "8e22100289a2e1a091d9ec114c660d4888a95c47",
+      "status": "?? tools/models/lab/antigravity/quincy_vollstandig/refino_v11/\n"
+    }
+  },
+  "sources": [
+    {
+      "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-quincy-refino-v11\\src\\main\\java\\com\\bleachmod\\client\\cinematic\\QuincyManifestationQa.java",
+      "snapshot": "QuincyManifestationQa.snapshot.java",
+      "sha256": "3903f74f17c3898a49f86ba4ab0b7c2afac54fa64f69abe3497aa139d52380ea"
+    },
+    {
+      "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-quincy-refino-v11\\tools\\models\\lab\\antigravity\\quincy_vollstandig\\refino_v11\\package_qa_evidence.py",
+      "snapshot": "package_qa_evidence.snapshot.py",
+      "sha256": "421e93d5cbf1623f19b46a0538ea48a2faecbf40c05ea8539062315a68c05d63"
+    },
+    {
+      "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-quincy-refino-v11\\tools\\models\\lab\\antigravity\\quincy_vollstandig\\refino_v11\\quincy_manifestation_v11_pipeline.py",
+      "snapshot": "quincy-pipeline.snapshot.py",
+      "sha256": "0ed7ced0bfc1aff4e115459ae30aa73f01293a0c105634d7fb5193c0cd4a35c3"
+    },
+    {
+      "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-quincy-refino-v11\\Docs\\poderes\\qa\\antigravity\\quincy-v11\\quincy_v11_qa_contact_sheet.png",
+      "snapshot": "quincy-contact-original.png",
+      "sha256": "6887d9561fbc084dc6b61eedc76b3e04aab65955d2d1e9727613b76b00bbe69e"
+    },
+    {
+      "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-quincy-refino-v11\\Docs\\poderes\\qa\\antigravity\\quincy-v11\\manifest.json",
+      "snapshot": "quincy-manifest-original.json",
+      "sha256": "bcb3141a562f875f3a5f91c6a6e75349bcab59b45f436e227b8354a5c853e162"
+    },
+    {
+      "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-quincy-refino-v11\\Docs\\poderes\\qa\\antigravity\\quincy-v11\\results.txt",
+      "snapshot": "quincy-results.txt",
+      "sha256": "ce1ff9dbf3448932b542982c92f3e1e989c5d127be6dfbafed278992cae8078d"
+    },
+    {
+      "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\src\\main\\java\\com\\bleachmod\\gametest\\P0RukiaPersistenceGameTests.java",
+      "snapshot": "P0RukiaPersistenceGameTests.snapshot.java",
+      "sha256": "d93344b5fd95f5fa7117ab9fef96035abc77604b712f7b266ff3741ee376a3b6"
+    },
+    {
+      "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\tools\\qa\\antigravity_p0\\audit_p0_persistence.py",
+      "snapshot": "p0-auditor.snapshot.py",
+      "sha256": "d2506682c89e7429f6d4c5e1abc40c1475e412834a5f7d4e1fe80e17261bf672"
+    },
+    {
+      "source": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\run-gametest\\base\\logs\\latest.log",
+      "snapshot": "p0-gametest-latest.log",
+      "sha256": "bd937a9c40174f7a0fbcada6e61db99f5acaa3ddd785b0f1a93e3b52abc0eb26"
+    },
+    {
+      "source": "C:\\Users\\joaop\\.codex\\attachments\\71198688-7e7a-4c3e-a1b6-8fe0b5b01d09\\Texto colado.txt",
+      "snapshot": "retorno-a.txt",
+      "sha256": "26df6598033d3e5847d1a897e8fb76cb1ed383c2da4bfc128bbfc41d3f3135f4"
+    },
+    {
+      "source": "C:\\Users\\joaop\\.codex\\attachments\\6da3b3d4-67b3-4d1b-b3d2-f29d32caf162\\Texto colado.txt",
+      "snapshot": "retorno-b.txt",
+      "sha256": "4c110db57b13c7b4e99c01d20d0e43d9f6eb1b446ab6b6e32c85f91f6aadc58b"
+    }
+  ],
+  "quincy_gifs": {
+    "emergence_transition.gif": {
+      "frames": 5,
+      "frame_ms": 180
+    },
+    "settle_transition.gif": {
+      "frames": 4,
+      "frame_ms": 180
+    }
+  },
+  "quincy_endpoints": {
+    "emergence-arc-t40.png": false,
+    "settle-arc-t16.png": false
+  }
+}

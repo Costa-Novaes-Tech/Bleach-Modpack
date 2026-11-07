@@ -1,0 +1,502 @@
+[
+  {
+    "animation": "animation.ryujin.flame_wall_v9_lab",
+    "length": 12,
+    "loop": "once",
+    "orientation": "The model FACES -z. Its own RIGHT is +x, its own LEFT is -x.",
+    "samples": 33,
+    "bones_with_keyframes": 54,
+    "total_keyframes": 962,
+    "per_bone": [
+      {
+        "bone": "chest",
+        "keyframes": 6,
+        "channels": [
+          "rotation"
+        ]
+      },
+      {
+        "bone": "head",
+        "keyframes": 6,
+        "channels": [
+          "rotation"
+        ]
+      },
+      {
+        "bone": "arm_upper_right",
+        "keyframes": 6,
+        "channels": [
+          "rotation"
+        ]
+      },
+      {
+        "bone": "arm_lower_right",
+        "keyframes": 6,
+        "channels": [
+          "rotation"
+        ]
+      },
+      {
+        "bone": "hand_right",
+        "keyframes": 6,
+        "channels": [
+          "rotation"
+        ]
+      },
+      {
+        "bone": "katana",
+        "keyframes": 6,
+        "channels": [
+          "rotation"
+        ]
+      },
+      {
+        "bone": "arm_upper_left",
+        "keyframes": 6,
+        "channels": [
+          "rotation"
+        ]
+      },
+      {
+        "bone": "arm_lower_left",
+        "keyframes": 6,
+        "channels": [
+          "rotation"
+        ]
+      },
+      {
+        "bone": "hand_left",
+        "keyframes": 6,
+        "channels": [
+          "rotation"
+        ]
+      },
+      {
+        "bone": "sun_root",
+        "keyframes": 28,
+        "channels": [
+          "position",
+          "scale"
+        ]
+      },
+      {
+        "bone": "sun_core",
+        "keyframes": 12,
+        "channels": [
+          "scale"
+        ]
+      },
+      {
+        "bone": "inner_swirl",
+        "keyframes": 21,
+        "channels": [
+          "rotation",
+          "scale"
+        ]
+      },
+      {
+        "bone": "mid_swirl",
+        "keyframes": 21,
+        "channels": [
+          "rotation",
+          "scale"
+        ]
+      },
+      {
+        "bone": "outer_swirl",
+        "keyframes": 21,
+        "channels": [
+          "rotation",
+          "scale"
+        ]
+      },
+      {
+        "bone": "broken_rim",
+        "keyframes": 21,
+        "channels": [
+          "rotation",
+          "scale"
+        ]
+      },
+      {
+        "bone": "flame_00",
+        "keyframes": 18,
+        "channels": [
+          "rotation",
+          "scale"
+        ]
+      },
+      {
+        "bone": "flame_01",
+        "keyframes": 18,
+        "channels": [
+          "rotation",
+          "scale"
+        ]
+      },
+      {
+        "bone": "flame_02",
+        "keyframes": 18,
+        "channels": [
+          "rotation",
+          "scale"
+        ]
+      },
+      {
+        "bone": "flame_03",
+        "keyframes": 18,
+        "channels": [
+          "rotation",
+          "scale"
+        ]
+      },
+      {
+        "bone": "flame_04",
+        "keyframes": 18,
+        "channels": [
+          "rotation",
+          "scale"
+        ]
+      },
+      {
+        "bone": "flame_05",
+        "keyframes": 18,
+        "channels": [
+          "rotation",
+          "scale"
+        ]
+      },
+      {
+        "bone": "flame_06",
+        "keyframes": 18,
+        "channels": [
+          "rotation",
+          "scale"
+        ]
+      },
+      {
+        "bone": "flame_07",
+        "keyframes": 18,
+        "channels": [
+          "rotation",
+          "scale"
+        ]
+      },
+      {
+        "bone": "flame_08",
+        "keyframes": 18,
+        "channels": [
+          "rotation",
+          "scale"
+        ]
+      },
+      {
+        "bone": "flame_09",
+        "keyframes": 18,
+        "channels": [
+          "rotation",
+          "scale"
+        ]
+      },
+      {
+        "bone": "flame_10",
+        "keyframes": 18,
+        "channels": [
+          "rotation",
+          "scale"
+        ]
+      },
+      {
+        "bone": "flame_11",
+        "keyframes": 18,
+        "channels": [
+          "rotation",
+          "scale"
+        ]
+      },
+      {
+        "bone": "flame_12",
+        "keyframes": 18,
+        "channels": [
+          "rotation",
+          "scale"
+        ]
+      },
+      {
+        "bone": "player_fire_light",
+        "keyframes": 9,
+        "channels": [
+          "scale"
+        ]
+      },
+      {
+        "bone": "flash_corona",
+        "keyframes": 13,
+        "channels": [
+          "rotation",
+          "scale"
+        ]
+      },
+      {
+        "bone": "absorb_spark_00",
+        "keyframes": 16,
+        "channels": [
+          "position",
+          "scale"
+        ]
+      },
+      {
+        "bone": "absorb_spark_01",
+        "keyframes": 16,
+        "channels": [
+          "position",
+          "scale"
+        ]
+      },
+      {
+        "bone": "absorb_spark_02",
+        "keyframes": 16,
+        "channels": [
+          "position",
+          "scale"
+        ]
+      },
+      {
+        "bone": "absorb_spark_03",
+        "keyframes": 16,
+        "channels": [
+          "position",
+          "scale"
+        ]
+      },
+      {
+        "bone": "absorb_spark_04",
+        "keyframes": 16,
+        "channels": [
+          "position",
+          "scale"
+        ]
+      },
+      {
+        "bone": "absorb_spark_05",
+        "keyframes": 16,
+        "channels": [
+          "position",
+          "scale"
+        ]
+      },
+      {
+        "bone": "absorb_spark_06",
+        "keyframes": 16,
+        "channels": [
+          "position",
+          "scale"
+        ]
+      },
+      {
+        "bone": "absorb_spark_07",
+        "keyframes": 16,
+        "channels": [
+          "position",
+          "scale"
+        ]
+      },
+      {
+        "bone": "absorb_spark_08",
+        "keyframes": 16,
+        "channels": [
+          "position",
+          "scale"
+        ]
+      },
+      {
+        "bone": "absorb_spark_09",
+        "keyframes": 16,
+        "channels": [
+          "position",
+          "scale"
+        ]
+      },
+      {
+        "bone": "absorb_spark_10",
+        "keyframes": 16,
+        "channels": [
+          "position",
+          "scale"
+        ]
+      },
+      {
+        "bone": "absorb_spark_11",
+        "keyframes": 16,
+        "channels": [
+          "position",
+          "scale"
+        ]
+      },
+      {
+        "bone": "rear_flame_00",
+        "keyframes": 28,
+        "channels": [
+          "rotation",
+          "scale"
+        ]
+      },
+      {
+        "bone": "rear_flame_01",
+        "keyframes": 28,
+        "channels": [
+          "rotation",
+          "scale"
+        ]
+      },
+      {
+        "bone": "rear_flame_02",
+        "keyframes": 28,
+        "channels": [
+          "rotation",
+          "scale"
+        ]
+      },
+      {
+        "bone": "rear_flame_03",
+        "keyframes": 28,
+        "channels": [
+          "rotation",
+          "scale"
+        ]
+      },
+      {
+        "bone": "rear_flame_04",
+        "keyframes": 28,
+        "channels": [
+          "rotation",
+          "scale"
+        ]
+      },
+      {
+        "bone": "rear_flame_05",
+        "keyframes": 28,
+        "channels": [
+          "rotation",
+          "scale"
+        ]
+      },
+      {
+        "bone": "rear_flame_06",
+        "keyframes": 28,
+        "channels": [
+          "rotation",
+          "scale"
+        ]
+      },
+      {
+        "bone": "rear_flame_07",
+        "keyframes": 28,
+        "channels": [
+          "rotation",
+          "scale"
+        ]
+      },
+      {
+        "bone": "rear_flame_08",
+        "keyframes": 28,
+        "channels": [
+          "rotation",
+          "scale"
+        ]
+      },
+      {
+        "bone": "rear_flame_09",
+        "keyframes": 28,
+        "channels": [
+          "rotation",
+          "scale"
+        ]
+      },
+      {
+        "bone": "rear_flame_10",
+        "keyframes": 28,
+        "channels": [
+          "rotation",
+          "scale"
+        ]
+      },
+      {
+        "bone": "rear_flame_11",
+        "keyframes": 28,
+        "channels": [
+          "rotation",
+          "scale"
+        ]
+      }
+    ],
+    "motion": {
+      "head": {
+        "travel": 0.29,
+        "max_forward": 0.02,
+        "at_forward_time": 2.25,
+        "max_backward": 0.29,
+        "at_backward_time": 0,
+        "rise": 0,
+        "drop": -0.01,
+        "loop_gap": 0
+      },
+      "hips": {
+        "travel": 0,
+        "max_forward": 0,
+        "at_forward_time": 0,
+        "max_backward": 0,
+        "at_backward_time": 0,
+        "rise": 0,
+        "drop": 0,
+        "loop_gap": 0
+      },
+      "hand_right": {
+        "travel": 2.27,
+        "max_forward": 2.23,
+        "at_forward_time": 0,
+        "max_backward": 0.17,
+        "at_backward_time": 2.25,
+        "rise": 0.38,
+        "drop": 0,
+        "loop_gap": 0
+      },
+      "hand_left": {
+        "travel": 1.28,
+        "max_forward": 0.09,
+        "at_forward_time": 2.25,
+        "max_backward": 1.28,
+        "at_backward_time": 0,
+        "rise": 0.06,
+        "drop": 0,
+        "loop_gap": 0
+      },
+      "foot_right": {
+        "travel": 0,
+        "max_forward": 0,
+        "at_forward_time": 0,
+        "max_backward": 0,
+        "at_backward_time": 0,
+        "rise": 0,
+        "drop": 0,
+        "loop_gap": 0
+      },
+      "foot_left": {
+        "travel": 0,
+        "max_forward": 0,
+        "at_forward_time": 0,
+        "max_backward": 0,
+        "at_backward_time": 0,
+        "rise": 0,
+        "drop": 0,
+        "loop_gap": 0
+      }
+    },
+    "motion_legend": "Distances are in model units along the model's own axes. \"forward\" = -z (the way it faces).",
+    "direction_check": null,
+    "issue_count": 0,
+    "by_type": {},
+    "issues": [],
+    "verdict": "The motion measures clean. Now preview_animation and request_review so a human confirms it."
+  }
+]

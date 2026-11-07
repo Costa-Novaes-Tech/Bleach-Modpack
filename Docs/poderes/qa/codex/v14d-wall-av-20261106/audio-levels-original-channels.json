@@ -1,0 +1,20 @@
+{
+  "ffmpeg": "C:\\Users\\joaop\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\imageio_ffmpeg\\binaries\\ffmpeg-win-x86_64-v9.0.2.exe",
+  "video": null,
+  "audio": [
+    {
+      "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\build\\visual-lab\\v14d-game-mix.wav",
+      "sha256": "c9c9ea6f27172e9bb2054086c3b2b4dd589b62a80dc0f763f277cfac39e7d36a",
+      "duration_seconds": 48.34,
+      "sample_rate_hz": 48000,
+      "channels": 2,
+      "channel_peak_dbfs": [
+        -2.6,
+        -2.6
+      ],
+      "peak_dbfs": -2.6,
+      "rms_dbfs": -29.9,
+      "note": "Peak across original decoded channels; no mono downmix, no true-peak oversampling. Levels do not prove perceived quality."
+    }
+  ]
+}

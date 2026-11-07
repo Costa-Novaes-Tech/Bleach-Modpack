@@ -1,0 +1,6 @@
+emergence-arc STRUCTURAL_OK stage=0 clip=emergence ticks=40 bones=11 cubes=52 satellites=4 renderMode=DUAL_LAYER note=artistic_silhouette_and_fluidity_pending_human_inspection failure=null
+settle-arc STRUCTURAL_OK stage=1 clip=settle ticks=16 bones=11 cubes=52 satellites=4 renderMode=DUAL_LAYER note=artistic_silhouette_and_fluidity_pending_human_inspection failure=null
+iso-diffuse-only STRUCTURAL_OK stage=2 clip=idle ticks=15 bones=11 cubes=52 satellites=4 renderMode=DIFFUSE_ONLY note=artistic_silhouette_and_fluidity_pending_human_inspection failure=null
+iso-glow-only STRUCTURAL_OK stage=3 clip=idle ticks=15 bones=11 cubes=52 satellites=4 renderMode=GLOW_ONLY note=artistic_silhouette_and_fluidity_pending_human_inspection failure=null
+iso-dual-layer STRUCTURAL_OK stage=4 clip=idle ticks=15 bones=11 cubes=52 satellites=4 renderMode=DUAL_LAYER note=artistic_silhouette_and_fluidity_pending_human_inspection failure=null
+idle-profile STRUCTURAL_OK stage=5 clip=idle ticks=15 bones=11 cubes=52 satellites=4 renderMode=DUAL_LAYER note=artistic_silhouette_and_fluidity_pending_human_inspection failure=null

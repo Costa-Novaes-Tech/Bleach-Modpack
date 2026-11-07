@@ -1,0 +1,50 @@
+{
+  "source": "run-benihime-qa\\visual-sun-v13g\\ryujin-bankai-qa\\cycle118-1793992200616\\01_day_back",
+  "files": [
+    {
+      "path": "frames.jsonl",
+      "bytes": 8188,
+      "sha256": "293dfdc125f5e2cc5b89cddd805f53907030dd6b9073cc581b350b5c3da9f69d"
+    },
+    {
+      "path": "performance.json",
+      "bytes": 779,
+      "sha256": "1d04f3516ddd8b90b2a09934eab0e0dc5e00436d8f278e542b94010650c8c9d8"
+    },
+    {
+      "path": "frame-times.csv",
+      "bytes": 14350,
+      "sha256": "f8da1193b6402b4037d7253454b405c70a7701ec419d1028734f6ec9ab899fb8"
+    },
+    {
+      "path": "screenshots/frame-t070.png",
+      "bytes": 502132,
+      "sha256": "3c46707a42f6cecf8ea24546e4fe50b5733e1ccd7724d7113cd8cf5a9eeaff68"
+    },
+    {
+      "path": "screenshots/frame-t112.png",
+      "bytes": 614707,
+      "sha256": "e07565482d4c231600254cbaa9d4cd3d05a534ac7f662a2826d49b60781bf153"
+    },
+    {
+      "path": "screenshots/frame-t160.png",
+      "bytes": 618779,
+      "sha256": "3d8d81de1bd4dd96b373d101c286d2d5f800418442869ee12e8a7e19df30c2e8"
+    },
+    {
+      "path": "screenshots/frame-t190.png",
+      "bytes": 437735,
+      "sha256": "94b6379f2119a635e45562a17183d15b1783d1279ecc0fa85c7c0d99526b0bc5"
+    },
+    {
+      "path": "screenshots/frame-t202.png",
+      "bytes": 202293,
+      "sha256": "956a4972536a5a4a84db79c8b007f40b3db51d5bd0f10fb0556010696d4ba14d"
+    },
+    {
+      "path": "screenshots/frame-t300.png",
+      "bytes": 368926,
+      "sha256": "d6d7abbe01b7756168d1d76d34dc1e2158865c9f34e975fa115cbec1fd3e32bd"
+    }
+  ]
+}

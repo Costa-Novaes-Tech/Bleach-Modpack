@@ -1,0 +1,37 @@
+{
+  "ffmpeg": "C:\\Users\\joaop\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\imageio_ffmpeg\\binaries\\ffmpeg-win-x86_64-v9.0.2.exe",
+  "video": {
+    "path": "C:\\Users\\joaop\\Downloads\\Download.mp4",
+    "sha256": "eccbe8484388f0e16a270652aa1851c4229738e30a1f5a7c0c52cd815e400c58",
+    "duration_seconds": 97.87,
+    "streams": [
+      "Stream #0:0[0x1](und): Audio: aac (HE-AACv2) (mp4a / 0x6134706D), 44100 Hz, stereo, fltp, 32 kb/s (default)",
+      "Stream #0:1[0x2](und): Video: h264 (High) (avc1 / 0x31637661), yuv420p(tv, bt709, progressive), 576x1024 [SAR 1:1 DAR 9:16], 464 kb/s, 30 fps, 30 tbr, 15360 tbn (default)"
+    ],
+    "has_video": true,
+    "has_audio": true,
+    "seconds": [
+      36.0,
+      40.0,
+      44.0,
+      54.0,
+      56.0,
+      58.0,
+      60.0,
+      62.0,
+      64.0,
+      66.0,
+      68.0,
+      70.0,
+      72.0,
+      76.0,
+      80.0,
+      82.0,
+      84.0,
+      86.0
+    ],
+    "frames": 18,
+    "contact_sheet": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\build\\visual-lab\\reference-review-v14\\trailer\\contact-sheet.png"
+  },
+  "audio": []
+}

@@ -1,0 +1,28 @@
+{
+  "date": "2026-11-06",
+  "origin": "user-provided visual references; preserved originals; no runtime adoption",
+  "instruction_source": "user request defines anatomical right eye and pre-Bankai timing; images inform composition only",
+  "files": [
+    {
+      "source": "C:\\Users\\joaop\\AppData\\Local\\Temp\\codex-clipboard-19d5f09e-76e2-49e5-975c-8e9070aed783.png",
+      "file": "ref-01-pose-frontal-chamas.png",
+      "role": "Postura frontal, contraste e katana lateral",
+      "sha256": "d06897e857965ba09b51a83b71ac5406dfa78d446fd0c9a659535bc9ad91943c",
+      "bytes": 4609897
+    },
+    {
+      "source": "C:\\Users\\joaop\\AppData\\Local\\Temp\\codex-clipboard-a743fe00-9291-4f0a-b188-ae53c4ed31ce.png",
+      "file": "ref-02-lamina-em-chamas.png",
+      "role": "Guarda, empunhadura e leitura da lamina",
+      "sha256": "eedb1ecdd99970c9bbc8ae1478feed70b8976437b783ca295966374be99c5525",
+      "bytes": 772579
+    },
+    {
+      "source": "C:\\Users\\joaop\\AppData\\Local\\Temp\\codex-clipboard-9e77532c-c686-4fbb-ba53-876898f8ca42.png",
+      "file": "ref-03-sol-coroa.png",
+      "role": "Corpo inteiro, escala e composicao do sol traseiro",
+      "sha256": "49f3b318698f6acf580670f19f29c5d14ba78321e8a9f4623e3cfd4416fc8775",
+      "bytes": 1427972
+    }
+  ]
+}

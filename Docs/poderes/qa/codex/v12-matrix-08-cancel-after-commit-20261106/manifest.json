@@ -1,0 +1,30 @@
+{
+  "source": "run-benihime-qa\\visual-final-matrix\\ryujin-bankai-qa\\cycle118-1793966174974\\08_cancel_after_commit",
+  "files": [
+    {
+      "path": "frames.jsonl",
+      "bytes": 9057,
+      "sha256": "7a0d0e66af2356941c916074903ee6b93ec9044e2f8705c3d1f60c5e3ae8818d"
+    },
+    {
+      "path": "performance.json",
+      "bytes": 605,
+      "sha256": "212720ef4d1db3ed613e33536983f71330cb75ede1f7d9e53542371b5e58919d"
+    },
+    {
+      "path": "frame-times.csv",
+      "bytes": 37702,
+      "sha256": "091ef9d82947ef4885923492f03c3ffa3fcd2c5d5b87df98e9f2b196fb9f302c"
+    },
+    {
+      "path": "screenshots/frame-t080.png",
+      "bytes": 354601,
+      "sha256": "209d6a194b75e5afad24e32b2665046ef20033418b218538cacd33c70b7224a3"
+    },
+    {
+      "path": "screenshots/frame-t202.png",
+      "bytes": 357520,
+      "sha256": "f514ed48d45981b65fc856d3f2312af7f51ef6ae869b8919c41b03eaeb8a75bc"
+    }
+  ]
+}

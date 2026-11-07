@@ -1,0 +1,16 @@
+[
+  {
+    "cubes": 244,
+    "groups": 66,
+    "textures": 1,
+    "texture_size": [
+      256,
+      4096
+    ],
+    "animation_format": true,
+    "orientation": "The model FACES -z. Its own RIGHT is +x, its own LEFT is -x.",
+    "issue_count": 0,
+    "by_type": {},
+    "issues": []
+  }
+]

@@ -1,5 +1,15 @@
 # Capacitação e avaliação do Antigravity
 
+**06/11 — avaliação dos novos retornos v12:** [auditoria](auditoria-antigravity-retornos-v12-2026-11-06.md). B corrigiu asserções/inventário e possui log real302GameTests; caso de boss ausente também foi acrescentado. É ganho metodológico observado, mantendo gates de lifecycle/relog/coop e auditor de fixtures fraco. A retirou escrita cruzada e classificou prova estrutural corretamente, mas não conferiu endpoints/pacote: GIFs5/4, não6/5, e contato com painel vazio. Ainda não encerrou o ciclo visual nem comprovou integração produtiva. Próximos exercícios: A demonstrar fechamento temporal e rejeição de captura ausente; B demonstrar rejeição de fixture inválida em cópia e ampliar lifecycle real quando possível. Não atribuir equivalência de modelos ou autonomia completa a esta rodada. Sem envio automático ou alteração dos worktrees nesta revisão Codex.
+
+**06/11/2026 — rodada baseada nas entregas v11:** [auditoria Ryūjin/A/B](revisao-ryujin-v13-e-entregas-antigravity-2026-11-06.md). Houve Gradle/cliente reais no Quincy; a falha central é extrapolar provas limitadas, além de escrita cruzada entre worktrees. P0 tem testes escritos com asserções insuficientes e sem evidência nova localizada de execução GameTest. Não atribuir a causa ao modelo ou à ausência de ferramentas sem medir.
+
+Intervenção concreta: contrato existente e `bleach-design-lab` atualizados com escopo das asserções, inventário/saldo, vídeo amostrado, autoria nativa, consumidor produtivo e propriedade dos geradores. Isso está preparado no checkout Codex; leitura/ativação pelo Antigravity e ganho de desempenho **ainda não foram observados**. Não foram alteradas configurações globais, modelo/provedor, contas ou MCPs.
+
+Próxima rodada A: [Quincy, QA e isolamento](prompt-antigravity-v12-quincy-qa-e-isolamento-2026-11-06.md), com um clipe vertical completo antes de refazer todo o pacote. B: [P0 e provas reais](prompt-antigravity-v12-p0-provas-reais-2026-11-06.md), corrigindo primeiro a validade dos testes e depois executando a suíte apropriada. Prompts preparados, não enviados.
+
+Avaliar separadamente: preservação do escopo; ferramenta realmente utilizada; teste capaz de detectar a falha; inspeção visual/temporal; conclusão limitada à prova; necessidade de intervenção Codex. Sem nota agregada que esconda falha crítica. Depois de corrigir os casos conhecidos, aplicar uma tarefa equivalente nova sem fornecer a solução. Não chamar a correção assistida de transferência autônoma; manter condições/modelo comparáveis e registrar diferenças. Tempo/tokens/custo não foram medidos nesta auditoria.
+
 29/10/2026. Preparação de arquivos e planejamento na Feature-Poderes-bankais. Não altera gameplay, configurações do aplicativo, modelo, provedor ou instalação de MCP. O roadmap de NPCs/campanha permanece no documento126; capacitação precede novas entregas extensas.
 
 ## Diagnóstico sustentado pelo projeto

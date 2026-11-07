@@ -1,0 +1,84 @@
+{
+  "date": "2026-11-06",
+  "scope": "read-only audit; existing logs and source inspection; no runtime tests rerun",
+  "sources": [
+    {
+      "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-quincy-refino-v11\\tools\\models\\lab\\antigravity\\quincy_vollstandig\\refino_v11\\quincy_manifestation_v11_pipeline.py",
+      "sha256": "71fde8bb546eb4d82a7b24c394aa7145342c5ffa61bd386cf589a69293addcb9",
+      "bytes": 57766
+    },
+    {
+      "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-quincy-refino-v11\\tools\\models\\lab\\antigravity\\quincy_vollstandig\\refino_v11\\package_qa_evidence.py",
+      "sha256": "f1dc500570515437c7e8e48e2c8d0014bf4507832e57fcd248595ef1c763c963",
+      "bytes": 4933
+    },
+    {
+      "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-quincy-refino-v11\\src\\main\\java\\com\\bleachmod\\client\\cinematic\\QuincyManifestationQa.java",
+      "sha256": "882d34104c53d33e36e3e06e64d74cbf0f6130567137bb557242844d8ea31276",
+      "bytes": 12860
+    },
+    {
+      "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-quincy-refino-v11\\src\\main\\java\\com\\bleachmod\\client\\model\\QuincyManifestationRenderer.java",
+      "sha256": "4fdcf1b2fe0c824d56242f7535b7fef8b29f456e79b3cd6387a5457c6192e64e",
+      "bytes": 2577
+    },
+    {
+      "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\src\\main\\java\\com\\bleachmod\\gametest\\P0RukiaPersistenceGameTests.java",
+      "sha256": "a6ee971fd3dc910e0c503b18577b931bf69194cec139adba875a23c29f498fba",
+      "bytes": 13940
+    },
+    {
+      "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack-design\\tools\\qa\\antigravity_p0\\audit_p0_persistence.py",
+      "sha256": "b92c29159790651b9baaeab9e379fd2197a1e685313704a5b89a0bdca79a7dc3",
+      "bytes": 4297
+    }
+  ],
+  "git": {
+    "Bleach-Modpack-quincy-refino-v11": {
+      "head": "9eb6a057b757e6b3e477ebaff447d8379922ffa1",
+      "status": " M .agents/skills/bleach-mod-dev/SKILL.md\n M .agents/skills/bleach-model-pipeline/SKILL.md\n M Docs/poderes/00-CONTINUIDADE-CODEX.md\n M Docs/poderes/roadmap-revisao-progressao-lore-2026-11-05.md\n M GEMINI.md\n M src/main/java/com/bleachmod/client/cinematic/QuincyManifestationQa.java\n M src/main/java/com/bleachmod/gametest/QuincyVollstandigGameTests.java\n M src/main/resources/assets/bleachmod/animations/quincy_manifestation.animation.json\n M src/main/resources/assets/bleachmod/geo/quincy_manifestation.geo.json\n M src/main/resources/assets/bleachmod/textures/entity/quincy_manifestation.png\n?? Docs/poderes/antigravity-quincy-v11-referencias-modelos.md\n?? Docs/poderes/divisao-frentes-v11-2026-11-06.md\n?? Docs/poderes/handoff-antigravity-quincy-v11-manifest-2026-11-06.json\n?? Docs/poderes/media/antigravity-quincy-v11/\n?? Docs/poderes/media/quincy-model-sheets-20261105/\n?? Docs/poderes/plano-poses-storyboards-modelagem-2026-11-05.md\n?? Docs/poderes/prompt-antigravity-v11-p0-rukia-fixtures-2026-11-06.md\n?? Docs/poderes/prompt-antigravity-v11-quincy-vollstandig-refino-2026-11-06.md\n?? Docs/poderes/qa/antigravity/quincy-v11/\n?? Docs/poderes/quincy-pranchas-modelagem-2026-11-05.md\n?? Docs/poderes/ryujin-v11-bateria-testes-roadmap-divisao-2026-11-06.md\n?? src/main/java/com/bleachmod/client/model/QuincyManifestationAnimatable.java\n?? src/main/java/com/bleachmod/client/model/QuincyManifestationModel.java\n?? src/main/java/com/bleachmod/client/model/QuincyManifestationRenderer.java\n?? src/main/java/com/bleachmod/gametest/QuincyVollstandigV11GameTests.java\n?? src/main/resources/assets/bleachmod/textures/entity/quincy_manifestation_glow.png\n?? tools/models/lab/antigravity/quincy_vollstandig/refino_v11/\n"
+    },
+    "Bleach-Modpack-design": {
+      "head": "1839a3bb3b81b10843357765b933cf4d57c87254",
+      "status": "?? tools/models/lab/antigravity/quincy_vollstandig/refino_v11/\n"
+    }
+  },
+  "snapshots": [
+    {
+      "path": "p0-old-log-excerpt.txt",
+      "sha256": "0f3f80b57a2fedb839bd677beb622a3fda2056fe6719ac777a25076a7a6844b6"
+    },
+    {
+      "path": "P0RukiaPersistenceGameTests.snapshot.java",
+      "sha256": "a6ee971fd3dc910e0c503b18577b931bf69194cec139adba875a23c29f498fba"
+    },
+    {
+      "path": "package_qa_evidence.snapshot.py",
+      "sha256": "f1dc500570515437c7e8e48e2c8d0014bf4507832e57fcd248595ef1c763c963"
+    },
+    {
+      "path": "quincy-contact-original.png",
+      "sha256": "2b65cf43c44fc962f9fc38c749cfc0d719120a8e19a3e9fb7d73624776b944d4"
+    },
+    {
+      "path": "quincy-gametest-excerpt.txt",
+      "sha256": "24474cdede9a33bfbfd4cf77196d8177de368fd7bd99135f09c414599507a796"
+    },
+    {
+      "path": "quincy-manifest-original.json",
+      "sha256": "df734cb73fc01856d6ba36acfcc49418a56621866d4c46126abce05123bd4945"
+    },
+    {
+      "path": "quincy-results.txt",
+      "sha256": "752e1eb0e7eeb8abba1ee5e4f286ac04ff0354c84a77e5c625d0eca13766f204"
+    },
+    {
+      "path": "retorno-a.txt",
+      "sha256": "a3871f9a41b83fc3d5e920b2a9b2704aef3e0d9d35c2735e33b7b402a9a40f0e"
+    },
+    {
+      "path": "retorno-b.txt",
+      "sha256": "f0f3e7953095ac7882bcd0dc15aecb1f40e2b8092cc42a64b11fc6b24cc389df"
+    }
+  ]
+}

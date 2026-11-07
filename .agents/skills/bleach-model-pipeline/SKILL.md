@@ -40,6 +40,32 @@ Referências primárias consultadas para estas regras: [GeckoLib 4 Animation Con
 
 ## 1. Ciclo de Vida do Asset
 
+### Lição de correntes e efeitos na cabeça — Ryūjin v14, 06/11/2026
+
+- Para ribbons por segmentos, compartilhar posição, tangente e largura nas junções; orientação pela corda de cada segmento pode abrir fendas mesmo com centros contínuos. Testar curvas com câmera de frente/perfil e direção degenerada; incluir os quads no orçamento.
+- Um efeito no olho usa o espaço da cabeça renderizada, não a mão dominante ou direita da tela. Na vanilla PlayerModel usada aqui, X negativo é direita anatômica; o manequim nativo Y-up usa outra convenção. Provar lado em destro/canhoto e depois rotação/oclusão; não aplicar esse sinal a rigs diferentes sem inspeção.
+- Gerar uma versão nova invalida o vínculo do export/preview anterior com o arquivo atual. Registrar fonte e hash por rodada, reabrir/exportar e distinguir estudo de staging do asset/sampler produtivo. [Implementação e limites v14](../../../Docs/poderes/ryujin-v14-implementacao-fluxo-olho-testes-2026-11-06.md).
+
+### Lição de material e âncora — Ryūjin v13, 06/11/2026
+
+- Ao alinhar um VFX GeckoLib a partículas/luzes externas, inspecione as transformações do renderer da versão efetiva além dos bones. No `GeoObjectRenderer` 4.8.4, `preRender` soma `(0.5,0.51,0.5)`; o piloto solar precisou cancelar esse origin de objeto para coincidir com sua âncora de mundo. Não aplique essa compensação a renderers/versões diferentes sem conferir a implementação e o resultado em jogo.
+- `FULL_BRIGHT` e o nome “emissive” não garantem um material sem sombreado direcional. No Minecraft 1.20.1, o VSH `rendertype_entity_translucent_emissive` ainda mistura luz pelas normais. A Ryūjin isolou a causa mantendo geometria/textura e trocando somente o shader; depois adotou no piloto um material unlit com descarte alfa e fog. Compare transparência/profundidade e reload; o preview do Blockbench não valida esse shader.
+- Para um volume dividido em cubos, derive cores das posições 3D compartilhadas, em vez de reiniciar um gradiente em cada face. Isso corrige emendas de pintura, mas não prova que contraste causado por iluminação foi resolvido. Valide separadamente UVs, material e silhueta. Refinar a grade muda o orçamento de cubos e o empacotamento do atlas: asserções devem impedir exportar um bake fora da área reservada.
+- Fonte, controles rejeitados e limites: [Ryūjin v13](../../../Docs/poderes/ryujin-v13-sol-continuo-acabamento-2026-11-06.md). Controle f: 180 regressões, shader próprio e cleanup/reload no Forge; g: export nativo/check_model=0, 280 cubos, matriz de 12 cenários e três medições sem captura. Humano confirmou melhora visual, mantendo acabamento aberto; isso não homologa o conjunto nem shader packs.
+- O [guia de transformações](../../../Docs/poderes/guia-transformacoes-modelagem-vfx-qa-2026-11-06.md) reúne a sequência de prova vertical, responsabilidades e resultados reutilizáveis. Separar geometria, pintura, shader, emissor e luz nos controles; preservar material de referência individual por ângulo/frame. Vídeo promocional ajuda a estudar hierarquia/ritmo, sem identificar automaticamente a biblioteca ou garantir que cada efeito funcione em gameplay contínuo.
+
+### Regra de pranchas para Blockbench — decisão do usuário em 05/11/2026
+
+- Entregar **um arquivo por ângulo e por frame**, sem grades com várias vistas. Se uma geração mudar a empunhadura ao representar um perfil, rejeitar a versão e gerar a vista a partir do modelo nativo; não alterar o rig para coincidir com uma perspectiva incorreta. Manter imagens rejeitadas identificadas no manifesto, sem usá-las como contrato.
+- Para props muito maiores que o ator, manter um projeto de pose separado: o enquadramento automático do conjunto pode tornar mãos/arma ilegíveis. Capturas de sustentação não provam preparação/retorno; analisar movimento, corrigir postura estática e curvas mecânicas, e conferir o resultado no cliente.
+- Em perfis Blockbench isolados, confirmar porta e opção de scripts a cada retomada: a instalação do plugin não garante que 8788/`execute_script=false` continuem selecionados. Operar somente na instância própria, preservando 8787/Antigravity. Fontes e resultados deste ensaio: [Ryūjin v9](../../../Docs/poderes/ryujin-v9-pranchas-chamas-laboratorio-2026-11-05.md).
+
+- Trate storyboard para modelagem como **folha de referência**, com frente, costas, perfis e 3/4 em escala/orientação coerentes; inclua vista superior quando a profundidade de jogador, prop e VFX importar.
+- Para cada pose, produza pares equivalentes: versão **limpa/lisa**, com volumes essenciais, e versão **em blocos** para converter em cubos/planos no Blockbench. Compare silhueta, pivôs, mão/arma e proporção nas mesmas vistas antes de modelar.
+- Remova cenário, adornos imaginados, partículas e iluminação que escondam geometria. Desenhe VFX, câmera e emissão em folhas separadas. Rotule eixos, frente/costas, escala conhecida, ossos/pivôs e versão; não apresente medidas estimadas por IA como fatos verificados.
+- Na Ryūjin, seguir [o plano P0–P7 e os gates de validação](../../../Docs/poderes/plano-poses-storyboards-modelagem-2026-11-05.md). A mesma disciplina se aplica às próximas pranchas Quincy. O editor e o cliente Forge continuam sendo a prova de animação e encaixe.
+- Aprendizado das pranchas Quincy em 05/11: conferir etiquetas de eixo entre folhas, escala entre variantes e se a linha “em blocos” realmente usa cuboides. Uma geração trouxe rótulos X contraditórios e segmentos afilados; a revisão de montagem v2 explicitou barras retangulares sobrepostas. Registrar a fonte escolhida e corrigir no editor antes de exportar, sem tratar texto da imagem como contrato do rig existente.
+
 ```
   [1. Concepção & Referência]
              │ (Análise visual de proporção, silhueta e pivôs)

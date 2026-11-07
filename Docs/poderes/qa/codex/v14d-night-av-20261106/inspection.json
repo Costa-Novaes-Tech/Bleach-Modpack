@@ -1,0 +1,46 @@
+{
+  "ffmpeg": "C:\\Users\\joaop\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\imageio_ffmpeg\\binaries\\ffmpeg-win-x86_64-v9.0.2.exe",
+  "video": {
+    "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\build\\visual-lab\\v14d-night-r02-preview-av.mp4",
+    "sha256": "6d4f7ecea0483111a50fb6538ca8193dc78e7f994bbbed8bfdceb3da29d42d7a",
+    "duration_seconds": 16.35,
+    "streams": [
+      "Stream #0:0[0x1](und): Video: h264 (Constrained Baseline) (avc1 / 0x31637661), yuv420p(progressive), 1280x720, 5132 kb/s, 20 fps, 20 tbr, 10240 tbn (default)",
+      "Stream #0:1[0x2](und): Audio: aac (LC) (mp4a / 0x6134706D), 48000 Hz, stereo, fltp, 192 kb/s (default)"
+    ],
+    "has_video": true,
+    "has_audio": true,
+    "seconds": [
+      0.0,
+      1.2,
+      1.8,
+      2.1,
+      3.5,
+      5.6,
+      8.8,
+      9.7,
+      10.4,
+      11.0,
+      14.0,
+      15.8
+    ],
+    "frames": 12,
+    "contact_sheet": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\build\\visual-lab\\v14d-night-r02-inspection\\contact-sheet.png"
+  },
+  "audio": [
+    {
+      "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\build\\visual-lab\\v14d-night-game-mix.wav",
+      "sha256": "eaee6ae80b4aa76fa6a4f7fa1ff37370a6a81c79bd21ad88f9e473e385784174",
+      "duration_seconds": 64.94,
+      "sample_rate_hz": 48000,
+      "channels": 2,
+      "channel_peak_dbfs": [
+        -2.9,
+        -2.9
+      ],
+      "peak_dbfs": -2.9,
+      "rms_dbfs": -26.0,
+      "note": "Peak across original decoded channels; no mono downmix, no true-peak oversampling. Levels do not prove perceived quality."
+    }
+  ]
+}

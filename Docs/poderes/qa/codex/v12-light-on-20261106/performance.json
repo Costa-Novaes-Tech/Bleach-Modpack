@@ -1,0 +1,1 @@
+{"scope":"single-scene sustained sun ticks 112..175; inter-frame cadence, not GPU timer","gpu":"Intel(R) Iris(R) Xe Graphics","samples":197,"p50_ms":12.80690,"p95_ms":28.08510,"p99_ms":112.94880,"screenshot_capture":true,"light_backend":"shimmer","max_cards":264,"max_owned_particles":192,"max_lights":1}

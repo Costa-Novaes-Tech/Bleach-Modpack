@@ -1,0 +1,30 @@
+{
+  "source": "run-benihime-qa\\visual-final-matrix\\ryujin-bankai-qa\\cycle118-1793966174974\\02_night_front",
+  "files": [
+    {
+      "path": "frames.jsonl",
+      "bytes": 9092,
+      "sha256": "1497596bf9afe12de71a6945ead1bc3584c7dba1849675a83c302d4184147c4e"
+    },
+    {
+      "path": "performance.json",
+      "bytes": 606,
+      "sha256": "0deaaaa5e812326e7ef0d1830fa595e9c0f2571bbd2d9908e039fb5aa853eb04"
+    },
+    {
+      "path": "frame-times.csv",
+      "bytes": 29558,
+      "sha256": "6761674066a648ba1447695d0014aea1f5c89bd5c15ad99b26989d91ef66b290"
+    },
+    {
+      "path": "screenshots/frame-t144.png",
+      "bytes": 555718,
+      "sha256": "b6faa0ddbceeba83603d92694441ea3721e42e18b03718ceecb3d0892ff4a5cc"
+    },
+    {
+      "path": "screenshots/frame-t202.png",
+      "bytes": 171724,
+      "sha256": "fabcdb20bcde37adcf04e7ca8f6a03f29e503482596f3056d409e602ecacebf6"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "ffmpeg": "C:\\Users\\joaop\\AppData\\Local\\Programs\\Python\\Python313\\Lib\\site-packages\\imageio_ffmpeg\\binaries\\ffmpeg-win-x86_64-v9.0.2.exe",
+  "video": null,
+  "audio": [
+    {
+      "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\build\\visual-lab\\v12-game-mix.wav",
+      "sha256": "f0c80b3c8bd12de4aab4decce16f77a9c120deebff18b5606599ef16cc7e687d",
+      "duration_seconds": 36.72,
+      "sample_rate_hz": 48000,
+      "peak_dbfs": -0.7,
+      "rms_dbfs": -23.8,
+      "note": "Isolated-file level only; not perceived quality or the in-game mix"
+    },
+    {
+      "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\run-benihime-qa\\visual-music15\\resourcepacks\\RyujinCandidateMusic15Local\\assets\\bleachmod\\sounds\\ryujin_entrance_score.ogg",
+      "sha256": "8169f1dceea11a0d28f4bb958e388abe024f8c8ee7fee989d881d78232fa88a5",
+      "duration_seconds": 15.0,
+      "sample_rate_hz": 48000,
+      "peak_dbfs": -4.8,
+      "rms_dbfs": -19.7,
+      "note": "Isolated-file level only; not perceived quality or the in-game mix"
+    }
+  ]
+}

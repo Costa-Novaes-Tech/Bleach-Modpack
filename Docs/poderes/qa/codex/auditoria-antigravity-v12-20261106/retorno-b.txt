@@ -1,0 +1,92 @@
+Ran check latest.log GameTest summary
+Ran verify 7 tests in latest.log
+Ran search 7 tests in debug.log
+Ran check batch names in latest.log
+Ran check defaultBatch in latest.log
+Ran run gradlew check to ensure regressions pass
+
+Executando a suíte de regressão offline `check` (`task-3962`) para confirmar que os 176 cenários permanecem com 100% de aprovação. Aguardando a conclusão da tarefa.
+
+Edited antigravity-p0-rukia-auditoria-persistencia-2026-11-06.md
+Ran check git status
+Ran discard transient logs in git
+Ran check git status after discarding logs
+Ran check git diff stat
+Ran stage specific P0 files
+Ran check git status before commit
+Ran commit local changes
+Ran check last commit
+Analyzed acervo-ia-memoria.md:L1-25
+Editing acervo-ia-memoria.md
+Analyzed acervo-ia-memoria.md:L1-20
+Ran check line endings
+Ran update shared memory file · Exited with code 1
+Created update_memory.py
+Ran execute update_memory.py
+Analyzed acervo-ia-memoria.md:L1-35
+Ran verify final git status
+
+### Resumo da Execução — Antigravity B: Correção de Testes, Rigor e Homologação P0/Rukia
+
+**Ambiente e Branch:**
+- Checkout: `c:/Users/joaop/Downloads/Projeto_Programacao_BleachMod/Bleach-Modpack-design`
+- Branch: `codex/senbon-hakuteiken-blockbench`
+- Commit auditado anterior: `1839a3bb`
+- **Novo commit local gerado:** [`8e221002`](file:///c:/Users/joaop/Downloads/Projeto_Programacao_BleachMod/Bleach-Modpack-design) (`test(p0): correcao e rigor nos gametests de persistencia rukia e quincy`)
+- Código produtivo, esquemas de save e regras de progressão mantidos estritamente **somente leitura**. Sem `git push` ou `merge`. O arquivo untracked de modelagem Quincy da Frente A (`tools/models/lab/antigravity/quincy_vollstandig/refino_v11/quincy_manifestation_v11.bbmodel`) foi preservado intacto.
+
+---
+
+### 1. Correções Metodológicas e Distinção das Provas
+
+1. **Gradle `check` vs. GameTests do Forge:**
+   - Foi retificada a conclusão anterior: `.\gradlew check` executa unicamente as regressões unitárias offline (`MvpRegressionTest.java`, **176 cenários PASS**).
+   - A execução concreta da suíte de GameTests no servidor headless foi disparada via `.\gradlew runGameTestServer` no diretório descartável `run-gametest/base/`, registrando **302/302 GameTests PASS** em `run-gametest/base/logs/latest.log` com timestamp de **06/11/2026 19:51:26**.
+2. **Separação Capability vs. Inventário Vanilla:**
+   - O teste de relog foi renomeado e reformulado para `simulatedSessionRestorationMaintainsSingleAsauchiClaim`: separa a capability `PlayerData` do inventário de itens (`player.getInventory()`). Na restauração, ambos os estados são desserializados e o teste afere **delta zero** de espadas no inventário e no chão.
+   - Declarado explicitamente o limite: restauração em GameTest/FakePlayer comprova integridade no servidor, mas desconexão TCP real exige observador dedicado de cliente.
+3. **Igualdade Estrita em Morte/Clone:**
+   - `cloneOnDeathPreservesCheckpointsAndPointsWithoutDataLoss`: eliminado o teste frouxo (`saldo >= 0`). O teste compra exatamente Rank 1 de Zanjutsu (de 250 SP para exatamente 150 SP, $100 \times 1$), define Mastery 15.5 e afere igualdade estrita (`== 150`, `== 1`, `== 15.5`), sobrevivência do `attemptId` e tolerância a omissão de tags NBT.
+4. **Detecção Física em Inventário Cheio:**
+   - `fullInventoryDropsAsauchiSafely`: afere a presença física da `ItemEntity` no mundo via `AABB.inflate(6)`, verificando contagem de entidade == 1, stack size == 1, item == `ModItems.ASAUCHI`, e zero novas entidades em diálogos subsequentes.
+5. **Desacoplamento dos Lifecycles Quincy:**
+   - `reproduceQuincyFormNormalizationToSealed`: reproduz que `ProgressionService.normalize()` força formas ativas para `"sealed"` pela ausência de suporte no `FormRegistry`.
+   - `testQuincyTransientResetLifecycle`: comprova que `resetTransientState()` desativa a flag volátil `vollstandigActive` sem desaprender `hasVollstandig()`.
+6. **Portabilidade do Auditor Python:**
+   - `tools/qa/antigravity_p0/audit_p0_persistence.py` ajustado para caminhos relativos portáteis com escopo estrito de validação estática de JSON/hashes SHA-256 (sem emulação manual de Java).
+
+---
+
+### 2. Matriz Estruturada de Casos de Teste (7 Cenários)
+
+| Caso | Entrada / Cenário | Asserção / Invariante | Falha Detectável | Resultado Concreto | Evidência | Limite de Validade |
+|---|---|---|---|---|---|---|
+| **1. Estágios & AttemptId** | Shinigami aceita quest, inicia encontro, derrota boss e conclui diálogo final com saves intermediários em cada estágio. | `stage` preserva 0, 1 e 2; `attemptId` e `storyTargetUuid` sobrevivem serialização NBT; Asauchi concedida apenas no estágio final. | Desserialização perder `attemptId`, corromper etapa ou avançar sem cumprir objetivo. | **PASS** | [`P0RukiaPersistenceGameTests`](file:///c:/Users/joaop/Downloads/Projeto_Programacao_BleachMod/Bleach-Modpack-design/src/main/java/com/bleachmod/gametest/P0RukiaPersistenceGameTests.java#L64-L130) | Valida ciclo de vida do servidor; não valida conexão TCP de cliente. |
+| **2. Restauração de Sessão** | Jogador conclui quest e recebe Asauchi. Cria-se nova sessão restaurando capability NBT e `ListTag` do inventário; novo diálogo é disparado. | Inventário mantém 1 Asauchi (delta = 0); nenhuma nova `ItemEntity` é gerada no chão (delta = 0). | FakePlayer vazio mascarar contagem; repetição de diálogo duplicar espada. | **PASS** | [`P0RukiaPersistenceGameTests`](file:///c:/Users/joaop/Downloads/Projeto_Programacao_BleachMod/Bleach-Modpack-design/src/main/java/com/bleachmod/gametest/P0RukiaPersistenceGameTests.java#L132-L186) | Simulação em nível de servidor. Relog com desconexão de rede requer cliente dedicado. |
+| **3. Clone/Morte & Saldo Estrito** | Compra de Rank 1 Zanjutsu (250 SP $\rightarrow$ 150 SP), Mastery 15.5, morte no combate via `onPlayerDeath` e respawn com `resetTransientState`. | SP exatamente 150; Rank Zanjutsu exatamente 1; Mastery 15.5; `attemptId` e checkpoint estágio 1 preservados; tag `attributes` ausente reverte a 0 com segurança. | Inequação fraca (`>= 0`) mascarar perda; clone zerar Mastery ou perder checkpoint. | **PASS** | [`P0RukiaPersistenceGameTests`](file:///c:/Users/joaop/Downloads/Projeto_Programacao_BleachMod/Bleach-Modpack-design/src/main/java/com/bleachmod/gametest/P0RukiaPersistenceGameTests.java#L188-L250) | Exercita lifecycles `onPlayerDeath` + `resetTransientState` + NBT; não dispara evento Forge `PlayerEvent.Clone` de rede. |
+| **4. Drop em Inventário Cheio** | Jogador com os 36 slots cheios conclui entrega final da Asauchi. | `ItemEntity` no chão: contagem = 1, stack size = 1, item `ModItems.ASAUCHI`. Segundo diálogo não dropa novo item. | Falso positivo por flag booleana sem checagem de entidade; perda ou duplicação de item. | **PASS** | [`P0RukiaPersistenceGameTests`](file:///c:/Users/joaop/Downloads/Projeto_Programacao_BleachMod/Bleach-Modpack-design/src/main/java/com/bleachmod/gametest/P0RukiaPersistenceGameTests.java#L252-L302) | Detecção física via AABB no mundo do teste; não valida limpeza de 5min vanilla. |
+| **5. Quincy: Normalização de Formas** | Quincy com `selectedForm` e `activeForm` em `"vollstandig"`. Executa `ProgressionService.normalize(data)`. | Formas forçadas para `"sealed"` devido à ausência de registro Quincy no `FormRegistry`. | Confundir normalização de formas com reset de flags transitórias. | **PASS (Reprodução)** | [`P0RukiaPersistenceGameTests`](file:///c:/Users/joaop/Downloads/Projeto_Programacao_BleachMod/Bleach-Modpack-design/src/main/java/com/bleachmod/gametest/P0RukiaPersistenceGameTests.java#L304-L326) | Prova a anomalia estática no serviço de normalização sem alterar código produtivo. |
+| **6. Quincy: Ciclo Transitório** | Quincy com `vollstandigLearned=true` e `vollstandigActive=true`. Executa `data.resetTransientState()`. | `vollstandigActive` desativa para `false`; `hasVollstandig()` permanece concedido (`true`). | Misturar limpeza de estado temporário com regras raciais de Zanpakuto. | **PASS** | [`P0RukiaPersistenceGameTests`](file:///c:/Users/joaop/Downloads/Projeto_Programacao_BleachMod/Bleach-Modpack-design/src/main/java/com/bleachmod/gametest/P0RukiaPersistenceGameTests.java#L328-L349) | Valida método de capability chamado no logout/dimensão/respawn. |
+| **7. Caso 2: Boss Ausente sem Softlock** | Boss é removido do mundo (despawn acidental) no estágio 1. Jogador fala com Rukia via `recoverMissingEncounter`. | `isRetryPending=true`; `attemptId` renovado; `encounterStarted=false`; checkpoint mantido; novo diálogo reinicia o combate sem softlock. | Save travado infinitamente esperando entidade inexistente; reaproveitamento de attemptId antigo. | **PASS** | [`P0RukiaPersistenceGameTests`](file:///c:/Users/joaop/Downloads/Projeto_Programacao_BleachMod/Bleach-Modpack-design/src/main/java/com/bleachmod/gametest/P0RukiaPersistenceGameTests.java#L351-L385) | Prova recuperação em servidor; não substitui logs de IA natural em mundos abertos. |
+
+---
+
+### 3. Evidências de Execução e Hashes Registrados
+
+- **Forge GameTest Runner (`runGameTestServer`):**
+  - Comando: `.\gradlew.bat runGameTestServer`
+  - Log: [`run-gametest/base/logs/latest.log`](file:///c:/Users/joaop/Downloads/Projeto_Programacao_BleachMod/Bleach-Modpack-design/run-gametest/base/logs/latest.log#L675-L677)
+  - Resultado: `========= 302 GAME TESTS COMPLETE ========= | All 302 required tests passed :)` (Exit code: 0, 2m 49s).
+- **Regressões Offline (`check`):**
+  - Comando: `.\gradlew.bat check`
+  - Resultado: `PASS: 176 regression scenarios` (Exit code: 0, 19s).
+- **Fixtures Sintéticas SHA-256 (`tools/qa/fixtures/antigravity-p0/`):**
+  - `01_primeiro_acesso.json`: `cfa86557d80787a7a2642502bddaadb83ea8d72d619d2f465e224902ad791bdc`
+  - `02_quest_aceita.json`: `644b802b3e82b6e8ef02458460f957b90dea550761aff69dbe409f1242a9a191`
+  - `03_alvo_ativo.json`: `5374c3fca7af3bbe97a6b100e96880656b07866b5a5739b4c8473bb93c730a92`
+  - `04_vitoria_sem_retorno.json`: `c7c34beb7e6e68b500ce8a0ea2857fd3c972f41f22363c22c050c5a800abd46f`
+  - `05_dialogo_final_asauchi_entregue.json`: `5ebbbd1931e1dd23f2a22deb1f4cc81d42e242f153759f623c2b5d31a2dcb65a`
+  - `06_tentativa_falhada_retry.json`: `98c79b94c08722c38b3c32e2fc7aa1ea65aa27f52598c03f50f44f7ec6417170`
+- **Documentação e Memória Compartilhada Atualizadas:**
+  - Relatório canônico do projeto: [`Docs/poderes/antigravity-p0-rukia-auditoria-persistencia-2026-11-06.md`](file:///c:/Users/joaop/Downloads/Projeto_Programacao_BleachMod/Bleach-Modpack-design/Docs/poderes/antigravity-p0-rukia-auditoria-persistencia-2026-11-06.md)
+  - Memória central: [`C:\Users\joaop\Documents\Skills para IA\03-Documentacao\acervo-ia-memoria.md`](file:///C:/Users/joaop/Documents/Skills%20para%20IA/03-Documentacao/acervo-ia-memoria.md#L3-L23)

@@ -1,0 +1,25 @@
+{
+  "source": "run-benihime-qa\\visual-final-matrix\\ryujin-bankai-qa\\cycle118-1793966174974\\09_army_and_supreme",
+  "files": [
+    {
+      "path": "frames.jsonl",
+      "bytes": 7894,
+      "sha256": "c578d86ea4500921ba47839106fae85ff7e3bbdf3c8bae2d29a6cdeca7455984"
+    },
+    {
+      "path": "performance.json",
+      "bytes": 605,
+      "sha256": "bcdc6d5e5f9e40476d318e1f609df15029cbca10fceda9bb2619e96cfc9ae485"
+    },
+    {
+      "path": "frame-times.csv",
+      "bytes": 20443,
+      "sha256": "c9e68b4b5b5a35ea837f49a7afafa168292eddbb877e75c2be462cfe84383cff"
+    },
+    {
+      "path": "screenshots/frame-t160.png",
+      "bytes": 223182,
+      "sha256": "931b3b2239836b5c2aeda938ce808f1b578cca963d79c51da46fd496be5c9581"
+    }
+  ]
+}

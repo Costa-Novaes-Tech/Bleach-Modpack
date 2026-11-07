@@ -1,0 +1,186 @@
+{
+  "arsenal-left-front-f10.png": {
+    "bytes": 299013,
+    "sha256": "04b457785d2ef06c73ee8f7c8bc3358d5fc9ea82bdc4dbb1ac889ceaffdeba86"
+  },
+  "arsenal-left-front-f20.png": {
+    "bytes": 299186,
+    "sha256": "e5a735df84c20e370fe8620e87f9487bd14c59a01803516853097ba0b8777888"
+  },
+  "arsenal-left-front.png": {
+    "bytes": 298900,
+    "sha256": "782167a67195a666070b6f377ef6816f15a13b5570dcb5a6f5c99ca5ed57d6fb"
+  },
+  "arsenal-right-front-f10.png": {
+    "bytes": 298703,
+    "sha256": "7d5d5ed1ff7bf1448e78ce5dc855cdb7e90a351cd4d32fd1a367f13d9b83f316"
+  },
+  "arsenal-right-front-f20.png": {
+    "bytes": 298800,
+    "sha256": "1c3afa89f72b31ab505b5505c03c8903b638df2abf60d2ea7af51d140eb0a4a7"
+  },
+  "arsenal-right-front.png": {
+    "bytes": 299038,
+    "sha256": "cdbe4e70a6ec12820633c422900d7f111c74849f1b4f534b565c6402d4a50f62"
+  },
+  "arsenal_left.gif": {
+    "bytes": 160310,
+    "sha256": "f89039d0aed17c56eee0e892e7ab96f453712f39f8a4fb55c0eb543f22bbdb8a"
+  },
+  "arsenal_right.gif": {
+    "bytes": 159886,
+    "sha256": "5af8d892955c908459aeabfe52d6db482aecaa16da527224eadd200327ca59af"
+  },
+  "emergence-arc-t00.png": {
+    "bytes": 144906,
+    "sha256": "3ff217866b12b2d8e5632c05cc26f74f97b211b5ef539d396178834722010e5c"
+  },
+  "emergence-arc-t08.png": {
+    "bytes": 155382,
+    "sha256": "cd8025f701c2f03842761c913bd4c6d40ae72356ad9c2c197fa3b44073ebb4ef"
+  },
+  "emergence-arc-t16.png": {
+    "bytes": 190451,
+    "sha256": "8ea0e4c0fa0f0360d47e51fe5fe388968d23fed503e68ffddd5d5738890a078e"
+  },
+  "emergence-arc-t24.png": {
+    "bytes": 188030,
+    "sha256": "0722c5f0569d4ba11802b489bdc1584ee8c7791bb926ad3ecea02d4d313f5072"
+  },
+  "emergence-arc-t32.png": {
+    "bytes": 184889,
+    "sha256": "7bcdca19c397d39d83d6710dace131dec3060f893db317c247bbd1956bde734d"
+  },
+  "emergence-arc.png": {
+    "bytes": 186456,
+    "sha256": "1a6674fd527f3532523e24946659435a7e1578399ec8f447e94294d8aa6332cd"
+  },
+  "emergence-back-f10.png": {
+    "bytes": 187801,
+    "sha256": "fae37060b96a3b4ae98ba5ee4531fa2b0b2f4dc35880ded6f0498cd56a264f77"
+  },
+  "emergence-back-f20.png": {
+    "bytes": 188504,
+    "sha256": "1eb45b81d303b080ab505bd8c7038d5dbe671716fb469c1cfee285c340f039bc"
+  },
+  "emergence-back.png": {
+    "bytes": 185309,
+    "sha256": "8cd183d502926efbc97f2052d45fbbd439a5be7fad6177aa2af1b95ea20e651f"
+  },
+  "emergence.gif": {
+    "bytes": 252822,
+    "sha256": "b985605fdd83f354a8ca3616e9abd738aa090272b9b8123eb78e139919a130c4"
+  },
+  "emergence_transition.gif": {
+    "bytes": 252309,
+    "sha256": "e06ca38197887d02ae4e326a384837f3b8a323960d74a4855d6cd49f53d6e781"
+  },
+  "idle-back-f10.png": {
+    "bytes": 188006,
+    "sha256": "2d4930e09393109b966c8f38d95aa8d21bce5669322131ed11dffb90d577ef9d"
+  },
+  "idle-back-f20.png": {
+    "bytes": 189143,
+    "sha256": "94555cf24a1c5cf652e3e654448c2729578235d050e9d1356278120e6650e856"
+  },
+  "idle-back.png": {
+    "bytes": 191357,
+    "sha256": "a4667c3e5668f156496ac7d3e06459f5002de67d260bb347282bd686d0b46cb2"
+  },
+  "idle-profile-f10.png": {
+    "bytes": 172686,
+    "sha256": "90394c94888bcddbae6f7788aee313a4f97d298638afe33a01349156c5801702"
+  },
+  "idle-profile-f20.png": {
+    "bytes": 171790,
+    "sha256": "3118c3b47e145d92ab68875b01a733d80b4e95c6f6f76e66aef44aba4d92c9a2"
+  },
+  "idle-profile-t10.png": {
+    "bytes": 177277,
+    "sha256": "bd715d5fb4939a61823d628d737a425333e27a0c4e3ef40374db7e5c83c2c297"
+  },
+  "idle-profile.png": {
+    "bytes": 176614,
+    "sha256": "110ba2cdecd8deec7d83b393bc049ec2c875bbbcfd0d410953afb6eb458f071d"
+  },
+  "idle_back.gif": {
+    "bytes": 148586,
+    "sha256": "82e4cd014f38c2ab5d9f226e7f607b2f11169be6449e4c14f6b573361f1b8162"
+  },
+  "idle_profile.gif": {
+    "bytes": 127573,
+    "sha256": "03f2f780a7abac3f5bd62fc65de85c63ee78be9bdd66b3846fa1f3020d3f8c26"
+  },
+  "iso-diffuse-only-t10.png": {
+    "bytes": 185553,
+    "sha256": "2b605c57c7dc535ab6afbee48e639c2498edae1dcc0a5095db24afa7cee7cc51"
+  },
+  "iso-diffuse-only.png": {
+    "bytes": 185881,
+    "sha256": "ea5f7f9b8ca64663f398a0fe9b99d72d75789d0d52296754980fec9d037aecbc"
+  },
+  "iso-dual-layer-t10.png": {
+    "bytes": 187374,
+    "sha256": "5f6b7bd2b3696f50b9184ba4e8f6cb110685dcc525bbe54cfa0f6b4ed790171e"
+  },
+  "iso-dual-layer.png": {
+    "bytes": 186131,
+    "sha256": "cd6d2fa7199de13118b4a44ecb1f6ce233d6d7b42a6be80d87e91f7ba9366670"
+  },
+  "iso-glow-only-t10.png": {
+    "bytes": 179784,
+    "sha256": "03854e9d4bf9021a97292ddb73761f75e846924d8042ee4a712d73560814ca45"
+  },
+  "iso-glow-only.png": {
+    "bytes": 180354,
+    "sha256": "3525fb918c49f5627fa42df0b5ba3ed279d7bc2fb2f9c0ccdf293254fb609002"
+  },
+  "quincy_v11_qa_contact_sheet.png": {
+    "bytes": 538206,
+    "sha256": "6887d9561fbc084dc6b61eedc76b3e04aab65955d2d1e9727613b76b00bbe69e"
+  },
+  "results.txt": {
+    "bytes": 1112,
+    "sha256": "ce1ff9dbf3448932b542982c92f3e1e989c5d127be6dfbafed278992cae8078d"
+  },
+  "settle-arc-t00.png": {
+    "bytes": 296927,
+    "sha256": "a739690f19e50727683ee35b660a5aa0384411cd4564c84c745131c3ae9f766c"
+  },
+  "settle-arc-t04.png": {
+    "bytes": 294903,
+    "sha256": "6e370b5739a53b01d56c84dec9f57cb2a9429269a9e9bb8af87121b516818780"
+  },
+  "settle-arc-t08.png": {
+    "bytes": 295732,
+    "sha256": "56f9b8495defc7b0af645dec08be5968474b27d8bd8ee4bca2426725944dfd31"
+  },
+  "settle-arc-t12.png": {
+    "bytes": 294448,
+    "sha256": "50dde8cee78e913565eb95916a98b5e35ed5913efc0684ccf2a4c6bb06e07f77"
+  },
+  "settle-arc.png": {
+    "bytes": 294844,
+    "sha256": "c7369d5578eb551bf841abb77b6fffad015091edb4db108ad763cec2f76e223b"
+  },
+  "settle-recoil-f10.png": {
+    "bytes": 287480,
+    "sha256": "d7cb1b5de2eb2a8364af6ec27f9706902b7a70ce9a39956a65bdc4b2f9b7b62e"
+  },
+  "settle-recoil-f20.png": {
+    "bytes": 287768,
+    "sha256": "3bf85ea3d8dd8341ceb6b365fceed42266266db6538619b1627618b86e99d3c9"
+  },
+  "settle-recoil.png": {
+    "bytes": 287698,
+    "sha256": "085987d883f6e11552c5aba8b9fdc45a08c25973ad21574eec7bdf51ad3e9aed"
+  },
+  "settle_recoil.gif": {
+    "bytes": 181598,
+    "sha256": "ee80ac9d88424eec2ad83156dc6f0dda63097306caa4bc24c164262e21583da6"
+  },
+  "settle_transition.gif": {
+    "bytes": 196773,
+    "sha256": "f35579ad28a3a67235ed1c72d25574825b48fad81093092ca2a24584d7188fd8"
+  }
+}

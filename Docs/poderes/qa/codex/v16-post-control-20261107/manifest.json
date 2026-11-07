@@ -1,0 +1,45 @@
+{
+  "source": "build\\visual-lab\\run-benihime-qa\\v16-verified-post-control\\ryujin-bankai-qa\\cycle118-1794079756228\\02_night_front",
+  "files": [
+    {
+      "path": "frames.jsonl",
+      "bytes": 11083,
+      "sha256": "2a0cab2f5e8d41c9b0d3caa7147cd236fa92db1b2ef924761c01e0bcb28b09e6"
+    },
+    {
+      "path": "performance.json",
+      "bytes": 2440,
+      "sha256": "838709965715a16181baab05ac1afc21b5a7463b0e3d447a806b3550c5c90a44"
+    },
+    {
+      "path": "frame-times.csv",
+      "bytes": 51906,
+      "sha256": "fb9528a6cd02574dadf74b5c321e6df92aa7d207c743ba74757ebe3afc4eeca2"
+    },
+    {
+      "path": "screenshots/frame-t084.png",
+      "bytes": 629338,
+      "sha256": "51a1cb313a500314c0beca15b3e7e5df494592cf21df9428b3a424e0884aa3f8"
+    },
+    {
+      "path": "screenshots/frame-t112.png",
+      "bytes": 713119,
+      "sha256": "deb2ab0d704ffef0cdd5987dbe813fa88e43071b0141fa0c080034d9701452c5"
+    },
+    {
+      "path": "screenshots/frame-t176.png",
+      "bytes": 732175,
+      "sha256": "106d654364bbe6ab03cb864496d744de43a3bd747e3ec23f73b8c16732bb974c"
+    },
+    {
+      "path": "screenshots/frame-t202.png",
+      "bytes": 171929,
+      "sha256": "2772dda6d4d14b4ac622d2eb154e790b7f232dffce24922ca1dada3fed4fa2a5"
+    },
+    {
+      "path": "screenshots/frame-t220.png",
+      "bytes": 176337,
+      "sha256": "6097140d52a466f2454824a511fbd9d71993ce18c78ae5aaeeaba5eb95d25d81"
+    }
+  ]
+}

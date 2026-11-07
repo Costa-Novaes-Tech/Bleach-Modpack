@@ -1,0 +1,236 @@
+[
+  {
+    "case": "02_night_front_r01",
+    "steady_samples": 264,
+    "steady_p95_ms": 21.194,
+    "phases": {
+      "preparation": {
+        "from_client_tick": 0,
+        "until_client_tick_exclusive": 40,
+        "samples": 64,
+        "p50_ms": 16.2854,
+        "p95_ms": 40.7338,
+        "p99_ms": 104.448
+      },
+      "speech_ignition": {
+        "from_client_tick": 40,
+        "until_client_tick_exclusive": 70,
+        "samples": 128,
+        "p50_ms": 11.6227,
+        "p95_ms": 19.6423,
+        "p99_ms": 24.9314
+      },
+      "explosion_formation": {
+        "from_client_tick": 70,
+        "until_client_tick_exclusive": 112,
+        "samples": 174,
+        "p50_ms": 10.5795,
+        "p95_ms": 19.9939,
+        "p99_ms": 23.2873
+      },
+      "sustained_sun": {
+        "from_client_tick": 112,
+        "until_client_tick_exclusive": 176,
+        "samples": 265,
+        "p50_ms": 10.2933,
+        "p95_ms": 21.1511,
+        "p99_ms": 26.1161
+      },
+      "absorption": {
+        "from_client_tick": 176,
+        "until_client_tick_exclusive": 202,
+        "samples": 129,
+        "p50_ms": 9.2067,
+        "p95_ms": 16.4725,
+        "p99_ms": 18.6078
+      },
+      "sealed_blade": {
+        "from_client_tick": 202,
+        "until_client_tick_exclusive": 220,
+        "samples": 104,
+        "p50_ms": 8.3108,
+        "p95_ms": 13.1628,
+        "p99_ms": 13.91
+      },
+      "name_hold": {
+        "from_client_tick": 220,
+        "until_client_tick_exclusive": 270,
+        "samples": 285,
+        "p50_ms": 8.388,
+        "p95_ms": 12.9335,
+        "p99_ms": 17.7417
+      },
+      "return": {
+        "from_client_tick": 270,
+        "until_client_tick_exclusive": 300,
+        "samples": 166,
+        "p50_ms": 8.4604,
+        "p95_ms": 14.463,
+        "p99_ms": 19.9627
+      }
+    },
+    "post_seal_clean": true,
+    "post_end_clean": true,
+    "max_cards": 264,
+    "max_particles": 192,
+    "max_lights": 1,
+    "screenshot_capture": false,
+    "video_capture": false
+  },
+  {
+    "case": "02_night_front_r02",
+    "steady_samples": 335,
+    "steady_p95_ms": 15.3775,
+    "phases": {
+      "preparation": {
+        "from_client_tick": 0,
+        "until_client_tick_exclusive": 40,
+        "samples": 209,
+        "p50_ms": 8.7477,
+        "p95_ms": 15.4915,
+        "p99_ms": 17.8822
+      },
+      "speech_ignition": {
+        "from_client_tick": 40,
+        "until_client_tick_exclusive": 70,
+        "samples": 149,
+        "p50_ms": 9.2145,
+        "p95_ms": 17.8577,
+        "p99_ms": 24.3883
+      },
+      "explosion_formation": {
+        "from_client_tick": 70,
+        "until_client_tick_exclusive": 112,
+        "samples": 201,
+        "p50_ms": 9.293,
+        "p95_ms": 18.1211,
+        "p99_ms": 20.9865
+      },
+      "sustained_sun": {
+        "from_client_tick": 112,
+        "until_client_tick_exclusive": 176,
+        "samples": 334,
+        "p50_ms": 8.9883,
+        "p95_ms": 15.3775,
+        "p99_ms": 16.9633
+      },
+      "absorption": {
+        "from_client_tick": 176,
+        "until_client_tick_exclusive": 202,
+        "samples": 148,
+        "p50_ms": 8.5995,
+        "p95_ms": 12.9364,
+        "p99_ms": 14.4099
+      },
+      "sealed_blade": {
+        "from_client_tick": 202,
+        "until_client_tick_exclusive": 220,
+        "samples": 104,
+        "p50_ms": 8.5816,
+        "p95_ms": 12.932,
+        "p99_ms": 13.4571
+      },
+      "name_hold": {
+        "from_client_tick": 220,
+        "until_client_tick_exclusive": 270,
+        "samples": 290,
+        "p50_ms": 8.5693,
+        "p95_ms": 13.2713,
+        "p99_ms": 15.105
+      },
+      "return": {
+        "from_client_tick": 270,
+        "until_client_tick_exclusive": 300,
+        "samples": 175,
+        "p50_ms": 8.5033,
+        "p95_ms": 13.2348,
+        "p99_ms": 13.95
+      }
+    },
+    "post_seal_clean": true,
+    "post_end_clean": true,
+    "max_cards": 264,
+    "max_particles": 192,
+    "max_lights": 1,
+    "screenshot_capture": false,
+    "video_capture": false
+  },
+  {
+    "case": "02_night_front_r03",
+    "steady_samples": 344,
+    "steady_p95_ms": 14.2584,
+    "phases": {
+      "preparation": {
+        "from_client_tick": 0,
+        "until_client_tick_exclusive": 40,
+        "samples": 211,
+        "p50_ms": 8.6455,
+        "p95_ms": 13.5966,
+        "p99_ms": 19.8916
+      },
+      "speech_ignition": {
+        "from_client_tick": 40,
+        "until_client_tick_exclusive": 70,
+        "samples": 163,
+        "p50_ms": 8.6327,
+        "p95_ms": 14.207,
+        "p99_ms": 17.2313
+      },
+      "explosion_formation": {
+        "from_client_tick": 70,
+        "until_client_tick_exclusive": 112,
+        "samples": 202,
+        "p50_ms": 9.3952,
+        "p95_ms": 17.0108,
+        "p99_ms": 21.4722
+      },
+      "sustained_sun": {
+        "from_client_tick": 112,
+        "until_client_tick_exclusive": 176,
+        "samples": 345,
+        "p50_ms": 8.6773,
+        "p95_ms": 14.2584,
+        "p99_ms": 16.4142
+      },
+      "absorption": {
+        "from_client_tick": 176,
+        "until_client_tick_exclusive": 202,
+        "samples": 136,
+        "p50_ms": 8.9795,
+        "p95_ms": 14.1832,
+        "p99_ms": 18.1515
+      },
+      "sealed_blade": {
+        "from_client_tick": 202,
+        "until_client_tick_exclusive": 220,
+        "samples": 101,
+        "p50_ms": 8.6861,
+        "p95_ms": 14.0073,
+        "p99_ms": 14.7985
+      },
+      "name_hold": {
+        "from_client_tick": 220,
+        "until_client_tick_exclusive": 270,
+        "samples": 290,
+        "p50_ms": 8.5693,
+        "p95_ms": 13.1507,
+        "p99_ms": 14.3888
+      },
+      "return": {
+        "from_client_tick": 270,
+        "until_client_tick_exclusive": 300,
+        "samples": 171,
+        "p50_ms": 8.4011,
+        "p95_ms": 13.1991,
+        "p99_ms": 16.5405
+      }
+    },
+    "post_seal_clean": true,
+    "post_end_clean": true,
+    "max_cards": 264,
+    "max_particles": 192,
+    "max_lights": 1,
+    "screenshot_capture": false,
+    "video_capture": false
+  }
+]

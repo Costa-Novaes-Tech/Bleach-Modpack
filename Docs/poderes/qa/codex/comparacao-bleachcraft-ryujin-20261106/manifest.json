@@ -1,0 +1,224 @@
+{
+  "date": "2026-11-06",
+  "branch": "Feature-Poderes-bankais",
+  "head": "9eb6a057",
+  "analysis": "71 timed samples; not full-frame continuous/audio assessment; no new Minecraft run",
+  "sample_count": 71,
+  "sources": {
+    "trailer": {
+      "path": "C:\\Users\\joaop\\Downloads\\Download.mp4",
+      "sha256": "eccbe8484388f0e16a270652aa1851c4229738e30a1f5a7c0c52cd815e400c58",
+      "duration_seconds": 97.87,
+      "has_audio": true,
+      "seconds": [
+        36.0,
+        40.0,
+        44.0,
+        54.0,
+        56.0,
+        58.0,
+        60.0,
+        62.0,
+        64.0,
+        66.0,
+        68.0,
+        70.0,
+        72.0,
+        76.0,
+        80.0,
+        82.0,
+        84.0,
+        86.0
+      ]
+    },
+    "hollow": {
+      "path": "C:\\Users\\joaop\\Downloads\\Hollow progression in our bleach Minecraft mod_ BleachCraft Rebirth ... _ TikTok.mp4",
+      "sha256": "83145465983b052065aea07dacee2ff11bb603957e5df9fa1c207d57732011bb",
+      "duration_seconds": 85.8,
+      "has_audio": true,
+      "seconds": [
+        34.4,
+        34.8,
+        35.2,
+        35.6,
+        36.0,
+        36.4,
+        36.8,
+        37.2,
+        37.6,
+        38.0,
+        38.4,
+        38.8,
+        39.2,
+        39.6,
+        40.0,
+        40.4,
+        40.8,
+        41.2
+      ]
+    },
+    "ryujin": {
+      "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\build\\visual-lab\\v13g-ryujin-preview-silent.mp4",
+      "sha256": "8eaaaf4e47eb170e163a137e905df46299d3a4b1e4c0034de38213bb63e3140b",
+      "duration_seconds": 16.3,
+      "has_audio": false,
+      "seconds": [
+        0.0,
+        1.0,
+        2.0,
+        2.5,
+        3.5,
+        4.2,
+        5.6,
+        7.0,
+        8.8,
+        9.2,
+        9.4,
+        9.6,
+        9.8,
+        10.0,
+        10.2,
+        10.5,
+        11.0,
+        11.5,
+        12.0,
+        13.5,
+        15.0
+      ]
+    },
+    "seal-detail": {
+      "path": "C:\\Users\\joaop\\Downloads\\Projeto_Programacao_BleachMod\\Bleach-Modpack\\build\\visual-lab\\v13g-ryujin-preview-silent.mp4",
+      "sha256": "8eaaaf4e47eb170e163a137e905df46299d3a4b1e4c0034de38213bb63e3140b",
+      "duration_seconds": 16.3,
+      "has_audio": false,
+      "seconds": [
+        9.4,
+        9.5,
+        9.6,
+        9.7,
+        9.8,
+        9.9,
+        10.0,
+        10.1,
+        10.2,
+        10.3,
+        10.5,
+        10.7,
+        11.0,
+        11.3
+      ]
+    }
+  },
+  "files": [
+    {
+      "path": "hollow/contact-sheet.png",
+      "sha256": "a751a2e54e9c3e5c4fc9b8bde15811a4f6369d816a818128ab539c16a2228eee",
+      "bytes": 537902
+    },
+    {
+      "path": "hollow/frame-02-35.20s.png",
+      "sha256": "bdb1358d1156bbd85e79653bbc829b45fe52f64871a910abf070702f03afd906",
+      "bytes": 245060
+    },
+    {
+      "path": "hollow/frame-10-38.40s.png",
+      "sha256": "76fd309d2538f2efac458c816cc03d7d2c113ad5538a9530976e3e49de162eed",
+      "bytes": 397284
+    },
+    {
+      "path": "hollow/frame-13-39.60s.png",
+      "sha256": "371dfa0199f3f18a07684e3447dc6da88a63e4abce35f420c9b4cd4eca80536d",
+      "bytes": 504298
+    },
+    {
+      "path": "hollow/frame-14-40.00s.png",
+      "sha256": "39ac155c3400061e91a8acf87f3d55c2185b516dea15a50a32f06be579949725",
+      "bytes": 212557
+    },
+    {
+      "path": "hollow/inspection.json",
+      "sha256": "56f63fe339567414427294eb2fe24224a2a9a2679817da278fe3f4cc954faba8",
+      "bytes": 1242
+    },
+    {
+      "path": "ryujin/contact-sheet.png",
+      "sha256": "ebc0970259b2c77e0fa7fc25fd667ab117694757bbe0f9c64238f794b86fed37",
+      "bytes": 1132871
+    },
+    {
+      "path": "ryujin/frame-04-3.50s.png",
+      "sha256": "0ed017c8967b9823301191f7fb08ac9fc684c36cf2f6a14d46cd99f8ac1a37f6",
+      "bytes": 669822
+    },
+    {
+      "path": "ryujin/frame-07-7.00s.png",
+      "sha256": "62f7ec1bdcdf3967f196481e81c22458cebf76c9db852a2f3763743fc52bc116",
+      "bytes": 360434
+    },
+    {
+      "path": "ryujin/frame-16-11.00s.png",
+      "sha256": "81b39daa6ab38f8d19441e86c9f0030ba8dc3ccfd898a4c2a8d848f83667863a",
+      "bytes": 350965
+    },
+    {
+      "path": "ryujin/inspection.json",
+      "sha256": "f36ae24ba327aa91c45018e1b60e152b8e9d86851b3dfcd10fb0480fd2bfa52f",
+      "bytes": 1164
+    },
+    {
+      "path": "seal-detail/contact-sheet.png",
+      "sha256": "dd02a7e6254b6a876e492f2e3c3a2b6c642a2fc78432d87caf8ab0a74e6aaae7",
+      "bytes": 613549
+    },
+    {
+      "path": "seal-detail/frame-00-9.40s.png",
+      "sha256": "54b4cb9796eea6fa54ff82d0bd376cf2271302a8a319737bbc00f92f8934561f",
+      "bytes": 284760
+    },
+    {
+      "path": "seal-detail/frame-04-9.80s.png",
+      "sha256": "cf261da1e113439d7997f792e716eb3aa987909fe6f6e496533b0e44b4e3c8b5",
+      "bytes": 319716
+    },
+    {
+      "path": "seal-detail/frame-07-10.10s.png",
+      "sha256": "97a4a06554b5001cfe8d4361a1fc3ea4d09afb53525caeaf22ab1fe2c7aa12d8",
+      "bytes": 256466
+    },
+    {
+      "path": "seal-detail/inspection.json",
+      "sha256": "24a7ed6d0dc1b265cd4fe453f7cfd584016280209b53ca0fa472d0fd0d0570f3",
+      "bytes": 1085
+    },
+    {
+      "path": "trailer/contact-sheet.png",
+      "sha256": "46ec817c4f663f011fc5eca7df686d9a3a44b5c2ec7260831fe6abd57b486ad3",
+      "bytes": 296056
+    },
+    {
+      "path": "trailer/frame-06-60.00s.png",
+      "sha256": "1a3c32b4dcc7b3edecc7c91055a726c811e7e97691bbdcd521b0d91c7688dd30",
+      "bytes": 272402
+    },
+    {
+      "path": "trailer/frame-10-68.00s.png",
+      "sha256": "29cd9380db6cb7cf1ea715636dd8507afff16cc0e778e86656c375385ba02d3c",
+      "bytes": 124817
+    },
+    {
+      "path": "trailer/frame-14-80.00s.png",
+      "sha256": "69363bb13535b53386292f22fd98be0a92760fa984cefc9487a001227fdeb39c",
+      "bytes": 210250
+    },
+    {
+      "path": "trailer/frame-15-82.00s.png",
+      "sha256": "98012af4d19061d89daa1ba2000737b399e193ccfb337aae82d2e4c2dbf94b92",
+      "bytes": 216111
+    },
+    {
+      "path": "trailer/inspection.json",
+      "sha256": "ae99bd20383aa32b925e386dfab4f12d4e9579f6a7c247d7be1c3dcbf80731fe",
+      "bytes": 1186
+    }
+  ]
+}

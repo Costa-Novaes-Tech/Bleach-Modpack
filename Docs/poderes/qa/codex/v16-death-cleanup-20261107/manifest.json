@@ -1,0 +1,45 @@
+{
+  "source": "build\\visual-lab\\run-benihime-qa\\v16-current-shimmer-suite\\ryujin-bankai-qa\\cycle118-1794078768611\\15_death_after_commit",
+  "files": [
+    {
+      "path": "frames.jsonl",
+      "bytes": 11089,
+      "sha256": "9e6953bdf0d753c3605bd881038dde3e2ebdf914682649aa1b7ac5f1b47c5e01"
+    },
+    {
+      "path": "performance.json",
+      "bytes": 2369,
+      "sha256": "7999c5eb751838752348cd7baa12860cc362275c3416c397236e1a6eaaa31933"
+    },
+    {
+      "path": "frame-times.csv",
+      "bytes": 51415,
+      "sha256": "694429e49b6ff9f17839c21bc2922f82d5055324b6c678357f96ec35c6d27917"
+    },
+    {
+      "path": "screenshots/frame-t039.png",
+      "bytes": 617238,
+      "sha256": "acf8350b9ab03a35d70ab21f9cd4aad32456a64f3d44aa43ccce9c4683374905"
+    },
+    {
+      "path": "screenshots/frame-t084.png",
+      "bytes": 862131,
+      "sha256": "a8c9e026e3730490347794f9a4ebd60c0a0fee322a8cd5614324f23407c5f6e0"
+    },
+    {
+      "path": "screenshots/frame-t090.png",
+      "bytes": 322175,
+      "sha256": "9fbfd11dcd12d5b6c53008930abfbcfe8c15fbb83957043a84df57dfc7349cec"
+    },
+    {
+      "path": "screenshots/frame-t220.png",
+      "bytes": 317122,
+      "sha256": "a2e71c28e141f7d6fdba05565ae6ff04cef4ef9b426ac502ce07877aa545bfeb"
+    },
+    {
+      "path": "screenshots/frame-t300.png",
+      "bytes": 316173,
+      "sha256": "9caadcb1d6966e486271904368bc76dd67fc234df66831e6f2768949429d1ef9"
+    }
+  ]
+}

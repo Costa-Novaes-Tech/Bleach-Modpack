@@ -1,0 +1,35 @@
+{
+  "source": "build\\visual-lab\\run-benihime-qa\\v16-current-shimmer-suite\\ryujin-bankai-qa\\cycle118-1794078768611\\05_near_wall",
+  "files": [
+    {
+      "path": "frames.jsonl",
+      "bytes": 11136,
+      "sha256": "32b27535a2b9dac1b42e8cf057efc01908b59dfd0a06d4d82a9b498b3f256214"
+    },
+    {
+      "path": "performance.json",
+      "bytes": 2432,
+      "sha256": "78b5c9a292cdea67214bd1e798c5ad304385553cfd45c1b497e184eacb61f7f4"
+    },
+    {
+      "path": "frame-times.csv",
+      "bytes": 51850,
+      "sha256": "8053e415144239405dc00c0182305c1856fa52409ff11918832d753b9eb5129f"
+    },
+    {
+      "path": "screenshots/frame-t112.png",
+      "bytes": 863354,
+      "sha256": "4573dfb6e609b2ccfa6172392b2ce862b2e331c68daa5e3e96ff0b656af049af"
+    },
+    {
+      "path": "screenshots/frame-t194.png",
+      "bytes": 493770,
+      "sha256": "42f0dc24e742f3702430127b3f87687e81c01b603a4df43c5b8bf938783f59d1"
+    },
+    {
+      "path": "screenshots/frame-t220.png",
+      "bytes": 196566,
+      "sha256": "37b8453e7931e728faa61155dfa37673cab9e67e4a88a0f7d2454690957270d3"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "source": "Minecraft framebuffer; no desktop capture, no microphone",
+  "fps": 20,
+  "width": 1280,
+  "height": 720,
+  "wall_start_ms": 1794017538414,
+  "accepted_frames": 304,
+  "queue_drops": 0,
+  "repeated_frames": 12,
+  "note": "Repeated frames preserve wall time when rendering/capture stalls. Not a performance benchmark.",
+  "error": "",
+  "encoder_exit": 0
+}

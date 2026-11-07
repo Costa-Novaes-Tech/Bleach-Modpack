@@ -5,14 +5,14 @@ description: Modelagem e animação do Bleach Mod no Blockbench pela ponte MCP, 
 
 # Laboratório de design Bleach
 
-Leia GEMINI.md e Docs/poderes/94-antigravity-design-onboarding-2026-10-22.md. Acervo: use as skills globais acervo-ia e eficiencia-memoria-ia já disponíveis; fontes preservadas em C:/Users/joaop/Documents/Skills para IA. Consulte apenas entradas pertinentes do catálogo. Fonte presente não implica MCP instalado. OmniRoute não foi validado neste host; não mude o modelo por economia.
+Leia o GEMINI.md efetivo e a continuidade atual; o onboarding de 22/10 é histórico. Caminhos, branches e escopos do prompt humano vigente prevalecem sobre aquele checkout antigo. Acervo: use as skills globais acervo-ia e eficiencia-memoria-ia já disponíveis; fontes preservadas em C:/Users/joaop/Documents/Skills para IA. Consulte apenas entradas pertinentes do catálogo. Fonte presente não implica MCP instalado. OmniRoute não foi validado neste host; não mude o modelo por economia.
 
 ## Autoria
 1. `git status --short --branch`, diff dos arquivos e contratos de Docs/poderes. Capture baseline de bones/pivôs/UV/escala; conceito é referência, não asset utilizável automaticamente.
-2. MCP `bleach-blockbench`: get_status, list_formats, list_outliner. Na prova inicial use `load_project` com tools/models/lab/antigravity/ag_hydra_jaw.bbmodel: abre nova aba, preserva outra. Nunca execute_script.
-3. Crie keyframes suaves com pivô real da mandíbula, não na ponta dos dentes. Observe abertura/fechamento e cabeça em 3 ângulos. Use get_element/medidas/check_model/check_rig conforme necessário; screenshots reais sem expor base64 na conversa.
+2. Confirme a ponte Blockbench exposta na sessão, projeto, formato e instância própria antes de mutar. Use get_status/list_outliner e load_project da cópia da feature atual; `ag_hydra_jaw.bbmodel` era um exercício histórico. Preserve a instância Codex/8788; Antigravity usa sua própria instância. Nunca execute_script.
+3. Defina pivôs e preparação/execução/retorno próprios do modelo atual. O exemplo de mandíbula é apenas um caso: não aplica sua anatomia ao Quincy. Use medidas/check_model/check_rig conforme o fenômeno; inspecione as vistas e o movimento, sem expor base64 na conversa.
 4. Salve cópia ag_ no laboratório. Nome de bone é contrato; preserve original. Novo modelo não deve ser só cubo genérico sem rig/UV.
-5. Generic Model está disponível; GeckoLib não estava instalado no perfil em 22/10. Não renomeie JSON genérico como geo.json. Instalação GeckoLib pelo gerenciador oficial exige etapa própria. Não alegue exportação GeckoLib sem codec validado.
+5. Revalide o plugin e codec da instância atual; a ausência de GeckoLib em 22/10 não descreve automaticamente o estado presente. Não renomeie JSON genérico como geo.json nem chame um gerador Python de exportação nativa. Confira formato/conteúdo no disco e reproduza esses arquivos no consumidor real.
 
 ## Integração e teste
 Use bleach-mod-dev existente, respeitando a exceção de branch explícita GEMINI.md. Inspecione controladores/renderizadores Java antes de aplicar clipes: movimentos procedurais podem sobrescrever rotações autoradas. Dano/estado no servidor; câmera/áudio/partículas no cliente. Reutilize relógio/contratos, sem copiar Zaraki.
@@ -32,7 +32,7 @@ MCP `bleach-design-runtime`: start_design_task(mode=Check|GameTests|ClientQa) e 
 
 ## Diretrizes Avançadas de VFX, Câmeras e Camadas Emissivas (Atualização 04/11/2026)
 1. **Camadas Emissivas e Brilho Espiritual**:
-   - Modelos de Reishi (Quincy) e Bankai (Hakuteiken) devem utilizar atlas duplo: textura difusa base + textura `_glow.png` renderizada com luminosidade máxima (`LightTexture.FULL_BRIGHT = 0xF000F0`) via `RenderType.entityTranslucentEmissive(tex)`. Nunca renderizar energia espiritual com iluminação ambiente opaca que escurece em cavernas.
+   - Escolha difusa/emissão pelo material e renderer reais; atlas duplo não é obrigatório para todo VFX. Sufixo `_glow` sozinho não instala uma camada. `FULL_BRIGHT` não remove necessariamente a luz direcional das faces nem ilumina blocos: na Ryūjin 1.20.1, foi necessário um shader de material próprio. Confira descarte alfa, profundidade e saturação em jogo; consulte a lição v13 em `bleach-model-pipeline` antes de copiar um RenderType.
 2. **Centralização Anatômica e Simetria**:
    - Asas e nexos dorsais (`wing_nexus`) devem ter pivô e posicionamento travados rigorosamente em `X = 0.00` absoluto em relação à coluna/nuca do jogador.
    - Compensações angulares em Y e Z devem ser perfeitamente espelhadas entre o lado esquerdo e direito (`left` vs `right`) para evitar derivas visuais na visão traseira (F5).
@@ -45,10 +45,10 @@ MCP `bleach-design-runtime`: start_design_task(mode=Check|GameTests|ClientQa) e 
 
 ## Inspeção Frame a Frame de Vídeo e Aprendizagem com Erros (Atualização 04/11/2026)
 1. **Pipeline de Ingestão de Vídeo**:
-   - Vídeos de testes enviados pelo usuário (`.mp4`, `.webm`, `.mkv` de OBS, Xbox Game Bar ou upload) são inspecionados via `tools/scripts/video_inspector.py`.
+   - Para inspeção local, `tools/media_qa/inspect_media.py` foi exercitado nas referências BleachCraft e no framebuffer Ryūjin: registra streams/hash, extrai tempos escolhidos e produz contato QA. Outros inspetores só devem ser citados após confirmar sua existência/interface no checkout.
    - Extração automática de frames a 2-10 FPS com registro de timestamp no nome de cada frame (`frame_001_00.50s.png`).
-   - Geração de Storyboards (folhas de contato / contact sheets em grade) com carimbo de tempo para visualização de arcos de movimento completos em uma única imagem.
+   - Contatos QA com tempos permitem localizar mudanças entre amostras; não comprovam todos os frames de um arco ou fluidez contínua. Referências de modelagem continuam individuais por ângulo/frame. Não avaliar áudio quando só imagens ou vídeo silencioso foram acessados.
 2. **Matriz de Aprendizagem de Erros Visuais**:
-   - Cada defeito visual identificado (ex: "leque de varetas", "vão dorsal", "assimetria coronal", "kissaki desalinhado", "clipping de pernas") deve ser registrado com sua causa matemática/geométrica no script de modelagem procedural ou no renderizador Java.
+   - Registrar sintoma, hipóteses e teste discriminante para cada defeito; só declarar causa matemática/geométrica após sustentá-la com evidência. Material, shader, câmera ou rig podem produzir sintomas parecidos. O caderno de testes e limites reutilizáveis está em `Docs/poderes/guia-transformacoes-modelagem-vfx-qa-2026-11-06.md`.
    - Antes de dar uma alteração como concluída, comparar os frames antes/depois sob critérios estritos de sobreposição de malha, alinhamento esquelético e silhueta em jogo.
 
