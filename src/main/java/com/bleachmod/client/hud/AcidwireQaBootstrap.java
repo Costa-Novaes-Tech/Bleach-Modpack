@@ -31,10 +31,12 @@ import java.util.function.Consumer;
 @Mod.EventBusSubscriber(modid=Reference.MOD_ID,value=Dist.CLIENT)
 public final class AcidwireQaBootstrap {
     private static final String KEY=RukiaOpeningQuest.ORIHIME_KEY;
+    private static final String CHAD=RukiaOpeningQuest.CHAD_KEY;
     private static boolean created;
     private static volatile boolean busy;
     private static volatile RuntimeException failure;
     private static int ticks,waiting,rukiaId,previewId,xpBefore;
+    private static volatile int chadId;
     private static UUID rukia,preview,victim,firstActor;
     private static File evidence;
     private static String capture;
@@ -79,7 +81,10 @@ public final class AcidwireQaBootstrap {
                 :ticks==405?mc.player.isAlive()&&data!=null&&RukiaOpeningQuest.isRetryPending(data.getPlayerQuestData().getProgress(KEY))
                 :ticks==470||ticks==540?data!=null&&data.getPlayerQuestData().getProgress(KEY).isEncounterStarted()
                 :ticks==565?data!=null&&RukiaOpeningQuest.stage(data.getPlayerQuestData().getProgress(KEY))==2
-                :ticks==650?data!=null&&data.getPlayerQuestData().isCompleted(KEY):true;
+                :ticks==650?data!=null&&data.getPlayerQuestData().isCompleted(KEY)
+                :ticks==755?mc.screen instanceof NpcQuestScreen && chadId>0
+                :ticks==775?data!=null&&data.getPlayerQuestData().isAccepted(CHAD)
+                :ticks==825?data!=null&&RukiaOpeningQuest.isRetryPending(data.getPlayerQuestData().getProgress(CHAD)):true;
         if(!ready){if(++waiting>300)throw new IllegalStateException("Acidwire QA sync timeout "+ticks);ticks--;return;}waiting=0;
         if(ticks==20){
             mc.options.pauseOnLostFocus=false;mc.options.guiScale().set(2);mc.resizeDisplay();mc.setScreen(null);
@@ -139,7 +144,26 @@ public final class AcidwireQaBootstrap {
         if(ticks==675)capture="14-quest-complete-reward";
         if(ticks==690)server(p->rukia(p).mobInteract(p,net.minecraft.world.InteractionHand.MAIN_HAND));
         if(ticks==715)capture="15-completed-dialogue-reward-claimed";
-        if(ticks==735){com.mojang.logging.LogUtils.getLogger().info("Acidwire QA complete: {}",evidence);mc.stop();}
+        if(ticks==735)server(p->{
+            var waypoint=QuestNpcLocations.get(p.server).resolveContext(RukiaOpeningQuest.CHAD_NPC,
+                    RukiaOpeningQuest.CHAD_CONTEXT,p.serverLevel().dimension().location(),null,p.getX(),p.getY(),p.getZ());
+            require(waypoint!=null && p.serverLevel().getEntity(waypoint.entityId()) instanceof QuestNpcEntity,"Chad was not provisioned after Orihime");
+            var chad=(QuestNpcEntity)p.serverLevel().getEntity(waypoint.entityId());
+            chadId=chad.getId();
+            p.connection.teleport(chad.getX(),chad.getY(),chad.getZ()-4,0,0);
+            chad.mobInteract(p,net.minecraft.world.InteractionHand.MAIN_HAND);
+        });
+        if(ticks==760)NetworkHandler.sendToServer(new QuestActionC2S(QuestActionC2S.Action.START,CHAD,chadId));
+        if(ticks==780)capture="16-chad-introduction";
+        if(ticks==790){mc.setScreen(null);capture="17-chad-compass";}
+        if(ticks==805)NetworkHandler.sendToServer(new QuestActionC2S(QuestActionC2S.Action.BEGIN,CHAD,chadId));
+        if(ticks==825)server(p->{
+            var quests=PlayerCapability.get(p).orElseThrow(()->new IllegalStateException("Missing capability")).getPlayerQuestData();
+            require(quests.getProgress(CHAD).getObjectiveProgress(0)==1 && !quests.isCompleted(CHAD),"Chad dialogue skipped or lost the introduction");
+            require(quests.getWaypoint(CHAD).entityId().equals(p.serverLevel().getEntity(chadId).getUUID()),"Compass did not keep the contextual Chad while Shrieker is pending");
+        });
+        if(ticks==835)capture="18-chad-combat-pending";
+        if(ticks==855){com.mojang.logging.LogUtils.getLogger().info("Acidwire QA complete: {}. Chad introduction and compass verified.",evidence);mc.stop();}
     }
     @SubscribeEvent public static void render(TickEvent.RenderTickEvent event){
         if(event.phase!=TickEvent.Phase.END||!enabled()||capture==null)return;

@@ -7,22 +7,31 @@ import com.bleachmod.init.ModItems;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 
-/** Two Rukia encounters have server-owned introduction, combat and return stages. */
+/** Server-owned introductions and combat, with a return dialogue for the two Rukia encounters. */
 public final class RukiaOpeningQuest {
     public static final String KEY = "shinigami_substitute:1";
     public static final String ORIHIME_KEY = "shinigami_substitute:2";
+    public static final String CHAD_KEY = "shinigami_substitute:3";
+    public static final String CHAD_NPC = "sado_yasutora";
+    public static final String CHAD_CONTEXT = "karakura_periquito";
+    public static final String SHRIEKER_ACTOR = "story_shrieker";
     public static boolean isOrihime(Quest q) { return q != null && q.isStory() && "MAIN-SUB-02".equals(q.getStory().id()); }
+    public static boolean isChad(Quest q) { return q != null && q.isStory() && "MAIN-SUB-03".equals(q.getStory().id()); }
     public static boolean isStaged(Quest q) {
         if (isOpening(q)) return true;
-        if (!isOrihime(q) || q.getObjectives().size() != 3
+        boolean chad = isChad(q);
+        if ((!chad && !isOrihime(q)) || q.getObjectives().size() != (chad ? 2 : 3)
                 || q.getObjectives().stream().anyMatch(o -> o.getRequired() != 1)) return false;
         return q.getObjectives().get(0) instanceof com.bleachmod.common.quest.objectives.StoryObjective first
                 && first.action() == com.bleachmod.common.quest.objectives.StoryObjective.Action.INTERACT
                 && q.getObjectives().get(1) instanceof com.bleachmod.common.quest.objectives.KillObjective
-                && q.getObjectives().get(2) instanceof com.bleachmod.common.quest.objectives.StoryObjective last
-                && last.action() == com.bleachmod.common.quest.objectives.StoryObjective.Action.INTERACT;
+                && (chad || (q.getObjectives().get(2) instanceof com.bleachmod.common.quest.objectives.StoryObjective last
+                && last.action() == com.bleachmod.common.quest.objectives.StoryObjective.Action.INTERACT));
     }
-    public static String textPrefix(Quest q) { return isOrihime(q) ? "bleachmod.story.sub_02." : "bleachmod.story.sub_01."; }
+    public static String textPrefix(Quest q) {
+        if (isChad(q)) return "bleachmod.story.sub_03.";
+        return isOrihime(q) ? "bleachmod.story.sub_02." : "bleachmod.story.sub_01.";
+    }
     private RukiaOpeningQuest() {}
     public static boolean isOpening(Quest q) { return q != null && q.isStory() && "MAIN-SUB-01".equals(q.getStory().id()); }
     public static boolean legacyDefinition(com.google.gson.JsonObject json) {
@@ -52,6 +61,16 @@ public final class RukiaOpeningQuest {
                     QuestParser.parseQuest(contract, "shinigami_substitute").toJson());
         } catch (java.io.IOException | RuntimeException error) { return false; }
     }
+    public static boolean legacyChadDefinition(com.google.gson.JsonObject json) {
+        try {
+            var expected = StoryQuestDefaults.bundled().getAsJsonArray("quests").get(2).getAsJsonObject().deepCopy();
+            expected.addProperty("version", 1);
+            expected.getAsJsonArray("objectives").remove(0);
+            var old = QuestParser.parseQuest(expected, "shinigami_substitute");
+            if (!json.has("title")) return com.google.gson.JsonParser.parseString(old.progressDefinition()).equals(json);
+            return old.toJson().equals(QuestParser.parseQuest(json, "shinigami_substitute").toJson());
+        } catch (java.io.IOException | RuntimeException error) { return false; }
+    }
     public static int stage(QuestProgress p) {
         if (p == null || p.getObjectiveProgress(0) == 0) return 0;
         return p.getObjectiveProgress(1) == 0 ? 1 : 2;
@@ -68,20 +87,23 @@ public final class RukiaOpeningQuest {
     }
     public static boolean canTalk(QuestProgress p, QuestNpcEntity npc, String key) {
         Quest q = QuestRegistry.getQuest(key);
+        int stage = stage(p);
         return p != null && p.getStatus() == QuestStatus.ACCEPTED && isStaged(q) && QuestAvailabilityChecker.isOfferedBy(q, npc)
-                && npc.getUUID().equals(p.getStoryTargetUuid()) && (stage(p) != 1 || isRetryPending(p));
+                && npc.getUUID().equals(p.getStoryTargetUuid())
+                && (stage == 0 || isRetryPending(p) || (stage == 2 && !isChad(q)));
     }
     public static boolean isRetryPending(QuestProgress p) {
         return p != null && p.getStatus() == QuestStatus.ACCEPTED && stage(p) == 1 && !p.isEncounterStarted();
     }
     public static void retry(ServerPlayer player) { retry(player, KEY); }
     public static void retry(ServerPlayer player, String key) {
-        if (!isStaged(QuestRegistry.getQuest(key))) return;
+        Quest quest = QuestRegistry.getQuest(key);
+        if (!isStaged(quest) || isChad(quest)) return;
         var data = PlayerCapability.get(player).orElse(null);
         if (data != null && isRetryPending(data.getPlayerQuestData().getProgress(key)))
             StoryQuestService.beginOpening(player, key);
     }
-    /** These two authored quests preserve completed stages across death. */
+    /** Restarts only the active combat when this encounter's checkpoint policy applies. */
     public static void onPlayerDeath(ServerPlayer player) { onPlayerDeath(player, KEY); }
     public static void onPlayerDeath(ServerPlayer player, String key) {
         if (!isStaged(QuestRegistry.getQuest(key))) return;
@@ -133,10 +155,10 @@ public final class RukiaOpeningQuest {
     public static void recoverMissingEncounter(ServerPlayer player) {
         var data = PlayerCapability.get(player).orElse(null);
         if (data == null) return;
-        for (String key : new String[]{KEY, ORIHIME_KEY}) {
+        for (String key : new String[]{KEY, ORIHIME_KEY, CHAD_KEY}) {
             Quest q = QuestRegistry.getQuest(key);
             var p = data.getPlayerQuestData().getProgress(key);
-            if (!isStaged(q) || p == null || p.getStatus() != QuestStatus.ACCEPTED || stage(p) != 1
+            if (!isStaged(q) || p == null || !p.matchesDefinition(q) || p.getStatus() != QuestStatus.ACCEPTED || stage(p) != 1
                     || !p.isEncounterStarted() || p.getEncounterActor() == null || p.getEncounterPos() == null) continue;
             var level = player.server.getLevel(net.minecraft.resources.ResourceKey.create(net.minecraft.core.registries.Registries.DIMENSION, q.getStory().dimension()));
             if (level == null) continue;
@@ -155,7 +177,10 @@ public final class RukiaOpeningQuest {
         var p = data.getPlayerQuestData().getProgress(key);
         if (!canTalk(p, npc, key) || !p.matchesDefinition(q)) return;
         if (stage(p) == 0 || isRetryPending(p)) {
-            if (isOrihime(q) && stage(p) == 0) QuestService.incrementObjective(player, data, key, q, 0, 1);
+            if (!isOpening(q) && stage(p) == 0) {
+                QuestService.incrementObjective(player, data, key, q, 0, 1);
+                if (stage(p) == 0) return;
+            }
             StoryQuestService.beginOpening(player, key);
         } else {
             QuestService.incrementObjective(player, data, key, q, 2, 1);

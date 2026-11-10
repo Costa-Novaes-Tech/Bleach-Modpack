@@ -46,6 +46,8 @@ public class QuestEvents {
         if (event.getSource().getEntity() instanceof ServerPlayer killer) {
             creditQuestKill(killer, event.getEntity());
         }
+        // Credit must be processed before recovery; equal-priority event handlers have no ordering guarantee.
+        openingBossDiedWithoutCredit(event);
         var tag = event.getEntity().getPersistentData();
         if (tag.hasUUID(Reference.TAG_QUEST_OWNER) && tag.hasUUID("blc_quest_attempt")
                 && event.getEntity().level() instanceof net.minecraft.server.level.ServerLevel level) {
@@ -61,8 +63,7 @@ public class QuestEvents {
         }
     }
 
-    @SubscribeEvent(priority = net.minecraftforge.eventbus.api.EventPriority.LOWEST)
-    public static void openingBossDiedWithoutCredit(LivingDeathEvent event) {
+    private static void openingBossDiedWithoutCredit(LivingDeathEvent event) {
         if (!(event.getEntity().level() instanceof net.minecraft.server.level.ServerLevel level)) return;
         var tag = event.getEntity().getPersistentData();
         if (!RukiaOpeningQuest.KEY.equals(tag.getString(com.bleachmod.Reference.TAG_QUEST_KEY))
@@ -136,7 +137,7 @@ public class QuestEvents {
             for (String questKey : pqd.getAcceptedQuestIds()) {
                 Quest quest = QuestRegistry.getQuest(questKey);
                 if (quest != null && quest.hasKillObjective()) {
-                    if (RukiaOpeningQuest.isStaged(quest)) RukiaOpeningQuest.onPlayerDeath(deadPlayer, questKey);
+                    if (RukiaOpeningQuest.isStaged(quest) && !RukiaOpeningQuest.isChad(quest)) RukiaOpeningQuest.onPlayerDeath(deadPlayer, questKey);
                     else QuestService.failQuest(deadPlayer, data, questKey);
                 }
             }

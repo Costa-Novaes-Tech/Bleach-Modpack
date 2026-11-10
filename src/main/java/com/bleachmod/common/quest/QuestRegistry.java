@@ -153,7 +153,7 @@ public final class QuestRegistry {
     public static List<Quest> questsForNpc(String npcId) {
         if (npcId == null || npcId.isBlank()) return List.of();
         return state().quests().values().stream().filter(q -> npcId.equals(q.getQuestGiver())
-                || ("rukia".equals(npcId) && RukiaOpeningQuest.isStaged(q))).toList();
+                || (q.getQuestGiver().isBlank() && RukiaOpeningQuest.isStaged(q) && npcId.equals(q.getStory().targetNpc()))).toList();
     }
     public static Collection<Saga> allSagas() { return state().sagas().values(); }
     public static List<String> sagaQuestKeys(String id) { return state().order().getOrDefault(id,List.of()); }

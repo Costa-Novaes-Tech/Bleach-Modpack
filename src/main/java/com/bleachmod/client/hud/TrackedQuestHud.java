@@ -95,7 +95,10 @@ public final class TrackedQuestHud {
 
     private static void renderNavigation(Minecraft mc, GuiGraphics g, Quest quest, QuestWaypoint waypoint,
                                          int x, int y, int width, boolean tracked, int height) {
-        Component name = Component.translatable("entity.bleachmod.npc_" + (quest.isStory() ? quest.getStory().targetNpc() : quest.getQuestGiver()));
+        boolean shrieker = waypoint != null && com.bleachmod.common.quest.RukiaOpeningQuest.SHRIEKER_ACTOR.equals(waypoint.npcId())
+                && com.bleachmod.common.quest.RukiaOpeningQuest.isChad(quest);
+        Component name = Component.translatable(shrieker ? "entity.bleachmod.story_shrieker"
+                : "entity.bleachmod.npc_" + (quest.isStory() ? quest.getStory().targetNpc() : quest.getQuestGiver()));
         boolean sameDimension = waypoint != null && waypoint.dimension().equals(mc.player.level().dimension().location());
         Component text;
         if (waypoint == null) text = Component.translatable("hud.bleachmod.quests.location_unknown", name);

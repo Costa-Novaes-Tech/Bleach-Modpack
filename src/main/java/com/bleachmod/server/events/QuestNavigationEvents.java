@@ -55,6 +55,11 @@ public final class QuestNavigationEvents {
                 QuestProgress progress = quests.getProgress(key);
                 if (quest.isStory()) {
                     if (!"shinigami".equals(data.getCharacter().getRace())) continue;
+                    var encounter = StoryQuestService.encounterWaypoint(player, quest, progress);
+                    if (encounter != null) {
+                        targets.put(key, encounter);
+                        continue;
+                    }
                     var target = StoryQuestService.target(player, quest, progress);
                     if (target != null) {
                         progress.setStoryTargetUuid(target.entityId());

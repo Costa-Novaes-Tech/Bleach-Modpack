@@ -132,6 +132,7 @@
     {
       "id": 3,
       "sagaId": "shinigami_substitute",
+      "version": 2,
       "type": "SAGA",
       "title": "bleachmod.story.sub_03.name",
       "description": "bleachmod.story.sub_03.desc",
@@ -161,6 +162,12 @@
         ]
       },
       "objectives": [
+        {
+          "type": "STORY",
+          "action": "INTERACT",
+          "description": "bleachmod.story.sub_03.meet",
+          "count": 1
+        },
         {
           "type": "KILL",
           "entity": "bleachmod:story_shrieker",

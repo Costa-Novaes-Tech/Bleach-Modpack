@@ -215,7 +215,8 @@ public final class QuestService {
     }
 
     public static boolean isObjectiveActive(Quest quest, QuestProgress progress, int index) {
-        if (quest.isStory() && !progress.isEncounterStarted() && !(RukiaOpeningQuest.isStaged(quest) && RukiaOpeningQuest.isOrihime(quest) && index == 0)) return false;
+        if (quest.isStory() && !progress.isEncounterStarted()
+                && !(index == 0 && RukiaOpeningQuest.isStaged(quest) && !RukiaOpeningQuest.isOpening(quest))) return false;
         if (quest.isParallelObjectives()) {
             return true;
         }

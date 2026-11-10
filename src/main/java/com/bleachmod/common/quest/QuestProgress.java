@@ -11,8 +11,10 @@ public class QuestProgress {
     public boolean bindDefinition(Quest quest) {
         if (!matchesDefinition(quest) && RukiaOpeningQuest.isStaged(quest)) {
             try {
-                if ((RukiaOpeningQuest.isOpening(quest) && RukiaOpeningQuest.legacyDefinition(com.google.gson.JsonParser.parseString(definition).getAsJsonObject()))
-                        || (RukiaOpeningQuest.isOrihime(quest) && RukiaOpeningQuest.legacyOrihimeDefinition(com.google.gson.JsonParser.parseString(definition).getAsJsonObject()))) {
+                var previous = com.google.gson.JsonParser.parseString(definition).getAsJsonObject();
+                if ((RukiaOpeningQuest.isOpening(quest) && RukiaOpeningQuest.legacyDefinition(previous))
+                        || (RukiaOpeningQuest.isOrihime(quest) && RukiaOpeningQuest.legacyOrihimeDefinition(previous))
+                        || (RukiaOpeningQuest.isChad(quest) && RukiaOpeningQuest.legacyChadDefinition(previous))) {
                     definition = quest.progressDefinition();
                     objectives.clear(); objectiveRequirements.clear();
                     for (int i = 0; i < quest.getObjectives().size(); i++) {
@@ -20,6 +22,8 @@ public class QuestProgress {
                         objectives.put(i, status == QuestStatus.SUCCESS ? 1 : 0);
                     }
                     encounterStarted = false;
+                    encounterActor = null;
+                    encounterPos = null;
                     attemptId = java.util.UUID.randomUUID();
                 }
             } catch (RuntimeException ignored) { return false; }

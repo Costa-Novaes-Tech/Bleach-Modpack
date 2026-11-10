@@ -2,6 +2,14 @@
 
 Data: 29/10/2026. Base: M13/10.32, commit `99064862`. Esta entrega implementa o catálogo de 28 missões e a seleção por personagem/contexto/progresso. As fichas narrativas continuam em [M13](../game-design/13-campanhas-e-sidequests.md); este arquivo descreve a integração executável.
 
+## Terceira missão por etapas — 10/11/2026
+
+`MAIN-SUB-03` v2 exige concluir Orihime. O NPC que oferece e inicia é `bleachmod:npc_sado_yasutora`, ID de diálogo `sado_yasutora`, no Overworld com `QuestContext:karakura_periquito`. A oferta usa a instância autorada quando presente. Sem âncora conhecida, o servidor cria uma instância persistente em terreno carregado e adequado depois da liberação. O aceite conserva o UUID do Chad na bússola. Outros NPCs e outras instâncias de Chad não confirmam o diálogo daquela tentativa.
+
+Aceitar → confirmar a apresentação do periquito com Chad → vencer o Shrieker da própria tentativa → ler o desfecho e liberar o caso de Kon. A bússola passa de Chad ao ator de combate quando ele é criado. Se a tentativa perder o ator em área carregada, volta a apontar para Chad e a retomada exige confirmação dele. A morte do jogador segue a regra padrão de falha da missão. Vitória válida conclui imediatamente. O catálogo permanece com `bleachmod:story_shrieker` reservado e o confronto fica pendente até a entidade própria existir. `03.json` canônico v1 recebe backup e migração. Conclusões e definições customizadas são preservadas.
+
+[Cenários e capturas de QA](../qa/quests/2026-11-10-chad/README.md).
+
 ## Acidwire — boss próprio integrado em 03/11/2026
 
 O ID reservado `bleachmod:story_orihime_brother` agora registra `AcidwireEntity` e remove o impedimento de conteúdo da segunda quest. A definição e o progresso v2 permanecem compatíveis; o jogador que já concluiu a introdução pode usar **Tentar novamente**, sem migração ou repetição da conversa. Modelo/textura/animações vêm da cópia integral de `Acidwire.bbmodel` fornecida pelo usuário, em `tools/models/source/acidwire.bbmodel`. O exportador reproduzível é `python tools/models/acidwire.py --check`.
@@ -80,7 +88,7 @@ O comando valida personagem, contexto e dimensão, e oferece sugestões. A dimen
 |---:|---|---|---|---|---|---|
 | 1 | MAIN-SUB-01 | shinigami_substitute:1 | rukia | karakura_inicio | rukia / karakura_inicio | Confronto Hollow implementado; requer área preparada |
 | 2 | MAIN-SUB-02 | shinigami_substitute:2 | Painel / diálogo Rukia | karakura_orihime | rukia / karakura_orihime | Acidwire registrado; etapas de introdução, combate e retorno |
-| 3 | MAIN-SUB-03 | shinigami_substitute:3 | sado_yasutora | karakura_periquito | sado_yasutora / karakura_periquito | Boss ainda não registrado |
+| 3 | MAIN-SUB-03 | shinigami_substitute:3 | sado_yasutora | karakura_periquito | sado_yasutora / karakura_periquito | Introdução, bússola e desfecho implementados. Combate aguarda Shrieker |
 | 4 | MAIN-SUB-04 | shinigami_substitute:4 | urahara | karakura_loja | kon / karakura_escola | Confronto Hollow implementado; requer área preparada |
 | 5 | MAIN-SUB-05 | shinigami_substitute:5 | rukia | karakura_cemiterio | rukia / karakura_cemiterio | Boss ainda não registrado |
 | 6 | MAIN-SUB-06A | shinigami_substitute:6 | uryuu | karakura_isca | uryuu / karakura_isca | Confronto Hollow implementado; requer área preparada |

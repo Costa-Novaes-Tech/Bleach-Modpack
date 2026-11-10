@@ -131,7 +131,8 @@ public final class JournalScreen extends LayoutScreen {
 
         QuestProgress p = valid ? d.getPlayerQuestData().getProgress(selected) : null;
         boolean compatible = p == null || p.matchesDefinition(q);
-        boolean retryOpening = valid && RukiaOpeningQuest.isStaged(q) && RukiaOpeningQuest.isRetryPending(p);
+        boolean retryOpening = valid && RukiaOpeningQuest.isStaged(q) && !RukiaOpeningQuest.isChad(q)
+                && RukiaOpeningQuest.isRetryPending(p);
         boolean begin = valid && q.isStory() && p != null && p.getStatus() == QuestStatus.ACCEPTED && !p.isEncounterStarted()
                 && (!RukiaOpeningQuest.isStaged(q) || retryOpening);
         ctx.text("start_label", Component.translatable(RukiaOpeningQuest.isStaged(q)

@@ -12,6 +12,13 @@ Base comum: `33e341d3`. O merge ja estava em andamento antes desta intervencao.
 - M13: preservadas as duas notas, sobre Acidwire e morte do boss sem vitoria valida.
 - Os tres arquivos foram marcados como resolvidos com `git add`. Nenhum commit, push, reset, stash ou troca de branch foi executado.
 - Estado apos a resolucao: nenhum arquivo nao mesclado e nenhum marcador de conflito nos tres arquivos. `git diff --cached --check`: exit 0.
+- Durante os testes, o merge foi concluido externamente no commit `88544a21` (`asd`); a branch passou a aparecer sincronizada com `origin/feat/jigui/quests`. O agente nao criou esse commit.
+
+## Ajuste revelado pelos GameTests
+
+A primeira rodada detectou que `onEntityKill` e `openingBossDiedWithoutCredit` eram subscribers independentes na mesma prioridade `LOWEST`. O handler de recuperacao podia reiniciar a tentativa antes de o outro conceder o credito da morte legitima. O teste remoto `environmentalOrForeignBossDeathAllowsRetryWithoutGrantingVictory` falhou em "Legitimate victory was reset".
+
+`openingBossDiedWithoutCredit` agora e um helper privado chamado explicitamente por `onEntityKill`, imediatamente depois de `creditQuestKill`. Assim, a verificacao de recuperacao sempre observa o resultado do credito. O mesmo GameTest existente cobre a regressao, sem enfraquecer assercoes.
 
 ## Ambiente e validacao
 
@@ -27,8 +34,15 @@ $env:JAVA_HOME = 'C:/Users/jguic/.gradle/jdks/eclipse_adoptium-17-amd64-windows/
 .\gradlew.bat check runGameTestServer -PstoryQuestQa=true --console=plain
 ```
 
-Log completo local: `run-gametest/merge-quests-validation.log`.
+Primeira rodada: `run-gametest/merge-quests-validation.log`.
+`check` e compilacao aprovados, 165 cenarios de regressao passaram. Foram executados 240 GameTests: 225 passaram e 15 falharam. Uma falha era a ordem dos eventos da quest, corrigida acima. As outras 14 envolveram IA de Hollow, Acidwire, treino de habilidades e poderes fora dos trechos modificados; esta rodada nao comprova que sejam falhas preexistentes.
+
+Segunda rodada, apos a correcao: mesmo comando com `--offline`, usando o cache existente. Log: `run-gametest/merge-quests-validation-final.log`.
 GameTests usam o diretorio de QA separado `run-gametest/story-quest-start`.
-Resultado final: em execucao.
+Resultado da segunda rodada: compilacao e `check` aprovados, 165 cenarios de regressao passaram. Dos 240 GameTests, 239 passaram e um falhou. Todos os testes de StoryQuest/Orihime passaram, inclusive o de morte ambiental, morte por outro jogador e vitoria legitima que revelou a ordem incorreta dos eventos.
+
+Falha restante: `AcidwireGameTests.clawCanBeDodgedAndCancelRestoresIdle`, mensagem "Dodged claw still damaged distant victim". Esse teste tambem falhou na primeira rodada, e o teste e a implementacao do ataque do Acidwire nao foram alterados nesta resolucao. Nao foi investigada a causa nesta tarefa de conflito Git; a suite completa permanece reprovada. Gradle: exit 1, `BUILD FAILED in 2m 34s`; processo GameTestServer: exit 1. A primeira rodada terminou com Gradle exit 1 e GameTestServer exit 15.
+
+Os logs compactados versionados que a segunda execucao rotacionou foram preservados antes da rodada e restaurados depois. O ajuste de ordem de eventos e este relatorio atualizado ficam locais para revisao; nenhum commit adicional foi criado pelo agente.
 
 Nao foi realizada nova validacao visual no cliente Minecraft, multiplayer com dois clientes ou perfil Photon. As evidencias visuais dos commits originais foram preservadas; nao constituem uma nova homologacao deste merge.

@@ -7,7 +7,9 @@ import com.bleachmod.common.quest.objectives.KillObjective;
 import com.bleachmod.common.quest.objectives.StoryObjective;
 import com.bleachmod.entity.QuestNpcEntity;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobSpawnType;
@@ -38,6 +40,19 @@ public final class StoryQuestService {
                 story.dimension(), progress.getStoryTargetUuid(), player.getX(), player.getY(), player.getZ());
     }
 
+    public static QuestWaypoint encounterWaypoint(ServerPlayer player, Quest quest, QuestProgress progress) {
+        if (!RukiaOpeningQuest.isChad(quest) || !RukiaOpeningQuest.isStaged(quest)
+                || !progress.matchesDefinition(quest) || !progress.isEncounterStarted()
+                || RukiaOpeningQuest.stage(progress) != 1 || progress.getEncounterActor() == null) return null;
+        var story = quest.getStory();
+        var level = player.server.getLevel(ResourceKey.create(Registries.DIMENSION, story.dimension()));
+        if (level == null) return null;
+        var actor = level.getEntity(progress.getEncounterActor());
+        if (actor != null && actor.isAlive()) progress.trackEncounter(actor);
+        return progress.getEncounterPos() == null ? null : new QuestWaypoint(progress.getEncounterActor(),
+                RukiaOpeningQuest.SHRIEKER_ACTOR, story.dimension(), progress.getEncounterPos(), story.targetContext());
+    }
+
     public static void begin(ServerPlayer player, String key) {
         if (RukiaOpeningQuest.isStaged(QuestRegistry.getQuest(key))) return;
         beginEncounter(player, key);
@@ -58,7 +73,7 @@ public final class StoryQuestService {
         if (target == null || !target.dimension().equals(player.level().dimension().location())
                 || target.pos().distToCenterSqr(player.position()) > 48 * 48
                 || !(player.serverLevel().getEntity(target.entityId()) instanceof QuestNpcEntity npc)
-                || !npc.isAlive() || !npc.getQuestContext().equals(target.context())) {
+                || !npc.isAlive() || !npc.getNpcId().equals(quest.getStory().targetNpc()) || !npc.getQuestContext().equals(target.context())) {
             player.displayClientMessage(Component.translatable("message.bleachmod.story.location_required"), false); return;
         }
         if (!spawnEncounter(player, quest, target)) {
@@ -66,7 +81,7 @@ public final class StoryQuestService {
         }
         progress.setStoryTargetUuid(target.entityId());
         progress.setEncounterStarted(true);
-        if (RukiaOpeningQuest.isStaged(quest)) QuestService.incrementObjective(player, data, key, quest, 0, 1);
+        if (RukiaOpeningQuest.isOpening(quest)) QuestService.incrementObjective(player, data, key, quest, 0, 1);
         com.bleachmod.server.events.QuestNavigationEvents.refresh(player);
         SyncHelper.progression(player);
     }

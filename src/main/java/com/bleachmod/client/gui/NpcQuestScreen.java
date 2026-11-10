@@ -157,10 +157,15 @@ public final class NpcQuestScreen extends Screen {
         boolean begin = quest != null && quest.isStory() && progress != null && progress.getStatus() == QuestStatus.ACCEPTED && !progress.isEncounterStarted();
         if (RukiaOpeningQuest.isStaged(quest)) {
             boolean talking = minecraft.level.getEntity(entityId) instanceof QuestNpcEntity npc && RukiaOpeningQuest.canTalk(progress, npc, quest.getQuestKey());
-            accept.setMessage(Component.translatable(RukiaOpeningQuest.stage(progress) == 2
-                    ? RukiaOpeningQuest.textPrefix(quest) + "receive" : RukiaOpeningQuest.isRetryPending(progress)
-                    ? "bleachmod.story.sub_01.retry" : "bleachmod.story.sub_01.fight"));
-            accept.active = compatible && (talking || (RukiaOpeningQuest.isOrihime(quest) && QuestAvailabilityChecker.isAvailable(playerData, quest.getQuestKey())));
+            boolean chad = RukiaOpeningQuest.isChad(quest);
+            boolean available = (chad || RukiaOpeningQuest.isOrihime(quest)) && playerData != null
+                    && QuestAvailabilityChecker.isAvailable(playerData, quest.getQuestKey());
+            boolean retry = RukiaOpeningQuest.isRetryPending(progress);
+            accept.setMessage(Component.translatable(chad && available ? "screen.bleachmod.npc_quests.accept"
+                    : !chad && RukiaOpeningQuest.stage(progress) == 2 ? RukiaOpeningQuest.textPrefix(quest) + "receive"
+                    : retry ? "bleachmod.story.sub_01.retry" : "bleachmod.story.sub_01.fight"));
+            accept.active = compatible && (available || (talking && (!chad || !retry
+                    || com.bleachmod.common.quest.StoryQuestService.pendingReason(quest) == null)));
             return;
         }
         accept.setMessage(Component.translatable(begin ? "screen.bleachmod.journal.start" : "screen.bleachmod.npc_quests.accept"));

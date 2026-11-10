@@ -379,6 +379,8 @@ Não tratar essas entradas como quests raciais ou filler. Os demais arcos e o re
 
 ### 10.5. MAIN-SUB-03 — A alma no periquito
 
+> **Implementação inicial em 10/11/2026.** Chad (`sado_yasutora`, contexto `karakura_periquito`) oferece a missão depois de Orihime. O aceite fixa a instância na bússola. Confirmar o diálogo registra a introdução e solicita o combate. Quando disponível, a bússola segue o ator da tentativa e a vitória exibe o desfecho e libera Kon. O encontro aguarda o registro de `bleachmod:story_shrieker` e seu perfil de combate.
+
 **Estrutura aprovada — M13-05A, 28/10/2026.** Resposta conjunta “Concordo com as recomendações”: Chad apresenta e jogador enfrenta Shrieker diretamente, sem etapa de investigação obrigatória. Próximo caso após Orihime. CAMP-S01 (sinopses 4–5) confirma Chad, o periquito e Shrieker; CAMP-S03 contextualiza a alma do menino e o destino do Hollow. Fonte, posição e execução pelo jogador são adaptações propostas.
 
 | Campo | Estrutura aprovada e pendências |
@@ -396,7 +398,7 @@ Não tratar essas entradas como quests raciais ou filler. Os demais arcos e o re
 | Limite narrativo | O destino narrativo do Hollow não abre uma dimensão explorável, portal utilizável, nova campanha ou recurso de purificação universal. A resolução da alma do menino não depende de escolher uma raça para o personagem |
 | Conclusão | Contrato 03B: registro após vitória e desfecho breve, sem retorno administrativo. Disponibilizar o próximo caso escolhido, sem início involuntário |
 | Falha/recompensa | Herança M09-06B/07B; participação M12/M15. Ganhos adicionais/replay pendentes, sem recompensa de periquito, alma, poder ou domínio presumida |
-| Pendências | Acesso/motivação por caminho, mapa, estado do alvo/capacidades, atores de contexto, participação e recompensas. Proposta documental, sem implementação/teste |
+| Pendências | Acesso/motivação por caminho, mapa definitivo, entidade e capacidades de Shrieker, atores de contexto, participação e recompensas |
 
 **Ritmo aprovado:** Chad explica o caso → início → confronto com Shrieker → desfecho breve. A alternativa de investigação foi preterida nesta escolha; pergunta original preservada em 12.8.
 

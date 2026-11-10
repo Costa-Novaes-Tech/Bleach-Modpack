@@ -46,10 +46,9 @@ public final class QuestAvailabilityChecker {
     }
 
     public static boolean isOfferedBy(Quest quest, com.bleachmod.entity.QuestNpcEntity npc) {
-        if (RukiaOpeningQuest.isStaged(quest)) return npc.isAlive() && "rukia".equals(npc.getNpcId())
-                && quest.getStory().offerContext().equals(npc.getQuestContext())
-                && quest.getStory().dimension().equals(npc.level().dimension().location());
-        if (!quest.getQuestGiver().equals(npc.getNpcId())) return false;
+        String giver = quest.getQuestGiver();
+        if (giver.isBlank() && RukiaOpeningQuest.isStaged(quest)) giver = quest.getStory().targetNpc();
+        if (!giver.equals(npc.getNpcId()) || !npc.isAlive()) return false;
         // Unscoped legacy/test offers must not leak into a story representation of the character.
         if (!quest.isStory()) return npc.getQuestContext().isEmpty()
                 && (!"rukia_npc_test".equals(quest.getQuestKey()) || npc.level().dimension() == net.minecraft.world.level.Level.OVERWORLD);

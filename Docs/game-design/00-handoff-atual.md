@@ -1,5 +1,7 @@
 # Handoff vigente — Game Design do Bleach Mod
 
+> **MAIN-SUB-03 por etapas — 10/11/2026.** Chad contextual (`sado_yasutora` / `karakura_periquito`) oferece a missão após Orihime. Aceite aponta a bússola para sua instância. Diálogo habilita a etapa de confronto, a bússola acompanha o alvo da tentativa quando criado e a vitória encerra a missão com o epílogo de M13/10.5. O combate segue pendente de `bleachmod:story_shrieker`. [Integração e migração](../planejamento/implementacao-campanha-shinigami-2026-10-29.md#terceira-missão-por-etapas--10112026).
+
 > **Acidwire adicionado — 03/11/2026:** modelo fornecido pelo usuário importado com textura e clipes idle/walk/attack; entidade própria registrada como `bleachmod:story_orihime_brother`. Isso substitui o bloqueio anterior por ausência do boss. MAIN-SUB-02 passa a criar o Acidwire após a conversa com a segunda Rukia, mantendo checkpoints, retorno, 100 XP provisórios e liberação de Chad. Não usa o Hollow Boss da abertura. Atributos e ataque físico são parâmetros provisórios de gameplay; validação e limites no [QA do Acidwire](../qa/boss/2026-11-03-acidwire/README.md).
 
 

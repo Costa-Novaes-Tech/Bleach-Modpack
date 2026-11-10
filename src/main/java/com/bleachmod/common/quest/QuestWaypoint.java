@@ -7,7 +7,7 @@ import net.minecraft.util.Mth;
 
 import java.util.UUID;
 
-/** Server supplied location of an actual quest giver, never a guessed spawn position. */
+/** Server-supplied position of an actual quest NPC or encounter actor. */
 public record QuestWaypoint(UUID entityId, String npcId, ResourceLocation dimension, BlockPos pos, String context) {
     public QuestWaypoint(UUID entityId, String npcId, ResourceLocation dimension, BlockPos pos) {
         this(entityId, npcId, dimension, pos, "");
